@@ -5,251 +5,251 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <p:growl id="growl" showDetail="true"/>
-                    <f:loadBundle basename="Recursos.emplibcs" var="msg" />
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <p:growl id="growl" showDetail="true"/>
+               <f:loadBundle basename="Recursos.emplibcs" var="msg"/>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="PF('botones').show();"  process="@this" disabled="true" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="PF('botones').show();"  process="@this" disabled="true"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlEmplIbcs.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlEmplIbcs.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" onclick="PF('botones').show();" process="@this" disabled="true"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" onclick="PF('botones').show();" process="@this" disabled="true"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  actionListener="#{controlEmplIbcs.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  actionListener="#{controlEmplIbcs.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmplIbcs.exportXLS()}" ajax="false"/>
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmplIbcs.exportXLS()}" ajax="false"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlEmplIbcs.limpiarNuevaIbcs()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosIbcsExportar" fileName="EmplIBCSXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlEmplIbcs.limpiarNuevaIbcs()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosIbcsExportar" fileName="EmplIBCSXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplIbcs.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplIbcs.exportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " onclick="PF('botones').show();" process="@this" disabled="true"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" onclick="PF('botones').show();" process="@this" disabled="true"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" onclick="PF('botones').show();" process="@this" disabled="true"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" onclick="PF('botones').show();" process="@this" disabled="true"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" onclick="PF('botones').show();"  process="@this" disabled="true"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" onclick="PF('botones').show();"  process="@this" disabled="true"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                              <!--  <p:commandButton id="rastro" disabled="true" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <!--  <p:commandButton id="rastro" disabled="true" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="" process="@this"/>  
+                          <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                          <p:separator style="position: relative; top: -9px"/>
+                        -->
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlEmplIbcs.cancelarModificacion()}" oncomplete="window.location.reload()" disabled="true"  process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
--->
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()" disabled="true"  process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nominaf" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-                            </p:toolbarGroup>  
-                        </p:toolbar>
-
-
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlEmplIbcs.empleadoSeleccionado.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlEmplIbcs.empleadoSeleccionado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
-                        </fieldset>
-
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 355px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['consultaIBCS']}</strong></legend>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlEmplIbcs.cancelarYSalir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                     </p:toolbarGroup>  
+                  </p:toolbar>
 
 
-                            <p:dataTable id="datosIbcs" widgetVar="datosIbcs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
-                                         value="#{controlEmplIbcs.listIbcsPorEmpleado}"  scrollable="true" scrollHeight="#{controlEmplIbcs.altoTabla}"  scrollWidth="830"
-                                         filteredValue="#{controlEmplIbcs.filtrarIbcsPorEmpleado}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" selectionMode="single" selection="#{controlEmplIbcs.ibcSeleccionado}">
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
-                                <p:ajax event="filter" listener="#{controlEmplIbcs.eventoFiltrar()}"/>
-                                <!--<p:ajax event="rowSelect" update=":form:datosIbcs" />-->  
-                                <f:event type="preRenderView" listener="#{controlEmplIbcs.recordarSeleccion()}"/>
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText id="nombreEmpleado" value="#{controlEmplIbcs.empleadoSeleccionado.persona.nombreCompleto}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
+                     <h:outputText id="docEmpleado" value="#{controlEmplIbcs.empleadoSeleccionado.codigoempleado}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
+                  </fieldset>
 
-                                <p:column  id="fechaInicial" headerText="#{msg['fechaInicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains"  width="220"  filterStyle="display: none; visibility: hidden;" >
-                                    <p:cellEditor>
-                                        <f:facet  name="output">
-                                            <h:outputText  value="#{info.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.fechainicial}" id="editarFechaInicial" style="  border-radius: 0px; width: 275px; text-transform: uppercase; height: 12px;" > 
-                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 0)}" process="@this"
-                                                        onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
-                                                <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"   update="editarFechaInicial"/>
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>  
-
-                                <p:column id="fechaFinal" headerText="#{msg['fechaFinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  width="220"  filterStyle="display: none; visibility: hidden;" >
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet  name="input">
-                                            <p:inputText  autocomplete="off"    value="#{info.fechafinal}" id="editarfechaFinal" style="  border-radius: 0px; width: 260px; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 1)}" process="@this"
-                                                        onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
-                                                <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"  update="editarfechaFinal"/>
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>  
-
-                                <p:column headerText="#{msg['valor']}" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor" width="230" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.valor}">
-                                                <f:convertNumber currencySymbol="$" type="currency" />
-                                            </h:outputText>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off" value="#{info.valor}" id="editarUnidades" style="border-radius: 0px; width: 300px; text-transform: uppercase; height: 12px;"  > 
-                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 2)}" process="@this"
-                                                        onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
-                                                <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"  update="editarUnidades"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>  
-
-                            </p:dataTable>
-                        </fieldset>
-
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplIbcs.infoRegistro}" style="position: absolute; left: 25px; top: 460px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 15px; top: 485px; height: 28px; width: 150px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" icon="ui-icon-triangle-1-e" action="ibcAuto" actionListener="#{controlIbcAutoliquid.obtenerTipoEntidad(controlEmplIbcs.empleadoSeleccionado.secuencia)}" id="detallesIbcs" value="#{msg['detalleIBCS']}" process="@this" />
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " action="nominaf" />
-                    </p:panel>
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplIbcs.activarCtrlF11()}"  /> 
-
-                    <p:dialog id="botones" header="#{msg['precaucion']}" widgetVar="botones"  resizable="false" draggable="true" modal="true" height="95" width="320"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 30px;"  />
-                        <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 30px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 200px;" icon="ui-icon-check" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="repeticiones" header="#{msg['precaucion']}" widgetVar="repeticiones"  resizable="false" draggable="true" modal="true" height="95" width="370"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 25px;"  />
-                        <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('repeticiones').hide();" style="position: absolute; top: 65px; left: 250px;" icon="ui-icon-check" process="@this" />
-                    </p:dialog>
-                    
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-                </h:form>
-
-                <h:form id="formularioDialogos">
+                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 355px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="font-size: 14px; color: blue"><strong>#{msg['consultaIBCS']}</strong></legend>
 
 
-                    <p:dialog id="dialogoIbcs" header="#{msg['dialogoIbcs']}" widgetVar="dialogoIbcs" resizable="false" draggable="true" modal="true" height="225" width="300" style=" padding: 0px">  
-                        <h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute;left: 15px ; top: 25px "  />
-                        <p:inputText  autocomplete="off"  readonly="true"  style=" position: absolute;left:110px ; top: 20px "  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechainicial}" styleClass="ui-datepicker, myClass">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </p:inputText>
-                        <h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute;left: 15px ; top: 75px "  />
-                        <p:inputText  autocomplete="off"  readonly="true"  style=" position: absolute;left:110px ; top: 70px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </p:inputText>
-                        <h:outputText value="#{msg['valorN']}" style=" position: absolute;left: 15px ; top: 125px "  />
-                        <p:inputTextarea value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.valor}" style="overflow: auto; width: 160px; height: 40px;position: absolute;left: 110px; top: 120px;" readonly="true"/>
+                     <p:dataTable id="datosIbcs" widgetVar="datosIbcs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                                  value="#{controlEmplIbcs.listIbcsPorEmpleado}"  scrollable="true" scrollHeight="#{controlEmplIbcs.altoTabla}"  scrollWidth="830"
+                                  filteredValue="#{controlEmplIbcs.filtrarIbcsPorEmpleado}" emptyMessage="No se encontrarón resultados para la búsqueda"
+                                  editable="true" editMode="cell" selectionMode="single" selection="#{controlEmplIbcs.ibcSeleccionado}">
 
-                        <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="PF('dialogoIbcs').hide();" style="position: absolute; top: 190px; left: 225px; " process="@this" />
-
-                    </p:dialog>
-                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea readonly="true"  style="overflow: auto;" value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechainicial}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </p:inputTextarea>
-                    </p:dialog>
-                    <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea readonly="true"  value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechafinal}" style="overflow: auto; width: 360px; height: 60px">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </p:inputTextarea>
-                    </p:dialog>
-                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlEmplIbcs.editarIbcsPorEmpleado.valor}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                </h:form>
-
-                <h:form id="formExportar">
-                    <p:dataTable id="datosIbcsExportar" var="infoExp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlEmplIbcs.listIbcsPorEmpleado}">
+                        <p:ajax event="filter" listener="#{controlEmplIbcs.eventoFiltrar()}"/>
+                        <!--<p:ajax event="rowSelect" update=":form:datosIbcs"/>-->  
+                        <f:event type="preRenderView" listener="#{controlEmplIbcs.recordarSeleccion()}"/>
 
 
-                        <p:column>  
-                            <f:facet name="header"><h:outputText value="#{msg['inicialX']}" /></f:facet>
-                            <h:outputText value="#{infoExp.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>  
-                            <f:facet name="header"><h:outputText value="#{msg['finalX']}" /></f:facet>
-                            <h:outputText value="#{infoExp.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column headerText="Valor">                                                              
-                            <f:facet name="header"> 
-                                <h:outputText value="#{msg['valorX']}"/>
-                            </f:facet>
-                            <h:outputText value="#{infoExp.valor}" />
+                        <p:column  id="fechaInicial" headerText="#{msg['fechaInicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains"  width="220"  filterStyle="display: none; visibility: hidden;">
+                           <p:cellEditor>
+                              <f:facet  name="output">
+                                 <h:outputText  value="#{info.fechainicial}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.fechainicial}" id="editarFechaInicial" style="  border-radius: 0px; width: 275px; text-transform: uppercase; height: 12px;"> 
+                                    <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 0)}" process="@this"
+                                            onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"   update="editarFechaInicial"/>
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>  
 
-                    </p:dataTable>
-                </h:form>
+                        <p:column id="fechaFinal" headerText="#{msg['fechaFinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  width="220"  filterStyle="display: none; visibility: hidden;">
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.fechafinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet  name="input">
+                                 <p:inputText  autocomplete="off"    value="#{info.fechafinal}" id="editarfechaFinal" style="  border-radius: 0px; width: 260px; text-transform: uppercase; height: 12px"> 
+                                    <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 1)}" process="@this"
+                                            onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"  update="editarfechaFinal"/>
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['valor']}" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor" width="230" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.valor}">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off" value="#{info.valor}" id="editarUnidades" style="border-radius: 0px; width: 300px; text-transform: uppercase; height: 12px;"> 
+                                    <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 2)}" process="@this"
+                                            onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"  update="editarUnidades"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>  
+
+                     </p:dataTable>
+                  </fieldset>
+
+                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplIbcs.infoRegistro}" style="position: absolute; left: 25px; top: 460px; font-weight: bold;"/>
+                  <p:commandButton style="position: absolute; left: 15px; top: 485px;" class="cssBotonLargo" icon="ui-icon-triangle-1-e" action="#{controlListaNavegacion.guardarNavegacion('emplibc','ibcAuto')}"
+                                   actionListener="#{controlIbcAutoliquid.obtenerTipoEntidad(controlEmplIbcs.empleadoSeleccionado.secuencia)}" id="detallesIbcs" value="#{msg['detalleIBCS']}" process="@this"/>
+                  <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlEmplIbcs.cancelarYSalir()}"/>
+            </p:panel>
+            <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplIbcs.activarCtrlF11()}"  /> 
+
+            <p:dialog id="botones" header="#{msg['precaucion']}" widgetVar="botones"  resizable="false" draggable="true" modal="true" height="95" width="320"  closable="false">  
+               <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 30px;"  />
+               <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 30px; width: 250px; font-weight: bold"/>
+               <p:commandButton value="#{msg['aceptar']}" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 200px;" icon="ui-icon-check" process="@this"/>
+            </p:dialog>
+
+            <p:dialog id="repeticiones" header="#{msg['precaucion']}" widgetVar="repeticiones"  resizable="false" draggable="true" modal="true" height="95" width="370"  closable="false">  
+               <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 25px;"  />
+               <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight: bold"/>
+               <p:commandButton value="#{msg['aceptar']}" onclick="PF('repeticiones').hide();" style="position: absolute; top: 65px; left: 250px;" icon="ui-icon-check" process="@this"/>
+            </p:dialog>
+
+            <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+               <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+            </p:dialog>
+         </h:form>
+
+         <h:form id="formularioDialogos">
 
 
-            </ui:define>
-        </ui:composition>
-    </h:body>
+            <p:dialog id="dialogoIbcs" header="#{msg['dialogoIbcs']}" widgetVar="dialogoIbcs" resizable="false" draggable="true" modal="true" height="225" width="300" style=" padding: 0px">  
+               <h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute;left: 15px ; top: 25px;"  />
+               <p:inputText  autocomplete="off"  readonly="true"  style=" position: absolute;left:110px ; top: 20px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechainicial}" styleClass="ui-datepicker, myClass">
+                  <f:convertDateTime pattern="dd/MM/yyyy"/>
+               </p:inputText>
+               <h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute;left: 15px ; top: 75px;"  />
+               <p:inputText  autocomplete="off"  readonly="true"  style=" position: absolute;left:110px ; top: 70px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
+                  <f:convertDateTime pattern="dd/MM/yyyy"/>
+               </p:inputText>
+               <h:outputText value="#{msg['valorN']}" style=" position: absolute;left: 15px ; top: 125px;"  />
+               <p:inputTextarea value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.valor}" style="overflow: auto; width: 160px; height: 40px;position: absolute;left: 110px; top: 120px;" readonly="true"/>
+
+               <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="PF('dialogoIbcs').hide();" style="position: absolute; top: 190px; left: 225px; " process="@this"/>
+
+            </p:dialog>
+            <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+               <p:inputTextarea readonly="true"  style="overflow: auto;" value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechainicial}">
+                  <f:convertDateTime pattern="dd/MM/yyyy"/>
+               </p:inputTextarea>
+            </p:dialog>
+            <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+               <p:inputTextarea readonly="true"  value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechafinal}" style="overflow: auto; width: 360px; height: 60px">
+                  <f:convertDateTime pattern="dd/MM/yyyy"/>
+               </p:inputTextarea>
+            </p:dialog>
+            <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlEmplIbcs.editarIbcsPorEmpleado.valor}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+         </h:form>
+
+         <h:form id="formExportar">
+            <p:dataTable id="datosIbcsExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                         value="#{controlEmplIbcs.listIbcsPorEmpleado}">
+
+
+               <p:column>  
+                  <f:facet name="header"><h:outputText value="#{msg['inicialX']}"/></f:facet>
+                  <h:outputText value="#{infoExp.fechainicial}">
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </h:outputText>
+               </p:column>
+               <p:column>  
+                  <f:facet name="header"><h:outputText value="#{msg['finalX']}"/></f:facet>
+                  <h:outputText value="#{infoExp.fechafinal}">
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </h:outputText>
+               </p:column>
+               <p:column headerText="Valor">                                                              
+                  <f:facet name="header"> 
+                     <h:outputText value="#{msg['valorX']}"/>
+                  </f:facet>
+                  <h:outputText value="#{infoExp.valor}"/>
+               </p:column>  
+
+            </p:dataTable>
+         </h:form>
+
+
+      </ui:define>
+   </ui:composition>
+</h:body>
 </html>

@@ -12,56 +12,54 @@
          <ui:define name="body">
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
                };
             </script>
-            <!--<div class="loader"></div>-->
             <h:form id="form">
                <f:loadBundle basename="Recursos.barra" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" disabled="true" process="@this" />
-                        <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" disabled="true" process="@this"/>
+                        <p:tooltip for="guardarRapido" value="#{msg['guardar']}"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" disabled="true" process="@this"/>
-                        <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
-                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlBarra.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="PF('exportarExcel').show();" />
-                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="PF('exportarExcel').show();"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" onclick="PF('exportarXML').show();"/>
-                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" onclick="PF('exportarPDF').show();"/>
-                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
-                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" disabled="true" process="@this"/>  
-                        <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
+                        <p:tooltip for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  disabled="true" process="@this"/>  
-                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true" process="@this"/>  
@@ -73,19 +71,19 @@
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" action="nominaf" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; left: 7px; top: 70px; width: 470px; height: 417px; border-radius: 10px; padding-top: 0px; padding-right: 0px;">
-                     <legend style="; color: blue;text-align: left; font-weight: bold">#{msg['progreso']}</legend>
+                     <legend style="; color: blue;text-align: left; font-weight: bold;">#{msg['progreso']}</legend>
 
                      <h:outputText id="imagen" style="background-image: url(Imagenes/Iconos/#{controlBarra.imagenEstado}); width: 130px; height: 120px; background-repeat: no-repeat;
                                    border: none; background-size: 100% 100%;; z-index: 1; top: 20px; left: 30px; display: inline-block; border-radius: 8px; margin-top: 4px;"/>
 
                      <fieldset style="position: relative; top: -120px; left: 137px; width: 320px; height: 105px; border-radius: 10px; ">
-                        <legend style="; color: blue;text-align: left; font-weight: bold">#{msg['indicadores']}</legend>
+                        <legend style="; color: blue;text-align: left; font-weight: bold;">#{msg['indicadores']}</legend>
                         <div>
                            <h:outputText value="#{msg['ttal']}" style="font-weight: bold; position: relative; top: 0px; left: 15px; display: block;"/>
                            <h:outputText value="#{msg['ttl']}" style="font-weight: bold; position: relative; top: 10px; left: 15px; display: block;"/>
@@ -96,7 +94,7 @@
                            <p:inputText  autocomplete="off" value="#{controlBarra.totalEmpleadosParaLiquidar}" style="position: relative; text-align: right; width: 80px; right: 0px; display: block; top: -60px; left: 220px; height: 12px;" readonly="true"/>
                            <p:inputText  autocomplete="off" id="empleadosLiquidados" value="#{controlBarra.totalEmpleadosLiquidados}" style="position: relative; text-align: right; width: 80px; top: -58px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true"/> 
                            <p:inputText  autocomplete="off" id="horaI" value="#{controlBarra.horaInicialLiquidacion}" style="position: relative; text-align: right; width: 80px; top: -56px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true"/>
-                           <p:inputText  autocomplete="off" id="horaF" value="#{controlBarra.horaFinalLiquidacion}" style="position: relative; text-align: right; width: 80px; top: -54px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true" /> 
+                           <p:inputText  autocomplete="off" id="horaF" value="#{controlBarra.horaFinalLiquidacion}" style="position: relative; text-align: right; width: 80px; top: -54px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true"/> 
                         </div>
                      </fieldset>
 
@@ -106,7 +104,7 @@
                            <h:outputText value="#{msg['estructura']}" style="font-weight: bold; position: absolute; top: 5px; left: 110px"/>
 
                            <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.fechadesdecausado}" style="position: absolute; left: 10px; width: 80px; top: 20px; height: 12px;" readonly="true">
-                              <f:convertDateTime pattern="dd/MM/yyyy" />
+                              <f:convertDateTime pattern="dd/MM/yyyy"/>
                            </p:inputText>
                            <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.estructura.nombre}" style="position: absolute; left: 110px; width: 340px; top: 20px; height: 12px;" readonly="true"/>
 
@@ -115,10 +113,10 @@
                            <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; position: absolute; top: 50px; left: 290px"/>
 
                            <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.fechahastacausado}" style="position: absolute; left: 10px; width: 80px; top: 65px; height: 12px;" readonly="true">
-                              <f:convertDateTime pattern="dd/MM/yyyy" />
+                              <f:convertDateTime pattern="dd/MM/yyyy"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 110px; width: 160px; top: 65px; height: 12px;" readonly="true" /> 
-                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 290px; width: 160px; top: 65px; height: 12px;" readonly="true" /> 
+                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 110px; width: 160px; top: 65px; height: 12px;" readonly="true"/> 
+                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 290px; width: 160px; top: 65px; height: 12px;" readonly="true"/> 
                         </fieldset>
 
                         <fieldset style="position: relative; left: -20px; top: 0px; width: 460px; height: 60px; border-width: 3px">
@@ -137,8 +135,8 @@
                                          value="#{msg['repcontrol']}" actionListener="#{controlBarra.validarDescargaReporte()}"/>
                         <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"
                                          style="position: relative; top: 13px; left: 0px; width: 120px; border-color: #B61B26; border-width: 2px; background-color: white;"/>
-                        <p:commandButton value="#{msg['detalles']}" style="position: relative; top: 13px; left: 2px; width: 189px; border-color: #B61B26; border-width: 2px; background-color: white;" action="liquidacionlog" actionListener="#{controlLiquidacionesLogs.recibirPaginaEntrante('barra')}"/>
-                        <p:commandButton value="#{msg['errores']}" style="position: relative; top: 13px; width: 151px; left: 4px; border-color: #B61B26; border-width: 2px; background-color: white;" action="errorliquidacion" actionListener="#{controlErroresLiquidacion.recibirPaginaEntrante('barra')}"/>
+                        <p:commandButton value="#{msg['detalles']}" style="position: relative; top: 13px; left: 2px; width: 189px; border-color: #B61B26; border-width: 2px; background-color: white;" action="#{controlListaNavegacion.guardarNavegacion('barra','liquidacionlog')}" actionListener="#{controlLiquidacionesLogs.recibirPaginaEntrante('barra')}"/>
+                        <p:commandButton value="#{msg['errores']}" style="position: relative; top: 13px; width: 151px; left: 4px; border-color: #B61B26; border-width: 2px; background-color: white;" action="#{controlListaNavegacion.guardarNavegacion('barra','errorliquidacion')}" actionListener="#{controlErroresLiquidacion.recibirPaginaEntrante('barra')}"/>
                      </fieldset>
                   </fieldset>
 
@@ -154,7 +152,7 @@
 
                            <p:ajax event="filter" listener="#{controlBarra.contarRegistrosCerrada()}"/>
 
-                           <p:column id="corte" headerText="#{msg['corte']}" sortBy="#{liquidacionCerrada.corte}" width="60" filterBy="#{liquidacionCerrada.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px;" > 
+                           <p:column id="corte" headerText="#{msg['corte']}" sortBy="#{liquidacionCerrada.corte}" width="60" filterBy="#{liquidacionCerrada.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px;"> 
                               <f:facet name="header">
                                  <h:outputText id="headCorte" value="#{msg['corte']}"/>
                                  <p:tooltip for="headCorte" value="#{msg['corteH']}"/>
@@ -166,13 +164,13 @@
                                     </h:outputText>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.corte}" style="width: 87%; text-transform: uppercase" readonly="true">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.corte}" style="width: 87%; text-transform: uppercase;" readonly="true">
                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </p:inputText>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -183,14 +181,14 @@
                               </f:facet>
                               <p:cellEditor>  
                                  <f:facet name="output">
-                                    <h:outputText value="#{liquidacionCerrada.empresaCodigo}" />
+                                    <h:outputText value="#{liquidacionCerrada.empresaCodigo}"/>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.empresaCodigo}" style="width: 60%; text-transform: uppercase" readonly="true"/>
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.empresaCodigo}" style="width: 60%; text-transform: uppercase;" readonly="true"/>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -206,13 +204,13 @@
                                     </h:outputText>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.descripcion}" style="width: 85% !important; text-transform: uppercase" readonly="true">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.descripcion}" style="width: 85% !important; text-transform: uppercase;" readonly="true">
                                        <f:convertNumber currencyCode="COP"/>
                                     </p:inputText>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -223,20 +221,20 @@
                               </f:facet>
                               <p:cellEditor>  
                                  <f:facet name="output">
-                                    <h:outputText value="#{liquidacionCerrada.total}" />
+                                    <h:outputText value="#{liquidacionCerrada.total}"/>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.total}" style="width: 70%; text-transform: uppercase" readonly="true"/>
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.total}" style="width: 70%; text-transform: uppercase;" readonly="true"/>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
-                           <p:column id="observacion"  sortBy="#{liquidacionCerrada.observaciones}" filterBy="#{liquidacionCerrada.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >                                    
+                           <p:column id="observacion"  sortBy="#{liquidacionCerrada.observaciones}" filterBy="#{liquidacionCerrada.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                    
                               <f:facet name="header">
-                                 <h:outputText id="headObservacion" value="#{msg['observacion']}" />
+                                 <h:outputText id="headObservacion" value="#{msg['observacion']}"/>
                                  <p:tooltip for="headObservacion" value="#{msg['observacionH']}"/>
                               </f:facet>
                               <p:cellEditor>  
@@ -252,12 +250,12 @@
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCerradas" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroCerradas}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroCerradas" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroCerradas}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
                      </fieldset>
 
                      <h:outputText value="#{msg['liquidacionesenproceso']}" style="font-weight: bold; color: blue; ; position: absolute; top: 222px; left: 10px; margin: 0px;"/>
@@ -277,17 +275,17 @@
                               <p:cellEditor>  
                                  <f:facet name="output">
                                     <h:outputText value="#{liquidacionAbierta.corte}">
-                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                       <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </h:outputText>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.corte}" style="width: 87%; text-transform: uppercase" readonly="true">
-                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.corte}" style="width: 87%; text-transform: uppercase;" readonly="true">
+                                       <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </p:inputText>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -298,14 +296,14 @@
                               </f:facet>
                               <p:cellEditor>  
                                  <f:facet name="output">
-                                    <h:outputText value="#{liquidacionAbierta.empresaCodigo}" />
+                                    <h:outputText value="#{liquidacionAbierta.empresaCodigo}"/>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.empresaCodigo}" style="width: 60%; text-transform: uppercase" readonly="true"/>
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.empresaCodigo}" style="width: 60%; text-transform: uppercase;" readonly="true"/>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -321,13 +319,13 @@
                                     </h:outputText>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.descripcion}" style="width: 85% !important; text-transform: uppercase" readonly="true">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.descripcion}" style="width: 85% !important; text-transform: uppercase;" readonly="true">
                                        <f:convertNumber currencyCode="COP"/>
                                     </p:inputText>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -338,20 +336,20 @@
                               </f:facet>
                               <p:cellEditor>  
                                  <f:facet name="output">
-                                    <h:outputText value="#{liquidacionAbierta.total}" />
+                                    <h:outputText value="#{liquidacionAbierta.total}"/>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.total}" style="width: 70%; text-transform: uppercase" readonly="true"/>
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.total}" style="width: 70%; text-transform: uppercase;" readonly="true"/>
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
-                           <p:column id="observacionLA"  sortBy="#{liquidacionAbierta.observaciones}" filterBy="#{liquidacionAbierta.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >                                    
+                           <p:column id="observacionLA"  sortBy="#{liquidacionAbierta.observaciones}" filterBy="#{liquidacionAbierta.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                    
                               <f:facet name="header">
-                                 <h:outputText id="headObservacionLA" value="#{msg['observacion']}" />
+                                 <h:outputText id="headObservacionLA" value="#{msg['observacion']}"/>
                                  <p:tooltip for="headObservacionLA" value="#{msg['observacionH']}"/>
                               </f:facet>
                               <p:cellEditor>  
@@ -367,22 +365,22 @@
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEnProceso" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroEnProceso}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEnProceso" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroEnProceso}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
                      </fieldset>
                   </fieldset>
 
                   <p:commandButton style="position: absolute; left: 770px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ATRAS"  actionListener="#{controlBarra.salir()}" action="nominaf" process="@this" />
+                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ATRAS"  actionListener="#{controlBarra.salir()}" process="@this"/>
                </p:panel>
 
 <!--                    <p:dialog id="liquidacionTerminada" header="#{msg['atencion']}" widgetVar="liquidacionTerminada" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-    <h:outputText value="bla bla bla bla bla bla bla bla bla :" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-    <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="window.location.reload()" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+    <h:outputText value="bla bla bla bla bla bla bla bla bla :" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+    <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="window.location.reload()" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
 </p:dialog>-->
                <p:dialog id="verReportePDF" header="#{controlBarra.cabezeraVisor}" widgetVar="verReportePDF"
                           width="820" height="500" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
@@ -402,34 +400,34 @@
             <h:form>
                <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['permisoLiquidacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('permisoLiquidacion').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="#{msg['permisoLiquidacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('permisoLiquidacion').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="exportarExcel" header="#{msg['informacion']}" widgetVar="exportarExcel"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
-                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
+                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportXLS(0)}" ajax="false" 
-                                   onclick="PF('exportarExcel').hide();" style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                                   onclick="PF('exportarExcel').hide();" style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this"/>
                   <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportXLS(1)}" ajax="false"  
-                                   onclick="PF('exportarExcel').hide();" style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                                   onclick="PF('exportarExcel').hide();" style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="exportarPDF" header="#{msg['informacion']}" widgetVar="exportarPDF"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
-                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
+                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportPDF(0)}" ajax="false" onclick="PF('exportarPDF').hide();" 
-                                   style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                                   style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this"/>
                   <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportPDF(1)}" ajax="false"  onclick="PF('exportarPDF').hide();" 
-                                   style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                                   style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="exportarXML" header="#{msg['informacion']}" widgetVar="exportarXML"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
-                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
+                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['liquidacionesCerradas']}" ajax="false" onclick="PF('exportarXML').hide();" 
                                    style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this">
                      <p:dataExporter type="xml" target=":formExportar:datosLiquidacionesCerradasExportar" fileName="LiquidacionesCerradasXML" encoding="UTF-8"/>
                   </p:commandButton>
                   <p:commandButton value="#{msg['liquidacionesPrenomina']}" ajax="false"  onclick="PF('exportarXML').hide();" 
-                                   style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" >
+                                   style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this">
                      <p:dataExporter type="xml" target=":formExportar:datosLiquidacionesAbiertasExportar" fileName="LiquidacionesAbiertasXML" encoding="UTF-8"/>
                   </p:commandButton>
                </p:dialog>
@@ -441,22 +439,22 @@
                   <p:column headerText="#{msg['corte']}">
                      <f:facet name="header"><h:outputText value="#{msg['corte']}"/></f:facet>
                      <h:outputText value="#{liquidacionCerradaE.corte}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="#{msg['codigoempresaE']}"> 
-                     <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}" /></f:facet>
-                     <h:outputText value="#{liquidacionCerradaE.empresaCodigo}" />
+                     <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}"/></f:facet>
+                     <h:outputText value="#{liquidacionCerradaE.empresaCodigo}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['procesoD']}">
-                     <f:facet name="header"><h:outputText value="#{msg['procesoD']}" /></f:facet>
-                     <h:outputText value="#{liquidacionCerradaE.descripcion}" />
+                     <f:facet name="header"><h:outputText value="#{msg['procesoD']}"/></f:facet>
+                     <h:outputText value="#{liquidacionCerradaE.descripcion}"/>
                   </p:column>
 
                   <p:column>                                    
-                     <f:facet name="header"><h:outputText value="#{msg['observacionE']}" /></f:facet>
+                     <f:facet name="header"><h:outputText value="#{msg['observacionE']}"/></f:facet>
                      <h:outputText value="#{liquidacionCerradaE.observaciones}" style="text-align: right">
                         <f:convertNumber currencyCode="COP"/>
                      </h:outputText>
@@ -466,24 +464,24 @@
                <p:dataTable id="datosLiquidacionesAbiertasExportar" var="liquidacionAbiertaE" style="display: none; visibility: hidden" value="#{controlBarra.liquidacionesAbiertas}">
 
                   <p:column headerText="#{msg['corte']}">
-                     <f:facet name="header"><h:outputText value="#{msg['corte']}" /></f:facet>
+                     <f:facet name="header"><h:outputText value="#{msg['corte']}"/></f:facet>
                      <h:outputText value="#{liquidacionAbiertaE.corte}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="#{msg['codigoempresaE']}"> 
-                     <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}" /></f:facet>
-                     <h:outputText value="#{liquidacionAbiertaE.empresaCodigo}" />
+                     <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}"/></f:facet>
+                     <h:outputText value="#{liquidacionAbiertaE.empresaCodigo}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['procesoD']}">
-                     <f:facet name="header"><h:outputText value="#{msg['proceso']}" /></f:facet>
-                     <h:outputText value="#{liquidacionAbiertaE.descripcion}" />
+                     <f:facet name="header"><h:outputText value="#{msg['proceso']}"/></f:facet>
+                     <h:outputText value="#{liquidacionAbiertaE.descripcion}"/>
                   </p:column>
 
                   <p:column>                                    
-                     <f:facet name="header"><h:outputText value="#{msg['observacionE']}" /></f:facet>
+                     <f:facet name="header"><h:outputText value="#{msg['observacionE']}"/></f:facet>
                      <h:outputText value="#{liquidacionAbiertaE.observaciones}" style="text-align: right">
                         <f:convertNumber currencyCode="COP"/>
                      </h:outputText>

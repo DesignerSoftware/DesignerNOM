@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+  >
    <h:head>
    </h:head>
    <h:body>
@@ -13,63 +13,61 @@
          <ui:define name="body">
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
                };
             </script>
-            <div class="loader"/>
             <h:form id="form">
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="Errores de Liquidación" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
-                                         actionListener="#{controlErroresLiquidacion.guardarErroresLiquidacion()}"  process="@this" />
-                        <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                                         actionListener="#{controlErroresLiquidacion.guardarErroresLiquidacion()}"  process="@this"/>
+                        <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
                                          actionListener="#{controlErroresLiquidacion.editarCelda()}"  process="@this"/>
-                        <p:tooltip style="" for="editar" value="Editar" />
+                        <p:tooltip style="" for="editar" value="Editar"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
-                        <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+                        <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
                                          actionListener="#{controlErroresLiquidacion.activarCtrlF11()}"  process="@this"/>
-                        <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+                        <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlErroresLiquidacion.exportXLS()}"  ajax="false"/>
-                        <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+                        <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
                            <p:dataExporter type="xml" target=":formExportar:datosErroresLiquidacionExportar" fileName="ERRORESLIQUIDACION" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+                        <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
                                          actionListener="#{controlErroresLiquidacion.exportPDF()}" ajax="false"/>
-                        <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+                        <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" process="@this"/> 
-                        <!--<p:tooltip style="" for="insertar" value="Insertar Registro" />-->
+                        <!--<p:tooltip style="" for="insertar" value="Insertar Registro"/>-->
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
                                          actionListener="#{controlErroresLiquidacion.borrandoErroresLiquidaciones()}" process="@this"/>  
-                        <p:tooltip style="" for="eliminar" value="Eliminar Registro" />
+                        <p:tooltip style="" for="eliminar" value="Eliminar Registro"/>
 
                         <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" process="@this"/>  
-                        <!--<p:tooltip style="" for="duplicar" value="Duplicar Registro" />-->
+                        <!--<p:tooltip style="" for="duplicar" value="Duplicar Registro"/>-->
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlErroresLiquidacion.verificarRastro()}" process="@this"/>  
@@ -143,7 +141,7 @@
                         <p:column headerText="Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}"
                                   filterMatchMode="contains" id="empleado" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.empleado.persona.nombreCompleto}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.empleado.persona.nombreCompleto}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.empleado.persona.nombreCompleto}" maxlength="50"
                                               id="editarEmpleado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
@@ -159,9 +157,9 @@
                                   filterBy="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" filterMatchMode="contains"
                                   id="tipoCentroCosto" width="140" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}"  /></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" maxlength="50"  id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" maxlength="50"  id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre)}"  update="@this"/>-->
@@ -173,9 +171,9 @@
                         <p:column headerText="Concepto" sortBy="#{info.concepto.descripcion}" filterBy="#{info.concepto.descripcion}"
                                   filterMatchMode="contains" id="concepto" width="200" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.concepto.descripcion}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.concepto.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}"  maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}"  maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 4)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.concepto.descripcion)}"  update="@this"/>-->
@@ -185,11 +183,11 @@
                         </p:column>
 
                         <p:column headerText="Formula" sortBy="#{info.formula.nombrelargo}" filterBy="#{info.formula.nombrelargo}"
-                                  filterMatchMode="contains" id="nombreLargo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="nombreLargo" width="200" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.formula.nombrelargo}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.formula.nombrelargo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}"  maxlength="50" id="editarNombreLargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}"  maxlength="50" id="editarNombreLargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 5)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.concepto.descripcion)}"  update="@this"/>-->
@@ -202,7 +200,7 @@
                                   id="fecha" width="76" filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">                                  
                            <p:cellEditor> 
                               <f:facet name="output">
-                                 <h:outputText value="#{info.fecha}"  >
+                                 <h:outputText value="#{info.fecha}">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>  
@@ -219,9 +217,9 @@
                         <p:column headerText="Error" sortBy="#{info.error}" filterBy="#{info.error}" filterMatchMode="contains"
                                   id="error" width="340" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.error}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.error}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.error}"  maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.error}"  maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 7)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.error)}"  update="@this"/>-->
@@ -233,9 +231,9 @@
                         <p:column headerText="Paquete" sortBy="#{info.paquete}" filterBy="#{info.paquete}" filterMatchMode="contains"
                                   id="paquete" width="220" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.paquete}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.paquete}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.paquete}" maxlength="50" id="editarPaquete" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                 <p:inputText autocomplete="off" value="#{info.paquete}" maxlength="50" id="editarPaquete" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 8)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.paquete)}"  update="@this"/>-->
@@ -247,7 +245,7 @@
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="Registros: #{controlErroresLiquidacion.infoRegistro}" style="position: absolute; left: 15px; top: 356px; font-weight: bold;"/>
                   </fieldset>
-                  <p:commandButton style=" position: absolute; left: 15px; top: 472px;" class="cssBoton" icon="ui-icon-trash" actionListener="#{controlErroresLiquidacion.revisarDialogoBorrarTodo()}" id="BORRARTODO" value="Borrar Todo" />
+                  <p:commandButton style=" position: absolute; left: 15px; top: 472px;" class="cssBoton" icon="ui-icon-trash" actionListener="#{controlErroresLiquidacion.revisarDialogoBorrarTodo()}" id="BORRARTODO" value="Borrar Todo"/>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlErroresLiquidacion.guardado}"
                                    actionListener="#{controlErroresLiquidacion.revisarDialogoGuardar()}" process="@this"/>
@@ -255,7 +253,7 @@
 
                   <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 16px; width: 250px; font-weight:bold;" />
+                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 16px; width: 250px; font-weight: bold;"/>
                      <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlErroresLiquidacion.guardarYSalir()}"
                                       style="position: absolute; top: 56px; left: 167px;" process="@this" icon="ui-icon-check"/>
                      <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlErroresLiquidacion.cancelarYSalir()}"
@@ -266,12 +264,12 @@
 
                   <p:dialog id="confirmarBorrarTodo" header="ATENCION...!" widgetVar="confirmarBorrarTodo" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                     <h:outputText value="¿Esta seguro de borrar todos los Errores Liquidaciones?" style="position: absolute; left: 120px; top: 16px; width: 250px; font-weight:bold;" />
+                     <h:outputText value="¿Esta seguro de borrar todos los Errores Liquidaciones?" style="position: absolute; left: 120px; top: 16px; width: 250px; font-weight: bold;"/>
                      <p:commandButton value="Si" onclick="PF('confirmarBorrarTodo').hide();" actionListener="#{controlErroresLiquidacion.borrarTodosErroresLiquidacion()}"
-                                      style="position: absolute; top: 60px; left: 167px;" process="@this" icon="ui-icon-check" />
+                                      style="position: absolute; top: 60px; left: 167px;" process="@this" icon="ui-icon-check"/>
                      <p:commandButton value="No" onclick="PF('confirmarBorrarTodo').hide();" actionListener="#{controlErroresLiquidacion.cancelarModificacion()}"
-                                      style="position: absolute; top: 60px; left: 228px;" process="@this" icon="ui-icon-close" />
-                     <p:commandButton value="Cancelar" onclick="PF('confirmarBorrarTodo').hide();" style="position: absolute; top: 60px; left: 295px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                                      style="position: absolute; top: 60px; left: 228px;" process="@this" icon="ui-icon-close"/>
+                     <p:commandButton value="Cancelar" onclick="PF('confirmarBorrarTodo').hide();" style="position: absolute; top: 60px; left: 295px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                   </p:dialog>
                </p:panel>
 
@@ -283,62 +281,62 @@
 
                <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla 'ERRORESLIQUIDACION' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlErroresLiquidacion.secRegistro, 'ErroresLiquidacion', 'errorliquidacion')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                  <h:outputText value="La tabla 'ERRORESLIQUIDACION' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlErroresLiquidacion.secRegistro, 'ErroresLiquidacion', 'errorliquidacion')}" style="position: absolute; top: 63px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('errorliquidacion', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla ERRORESLIQUIDACION tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ErroresLiquidacion', 'errorliquidacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="La tabla ERRORESLIQUIDACION tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ErroresLiquidacion', 'errorliquidacion')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('errorliquidacion', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlErroresLiquidacion.secRegistro, 'ErroresLiquidacion', 'errorliquidacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlErroresLiquidacion.secRegistro, 'ErroresLiquidacion', 'errorliquidacion')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('errorliquidacion', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="noModificar" header="ATENCIÓN" widgetVar="noModificar"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="No esta habilitada la opcion de modificar registros." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="No esta habilitada la opcion de modificar registros." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla 'ERRORESLIQUIDACION' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="La tabla 'ERRORESLIQUIDACION' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+               <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fechadesde}" style="overflow: auto;" readonly="true">  
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+               <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fechahasta}" style="overflow: auto;" readonly="true">  
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
@@ -348,29 +346,29 @@
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarTipoCentroCosto" header="Tipo Centro Costo" widgetVar="editarTipoCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarTipoCentroCosto" header="Tipo Centro Costo" widgetVar="editarTipoCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarConcepto" header="Concepto" widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarConcepto" header="Concepto" widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFormula" header="Formula" widgetVar="editarFormula" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarFormula" header="Formula" widgetVar="editarFormula" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFechaE" header="Fecha" widgetVar="editarFechaE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+               <p:dialog id="editarFechaE" header="Fecha" widgetVar="editarFechaE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fecha}" style="overflow: auto;" readonly="true">  
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarErrorE" header="Error" widgetVar="editarErrorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarErrorE" header="Error" widgetVar="editarErrorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.error}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarPaqueteE" header="Paquete" widgetVar="editarPaqueteE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarPaqueteE" header="Paquete" widgetVar="editarPaqueteE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.paquete}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
@@ -381,59 +379,59 @@
                             value="#{controlErroresLiquidacion.listErroresLiquidacion}">
                   <p:column>
                      <f:facet name="header">
-                        <h:outputText value="Desde" />
+                        <h:outputText value="Desde"/>
                      </f:facet>
-                     <h:outputText value="#{info2.fechadesde}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{info2.fechadesde}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>  
 
                   <p:column>  
                      <f:facet name="header">
-                        <h:outputText value="Hasta" />
+                        <h:outputText value="Hasta"/>
                      </f:facet>
-                     <h:outputText value="#{info2.fechahasta}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{info2.fechahasta}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>  
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Empleado"/></f:facet> 
-                     <h:outputText value="#{info2.empleado.persona.nombreCompleto}" />
+                     <h:outputText value="#{info2.empleado.persona.nombreCompleto}"/>
                   </p:column>  
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="TipoCentroCosto"/></f:facet> 
-                     <h:outputText value="#{info2.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" />
+                     <h:outputText value="#{info2.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}"/>
                   </p:column>  
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Concepto"/></f:facet> 
-                     <h:outputText value="#{info2.concepto.descripcion}" />
+                     <h:outputText value="#{info2.concepto.descripcion}"/>
                   </p:column>  
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Formula"/></f:facet> 
-                     <h:outputText value="#{info2.formula.nombrelargo}" />
+                     <h:outputText value="#{info2.formula.nombrelargo}"/>
                   </p:column>  
 
                   <p:column>  
                      <f:facet name="header">
-                        <h:outputText value="Fecha" />
+                        <h:outputText value="Fecha"/>
                      </f:facet>
-                     <h:outputText value="#{info2.fecha}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{info2.fecha}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>  
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Valor"/></f:facet> 
-                     <h:outputText value="#{info2.error}" />
+                     <h:outputText value="#{info2.error}"/>
                   </p:column>  
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Paquete"/></f:facet> 
-                     <h:outputText value="#{info2.paquete}" />
+                     <h:outputText value="#{info2.paquete}"/>
                   </p:column>  
 
                </p:dataTable>

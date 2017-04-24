@@ -11,11 +11,11 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.sucursal" var="msg" />
+                    <f:loadBundle basename="Recursos.sucursal" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="Conceptos de Retroactivos" style="position: absolute; width: 874px; height: 510px; text-align: left;">  
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Conceptos de Retroactivos</strong></legend>
 
                             <p:dataTable id="datosConceptosRetroactivos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
@@ -25,11 +25,11 @@
                                 <p:ajax event="filter" listener="#{controlConceptosRetroactivos.eventoFiltrar()}"/>
 
                                 
-                                <p:column headerText="Concepto" sortBy="#{info.concepto.descripcion}" filterBy="#{info.concepto.descripcion}" filterMatchMode="contains" id="personafir" width="350" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Concepto" sortBy="#{info.concepto.descripcion}" filterBy="#{info.concepto.descripcion}" filterMatchMode="contains" id="personafir" width="350" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.concepto.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.concepto.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlConceptosRetroactivos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarIndex(indice, 0,0)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlConceptosRetroactivos.modificarConceptosRetroactivos(indice, 'CONCEPTOS', info.concepto.descripcion)}" update="personafir"/>
@@ -40,11 +40,11 @@
                                         <p:commandButton style="width: 225px; margin: -14px; height: 20px; border: none; color: blue" id="fooBanco"  value=""/>
                                     </f:facet>
                                 </p:column>
-                                <p:column headerText="Concepto Retroactivo" sortBy="#{info.conceptoRetroActivo.descripcion}" filterBy="#{info.conceptoRetroActivo.descripcion}" filterMatchMode="contains" id="cargo" width="350" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Concepto Retroactivo" sortBy="#{info.conceptoRetroActivo.descripcion}" filterBy="#{info.conceptoRetroActivo.descripcion}" filterMatchMode="contains" id="cargo" width="350" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.conceptoRetroActivo.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.conceptoRetroActivo.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.conceptoRetroActivo.descripcion}" id="editarCCcargo" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.conceptoRetroActivo.descripcion}" id="editarCCcargo" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlConceptosRetroactivos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarIndex(indice, 0,1)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlConceptosRetroactivos.modificarConceptosRetroactivos(indice, 'CONCEPTOSRETROS', info.conceptoRetroActivo.descripcion)}" update="personafir"/>
@@ -52,7 +52,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 220px; margin: -14px; height: 20px;  border: none; color: blue" id="fooCiudad"  value=""/>
+                                        <p:commandButton style="width: 220px; margin: -14px; height: 20px; border: none; color: blue" id="fooCiudad"  value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -60,62 +60,62 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlConceptosRetroactivos.guardarConceptosRetroactivos()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="Guardar Cambios" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlConceptosRetroactivos.guardarConceptosRetroactivos()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="Guardar Cambios"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlConceptosRetroactivos.editarCelda()}"  process="@this"/>
-                                <p:tooltip  for="editar" value="Editar Celda" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlConceptosRetroactivos.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip  for="listaValores" value="Lista de Valores" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlConceptosRetroactivos.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip  for="filtrar" value="Filtrar" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlConceptosRetroactivos.editarCelda()}"  process="@this"/>
+                                <p:tooltip  for="editar" value="Editar Celda"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlConceptosRetroactivos.exportXLS()}"  ajax="false"/>
-                                <p:tooltip  for="exportarXLS" value="Exportar XLS" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlConceptosRetroactivos.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip  for="listaValores" value="Lista de Valores"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlConceptosRetroactivos.limpiarNuevoConceptosRetroactivos()}"  ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlConceptosRetroactivos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip  for="filtrar" value="Filtrar"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlConceptosRetroactivos.exportXLS()}"  ajax="false"/>
+                                <p:tooltip  for="exportarXLS" value="Exportar XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlConceptosRetroactivos.limpiarNuevoConceptosRetroactivos()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosConceptosRetroactivosExportar" fileName="CONCEPTOSRETROACTIVOS" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="Exportar XML" />
+                                <p:tooltip  for="exportarXML" value="Exportar XML"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlConceptosRetroactivos.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="Exportar PDF" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlConceptosRetroactivos.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="Exportar PDF"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  actionListener="#{controlConceptosRetroactivos.cargarNuevoConceptosRetroactivos()}" process="@this"/> 
-                                <p:tooltip  for="insertar" value="Agregar Concepto Retroactivo" />
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  actionListener="#{controlConceptosRetroactivos.cargarNuevoConceptosRetroactivos()}" process="@this"/> 
+                                <p:tooltip  for="insertar" value="Agregar Concepto Retroactivo"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlConceptosRetroactivos.borrandoConceptosRetroactivos()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="Eliminar Concepto Retroactivo" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlConceptosRetroactivos.borrandoConceptosRetroactivos()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="Eliminar Concepto Retroactivo"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlConceptosRetroactivos.duplicandoConceptosRetroactivos()}" process="@this"/>  
-                                <p:tooltip  for="duplicar" value="Duplicar Concepto Retroactivo" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlConceptosRetroactivos.duplicandoConceptosRetroactivos()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="Duplicar Concepto Retroactivo"/>
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlConceptosRetroactivos.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlConceptosRetroactivos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlConceptosRetroactivos.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlConceptosRetroactivos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlConceptosRetroactivos.salir()}"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlConceptosRetroactivos.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <h:outputText id="informacionRegistro" value="#{controlConceptosRetroactivos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px;  " icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlConceptosRetroactivos.revisarDialogoGuardar()}" disabled="#{controlConceptosRetroactivos.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px;  " icon="ui-icon-arrowreturnthick-1-w"   id="ATRAS" value="Atras"    />
+                        <h:outputText id="informacionRegistro" value="#{controlConceptosRetroactivos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlConceptosRetroactivos.revisarDialogoGuardar()}" disabled="#{controlConceptosRetroactivos.guardado}"    process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w"   id="ATRAS" value="Atras"    />
 
 
 
@@ -126,21 +126,21 @@
                                          selection="#{controlConceptosRetroactivos.conceptoSeleccionado}" selectionMode="single" widgetVar="lovConceptos" scrollable="true" scrollWidth="450" scrollHeight="300"
                                          filteredValue="#{controlConceptosRetroactivos.filtradoConceptos}" emptyMessage="No se encontrarón resultados para la búsqueda">              
                                 <p:ajax event="rowSelect" listener="#{controlConceptosRetroactivos.activarAceptar()}" update=":form:aceptarPer"/>
-                                <p:ajax event="rowDblselect" listener="#{controlConceptosRetroactivos.actualizarConceptos()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlConceptosRetroactivos.actualizarConceptos()}" process="@this"/>
                                 <f:facet name="header">
                                     <h:outputText value="Buscar Conceptos:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width:200px; position: relative; left: 20px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width:200px; position: relative; left: 20px;"/>  
                                 </f:facet>
 
                                 <p:column filterBy="#{conceptodd.descripcion}" width="115px;" filterStyle="width:300px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Descripcion" />
+                                        <h:outputText value="Descripcion"/>
                                     </f:facet>
-                                    <h:outputText value="#{conceptodd.descripcion}" />
+                                    <h:outputText value="#{conceptodd.descripcion}"/>
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroBancos" value="#{controlConceptosRetroactivos.infoRegistroConceptos}" style="position: absolute; left: 15px; top: 400px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroBancos" value="#{controlConceptosRetroactivos.infoRegistroConceptos}" style="position: absolute; left: 15px; top: 400px; font-weight: bold;"/>
 
                             <p:commandButton id="aceptarPer" style="position: relative; left: 283px;" value="Aceptar" disabled="#{controlConceptosRetroactivos.aceptar}"  actionListener="#{controlConceptosRetroactivos.actualizarConceptos()}"  process="@this" icon="ui-icon-check"/>
                             
@@ -150,26 +150,26 @@
 
 
                         <p:dialog header="Conceptos Retroactivos" widgetVar="conceptosRetroDialogo" draggable="true" resizable="false" closable="false" id="conceptosRetroDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="470" modal="true" >
+                                  showEffect="fade" hideEffect="fade" width="470" modal="true">
                             <p:dataTable id="lovConceptosRetro" style=" width: 430px;" var="conceptoretroactivo" value="#{controlConceptosRetroactivos.listaConceptosRetro}" rowKey="#{conceptoretroactivo.secuencia}"
                                          selection="#{controlConceptosRetroactivos.conceptoRetroActivoSeleccionado}" selectionMode="single" widgetVar="lovConceptosRetro" scrollable="true" scrollWidth="450" scrollHeight="280"
                                          filteredValue="#{controlConceptosRetroactivos.filtradoConceptosRetro}" emptyMessage="No se encontrarón resultados para la búsqueda">              
                                 <p:ajax event="rowSelect" listener="#{controlConceptosRetroactivos.activarAceptar()}" update=":form:aceptarCar"/>
-                                <p:ajax event="rowDblselect" listener="#{controlConceptosRetroactivos.actualizarConceptosRetro()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlConceptosRetroactivos.actualizarConceptosRetro()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Concepto Retroactivo: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovConceptosRetro').filter();" style="width:150px; position: relative; left: 85px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovConceptosRetro').filter();" style="width:150px; position: relative; left: 85px;"/>  
                                 </f:facet>
                                
                                 <p:column filterBy="#{conceptoretroactivo.descripcion}" width="130px;" filterStyle="width:300px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Descripcion" />
+                                        <h:outputText value="Descripcion"/>
                                     </f:facet>
-                                    <h:outputText value="#{conceptoretroactivo.descripcion}" />
+                                    <h:outputText value="#{conceptoretroactivo.descripcion}"/>
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroCiudades" value="#{controlConceptosRetroactivos.infoRegistroConceptosRetro}" style="position: absolute; left: 15px; top: 380px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroCiudades" value="#{controlConceptosRetroactivos.infoRegistroConceptosRetro}" style="position: absolute; left: 15px; top: 380px; font-weight: bold;"/>
 
                             <p:commandButton id="aceptarCar" style="position: relative; left: 283px;" value="Aceptar" disabled="#{controlConceptosRetroactivos.aceptar}"  actionListener="#{controlConceptosRetroactivos.actualizarConceptosRetro()}" process="@this" icon="ui-icon-check"/>
                             
@@ -179,10 +179,10 @@
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"   actionListener="#{controlConceptosRetroactivos.guardarConceptosRetroactivos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"    actionListener="#{controlConceptosRetroactivos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"   actionListener="#{controlConceptosRetroactivos.guardarConceptosRetroactivos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"    actionListener="#{controlConceptosRetroactivos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
 
                     </p:panel>
@@ -191,32 +191,32 @@
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlConceptosRetroactivos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Necesita : #{controlConceptosRetroactivos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlConceptosRetroactivos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <h:outputText value=" #{controlConceptosRetroactivos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Se han borrado #{controlConceptosRetroactivos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <h:outputText value="Se han borrado #{controlConceptosRetroactivos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlConceptosRetroactivos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlConceptosRetroactivos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlConceptosRetroactivos.activarCtrlF11()}"/> 
                 </h:form>
@@ -225,86 +225,86 @@
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'CONCEPTOSPROYECCIONES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptosRetroactivos.secRegistro, 'ConceptosRetroactivos','conceptoretroactivo')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla 'CONCEPTOSPROYECCIONES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptosRetroactivos.secRegistro, 'ConceptosRetroactivos','conceptoretroactivo')}" style="position: absolute; top: 63px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('conceptoretroactivo','rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla CONCEPTOSPROYECCIONES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ConceptosRetroactivos','conceptoretroactivo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla CONCEPTOSPROYECCIONES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ConceptosRetroactivos','conceptoretroactivo')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('conceptoretroactivo','rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptosRetroactivos.secRegistro, 'ConceptosRetroactivos','conceptoretroactivo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptosRetroactivos.secRegistro, 'ConceptosRetroactivos','conceptoretroactivo')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('conceptoretroactivo','rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'CONCEPTOSPROYECCIONES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="La tabla 'CONCEPTOSPROYECCIONES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
 
 
                     
-                    <p:dialog id="editConceptos" header="Concepto" widgetVar="editConceptos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editConceptos" header="Concepto" widgetVar="editConceptos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlConceptosRetroactivos.editarConceptosRetroactivos.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editConceptosRetro" header="Concepto Retroactivo" widgetVar="editConceptosRetro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editConceptosRetro" header="Concepto Retroactivo" widgetVar="editConceptosRetro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlConceptosRetroactivos.editarConceptosRetroactivos.conceptoRetroActivo.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 
 
                     <p:dialog id="nuevoRegistroConceptosRetroactivos" header="Nuevo Registro" widgetVar="nuevoRegistroConceptosRetroactivos" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="340" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Nuevo Concepto Retroactivo" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Nuevo Concepto Retroactivo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                          
-                            <strong><h:outputText value="*Concepto:"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlConceptosRetroactivos.nuevoConceptosRetroactivos.concepto.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(1,'CONCEPTOS')}" />
-                                <p:ajax event="change" listener="#{controlConceptosRetroactivos.autocompletarNuevo('CONCEPTOS',controlConceptosRetroactivos.nuevoConceptosRetroactivos.concepto.descripcion, 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptos(0)}" />
+                            <strong><h:outputText value="*Concepto:"  style=" position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlConceptosRetroactivos.nuevoConceptosRetroactivos.concepto.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(1,'CONCEPTOS')}"/>
+                                <p:ajax event="change" listener="#{controlConceptosRetroactivos.autocompletarNuevo('CONCEPTOS',controlConceptosRetroactivos.nuevoConceptosRetroactivos.concepto.descripcion, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptos(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px;  " id="btnnuevoPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptos(0)}"/>   
-                            <p:watermark for="nuevoPersona" value="Concepto" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px; " id="btnnuevoPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptos(0)}"/>   
+                            <p:watermark for="nuevoPersona" value="Concepto"/>
 
-                            <strong><h:outputText value="*Concepto Retro:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCargo" value="#{controlConceptosRetroactivos.nuevoConceptosRetroactivos.conceptoRetroActivo.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(1,'CONCEPTOSRETRO')}" />
+                            <strong><h:outputText value="*Concepto Retro:"  style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoCargo" value="#{controlConceptosRetroactivos.nuevoConceptosRetroactivos.conceptoRetroActivo.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(1,'CONCEPTOSRETRO')}"/>
                                 <p:ajax event="change" listener="#{controlConceptosRetroactivos.autocompletarNuevo('CONCEPTOSRETRO',controlConceptosRetroactivos.nuevoConceptosRetroactivos.conceptoRetroActivo.descripcion, 1)}"/>
-                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(0)}" />
+                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px;  " id="btnnuevoCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(0)}"/>   
-                            <p:watermark for="nuevoCargo" value="Concepto Retro" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px; " id="btnnuevoCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(0)}"/>   
+                            <p:watermark for="nuevoCargo" value="Concepto Retro"/>
 
 
 
@@ -318,32 +318,32 @@
 
 
                     <p:dialog id="duplicarRegistroConceptosRetroactivos" header="Duplicar Registro" widgetVar="duplicarRegistroConceptosRetroactivos" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="340" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Concepto Retroactivo" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Concepto Retroactivo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarTE" style="border: none;">
 
                             
-                            <strong><h:outputText value="*Concepto:"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlConceptosRetroactivos.duplicarConceptosRetroactivos.concepto.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase" >
-                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(2,'CONCEPTOS')}" />
-                                <p:ajax event="change" listener="#{controlConceptosRetroactivos.autocompletarDuplicado('CONCEPTOS', controlConceptosRetroactivos.duplicarConceptosRetroactivos.concepto.descripcion , 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptos(1)}" />
+                            <strong><h:outputText value="*Concepto:"  style=" position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlConceptosRetroactivos.duplicarConceptosRetroactivos.concepto.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(2,'CONCEPTOS')}"/>
+                                <p:ajax event="change" listener="#{controlConceptosRetroactivos.autocompletarDuplicado('CONCEPTOS', controlConceptosRetroactivos.duplicarConceptosRetroactivos.concepto.descripcion , 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptos(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px;  " id="btnduplicarPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptos(1)}"/>   
-                            <p:watermark for="duplicarPersona" value="Concepto" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px; " id="btnduplicarPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptos(1)}"/>   
+                            <p:watermark for="duplicarPersona" value="Concepto"/>
 
-                            <strong><h:outputText value="*Concepto Retro:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlConceptosRetroactivos.duplicarConceptosRetroactivos.conceptoRetroActivo.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
-                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(2,'CONCEPTOSRETRO')}" />
-                                <p:ajax event="change" listener="#{controlConceptosRetroactivos.autocompletarDuplicado('CONCEPTOSRETRO', controlConceptosRetroactivos.duplicarConceptosRetroactivos.conceptoRetroActivo.descripcion , 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(1)}" />
+                            <strong><h:outputText value="*Concepto Retro:"  style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlConceptosRetroactivos.duplicarConceptosRetroactivos.conceptoRetroActivo.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                                <p:ajax event="click" listener="#{controlConceptosRetroactivos.valoresBackupAutocompletar(2,'CONCEPTOSRETRO')}"/>
+                                <p:ajax event="change" listener="#{controlConceptosRetroactivos.autocompletarDuplicado('CONCEPTOSRETRO', controlConceptosRetroactivos.duplicarConceptosRetroactivos.conceptoRetroActivo.descripcion , 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px;  " id="btnduplicarCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(1)}"/>   
-                            <p:watermark for="duplicarCargo" value="Concepto Retro" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px; " id="btnduplicarCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosRetroactivos.asignarVariableConceptosRetro(1)}"/>   
+                            <p:watermark for="duplicarCargo" value="Concepto Retro"/>
 
 
                             <p:commandButton id="limpiarD" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 120px;"  actionListener="#{controlConceptosRetroactivos.limpiarDuplicarConceptosRetroactivos() }" update="duplicarTE"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" value="Duplicar"  icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 120px;" actionListener="#{controlConceptosRetroactivos.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton id="duplicarVFP" value="Duplicar"  icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 120px;" actionListener="#{controlConceptosRetroactivos.confirmarDuplicar()}"  process="@this"/>
                             <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" icon="ui-icon-circle-close" style=" position: absolute; left: 230px; top: 120px;"  update="duplicarTE" onclick="PF('duplicarRegistroConceptosRetroactivos').hide();" actionListener="#{controlConceptosRetroactivos.limpiarDuplicarConceptosRetroactivos()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -355,11 +355,11 @@
                                  value="#{controlConceptosRetroactivos.listConceptosRetroactivos}">
                       
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Concepto" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Concepto"/></f:facet>
                             <h:outputText value="#{info.concepto.descripcion}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="ConceptoRetroactivo" /></f:facet>
+                            <f:facet name="header"><h:outputText value="ConceptoRetroactivo"/></f:facet>
                             <h:outputText value="#{info.conceptoRetroActivo.descripcion}"/>
                         </p:column>
                     </p:dataTable>

@@ -10,8 +10,8 @@
       <h:form id="formu">
 
          <p:commandButton value="Start" type="button" onclick="PF('pbAjax.start();
-                  startButton2.disable();" widgetVar="startButton2" />  
-         <p:commandButton value="Cancel" actionListener="#{controlRemoto.cancel()}" oncomplete="PF('pbAjax.cancel();startButton2.enable();" />  
+                  startButton2.disable();" widgetVar="startButton2"/>  
+         <p:commandButton value="Cancel" actionListener="#{controlRemoto.cancel()}" oncomplete="PF('pbAjax.cancel();startButton2.enable();"/>  
 
          <p:progressBar id="progreso" widgetVar="pbAjax" ajax="true" value="#{controlRemoto.progress}" labelTemplate="{value}%" interval="100">  
          </p:progressBar>  

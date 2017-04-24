@@ -93,7 +93,7 @@ public class ControlBarra implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -125,15 +125,34 @@ public class ControlBarra implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "barra";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "barra";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -143,9 +162,8 @@ public class ControlBarra implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    public void contarLiquidados() {
@@ -221,7 +239,8 @@ public class ControlBarra implements Serializable {
       empezar = false;
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       totalEmpleadosParaLiquidar = 0;
       totalEmpleadosLiquidados = 0;
       barra = 0;
@@ -243,6 +262,7 @@ public class ControlBarra implements Serializable {
       filtradoLiquidacionesAbiertas = null;
       filtradoLiquidacionesCerradas = null;
       parametroEstructura = null;
+      navegar("atras");
    }
 
    public void consultarDatos() {

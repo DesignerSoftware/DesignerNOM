@@ -12,83 +12,83 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.ataprobacionhe" var="msg" />
+                    <f:loadBundle basename="Recursos.ataprobacionhe" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlATAprobacionHE.guardadoGeneral()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlATAprobacionHE.guardadoGeneral()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlATAprobacionHE.editarCelda()}" process="@this"
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlATAprobacionHE.editarCelda()}" process="@this"
                                                  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlATAprobacionHE.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlATAprobacionHE.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlATAprobacionHE.activarCtrlF11()}" process="@this"
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlATAprobacionHE.activarCtrlF11()}" process="@this"
                                                  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlATAprobacionHE.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlATAprobacionHE.exportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) "  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlATAprobacionHE.obtenerTablaXML()}" fileName="#{controlATAprobacionHE.obtenerNombreArchivoXML()}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlATAprobacionHE.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlATAprobacionHE.dispararDialogoNuevoRegistro()}" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlATAprobacionHE.borrarRegistro()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlATAprobacionHE.duplicarRegistro()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlATAprobacionHE.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlATAprobacionHE.validarRastro()}" process="@this"/>  
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlATAprobacionHE.dispararDialogoNuevoRegistro()}" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlATAprobacionHE.borrarRegistro()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlATAprobacionHE.duplicarRegistro()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlATAprobacionHE.validarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlATAprobacionHE.cancelarModificacion()}" process="@this"
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlATAprobacionHE.cancelarModificacion()}" process="@this"
                                                  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlATAprobacionHE.salir()}" action="#{controlATAprobacionHE.redirigir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlATAprobacionHE.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 85px;width: 835px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 85px; width: 835px; border-radius: 10px; text-align: left;">
 
-                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/logoArrobaDesigner.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;" />
+                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/logoArrobaDesigner.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                            <strong><h:outputText style="position: absolute;top: 20px;left: 80px;text-transform: uppercase" value="#{msg['usuarioConectado']}:" /></strong>
-                            <strong><h:outputText style="position: absolute;top: 20px;left: 250px;text-transform: uppercase; color: #00F" value="#{controlATAprobacionHE.actualUsuario.alias}" /></strong>
+                            <strong><h:outputText style="position: absolute; top: 20px; left: 80px;text-transform: uppercase;" value="#{msg['usuarioConectado']}:"/></strong>
+                            <strong><h:outputText style="position: absolute; top: 20px; left: 250px;text-transform: uppercase; color: #00F" value="#{controlATAprobacionHE.actualUsuario.alias}"/></strong>
 
-                            <strong><h:outputText style="position: absolute;top: 60px;left: 80px;text-transform: uppercase" value="#{msg['infoUsuario']}" /></strong>
+                            <strong><h:outputText style="position: absolute; top: 60px; left: 80px;text-transform: uppercase;" value="#{msg['infoUsuario']}"/></strong>
 
 
-                            <p:commandButton style="position: absolute; left: 683px; top: 10px;  " id="BUSCAR" value="#{msg['buscarEmpleados']}" actionListener="#{controlATAprobacionHE.dispararDialogoBuscarEmpleados()}" disabled="#{controlATAprobacionHE.activarBuscar}" process="@this" />
-                            <p:commandButton style="position: absolute; left: 690px; top: 50px;  " id="MOSTRARTODOS"  value="#{msg['mostrarTodos']}" actionListener="#{controlATAprobacionHE.mostrarTodosEmpleados()}" disabled="#{controlATAprobacionHE.activarMostrarTodos}" process="@this" />
+                            <p:commandButton style="position: absolute; left: 683px; top: 10px; " id="BUSCAR" value="#{msg['buscarEmpleados']}" actionListener="#{controlATAprobacionHE.dispararDialogoBuscarEmpleados()}" disabled="#{controlATAprobacionHE.activarBuscar}" process="@this"/>
+                            <p:commandButton style="position: absolute; left: 690px; top: 50px; " id="MOSTRARTODOS"  value="#{msg['mostrarTodos']}" actionListener="#{controlATAprobacionHE.mostrarTodosEmpleados()}" disabled="#{controlATAprobacionHE.activarMostrarTodos}" process="@this"/>
                         </fieldset> 
 
                         <script type="text/javascript">
@@ -115,7 +115,7 @@
                                 var $num = #{controlATAprobacionHE.obtenerNumeroScrollCabecera()};
                                 $win.scroll(function() {
                                     if ($win.height() + $win.scrollTop() == $num) {
-                                        operacionEnProceso').show();
+                                        PF('operacionEnProceso').show();
                                         pruebaRemota();
                                     }
                                 });
@@ -124,15 +124,15 @@
 
                         <p:remoteCommand name="pruebaRemota" actionListener="#{controlATAprobacionHE.pruebaRemota()}"/>
 
-                        <fieldset  style="position: absolute; left: 10px; top: 180px;width: 835px; height: 140px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['conceptosAAprobar']}</strong></legend>
+                        <fieldset  style="position: absolute; left: 10px; top: 180px; width: 835px; height: 140px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align:left;"><strong>#{msg['conceptosAAprobar']}</strong></legend>
 
-                            <div  id="superiorIzquierdo" style="height: 225px; width: 350px; overflow-y: hidden; position: absolute; left: 502px; top: -4px;" >
+                            <div  id="superiorIzquierdo" style="height: 225px; width: 350px; overflow-y: hidden; position: absolute; left: 502px; top: -4px;">
                                 <p:dataTable id="tablaSuperiorIzquierda" var="infoCab"  rowKey="#{infoCab.secuencia}" style=" width: 350px; position: relative; top: 18px;" value="#{controlATAprobacionHE.listaEersCabeceras}"
                                              widgetVar="tablaSuperiorIzquierda" styleClass="hide-row-names" filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}"
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
-                                             >
-                                    <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}" />   
+                                         >
+                                    <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}"/>   
                                     <p:ajax event="filter" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
                                     <!-- NO SE OLVIDE !!! 
                                     <p:ajax event="filter" update=":form:tablaInferiorDerecha, :form:tablaInferiorIzquierda"/> -->
@@ -141,12 +141,12 @@
                                               filterMatchMode="contains" width="100" id="cabeceraAprobado" filterStyle="display: none; visibility: hidden;"   />
 
                                     <p:column headerText="#{msg['siguienteA']}" sortBy="#{infoCab.estructuraaprueba.nombre}" filterBy="#{infoCab.estructuraaprueba.nombre}" 
-                                              filterMatchMode="contains" id="cabeceraEstructura" width="150" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraEstructura" width="150" filterStyle="display: none; visibility: hidden;"/>
 
                                 </p:dataTable>
                             </div>
 
-                            <div id="inferiorIzquierda"  style="height: #{controlATAprobacionHE.altoDivTablaInferiorIzquierda}; width: 370px; overflow-y: hidden; position: absolute; left: 502px; top: #{controlATAprobacionHE.topDivTablaInferiorIzquierda}" >
+                            <div id="inferiorIzquierda"  style="height: #{controlATAprobacionHE.altoDivTablaInferiorIzquierda}; width: 370px; overflow-y: hidden; position: absolute; left: 502px; top: #{controlATAprobacionHE.topDivTablaInferiorIzquierda}">
 
                                 <p:dataTable id="tablaInferiorIzquierda" style=" width: 292px;" rowIndexVar="indiceCab"  value="#{controlATAprobacionHE.listaEersCabeceras}"
                                              var="infoCab"  rowKey="#{infoCab.secuencia}" scrollable="true" scrollWidth="347" 
@@ -154,29 +154,29 @@
                                              filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}" emptyMessage="#{msg['vacio']}"
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
                                              rows="#{controlATAprobacionHE.rowsCabecera}"
-                                             >
+                                         >
 
                                     <p:column  sortBy="#{infoCab.aprobado}"  filterBy="#{infoCab.aprobado}" 
-                                               filterMatchMode="contains" width="69" id="cabeceraAprobado" filterStyle="display: none; visibility: hidden;"   >                                  
+                                               filterMatchMode="contains" width="69" id="cabeceraAprobado" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.aprobado}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.aprobado}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"    value="#{infoCab.aprobado}" maxlength="1" id="editarAprobadoCabecera" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                                <p:inputText  autocomplete="off"    value="#{infoCab.aprobado}" maxlength="1" id="editarAprobadoCabecera" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
                                                     <p:ajax event="change" listener="#{controlATAprobacionHE.modificarCabecera(indiceCab)}"/>
-                                                    <p:ajax event="select" listener="#{controlATAprobacionHE.cambiarIndiceCabecera(indiceCab, 0)}" />
+                                                    <p:ajax event="select" listener="#{controlATAprobacionHE.cambiarIndiceCabecera(indiceCab, 0)}"/>
                                                 </p:inputText>
                                             </f:facet>  
                                         </p:cellEditor>
                                     </p:column>
 
                                     <p:column  sortBy="#{infoCab.estructuraaprueba.nombre}" filterBy="#{estructuraaprueba.nombre}" 
-                                               filterMatchMode="contains" id="cabeceraEstructura" width="96" filterStyle="display: none; visibility: hidden;" >                                  
+                                               filterMatchMode="contains" id="cabeceraEstructura" width="96" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.estructuraaprueba.nombre}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.estructuraaprueba.nombre}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.estructuraaprueba.nombre}" readonly="true" id="editarEstructuraCabecera" style="border-radius: 0px; width: 98.5%;">    
                                                     <p:ajax event="change" listener="#{controlATAprobacionHE.modificarCabecera(indiceCab, 'ESTRUCTURA', infoCab.estructuraaprueba.nombre)}"/>
-                                                    <p:ajax event="select" listener="#{controlATAprobacionHE.cambiarIndiceCabecera(indiceCab, 1)}" />
+                                                    <p:ajax event="select" listener="#{controlATAprobacionHE.cambiarIndiceCabecera(indiceCab, 1)}"/>
                                                     <p:ajax event="dblclick" listener="#{controlATAprobacionHE.asignarIndex(indiceCab, 0)}"/>        
                                                 </p:inputText>
                                             </f:facet>  
@@ -186,61 +186,61 @@
                                 </p:dataTable>
                             </div>
 
-                            <div id="inferiorDerechaSubtotalesEmpleado" style="height: 42px; width: 490px; overflow-y: hidden; position: absolute; top: 107px;" >
+                            <div id="inferiorDerechaSubtotalesEmpleado" style="height: 42px; width: 490px; overflow-y: hidden; position: absolute; top: 107px;">
                                 <fieldset style="width: 1435px; visibility: hidden"></fieldset>
 
                             </div>
 
-                            <div id="superiorDerecha" style="height: 75px; width: 488px; overflow-x: hidden; position: absolute; top: -10px;" >
+                            <div id="superiorDerecha" style="height: 75px; width: 488px; overflow-x: hidden; position: absolute; top: -10px;">
 
                                 <p:dataTable id="tablaSuperiorDerecha" var="infoCab" style=" width: 1450px; position: absolute; top: 24px;" value="#{controlATAprobacionHE.listaEersCabeceras}"
                                              widgetVar="tablaSuperiorDerecha" styleClass="hide-row-names" rowKey="#{infoCab.secuencia}" 
                                              filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}"
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
-                                             >
+                                         >
 
                                     <p:ajax event="filter" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
-                                    <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}" />   
-                                  <!--  <p:ajax event="sort" listener="#{controlRemoto.recargar()}" /> 
+                                    <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}"/>   
+                                  <!--  <p:ajax event="sort" listener="#{controlRemoto.recargar()}"/> 
                                     <p:ajax event="filter" update=":form:tablaInferiorDerecha, :form:tablaInferiorIzquierda"/> -->
 
 
                                     <p:column headerText="#{msg['numDocumento']}" style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCab.empleado.persona.strNumeroDocumento}" 
-                                              filterMatchMode="contains" id="cabeceraNumDocumento" width="80" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraNumDocumento" width="80" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['nombreEmpleado']}" style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
-                                              filterMatchMode="contains" id="cabeceraNombreEmpleado" width="30" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraNombreEmpleado" width="30" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['horas']}" style="height: 16px;" sortBy="#{infoCab.horas}" filterBy="#{infoCab.horas}" 
-                                              filterMatchMode="contains" id="cabeceraHoras" width="20" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraHoras" width="20" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['minutos']}" style="height: 16px;" sortBy="#{infoCab.minutos}" filterBy="#{infoCab.horas}" 
-                                              filterMatchMode="contains" id="cabeceraMinutos" width="20" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraMinutos" width="20" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['novedad']}" style="height: 16px;" sortBy="#{infoCab.tipoeer}" filterBy="#{infoCab.tipoeer}" 
-                                              filterMatchMode="contains" id="cabeceraNovedad" width="20" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraNovedad" width="20" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['estado']}" style="height: 16px;" sortBy="#{infoCab.estado}" filterBy="#{infoCab.estado}" 
-                                              filterMatchMode="contains" id="cabeceraEstado" width="20" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraEstado" width="20" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['paso']}" style="height: 16px;" sortBy="#{infoCab.eerestado.descripcion}" filterBy="#{infoCab.eerestado.descripcion}" 
-                                              filterMatchMode="contains" id="cabeceraPaso" width="20" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraPaso" width="20" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['fechaPago']}" style="height: 16px;" sortBy="#{infoCab.fechapago}" filterBy="#{infoCab.fechapago}" 
-                                              filterMatchMode="contains" id="cabeceraFechaPago" width="20" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraFechaPago" width="20" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['observaciones']}" style="height: 16px;" sortBy="#{infoCab.comentario}" filterBy="#{infoCab.comentario}" 
-                                              filterMatchMode="contains" id="cabeceraObservaciones" width="20" filterStyle="display: none; visibility: hidden;" />
+                                              filterMatchMode="contains" id="cabeceraObservaciones" width="20" filterStyle="display: none; visibility: hidden;"/>
 
                                 </p:dataTable>
                             </div> 
 
 
-                            <div id="inferiorDerecha" style="height: #{controlATAprobacionHE.altoDivTablaInferiorDerecha}; width: 504px; overflow-x: hidden; position: absolute; top: #{controlATAprobacionHE.topDivTablaInferiorDerecha};" >
+                            <div id="inferiorDerecha" style="height: #{controlATAprobacionHE.altoDivTablaInferiorDerecha}; width: 504px; overflow-x: hidden; position: absolute; top: #{controlATAprobacionHE.topDivTablaInferiorDerecha};">
                                 <p:dataTable id="tablaInferiorDerecha" style="width: 1425px;overflow: hidden" rowIndexVar="indiceCab" value="#{controlATAprobacionHE.listaEersCabeceras}"
                                              var="infoCab"  rowKey="#{infoCab.secuencia}" scrollable="true" scrollWidth="2650"  
                                              widgetVar="tablaInferiorDerecha" styleClass="hide-column-names"   editable="true" editMode="cell" 
                                              filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}" emptyMessage="..."
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
                                              rows="#{controlATAprobacionHE.rowsCabecera}"
-                                             >
+                                         >
 
                                     <p:column   style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.persona.strNumeroDocumento}" 
-                                                filterMatchMode="contains" id="cabeceraNumDocumento" width="91" filterStyle="display: none; visibility: hidden;" >                                  
+                                                filterMatchMode="contains" id="cabeceraNumDocumento" width="91" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.strNumeroDocumento}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.strNumeroDocumento}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.empleado.persona.strNumeroDocumento}" readonly="true" id="editarNumDocumentoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '2'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -250,9 +250,9 @@
                                     </p:column>  
 
                                     <p:column  style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
-                                               filterMatchMode="contains" id="cabeceraNombreEmpleado" width="29" filterStyle="display: none; visibility: hidden;" >                                  
+                                               filterMatchMode="contains" id="cabeceraNombreEmpleado" width="29" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.nombreCompleto}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.nombreCompleto}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.empleado.persona.nombreCompleto}" readonly="true" id="editarNombreEmpleadoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '3'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -262,9 +262,9 @@
                                     </p:column>  
 
                                     <p:column style="height: 16px;" sortBy="#{infoCab.horas}" filterBy="#{infoCab.horas}" 
-                                              filterMatchMode="contains" id="cabeceraHoras" width="23" filterStyle="display: none; visibility: hidden;" >                                  
+                                              filterMatchMode="contains" id="cabeceraHoras" width="23" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.horas}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.horas}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.horas}" readonly="true" id="editarHorasCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '4'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -274,9 +274,9 @@
                                     </p:column>  
 
                                     <p:column style="height: 16px;" sortBy="#{infoCab.minutos}" filterBy="#{infoCab.minutos}" 
-                                              filterMatchMode="contains" id="cabeceraMinutos" width="23" filterStyle="display: none; visibility: hidden;" >                                  
+                                              filterMatchMode="contains" id="cabeceraMinutos" width="23" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.minutos}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.minutos}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.minutos}" readonly="true" id="editarMinutosCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '5'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -286,9 +286,9 @@
                                     </p:column>  
 
                                     <p:column style="height: 16px;" sortBy="#{infoCab.tipoeer}" filterBy="#{infoCab.tipoeer}" 
-                                              filterMatchMode="contains" id="cabeceraNovedad" width="23" filterStyle="display: none; visibility: hidden;" >                                  
+                                              filterMatchMode="contains" id="cabeceraNovedad" width="23" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.tipoeer}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.tipoeer}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.tipoeer}" readonly="true" id="editarNovedadCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '6'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -298,9 +298,9 @@
                                     </p:column>  
 
                                     <p:column style="height: 16px;" sortBy="#{infoCab.estado}" filterBy="#{infoCab.estado}" 
-                                              filterMatchMode="contains" id="cabeceraEstado" width="23" filterStyle="display: none; visibility: hidden;" >                                  
+                                              filterMatchMode="contains" id="cabeceraEstado" width="23" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.estado}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.estado}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.estado}" readonly="true" id="editarEstadoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '7'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -310,9 +310,9 @@
                                     </p:column>  
 
                                     <p:column style="height: 16px;" sortBy="#{infoCab.eerestado.descripcion}" filterBy="#{infoCab.eerestado.descripcion}" 
-                                              filterMatchMode="contains" id="cabeceraPaso" width="23" filterStyle="display: none; visibility: hidden;" >                                  
+                                              filterMatchMode="contains" id="cabeceraPaso" width="23" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.eerestado.descripcion}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.eerestado.descripcion}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.eerestado.descripcion}" readonly="true" id="editarPasoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '8'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -323,11 +323,11 @@
 
 
                                     <p:column  sortBy="#{infoCab.fechapago}" filterBy="#{infoCab.fechapago}" 
-                                               filterMatchMode="contains" width="85" id="cabeceraFechaPago" filterStyle="display: none; visibility: hidden;"   >                                  
+                                               filterMatchMode="contains" width="85" id="cabeceraFechaPago" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
                                             <f:facet name="output">
-                                                <h:outputText value="#{infoCab.fechapago}" >
-                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                <h:outputText value="#{infoCab.fechapago}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                 </h:outputText>
                                             </f:facet>  
                                             <f:facet name="input">
@@ -339,9 +339,9 @@
                                     </p:column>
 
                                     <p:column style="height: 16px;" sortBy="#{infoCab.comentario}" filterBy="#{infoCab.comentario}" 
-                                              filterMatchMode="contains" id="cabeceraObservaciones" width="23" filterStyle="display: none; visibility: hidden;" >                                  
+                                              filterMatchMode="contains" id="cabeceraObservaciones" width="23" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.comentario}" /></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.comentario}"/></f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{infoCab.comentario}" readonly="true" id="editarObservacionCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '10'}, {name: 't', value: '#{indiceCab}'}]);"
@@ -359,26 +359,26 @@
                         <p:remoteCommand name="posicionFlujo" actionListener="#{controlATAprobacionHE.posicionFlujo()}"/>
                         <p:remoteCommand name="posicionDetalle" actionListener="#{controlATAprobacionHE.posicionDetalle()}"/>
 
-                        <fieldset style="position: absolute;top: 340px;left: 10px;height: 150px;width: 325px; border-radius: 10px; text-align: left">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['flujosAprobados']}</strong></legend>
+                        <fieldset style="position: absolute; top: 340px; left: 10px; height: 150px; width: 325px; border-radius: 10px; text-align: left;">
+                            <legend style="color: blue;text-align:left;"><strong>#{msg['flujosAprobados']}</strong></legend>
 
                             <p:dataTable id="datosFlujo" var="infoF" rowKey="#{infoF.secuencia}" rowIndexVar="indiceF" style=" border: 1px; text-align: left;"                           
                                          value="#{controlATAprobacionHE.listaFlujos}" scrollable="true" scrollHeight="#{controlATAprobacionHE.altoTablaFlujo}" 
                                          filteredValue="#{controlATAprobacionHE.filtrarListaFlujos}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
                                          selection="#{controlATAprobacionHE.flujoSeleccionado}" selectionMode="single"
-                                         >
+                                     >
                                 <p:ajax event="filter" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
 
 
                                 <p:column headerText="#{msg['procesoAutorizados2']}"  sortBy="#{infoF.eerestado.descripcion}" filterBy="#{infoF.eerestado.descripcion}" 
-                                          filterMatchMode="contains" id="flujoProceso" width="60" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="flujoProceso" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="procesoAutorizados" value="#{msg['procesoAutorizados2']}"/>
                                         <p:tooltip for="procesoAutorizados" value="#{msg['procesoAutorizados']}"/>
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoF.eerestado.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{infoF.eerestado.descripcion}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoF.eerestado.descripcion}" readonly="true" id="editarProcesoFlujo" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionFlujo([{name: 'n', value: '0'}, {name: 't', value: '#{indiceF}'}]);"/> 
@@ -387,11 +387,11 @@
                                 </p:column> 
 
                                 <p:column headerText="#{msg['fecha']}"   sortBy="#{infoF.fecha}" filterBy="#{infoF.fecha}" 
-                                          filterMatchMode="contains" width="40" id="flujoFecha" filterStyle="display: none; visibility: hidden;"   >                                  
+                                          filterMatchMode="contains" width="40" id="flujoFecha" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoF.fecha}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{infoF.fecha}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
@@ -406,22 +406,22 @@
 
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 340px;left: 360px;height: 125px;width: 485px; border-radius: 10px; text-align: left">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['detalles']}</strong></legend>
+                        <fieldset style="position: absolute; top: 340px; left: 360px; height: 125px; width: 485px; border-radius: 10px; text-align: left;">
+                            <legend style="color: blue;text-align:left;"><strong>#{msg['detalles']}</strong></legend>
 
                             <p:dataTable id="datosDetalle" var="infoD" rowKey="#{infoD.secuencia}" rowIndexVar="indiceD" style=" border: 1px; text-align: left;"                           
                                          value="#{controlATAprobacionHE.listaDetalles}" scrollable="true" scrollHeight="#{controlATAprobacionHE.altoTablaDetalle}" 
                                          filteredValue="#{controlATAprobacionHE.filtrarListaDetalles}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
                                          selection="#{controlATAprobacionHE.detalleSeleccionado}" selectionMode="single"
-                                         >
+                                     >
                                 <p:ajax event="filter" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
 
 
                                 <p:column headerText="#{msg['concepto']}"  sortBy="#{infoD.concepto.descripcion}" filterBy="#{infoD.concepto.descripcion}" 
-                                          filterMatchMode="contains" id="detalleConcepto" width="60" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="detalleConcepto" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoD.concepto.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{infoD.concepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoD.concepto.descripcion}" readonly="true" id="editarConceptoDetalle" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionDetalle([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);"/> 
@@ -430,11 +430,11 @@
                                 </p:column> 
 
                                 <p:column headerText="#{msg['fecha']}"   sortBy="#{infoD.fecha}" filterBy="#{infoD.fecha}" 
-                                          filterMatchMode="contains" width="40" id="detalleFecha" filterStyle="display: none; visibility: hidden;"   >                                  
+                                          filterMatchMode="contains" width="40" id="detalleFecha" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoD.fecha}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{infoD.fecha}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
@@ -446,9 +446,9 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['observaciones']}"  sortBy="#{infoD.observaciones}" filterBy="#{infoD.observaciones}" 
-                                          filterMatchMode="contains" id="detalleObservaciones" width="60" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="detalleObservaciones" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoD.observaciones}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{infoD.observaciones}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoD.observaciones}" readonly="true" id="editarObservacionDetalle" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionDetalle([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"/> 
@@ -464,25 +464,25 @@
 
 
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();"  process="@this" disabled="#{controlATAprobacionHE.guardado}"/>
-                        <p:commandButton style="position: absolute; left: 775px; top: 480px;  " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATAprobacionHE.salir()}" action="#{controlATAprobacionHE.redirigir()}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px; " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();"  process="@this" disabled="#{controlATAprobacionHE.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 775px; top: 480px; " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATAprobacionHE.salir()}" process="@this"/>
 
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATAprobacionHE.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATAprobacionHE.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATAprobacionHE.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATAprobacionHE.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATAprobacionHE.guardarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATAprobacionHE.cancelarSalir()}" action="#{controlATAprobacionHE.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATAprobacionHE.guardarSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATAprobacionHE.cancelarSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
 
@@ -493,49 +493,49 @@
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'ataprobacionhe')}" style="position: absolute; top: 63px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('ataprobacionhe','rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('EersCabeceras', 'ataprobacionhe')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('ataprobacionhe','rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'rastroATAprocacionHE')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATAprobacionHE.backUpSecRegistro, 'EersCabeceras', 'ataprobacionhe')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('ataprobacionhe','rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
 
@@ -548,32 +548,32 @@
                 <h:form id="formEstructura">
 
                     <p:dialog header="#{msg['estructuraM']}" widgetVar="EstructuraDialogo" draggable="true" resizable="false" closable="false" id="EstructuraDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="460" modal="true">
                         <p:dataTable id="lovEstructura" liveScroll="true" scrollRows="25" style="width: 430px;" var="estructuraA" value="#{controlATAprobacionHE.lovEstructuras}" rowKey="#{estructuraA.secuencia}"
                                      selection="#{controlATAprobacionHE.estructuraSeleccionada}" selectionMode="single" widgetVar="lovEstructura" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlATAprobacionHE.filtrarLovEstructuras}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATAprobacionHE.activarAceptar()}" update=":formEstructura:aceptarEA"/>
-                            <p:ajax event="rowDblselect" listener="#{controlATAprobacionHE.actualizarEstructura()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlATAprobacionHE.actualizarEstructura()}" process="@this"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEA']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEstructura').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEstructura').filter();" style="width:150px; position: relative; left: 30px;"/>  
                             </f:facet>
                             <p:column filterBy="#{estructuraA.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{estructuraA.codigo}" />
+                                <h:outputText  value="#{estructuraA.codigo}"/>
                             </p:column>
                             <p:column filterBy="#{estructuraA.nombre}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombre']}" />
+                                    <h:outputText value="#{msg['nombre']}"/>
                                 </f:facet>
-                                <h:outputText value="#{estructuraA.nombre}" />
+                                <h:outputText value="#{estructuraA.nombre}"/>
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEstructura" value="#{controlATAprobacionHE.infoRegistroEstructura}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEstructura" value="#{controlATAprobacionHE.infoRegistroEstructura}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarEA" style="position: relative; left: 265px;" value="#{msg['aceptar']}" disabled="#{controlATAprobacionHE.aceptar}" actionListener="#{controlATAprobacionHE.actualizarEstructura()}" process="@this" icon="ui-icon-check"/>
                         
@@ -585,32 +585,32 @@
                 <h:form id="formEmpleado">
 
                     <p:dialog header="#{msg['empleadoM']}" widgetVar="EmpleadoDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="460" modal="true">
                         <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="25" style=" width: 430px;" var="empleados" value="#{controlATAprobacionHE.lovEmpleados}" rowKey="#{empleados.secuencia}"
                                      selection="#{controlATAprobacionHE.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleado" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlATAprobacionHE.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlATAprobacionHE.activarAceptar()}" update=":formEmpleado:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlATAprobacionHE.actualizarEmpleado()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlATAprobacionHE.actualizarEmpleado()}" process="@this"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empleados.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{empleados.codigoempleado}" />
+                                <h:outputText  value="#{empleados.codigoempleado}"/>
                             </p:column>
                             <p:column filterBy="#{empleados.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEmpleado']}" />
+                                    <h:outputText value="#{msg['nombreEmpleado']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleados.persona.nombreCompleto}" />
+                                <h:outputText value="#{empleados.persona.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEmpleado" value="#{controlATAprobacionHE.infoRegistroEmpleado}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEmpleado" value="#{controlATAprobacionHE.infoRegistroEmpleado}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarE" style="position: relative; left: 265px;" value="#{msg['aceptar']}" disabled="#{controlATAprobacionHE.aceptar}" actionListener="#{controlATAprobacionHE.actualizarEmpleado()}" process="@this" icon="ui-icon-check"/>
                         
@@ -619,41 +619,41 @@
 
                 </h:form>
 
-                <h:form id="formularioDialogos" >
+                <h:form id="formularioDialogos">
 
-                    <p:dialog id="editarCabeceraAprobado" header="#{msg['editarCabeceraAprobado']}" widgetVar="editarCabeceraAprobado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraAprobado" header="#{msg['editarCabeceraAprobado']}" widgetVar="editarCabeceraAprobado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.aprobado}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraSiguiente" header="#{msg['editarCabeceraSiguiente']}" widgetVar="editarCabeceraSiguiente" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraSiguiente" header="#{msg['editarCabeceraSiguiente']}" widgetVar="editarCabeceraSiguiente" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.estructuraaprueba.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraNumDocumento" header="#{msg['editarCabeceraNumDocumento']}" widgetVar="editarCabeceraNumDocumento" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraNumDocumento" header="#{msg['editarCabeceraNumDocumento']}" widgetVar="editarCabeceraNumDocumento" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.empleado.persona.strNumeroDocumento}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmplNombre" header="#{msg['editarEmplNombre']}" widgetVar="editarEmplNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarEmplNombre" header="#{msg['editarEmplNombre']}" widgetVar="editarEmplNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraHoras" header="#{msg['editarCabeceraHoras']}" widgetVar="editarCabeceraHoras" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraHoras" header="#{msg['editarCabeceraHoras']}" widgetVar="editarCabeceraHoras" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.horas}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraMinuto" header="#{msg['editarCabeceraMinuto']}" widgetVar="editarCabeceraMinuto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraMinuto" header="#{msg['editarCabeceraMinuto']}" widgetVar="editarCabeceraMinuto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.minutos}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraNovedad" header="#{msg['editarCabeceraNovedad']}" widgetVar="editarCabeceraNovedad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraNovedad" header="#{msg['editarCabeceraNovedad']}" widgetVar="editarCabeceraNovedad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.tipoeer}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraEstado" header="#{msg['editarCabeceraEstado']}" widgetVar="editarCabeceraEstado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraEstado" header="#{msg['editarCabeceraEstado']}" widgetVar="editarCabeceraEstado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.estado}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraPaso" header="#{msg['editarCabeceraPaso']}" widgetVar="editarCabeceraPaso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraPaso" header="#{msg['editarCabeceraPaso']}" widgetVar="editarCabeceraPaso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.eerestado.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -663,14 +663,14 @@
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCabeceraObservacion" header="#{msg['editarCabeceraObservacion']}" widgetVar="editarCabeceraObservacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCabeceraObservacion" header="#{msg['editarCabeceraObservacion']}" widgetVar="editarCabeceraObservacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.comentario}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 
                     <!-- FLUJOS  -->
 
-                    <p:dialog id="editarFlujoProceso" header="#{msg['editarFlujoProceso']}" widgetVar="editarFlujoProceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFlujoProceso" header="#{msg['editarFlujoProceso']}" widgetVar="editarFlujoProceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -682,7 +682,7 @@
                     
                     <!-- DETALLES  -->
 
-                    <p:dialog id="editarDetalleConcepto" header="#{msg['editarDetalleConcepto']}" widgetVar="editarDetalleConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDetalleConcepto" header="#{msg['editarDetalleConcepto']}" widgetVar="editarDetalleConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -692,7 +692,7 @@
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarDetalleObservacion" header="#{msg['editarDetalleObservacion']}" widgetVar="editarDetalleObservacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDetalleObservacion" header="#{msg['editarDetalleObservacion']}" widgetVar="editarDetalleObservacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlATAprobacionHE.editarFlujo.eerestado.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -700,7 +700,7 @@
 
                     <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>
 
                 </h:form>
@@ -710,63 +710,63 @@
 
                         <p:column headerText="#{msg['aprobadoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['aprobadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.aprobado}" />
+                            <h:outputText value="#{infoExp_C.aprobado}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['siguienteAproXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['siguienteAproX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.estructuraaprueba.nombre}" />
+                            <h:outputText value="#{infoExp_C.estructuraaprueba.nombre}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['numeroDocumentoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['numeroDocumentoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.empleado.persona.strNumeroDocumento}" />
+                            <h:outputText value="#{infoExp_C.empleado.persona.strNumeroDocumento}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.empleado.persona.nombreCompleto}" />
+                            <h:outputText value="#{infoExp_C.empleado.persona.nombreCompleto}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['horasX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['horasX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.horas}" />
+                            <h:outputText value="#{infoExp_C.horas}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['minutosX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['minutosX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.minutos}" />
+                            <h:outputText value="#{infoExp_C.minutos}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['novedadX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['novedadX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.tipoeer}" />
+                            <h:outputText value="#{infoExp_C.tipoeer}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['estadoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['estadoX']}"/></f:facet> 
-                            <h:outputText value="#{infoExp_C.estado}" />
+                            <h:outputText value="#{infoExp_C.estado}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['pasoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['pasoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.eerestado.descripcion}" />
+                            <h:outputText value="#{infoExp_C.eerestado.descripcion}"/>
                         </p:column>
 
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechaPagoXX']}" />
+                                <h:outputText value="#{msg['fechaPagoXX']}"/>
                             </f:facet>
-                            <h:outputText value="#{infoExp_C.fechapago}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp_C.fechapago}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
 
                         <p:column headerText="#{msg['observacionesX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['observacionesX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.comentario}" />
+                            <h:outputText value="#{infoExp_C.comentario}"/>
                         </p:column>
 
 
@@ -777,15 +777,15 @@
 
                         <p:column headerText="#{msg['procesoAutorizadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['procesoAutorizadoXX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_F.eerestado.descripcion}" />
+                            <h:outputText value="#{infoExp_F.eerestado.descripcion}"/>
                         </p:column>
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechaX']}" />
+                                <h:outputText value="#{msg['fechaX']}"/>
                             </f:facet>
-                            <h:outputText value="#{infoExp_F.fecha}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp_F.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
@@ -796,21 +796,21 @@
 
                         <p:column headerText="#{msg['conceptoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_D.concepto.descripcion}" />
+                            <h:outputText value="#{infoExp_D.concepto.descripcion}"/>
                         </p:column>
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechaX']}" />
+                                <h:outputText value="#{msg['fechaX']}"/>
                             </f:facet>
-                            <h:outputText value="#{infoExp_D.fecha}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp_D.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
                         
                         <p:column headerText="#{msg['observacionesX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['observacionesX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_D.observaciones}" />
+                            <h:outputText value="#{infoExp_D.observaciones}"/>
                         </p:column>
 
                     </p:dataTable>

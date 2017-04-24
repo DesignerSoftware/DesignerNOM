@@ -195,15 +195,34 @@ public class ControlJornadasLaborales implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "jornadaslaborales";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "jornadaslaborales";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -213,13 +232,11 @@ public class ControlJornadasLaborales implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
    }
 
    @PostConstruct
@@ -258,11 +275,13 @@ public class ControlJornadasLaborales implements Serializable {
       }
    }
 
+   public void guardarYSalir() {
+      guardarTodo();
+      salir();
+   }
+
    //GUARDAR
    public void guardarTodo() {
-
-      System.out.println("Guardado: " + guardado);
-      System.out.println("Guardar en Primera Tabla: ");
       if (guardado == false) {
          System.out.println("Realizando Operaciones JornadasLaborales");
          if (!listaJornadasLaboralesBorrar.isEmpty()) {
@@ -1844,6 +1863,11 @@ public class ControlJornadasLaborales implements Serializable {
       }
    }
 
+   public void salir() {
+      cancelarModificacion();
+      navegar("atras");
+   }
+
    //CANCELAR MODIFICACIONES
    public void cancelarModificacion() {
       if (bandera == 1) {
@@ -1870,7 +1894,6 @@ public class ControlJornadasLaborales implements Serializable {
          filtradoListaJornadasLaborales = null;
          tipoLista = 0;
       }
-
       if (banderaJS == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          SemanaLaboralDia = (Column) c.getViewRoot().findComponent("form:datosSemanasLaborales:SemanaLaboralDia");

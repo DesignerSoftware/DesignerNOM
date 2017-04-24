@@ -4,476 +4,479 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
+      
       xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.declarante" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                <p:toolbar styleClass="cssToolbar">   
-                            <p:toolbarGroup align="left"> 
-
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlDeclarantes.guardarCambiosDeclarantes()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlDeclarantes.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlDeclarantes.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}"  />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlDeclarantes.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"  />
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlDeclarantes.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"  />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlDeclarantes.limpiarNuevaDeclarantes()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosDeclarantesExportar" fileName="DeclarantesXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"  />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlDeclarantes.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"  />
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroDeclarantes').show()" update=":formularioDialogos:nuevoDeclarante" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"  />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlDeclarantes.borrarDeclarantes()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"  />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlDeclarantes.duplicarDeclarantes()}" process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"  />
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlDeclarantes.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}" />
-                            
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlDeclarantes.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlDeclarantes.salir()}" action="sets" process="@this"/>  
-                                <p:tooltip  for="salir" value="Salir"/>
-                            </p:toolbarGroup>  
-                        </p:toolbar> 
-
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlDeclarantes.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['documento']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlDeclarantes.persona.numerodocumento}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
-                        </fieldset>
-        
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['declarante']}</strong></legend>
-                            <!-- TABLA DECLARANTES -->
-
-                            <p:dataTable id="datosDeclarantes" var="dec" rowIndexVar="indice"  
-                                         style=" border: 1px; text-align: left;"  rowKey="#{dec.secuencia}"                    
-                                         value="#{controlDeclarantes.listaDeclarantes}"  scrollable="true" scrollHeight="#{controlDeclarantes.altoScrollDeclarantes}" 
-                                         filteredValue="#{controlDeclarantes.filtradoListaDeclarantes}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" 
-                                         selection="#{controlDeclarantes.declaranteSeleccionado}" selectionMode="single">
-
-                                <p:ajax event="filter" listener="#{controlDeclarantes.eventoFiltrar()}"/>
-
-                               <p:column headerText="#{msg['fechainicial']}"  sortBy="#{dec.fechainicial}" filterBy="#{dec.fechainicial}" filterMatchMode="contains"  width="72" id="declarantesFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{dec.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{dec.fechainicial}"> 
-                                                <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(dec,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(dec,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec,0)}" process="@this"/> 
-                                            </p:calendar>
-
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=""  />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['fechafinal']}"  sortBy="#{dec.fechafinal}" filterBy="#{dec.fechafinal}" filterMatchMode="contains"  width="72" id="declarantesFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{dec.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{dec.fechafinal}"> 
-                                                <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(dec,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(dec,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec,1)}" process="@this"/> 
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=""  />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="..." style="width:12px;" sortBy="#{dec.declarante}" filterBy="#{dec.declarante}" filterMatchMode="contains" id="declarantesBooleano" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header">
-                                        <h:outputText id="headerDeclarante" value="..." />
-                                        <p:tooltip  for="headerDeclarante" value="#{msg['declaranteSN']}"  />
-                                    </f:facet>  
-
-                                    <p:selectBooleanCheckbox value="#{dec.estadoDeclarante}" style="height :12px; position: relative;top: -3px">  
-                                        <p:ajax event="change" listener="#{controlDeclarantes.modificarDeclarantes(dec, 'N', dec.estadoDeclarante)}" update="@this"/>  
-                                    </p:selectBooleanCheckbox> 
-
-                                </p:column>
-
-                                <p:column headerText="#{msg['deseado']}"   sortBy="#{dec.retenciondeseada}" filterBy="#{dec.retenciondeseada}" filterMatchMode="contains" id="declarantesPromedio" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{dec.retenciondeseada}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{dec.retenciondeseada}" id="editarRetencionDeseada" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec, 2)}" />
-                                                <p:ajax event="change" listener="#{controlDeclarantes.modificarDeclarantes(dec, 'N', dec.retenciondeseada)}" update="@this" />
-                                            </p:inputText> 
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=""  />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['tarifadeseo']}" sortBy="#{dec.retencionminima.retencion}" filterBy="#{dec.retencionminima.retencion}" filterMatchMode="contains" id="declarantesTarifa" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{dec.retencionminima.retencion}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{dec.retencionminima.retencion}" id="editarTarifaDeseo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec, 3)}" />
-                                                <p:ajax event="change" update="editarTarifaDeseo" listener="#{controlDeclarantes.modificarDeclarantes(dec,'MINIMA',dec.retencionminima.retencion)}" process="@this"/>
-                                                <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec,0,0)}" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=""  />
-                                    </f:facet>
-                                </p:column>
-
-                            </p:dataTable>
-                            <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlDeclarantes.infoRegistro}" style="position: relative; top: 1px; font-weight: bold"/>
-                        </fieldset>
-
-                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  disabled="#{controlDeclarantes.cambiosPagina}" onclick="PF('confirmarGuardar').show();" update=":form:datosDeclarantes" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlDeclarantes.salir()}" action="sets" process="@this" />
-
-                    </p:panel>
-                </h:form>
-
-                <h:form id="formularioDialogos">
-
-                    <!--HotKey-->
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlDeclarantes.activarCtrlF11()}" process="@this"/> 
-
-                    <!-- DIALOGOS EDITAR -->
-                    <p:dialog id="editarFechaInicial" header="#{msg['editarFechaInicial']}"  widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.fechainicial}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaFinal" header="#{msg['editarFechaFinal']}"  widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.fechafinal}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarDeseado" header="#{msg['editarDeseado']}"  widgetVar="editarDeseado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.retenciondeseada}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarMinima" header="#{msg['editarMinima']}"  widgetVar="editarMinima" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
-                        <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.retencionminima.retencion}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeclarantes.guardarCambiosDeclarantes()}" action="sets" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeclarantes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <!-- Nuevo Registro -->
-
-                    <p:dialog id="NuevoRegistroDeclarantes" header="#{msg['nuevoregistro']}"   widgetVar="NuevoRegistroDeclarantes" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="360" style=" padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="nuevoDeclarante" style="border: none;">
-
-                                <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 50px; left: 19px" /></strong>
-                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" style="; position: absolute; top: 50px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}" >
-                                        <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
-                                        <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
-                                    </p:calendar>
-
-                               <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 80px; left: 19px;" /></strong>
-                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" style=" position: absolute; top: 80px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}" >
-                                        <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
-                                        <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
-                                    </p:calendar>
-                               
-                                <strong><h:outputText value="#{msg['declaranteN']}"   style=" position: absolute; top: 110px;" /></strong>
-                                <p:selectBooleanCheckbox id="nuevoDeclaranteBooleano" style="position: absolute; top: 110px; left: 152px;" value="#{controlDeclarantes.nuevoDeclarante.estadoDeclarante}">
-                                    <p:ajax event="change" update="nuevoDeclaranteBooleano"/>
-                                </p:selectBooleanCheckbox>
-
-                                <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 140px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoDeseado" value="#{controlDeclarantes.nuevoDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="change" update="nuevoDeseado"/>
-                                </p:inputText>
-
-                                <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 175px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoTarifaDeseo" value="#{controlDeclarantes.nuevoDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
-                                    <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.nuevoDeclarante.retencionminima.retencion, 1)}" />
-                                    <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec, 0, 1)}" />
-                                </p:inputText>
-                                <p:commandButton style="position: absolute; left: 290px; top: 177px; " id="btnNuevaMinima" value=" " class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDeclarantes.asignarIndex(dec, 0, 1)}"/>   
-
-                                <p:commandButton id="limpiarD" value="#{msg['limpiar']}"  icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 240px;" actionListener="#{controlDeclarantes.limpiarNuevaDeclarantes()}" update="nuevoDeclarante" process="@this"/>
-                                <p:commandButton id="agregarD" value="#{msg['agregar']}"  icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 240px;"  process="@this" actionListener="#{controlDeclarantes.agregarNuevoDeclarante()}"/>
-                                <p:commandButton id="cancelarD" value="#{msg['cancelar']}"  icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;" actionListener="#{controlDeclarantes.limpiarNuevaDeclarantes()}" update="nuevoDeclarante" onclick="PF('NuevoRegistroDeclarantes').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <!-- DUPLICAR Registro -->
-
-                    <p:dialog id="DuplicarRegistroDeclarantes" header="#{msg['duplicarregistro']}"   widgetVar="DuplicarRegistroDeclarantes" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="360" style=" padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarDeclarante" style="border: none;">
-
-
-                                <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 50px; left: 19px" /></strong>
-                                    <p:calendar  autocomplete="off" style=" position: absolute; top: 50px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}" >
-                                        <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
-                                        <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
-                                    </p:calendar>
-
-                                <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 80px; left: 19px" /></strong>
-                                    <p:calendar  autocomplete="off" style=" position: absolute; top: 80px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}" >
-                                        <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
-                                        <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
-                                    </p:calendar>
-
-                                <strong><h:outputText value="#{msg['declaranteN']}"   style=" position: absolute; top: 110px;" /></strong>
-                                <p:selectBooleanCheckbox id="duplicarDeclaranteBooleano" style="position: absolute; top: 110px; left: 152px;" value="#{controlDeclarantes.duplicarDeclarante.estadoDeclarante}">
-                                    <p:ajax event="change" update="duplicarDeclaranteBooleano"/>
-                                </p:selectBooleanCheckbox>
-
-                                <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 140px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarDeseado" value="#{controlDeclarantes.duplicarDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="change" update="duplicarDeseado"/>
-                                </p:inputText>
-
-                                <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 175px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarTarifaDeseo" value="#{controlDeclarantes.duplicarDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
-                                    <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.duplicarDeclarante.retencionminima.retencion, 2)}" />
-                                    <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec, 0, 2)}" />
-                                </p:inputText>
-                                <p:commandButton style="position: absolute; left: 290px; top: 177px; " id="btnDuplicarMinima" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDeclarantes.asignarIndex(dec, 0, 2)}"/>   
-
-                                <p:commandButton id="limpiarDD" value="#{msg['limpiar']}"  icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 240px;" actionListener="#{controlDeclarantes.limpiarDuplicarDeclarantes()}" update="duplicarDeclarante" process="@this"/>
-                                <p:commandButton id="agregarDD" value="#{msg['agregar']}"  icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 240px;"  process="@this" actionListener="#{controlDeclarantes.confirmarDuplicar()}"/>
-                                <p:commandButton id="cancelarDD" value="#{msg['cancelar']}"  icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;" actionListener="#{controlDeclarantes.limpiarDuplicarDeclarantes()}" update="duplicarDeclarante" onclick="PF('DuplicarRegistroDeclarantes').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="validacionNuevoDeclarante" header="#{msg['atencion']}" widgetVar="validacionNuevoDeclarante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionNuevo']} " style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevoDeclarante').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="fechas" header="#{msg['atencion']}" widgetVar="fechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['fechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('fechas').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="fechasTraslapadas" header="#{msg['atencion']}" widgetVar="fechasTraslapadas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['traslapamiento']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('fechasTraslapadas').hide();" icon="ui-icon-check" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <!-- DIALOGOS RASTROS -->
-
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDeclarantes.declaranteSeleccionado.secuencia, 'Declarantes', 'declarantes')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Declarantes', 'declarantes')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDeclarantes.declaranteSeleccionado.secuencia, 'Declarantes', 'declarantes')}" style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <!-- DIALOGO L.O.V RETENCIONES MINIMAS-->
-                    <p:dialog header="#{msg['retencionesR']}"  widgetVar="minimasDialogo" draggable="true" resizable="false" closable="false" id="minimasDialogo"  
-                              showEffect="fade" hideEffect="fade" width="470" modal="true" >
-                        <p:dataTable id="LOVMinimas" style=" width: 430px;" var="m" rowKey="#{m.id}"  value="#{controlDeclarantes.lovlistaRetenciones}" 
-                                     selection="#{controlDeclarantes.retencionesSeleccionado}" selectionMode="single" widgetVar="LOVMinimas" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                     filteredValue="#{controlDeclarantes.lovfiltradoslistaRetenciones}" emptyMessage="#{msg['lovvacio']}">              
-                            
-                            <p:ajax event="rowSelect" listener="#{controlDeclarantes.activarAceptar()}" update=":formularioDialogos:aceptarM"/>
-                            <p:ajax event="rowDblselect" listener="#{controlDeclarantes.actualizarRetenciones()}" process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarR']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVMinimas').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column sortBy="#{m.retencion}" filterBy="#{m.retencion}" width="70" filterStyle="width: 80% !important" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['retencionR']}" />
-                                </f:facet>
-                                <h:outputText value="#{m.retencion}" />  
-                            </p:column>
-
-                            <p:column width="70" filterStyle="width: 80% !important" filterBy="#{m.vigencia}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['vigenciaR']}" />
-                                </f:facet> 
-                                <h:outputText value="#{m.vigencia}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
-                            </p:column>
-
-                            <p:column sortBy="#{m.equivalencia}" filterBy="#{m.equivalencia}" filterStyle="width: 80% !important" width="100" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['equivalenciaR']}" />
-                                </f:facet>
-                                <h:outputText value="#{m.equivalencia}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{m.ingresos}" filterBy="#{m.ingresos}" filterStyle="width: 80% !important" width="100" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['ingresoR']}" />
-                                </f:facet>
-                                <h:outputText value="#{m.ingresos}" />  
-                            </p:column>
-                        </p:dataTable>
-                        <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroLov" value="#{msg['infoRegistro']} #{controlDeclarantes.infoRegistroLov}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarM" value="#{msg['aceptar']}" disabled="#{controlDeclarantes.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlDeclarantes.actualizarRetenciones()}" process="@this"/>
-                        <p:commandButton id="atrasM" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlDeclarantes.cancelarCambioDeclarantes()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-                </h:form>
-
-                <h:form id="formExportar">
-                    <p:dataTable id="datosDeclarantesExportar" var="d" style="visibility: hidden; display: none;"                           
-                                 value="#{controlDeclarantes.listaDeclarantes}"> 
-
-                        <p:column headerText="#{msg['fechainicialXX']}">  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechainicialX']}" />
-                            </f:facet>
-                            <h:outputText value="#{d.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <f:loadBundle basename="Recursos.declarante" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+                  <p:toolbar styleClass="cssToolbar">   
+                     <p:toolbarGroup align="left;"> 
+
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlDeclarantes.guardarCambiosDeclarantes()}" process="@this"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlDeclarantes.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlDeclarantes.listaValoresBoton()}" process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"  />
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlDeclarantes.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"  />
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlDeclarantes.exportXLS()}"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"  />
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlDeclarantes.limpiarNuevaDeclarantes()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosDeclarantesExportar" fileName="DeclarantesXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"  />
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlDeclarantes.exportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"  />
+
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroDeclarantes').show()" update=":formularioDialogos:nuevoDeclarante" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"  />
+
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlDeclarantes.borrarDeclarantes()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"  />
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlDeclarantes.duplicarDeclarantes()}" process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"  />
+
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlDeclarantes.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlDeclarantes.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlDeclarantes.salir()}" process="@this"/>  
+                                         <p:tooltip  for="salir" value="Salir"/>
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText id="nombreEmpleado" value="#{controlDeclarantes.persona.nombreCompleto}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                     <h:outputText value="#{msg['documento']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
+                     <h:outputText id="docEmpleado" value="#{controlDeclarantes.persona.numerodocumento}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
+                  </fieldset>
+
+                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="font-size: 14px; color: blue"><strong>#{msg['declarante']}</strong></legend>
+                     <!-- TABLA DECLARANTES -->
+
+                     <p:dataTable id="datosDeclarantes" var="dec" rowIndexVar="indice"  
+                                  style=" border: 1px; text-align: left;"  rowKey="#{dec.secuencia}"                    
+                                  value="#{controlDeclarantes.listaDeclarantes}"  scrollable="true" scrollHeight="#{controlDeclarantes.altoScrollDeclarantes}" 
+                                  filteredValue="#{controlDeclarantes.filtradoListaDeclarantes}" emptyMessage="#{msg['vacio']}"
+                                  editable="true" editMode="cell" 
+                                  selection="#{controlDeclarantes.declaranteSeleccionado}" selectionMode="single">
+
+                        <p:ajax event="filter" listener="#{controlDeclarantes.eventoFiltrar()}"/>
+
+                        <p:column headerText="#{msg['fechainicial']}"  sortBy="#{dec.fechainicial}" filterBy="#{dec.fechainicial}" filterMatchMode="contains"  width="72" id="declarantesFechaInicial" filterStyle="display: none; visibility: hidden;">  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{dec.fechainicial}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{dec.fechainicial}"> 
+                                    <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(dec,0)}" update="dateFechaInicial" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(dec,0)}" update="dateFechaInicial" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec,0)}" process="@this"/> 
+                                 </p:calendar>
+
+                              </f:facet>   
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""  />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['fechafinalXX']}">  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechafinalX']}" />
-                            </f:facet>
-                            <h:outputText value="#{d.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:column headerText="#{msg['fechafinal']}"  sortBy="#{dec.fechafinal}" filterBy="#{dec.fechafinal}" filterMatchMode="contains"  width="72" id="declarantesFechaFinal" filterStyle="display: none; visibility: hidden;">  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{dec.fechafinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{dec.fechafinal}"> 
+                                    <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(dec,1)}" update="dateFechaFinal" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(dec,1)}" update="dateFechaFinal" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec,1)}" process="@this"/> 
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""  />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['declaranteX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['declaranteX']}"/></f:facet>
-                            <h:outputText value="#{d.declarante}" />
+                        <p:column headerText="..." style="width:12px;" sortBy="#{dec.declarante}" filterBy="#{dec.declarante}" filterMatchMode="contains" id="declarantesBooleano" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="headerDeclarante" value="..."/>
+                              <p:tooltip  for="headerDeclarante" value="#{msg['declaranteSN']}"  />
+                           </f:facet>  
+
+                           <p:selectBooleanCheckbox value="#{dec.estadoDeclarante}" style="height :12px; position: relative; top: -3px">  
+                              <p:ajax event="change" listener="#{controlDeclarantes.modificarDeclarantes(dec, 'N', dec.estadoDeclarante)}" update="@this"/>  
+                           </p:selectBooleanCheckbox> 
+
                         </p:column>
 
-                        <p:column headerText="#{msg['deseadoXX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['deseadoX']}"/></f:facet>
-                            <h:outputText value="#{d.retenciondeseada}" />
+                        <p:column headerText="#{msg['deseado']}"   sortBy="#{dec.retenciondeseada}" filterBy="#{dec.retenciondeseada}" filterMatchMode="contains" id="declarantesPromedio" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{dec.retenciondeseada}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{dec.retenciondeseada}" id="editarRetencionDeseada" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                    <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec, 2)}"/>
+                                    <p:ajax event="change" listener="#{controlDeclarantes.modificarDeclarantes(dec, 'N', dec.retenciondeseada)}" update="@this"/>
+                                 </p:inputText> 
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""  />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['tarifadeseoXX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['tarifadeseoX']}"/></f:facet>
-                            <h:outputText value="#{d.retencionminima.retencion}" />
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
+                        <p:column headerText="#{msg['tarifadeseo']}" sortBy="#{dec.retencionminima.retencion}" filterBy="#{dec.retencionminima.retencion}" filterMatchMode="contains" id="declarantesTarifa" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{dec.retencionminima.retencion}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{dec.retencionminima.retencion}" id="editarTarifaDeseo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;height: 12px"> 
+                                    <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec, 3)}"/>
+                                    <p:ajax event="change" update="editarTarifaDeseo" listener="#{controlDeclarantes.modificarDeclarantes(dec,'MINIMA',dec.retencionminima.retencion)}" process="@this"/>
+                                    <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec,0,0)}" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
 
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                           <f:facet name="footer">
+                              <h:outputText value=""  />
+                           </f:facet>
+                        </p:column>
+
+                     </p:dataTable>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlDeclarantes.infoRegistro}" style="position: relative; top: 1px; font-weight: bold;"/>
+                  </fieldset>
+
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  disabled="#{controlDeclarantes.cambiosPagina}" onclick="PF('confirmarGuardar').show();" update=":form:datosDeclarantes" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlDeclarantes.salir()}" process="@this"/>
+
+               </p:panel>
+            </h:form>
+
+            <h:form id="formularioDialogos">
+
+               <!--HotKey-->
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlDeclarantes.activarCtrlF11()}" process="@this"/> 
+
+               <!-- DIALOGOS EDITAR -->
+               <p:dialog id="editarFechaInicial" header="#{msg['editarFechaInicial']}"  widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.fechainicial}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechaFinal" header="#{msg['editarFechaFinal']}"  widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.fechafinal}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarDeseado" header="#{msg['editarDeseado']}"  widgetVar="editarDeseado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.retenciondeseada}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarMinima" header="#{msg['editarMinima']}"  widgetVar="editarMinima" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlDeclarantes.editarDeclarantes.retencionminima.retencion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeclarantes.guardarYSalir()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeclarantes.cancelarYSalir()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
+
+               <!-- Nuevo Registro -->
+
+               <p:dialog id="NuevoRegistroDeclarantes" header="#{msg['nuevoregistro']}"   widgetVar="NuevoRegistroDeclarantes" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="360" style=" padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                  <p:panel id="nuevoDeclarante" style="border: none;">
+
+                     <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 50px; left: 19px"/></strong>
+                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" style="; position: absolute; top: 50px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}">
+                        <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
+                        <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
+                     </p:calendar>
+
+                     <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 80px; left: 19px;"/></strong>
+                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" style=" position: absolute; top: 80px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}">
+                        <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
+                        <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
+                     </p:calendar>
+
+                     <strong><h:outputText value="#{msg['declaranteN']}"   style=" position: absolute; top: 110px;"/></strong>
+                     <p:selectBooleanCheckbox id="nuevoDeclaranteBooleano" style="position: absolute; top: 110px; left: 152px;" value="#{controlDeclarantes.nuevoDeclarante.estadoDeclarante}">
+                        <p:ajax event="change" update="nuevoDeclaranteBooleano"/>
+                     </p:selectBooleanCheckbox>
+
+                     <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 140px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoDeseado" value="#{controlDeclarantes.nuevoDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase;" onclick="select();">
+                        <p:ajax event="change" update="nuevoDeseado"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 175px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoTarifaDeseo" value="#{controlDeclarantes.nuevoDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                        <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.nuevoDeclarante.retencionminima.retencion, 1)}"/>
+                        <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec, 0, 1)}"/>
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 290px; top: 177px; " id="btnNuevaMinima" value=" " class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDeclarantes.asignarIndex(dec, 0, 1)}"/>   
+
+                     <p:commandButton id="limpiarD" value="#{msg['limpiar']}"  icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 240px;" actionListener="#{controlDeclarantes.limpiarNuevaDeclarantes()}" update="nuevoDeclarante" process="@this"/>
+                     <p:commandButton id="agregarD" value="#{msg['agregar']}"  icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 240px;"  process="@this" actionListener="#{controlDeclarantes.agregarNuevoDeclarante()}"/>
+                     <p:commandButton id="cancelarD" value="#{msg['cancelar']}"  icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;" actionListener="#{controlDeclarantes.limpiarNuevaDeclarantes()}" update="nuevoDeclarante" onclick="PF('NuevoRegistroDeclarantes').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <!-- DUPLICAR Registro -->
+
+               <p:dialog id="DuplicarRegistroDeclarantes" header="#{msg['duplicarregistro']}"   widgetVar="DuplicarRegistroDeclarantes" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="360" style=" padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                  <p:panel id="duplicarDeclarante" style="border: none;">
+
+
+                     <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 50px; left: 19px"/></strong>
+                     <p:calendar  autocomplete="off" style=" position: absolute; top: 50px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}">
+                        <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
+                        <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
+                     </p:calendar>
+
+                     <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 80px; left: 19px"/></strong>
+                     <p:calendar  autocomplete="off" style=" position: absolute; top: 80px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}">
+                        <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
+                        <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
+                     </p:calendar>
+
+                     <strong><h:outputText value="#{msg['declaranteN']}"   style=" position: absolute; top: 110px;"/></strong>
+                     <p:selectBooleanCheckbox id="duplicarDeclaranteBooleano" style="position: absolute; top: 110px; left: 152px;" value="#{controlDeclarantes.duplicarDeclarante.estadoDeclarante}">
+                        <p:ajax event="change" update="duplicarDeclaranteBooleano"/>
+                     </p:selectBooleanCheckbox>
+
+                     <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 140px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarDeseado" value="#{controlDeclarantes.duplicarDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase;" onclick="select();">
+                        <p:ajax event="change" update="duplicarDeseado"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 175px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarTarifaDeseo" value="#{controlDeclarantes.duplicarDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                        <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.duplicarDeclarante.retencionminima.retencion, 2)}"/>
+                        <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec, 0, 2)}"/>
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 290px; top: 177px; " id="btnDuplicarMinima" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDeclarantes.asignarIndex(dec, 0, 2)}"/>   
+
+                     <p:commandButton id="limpiarDD" value="#{msg['limpiar']}"  icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 240px;" actionListener="#{controlDeclarantes.limpiarDuplicarDeclarantes()}" update="duplicarDeclarante" process="@this"/>
+                     <p:commandButton id="agregarDD" value="#{msg['agregar']}"  icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 240px;"  process="@this" actionListener="#{controlDeclarantes.confirmarDuplicar()}"/>
+                     <p:commandButton id="cancelarDD" value="#{msg['cancelar']}"  icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;" actionListener="#{controlDeclarantes.limpiarDuplicarDeclarantes()}" update="duplicarDeclarante" onclick="PF('DuplicarRegistroDeclarantes').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="validacionNuevoDeclarante" header="#{msg['atencion']}" widgetVar="validacionNuevoDeclarante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['validacionNuevo']} " style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevoDeclarante').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="fechas" header="#{msg['atencion']}" widgetVar="fechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['fechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('fechas').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="fechasTraslapadas" header="#{msg['atencion']}" widgetVar="fechasTraslapadas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['traslapamiento']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('fechasTraslapadas').hide();" icon="ui-icon-check" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <!-- DIALOGOS RASTROS -->
+
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDeclarantes.declaranteSeleccionado.secuencia, 'Declarantes', 'declarante')}"
+                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('declarante','rastrotabla')}" process="@this"/>
+                                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Declarantes', 'declarante')}"
+                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('declarante','rastrotabla')}" process="@this"/>
+                                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDeclarantes.declaranteSeleccionado.secuencia, 'Declarantes', 'declarante')}"
+                                   style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('declarante','rastrotabla')}" process="@this"/>
+                                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <!-- DIALOGO L.O.V RETENCIONES MINIMAS-->
+               <p:dialog header="#{msg['retencionesR']}"  widgetVar="minimasDialogo" draggable="true" resizable="false" closable="false" id="minimasDialogo"  
+                         showEffect="fade" hideEffect="fade" width="470" modal="true">
+                  <p:dataTable id="LOVMinimas" style=" width: 430px;" var="m" rowKey="#{m.id}"  value="#{controlDeclarantes.lovlistaRetenciones}" 
+                               selection="#{controlDeclarantes.retencionesSeleccionado}" selectionMode="single" widgetVar="LOVMinimas" scrollable="true" scrollWidth="445" scrollHeight="250"
+                               filteredValue="#{controlDeclarantes.lovfiltradoslistaRetenciones}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlDeclarantes.activarAceptar()}" update=":formularioDialogos:aceptarM"/>
+                     <p:ajax event="rowDblselect" listener="#{controlDeclarantes.actualizarRetenciones()}" process="@this"/>
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarR']}"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVMinimas').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+
+                     <p:column sortBy="#{m.retencion}" filterBy="#{m.retencion}" width="70" filterStyle="width: 80% !important" filterMatchMode="contains"> 
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['retencionR']}"/>
+                        </f:facet>
+                        <h:outputText value="#{m.retencion}"/>  
+                     </p:column>
+
+                     <p:column width="70" filterStyle="width: 80% !important" filterBy="#{m.vigencia}" filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['vigenciaR']}"/>
+                        </f:facet> 
+                        <h:outputText value="#{m.vigencia}">
+                           <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                     </p:column>
+
+                     <p:column sortBy="#{m.equivalencia}" filterBy="#{m.equivalencia}" filterStyle="width: 80% !important" width="100" filterMatchMode="contains"> 
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['equivalenciaR']}"/>
+                        </f:facet>
+                        <h:outputText value="#{m.equivalencia}"/>  
+                     </p:column>
+
+                     <p:column sortBy="#{m.ingresos}" filterBy="#{m.ingresos}" filterStyle="width: 80% !important" width="100" filterMatchMode="contains"> 
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['ingresoR']}"/>
+                        </f:facet>
+                        <h:outputText value="#{m.ingresos}"/>  
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV"> 
+                     <h:outputText id="infoRegistroLov" value="#{msg['infoRegistro']} #{controlDeclarantes.infoRegistroLov}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarM" value="#{msg['aceptar']}" disabled="#{controlDeclarantes.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlDeclarantes.actualizarRetenciones()}" process="@this"/>
+                     <p:commandButton id="atrasM" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlDeclarantes.cancelarCambioDeclarantes()}" process="@this"/>
+                  </div>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formExportar">
+               <p:dataTable id="datosDeclarantesExportar" var="d" style="visibility: hidden; display: none;"                           
+                            value="#{controlDeclarantes.listaDeclarantes}"> 
+
+                  <p:column headerText="#{msg['fechainicialXX']}">  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechainicialX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{d.fechainicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['fechafinalXX']}">  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechafinalX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{d.fechafinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['declaranteX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['declaranteX']}"/></f:facet>
+                     <h:outputText value="#{d.declarante}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['deseadoXX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['deseadoX']}"/></f:facet>
+                     <h:outputText value="#{d.retenciondeseada}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['tarifadeseoXX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['tarifadeseoX']}"/></f:facet>
+                     <h:outputText value="#{d.retencionminima.retencion}"/>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

@@ -121,15 +121,34 @@ public class ControlCuentasBancos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "cuentasbancos";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "cuentasbancos";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -139,12 +158,11 @@ public class ControlCuentasBancos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -159,10 +177,6 @@ public class ControlCuentasBancos implements Serializable {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
       }
-   }
-
-   public String redirigir() {
-      return paginaAnterior;
    }
 
    public void cambiarIndice(CuentasBancos cuenta, int celda) {
@@ -264,7 +278,8 @@ public class ControlCuentasBancos implements Serializable {
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
@@ -293,7 +308,6 @@ public class ControlCuentasBancos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosCuentasBancos");
          tipoLista = 0;
       }
-
       listaCuentasBancosBorrar.clear();
       listaCuentasBancosCrear.clear();
       listaCuentasBancosModificar.clear();
@@ -301,6 +315,7 @@ public class ControlCuentasBancos implements Serializable {
       k = 0;
       listaCuentasBancos = null;
       guardado = true;
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

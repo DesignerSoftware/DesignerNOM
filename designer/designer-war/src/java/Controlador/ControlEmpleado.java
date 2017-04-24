@@ -109,15 +109,34 @@ public class ControlEmpleado implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "empleado";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "empleado";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -127,12 +146,11 @@ public class ControlEmpleado implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -147,10 +165,6 @@ public class ControlEmpleado implements Serializable {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
       }
-   }
-
-   public String retornarPagina() {
-      return paginaAnterior;
    }
 
    public void cambiarIndice(Empleados empleado, int celda) {
@@ -306,7 +320,8 @@ public class ControlEmpleado implements Serializable {
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          altoTabla = "315";
          codigoEmpl = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpleados:codigoEmpl");
@@ -328,6 +343,7 @@ public class ControlEmpleado implements Serializable {
       empleadoSeleccionado = null;
       guardado = true;
       listaEmpleados = null;
+      navegar("atras");
    }
 
    public void activarAceptar() {

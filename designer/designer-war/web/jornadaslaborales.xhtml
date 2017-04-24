@@ -12,58 +12,58 @@
          <ui:define name="body">
             <h:form id="form">
                <p:growl id="growl" showDetail="true"/>
-               <f:loadBundle basename="Recursos.jornadaslaborales" var="msg" />
+               <f:loadBundle basename="Recursos.jornadaslaborales" var="msg"/>
 
                <p:panel  id="PanelTotal" header="Jornadas Laborales" styleClass="panelTotal">
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
-                                         actionListener="#{controlJornadasLaborales.guardarTodo()}" process="@this" />
-                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                         actionListener="#{controlJornadasLaborales.guardarTodo()}" process="@this"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
                                          actionListener="#{controlJornadasLaborales.editarCelda()}" process="@this"/>
-                        <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlJornadasLaborales.listaValoresBoton()}" process="@this"/>
-                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
                                          actionListener="#{controlJornadasLaborales.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
-                                         ajax="false" actionListener="#{controlJornadasLaborales.exportXLS()}" />
-                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                         ajax="false" actionListener="#{controlJornadasLaborales.exportXLS()}"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
                                          actionListener="#{controlJornadasLaborales.limpiarNuevaJornadaLaboral()}" ajax="false">
                            <p:dataExporter type="xml"  target="#{controlJornadasLaborales.tablaImprimir}" fileName="#{controlJornadasLaborales.nombreArchivo}" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
                                          actionListener="#{controlJornadasLaborales.exportPDF()}" ajax="false"/>
-                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />  
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>  
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('NuevoRegistroPagina').show()" process="@this"/>  
-                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
                                          actionListener="#{controlJornadasLaborales.borrarJornadaLaboral()}" process="@this"/>  
-                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlJornadasLaborales.duplicarJL()}"  process="@this"/>  
-                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
@@ -77,7 +77,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlJornadasLaborales.cancelarModificacion()}" action="VigenciaJornada" process="@this"/>  
+                                         actionListener="#{controlJornadasLaborales.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
@@ -96,10 +96,10 @@
                         <p:ajax event="rowSelect" listener="#{controlJornadasLaborales.cambiarJornadaLaboral()}"/>
 
                         <p:column headerText="#{msg['codigo']}" sortBy="#{JornadasLaborales.codigo}" filterBy="#{JornadasLaborales.codigo}"
-                                  filterMatchMode="contains" id="jornadasLaboralesCodigos" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="jornadasLaboralesCodigos" width="70" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{JornadasLaborales.codigo}" />
+                                 <h:outputText value="#{JornadasLaborales.codigo}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{JornadasLaborales.codigo}" id="editarJornadaLaboralCodigo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;"> 
@@ -111,15 +111,15 @@
                               </f:facet> 
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>    
                         </p:column>
 
                         <p:column headerText="#{msg['descripcion']}" sortBy="#{JornadasLaborales.descripcion}" filterBy="#{JornadasLaborales.descripcion}"
-                                  filterMatchMode="contains" id="jornadasLaboralesDescripcion" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="jornadasLaboralesDescripcion" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{JornadasLaborales.descripcion}" />
+                                 <h:outputText value="#{JornadasLaborales.descripcion}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{JornadasLaborales.descripcion}" id="editarJornadaLaboralDescripcion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;"> 
@@ -130,19 +130,19 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
-                        
+
                         <p:column headerText="#{msg['horasdiarias']}" sortBy="#{JornadasLaborales.horasdiarias}" filterBy="#{JornadasLaborales.horasdiarias}"
-                                  filterMatchMode="contains" id="jornadasLaboralesHorasDiarias" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="jornadasLaboralesHorasDiarias" width="30" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerHorasDiarias" value="HD"/>
                               <p:tooltip for="headerHorasDiarias" value="#{msg['horasdiarias']}"/>
                            </f:facet>
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText  value="#{JornadasLaborales.horasdiarias}" />
+                                 <h:outputText  value="#{JornadasLaborales.horasdiarias}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{JornadasLaborales.horasdiarias}" id="editarJornadaLaboralHorasDiarias" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;"> 
@@ -154,19 +154,19 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
-                        
+
                         <p:column headerText="#{msg['horasmensuales']}" sortBy="#{JornadasLaborales.horasmensuales}" filterBy="#{JornadasLaborales.horasmensuales}"
-                                  filterMatchMode="contains" id="jornadasLaboralesHorasMensuales" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="jornadasLaboralesHorasMensuales" width="30" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerHorasMensuales" value="HM" />
+                              <h:outputText id="headerHorasMensuales" value="HM"/>
                               <p:tooltip for="headerHorasMensuales" value="#{msg['horasmensuales']}"/>
                            </f:facet>                                                                         
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText value="#{JornadasLaborales.horasmensuales}" />
+                                 <h:outputText value="#{JornadasLaborales.horasmensuales}"/>
                               </f:facet>
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{JornadasLaborales.horasmensuales}" id="editarJornadaLaboralHorasMensuales" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;"> 
@@ -178,31 +178,31 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['rotativo']}" style="text-align: center;" sortBy="#{JornadasLaborales.rotativo}" filterBy="#{JornadasLaborales.rotativo}"
-                                  filterMatchMode="exact" id="jornadasLaboralesRotativo" width="24" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="exact" id="jornadasLaboralesRotativo" width="24" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerRotativo" value="R" />
-                              <p:tooltip  for="headerRotativo" value="#{msg['rotativo']}" />
+                              <h:outputText id="headerRotativo" value="R"/>
+                              <p:tooltip  for="headerRotativo" value="#{msg['rotativo']}"/>
                            </f:facet>  
                            <p:selectBooleanCheckbox value="#{JornadasLaborales.estadoRotativo}"
                                                     onblur="PF('datosJornadasLaborales').unselectAllRows();PF('datosJornadasLaborales').selectRow(#{indice});"
                                                     onfocus="PF('datosJornadasLaborales').unselectAllRows();PF('datosJornadasLaborales').selectRow(#{indice});">  
                               <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(JornadasLaborales, 'N', JornadasLaborales.estadoRotativo)}" update="@this"/>  
                            </p:selectBooleanCheckbox> 
-                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                           <f:facet name="footer"> 
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['turnorelativo']}" style="text-align: center;" sortBy="#{JornadasLaborales.turnorelativo}" filterBy="#{JornadasLaborales.turnorelativo}"
-                                  filterMatchMode="exact" id="jornadasLaboralesTurnoRelativo" width="24" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="exact" id="jornadasLaboralesTurnoRelativo" width="24" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerTurnoRelativo" value="T"/>
-                              <p:tooltip  for="headerTurnoRelativo" value="#{msg['turnorelativo']}" />
+                              <p:tooltip  for="headerTurnoRelativo" value="#{msg['turnorelativo']}"/>
                            </f:facet>  
 
                            <p:selectBooleanCheckbox value="#{JornadasLaborales.estadoTurnoRelativo}"
@@ -210,13 +210,13 @@
                                                     onfocus="PF('datosJornadasLaborales').unselectAllRows();PF('datosJornadasLaborales').selectRow(#{indice});">    
                               <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(JornadasLaborales, 'N', JornadasLaborales.estadoTurnoRelativo)}" update="@this"/>  
                            </p:selectBooleanCheckbox> 
-                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                           <f:facet name="footer"> 
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['cuadrillahorasdiarias']}" sortBy="#{JornadasLaborales.cuadrillahorasdiarias}" filterBy="#{JornadasLaborales.cuadrillahorasdiarias}"
-                                  filterMatchMode="contains" width="20" id="jornadasLaboralesCuadrillaHorasDiarias" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" width="20" id="jornadasLaboralesCuadrillaHorasDiarias" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerC" value="C"/>
                               <p:tooltip for="headerC" value="#{msg['cuadrillahorasdiarias']}"/>
@@ -236,15 +236,15 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['jornada']}"  sortBy="#{JornadasLaborales.jornada.descripcion}" filterBy="#{JornadasLaborales.jornada.descripcion}"
-                                  filterMatchMode="contains" id="jornadasLaboralesJornadas" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="jornadasLaboralesJornadas" width="120" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{JornadasLaborales.jornada.descripcion}" /></f:facet>  
+                                 <h:outputText value="#{JornadasLaborales.jornada.descripcion}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{JornadasLaborales.jornada.descripcion}" id="editarJornada" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
                                     <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(JornadasLaborales, 'JORNADAS', JornadasLaborales.jornada.descripcion)}"/>
@@ -254,13 +254,12 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer">
-                              <p:commandButton style="width: 140px;" id="fooJornada" value=" " action="jornada" actionListener="#{controlJornadas.recibirPaginaEntrante('jornadaslaborales')}" />
+                              <p:commandButton style="width: 140px;" id="fooJornada" value=" " action="#{controlListaNavegacion.guardarNavegacion('jornadaslaborales', 'jornada')}" actionListener="#{controlJornadas.recibirPaginaEntrante('jornadaslaborales')}"/>
                            </f:facet>
                         </p:column>                                
                      </p:dataTable>  
-                     <h:outputText id="infoRegistroJL" value="#{msg['infoRegistro']} #{controlJornadasLaborales.infoRegistroJL}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                     <h:outputText id="infoRegistroJL" value="#{msg['infoRegistro']} #{controlJornadasLaborales.infoRegistroJL}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
 
                   </fieldset> 
 
@@ -278,41 +277,41 @@
                         <p:ajax event="filter" listener="#{controlJornadasLaborales.eventoFiltrarJS()}"/>
 
                         <p:column style="padding: 0px;" headerText="#{msg['dia']}" sortBy="#{SemanasLaborales.estadoDia}" filterBy="#{SemanasLaborales.estadoDia}"
-                                  filterMatchMode="contains" id="SemanaLaboralDia" width="50" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralDia" width="50" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText id="dia" value="#{SemanasLaborales.estadoDia}" />
+                                 <h:outputText id="dia" value="#{SemanasLaborales.estadoDia}"/>
                               </f:facet>
                               <f:facet name="input">
                                  <p:selectOneMenu  id="editarDias" value="#{SemanasLaborales.estadoDia}" style="height: 18px;"
                                                    onblur="PF('datosSemanasLaborales').unselectAllRows();PF('datosSemanasLaborales').selectRow(#{indiceJS});"
                                                    onfocus="PF('datosSemanasLaborales').unselectAllRows();PF('datosSemanasLaborales').selectRow(#{indiceJS});">
-                                    <f:selectItem itemLabel="LUNES" itemValue="LUNES" />  
-                                    <f:selectItem itemLabel="MARTES" itemValue="MARTES" />  
-                                    <f:selectItem itemLabel="MIERCOLES" itemValue="MIERCOLES" />  
-                                    <f:selectItem itemLabel="JUEVES" itemValue="JUEVES" />  
-                                    <f:selectItem itemLabel="VIERNES" itemValue="VIERNES" />    
-                                    <f:selectItem itemLabel="SABADO" itemValue="SABADO" />
-                                    <f:selectItem itemLabel="DOMINGO" itemValue="DOMINGO" />
+                                    <f:selectItem itemLabel="LUNES" itemValue="LUNES"/>  
+                                    <f:selectItem itemLabel="MARTES" itemValue="MARTES"/>  
+                                    <f:selectItem itemLabel="MIERCOLES" itemValue="MIERCOLES"/>  
+                                    <f:selectItem itemLabel="JUEVES" itemValue="JUEVES"/>  
+                                    <f:selectItem itemLabel="VIERNES" itemValue="VIERNES"/>    
+                                    <f:selectItem itemLabel="SABADO" itemValue="SABADO"/>
+                                    <f:selectItem itemLabel="DOMINGO" itemValue="DOMINGO"/>
                                     <p:ajax listener="#{controlJornadasLaborales.seleccionarDia(SemanasLaborales.estadoDia, indiceJS, celda)}" event="change" update="editarDias"/>
                                  </p:selectOneMenu>
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['horainicial']}"  sortBy="#{SemanasLaborales.horainicial}" filterBy="#{SemanasLaborales.horainicial}"
-                                  filterMatchMode="contains" id="SemanaLaboralHI" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralHI" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerHI" value="HI" />
+                              <h:outputText id="headerHI" value="HI"/>
                               <p:tooltip for="headerHI" value="#{msg['horainicialtt']}"/>
                            </f:facet>    
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText id="headerHoraInicial" value="#{SemanasLaborales.horainicial}" />
-                                 <p:tooltip  for="headerHoraInicial" value="#{msg['horainicialtt']}" />
+                                 <h:outputText id="headerHoraInicial" value="#{SemanasLaborales.horainicial}"/>
+                                 <p:tooltip  for="headerHoraInicial" value="#{msg['horainicialtt']}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{SemanasLaborales.horainicial}" id="editarJornadaSemanalHoraInicial" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
@@ -324,20 +323,20 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>     
 
                         <p:column headerText="#{msg['minutoinicial']}" sortBy="#{SemanasLaborales.minutoinicial}" filterBy="#{SemanasLaborales.minutoinicial}"
-                                  filterMatchMode="contains" id="SemanaLaboralMI" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralMI" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerMI" value="MI" />
+                              <h:outputText id="headerMI" value="MI"/>
                               <p:tooltip for="headerMI" value="#{msg['minutoinicialtt']}"/>
                            </f:facet>  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText id="headerMinutoInicial" value="#{SemanasLaborales.minutoinicial}" />
-                                 <p:tooltip  for="headerMinutoInicial" value="#{msg['minutoinicialtt']}" />
+                                 <h:outputText id="headerMinutoInicial" value="#{SemanasLaborales.minutoinicial}"/>
+                                 <p:tooltip  for="headerMinutoInicial" value="#{msg['minutoinicialtt']}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{SemanasLaborales.minutoinicial}" id="editarJornadaSemanalMinutoInicial" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
@@ -349,20 +348,20 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['horainicialalimentacion']}" sortBy="#{SemanasLaborales.horainicialalimentacion}" filterBy="#{SemanasLaborales.horainicialalimentacion}"
-                                  filterMatchMode="contains" id="SemanaLaboralHIA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralHIA" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerHIA" value="HIA" />
+                              <h:outputText id="headerHIA" value="HIA"/>
                               <p:tooltip for="headerHIA" value="Hora Inicial Alimentacion"/>
                            </f:facet>  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText id="headerHoraInicialAlimentacion" value="#{SemanasLaborales.horainicialalimentacion}" />
-                                 <p:tooltip  for="headerHoraInicialAlimentacion" value="#{msg['horainicialalimentacion']}" />
+                                 <h:outputText id="headerHoraInicialAlimentacion" value="#{SemanasLaborales.horainicialalimentacion}"/>
+                                 <p:tooltip  for="headerHoraInicialAlimentacion" value="#{msg['horainicialalimentacion']}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{SemanasLaborales.horainicialalimentacion}" id="editarJornadaSemanalHoraInicialAlimentacion" style=" width: 95.5%;text-transform: uppercase;">
@@ -373,21 +372,21 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                          <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                           <f:facet name="footer"> 
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>                  
 
                         <p:column headerText="#{msg['minutoinicialalimentacion']}" sortBy="#{SemanasLaborales.minutoinicialalimentacion}" filterBy="#{SemanasLaborales.minutoinicialalimentacion}"
-                                  filterMatchMode="contains" id="SemanaLaboralMIA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralMIA" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerMIA" value="MIA" />
+                              <h:outputText id="headerMIA" value="MIA"/>
                               <p:tooltip for="headerMIA" value="Minuto Inicial Alimentacion"/>
                            </f:facet>  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText id="headerMinutoInicialAlimentacion" value="#{SemanasLaborales.minutoinicialalimentacion}" />
-                                 <p:tooltip  for="headerMinutoInicialAlimentacion" value="#{msg['minutoinicialalimentacion']}" />
+                                 <h:outputText id="headerMinutoInicialAlimentacion" value="#{SemanasLaborales.minutoinicialalimentacion}"/>
+                                 <p:tooltip  for="headerMinutoInicialAlimentacion" value="#{msg['minutoinicialalimentacion']}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{SemanasLaborales.minutoinicialalimentacion}" id="editarJornadaSemanalMinutoInicialAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;">
@@ -399,20 +398,20 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>           
 
                         <p:column headerText="#{msg['horafinalalimentacion']}" sortBy="#{SemanasLaborales.horafinalalimentacion}" filterBy="#{SemanasLaborales.horafinalalimentacion}"
-                                  filterMatchMode="contains" id="SemanaLaboralHFA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralHFA" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerHFA" value="HFA" />
+                              <h:outputText id="headerHFA" value="HFA"/>
                               <p:tooltip for="headerHFA" value="Hora Final Alimentacion"/>
                            </f:facet>  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText id="headerHoraFinalAlimentancion" value="#{SemanasLaborales.horafinalalimentacion}" />
-                                 <p:tooltip  for="headerHoraFinalAlimentancion" value="Hora Final Alimentación" />
+                                 <h:outputText id="headerHoraFinalAlimentancion" value="#{SemanasLaborales.horafinalalimentacion}"/>
+                                 <p:tooltip  for="headerHoraFinalAlimentancion" value="Hora Final Alimentación"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{SemanasLaborales.horafinalalimentacion}" id="editarJornadaSemanalHoraFinalAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;">
@@ -423,21 +422,21 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                          <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                           <f:facet name="footer"> 
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>       
 
                         <p:column headerText="#{msg['minutofinalalimentacion']}" sortBy="#{SemanasLaborales.minutofinalalimentacion}" filterBy="#{SemanasLaborales.minutofinalalimentacion}"
-                                  filterMatchMode="contains" id="SemanaLaboralMFA" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralMFA" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerMFA" value="MFA" />
+                              <h:outputText id="headerMFA" value="MFA"/>
                               <p:tooltip for="headerMFA" value="Minuto Final Alimentacion"/>
                            </f:facet>  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText id="headerMinutoFinalAlimentancion" value="#{SemanasLaborales.minutofinalalimentacion}" />
-                                 <p:tooltip  for="headerMinutoFinalAlimentancion" value="Minuto Final Alimentación" />
+                                 <h:outputText id="headerMinutoFinalAlimentancion" value="#{SemanasLaborales.minutofinalalimentacion}"/>
+                                 <p:tooltip  for="headerMinutoFinalAlimentancion" value="Minuto Final Alimentación"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{SemanasLaborales.minutofinalalimentacion}" id="editarJornadaSemanalMinutoFinalAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;">
@@ -448,13 +447,13 @@
                                  </p:inputText>
                               </f:facet>
                            </p:cellEditor>
-                          <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                           <f:facet name="footer"> 
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>                          
 
                         <p:column headerText="#{msg['horafinal']}" style="width:12px;" sortBy="#{SemanasLaborales.horafinal}" filterBy="#{SemanasLaborales.horafinal}"
-                                  filterMatchMode="contains" id="SemanaLaboralHoraFinal" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralHoraFinal" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerHF" value="HF"/>
                               <p:tooltip for="headerHF" value="#{msg['horafinaltt']}"/>
@@ -474,20 +473,20 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer"> 
-                               <h:outputText value="" />  
+                              <h:outputText value=""/>  
                            </f:facet>  
                         </p:column>                          
 
                         <p:column headerText="#{msg['minutofinal']}" sortBy="#{SemanasLaborales.minutofinal}" filterBy="#{SemanasLaborales.minutofinal}"
-                                  filterMatchMode="contains" id="SemanaLaboralMinutoFinal" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="SemanaLaboralMinutoFinal" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerMF" value="MF" />
+                              <h:outputText id="headerMF" value="MF"/>
                               <p:tooltip for="headerMF" value="#{msg['minutofinaltt']}"/>
                            </f:facet>  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText id="headerMinutoFinal" value="#{SemanasLaborales.minutofinal}" />
-                                 <p:tooltip  for="headerMinutoFinal" value="#{msg['minutofinaltt']}" />
+                                 <h:outputText id="headerMinutoFinal" value="#{SemanasLaborales.minutofinal}"/>
+                                 <p:tooltip  for="headerMinutoFinal" value="#{msg['minutofinaltt']}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{SemanasLaborales.minutofinal}" id="editarJornadaSemanalMinutoFinal" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;">
@@ -498,16 +497,16 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                            <f:facet name="footer"> 
-                                <h:outputText value="" />  
-                            </f:facet>  
+                           <f:facet name="footer"> 
+                              <h:outputText value=""/>  
+                           </f:facet>  
                         </p:column>    
 
                      </p:dataTable>  
-                     <h:outputText id="infoRegistroSL" value="#{msg['infoRegistro']} #{controlJornadasLaborales.infoRegistroSL}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                     <h:outputText id="infoRegistroSL" value="#{msg['infoRegistro']} #{controlJornadasLaborales.infoRegistroSL}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
                   </fieldset>
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update="datosJornadasLaborales" process="@this" disabled="#{controlJornadasLaborales.guardado}"/>
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlJornadasLaborales.cancelarModificacion()}" action="VigenciaJornada" process="@this" />                                         
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlJornadasLaborales.salir()}" process="@this"/>                                         
                </p:panel>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlJornadasLaborales.activarCtrlF11()}" process="@this"/> 
             </h:form>
@@ -520,105 +519,105 @@
                                    oncomplete="PF('NuevoRegistroJornadaLaboral').show()" update=":formularioDialogos:nuevaJornadaLaboral" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
                   <p:commandButton value="#{msg['semanalaboral']}" id="NuevoVigenciaAfiliacion" style="position: absolute; left: 100px; top: 75px; width: 200px; height: 30px;"
                                    actionListener="#{controlJornadasLaborales.validarNuevaSL()}" process="@this"/>
-                  <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();" icon="ui-icon-close" process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 120px;left: 275px"/>
+                  <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();" icon="ui-icon-close" process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 120px; left: 275px"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistroSel" header="#{msg['error']}" widgetVar="seleccionarRegistroSel" resizable="false" draggable="true" modal="true" height="60" width="300" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['seleccionarRegistroSel']}" style="position: absolute; left: 70px; top: 15px; width: 200px; font-weight:bold; text-align: center;"/>
+                  <h:outputText value="#{msg['seleccionarRegistroSel']}" style="position: absolute; left: 70px; top: 15px; width: 200px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <!--Dialogos-->
                <p:dialog id="validacionCodigo" header="#{msg['atencion']}" widgetVar="validacionCodigo"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionCodigoJL']}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionCodigo').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="#{msg['validacionCodigoJL']}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionCodigo').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>  
                <p:dialog id="validacionDia" header="#{msg['atencion']}" widgetVar="validacionDia"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionDiaSL']}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionDia').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="#{msg['validacionDiaSL']}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionDia').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>  
                <p:dialog id="validacionDescripcion" header="#{msg['atencion']}" widgetVar="validacionDescripcion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validaciondescripcion']}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionDescripcion').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="#{msg['validaciondescripcion']}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionDescripcion').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>  
                <p:dialog id="validacionHorasSL" header="#{msg['atencion']}" widgetVar="validacionHorasSL"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionHorasSL']} #{controlJornadasLaborales.mensajeValidacionhora}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionHorasSL').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="#{msg['validacionHorasSL']} #{controlJornadasLaborales.mensajeValidacionhora}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionHorasSL').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>  
                <p:dialog id="validacionMinutosSL" header="#{msg['atencion']}" widgetVar="validacionMinutosSL"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionMinutosSL']} #{controlJornadasLaborales.mensajeValidacionminuto}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionMinutosSL').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="#{msg['validacionMinutosSL']} #{controlJornadasLaborales.mensajeValidacionminuto}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionMinutosSL').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>  
                <p:dialog id="validacionHorasJL" header="#{msg['atencion']}" widgetVar="validacionHorasJL"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionHorasJL']} #{controlJornadasLaborales.mensajeValidacionhoras}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionHorasJL').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                  <h:outputText value="#{msg['validacionHorasJL']} #{controlJornadasLaborales.mensajeValidacionhoras}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionHorasJL').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this"/>
                </p:dialog>  
 
                <!--DIALOGO VALIDACION NUEVA JORNADA LABORAL-->
                <p:dialog id="validacionNuevaJornadaLaboral" header="#{msg['atencion']}" widgetVar="validacionNuevaJornadaLaboral"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionNuevo']} #{controlJornadasLaborales.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevaJornadaLaboral').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="#{msg['validacionNuevo']} #{controlJornadasLaborales.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevaJornadaLaboral').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>
 
                <!--DIALOGO NUEVA JORNADA LABORAL-->
 
                <p:dialog id="NuevoRegistroJornadaLaboral" header="Nueva Jornada Laboral"  widgetVar="NuevoRegistroJornadaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="380" style=" padding: 0px">  
 
-                  <center><strong><h:outputText value="#{msg['ingresarnuevojl']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText value="#{msg['ingresarnuevojl']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="nuevaJornadaLaboral" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['codigojl']}" style=" position: absolute; top: 75px;" /></strong>
+                     <strong><h:outputText value="#{msg['codigojl']}" style=" position: absolute; top: 75px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoCodigo" value="#{controlJornadasLaborales.nuevaJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoCodigo"/>
                         <p:keyFilter for="nuevoCodigo" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['descripcionjl']}" style=" position: absolute; top: 105px;" /></strong>
+                     <strong><h:outputText value="#{msg['descripcionjl']}" style=" position: absolute; top: 105px;"/></strong>
                      <p:inputText  autocomplete="off" id="nuevaDescripcion" value="#{controlJornadasLaborales.nuevaJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaDescripcion"/>
                      </p:inputText>   
 
-                     <strong><h:outputText value="#{msg['horasdiariasjl']}" style=" position: absolute; top: 135px;" /></strong>
+                     <strong><h:outputText value="#{msg['horasdiariasjl']}" style=" position: absolute; top: 135px;"/></strong>
                      <p:inputText  autocomplete="off" id="nuevaHoraDiaria" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaHoraDiaria"/>
                         <p:keyFilter for="nuevaHoraDiaria" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['horasmensualesjl']}" style=" position: absolute; top: 165px;" /></strong>
+                     <strong><h:outputText value="#{msg['horasmensualesjl']}" style=" position: absolute; top: 165px;"/></strong>
                      <p:inputText  autocomplete="off" id="nuevaHoraMensual" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaHoraMensual"/>
                         <p:keyFilter for="nuevaHoraMensual" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['rotativojl']}" style=" position: absolute; top: 195px;" /></strong>
+                     <strong><h:outputText value="#{msg['rotativojl']}" style=" position: absolute; top: 195px;"/></strong>
                      <p:selectBooleanCheckbox value="#{controlJornadasLaborales.nuevaJornadaLaboral.estadoRotativo}" style="position: absolute; left: 200px; top: 195px;">
                         <p:ajax update="@this"/>
                      </p:selectBooleanCheckbox>
 
-                     <strong><h:outputText value="#{msg['turnorelativojl']}" style=" position: absolute; top: 225px;" /></strong>
+                     <strong><h:outputText value="#{msg['turnorelativojl']}" style=" position: absolute; top: 225px;"/></strong>
                      <p:selectBooleanCheckbox value="#{controlJornadasLaborales.nuevaJornadaLaboral.estadoTurnoRelativo}" style="position: absolute; left: 200px; top: 225px;">
                         <p:ajax update="@this"/>
                      </p:selectBooleanCheckbox>
 
-                     <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}" style=" position: absolute; top: 255px;" /></strong>
+                     <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}" style=" position: absolute; top: 255px;"/></strong>
                      <p:inputText  autocomplete="off" id="nuevaCuadrillaHorasDiarias" value="#{controlJornadasLaborales.nuevaJornadaLaboral.cuadrillahorasdiarias}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaCuadrillaHorasDiarias"/>
                         <p:keyFilter for="nuevaCuadrillaHorasDiarias" mask="num"/>
                      </p:inputText> 
 
-                     <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;" /></strong>
+                     <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;"/></strong>
                      <p:inputText  autocomplete="off"  id="nuevaJornada" value="#{controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(1, 'JORNADA')}" />
-                        <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 1)}" />
-                        <p:ajax event="dblclick" listener="#{controlJornadasLaborales.asignarIndex(0, 1)}" />
+                        <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(1, 'JORNADA')}"/>
+                        <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 1)}"/>
+                        <p:ajax event="dblclick" listener="#{controlJornadasLaborales.asignarIndex(0, 1)}"/>
                      </p:inputText>
                      <p:commandButton value="" style="position: absolute; left: 331px; top: 285px;" class="cssBotonLovDialogos" id="btnNuevaJornada" process="@this"  actionListener="#{controlJornadasLaborales.asignarIndex(0, 1)}"/>
 
@@ -632,59 +631,59 @@
 
                <p:dialog id="DuplicarRegistroJornadaLaboral" header="#{msg['duplicarregistrojl']}" widgetVar="DuplicarRegistroJornadaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="380" style=" padding: 0px">  
 
-                  <center><strong><h:outputText value="#{msg['ingresarnuevojl']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText value="#{msg['ingresarnuevojl']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="duplicarJornadaLaboral" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['codigojl']}" style=" position: absolute; top: 75px;" /></strong>
-                     <p:inputText  autocomplete="off" maxlength="4" id="duplicarCodigo" value="#{controlJornadasLaborales.duplicarJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['codigojl']}" style=" position: absolute; top: 75px;"/></strong>
+                     <p:inputText  autocomplete="off" maxlength="4" id="duplicarCodigo" value="#{controlJornadasLaborales.duplicarJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarCodigo" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['descripcionjl']}" style=" position: absolute; top: 105px;" /></strong>
-                     <p:inputText  autocomplete="off" maxlength="30" id="duplicarDescripcion" value="#{controlJornadasLaborales.duplicarJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['descripcionjl']}" style=" position: absolute; top: 105px;"/></strong>
+                     <p:inputText  autocomplete="off" maxlength="30" id="duplicarDescripcion" value="#{controlJornadasLaborales.duplicarJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['horasdiariasjl']}" style=" position: absolute; top: 135px;" /></strong>
-                     <p:inputText  autocomplete="off" maxlength="4" id="duplicarHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horasdiariasjl']}" style=" position: absolute; top: 135px;"/></strong>
+                     <p:inputText  autocomplete="off" maxlength="4" id="duplicarHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarHorasDiarias" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['horasmensualesjl']}" style=" position: absolute; top: 165px;" /></strong>
-                     <p:inputText  autocomplete="off" maxlength="4" id="duplicarHorasMensuales" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horasmensualesjl']}" style=" position: absolute; top: 165px;"/></strong>
+                     <p:inputText  autocomplete="off" maxlength="4" id="duplicarHorasMensuales" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarHorasMensuales" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['rotativojl']}" style=" position: absolute; top: 195px;" /></strong>
+                     <strong><h:outputText value="#{msg['rotativojl']}" style=" position: absolute; top: 195px;"/></strong>
                      <p:selectBooleanCheckbox value="#{controlJornadasLaborales.duplicarJornadaLaboral.estadoRotativo}" style="position: absolute; left: 200px; top: 195px;">
                         <p:ajax update="@this"/>
                      </p:selectBooleanCheckbox>                          
 
-                     <strong><h:outputText value="#{msg['turnorelativojl']}" style=" position: absolute; top: 225px;" /></strong>
+                     <strong><h:outputText value="#{msg['turnorelativojl']}" style=" position: absolute; top: 225px;"/></strong>
                      <p:selectBooleanCheckbox value="#{controlJornadasLaborales.duplicarJornadaLaboral.estadoTurnoRelativo}" style="position: absolute; left: 200px; top: 225px;">
                         <p:ajax update="@this"/>
                      </p:selectBooleanCheckbox>                          
 
-                     <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}" style=" position: absolute; top: 255px;" /></strong>
-                     <p:inputText  autocomplete="off"  maxlength="4" id="duplicarCuadrillaHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}" style=" position: absolute; top: 255px;"/></strong>
+                     <p:inputText  autocomplete="off"  maxlength="4" id="duplicarCuadrillaHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarCuadrillaHorasDiarias" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarJornada" value="#{controlJornadasLaborales.duplicarJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="select();">
-                        <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(2, 'JORNADA')}" />
-                        <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 2)}" />
-                        <p:ajax event="dblclick" listener="#{controlJornadasLaborales.llamarLovJornadas(2)}" />
+                     <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarJornada" value="#{controlJornadasLaborales.duplicarJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase;" onclick="select();">
+                        <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(2, 'JORNADA')}"/>
+                        <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 2)}"/>
+                        <p:ajax event="dblclick" listener="#{controlJornadasLaborales.llamarLovJornadas(2)}"/>
                      </p:inputText>
                      <p:commandButton value="" style="position: absolute; left: 331px; top: 285px;" class="cssBotonLovDialogos" id="btnDuplicarJornada" process="@this" actionListener="#{controlJornadasLaborales.llamarLovJornadas(2)}"/>
 
                      <p:commandButton id="limpiarDuplicadoJornadaLaboral" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 340px;" actionListener="#{controlJornadasLaborales.limpiarduplicarJornadaLaboral()}" update="duplicarJornadaLaboral" process="@this"/>
-                     <p:commandButton id="agregarDuplicadoJornadaLaboral" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 340px;" process="@this" actionListener="#{controlJornadasLaborales.confirmarDuplicarJL()}" />
+                     <p:commandButton id="agregarDuplicadoJornadaLaboral" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 340px;" process="@this" actionListener="#{controlJornadasLaborales.confirmarDuplicarJL()}"/>
                      <p:commandButton id="cancelarDuplicadoJornadaLaboral" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 340px;" actionListener="#{controlJornadasLaborales.limpiarduplicarJornadaLaboral()}" update="duplicarJornadaLaboral" onclick="PF('DuplicarRegistroJornadaLaboral').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -697,53 +696,53 @@
 
                      <strong><h:outputText value="#{msg['diasl']}" style=" position: absolute; top: 75px;"/></strong>
                      <p:selectOneMenu id="nuevoDiaSemanaLaboral" value="#{controlJornadasLaborales.nuevaJornadaSemanal.estadoDia}" style="width: 110px; position: absolute; left: 210px; top: 72px; text-transform: uppercase;">
-                        <f:selectItem itemLabel="LUNES" itemValue="LUNES" />  
-                        <f:selectItem itemLabel="MARTES" itemValue="MARTES" />  
-                        <f:selectItem itemLabel="MIERCOLES" itemValue="MIERCOLES" />  
-                        <f:selectItem itemLabel="JUEVES" itemValue="JUEVES" />  
-                        <f:selectItem itemLabel="VIERNES" itemValue="VIERNES" />    
-                        <f:selectItem itemLabel="SABADO" itemValue="SABADO" />
-                        <f:selectItem itemLabel="DOMINGO" itemValue="DOMINGO" />
-                        <p:ajax listener="#{controlJornadasLaborales.seleccionarDiaNuevaSemana(controlJornadasLaborales.nuevaJornadaSemanal.estadoDia, 1)}" update="@this" />
+                        <f:selectItem itemLabel="LUNES" itemValue="LUNES"/>  
+                        <f:selectItem itemLabel="MARTES" itemValue="MARTES"/>  
+                        <f:selectItem itemLabel="MIERCOLES" itemValue="MIERCOLES"/>  
+                        <f:selectItem itemLabel="JUEVES" itemValue="JUEVES"/>  
+                        <f:selectItem itemLabel="VIERNES" itemValue="VIERNES"/>    
+                        <f:selectItem itemLabel="SABADO" itemValue="SABADO"/>
+                        <f:selectItem itemLabel="DOMINGO" itemValue="DOMINGO"/>
+                        <p:ajax listener="#{controlJornadasLaborales.seleccionarDiaNuevaSemana(controlJornadasLaborales.nuevaJornadaSemanal.estadoDia, 1)}" update="@this"/>
                      </p:selectOneMenu>
 
-                     <strong><h:outputText value="#{msg['horainicialsl']}" style=" position: absolute; top: 105px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevaHoraInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horainicialsl']}" style=" position: absolute; top: 105px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevaHoraInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaHoraInicial"/>
                         <p:keyFilter for="nuevaHoraInicial" mask="num"/>
                      </p:inputText>
-                     <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevoMinutoInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevoMinutoInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoMinutoInicial"/>
                         <p:keyFilter for="nuevoMinutoInicial" mask="num"/>
                      </p:inputText>
-                     <strong><h:outputText value="#{msg['horainicialalimentacionsl']}" style=" position: absolute; top: 165px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevaHoraInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horainicialalimentacionsl']}" style=" position: absolute; top: 165px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevaHoraInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaHoraInicialAlimentacion"/>
                         <p:keyFilter for="nuevaHoraInicialAlimentacion" mask="num"/>
                      </p:inputText>
-                     <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevoMinutoInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevoMinutoInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoMinutoInicialAlimentacion"/>
                         <p:keyFilter for="nuevoMinutoInicialAlimentacion" mask="num"/>
                      </p:inputText>
-                     <strong><h:outputText value="#{msg['horafinalalimentacionsl']}" style=" position: absolute; top: 225px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevaHoraFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horafinalalimentacionsl']}" style=" position: absolute; top: 225px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevaHoraFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaHoraFinalAlimentacion"/>
                         <p:keyFilter for="nuevaHoraFinalAlimentacion" mask="num"/>
                      </p:inputText>
-                     <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}" style=" position: absolute; top: 255px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevoMinutoFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}" style=" position: absolute; top: 255px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevoMinutoFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoMinutoFinalAlimentacion"/>
                         <p:keyFilter for="nuevoMinutoFinalAlimentacion" mask="num"/>
                      </p:inputText>
-                     <strong><h:outputText value="#{msg['horafinalsl']}" style=" position: absolute; top: 285px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevaHoraFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horafinalsl']}" style=" position: absolute; top: 285px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevaHoraFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaHoraFinal"/>
                         <p:keyFilter for="nuevaHoraFinal" mask="num"/>
                      </p:inputText>
-                     <strong><h:outputText value="#{msg['minutofinalsl']}" style=" position: absolute; top: 315px;" /></strong>
-                     <p:inputText  autocomplete="off" id="nuevoMinutoFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutofinalsl']}" style=" position: absolute; top: 315px;"/></strong>
+                     <p:inputText  autocomplete="off" id="nuevoMinutoFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoMinutoFinal"/>
                         <p:keyFilter for="nuevaHoraFinal" mask="num"/>
                      </p:inputText>
@@ -758,66 +757,66 @@
 
                <p:dialog id="duplicarRegistroSemanaLaboral" header="#{msg['duplicarregistrosl']}" widgetVar="duplicarRegistroSemanaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="410" width="380" style=" padding: 0px">  
 
-                  <center><strong><h:outputText value="#{msg['ingresarnuevosl']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText value="#{msg['ingresarnuevosl']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="duplicarSemanaLaboral" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['diasl']}" style=" position: absolute; top: 75px;" /></strong>
-                     <p:selectOneMenu id="duplicarDiaSemanaLaboral" value="#{controlJornadasLaborales.duplicarSemanaLaboral.estadoDia}"  style=" width: 110px; position: absolute; left: 210px; top: 72px; text-transform: uppercase">
-                        <f:selectItem itemLabel="LUNES" itemValue="LUNES" />  
-                        <f:selectItem itemLabel="MARTES" itemValue="MARTES" />  
-                        <f:selectItem itemLabel="MIERCOLES" itemValue="MIERCOLES" />  
-                        <f:selectItem itemLabel="JUEVES" itemValue="JUEVES" />  
-                        <f:selectItem itemLabel="VIERNES" itemValue="VIERNES" />    
-                        <f:selectItem itemLabel="SABADO" itemValue="SABADO" />
-                        <f:selectItem itemLabel="DOMINGO" itemValue="DOMINGO" />
-                        <p:ajax listener="#{controlJornadasLaborales.seleccionarDiaNuevaSemana(controlJornadasLaborales.duplicarSemanaLaboral.estadoDia, 2)}" update="@this" />
+                     <strong><h:outputText value="#{msg['diasl']}" style=" position: absolute; top: 75px;"/></strong>
+                     <p:selectOneMenu id="duplicarDiaSemanaLaboral" value="#{controlJornadasLaborales.duplicarSemanaLaboral.estadoDia}"  style=" width: 110px; position: absolute; left: 210px; top: 72px; text-transform: uppercase;">
+                        <f:selectItem itemLabel="LUNES" itemValue="LUNES"/>  
+                        <f:selectItem itemLabel="MARTES" itemValue="MARTES"/>  
+                        <f:selectItem itemLabel="MIERCOLES" itemValue="MIERCOLES"/>  
+                        <f:selectItem itemLabel="JUEVES" itemValue="JUEVES"/>  
+                        <f:selectItem itemLabel="VIERNES" itemValue="VIERNES"/>    
+                        <f:selectItem itemLabel="SABADO" itemValue="SABADO"/>
+                        <f:selectItem itemLabel="DOMINGO" itemValue="DOMINGO"/>
+                        <p:ajax listener="#{controlJornadasLaborales.seleccionarDiaNuevaSemana(controlJornadasLaborales.duplicarSemanaLaboral.estadoDia, 2)}" update="@this"/>
                      </p:selectOneMenu>                           
 
-                     <strong><h:outputText value="#{msg['horainicialsl']}"  style=" position: absolute; top: 105px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarHoraInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horainicialsl']}"  style=" position: absolute; top: 105px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarHoraInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarHoraInicial" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarMinutoInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarMinutoInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarMinutoInicial" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['horainicialalimentacionsl']}"  style=" position: absolute; top: 165px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarHoraInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horainicialalimentacionsl']}"  style=" position: absolute; top: 165px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarHoraInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarHoraInicialAlimentacion" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarMinutoInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarMinutoInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarMinutoInicialAlimentacion" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['horafinalalimentacionsl']}"  style=" position: absolute; top: 225px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarHoraFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horafinalalimentacionsl']}"  style=" position: absolute; top: 225px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarHoraFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarHoraFinalAlimentacion" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}"  style=" position: absolute; top: 255px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarMinutoFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}"  style=" position: absolute; top: 255px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarMinutoFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarMinutoFinalAlimentacion" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['horafinalsl']}"  style=" position: absolute; top: 285px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarHoraFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['horafinalsl']}"  style=" position: absolute; top: 285px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarHoraFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarHoraFinal" mask="num"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['minutofinalsl']}"  style=" position: absolute; top: 315px;" /></strong>
-                     <p:inputText  autocomplete="off" id="duplicarMinutoFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['minutofinalsl']}"  style=" position: absolute; top: 315px;"/></strong>
+                     <p:inputText  autocomplete="off" id="duplicarMinutoFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="duplicarMinutoFinal" mask="num"/>
                      </p:inputText>
@@ -831,29 +830,29 @@
                <!--DIALOGO VALIDACION NUEVA SEMANA LABORAL-->
                <p:dialog id="validacionNuevaJornadaSemanal" header="#{msg['atencion']}" widgetVar="validacionNuevaJornadaSemanal"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionNuevo']} #{controlJornadasLaborales.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevaJornadaSemanal').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="#{msg['validacionNuevo']} #{controlJornadasLaborales.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevaJornadaSemanal').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>                    
 
                <!-- DIALOGO CAMBIO DE JORNADA -->
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="370"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />                                   
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlJornadasLaborales.guardarTodo()}"
-                                   action="VigenciaJornada" style="position: absolute; top: 50px; left: 107px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlJornadasLaborales.cancelarModificacion()}"
-                                   style="position: absolute; top: 50px; left: 169px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['atras']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>                                   
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlJornadasLaborales.guardarYSalir()}"
+                                   style="position: absolute; top: 50px; left: 107px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlJornadasLaborales.salir()}"
+                                   style="position: absolute; top: 50px; left: 169px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['atras']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="370" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold;" />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlJornadasLaborales.guardarTodo()}"
-                                   style="position: absolute; top: 50px; left: 107px;" process="@this" icon="ui-icon-check" />
+                                   style="position: absolute; top: 50px; left: 107px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlJornadasLaborales.cancelarModificacion()}"
-                                   style="position: absolute; top: 50px; left: 169px;" process="@this" icon="ui-icon-close" />
-                  <p:commandButton value="#{msg['atras']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                                   style="position: absolute; top: 50px; left: 169px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['atras']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
                <!-- L.O.V jornada-->
                <p:dialog header="Listado Jornadas" widgetVar="jornadasDialogo" draggable="true" resizable="false" id="jornadasDialogo" closable="false"  
@@ -866,7 +865,7 @@
 
                      <p:ajax event="filter" listener="#{controlJornadasLaborales.contarRegistrosLovJornadas()}"/>
                      <p:ajax event="rowSelect" listener="#{controlJornadasLaborales.activarAceptar()}" update=":formularioDialogos:aceptarJ"/>
-                     <p:ajax event="rowDblselect" listener="#{controlJornadasLaborales.actualizarJornadas()}" process="@this" />
+                     <p:ajax event="rowDblselect" listener="#{controlJornadasLaborales.actualizarJornadas()}" process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarj']}"/>  
@@ -875,9 +874,9 @@
 
                      <p:column filterBy="#{jornadas.descripcion}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
                         <f:facet name="header">
-                           <h:outputText value="#{msg['descripcionj']}" />
+                           <h:outputText value="#{msg['descripcionj']}"/>
                         </f:facet>
-                        <h:outputText value="#{jornadas.descripcion}" />  
+                        <h:outputText value="#{jornadas.descripcion}"/>  
                      </p:column>
 
                   </p:dataTable>
@@ -893,115 +892,115 @@
 
                <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroJL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['confirmarRastroJL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaLaboralSeleccionada.secuencia, 'JornadasLaborales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('jornadaslaborales', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
-               
+
                <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroHistoricoJL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['confirmarRastroHistoricoJL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();"
                                    actionListener="#{controlRastro.historicosTabla('JornadasLaborales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 60px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 60px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('jornadaslaborales', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRastroHistoricoJL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRastroHistoricoJL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRegistroRastroJL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRegistroRastroJL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaConRastroJL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorTablaConRastroJL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaLaboralSeleccionada.secuencia, 'JornadasLaborales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 65px; left: 208px;" action="rastrotabla" process="@this" />
+                                   style="position: absolute; top: 65px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('jornadaslaborales', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaSinRastroJL']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorTablaSinRastroJL']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['seleccionarRegistroJL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="#{msg['seleccionarRegistroJL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB" resizable="false" draggable="true" modal="true" height="75" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorObjetosDBJL']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="#{msg['errorObjetosDBJL']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <!--DIALOGOS RASTROS SEMANAS LABORALES-->
 
                <p:dialog id="confirmarRastroJS" header="#{msg['atencion']}" widgetVar="confirmarRastroJS"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['confirmarRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaSemanalSeleccionada.secuencia, 'JornadasSemanales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('jornadaslaborales', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoJS" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoJS"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroHistoricoSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['confirmarRastroHistoricoSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();"
                                    actionListener="#{controlRastro.historicosTabla('JornadasSemanales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('jornadaslaborales', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoJS" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoJS"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRastroHistoricoSL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRastroHistoricoSL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroJS" header="#{msg['atencion']}" widgetVar="errorRegistroRastroJS"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRegistroRastroSL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRegistroRastroSL']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroJS" header="#{msg['atencion']}" widgetVar="errorTablaConRastroJS"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorTablaConRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorTablaConRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaSemanalSeleccionada.secuencia, 'JornadasSemanales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('jornadaslaborales', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroJS" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroJS"  resizable="false" draggable="true" modal="true" height="60" width="285" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaSinRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorTablaSinRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistroJS" header="#{msg['atencion']}" widgetVar="seleccionarRegistroJS"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['seleccionarRegistroSL']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="#{msg['seleccionarRegistroSL']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBJS" header="#{msg['atencion']}" widgetVar="errorObjetosDBJS" resizable="false" draggable="true" modal="true" height="75" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorObjetosDBSL']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="#{msg['errorObjetosDBSL']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
             </h:form>
 
             <h:form id="formEditar">
                <!-- DIALOGOS EDITAR -->
 
-               <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlJornadasLaborales.editarJornadaLaboral.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
@@ -1062,37 +1061,37 @@
                   <!--COLUMNAS TABLA JORNADASLABORALES--> 
                   <p:column headerText="#{msg['codigoXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
-                     <h:outputText value="#{jl.codigo}" />
+                     <h:outputText value="#{jl.codigo}"/>
                   </p:column> 
 
                   <p:column headerText="#{msg['descripcionXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
-                     <h:outputText value="#{jl.descripcion}" />
+                     <h:outputText value="#{jl.descripcion}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['horasdiariasXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['horasdiariasX']}"/></f:facet>
-                     <h:outputText value="#{jl.horasdiarias}" />
+                     <h:outputText value="#{jl.horasdiarias}"/>
                   </p:column>
                   <p:column headerText="#{msg['horasmensualesXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['horasmensualesX']}"/></f:facet>
-                     <h:outputText value="#{jl.horasmensuales}" />
+                     <h:outputText value="#{jl.horasmensuales}"/>
                   </p:column>
                   <p:column headerText="#{msg['rotativoXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['rotativoX']}"/></f:facet>
-                     <h:outputText value="#{jl.rotativo}" />
+                     <h:outputText value="#{jl.rotativo}"/>
                   </p:column>
                   <p:column headerText="#{msg['turnorelativoXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['turnorelativoX']}"/></f:facet>
-                     <h:outputText value="#{jl.turnorelativo}" />
+                     <h:outputText value="#{jl.turnorelativo}"/>
                   </p:column>
                   <p:column headerText="#{msg['cuadrillahorasdiariasXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['cuadrillahorasdiariasX']}"/></f:facet>
-                     <h:outputText value="#{jl.cuadrillahorasdiarias}" />
+                     <h:outputText value="#{jl.cuadrillahorasdiarias}"/>
                   </p:column>
                   <p:column headerText="#{msg['jornadaXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['jronadaX']}"/></f:facet>
-                     <h:outputText value="#{jl.jornada.descripcion}" />
+                     <h:outputText value="#{jl.jornada.descripcion}"/>
                   </p:column>
                </p:dataTable>
 
@@ -1101,41 +1100,41 @@
                   <!--COLUMNAS TABLA JORNADASSEMANALES--> 
                   <p:column headerText="#{msg['diaXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['diaX']}"/> </f:facet> 
-                     <h:outputText value="#{js.estadoDia}" />
+                     <h:outputText value="#{js.estadoDia}"/>
                   </p:column> 
 
                   <p:column headerText="#{msg['horainicialXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['horainicialX']}"/> </f:facet> 
-                     <h:outputText value="#{js.horainicial}" />
+                     <h:outputText value="#{js.horainicial}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['minutoinicialXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['minutoinicialX']}"/></f:facet>                      
-                     <h:outputText value="#{js.minutoinicial}" />
+                     <h:outputText value="#{js.minutoinicial}"/>
                   </p:column>
                   <p:column headerText="#{msg['horainicialalimentacionXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['horainicialalimentacionX']}"/></f:facet>
-                     <h:outputText value="#{js.horainicialalimentacion}" />
+                     <h:outputText value="#{js.horainicialalimentacion}"/>
                   </p:column>
                   <p:column headerText="#{msg['minutoinicialalimentacionXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['minutoinicialalimentacionX']}"/></f:facet>
-                     <h:outputText value="#{js.minutoinicialalimentacion}" />
+                     <h:outputText value="#{js.minutoinicialalimentacion}"/>
                   </p:column>
                   <p:column headerText="#{msg['horafinalalimentacionXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['horafinalalimentacionX']}"/></f:facet>
-                     <h:outputText value="#{js.horafinalalimentacion}" />
+                     <h:outputText value="#{js.horafinalalimentacion}"/>
                   </p:column>
                   <p:column headerText="#{msg['minutofinalalimentacionXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['minutofinalalimentacionX']}"/></f:facet>
-                     <h:outputText value="#{js.minutofinalalimentacion}" />
+                     <h:outputText value="#{js.minutofinalalimentacion}"/>
                   </p:column>
                   <p:column headerText="#{msg['horafinalXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['horafinalX']}"/></f:facet>
-                     <h:outputText value="#{js.horafinal}" />
+                     <h:outputText value="#{js.horafinal}"/>
                   </p:column>
                   <p:column headerText="#{msg['minutofinalXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['minutofinalX']}"/></f:facet>
-                     <h:outputText value="#{js.minutofinal}" />
+                     <h:outputText value="#{js.minutofinal}"/>
                   </p:column>
                </p:dataTable>
             </h:form>

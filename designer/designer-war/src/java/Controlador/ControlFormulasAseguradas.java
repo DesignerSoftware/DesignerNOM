@@ -151,15 +151,34 @@ public class ControlFormulasAseguradas implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "formulasaseguradas";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "formulasaseguradas";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -169,12 +188,11 @@ public class ControlFormulasAseguradas implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -276,7 +294,6 @@ public class ControlFormulasAseguradas implements Serializable {
       if (bandera == 1) {
          restaurarTabla();
       }
-
       borrarFormulasAseguradas.clear();
       crearFormulasAseguradas.clear();
       modificarFormulasAseguradas.clear();
@@ -294,12 +311,11 @@ public class ControlFormulasAseguradas implements Serializable {
       contarRegistros();
    }
 
-   public void salir() {  limpiarListasValor();
-      FacesContext c = FacesContext.getCurrentInstance();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }
-
       borrarFormulasAseguradas.clear();
       crearFormulasAseguradas.clear();
       modificarFormulasAseguradas.clear();
@@ -310,11 +326,7 @@ public class ControlFormulasAseguradas implements Serializable {
       permitirIndex = true;
       mostrarTodos = true;
       buscarFormulas = false;
-      RequestContext.getCurrentInstance().update("form:datosFormulasAseguradas");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
-      RequestContext.getCurrentInstance().update("form:BUSCARCENTROCOSTO");
-      contarRegistros();
+      navegar("atras");
    }
 
    public void cancelarModificacionCambio() {
@@ -322,7 +334,6 @@ public class ControlFormulasAseguradas implements Serializable {
       if (bandera == 1) {
          restaurarTabla();
       }
-
       borrarFormulasAseguradas.clear();
       crearFormulasAseguradas.clear();
       modificarFormulasAseguradas.clear();
@@ -1058,6 +1069,11 @@ public class ControlFormulasAseguradas implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
 
+   }
+
+   public void guardarYSalir() {
+      guardarFormulasAseguradas();
+      salir();
    }
 
    public void guardarFormulasAseguradas() {

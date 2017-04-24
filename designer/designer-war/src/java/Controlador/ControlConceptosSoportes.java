@@ -140,15 +140,34 @@ public class ControlConceptosSoportes implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "conceptosoporte";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "conceptosoporte";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -158,12 +177,11 @@ public class ControlConceptosSoportes implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -278,6 +296,11 @@ public class ControlConceptosSoportes implements Serializable {
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
+   }
+
    public void cancelarModificacion() {
       if (bandera == 1) {
          restaurarTabla();
@@ -300,11 +323,11 @@ public class ControlConceptosSoportes implements Serializable {
       contarRegistros();
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }
-
       conceptosSoportesBorrar.clear();
       conceptosSoportesCrear.clear();
       conceptosSoportesModificar.clear();
@@ -315,6 +338,7 @@ public class ControlConceptosSoportes implements Serializable {
       permitirIndex = true;
       RequestContext.getCurrentInstance().update("form:datosConceptosSoportes");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {
@@ -1029,6 +1053,11 @@ public class ControlConceptosSoportes implements Serializable {
       }
    }
 
+   public void guardarYSalir() {
+      guardarConceptosSoportes();
+      salir();
+   }
+
    public void guardarConceptosSoportes() {
       if (guardado == false) {
          if (!conceptosSoportesBorrar.isEmpty()) {
@@ -1384,10 +1413,6 @@ public class ControlConceptosSoportes implements Serializable {
       } catch (Exception e) {
          System.out.println("ERROR CONTROLBETACENTROSCOSTOS.cancelarSeleccionVigencia ERROR====" + e.getMessage());
       }
-   }
-
-   public String volverPaginaAnterior() {
-      return paginaAnterior;
    }
 
    public void contarRegistros() {

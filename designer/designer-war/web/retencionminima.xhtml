@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
+      
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
@@ -13,9 +13,9 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.retencionminima" var="msg" />
-                    <p:growl id="growl" showDetail="true" />
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 12px; position: absolute; width: 874px; height: 510px; text-align: left" >  
+                    <f:loadBundle basename="Recursos.retencionminima" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 12px; position: absolute; width: 874px; height: 510px; text-align: left">  
 
                         <fieldset style="position: absolute; left: 220px; top: 75px; font-size: 11px; width: 430px; height: 168px; border-radius: 10px; ">
                             <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['retencion']}</legend>
@@ -26,34 +26,34 @@
 
                                 <p:ajax event="filter" listener="#{controlRetencionMinima.eventoFiltrar()}"/>
 
-                                <p:column sortBy="#{v.codigo}" filterBy="#{v.codigo}" filterMatchMode="contains" id="vCodigo" width="1%" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{v.codigo}" filterBy="#{v.codigo}" filterMatchMode="contains" id="vCodigo" width="1%" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="codigoHead" value="#{msg['codigo']}" />
+                                        <h:outputText id="codigoHead" value="#{msg['codigo']}"/>
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{v.codigo}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{v.codigo}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{v.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
-                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndice(indice, 0)}" />
+                                            <p:inputText  autocomplete="off"  value="#{v.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndice(indice, 0)}"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarVigenciasRetenciones(indice, 'N', v.codigo)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="#{msg['codigo']}" />
+                                        <h:outputText value="#{msg['codigo']}"/>
                                     </f:facet>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['fechavigencia']}"  sortBy="#{v.fechavigencia}" filterBy="#{v.fechavigencia}" filterMatchMode="contains"  width="10%" id="vFechaVigencia" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column headerText="#{msg['fechavigencia']}"  sortBy="#{v.fechavigencia}" filterBy="#{v.fechavigencia}" filterMatchMode="contains"  width="10%" id="vFechaVigencia" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{v.fechavigencia}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{v.fechavigencia}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{v.fechavigencia}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{v.fechavigencia}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlRetencionMinima.modificarFechas(indice,1)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarFechas(indice,1)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndice(indice,1)}" process="@this"/> 
@@ -78,84 +78,84 @@
                                          editable="true" editMode="cell" scrollWidth="830" scrollHeight="#{controlRetencionMinima.altoScrollRetenciones}" filteredValue="#{controlRetencionMinima.filtradoListaRetenciones}" emptyMessage="#{msg['vacio']}">
 
 
-                                <p:column sortBy="#{r.mensualizado}" filterBy="#{r.mensualizado}" filterMatchMode="contains" id="rValorMinimo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{r.mensualizado}" filterBy="#{r.mensualizado}" filterMatchMode="contains" id="rValorMinimo" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="minimoHead" value="#{msg['mensualizado']}" />
+                                        <h:outputText id="minimoHead" value="#{msg['mensualizado']}"/>
 
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{r.mensualizado}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{r.mensualizado}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{r.mensualizado}" id="editarValorMinimo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
-                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 0)}" />
+                                            <p:inputText  autocomplete="off"  value="#{r.mensualizado}" id="editarValorMinimo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 0)}"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarRetenciones(indiceD, 'N', r.mensualizado)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="#{msg['mensualizado']}" />
+                                        <h:outputText value="#{msg['mensualizado']}"/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column sortBy="#{r.retencion}" filterBy="#{r.retencion}" filterMatchMode="contains" id="rValorMaximo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{r.retencion}" filterBy="#{r.retencion}" filterMatchMode="contains" id="rValorMaximo" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="maximoHead" value="#{msg['retencion']}" />
+                                        <h:outputText id="maximoHead" value="#{msg['retencion']}"/>
                                     </f:facet>
 
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{r.retencion}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{r.retencion}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{r.retencion}" id="editarValorMaximo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
-                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 1)}" />
+                                            <p:inputText  autocomplete="off"  value="#{r.retencion}" id="editarValorMaximo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 1)}"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarRetenciones(indiceD, 'N', r.retencion)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="#{msg['retencion']}" />
+                                        <h:outputText value="#{msg['retencion']}"/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column sortBy="#{r.porcentaje}" filterBy="#{r.porcentaje}" filterMatchMode="contains" id="rPorcentaje" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{r.porcentaje}" filterBy="#{r.porcentaje}" filterMatchMode="contains" id="rPorcentaje" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="porcentajeHead" value="%" />
+                                        <h:outputText id="porcentajeHead" value="%"/>
                                         <p:tooltip for="porcentajeHead" value="#{msg['porcentaje']}"/>
 
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{r.porcentaje}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{r.porcentaje}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{r.porcentaje}" id="editarPorcentaje" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
-                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 2)}" />
+                                            <p:inputText  autocomplete="off"  value="#{r.porcentaje}" id="editarPorcentaje" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 2)}"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarRetenciones(indiceD, 'N', r.porcentaje)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="%" />
+                                        <h:outputText value="%"/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column sortBy="#{r.restauvt}" filterBy="#{r.restauvt}" filterMatchMode="contains" id="rValor" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{r.restauvt}" filterBy="#{r.restauvt}" filterMatchMode="contains" id="rValor" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="valorHead" value="#{msg['restauvt']}" />
+                                        <h:outputText id="valorHead" value="#{msg['restauvt']}"/>
 
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{r.restauvt}" style="text-transform: uppercase " /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{r.restauvt}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{r.restauvt}" id="editarValor" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
-                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 3)}" />
+                                            <p:inputText  autocomplete="off"  value="#{r.restauvt}" id="editarValor" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlRetencionMinima.cambiarIndiceD(indiceD, 3)}"/>
                                                 <p:ajax event="change" listener="#{controlRetencionMinima.modificarRetenciones(indiceD, 'N', r.restauvt)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="#{msg['restauvt']}" />
+                                        <h:outputText value="#{msg['restauvt']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -163,54 +163,54 @@
                         </fieldset>
 
                         <p:toolbar style="font-size: 12px; position: absolute; top: 35px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlRetencionMinima.guardarCambiosRetenciones()}" process="@this" />
-                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlRetencionMinima.guardarCambiosRetenciones()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlRetencionMinima.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -10px;"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " disabled="true" actionListener="#{controlRetencionMinima.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlRetencionMinima.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlRetencionMinima.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -10px;"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlRetencionMinima.exportXLS()}" />
-                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" actionListener="#{controlRetencionMinima.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " actionListener="#{controlRetencionMinima.limpiarNuevoVigencia()}" ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlRetencionMinima.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -10px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlRetencionMinima.exportXLS()}"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png);" actionListener="#{controlRetencionMinima.limpiarNuevoVigencia()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlRetencionMinima.tablaImprimir}" fileName="#{controlRetencionMinima.nombreArchivo}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}"  />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlRetencionMinima.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlRetencionMinima.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlRetencionMinima.chiste()}" process="@this"/>  
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlRetencionMinima.chiste()}" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"  /> 
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlRetencionMinima.borrar()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlRetencionMinima.borrar()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlRetencionMinima.duplicarE()}"  process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlRetencionMinima.duplicarE()}"  process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}"/>
 
                                 <p:separator style="position: relative; top: -10px;"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlRetencionMinima.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlRetencionMinima.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
                             </p:toolbarGroup>
                         </p:toolbar>
 
-                        <p:commandButton style="position: absolute; left: 722px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlRetencionMinima.cambiosPagina}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasRetenciones" process="@this" />
-                        <p:commandButton style="position: absolute; left: 15px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlRetencionMinima.cancelarModificacion()}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 805px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlRetencionMinima.salir()}" action="individual" process="@this" /> 
+                        <p:commandButton style="position: absolute; left: 722px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlRetencionMinima.cambiosPagina}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasRetenciones" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 15px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlRetencionMinima.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 805px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlRetencionMinima.salir()}" action="empleadoindividual" process="@this"/> 
 
                     </p:panel>
                 </h:form>
@@ -219,19 +219,19 @@
                     <!-- Nuevo Vigencia -->
                     <p:dialog id="NuevoRegistroVigenciasRetenciones" header="#{msg['nuevoregistroV']}"  widgetVar="NuevoRegistroVigenciasRetenciones" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="320" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoVigencia" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 98px; border-radius: 10px; ">
 
-                                <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;" /></strong>
-                                <p:inputText  autocomplete="off"  maxlength="4" id="nuevoCodigo" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="change" update="nuevoCodigo" />
+                                <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;"/></strong>
+                                <p:inputText  autocomplete="off"  maxlength="4" id="nuevoCodigo" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="change" update="nuevoCodigo"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 59px;" /></strong>
+                                <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 59px;"/></strong>
                                 <div id="posicionFechaVigenciaNuevo" style="font-size: 10px; position: absolute; top: 57px; left: 152px">
-                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.fechavigencia}" >
+                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlRetencionMinima.nuevoVigenciasRetenciones.fechavigencia}">
                                         <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                         <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
                                     </p:calendar>
@@ -251,19 +251,19 @@
 
                     <p:dialog id="DuplicarRegistroVigenciasRetenciones" header="#{msg['duplicarregistroV']}"  widgetVar="DuplicarRegistroVigenciasRetenciones" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="320" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarVigenciaRetencion" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 98px; border-radius: 10px; ">
 
-                                <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="off"  maxlength="4" id="duplicarCodigo" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="change" update="nuevoCodigo" />
+                                <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
+                                <p:inputText  autocomplete="off"  maxlength="4" id="duplicarCodigo" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="change" update="nuevoCodigo"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
+                                <strong><h:outputText value="#{msg['fechavigenciaN']}"  style="font-size: 12px; position: absolute; top: 57px;"/></strong>
                                 <div id="posicionFechaVigenciaNuevo" style="font-size: 10px; position: absolute; top: 57px; left: 152px">
-                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.fechavigencia}" >
+                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlRetencionMinima.duplicarVigenciasRetenciones.fechavigencia}">
                                         <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                         <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
                                     </p:calendar>
@@ -279,33 +279,33 @@
 
                     <p:dialog id="NuevoRegistroRetenciones" header="#{msg['nuevoregistroR']}"  widgetVar="NuevoRegistroRetenciones" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="340" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoRetencion" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 178px; border-radius: 10px; ">
 
-                                <strong><h:outputText value="#{msg['mensualizadoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoMensualizado" value="#{controlRetencionMinima.nuevoRetencion.mensualizado}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="change" update="nuevoMensualizado" />
+                                <strong><h:outputText value="#{msg['mensualizadoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="nuevoMensualizado" value="#{controlRetencionMinima.nuevoRetencion.mensualizado}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="change" update="nuevoMensualizado"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['retencionN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoRetencionn" value="#{controlRetencionMinima.nuevoRetencion.retencion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
+                                <strong><h:outputText value="#{msg['retencionN']}"  style="font-size: 12px; position: absolute; top: 57px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="nuevoRetencionn" value="#{controlRetencionMinima.nuevoRetencion.retencion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="nuevoRetencionn"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoPorcentaje" value="#{controlRetencionMinima.nuevoRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="nuevoPorcentaje" value="#{controlRetencionMinima.nuevoRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="nuevoPorcentaje"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['restauvtN']}"  style="font-size: 12px; position: absolute; top: 137px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoResta" value="#{controlRetencionMinima.nuevoRetencion.restauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="select();">
+                                <strong><h:outputText value="#{msg['restauvtN']}"  style="font-size: 12px; position: absolute; top: 137px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="nuevoResta" value="#{controlRetencionMinima.nuevoRetencion.restauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="nuevoResta"/>
                                 </p:inputText>
 
                                 <p:commandButton id="limpiarR" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 210px;" actionListener="#{controlRetencionMinima.limpiarNuevoRetencion()}" update="nuevoRetencion" process="@this"/>
-                                <p:commandButton id="agregarR" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 150px; top: 210px;"  process="@this" actionListener="#{controlRetencionMinima.agregarNuevoRetencion()}" />
+                                <p:commandButton id="agregarR" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 150px; top: 210px;"  process="@this" actionListener="#{controlRetencionMinima.agregarNuevoRetencion()}"/>
                                 <p:commandButton id="cancelarR" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 220px; top: 210px;" actionListener="#{controlRetencionMinima.limpiarNuevoRetencion()}" update="nuevoRetencion" onclick="PF('NuevoRegistroRetenciones').hide();"  process="@this"/>
                             </fieldset>
                         </p:panel>
@@ -314,28 +314,28 @@
                     <!-- Duplicar Retencion -->
 
                     <p:dialog id="DuplicarRegistroRetencion" header="#{msg['duplicarregistroR']}" widgetVar="DuplicarRegistroRetencion" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="340" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarRetencion" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 178px; border-radius: 10px; ">
 
-                                <strong><h:outputText value="#{msg['mensualizadoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarMensualizado" value="#{controlRetencionMinima.duplicarRetencion.mensualizado}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="change" update="duplicarMensualizado" />
+                                <strong><h:outputText value="#{msg['mensualizadoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="duplicarMensualizado" value="#{controlRetencionMinima.duplicarRetencion.mensualizado}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="change" update="duplicarMensualizado"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['retencionN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarRetencionn" value="#{controlRetencionMinima.duplicarRetencion.retencion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
+                                <strong><h:outputText value="#{msg['retencionN']}" style="font-size: 12px; position: absolute; top: 57px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="duplicarRetencionn" value="#{controlRetencionMinima.duplicarRetencion.retencion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="duplicarRetencionn"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarPorcentaje" value="#{controlRetencionMinima.duplicarRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="duplicarPorcentaje" value="#{controlRetencionMinima.duplicarRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="duplicarPorcentaje"/>
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['restauvtN']}"  style="font-size: 12px; position: absolute; top: 137px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarResta" value="#{controlRetencionMinima.duplicarRetencion.restauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="select();">
+                                <strong><h:outputText value="#{msg['restauvtN']}"  style="font-size: 12px; position: absolute; top: 137px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="duplicarResta" value="#{controlRetencionMinima.duplicarRetencion.restauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="duplicarResta"/>
                                 </p:inputText>
 
@@ -348,20 +348,20 @@
 
                     <p:dialog id="validacionNuevo" header="#{msg['atencion']}" widgetVar="validacionNuevo"  resizable="false" draggable="true" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionNuevo']}  #{controlRetencionMinima.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['validacionNuevo']}  #{controlRetencionMinima.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="codigos" header="#{msg['atencion']}" widgetVar="codigos"  resizable="false" draggable="true" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['codigos']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('codigos').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['codigos']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('codigos').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this"/>
                     </p:dialog>
                     
                     <p:dialog id="registro" header="#{msg['atencion']}" widgetVar="registro"  resizable="false" draggable="true" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['registro']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('registro').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['registro']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('registro').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <!-- DIALOGOS EDITAR
@@ -373,9 +373,9 @@
                         <p:commandButton id="cancelarCodigoVR" value="#{msg['atras']}" onclick="PF('editarCodigoVR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaVigenciaVR" header="#{msg['editarFechaVigenciaVR']}" widgetVar="editarFechaVigenciaVR" resizable="false" draggable="true" modal="true" height="93" width="270" style="font-size: 12px;" >  
+                    <p:dialog id="editarFechaVigenciaVR" header="#{msg['editarFechaVigenciaVR']}" widgetVar="editarFechaVigenciaVR" resizable="false" draggable="true" modal="true" height="93" width="270" style="font-size: 12px;">  
                         <p:inputText  autocomplete="off"  value="#{controlRetencionMinima.editarVigenciasRetenciones.fechavigencia}" style="overflow: auto;" readonly="true">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputText>
                         <p:commandButton id="cancelarFechaVigencia" value="#{msg['atras']}" onclick="PF('editarFechaVigenciaVR').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog> 
@@ -404,58 +404,58 @@
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRetencionMinima.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRetencionMinima.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <!-- DIALOGOS Rastro Vigencias Retenciones -->
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'VigenciasRetencionesMinimas', 'vigenciasretencionesminimas')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'VigenciasRetencionesMinimas', 'vigenciasretencionesminimas')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasRetencionesMinimas', 'vigenciasretencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasRetencionesMinimas', 'vigenciasretencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'VigenciasRetencionesMinimas', 'vigenciasretencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'VigenciasRetencionesMinimas', 'vigenciasretencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                 </h:form>
@@ -464,58 +464,58 @@
                 <h:form>
                     <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'RetencionesMinimas', 'retencionesminimas')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'RetencionesMinimas', 'retencionesminimas')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
 
                     </p:dialog>
 
 
                     <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('RetencionesMinimas', 'retencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('RetencionesMinimas', 'retencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastroNF" header="#{msg['atencion']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'RetencionesMinimas', 'retencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencionMinima.secRegistro, 'RetencionesMinimas', 'retencionesminimas')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistroNF" header="#{msg['atencion']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistroNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistroNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDBNF" header="#{msg['atencion']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <!-- Dialogo para ver en qué tabla se quiere insertar -->
                     <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Vigencias Retenciones Minimas" onclick="PF('elegirTabla').hide();" actionListener="#{controlRetencionMinima.dialogoVigencias()}" style="position: absolute; top: 60px; left: 20px;" process="@this" />
-                        <p:commandButton value="Retenciones Minimas" onclick="PF('elegirTabla').hide();" actionListener="#{controlRetencionMinima.dialogoRetenciones()}" style="position: absolute; top: 60px; left: 220px;" process="@this" />
+                        <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Vigencias Retenciones Minimas" onclick="PF('elegirTabla').hide();" actionListener="#{controlRetencionMinima.dialogoVigencias()}" style="position: absolute; top: 60px; left: 20px;" process="@this"/>
+                        <p:commandButton value="Retenciones Minimas" onclick="PF('elegirTabla').hide();" actionListener="#{controlRetencionMinima.dialogoRetenciones()}" style="position: absolute; top: 60px; left: 220px;" process="@this"/>
                     </p:dialog>
                 </h:form>
 
@@ -526,15 +526,15 @@
 
                         <p:column headerText="#{msg['codigoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
-                            <h:outputText value="#{v.codigo}" />
+                            <h:outputText value="#{v.codigo}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['fechavigenciaXX']}">  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechavigenciaX']}" />
+                                <h:outputText value="#{msg['fechavigenciaX']}"/>
                             </f:facet>
-                            <h:outputText value="#{v.fechavigencia}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{v.fechavigencia}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
@@ -546,22 +546,22 @@
 
                         <p:column headerText="#{msg['mensualizadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['mensualizadoX']}"/> </f:facet> 
-                            <h:outputText value="#{r.mensualizado}" />
+                            <h:outputText value="#{r.mensualizado}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['retencionX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['retencionX']}"/> </f:facet> 
-                            <h:outputText value="#{r.retencion}" />
+                            <h:outputText value="#{r.retencion}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['porcentajeX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['porcentajeX']}"/> </f:facet> 
-                            <h:outputText value="#{r.porcentaje}" />
+                            <h:outputText value="#{r.porcentaje}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['restauvtXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['restauvtX']}"/> </f:facet> 
-                            <h:outputText value="#{r.restauvt}" />
+                            <h:outputText value="#{r.restauvt}"/>
                         </p:column>  
 
                     </p:dataTable>

@@ -140,15 +140,34 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "perestadocivil";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "perestadocivil";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -158,9 +177,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    public void recibirEmpleado(BigInteger sec, BigInteger secPersona) {
@@ -365,7 +383,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          //CERRAR FILTRADO
@@ -396,6 +415,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       RequestContext.getCurrentInstance().update("form:infoRegistro");
       RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {
@@ -671,12 +691,14 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          RequestContext.getCurrentInstance().update("form:confirmarGuardar");
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
+   }
 
+   public void guardarYSalir() {
+      guardarVigenciaEstadoCivil();
+      salir();
    }
 
    public void guardarVigenciaEstadoCivil() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (guardado == false) {
          System.out.println("Realizando guardarEvalCompetencias");
          if (!borrarVigenciaEstadoCivilPorEmplado.isEmpty()) {

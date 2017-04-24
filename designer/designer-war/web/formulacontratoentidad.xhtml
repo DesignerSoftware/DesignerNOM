@@ -12,59 +12,59 @@
             <ui:define name="body">                  
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
-                    <f:loadBundle basename="Recursos.formulacontratoentidad" var="msg" />
+                    <f:loadBundle basename="Recursos.formulacontratoentidad" var="msg"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <h:outputText style="position: absolute; top: 50px; height: 12px; position: absolute; color: #BF1A1A; font-weight: bold; text-align: right; width: 240px; left: 600px;" id="nombreEmpleado" value="#{controlFormulasContratosEntidades.formulaContratoSeleccionada.formula.nombrelargo}"/>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); "
-                                                 actionListener="#{controlFormulasContratosEntidades.guardarFormulasContratosEntidades()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                                 actionListener="#{controlFormulasContratosEntidades.guardarFormulasContratosEntidades()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.limpiarNuevoFormulasContratosEntidades()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosFormulasContratosEntidadesExportar" fileName="FORMULASASEGURADAS" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>  
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.cargarNuevoFormulasContratosEntidades()}" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.borrandoFormulasContratosEntidades()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.duplicandoFormulasContratosEntidades()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>  
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) "
                                                  actionListener="#{controlFormulasContratosEntidades.verificarRastro()}" process="@this"/>  
@@ -76,7 +76,7 @@
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) "
-                                                 actionListener="#{controlFormulasContratosEntidades.salir()}" action="#{controlFormulasContratosEntidades.redirigirPagina()}" process="@this"/>  
+                                                 actionListener="#{controlFormulasContratosEntidades.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -92,9 +92,9 @@
                                
                                 <p:ajax event="filter" listener="#{controlFormulasContratosEntidades.eventoFiltrar()}"/>
 
-                                <p:column headerText="#{msg['tipoEntidad']}" sortBy="#{info.tipoentidad.nombre}" filterBy="#{info.tipoentidad.nombre}" filterMatchMode="contains" id="personafir" width="300" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['tipoEntidad']}" sortBy="#{info.tipoentidad.nombre}" filterBy="#{info.tipoentidad.nombre}" filterMatchMode="contains" id="personafir" width="300" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipoentidad.nombre}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.tipoentidad.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipoentidad.nombre}" id="editarPersonaFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlFormulasContratosEntidades.cambiarIndice(indice, 0)}" process="@this"/> 
@@ -104,49 +104,43 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 728px; margin: -14px; height: 50px; border: none; color: blue" id="fooProceso" action="tipoentidadformulacontratoentidad" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('atrastipoentidadformulacontratoentidad')}" value="#{msg['tipoEntidad']}"/>
+                                        <p:commandButton style="width: 728px; margin: -14px; height: 50px; border: none; color: blue;" id="fooProceso" action="#{controlListaNavegacion.guardarNavegacion('formulacontratoentidad', 'tipoentidad')}" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('formulacontratoentidad')}" value="#{msg['tipoEntidad']}"/>
                                     </f:facet>
                                 </p:column>
-
                             </p:dataTable>
-
                         </fieldset>
 
-                        <h:outputText id="informacionRegistro" value="#{controlFormulasContratosEntidades.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  actionListener="#{controlFormulasContratosEntidades.revisarDialogoGuardar()}" disabled="#{controlFormulasContratosEntidades.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlFormulasContratosEntidades.salir()}" action="#{controlFormulasContratosEntidades.redirigirPagina()}"   />
+                        <h:outputText id="informacionRegistro" value="#{controlFormulasContratosEntidades.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="#{msg['aceptar']}" actionListener="#{controlFormulasContratosEntidades.revisarDialogoGuardar()}" disabled="#{controlFormulasContratosEntidades.guardado}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlFormulasContratosEntidades.salir()}"/>
 
-
-
-
-                        <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="personasDialogo" draggable="true" resizable="false" closable="false" id="personasDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
+                        <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="personasDialogo" draggable="true" resizable="false" closable="false" id="personasDialogo" showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
                             <p:dataTable id="lovFormulas" style=" width: 430px;" var="personaFirmas" value="#{controlFormulasContratosEntidades.listaTiposEntidades}" rowKey="#{personaFirmas.secuencia}"
                                          selection="#{controlFormulasContratosEntidades.tipoentidadSeleccionado}" selectionMode="single" widgetVar="lovFormulas" scrollable="true" scrollWidth="450" scrollHeight="280"
                                          filteredValue="#{controlFormulasContratosEntidades.filtradoTiposEntidades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlFormulasContratosEntidades.activarAceptar()}" update=":form:aceptarPer"/>
-                                <p:ajax event="rowDblselect" listener="#{controlFormulasContratosEntidades.actualizarTiposEntidades() }" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlFormulasContratosEntidades.actualizarTiposEntidades()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTipoEntidad']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFormulas').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFormulas').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="#{msg['codigo']}" />
+                                        <h:outputText value="#{msg['codigo']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{personaFirmas.codigo}" />
+                                    <h:outputText value="#{personaFirmas.codigo}"/>
                                 </p:column>
                                 <p:column filterBy="#{personaFirmas.nombre}" width="130px;" filterStyle="width:110px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="#{msg['nombre']}" />
+                                        <h:outputText value="#{msg['nombre']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{personaFirmas.nombre}" />
+                                    <h:outputText value="#{personaFirmas.nombre}"/>
                                 </p:column>
                             </p:dataTable>
 
 
-                            <h:outputText id="infoRegistroLOVTipoEntidad" value="#{controlFormulasContratosEntidades.infoRegistroLOVTipoEntidad}" style="position: absolute; left: 15px;  top: 380px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroLOVTipoEntidad" value="#{controlFormulasContratosEntidades.infoRegistroLOVTipoEntidad}" style="position: absolute; left: 15px; top: 380px; font-weight: bold;"/>
                             
                             <p:commandButton id="aceptarPer" icon="ui-icon-check" style="position: relative;left: 285px;" value="#{msg['aceptar']}"  disabled="#{controlFormulasContratosEntidades.aceptar}"   actionListener="#{controlFormulasContratosEntidades.actualizarTiposEntidades()}" process="@this"/>
                             
@@ -156,10 +150,10 @@
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormulasContratosEntidades.guardarFormulasContratosEntidades()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormulasContratosEntidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormulasContratosEntidades.guardarFormulasContratosEntidades()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormulasContratosEntidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
 
 
@@ -167,34 +161,34 @@
 
                     <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="#{msg['necesita']} #{controlFormulasContratosEntidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['necesita']} #{controlFormulasContratosEntidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
 
                     <p:dialog id="validacionModificar" header="#{msg['atencion']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlFormulasContratosEntidades.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <h:outputText value=" #{controlFormulasContratosEntidades.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
                     </p:dialog> 
 
                     <p:dialog id="validacionBorrar" header="#{msg['atencion']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
                     </p:dialog>
 
 
                     <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{msg['borrado1']}  #{controlFormulasContratosEntidades.registrosBorrados}  #{msg['borrado2']}" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <h:outputText value=" #{msg['borrado1']}  #{controlFormulasContratosEntidades.registrosBorrados}  #{msg['borrado2']}" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="#{msg['atencion']}" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value=" #{msg['validarNuevo']} #{controlFormulasContratosEntidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value=" #{msg['validarNuevo']} #{controlFormulasContratosEntidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlFormulasContratosEntidades.activarCtrlF11()}"/> 
@@ -204,75 +198,75 @@
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencionRastros']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulasContratosEntidades.secRegistro, 'FormulasContratosEntidades','formulacontratoentidad')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulasContratosEntidades.secRegistro, 'FormulasContratosEntidades','formulacontratoentidad')}" style="position: absolute; top: 63px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('formulacontratoentidad', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencionRastros']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('FormulasContratosEntidades','formulacontratoentidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('FormulasContratosEntidades','formulacontratoentidad')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('formulacontratoentidad', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencionRastros']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencionRastros']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencionRastros']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulasContratosEntidades.secRegistro, 'FormulasContratosEntidades','formulacontratoentidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulasContratosEntidades.secRegistro, 'FormulasContratosEntidades','formulacontratoentidad')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('formulacontratoentidad', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencionRastros']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencionRastros']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencionRastros']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
 
-                    <p:dialog id="editPais" header="#{msg['editarTipoEntidad']}" widgetVar="editPais" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editPais" header="#{msg['editarTipoEntidad']}" widgetVar="editPais" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlFormulasContratosEntidades.editarFormulasContratosEntidades.tipoentidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 
 
                     <p:dialog id="nuevoRegistroFormulasContratosEntidades" header="#{msg['nuevoD']}" widgetVar="nuevoRegistroFormulasContratosEntidades" closable="false" resizable="false"  draggable="true" modal="true" height="120" width="340" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="#{msg['nuevoDD']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="#{msg['nuevoDD']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['tipoEntidadN']}"  style=" position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlFormulasContratosEntidades.nuevoFormulasContratosEntidades.tipoentidad.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlFormulasContratosEntidades.valoresBackupAutocompletar(1,'FORMULA')}" />
-                                <p:ajax event="change" listener="#{controlFormulasContratosEntidades.autocompletarNuevo('FORMULA',controlFormulasContratosEntidades.nuevoFormulasContratosEntidades.tipoentidad.nombre, 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlFormulasContratosEntidades.asignarVariableFormulas(0)}" />
+                            <strong><h:outputText value="#{msg['tipoEntidadN']}"  style=" position: absolute; top: 60px;text-transform: uppercase;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlFormulasContratosEntidades.nuevoFormulasContratosEntidades.tipoentidad.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                                <p:ajax event="click" listener="#{controlFormulasContratosEntidades.valoresBackupAutocompletar(1,'FORMULA')}"/>
+                                <p:ajax event="change" listener="#{controlFormulasContratosEntidades.autocompletarNuevo('FORMULA',controlFormulasContratosEntidades.nuevoFormulasContratosEntidades.tipoentidad.nombre, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlFormulasContratosEntidades.asignarVariableFormulas(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px;  " id="btnnuevoPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlFormulasContratosEntidades.asignarVariableFormulas(0)}"/>   
-                            <p:watermark for="nuevoPersona" value="#{msg['tipoEntidad']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px; " id="btnnuevoPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlFormulasContratosEntidades.asignarVariableFormulas(0)}"/>   
+                            <p:watermark for="nuevoPersona" value="#{msg['tipoEntidad']}"/>
 
 
                             <p:commandButton icon="ui-icon-trash" id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 90px;"  actionListener="#{controlFormulasContratosEntidades.limpiarNuevoFormulasContratosEntidades()}" update="nuevaTipoempresa" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 90px;" actionListener="#{controlFormulasContratosEntidades.agregarNuevoFormulasContratosEntidades()}" process="@this" />
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 90px;" actionListener="#{controlFormulasContratosEntidades.agregarNuevoFormulasContratosEntidades()}" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 90px;"  update="nuevaTipoempresa" onclick="PF('nuevoRegistroFormulasContratosEntidades').hide();"  actionListener="#{controlFormulasContratosEntidades.limpiarNuevoFormulasContratosEntidades()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -280,22 +274,22 @@
 
 
                     <p:dialog id="duplicarRegistroFormulasContratosEntidades" header="#{msg['duplicarD']}" widgetVar="duplicarRegistroFormulasContratosEntidades" closable="false" resizable="false"  draggable="true" modal="true" height="120" width="340" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="#{msg['duplicarDD']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="#{msg['duplicarDD']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarTE" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['tipoEntidadN']}"  style=" position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlFormulasContratosEntidades.duplicarFormulasContratosEntidades.tipoentidad.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 55px;" >
-                                <p:ajax event="click" listener="#{controlFormulasContratosEntidades.valoresBackupAutocompletar(2,'FORMULA')}" />
-                                <p:ajax event="change" listener="#{controlFormulasContratosEntidades.autocompletarDuplicado('FORMULA', controlFormulasContratosEntidades.duplicarFormulasContratosEntidades.tipoentidad.nombre , 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlFormulasContratosEntidades.asignarVariableFormulas(1)}" />
+                            <strong><h:outputText value="#{msg['tipoEntidadN']}"  style=" position: absolute; top: 60px;text-transform: uppercase;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlFormulasContratosEntidades.duplicarFormulasContratosEntidades.tipoentidad.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 55px;">
+                                <p:ajax event="click" listener="#{controlFormulasContratosEntidades.valoresBackupAutocompletar(2,'FORMULA')}"/>
+                                <p:ajax event="change" listener="#{controlFormulasContratosEntidades.autocompletarDuplicado('FORMULA', controlFormulasContratosEntidades.duplicarFormulasContratosEntidades.tipoentidad.nombre , 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlFormulasContratosEntidades.asignarVariableFormulas(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px;  " id="btnduplicarPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlFormulasContratosEntidades.asignarVariableFormulas(1)}"/>   
-                            <p:watermark for="duplicarPersona" value="#{msg['tipoEntidad']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 55px; " id="btnduplicarPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlFormulasContratosEntidades.asignarVariableFormulas(1)}"/>   
+                            <p:watermark for="duplicarPersona" value="#{msg['tipoEntidad']}"/>
 
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarD" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 90px;"  actionListener="#{controlFormulasContratosEntidades.limpiarDuplicarFormulasContratosEntidades() }" update="duplicarTE"  process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 90px;" actionListener="#{controlFormulasContratosEntidades.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 90px;" actionListener="#{controlFormulasContratosEntidades.confirmarDuplicar()}"  process="@this"/>
                             <p:commandButton icon="ui-icon-circle-close"  id="cancelarDuplicarVFP" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 90px;"  update="duplicarTE" onclick="PF('duplicarRegistroFormulasContratosEntidades').hide();" actionListener="#{controlFormulasContratosEntidades.limpiarDuplicarFormulasContratosEntidades()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -307,7 +301,7 @@
                                  value="#{controlFormulasContratosEntidades.listFormulasContratosEntidades}">
 
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="#{msg['tipoEntidad']}" /></f:facet>
+                            <f:facet name="header"><h:outputText value="#{msg['tipoEntidad']}"/></f:facet>
                             <h:outputText value="#{info.tipoentidad.nombre}"/>
                         </p:column>
 

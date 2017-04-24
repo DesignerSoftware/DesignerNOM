@@ -5,274 +5,276 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core" 
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
-      xmlns:pe="http://primefaces.org/ui/extensions">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">
-                <h:form id="form">
-                    <f:loadBundle basename="Recursos.sotiposantecedentes" var="msg" />
-                    <p:growl id="growl" showDetail="true" />
-                    <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >
-                        <p:toolbar styleClass="cssToolbar" >   
-                            <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlSoTiposAntecedentes.guardarCambiosTiposAntecedentes()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlSoTiposAntecedentes.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+   >
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">
+            <h:form id="form">
+               <f:loadBundle basename="Recursos.sotiposantecedentes" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
+                  <p:toolbar styleClass="cssToolbar">   
+                     <p:toolbarGroup align="left;"> 
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlSoTiposAntecedentes.guardarCambiosTiposAntecedentes()}" process="@this"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlSoTiposAntecedentes.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlSoTiposAntecedentes.activarLov}" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlSoTiposAntecedentes.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlSoTiposAntecedentes.activarLov}" process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlSoTiposAntecedentes.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlSoTiposAntecedentes.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlSoTiposAntecedentes.limpiarNuevoTipoAntecedente()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosTiposAntecedentesExportar" fileName="SoTiposAntecedentesXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlSoTiposAntecedentes.exportXLS()}"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlSoTiposAntecedentes.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlSoTiposAntecedentes.limpiarNuevoTipoAntecedente()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosTiposAntecedentesExportar" fileName="SoTiposAntecedentesXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroTipoAntecedente').show()" update=":formularioDialogos:nuevoTipoAntecedente" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" /> 
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlSoTiposAntecedentes.exportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlSoTiposAntecedentes.borrarTipoAntecedente()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroTipoAntecedente').show()" update=":formularioDialogos:nuevoTipoAntecedente" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlSoTiposAntecedentes.duplicarTA()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlSoTiposAntecedentes.borrarTipoAntecedente()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlSoTiposAntecedentes.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlSoTiposAntecedentes.duplicarTA()}"  process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlSoTiposAntecedentes.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                                 oncomplete="window.location.reload()" actionListener="#{controlSoTiposAntecedentes.cancelarModificacion()}" process="@this" />  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlSoTiposAntecedentes.retornarPaginaAnterior()}" actionListener="#{controlSoTiposAntecedentes.salir()}" process="@this" />  
-                                <p:tooltip  for="salir" value="Salir"/>
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         oncomplete="window.location.reload()" actionListener="#{controlSoTiposAntecedentes.cancelarModificacion()}" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                            </p:toolbarGroup>  
-                        </p:toolbar>    
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlSoTiposAntecedentes.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="Salir"/>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 380px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: #14388B"><strong>Antecedentes</strong></legend>
+                     </p:toolbarGroup>  
+                  </p:toolbar>    
 
-                            <p:dataTable id="datosTiposAntecedentes" var="info" value="#{controlSoTiposAntecedentes.listTiposAntecedentes}"
-                                         rowKey="#{info.secuencia}" rowIndexVar="indice"                           
-                                         scrollable="true"  scrollWidth="830" filteredValue="#{controlSoTiposAntecedentes.listTiposAntecedentesFiltrar}"
-                                         scrollHeight="#{controlSoTiposAntecedentes.altoTabla}" style="border: 1px;width: 830px"
-                                         emptyMessage="#{msg['vacio']}" widgetVar="datosTiposAntecedentes"
-                                         editable="true" editMode="cell"
-                                         selection="#{controlSoTiposAntecedentes.tipoantecedenteSeleccionado}" selectionMode="single">
+                  <fieldset style="position: absolute; top: 80px; left: 10px; height: 380px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="font-size: 14px; color: #14388B"><strong>Antecedentes</strong></legend>
 
-
-                                <p:ajax event="filter" listener="#{controlSoTiposAntecedentes.eventoFiltrar()}"/>
-
-                                <p:column headerText="#{msg['cod']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="70" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodTipo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
-                                                <p:keyFilter for="editarCodTipo" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlSoTiposAntecedentes.cambiarIndice(info, 0)}" />
-                                                <p:ajax event="change" listener="#{controlSoTiposAntecedentes.modificarTiposAntecedentes(info)}"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=" " />
-                                    </f:facet>
-                                </p:column> 
-
-                                <p:column headerText="#{msg['desc']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.descripcion}" style=" text-transform: uppercase;" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarDescTipo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
-                                                <p:ajax event="change" listener="#{controlSoTiposAntecedentes.modificarTiposAntecedentes(info)}"/>
-                                                <p:ajax event="select" listener="#{controlSoTiposAntecedentes.cambiarIndice(info, 1)}" />
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=""/>
-                                    </f:facet>
-                                </p:column> 
-                            </p:dataTable>  
-                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlSoTiposAntecedentes.infoRegistro}" style="position: relative; left: 5px; top: 5px; font-weight: bold"/>
-                        </fieldset>
-                    </p:panel>
-                    <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosTiposAntecedentes" disabled="#{controlSoTiposAntecedentes.guardado}" process="@this" />
-                    <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlSoTiposAntecedentes.salir()}" action="#{controlSoTiposAntecedentes.retornarPaginaAnterior()}" process="@this" />
-
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlSoTiposAntecedentes.activarCtrlF11()}" process="@this"/>
-
-                </h:form> 
-
-                <h:form id="formularioDialogos" >
-                    <p:dialog id="NuevoRegistroTipoAntecedente" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroTipoAntecedente" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="320" style=" padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="nuevoTipoAntecedente" style="border: none;">
-
-                            <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase" onclick="select();">
-                                <p:keyFilter for="nuevoCodigo" mask="num"/>
-                                <p:ajax event="change" update="nuevoCodigo" />
-                            </p:inputText>
-
-                            <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;" /></strong>
-                            <p:inputText  autocomplete="off"  maxlength="50" id="nuevaDesc" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="change" update="nuevaDesc"/>
-                            </p:inputText>
-
-                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarNuevoTipoAntecedente()}" update="nuevoTipoAntecedente" process="@this"/>
-                            <p:commandButton id="agregarT" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 130px;"  process="@this" actionListener="#{controlSoTiposAntecedentes.agregarNuevoTipoAntecedente()}"/>
-                            <p:commandButton id="cancelarT" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarNuevoTipoAntecedente()}" update="nuevoTipoAntecedente" onclick="PF('NuevoRegistroTipoAntecedente').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroTipoAntecedente" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroTipoAntecedente" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="320" style=" padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarTipoAntecedente" style="border: none;">
-
-                            <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase" onclick="select();">
-                                <p:keyFilter for="duplicarCodigo" mask="num"/>
-                                <p:ajax event="change" update="duplicarCodigo" />
-                            </p:inputText>
-
-                            <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;" /></strong>
-                            <p:inputText  autocomplete="off"  maxlength="50" id="duplicarDesc" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="change" update="duplicarDesc"/>
-                            </p:inputText>
-
-                            <p:commandButton id="limpiarDuplicadoSoTipoAnt" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarDuplicarTipoAntecedente()}" update="duplicarTipoAntecedente" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoSoTipoAnt" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 130px;"  process="@this" actionListener="#{controlSoTiposAntecedentes.confirmarDuplicar()}" />
-                            <p:commandButton id="cancelarDuplicadoSoTipoAnt" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarDuplicarTipoAntecedente()}" update="duplicarTipoAntecedente" onclick="PF('DuplicarRegistroTipoAntecedente').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="validacionNuevoTipoAntecedente" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoAntecedente"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{controlSoTiposAntecedentes.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoAntecedente').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" icon="ui-icon-circle-check" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSoTiposAntecedentes.guardarCambiosTiposAntecedentes()}" action="individual" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSoTiposAntecedentes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" action="individual" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:dialog id="existeTipoAntecedente" header="#{msg['error']}" widgetVar="existeTipoAntecedente"  resizable="false" draggable="true" modal="true" height="85" width="370"  closable ="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['existeTipoAntecedente']}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeTipoAntecedente').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
-                    </p:dialog>
+                     <p:dataTable id="datosTiposAntecedentes" var="info" value="#{controlSoTiposAntecedentes.listTiposAntecedentes}"
+                                  rowKey="#{info.secuencia}" rowIndexVar="indice"                           
+                                  scrollable="true"  scrollWidth="830" filteredValue="#{controlSoTiposAntecedentes.listTiposAntecedentesFiltrar}"
+                                  scrollHeight="#{controlSoTiposAntecedentes.altoTabla}" style="border: 1px; width: 830px"
+                                  emptyMessage="#{msg['vacio']}" widgetVar="datosTiposAntecedentes"
+                                  editable="true" editMode="cell"
+                                  selection="#{controlSoTiposAntecedentes.tipoantecedenteSeleccionado}" selectionMode="single">
 
 
+                        <p:ajax event="filter" listener="#{controlSoTiposAntecedentes.eventoFiltrar()}"/>
 
-                    <p:dialog id="editarCodigo" header="#{msg['editarCod']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
-                        <p:inputTextarea value="#{controlSoTiposAntecedentes.editarTipoAntecedente.codigo}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog> 
+                        <p:column headerText="#{msg['cod']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodTipo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;"> 
+                                    <p:keyFilter for="editarCodTipo" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlSoTiposAntecedentes.cambiarIndice(info, 0)}"/>
+                                    <p:ajax event="change" listener="#{controlSoTiposAntecedentes.modificarTiposAntecedentes(info)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=" "/>
+                           </f:facet>
+                        </p:column> 
+
+                        <p:column headerText="#{msg['desc']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.descripcion}" style=" text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarDescTipo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;"> 
+                                    <p:ajax event="change" listener="#{controlSoTiposAntecedentes.modificarTiposAntecedentes(info)}"/>
+                                    <p:ajax event="select" listener="#{controlSoTiposAntecedentes.cambiarIndice(info, 1)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column> 
+                     </p:dataTable>  
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlSoTiposAntecedentes.infoRegistro}" style="position: relative; left: 5px; top: 5px; font-weight: bold;"/>
+                  </fieldset>
+               </p:panel>
+               <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposAntecedentes" disabled="#{controlSoTiposAntecedentes.guardado}" process="@this"/>
+               <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlSoTiposAntecedentes.salir()}" process="@this"/>
+
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlSoTiposAntecedentes.activarCtrlF11()}" process="@this"/>
+
+            </h:form> 
+
+            <h:form id="formularioDialogos">
+               <p:dialog id="NuevoRegistroTipoAntecedente" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroTipoAntecedente" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="320" style=" padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                  <p:panel id="nuevoTipoAntecedente" style="border: none;">
+
+                     <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
+                        <p:keyFilter for="nuevoCodigo" mask="num"/>
+                        <p:ajax event="change" update="nuevoCodigo"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;"/></strong>
+                     <p:inputText  autocomplete="off"  maxlength="50" id="nuevaDesc" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
+                        <p:ajax event="change" update="nuevaDesc"/>
+                     </p:inputText>
+
+                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarNuevoTipoAntecedente()}" update="nuevoTipoAntecedente" process="@this"/>
+                     <p:commandButton id="agregarT" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 130px;"  process="@this" actionListener="#{controlSoTiposAntecedentes.agregarNuevoTipoAntecedente()}"/>
+                     <p:commandButton id="cancelarT" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarNuevoTipoAntecedente()}" update="nuevoTipoAntecedente" onclick="PF('NuevoRegistroTipoAntecedente').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroTipoAntecedente" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroTipoAntecedente" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="320" style=" padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                  <p:panel id="duplicarTipoAntecedente" style="border: none;">
+
+                     <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
+                        <p:keyFilter for="duplicarCodigo" mask="num"/>
+                        <p:ajax event="change" update="duplicarCodigo"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;"/></strong>
+                     <p:inputText  autocomplete="off"  maxlength="50" id="duplicarDesc" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
+                        <p:ajax event="change" update="duplicarDesc"/>
+                     </p:inputText>
+
+                     <p:commandButton id="limpiarDuplicadoSoTipoAnt" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarDuplicarTipoAntecedente()}" update="duplicarTipoAntecedente" process="@this"/>
+                     <p:commandButton id="agregarDuplicadoSoTipoAnt" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 130px;"  process="@this" actionListener="#{controlSoTiposAntecedentes.confirmarDuplicar()}"/>
+                     <p:commandButton id="cancelarDuplicadoSoTipoAnt" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 130px;" actionListener="#{controlSoTiposAntecedentes.limpiarDuplicarTipoAntecedente()}" update="duplicarTipoAntecedente" onclick="PF('DuplicarRegistroTipoAntecedente').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="validacionNuevoTipoAntecedente" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoAntecedente"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{controlSoTiposAntecedentes.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoAntecedente').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" icon="ui-icon-circle-check"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSoTiposAntecedentes.guardarYSalir()}"
+                                   style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSoTiposAntecedentes.salir()}"
+                                   style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
+
+               <p:dialog id="existeTipoAntecedente" header="#{msg['error']}" widgetVar="existeTipoAntecedente"  resizable="false" draggable="true" modal="true" height="85" width="370"  closable ="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['existeTipoAntecedente']}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeTipoAntecedente').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+               </p:dialog>
 
 
-                    <p:dialog id="editarDescripcion" header="#{msg['editardesc']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlSoTiposAntecedentes.editarTipoAntecedente.descripcion}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoTiposAntecedentes.tipoantecedenteSeleccionado.secuencia, 'SoTiposAntecedentes', 'sotiposantecedentes')}" style="position: absolute; top: 63px; left: 170px;" action="rastrotabla" icon="ui-icon-check" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SoTiposAntecedentes', 'sotiposantecedentes')}" style="position: absolute; top: 60px; left: 170px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoTiposAntecedentes.antecedenteSeleccionado.secuencia, 'SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 67px; left: 170px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 67px; left: 240px;" process="@this" icon="ui-icon-close" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                </h:form>
-                <h:form id="formExportar">
-                    <p:dataTable id="datosTiposAntecedentesExportar" var="antEx" style="visibility: hidden; display: none;"                           
-                                 value="#{controlSoTiposAntecedentes.listTiposAntecedentes}"> 
+               <p:dialog id="editarCodigo" header="#{msg['editarCod']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlSoTiposAntecedentes.editarTipoAntecedente.codigo}" style="overflow: auto;" readonly="true"/>
+               </p:dialog> 
 
 
-                        <p:column >      
-                            <f:facet name="header"><h:outputText value="#{msg['codX']}"/></f:facet>
-                            <h:outputText value="#{antEx.codigo}" />
-                        </p:column>
+               <p:dialog id="editarDescripcion" header="#{msg['editardesc']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlSoTiposAntecedentes.editarTipoAntecedente.descripcion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
 
-                        <p:column >      
-                            <f:facet name="header"><h:outputText value="#{msg['descX']}"/></f:facet>
-                            <h:outputText value="#{antEx.descripcion}" />
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoTiposAntecedentes.tipoantecedenteSeleccionado.secuencia, 'SoTiposAntecedentes', 'sotiposantecedentes')}" style="position: absolute; top: 63px; left: 170px;" action="#{controlListaNavegacion.guardarNavegacion('tiposantecedentes', 'rastrotabla')}" icon="ui-icon-check" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+               </p:dialog>
 
-            </ui:define>     
-        </ui:composition>    
-    </h:body>
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SoTiposAntecedentes', 'sotiposantecedentes')}" style="position: absolute; top: 60px; left: 170px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('tiposantecedentes', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoTiposAntecedentes.antecedenteSeleccionado.secuencia, 'SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 67px; left: 170px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('tiposantecedentes', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 67px; left: 240px;" process="@this" icon="ui-icon-close"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+            </h:form>
+            <h:form id="formExportar">
+               <p:dataTable id="datosTiposAntecedentesExportar" var="antEx" style="visibility: hidden; display: none;"                           
+                            value="#{controlSoTiposAntecedentes.listTiposAntecedentes}"> 
+
+
+                  <p:column>      
+                     <f:facet name="header"><h:outputText value="#{msg['codX']}"/></f:facet>
+                     <h:outputText value="#{antEx.codigo}"/>
+                  </p:column>
+
+                  <p:column>      
+                     <f:facet name="header"><h:outputText value="#{msg['descX']}"/></f:facet>
+                     <h:outputText value="#{antEx.descripcion}"/>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+
+         </ui:define>     
+      </ui:composition>    
+   </h:body>
 </html>
 

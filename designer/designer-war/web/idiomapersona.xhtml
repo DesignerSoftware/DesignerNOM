@@ -1,403 +1,416 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form">
-                    <f:loadBundle basename="Recursos.idiomapersona" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-
-                        <p:toolbar styleClass="cssToolbar" > 
-                            <p:toolbarGroup align="left"> 
-
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none " actionListener="#{controlIdiomaPersona.guardarCambios()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none " actionListener="#{controlIdiomaPersona.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none " actionListener="#{controlIdiomaPersona.listaValoresBoton()}" process="@this" disabled="#{controlIdiomaPersona.activarLov}"/>
-                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none " actionListener="#{controlIdiomaPersona.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none " ajax="false" actionListener="#{controlIdiomaPersona.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none " actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosIdiomaExportar" fileName="IdiomasPersonasXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none " actionListener="#{controlIdiomaPersona.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none " oncomplete="PF('NuevoRegistroIdiomas').show()" update=":formularioDialogos:nuevaIdiomas" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none " actionListener="#{controlIdiomaPersona.borrarIdiomaPersona()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none " actionListener="#{controlIdiomaPersona.duplicarIdiomaPersonaM()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none " actionListener="#{controlIdiomaPersona.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none " actionListener="#{controlIdiomaPersona.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none " actionListener="#{controlIdiomaPersona.salir()}" action="emplIndividual" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-
-                            </p:toolbarGroup>  
-                        </p:toolbar> 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlIdiomaPersona.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosIdiomas" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlIdiomaPersona.salir()}" action="emplIndividual" process="@this" />
-
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlIdiomaPersona.empleadoActual.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlIdiomaPersona.empleadoActual.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
-                        </fieldset>
-
-
-                        <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 370px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['idiomas']}</strong></legend>
-
-                            <p:dataTable id="datosIdiomas" widgetVar="datosIdiomas" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left"                           
-                                         value="#{controlIdiomaPersona.listIdiomasPersonas}" scrollable="true" scrollHeight="#{controlIdiomaPersona.altoTabla}" 
-                                         filteredValue="#{controlIdiomaPersona.filtrarListIdiomasPersonas}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlIdiomaPersona.idiomaTablaSeleccionado}">
-
-                                <p:ajax event="filter" listener="#{controlIdiomaPersona.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlIdiomaPersona.recordarSeleccion()}"/>
-
-                                <p:column headerText="#{msg['idioma']}" sortBy="#{info.idioma.nombre}" filterBy="#{info.idioma.nombre}" style="width: 110px;"
-                                          filterMatchMode="contains" id="idIdioma" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.idioma.nombre}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.idioma.nombre}" id="editarIdioma" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info, 0)}"
-                                                       onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" />
-                                                <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info, 0)}"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <p:commandButton style="width: 400px;" id="fooIdioma" action="idioma"  onclick="#{controlIdiomas.recibirPag('idiomapersona')}"  value=" "/>
-                                    </f:facet>
-                                </p:column>  
-
-                                <p:column headerText="#{msg['conversacion']}" sortBy="#{info.habla}" filterBy="#{info.habla}" width="133"
-                                          filterMatchMode="contains" id="idConversacion" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.habla}" style="width: 100px;"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.habla}" id="editarConversacion" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:keyFilter for="editarConversacion" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,1)}" process="@this" onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarConversacion"/>                                   
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText  id="fooConversacion" value=""/>
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['lectura']}" sortBy="#{info.lectura}" filterBy="#{info.lectura}" width="133"
-                                          filterMatchMode="contains" id="idLectura" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.lectura}" style="width: 100px;"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.lectura}" id="editarLectura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:keyFilter for="editarLectura" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,2)}" process="@this"
-                                                       onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarLectura"/>                                   
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText id="fooLectura" value=""/>
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['escritura']}" sortBy="#{info.escritura}" filterBy="#{info.escritura}" width="133"
-                                          filterMatchMode="contains" id="idEscritura" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.escritura}" style="width: 100px;"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.escritura}" id="editarEscritura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:keyFilter for="editarEscritura" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,3)}" process="@this" 
-                                                       onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarEscritura"/>                                   
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText  id="fooEscritura" value=""/>
-                                    </f:facet>
-                                </p:column>
-
-                            </p:dataTable>  
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
-                        </fieldset> 
-
-                        <p:dialog header="#{msg['idiomasI']}" widgetVar="IdiomasDialogo" draggable="true" resizable="false" closable="false" id="IdiomasDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="440" modal="true" >
-                            <p:dataTable id="lovIdiomas"  var="idiomas" value="#{controlIdiomaPersona.listIdiomas}" rowKey="#{idiomas.secuencia}"
-                                         selection="#{controlIdiomaPersona.idiomaSeleccionado}" selectionMode="single" widgetVar="lovIdiomas" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                         filteredValue="#{controlIdiomaPersona.filtrarListIdiomas}" emptyMessage="#{msg['lovvacio']}">              
-                                <p:ajax event="rowSelect" listener="#{controlIdiomaPersona.activarAceptar()}" update=":form:aceptarI"/>
-                                <p:ajax event="filter" listener="#{controlIdiomaPersona.contarRegistroIdioma()}"/>
-                                <p:ajax event="rowDblselect" listener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this" />
-                                <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarI']}" />  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovIdiomas').filter();" class="cssFiltroLOV" />  
-                                </f:facet>
-
-                                <p:column filterBy="#{idiomas.nombre}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important" >
-                                    <f:facet name="header">
-                                        <h:outputText style="text-align: center" value="#{msg['nombreI']}" />
-                                    </f:facet>
-                                    <h:outputText  value="#{idiomas.nombre}" />
-                                </p:column>
-                            </p:dataTable>
-                            <div class="cssBotonesLOV"> 
-                                <h:outputText id="infoRegistroIdioma" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistroIdioma}" class="cssinfoRegistroLOV"/>
-                                <p:commandButton id="aceptarI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlIdiomaPersona.aceptar}" 
-                                                 actionListener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this" />
-                                <p:commandButton id="atrasI" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
-                                                 actionListener="#{controlIdiomaPersona.cancelarCambioIdioma()}" process="@this" />
-                            </div>
-                        </p:dialog> 
-                    </p:panel>
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIdiomaPersona.guardarCambios()}" action="emplIndividual" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIdiomaPersona.salir()}" action="emplIndividual" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIdiomaPersona.backUpSecRegistro, 'IdiomasPersonas', 'idiomaRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('IdiomasPersonas', 'idiomaRastro')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIdiomaPersona.backUpSecRegistro, 'IdiomasPersonas', 'idiomaRastro')}" style="position: absolute; top: 68px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegNull" header="#{msg['error']}" widgetVar="errorRegNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegNull']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="existeIdioma" header="#{msg['error']}" widgetVar="existeIdioma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['existeIdioma']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlIdiomaPersona.activarCtrlF11()}"/> 
-                </h:form>
-                <h:form id="formularioDialogos" >
-                    <p:dialog id="NuevoRegistroIdiomas" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroIdiomas" closable="false" resizable="false"  draggable="true" modal="true" height="225" width="370" style="padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="nuevaIdiomas" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['idiomaN']}" style="position: absolute; top: 45px; left: 18px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaIdioma" value="#{controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
-                                <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>
-                                <p:ajax event="click" listener="#{controlIdiomaPersona.valoresBackupAutocompletar(1, 'IDIOMAS')}" />
-                                <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre, 1)}" />
-                            </p:inputText>
-                            <p:commandButton style=" position: absolute; left: 320px; top: 40px;" class="cssBotonLovDialogos" id="btnNuevaIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>   
-                            <p:watermark for="nuevaIdioma" value="#{msg['idioma']}" />
-                            
-
-                            <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px; " /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaConversacion"  maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
-                                <p:keyFilter for="nuevaConversacion" mask="num"/>
-                                <p:ajax event="change" update="nuevaConversacion"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaConversacion" value="#{msg['conversacion']}" />
-
-                            <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px; " /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaLectura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
-                                <p:keyFilter for="nuevaLectura" mask="num"/>
-                                <p:ajax event="change" update="nuevaLectura"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaLectura" value="#{msg['lectura']}" />
-
-                            <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px; " /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaEscritura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
-                                <p:keyFilter for="nuevaEscritura" mask="num"/>
-                                <p:ajax event="change" update="nuevaEscritura"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaEscritura" value="#{msg['escritura']}"/>
-
-                            <p:commandButton id="limpiarI" value="#{msg['limpiar']}" style="position: absolute; left: 35px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" process="@this"/>
-                            <p:commandButton id="agregarI" value="#{msg['agregar']}" style="position: absolute; left: 135px; top: 195px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlIdiomaPersona.agregarNuevaIdiomaPersona()}"  />
-                            <p:commandButton id="cancelarI" value="#{msg['cancelar']}" style="position: absolute; left: 235px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" onclick="PF('NuevoRegistroIdiomas').hide()"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroIdiomas" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroIdiomas" closable="false" resizable="false"  draggable="true" modal="true" height="225" width="370" style="padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarIdiomas" style="border: none;">
-                            <strong><h:outputText value="*#{msg['idiomaN']}" style="position: absolute; top: 45px; left: 18px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarIdioma" value="#{controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
-                                <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info,2)}"/>
-                                <p:ajax event="click" listener="#{controlIdiomaPersona.valoresBackupAutocompletar(2, 'IDIOMAS')}" />
-                                <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre, 2)}" />
-                            </p:inputText>
-                            <p:commandButton style=" position: absolute; left: 320px; top: 40px;" class="cssBotonLovDialogos" id="btnDuplicarIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,2)}"/>   
-                            <p:watermark for="duplicarIdioma" value="#{msg['idioma']}" />
-
-                            <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarConversacion" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
-                                <p:keyFilter for="duplicarConversacion" mask="num"/>
-                                <p:ajax event="change" update="duplicarConversacion"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarConversacion" value="#{msg['conversacion']}" />
-
-                            <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarLectura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
-                                <p:keyFilter for="duplicarLectura" mask="num"/>
-                                <p:ajax event="change" update="duplicarLectura"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarLectura" value="#{msg['lectura']}" />
-
-                            <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarEscritura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
-                                <p:keyFilter for="duplicarEscritura" mask="num"/>
-                                <p:ajax event="change" update="duplicarEscritura"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarEscritura" value="#{msg['escritura']}" />
-
-
-                            <p:commandButton id="limpiarDuplicadoI" value="#{msg['limpiar']}" style="position: absolute; left: 35px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlIdiomaPersona.limpiarDuplicar()}" update="duplicarIdiomas" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoI" value="#{msg['agregar']}" style="position: absolute; left: 135px; top: 195px;" icon="ui-icon-circle-check"  process="@this" actionListener="#{controlIdiomaPersona.confirmarDuplicar()}" />
-                            <p:commandButton id="cancelarDuplicadoI" value="#{msg['cancelar']}" style="position: absolute; left: 235px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlIdiomaPersona.limpiarDuplicar()}" update="duplicarIdiomas" onclick="PF('DuplicarRegistroIdiomas').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="editarIdiomaD" header="Idioma" widgetVar="editarIdiomaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.idioma.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarConversacionD" header="#{msg['conversacionE']}" widgetVar="editarConversacionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.habla}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarLecturaD" header="#{msg['lecturaE']}" widgetVar="editarLecturaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.lectura}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarEscrituraD" header="#{msg['escrituraE']}" widgetVar="editarEscrituraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.escritura}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                </h:form>
-                <h:form id="formExportar">
-                    <p:dataTable id="datosIdiomaExportar" var="infoExp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlIdiomaPersona.listIdiomasPersonas}"> 
-
-                        <p:column headerText="#{msg['idiomaX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['idiomaX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.idioma.nombre}" />
+      xmlns:p="http://primefaces.org/ui">
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form">
+               <f:loadBundle basename="Recursos.idiomapersona" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+
+                  <p:toolbar styleClass="cssToolbar"> 
+                     <p:toolbarGroup align="left;"> 
+
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlIdiomaPersona.guardarCambios()}" process="@this"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlIdiomaPersona.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         actionListener="#{controlIdiomaPersona.listaValoresBoton()}" process="@this" disabled="#{controlIdiomaPersona.activarLov}"/>
+                        <p:tooltip for="listaValores" value="#{msg['lista']}"/>
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlIdiomaPersona.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         ajax="false" actionListener="#{controlIdiomaPersona.exportXLS()}"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosIdiomaExportar" fileName="IdiomasPersonasXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlIdiomaPersona.exportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         oncomplete="PF('NuevoRegistroIdiomas').show()" update=":formularioDialogos:nuevaIdiomas" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlIdiomaPersona.borrarIdiomaPersona()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlIdiomaPersona.duplicarIdiomaPersonaM()}"  process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlIdiomaPersona.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlIdiomaPersona.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlIdiomaPersona.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+                  <p:commandButton style=" position: absolute; left: 675px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlIdiomaPersona.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosIdiomas" process="@this"/>
+                  <p:commandButton style=" position: absolute; left: 765px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlIdiomaPersona.salir()}" process="@this"/>
+
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText id="nombreEmpleado" value="#{controlIdiomaPersona.empleadoActual.persona.nombreCompleto}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
+                     <h:outputText id="docEmpleado" value="#{controlIdiomaPersona.empleadoActual.codigoempleado}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
+                  </fieldset>
+
+
+                  <fieldset style="position: absolute; left: 10px; top: 105px; width: 830px; height: 370px; border-radius: 10px; ">
+                     <legend style="color: blue;text-align:left;"><strong>#{msg['idiomas']}</strong></legend>
+
+                     <p:dataTable id="datosIdiomas" widgetVar="datosIdiomas" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left"                           
+                                  value="#{controlIdiomaPersona.listIdiomasPersonas}" scrollable="true" scrollHeight="#{controlIdiomaPersona.altoTabla}" 
+                                  filteredValue="#{controlIdiomaPersona.filtrarListIdiomasPersonas}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlIdiomaPersona.idiomaTablaSeleccionado}">
+
+                        <p:ajax event="filter" listener="#{controlIdiomaPersona.eventoFiltrar()}"/>
+                        <f:event type="preRenderView" listener="#{controlIdiomaPersona.recordarSeleccion()}"/>
+
+                        <p:column headerText="#{msg['idioma']}" sortBy="#{info.idioma.nombre}" filterBy="#{info.idioma.nombre}" style="width: 110px;"
+                                  filterMatchMode="contains" id="idIdioma" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.idioma.nombre}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.idioma.nombre}" id="editarIdioma" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}"/>
+                                    <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info, 0)}"
+                                            onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/>
+                                    <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info, 0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 400px;" id="fooIdioma" action="#{controlListaNavegacion.guardarNavegacion('idiomapersona', 'idioma')}" onclick="#{controlIdiomas.recibirPag('idiomapersona')}" value=""/>
+                           </f:facet>
                         </p:column>  
-                        <p:column headerText="#{msg['conversacionXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['conversacionX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.habla}" />
+
+                        <p:column headerText="#{msg['conversacion']}" sortBy="#{info.habla}" filterBy="#{info.habla}" width="133"
+                                  filterMatchMode="contains" id="idConversacion" filterStyle="display: none; visibility: hidden;"  style="width: 110px;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.habla}" style="width: 100px;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{info.habla}" id="editarConversacion" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                    <p:keyFilter for="editarConversacion" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,1)}" process="@this" onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarConversacion"/>                                   
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText  id="fooConversacion" value=""/>
+                           </f:facet>
                         </p:column>
-                        <p:column headerText="#{msg['lecturaXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['lecturaX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.lectura}" />
+
+                        <p:column headerText="#{msg['lectura']}" sortBy="#{info.lectura}" filterBy="#{info.lectura}" width="133"
+                                  filterMatchMode="contains" id="idLectura" filterStyle="display: none; visibility: hidden;"  style="width: 110px;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.lectura}" style="width: 100px;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{info.lectura}" id="editarLectura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                    <p:keyFilter for="editarLectura" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,2)}" process="@this"
+                                            onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarLectura"/>                                   
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText id="fooLectura" value=""/>
+                           </f:facet>
                         </p:column>
-                        <p:column headerText="#{msg['escrituraXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['escrituraX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.escritura}" />
+
+                        <p:column headerText="#{msg['escritura']}" sortBy="#{info.escritura}" filterBy="#{info.escritura}" width="133"
+                                  filterMatchMode="contains" id="idEscritura" filterStyle="display: none; visibility: hidden;"  style="width: 110px;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.escritura}" style="width: 100px;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{info.escritura}" id="editarEscritura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                    <p:keyFilter for="editarEscritura" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,3)}" process="@this" 
+                                            onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarEscritura"/>                                   
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText  id="fooEscritura" value=""/>
+                           </f:facet>
                         </p:column>
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+
+                     </p:dataTable>  
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold;"/>
+                  </fieldset> 
+
+                  <p:dialog header="#{msg['idiomasI']}" widgetVar="IdiomasDialogo" draggable="true" resizable="false" closable="false" id="IdiomasDialogo"  
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovIdiomas"  var="idiomas" value="#{controlIdiomaPersona.listIdiomas}" rowKey="#{idiomas.secuencia}"
+                                  selection="#{controlIdiomaPersona.idiomaSeleccionado}" selectionMode="single" widgetVar="lovIdiomas" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                  filteredValue="#{controlIdiomaPersona.filtrarListIdiomas}" emptyMessage="#{msg['lovvacio']}">              
+                        <p:ajax event="rowSelect" listener="#{controlIdiomaPersona.activarAceptar()}" update=":form:aceptarI"/>
+                        <p:ajax event="filter" listener="#{controlIdiomaPersona.contarRegistroIdioma()}"/>
+                        <p:ajax event="rowDblselect" listener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this"/>
+                        <f:facet name="header">  
+                           <h:outputText value="#{msg['buscarI']}"/>  
+                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovIdiomas').filter();" class="cssFiltroLOV"/>  
+                        </f:facet>
+
+                        <p:column filterBy="#{idiomas.nombre}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important">
+                           <f:facet name="header">
+                              <h:outputText style="text-align: center;" value="#{msg['nombreI']}"/>
+                           </f:facet>
+                           <h:outputText  value="#{idiomas.nombre}"/>
+                        </p:column>
+                     </p:dataTable>
+                     <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroIdioma" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistroIdioma}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlIdiomaPersona.aceptar}" 
+                                         actionListener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this"/>
+                        <p:commandButton id="atrasI" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                         actionListener="#{controlIdiomaPersona.cancelarCambioIdioma()}" process="@this"/>
+                     </div>
+                  </p:dialog> 
+               </p:panel>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIdiomaPersona.guardarYSalir()}"
+                                   style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIdiomaPersona.salir()}"
+                                   style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIdiomaPersona.backUpSecRegistro, 'IdiomasPersonas', 'idiomaRastro')}"
+                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('idiomapersona', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('IdiomasPersonas', 'idiomaRastro')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('idiomapersona', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIdiomaPersona.backUpSecRegistro, 'IdiomasPersonas', 'idiomaRastro')}" style="position: absolute; top: 68px; left: 175px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('idiomapersona', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegNull" header="#{msg['error']}" widgetVar="errorRegNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegNull']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="existeIdioma" header="#{msg['error']}" widgetVar="existeIdioma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['existeIdioma']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlIdiomaPersona.activarCtrlF11()}"/> 
+            </h:form>
+            <h:form id="formularioDialogos">
+               <p:dialog id="NuevoRegistroIdiomas" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroIdiomas" closable="false" resizable="false"  draggable="true" modal="true" height="225" width="370" style="padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                  <p:panel id="nuevaIdiomas" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['idiomaN']}" style="position: absolute; top: 45px; left: 18px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaIdioma" value="#{controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
+                        <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>
+                        <p:ajax event="click" listener="#{controlIdiomaPersona.valoresBackupAutocompletar(1, 'IDIOMAS')}"/>
+                        <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre, 1)}"/>
+                     </p:inputText>
+                     <p:commandButton style=" position: absolute; left: 320px; top: 40px;" class="cssBotonLovDialogos" id="btnNuevaIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>   
+                     <p:watermark for="nuevaIdioma" value="#{msg['idioma']}"/>
+
+
+                     <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px; "/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaConversacion"  maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
+                        <p:keyFilter for="nuevaConversacion" mask="num"/>
+                        <p:ajax event="change" update="nuevaConversacion"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaConversacion" value="#{msg['conversacion']}"/>
+
+                     <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px; "/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaLectura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
+                        <p:keyFilter for="nuevaLectura" mask="num"/>
+                        <p:ajax event="change" update="nuevaLectura"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaLectura" value="#{msg['lectura']}"/>
+
+                     <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px; "/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaEscritura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
+                        <p:keyFilter for="nuevaEscritura" mask="num"/>
+                        <p:ajax event="change" update="nuevaEscritura"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaEscritura" value="#{msg['escritura']}"/>
+
+                     <p:commandButton id="limpiarI" value="#{msg['limpiar']}" style="position: absolute; left: 35px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" process="@this"/>
+                     <p:commandButton id="agregarI" value="#{msg['agregar']}" style="position: absolute; left: 135px; top: 195px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlIdiomaPersona.agregarNuevaIdiomaPersona()}"  />
+                     <p:commandButton id="cancelarI" value="#{msg['cancelar']}" style="position: absolute; left: 235px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" onclick="PF('NuevoRegistroIdiomas').hide()"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroIdiomas" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroIdiomas" closable="false" resizable="false"  draggable="true" modal="true" height="225" width="370" style="padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                  <p:panel id="duplicarIdiomas" style="border: none;">
+                     <strong><h:outputText value="*#{msg['idiomaN']}" style="position: absolute; top: 45px; left: 18px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarIdioma" value="#{controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
+                        <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info,2)}"/>
+                        <p:ajax event="click" listener="#{controlIdiomaPersona.valoresBackupAutocompletar(2, 'IDIOMAS')}"/>
+                        <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre, 2)}"/>
+                     </p:inputText>
+                     <p:commandButton style=" position: absolute; left: 320px; top: 40px;" class="cssBotonLovDialogos" id="btnDuplicarIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,2)}"/>   
+                     <p:watermark for="duplicarIdioma" value="#{msg['idioma']}"/>
+
+                     <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarConversacion" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
+                        <p:keyFilter for="duplicarConversacion" mask="num"/>
+                        <p:ajax event="change" update="duplicarConversacion"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarConversacion" value="#{msg['conversacion']}"/>
+
+                     <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarLectura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
+                        <p:keyFilter for="duplicarLectura" mask="num"/>
+                        <p:ajax event="change" update="duplicarLectura"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarLectura" value="#{msg['lectura']}"/>
+
+                     <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarEscritura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
+                        <p:keyFilter for="duplicarEscritura" mask="num"/>
+                        <p:ajax event="change" update="duplicarEscritura"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarEscritura" value="#{msg['escritura']}"/>
+
+
+                     <p:commandButton id="limpiarDuplicadoI" value="#{msg['limpiar']}" style="position: absolute; left: 35px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlIdiomaPersona.limpiarDuplicar()}" update="duplicarIdiomas" process="@this"/>
+                     <p:commandButton id="agregarDuplicadoI" value="#{msg['agregar']}" style="position: absolute; left: 135px; top: 195px;" icon="ui-icon-circle-check"  process="@this" actionListener="#{controlIdiomaPersona.confirmarDuplicar()}"/>
+                     <p:commandButton id="cancelarDuplicadoI" value="#{msg['cancelar']}" style="position: absolute; left: 235px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlIdiomaPersona.limpiarDuplicar()}" update="duplicarIdiomas" onclick="PF('DuplicarRegistroIdiomas').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="editarIdiomaD" header="Idioma" widgetVar="editarIdiomaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.idioma.nombre}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarConversacionD" header="#{msg['conversacionE']}" widgetVar="editarConversacionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.habla}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarLecturaD" header="#{msg['lecturaE']}" widgetVar="editarLecturaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.lectura}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarEscrituraD" header="#{msg['escrituraE']}" widgetVar="editarEscrituraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlIdiomaPersona.editarIdiomaPersona.escritura}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+            </h:form>
+            <h:form id="formExportar">
+               <p:dataTable id="datosIdiomaExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                            value="#{controlIdiomaPersona.listIdiomasPersonas}"> 
+
+                  <p:column headerText="#{msg['idiomaX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['idiomaX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.idioma.nombre}"/>
+                  </p:column>  
+                  <p:column headerText="#{msg['conversacionXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['conversacionX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.habla}"/>
+                  </p:column>
+                  <p:column headerText="#{msg['lecturaXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['lecturaX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.lectura}"/>
+                  </p:column>
+                  <p:column headerText="#{msg['escrituraXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['escrituraX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.escritura}"/>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>
 

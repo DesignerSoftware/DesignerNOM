@@ -5,45 +5,45 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <p:panel  id="PanelTotal" header="Salud Ocupacional" styleClass="panelTotal" >  
-                        <fieldset style="position: absolute; left: 35px; top: 110px; width: 740px; height: 335px; border-radius: 10px; ">   
-                        </fieldset>
-                        <h:outputText style="position: absolute; left: 25px; font-size: 16px;" value="Bienvenido al Menú principal de Salud Ocupacional, a través de éstos módulos podrá llevar el registro de la Ficha clínica, Reportar accidentes de trabajo y Enfermadades Profesionales, ademas de llevar
-                                      un control de dotaciones, servicios médicos y campañas de prevención" />
-                        <fieldset id="antecedentes" style="width: 308px; height: 120px; position: absolute; top: 130px;left: 65px;border-radius: 10px;">
-                            <legend style="font-size: 14px; color: blue"><strong>Antecedentes</strong></legend>
-                            <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute;top: 20px;left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Antecedentes"></p:commandButton>
-                            <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute;top: 70px;left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Consulta Médica"></p:commandButton>
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <p:panel  id="PanelTotal" header="Salud Ocupacional" styleClass="panelTotal">  
+                  <fieldset style="position: absolute; left: 35px; top: 110px; width: 740px; height: 335px; border-radius: 10px; ">   
+                  </fieldset>
+                  <h:outputText style="position: absolute; left: 25px; font-size: 16px;" value="Bienvenido al Menú principal de Salud Ocupacional, a través de éstos módulos podrá llevar el registro de la Ficha clínica, Reportar accidentes de trabajo y Enfermadades Profesionales, ademas de llevar
+                                un control de dotaciones, servicios médicos y campañas de prevención"/>
+                  <fieldset id="antecedentes" style="width: 308px; height: 120px; position: absolute; top: 130px; left: 65px;border-radius: 10px;">
+                     <legend style="font-size: 14px; color: blue"><strong>Antecedentes</strong></legend>
+                     <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute; top: 20px; left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Antecedentes"></p:commandButton>
+                     <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute; top: 70px; left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Consulta Médica"></p:commandButton>
 
-                        </fieldset>
-                        <fieldset id="accidentesEnfermedades" style="width: 308px; height: 120px; position: absolute;top: 130px ; left: 430px;border-radius: 10px;">
-                            <legend style="font-size: 14px; color: blue"><strong>Accidentes y Enfermedades</strong></legend>
-                            <p:commandButton style="border-color:#045491; border-width: 2px;  position: absolute;top: 25px;left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Reporte del Accidente"> </p:commandButton>
-                            <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute;top: 80px;left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Enfermedad Profesional"></p:commandButton>
+                  </fieldset>
+                  <fieldset id="accidentesEnfermedades" style="width: 308px; height: 120px; position: absolute; top: 130px ; left: 430px;border-radius: 10px;">
+                     <legend style="font-size: 14px; color: blue"><strong>Accidentes y Enfermedades</strong></legend>
+                     <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute; top: 25px; left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Reporte del Accidente"> </p:commandButton>
+                     <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute; top: 80px; left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Enfermedad Profesional"></p:commandButton>
 
-                        </fieldset>
-                        <fieldset id="chequeos" style="width: 308px; height: 120px; position: absolute; top: 295px;left: 65px;border-radius: 10px;">
-                            <legend style="font-size: 14px; color: blue"><strong>Chequeos</strong></legend>
-                            <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute;top: 60px;left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Chequeos Médicos" ></p:commandButton>
+                  </fieldset>
+                  <fieldset id="chequeos" style="width: 308px; height: 120px; position: absolute; top: 295px; left: 65px;border-radius: 10px;">
+                     <legend style="font-size: 14px; color: blue"><strong>Chequeos</strong></legend>
+                     <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute; top: 60px; left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Chequeos Médicos"></p:commandButton>
 
-                        </fieldset>
-                        <fieldset id="dotacionesServiciones" style="width: 308px; height: 120px; position: absolute;top: 295px ; left: 430px;border-radius: 10px;">
-                            <legend style="font-size: 14px; color: blue"><strong>Dotaciones y otros Servicios</strong></legend>
-                            <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute;top: 25px;left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Dotaciones" ></p:commandButton>
-                            <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute;top: 80px;left: 50px;height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Servicios" ></p:commandButton>
+                  </fieldset>
+                  <fieldset id="dotacionesServiciones" style="width: 308px; height: 120px; position: absolute; top: 295px ; left: 430px;border-radius: 10px;">
+                     <legend style="font-size: 14px; color: blue"><strong>Dotaciones y otros Servicios</strong></legend>
+                     <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute; top: 25px; left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Dotaciones"></p:commandButton>
+                     <p:commandButton style="border-color:#045491; border-width: 2px; position: absolute; top: 80px; left: 50px; height: 35px; width: 220px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="Servicios"></p:commandButton>
 
-                        </fieldset>
-                        <p:commandButton style="position: absolute;top: 470px;left: 710px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" action="atrasemplvigsaludocupacional" ></p:commandButton>
+                  </fieldset>
+                  <p:commandButton style="position: absolute; top: 470px; left: 710px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" actionListener="#{controlListaNavegacion.quitarPagina()}"></p:commandButton>
 
-                    </p:panel>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+               </p:panel>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

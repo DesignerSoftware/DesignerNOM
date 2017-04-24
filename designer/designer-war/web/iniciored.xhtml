@@ -6,11 +6,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <link href="./resources/css/GrowlInicioRed.css" rel="stylesheet" type="text/css"/>
-        <link href="./resources/css/Tema.css" rel="stylesheet" type="text/css" />
-        <link rel="shortcut icon" href="Imagenes/Iconos/favicon.ico" />
-        <link rel="apple-touch-icon-precomposed" href="Imagenes/Iconos/innovina_icono_57x57.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="Imagenes/Iconos/innovina_icono_72x72.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="Imagenes/Iconos/innovina_icono_180x180.png" />
+        <link href="./resources/css/Tema.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" href="Imagenes/Iconos/favicon.ico"/>
+        <link rel="apple-touch-icon-precomposed" href="Imagenes/Iconos/innovina_icono_57x57.png"/>
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="Imagenes/Iconos/innovina_icono_72x72.png"/>
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="Imagenes/Iconos/innovina_icono_180x180.png"/>
         <style type="text/css">
             .triangulo_top_left {
                 width: 0;
@@ -64,7 +64,7 @@
                                      styleClass="cssBotonIngreso" process="@this"/> 
 
                     <p:commandButton id="btnCambioClave" value="Cambio de Clave" disabled="#{controlInicioRed.cambioClave}"
-                                     update=":formularioDialogos:cambiarClave" oncomplete="PF('cambiarClave').show();" styleClass="cssBotonIngreso" />
+                                     update=":formularioDialogos:cambiarClave" oncomplete="PF('cambiarClave').show();" styleClass="cssBotonIngreso"/>
 
                     <p:commandButton id="btnCandadoLogin" value="" 
                                      style="position: absolute; top: 40px; left: 80px; width: 110px; height: 110px; 
@@ -72,9 +72,9 @@
                 </h:panelGrid> 
                 <p:focus for="usuario"/>
             </p:panel>
-            <fieldset id="modulos" style="font-size: 12px; border-radius: 10px;  background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000;
+            <fieldset id="modulos" style="font-size: 12px; border-radius: 10px; background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000;
                       position: relative; top: 115px; width: 1082.68px; text-align: center;">
-                <h:outputText value="Bienvenido al Sistema Integral de N&oacute;mina y Talento Humano" style="font-size: 20px; color: white; font-family: Calibri; font-weight: bold;" />
+                <h:outputText value="Bienvenido al Sistema Integral de N&oacute;mina y Talento Humano" style="font-size: 20px; color: white; font-family: Calibri; font-weight: bold;"/>
 
                 <h:panelGrid id="txtModulos" columns="7" style="border:none; width: 70%; position: relative; margin: 0 auto;">
                     <h:outputText/>
@@ -133,7 +133,7 @@
                           box-shadow: 3px 3px 8px #000000; z-index: 1; width: 667px; display: inline;
                           position: relative; top: 5px; left: -12px;">
                     <p:inputTextarea id="recordatorio" value="#{controlInicioRed.recordatorio.mensaje}" readonly="true"
-                                     style="background-color: #EFDB78; width: 640px; height: 50px; overflow: auto; border: none; font-weight: bold; text-align: justify; box-shadow: none;" />
+                                     style="background-color: #EFDB78; width: 640px; height: 50px; overflow: auto; border: none; font-weight: bold; text-align: justify; box-shadow: none;"/>
                 </fieldset>
                 <div style="display: inline;">
                     <p:commandButton value="" actionListener="#{controlInicioRed.nuevoRecordatorio()}"  process="@this" 
@@ -141,7 +141,7 @@
                                      position: relative; top: -30px; left: -10px;"/>
                     <p:commandButton value="" actionListener="#{controlInicioRed.nuevoRecordatorio()}" process="@this" 
                                      style="width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.png); background-size: 100% 100%; background-repeat: no-repeat; 
-                                     position: relative; top: -5px; left: -31px;" />
+                                     position: relative; top: -5px; left: -31px;"/>
                 </div>
                 <h:panelGrid id="piedepagina" columns="2" style="border:none; width: 100%" columnClasses="columnaPieA, columnaPieB">
                     <h:outputText value="Su compañ&iacute;a de Tecnolog&iacute;a y Consultor&iacute;a en N&oacute;mina y Talento Humano desde 1998" 
@@ -156,25 +156,25 @@
                 <h:form>
                     <div id="redessociales" style="float: left; position:relative; top: 17px; margin-left: 270px;">
                         <a href="http://www.facebook.com/nominads" target="_blank" style="color: transparent;">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Facebook.png" alt="facebook" style="left: 0px; width: 20px; height: 20px; "/>
+                            <p:graphicImage value="Imagenes/Iconos/rs_Facebook.png" alt="facebook" style="left: 0px; width: 20px; height: 20px;"/>
                         </a>
                         <a href="https://plus.google.com/+nominads" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_GooglePlus.png" alt="googleplus" style="left: 0px; width: 20px; height: 20px; "/>
+                            <p:graphicImage value="Imagenes/Iconos/rs_GooglePlus.png" alt="googleplus" style="left: 0px; width: 20px; height: 20px;"/>
                         </a>
                         <a href="https://www.youtube.com/user/nominads" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Youtube.png" alt="youtube" style="left: 0px; width: 20px; height: 20px; "/>
+                            <p:graphicImage value="Imagenes/Iconos/rs_Youtube.png" alt="youtube" style="left: 0px; width: 20px; height: 20px;"/>
                         </a>
                         <a href="https://twitter.com/#!/NominaDesigner" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Twitter.png" alt="twiter" style="left: 0px; width: 20px; height: 20px; "/>
+                            <p:graphicImage value="Imagenes/Iconos/rs_Twitter.png" alt="twiter" style="left: 0px; width: 20px; height: 20px;"/>
                         </a>
                         <a href="https://www.linkedin.com/company/designer-software-limitada" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_LinkedIn.png" alt="linkedin" style="left: 0px; width: 20px; height: 20px; "/>
+                            <p:graphicImage value="Imagenes/Iconos/rs_LinkedIn.png" alt="linkedin" style="left: 0px; width: 20px; height: 20px;"/>
                         </a>
                         <a href="http://www.nomina.com.co/soporte/descargas/file/43-teamviewer3.html" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_Teamviewer.png" alt="teamviewer" style="left: 0px; width: 20px; height: 20px; "/>
+                            <p:graphicImage value="Imagenes/Iconos/rs_Teamviewer.png" alt="teamviewer" style="left: 0px; width: 20px; height: 20px;"/>
                         </a>
                         <a href="tel:+5717475043" target="_blank">
-                            <p:graphicImage value="Imagenes/Iconos/rs_pbx.png" alt="celular" style="left: 0px; width: 20px; height: 20px; "/>
+                            <p:graphicImage value="Imagenes/Iconos/rs_pbx.png" alt="celular" style="left: 0px; width: 20px; height: 20px;"/>
                         </a>
                     </div>
                 </h:form>
@@ -192,34 +192,34 @@
         <h:form id="formularioDialogos">
             <p:dialog id="cambiarClave" header="Atenci&oacute;n - Cambio de clave" widgetVar="cambiarClave"  resizable="false" draggable="true" modal="true" height="130" width="375px;" 
                       style="font-size: 12px;" closable="false">
-                <p:panelGrid >
+                <p:panelGrid>
                     <p:row style="border: 0px solid transparent;">
                         <p:column colspan="2">
-                            <h:outputText value="Permite actualizar su clave de entrada al sistema" style="width: 300px; font-weight: bold; color: #14388B;" />
+                            <h:outputText value="Permite actualizar su clave de entrada al sistema" style="width: 300px; font-weight: bold; color: #14388B;"/>
                         </p:column>
                     </p:row>
                     <p:row style="border: 0px solid transparent;">
                         <p:column>
-                            <p:outputLabel for="Nclave" value="Nueva clave: " style="font-weight: bold"/>
+                            <p:outputLabel for="Nclave" value="Nueva clave: " style="font-weight: bold;"/>
                         </p:column>
                         <p:column>
-                            <p:password id="Nclave" value="#{controlInicioRed.NClave}" style="text-transform: uppercase"/>
-                        </p:column>
-                    </p:row>
-                    <p:row style="border: 0px solid transparent;">
-                        <p:column>
-                            <p:outputLabel for="Rclave" value="Repetir nueva clave: " style="font-weight: bold"/>
-                        </p:column>
-                        <p:column>
-                            <p:password id="Rclave" value="#{controlInicioRed.rclave}" style="text-transform: uppercase"/>
+                            <p:password id="Nclave" value="#{controlInicioRed.NClave}" style="text-transform: uppercase;"/>
                         </p:column>
                     </p:row>
                     <p:row style="border: 0px solid transparent;">
                         <p:column>
-                            <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{controlInicioRed.cambiarClave()}" />
+                            <p:outputLabel for="Rclave" value="Repetir nueva clave: " style="font-weight: bold;"/>
                         </p:column>
                         <p:column>
-                            <p:commandButton value="Cancelar" icon="ui-icon-close" onclick="PF('cambiarClave').hide();" actionListener="#{controlInicioRed.cancelarCambioClave()}" process="@this" />
+                            <p:password id="Rclave" value="#{controlInicioRed.rclave}" style="text-transform: uppercase;"/>
+                        </p:column>
+                    </p:row>
+                    <p:row style="border: 0px solid transparent;">
+                        <p:column>
+                            <p:commandButton value="Aceptar" icon="ui-icon-check" actionListener="#{controlInicioRed.cambiarClave()}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Cancelar" icon="ui-icon-close" onclick="PF('cambiarClave').hide();" actionListener="#{controlInicioRed.cancelarCambioClave()}" process="@this"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -227,28 +227,28 @@
 
             <p:dialog id="errorCambioClave" header="ATENCI&Oacute;N" widgetVar="errorCambioClave"  resizable="false" draggable="true" modal="true" height="60" width="300" 
                       style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
-                <h:outputText value="Las contrase&ntilde;as no coniciden, por favor verificar e intentar de nuevo." style="width: 200px; font-weight:bold; text-align: center" />
+                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50"/>
+                <h:outputText value="Las contrase&ntilde;as no coniciden, por favor verificar e intentar de nuevo." style="width: 200px; font-weight: bold; text-align: center;"/>
             </p:dialog>
 
             <p:dialog id="errorCambioClaveCamposVacios" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveCamposVacios" resizable="false" draggable="true" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
-                <h:outputText value="Existen campos vacios, por favor ingrese una valor." style="width: 200px; font-weight:bold; text-align: center;" />
+                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50"/>
+                <h:outputText value="Existen campos vacios, por favor ingrese una valor." style="width: 200px; font-weight: bold; text-align: center;"/>
             </p:dialog>
 
             <p:dialog id="errorCambioClaveReusar" header="ATENCI&Oacute;N" widgetVar="errorCambioClaveReusar"  resizable="false" draggable="true" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" />
-                <h:outputText value="Ya ha utilizado esta contrase&ntilde;a, por favor utilize una diferente." style="width: 200px; font-weight: bold; text-align: center;" />
+                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50"/>
+                <h:outputText value="Ya ha utilizado esta contrase&ntilde;a, por favor utilize una diferente." style="width: 200px; font-weight: bold; text-align: center;"/>
             </p:dialog>
 
             <p:dialog id="exitoCambioClave" header="ATENCI&Oacute;N" widgetVar="exitoCambioClave"  resizable="false" draggable="true" modal="true" height="60" width="300" style="font-size: 12px;" closable="true">  
-                <h:graphicImage value="Imagenes/Iconos/correcto.png" width="50" height="50" />
-                <h:outputText value="La contraseña se ha cambiado exitosamente." style="width: 200px; font-weight:bold; text-align: center" />
+                <h:graphicImage value="Imagenes/Iconos/correcto.png" width="50" height="50"/>
+                <h:outputText value="La contraseña se ha cambiado exitosamente." style="width: 200px; font-weight: bold; text-align: center;"/>
             </p:dialog>
 
             <p:dialog id="estadoSesion" header="Informaci&oacute;n" widgetVar="estadoSesion"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="vertical-align: middle;" />
-                <h:outputText value="#{controlInicioRed.msgSesion}" style="font-size: 12px; width: 240px; text-align: justify; font-weight: bold; padding-left: 15px;" />
+                <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="vertical-align: middle;"/>
+                <h:outputText value="#{controlInicioRed.msgSesion}" style="font-size: 12px; width: 240px; text-align: justify; font-weight: bold; padding-left: 15px;"/>
             </p:dialog>
         </h:form>
     </h:body>

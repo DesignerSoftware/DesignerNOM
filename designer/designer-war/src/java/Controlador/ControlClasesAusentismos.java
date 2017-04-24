@@ -129,15 +129,34 @@ public class ControlClasesAusentismos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "claseausentismo";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "claseausentismo";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -147,12 +166,11 @@ public class ControlClasesAusentismos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -270,7 +288,8 @@ public class ControlClasesAusentismos implements Serializable {
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          //CERRAR FILTRADO
@@ -285,7 +304,6 @@ public class ControlClasesAusentismos implements Serializable {
          filtrarClasesAusentismos = null;
          tipoLista = 0;
       }
-
       borrarClasesAusentismos.clear();
       crearClasesAusentismos.clear();
       modificarClasesAusentismos.clear();
@@ -294,9 +312,9 @@ public class ControlClasesAusentismos implements Serializable {
       listClasesAusentismos = null;
       guardado = true;
       permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosClasesAusentismos");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

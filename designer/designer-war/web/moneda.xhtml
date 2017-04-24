@@ -24,40 +24,40 @@
                <p:panel id="PanelTotal" class="panelTotal" header="Monedas">
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
 
                         <p:commandButton accesskey="g" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png)"
                                          actionListener="#{controlMonedas.guardarMonedas()}" process="@this"/>
-                        <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                        <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
                         <p:commandButton accesskey="e" id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png)"
                                          actionListener="#{controlMonedas.editarCelda()}" process="@this"/>
-                        <p:tooltip style="" for="editar" value="Editar" />
+                        <p:tooltip style="" for="editar" value="Editar"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton accesskey="l" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)"
                                          disabled="true" process="@this"/>
-                        <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+                        <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
                         <p:commandButton accesskey="f" id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png)"
                                          actionListener="#{controlMonedas.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+                        <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png)"
                                          actionListener="#{controlMonedas.exportXLS()}" ajax="false"/>
-                        <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+                        <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png)" ajax="false">
                            <p:dataExporter type="xml" target=":formExportar:datosMonedaExportar" fileName="MONEDAS" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+                        <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png)"
                                          actionListener="#{controlMonedas.exportPDF()}" ajax="false"/>
-                        <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+                        <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
                         <p:commandButton accesskey="i" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"
@@ -100,11 +100,11 @@
 
                         <p:ajax event="filter" listener="#{controlMonedas.eventoFiltrar()}"/>
 
-                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="80" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                 <p:inputText  autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlMonedas.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosMoneda').unselectAllRows();PF('datosMoneda').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlMonedas.modificarMoneda(info, 'N', info.codigo)}"  update="codigo"/>
@@ -113,11 +113,11 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Moneda" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Moneda" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                 <p:inputText  autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlMonedas.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosMoneda').unselectAllRows();PF('datosMoneda').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlMonedas.modificarMoneda(info, 'N', info.nombre)}" update="descripcion"/>
@@ -136,11 +136,11 @@
 
                   <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                      <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlMonedas.guardarYSalir()}"
-                                      style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
+                                      style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
                      <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlMonedas.cancelarYSalir()}"
-                                      style="position: absolute; top: 50px; left: 216px;" process="@this" icon="ui-icon-close" />
+                                      style="position: absolute; top: 50px; left: 216px;" process="@this" icon="ui-icon-close"/>
                      <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();"
                                       style="position: absolute; top: 50px; left: 280px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                   </p:dialog>
@@ -174,54 +174,54 @@
 
                <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro" resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla 'MONEDAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="La tabla 'MONEDAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMonedas.monedaSeleccionada.secuencia, 'Monedas', 'moneda')}"
-                                   icon="ui-icon-check" style="position: absolute; top: 63px; left: 210px;" action="rastrotabla" process="@this"/>
+                                   icon="ui-icon-check" style="position: absolute; top: 63px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();"
                                    icon="ui-icon-close" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla MONEDAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="La tabla MONEDAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Monedas', 'moneda')}"
-                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" action="rastrotabla" process="@this" />
+                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();"
-                                   icon="ui-icon-close" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                                   icon="ui-icon-close" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center;" />
+                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center;" />
+                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;" />
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMonedas.monedaSeleccionada.secuencia, 'Monedas', 'moneda')}"
-                                   style="position: absolute; top: 67px; left: 210px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
+                                   style="position: absolute; top: 67px; left: 210px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();"
-                                   style="position: absolute; top: 67px; left: 270px;" icon="ui-icon-close" process="@this" />
+                                   style="position: absolute; top: 67px; left: 270px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro" resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center;" />
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro" resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="300" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla 'MONEDAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 8px; width: 220px; font-weight: bold;" />
+                  <h:outputText value="La tabla 'MONEDAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 8px; width: 220px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
@@ -234,46 +234,46 @@
 
                <p:dialog id="nuevoRegistroMoneda" header="Nuevo Registro" widgetVar="nuevoRegistroMoneda" closable="false" resizable="false"
                          draggable="true" modal="true" height="160" width="320" style=" padding: 0px" onShow="$(function(){PrimeFaces.focus('form:nuevoCodigo');});">
-                  <center><strong><h:outputText id="informacion" value="Ingresar Nueva Moneda" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText id="informacion" value="Ingresar Nueva Moneda" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="nuevaaMoneda" style="border: none;">
 
-                     <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlMonedas.nuevoMoneda.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                     <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlMonedas.nuevoMoneda.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
-                     <p:watermark for="nuevoCodigo" value="Código" />
+                     <p:watermark for="nuevoCodigo" value="Código"/>
 
-                     <strong><h:outputText value="*Moneda: "  style="left: 10px; position: absolute; top: 90px;" /></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlMonedas.nuevoMoneda.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                     <strong><h:outputText value="*Moneda: "  style="left: 10px; position: absolute; top: 90px;"/></strong>
+                     <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlMonedas.nuevoMoneda.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
-                     <p:watermark for="nuevoNombre" value="Moneda" />
+                     <p:watermark for="nuevoNombre" value="Moneda"/>
 
                      <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 135px;"  actionListener="#{controlMonedas.limpiarNuevoMonedas()}" update="nuevaaMoneda" process="@this"/>
-                     <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 112px; top: 135px;" actionListener="#{controlMonedas.agregarNuevoMonedas()}" process="@this" />
+                     <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 112px; top: 135px;" actionListener="#{controlMonedas.agregarNuevoMonedas()}" process="@this"/>
                      <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 135px;"  update="nuevaaMoneda" onclick="PF('nuevoRegistroMoneda').hide();"  actionListener="#{controlMonedas.limpiarNuevoMonedas()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
                <p:dialog id="duplicarRegistroMoneda" header="duplicar Registro" widgetVar="duplicarRegistroMoneda" onShow="$(function(){PrimeFaces.focus('form:duplicarCodigo');});"
                          closable="false" resizable="false"  draggable="true" modal="true" height="160" width="320" style=" padding: 0px">  
-                  <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Moneda" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Moneda" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="duplicarMO" style="border: none;">
                      <strong><h:outputText value="Código :"  style="left: 10px; position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlMonedas.duplicarMoneda.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlMonedas.duplicarMoneda.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
-                     <p:watermark for="duplicarCodigo" value="Código" />
+                     <p:watermark for="duplicarCodigo" value="Código"/>
 
-                     <strong><h:outputText value="*Moneda :"  style="left: 10px; position: absolute; top: 90px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlMonedas.duplicarMoneda.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
+                     <strong><h:outputText value="*Moneda :"  style="left: 10px; position: absolute; top: 90px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlMonedas.duplicarMoneda.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombre" value="Moneda"/>
                      <p:commandButton id="limpiarD" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 135px;"  actionListener="#{controlMonedas.limpiarDuplicarMonedas() }" update="duplicarMO"  process="@this"/>
-                     <p:commandButton id="duplicarVFP" value="Agregar" icon="ui-icon-circle-check" style=" position: absolute; left: 112px; top: 135px;" actionListener="#{controlMonedas.confirmarDuplicar()}"  process="@this" />
+                     <p:commandButton id="duplicarVFP" value="Agregar" icon="ui-icon-circle-check" style=" position: absolute; left: 112px; top: 135px;" actionListener="#{controlMonedas.confirmarDuplicar()}"  process="@this"/>
                      <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" icon="ui-icon-circle-close" style=" position: absolute; left: 210px; top: 135px;"  update="duplicarMO" onclick="PF('duplicarRegistroMoneda').hide();" actionListener="#{controlMonedas.limpiarDuplicarMonedas()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -284,11 +284,11 @@
                             value="#{controlMonedas.listMonedas}">
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
-                     <h:outputText value="#{info.codigo}" />
+                     <h:outputText value="#{info.codigo}"/>
                   </p:column>  
 
                   <p:column>  
-                     <f:facet name="header"><h:outputText value="Moneda" /></f:facet>
+                     <f:facet name="header"><h:outputText value="Moneda"/></f:facet>
                      <h:outputText value="#{info.nombre}"/>
                   </p:column>
                </p:dataTable>

@@ -14,29 +14,29 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="Certificado de aportes obligatorios para salud" styleClass="panelTotal">    
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
-                                         actionListener="#{controlTiposCertificados.guardarTiposCertificados()}" process="@this" />
-                        <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                                         actionListener="#{controlTiposCertificados.guardarTiposCertificados()}" process="@this"/>
+                        <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
                                          actionListener="#{controlTiposCertificados.editarCelda()}" process="@this"/>
-                        <p:tooltip style="" for="editar" value="Editar" />
+                        <p:tooltip style="" for="editar" value="Editar"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"     disabled="true" process="@this"/>
-                        <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+                        <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
                                          actionListener="#{controlTiposCertificados.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+                        <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlTiposCertificados.exportXLS()}" ajax="false"/>
-                        <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+                        <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
                                          actionListener="#{controlTiposCertificados.limpiarNuevoTiposCertificados()}" ajax="false">
@@ -51,15 +51,15 @@
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('nuevoRegistroTiposCertificados').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
-                        <p:tooltip style="" for="insertar" value="Nuevo Registro" />
+                        <p:tooltip style="" for="insertar" value="Nuevo Registro"/>
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
                                          actionListener="#{controlTiposCertificados.borrandoTiposCertificados()}" process="@this"/>  
-                        <p:tooltip style="" for="eliminar" value="Eliminar Registro" />
+                        <p:tooltip style="" for="eliminar" value="Eliminar Registro"/>
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlTiposCertificados.duplicandoTiposCertificados()}" process="@this"/>  
-                        <p:tooltip style="" for="duplicar" value="Duplicar Registro" />
+                        <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlTiposCertificados.verificarRastro()}" process="@this"/>  
@@ -74,7 +74,7 @@
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlTiposCertificados.salir()}" action="#{controlTiposCertificados.redirigirPaginaAnterior()}" process="@this"/>  
+                                         actionListener="#{controlTiposCertificados.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
@@ -90,11 +90,11 @@
 
                         <p:ajax event="filter" listener="#{controlTiposCertificados.eventoFiltrar()}"/>
 
-                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="60" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="60" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"  > 
+                                 <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlTiposCertificados.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosTiposCertificados').unselectAllRows();PF('datosTiposCertificados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlTiposCertificados.modificarTiposCertificados(info)}" update="codigo"/>
@@ -102,15 +102,15 @@
                               </f:facet>  
                            </p:cellEditor>
                             <f:facet name="footer">
-                                <h:outputText value="" />
+                                <h:outputText value=""/>
                             </f:facet>
                         </p:column>
 
-                        <p:column headerText="Nombre" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Nombre" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"  > 
+                                 <p:inputText  autocomplete="off" value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlTiposCertificados.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosTiposCertificados').unselectAllRows();PF('datosTiposCertificados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlTiposCertificados.modificarTiposCertificados(info)}" update="descripcion"/>
@@ -118,7 +118,7 @@
                               </f:facet>  
                            </p:cellEditor>
                         <f:facet name="footer">
-                            <h:outputText value="" />
+                            <h:outputText value=""/>
                         </f:facet>
                         </p:column>
                      </p:dataTable>
@@ -126,43 +126,43 @@
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlTiposCertificados.revisarDialogoGuardar()}" disabled="#{controlTiposCertificados.guardado}"    process="@this"   />
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" action="#{controlTiposCertificados.redirigirPaginaAnterior()}" value=""/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlTiposCertificados.salir()}" value=""/>
 
                   <p:dialog id="confirmarGuardar" header="¡Precaución!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="380" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
-                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposCertificados.guardarTiposCertificados()}"
-                                      action="#{controlTiposCertificados.redirigirPaginaAnterior()}" style="position: absolute; top: 50px; left: 107px;"
+                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold;"/>
+                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposCertificados.guardarYSalir()}"
+                                      style="position: absolute; top: 50px; left: 107px;"
                                       process="@this" icon="ui-icon-check"/>
-                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposCertificados.cancelarModificacion()}"
-                                      action="#{controlTiposCertificados.redirigirPaginaAnterior()}" style="position: absolute; top: 50px; left: 168px;"
+                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposCertificados.salir()}"
+                                      style="position: absolute; top: 50px; left: 168px;"
                                       process="@this" icon="ui-icon-close"/>
-                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 233px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 233px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                   </p:dialog>
                </p:panel>
 
                <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
-                  <h:outputText value="Necesita : #{controlTiposCertificados.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="Necesita : #{controlTiposCertificados.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validacionModificar" header="¡Error!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value=" #{controlTiposCertificados.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 55px; left: 220px;" process="@this" />
+                  <h:outputText value=" #{controlTiposCertificados.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 55px; left: 220px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 50px; left: 290px;" process="@this" />
+                  <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 50px; left: 290px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
-                  <h:outputText value="Para agregar es necesario adicionar: #{controlTiposCertificados.mensajeValidacion}" style="position: absolute; left: 90px; top: 10px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this" />
+                  <h:outputText value="Para agregar es necesario adicionar: #{controlTiposCertificados.mensajeValidacion}" style="position: absolute; left: 90px; top: 10px; width: 280px; font-weight: bold"/>
+                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                </p:dialog>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposCertificados.activarCtrlF11()}"/> 
@@ -173,58 +173,58 @@
                <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla 'TIPOSCERTIFICADOS' tiene rastros para el registro seleccionado, ¿desea continuar?"
-                                style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                                style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlTiposCertificados.secRegistro, 'TiposCertificados', 'tiposcertificados')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                                   style="position: absolute; top: 63px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('tipocertificado', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla TIPOSCERTIFICADOS tiene rastros historicos, ¿Desea continuar?"
-                                style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                                style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();"
                                    actionListener="#{controlRastro.historicosTabla('TiposCertificados', 'tiposcertificados')}"
-                                   style="position: absolute; top: 60px; left: 208px;" action="rastrotabla" process="@this" />
+                                   style="position: absolute; top: 60px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('tipocertificado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();"
-                                   style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                                   style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?"
-                                style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                                style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlTiposCertificados.secRegistro, 'TiposCertificados', 'tiposcertificados')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" />
+                                   style="position: absolute; top: 63px; left: 208px;" action="#{controlListaNavegacion.guardarNavegacion('tipocertificado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();"
-                                   style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                                   style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="¡Error!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="75" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla 'TIPOSCERTIFICADOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 7px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="La tabla 'TIPOSCERTIFICADOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 7px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <!--Editar-->
@@ -237,7 +237,7 @@
                </p:dialog>
 
                <p:dialog id="nuevoRegistroTiposCertificados" header="Nuevo Registro" widgetVar="nuevoRegistroTiposCertificados" closable="false" resizable="false" draggable="true" modal="true" height="150" width="330" style=" padding: 0px;">  
-                  <center><strong><h:outputText id="informacion" value="Nuevo Tipo Certificado" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText id="informacion" value="Nuevo Tipo Certificado" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevaTipoempresa" style="border: none;">
 
                      <strong><h:outputText value="*Código: " style="left: 30px; position: absolute; top: 60px;"/></strong>
@@ -255,31 +255,31 @@
                      <p:watermark for="nuevoNombre" value="Nombre"/>
 
                      <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 125px;"  actionListener="#{controlTiposCertificados.limpiarNuevoTiposCertificados()}" update="nuevaTipoempresa" process="@this"/>
-                     <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 125px;" actionListener="#{controlTiposCertificados.agregarNuevoTiposCertificados()}" process="@this" />
+                     <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 125px;" actionListener="#{controlTiposCertificados.agregarNuevoTiposCertificados()}" process="@this"/>
                      <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 125px;"  update="nuevaTipoempresa" onclick="PF('nuevoRegistroTiposCertificados').hide();"  actionListener="#{controlTiposCertificados.limpiarNuevoTiposCertificados()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
                <p:dialog id="duplicarRegistroTiposCertificados" header="duplicar Registro" widgetVar="duplicarRegistroTiposCertificados" closable="false" resizable="false" draggable="true" modal="true" height="150" width="330" style=" padding: 0px;">  
-                  <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Certificado" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Certificado" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarTE" style="border: none;">
 
                      <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;"/></strong>
                      <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlTiposCertificados.duplicarTiposCertificados.codigo}"
-                                   style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                                   style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigo" value="Código"/>
 
                      <strong><h:outputText value="*Nombre:"  style=" position: absolute; top: 90px;"/></strong>
                      <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="50" value="#{controlTiposCertificados.duplicarTiposCertificados.descripcion}"
-                                   style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                                   style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombre" value="Nombre"/>
 
                      <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 125px;" actionListener="#{controlTiposCertificados.limpiarDuplicarTiposCertificados() }" update="duplicarTE"  process="@this"/>
-                     <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 125px;" actionListener="#{controlTiposCertificados.confirmarDuplicar()}"  process="@this" />
+                     <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 125px;" actionListener="#{controlTiposCertificados.confirmarDuplicar()}"  process="@this"/>
                      <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 125px;"  update="duplicarTE" onclick="PF('duplicarRegistroTiposCertificados').hide();" actionListener="#{controlTiposCertificados.limpiarDuplicarTiposCertificados()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -290,11 +290,11 @@
                             value="#{controlTiposCertificados.listTiposCertificados}">
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
-                     <h:outputText value="#{info2.codigo}" />
+                     <h:outputText value="#{info2.codigo}"/>
                   </p:column>  
 
                   <p:column>  
-                     <f:facet name="header"><h:outputText value="Descripcion" /></f:facet>
+                     <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
                      <h:outputText value="#{info2.descripcion}"/>
                   </p:column>
                </p:dataTable>

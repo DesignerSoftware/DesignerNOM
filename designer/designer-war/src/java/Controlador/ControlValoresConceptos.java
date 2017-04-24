@@ -139,27 +139,45 @@ public class ControlValoresConceptos implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        if (pag.equals("atras")) {
+        /*if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+            controlListaNavegacion.quitarPagina(pagActual);
+         
         } else {
-            String pagActual = "valoresconceptos";
-            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-            //mapParametros.put("paginaAnterior", pagActual);
-            //mas Parametros
-            //         if (pag.equals("rastrotabla")) {
-            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-            //      } else if (pag.equals("rastrotablaH")) {
-            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //     controlRastro.historicosTabla("Conceptos", pagActual);
-            //   pag = "rastrotabla";
-            //}
-            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            */
+String pagActual = "valoresconceptos";
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
         }
-        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();
     }
 
     public void eventoFiltrar() {
@@ -512,7 +530,7 @@ public class ControlValoresConceptos implements Serializable {
                          listValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
                          } else {*/
                         banderita = true;
-                        //}
+                        
 
                     }
 

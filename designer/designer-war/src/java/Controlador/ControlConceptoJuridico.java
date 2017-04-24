@@ -136,7 +136,6 @@ public class ControlConceptoJuridico implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -152,15 +151,34 @@ public class ControlConceptoJuridico implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "conceptojuridico";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "conceptojuridico";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -170,12 +188,11 @@ public class ControlConceptoJuridico implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -302,6 +319,12 @@ public class ControlConceptoJuridico implements Serializable {
    /**
     * Metodo de guardado general para la pagina
     */
+   
+   public void guardaYSalir() {
+      guardadoGeneral();
+      salir();
+   }
+   
    public void guardadoGeneral() {
       if (cambiosConceptos == true) {
          guardarCambiosConcepto();
@@ -770,7 +793,8 @@ public class ControlConceptoJuridico implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          altoTabla = "180";
          conceptoFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConcepto:conceptoFecha");
@@ -785,7 +809,6 @@ public class ControlConceptoJuridico implements Serializable {
          filtrarListConceptosJuridicos = null;
          tipoLista = 0;
       }
-
       listConceptosJuridicosBorrar.clear();
       listConceptosJuridicosCrear.clear();
       listConceptosJuridicosModificar.clear();
@@ -806,7 +829,7 @@ public class ControlConceptoJuridico implements Serializable {
       nuevoConcepto = new ConceptosJuridicos();
       duplicarConcepto = new ConceptosJuridicos();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
+      navegar("atras");
    }
 
    public void activarAceptar() {

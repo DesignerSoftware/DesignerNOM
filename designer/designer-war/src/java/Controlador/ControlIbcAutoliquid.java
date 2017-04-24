@@ -161,15 +161,34 @@ public class ControlIbcAutoliquid implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "ibcautoliquid";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "ibcautoliquid";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -179,12 +198,11 @@ public class ControlIbcAutoliquid implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -399,6 +417,11 @@ public class ControlIbcAutoliquid implements Serializable {
          }
 
       }
+   }
+
+   public void guardadoYSalir() {
+      guardadoGeneral();
+      salir();
    }
 
    public void guardadoGeneral() {
@@ -719,14 +742,14 @@ public class ControlIbcAutoliquid implements Serializable {
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (banderaTE == 1) {
          cerrarFiltradoTE();
       }
       if (bandera == 1) {
          cerrarFiltrado();
       }
-
       listIbcsAutoliquidacionesBorrar.clear();
       listIbcsAutoliquidacionesCrear.clear();
       listIbcsAutoliquidacionesModificar.clear();
@@ -737,6 +760,7 @@ public class ControlIbcAutoliquid implements Serializable {
       listIbcsAutoliquidaciones = null;
       guardado = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void asignarIndex(IbcsAutoliquidaciones ibc, int dlg, int LND) {

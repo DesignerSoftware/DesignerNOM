@@ -12,58 +12,57 @@
          <ui:define name="body">   
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
-            <!--<div class="loader"></div>-->
             <div style="position: static;"></div>               
             <h:form id="form"> 
-               <f:loadBundle basename="Recursos.emplacumulados" var="msg" />
+               <f:loadBundle basename="Recursos.emplacumulados" var="msg"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">   
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
 
-                        <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="PF('botones').show();"  process="@this" />
-                        <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="PF('botones').show();"  process="@this"/>
+                        <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlEmplAcumulados.editarCelda()}" process="@this"/>
-                        <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+                        <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton  disabled="true" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" onclick="PF('botones').show();" process="@this"/>
-                        <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+                        <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  actionListener="#{controlEmplAcumulados.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+                        <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmplAcumulados.exportXLS()}" ajax="false"/>
-                        <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+                        <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlEmplAcumulados.limpiarNuevaVigenciaFormpasPagos()}" ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosVWAEmpleadoExportar" fileName="EmplAcumuladosXML" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+                        <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplAcumulados.exportPDF()}" ajax="false"/>
-                        <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " onclick="PF('botones').show();" process="@this"/> 
-                        <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+                        <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" onclick="PF('botones').show();" process="@this"/> 
+                        <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
                         <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" onclick="PF('botones').show();" process="@this"/>  
-                        <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+                        <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton  disabled="true" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" onclick="PF('botones').show();"  process="@this"/>  
-                        <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+                        <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
 
@@ -78,24 +77,24 @@
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplAcumulados.cancelarModificacion()}" action="nominaf" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplAcumulados.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
-                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                      <h:outputText id="nombreEmpleado" value="#{controlEmplAcumulados.empleadoSeleccionado.persona.nombreCompleto}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
                      <h:outputText id="docEmpleado" value="#{controlEmplAcumulados.empleadoSeleccionado.codigoempleado}" 
-                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
 
-                  <fieldset style="position: absolute;top: 110px;left: 10px;height: 375px;width: 830px; border-radius: 10px; text-align: left">
+                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 375px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 14px; color: blue"><strong>#{msg['acumulados']}</strong></legend>
 
                      <p:dataTable id="datosEmplAcumulados" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
@@ -103,19 +102,19 @@
                                   filteredValue="#{controlEmplAcumulados.filtrarVWAcumuladosPorEmpleado}" emptyMessage="#{msg['vacio']}"
                                   selection="#{controlEmplAcumulados.acumuladosPorEmpleadoSeleccionado}" selectionMode="single"
                                   editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830"
-                                  >
+                              >
                         <p:ajax event="filter" listener="#{controlEmplAcumulados.eventoFiltrar()}"/>
 
-                        <p:column headerText="#{msg['conceptoc']}" sortBy="#{info.concepto_Codigo}" filterBy="#{info.concepto_Codigo}" filterMatchMode="contains" id="conceptoCodigo" width="50" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['conceptoc']}" sortBy="#{info.concepto_Codigo}" filterBy="#{info.concepto_Codigo}" filterMatchMode="contains" id="conceptoCodigo" width="50" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerConcepto" value="#{msg['conceptoc']}" />
-                              <p:tooltip  for="headerConcepto" value="Código del Concepto." />
+                              <h:outputText id="headerConcepto" value="#{msg['conceptoc']}"/>
+                              <p:tooltip  for="headerConcepto" value="Código del Concepto."/>
                            </f:facet> 
 
                            <p:cellEditor>  
-                              <f:facet  name="output"><h:outputText value="#{info.concepto_Codigo}" /></f:facet>  
-                              <f:facet name="input" >
-                                 <p:inputText  autocomplete="off"   value="#{info.concepto_Codigo}" id="editarConceptoCodigo" style=" height: 12px;   border-radius: 0px; width: 205px; text-transform: uppercase; height:12px;"  > 
+                              <f:facet  name="output"><h:outputText value="#{info.concepto_Codigo}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{info.concepto_Codigo}" id="editarConceptoCodigo" style=" height: 12px;  border-radius: 0px; width: 205px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 0)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarConceptoCodigo"/>
                                  </p:inputText>
@@ -126,15 +125,15 @@
                            </f:facet>
                         </p:column> 
 
-                        <p:column headerText="#{msg['descripcionconcepto']}" sortBy="#{info.concepto_Descripcion}" filterBy="#{info.concepto_Descripcion}" filterMatchMode="contains" id="conceptoDescripcion" width="310" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['descripcionconcepto']}" sortBy="#{info.concepto_Descripcion}" filterBy="#{info.concepto_Descripcion}" filterMatchMode="contains" id="conceptoDescripcion" width="310" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerdescConcepto" value="#{msg['descripcionconcepto']}" />
-                              <p:tooltip  for="headerdescConcepto" value="Descripcion del Concepto." />
+                              <h:outputText id="headerdescConcepto" value="#{msg['descripcionconcepto']}"/>
+                              <p:tooltip  for="headerdescConcepto" value="Descripcion del Concepto."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.concepto_Descripcion}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.concepto_Descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.concepto_Descripcion}" id="editarConceptoDescripcion" style=" height: 12px;   border-radius: 0px; width: 320px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"   value="#{info.concepto_Descripcion}" id="editarConceptoDescripcion" style=" height: 12px;  border-radius: 0px; width: 320px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 1)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="@this"/>
                                  </p:inputText>
@@ -146,22 +145,22 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column id="fechaDesde" headerText="#{msg['desde']}" sortBy="#{info.fechaDesde}" filterBy="#{info.fechaDesde}" filterMatchMode="contains"  width="63"  filterStyle="display: none; visibility: hidden;" >
+                        <p:column id="fechaDesde" headerText="#{msg['desde']}" sortBy="#{info.fechaDesde}" filterBy="#{info.fechaDesde}" filterMatchMode="contains"  width="63"  filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
-                              <h:outputText id="headerfechaDesde" value="#{msg['desde']}" />
-                              <p:tooltip  for="headerfechaDesde" value="Inicio de causación de la transacción." />
+                              <h:outputText id="headerfechaDesde" value="#{msg['desde']}"/>
+                              <p:tooltip  for="headerfechaDesde" value="Inicio de causación de la transacción."/>
                            </f:facet> 
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText value="#{info.fechaDesde}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 <h:outputText value="#{info.fechaDesde}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>  
                               <f:facet  name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.fechaDesde}" id="editarFechaDesde" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.fechaDesde}" id="editarFechaDesde" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 2)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"   update="editarFechaDesde"/>
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>
                            </p:cellEditor>
@@ -170,22 +169,22 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column id="fechaPago" headerText="#{msg['pago']}" sortBy="#{info.fechaPago}" filterBy="#{info.fechaPago}" filterMatchMode="contains"  width="63"  filterStyle="display: none; visibility: hidden;" >
+                        <p:column id="fechaPago" headerText="#{msg['pago']}" sortBy="#{info.fechaPago}" filterBy="#{info.fechaPago}" filterMatchMode="contains"  width="63"  filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
-                              <h:outputText id="headerfechaPago" value="#{msg['pago']}" />
-                              <p:tooltip  for="headerfechaPago" value="Fin de causación de la transacción." />
+                              <h:outputText id="headerfechaPago" value="#{msg['pago']}"/>
+                              <p:tooltip  for="headerfechaPago" value="Fin de causación de la transacción."/>
                            </f:facet> 
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText value="#{info.fechaPago}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 <h:outputText value="#{info.fechaPago}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>  
                               <f:facet  name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.fechaPago}" id="editarfechaPago" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"   value="#{info.fechaPago}" id="editarfechaPago" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 3)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarfechaPago"/>
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>
                            </p:cellEditor>
@@ -194,15 +193,15 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['unidad']}" sortBy="#{info.unidades}" filterBy="#{info.unidades}" filterMatchMode="contains" id="unidades" width="40" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['unidad']}" sortBy="#{info.unidades}" filterBy="#{info.unidades}" filterMatchMode="contains" id="unidades" width="40" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerunidad" value="#{msg['unidad']}" />
-                              <p:tooltip  for="headerunidad" value="Unidades en %, días, etc." />
+                              <h:outputText id="headerunidad" value="#{msg['unidad']}"/>
+                              <p:tooltip  for="headerunidad" value="Unidades en %, días, etc."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.unidades}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.unidades}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.unidades}" id="editarUnidades" style=" height: 12px;   border-radius: 0px; width: 202px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.unidades}" id="editarUnidades" style=" height: 12px;  border-radius: 0px; width: 202px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 4)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarUnidades"/>
                                  </p:inputText>
@@ -213,15 +212,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['valor']}" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor" width="50" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['valor']}" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor" width="50" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headervalor" value="#{msg['valor']}" />
-                              <p:tooltip  for="headervalor" value="Valor concepto acumulado." />
+                              <h:outputText id="headervalor" value="#{msg['valor']}"/>
+                              <p:tooltip  for="headervalor" value="Valor concepto acumulado."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.valor}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.valor}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.valor}" id="editarValor" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.valor}" id="editarValor" style=" height: 12px;  border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select"  listener="#{controlEmplAcumulados.cambiarIndice(indice, 5)}" process="@this"/> 
                                     <p:ajax event="change"  listener="#{controlEmplAcumulados.revisarCambios()}" update="editarValor"/>
                                  </p:inputText>
@@ -232,15 +231,15 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['saldo']}" sortBy="#{info.saldo}" filterBy="#{info.saldo}" filterMatchMode="contains" id="saldo" width="50" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['saldo']}" sortBy="#{info.saldo}" filterBy="#{info.saldo}" filterMatchMode="contains" id="saldo" width="50" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headersaldo" value="#{msg['saldo']}" />
-                              <p:tooltip  for="headersaldo" value="Saldo concepto acumulado." />
+                              <h:outputText id="headersaldo" value="#{msg['saldo']}"/>
+                              <p:tooltip  for="headersaldo" value="Saldo concepto acumulado."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.saldo}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.saldo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.saldo}" id="editarSaldo" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.saldo}" id="editarSaldo" style=" height: 12px;  border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 6)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"   update="editarSaldo"/>
                                  </p:inputText>
@@ -251,15 +250,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['tipo']}" sortBy="#{info.tipo}" filterBy="#{info.tipo}" filterMatchMode="contains" id="tipo" width="65" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['tipo']}" sortBy="#{info.tipo}" filterBy="#{info.tipo}" filterMatchMode="contains" id="tipo" width="65" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerTipo" value="#{msg['tipo']}" />
-                              <p:tooltip  for="headerTipo" value="Tipo Concepto." />
+                              <h:outputText id="headerTipo" value="#{msg['tipo']}"/>
+                              <p:tooltip  for="headerTipo" value="Tipo Concepto."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.tipo}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.tipo}" id="editarTipo" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.tipo}" id="editarTipo" style=" height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 7)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarTipo"/>
                                  </p:inputText>
@@ -270,15 +269,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['proceso']}" sortBy="#{info.corteProceso.proceso.descripcion}" filterBy="#{info.corteProceso.proceso.descripcion}" filterMatchMode="contains" id="corteProceso" width="95" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['proceso']}" sortBy="#{info.corteProceso.proceso.descripcion}" filterBy="#{info.corteProceso.proceso.descripcion}" filterMatchMode="contains" id="corteProceso" width="95" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerProceso" value="#{msg['proceso']}" />
-                              <p:tooltip  for="headerProceso" value="Proceso de Liquidación." />
+                              <h:outputText id="headerProceso" value="#{msg['proceso']}"/>
+                              <p:tooltip  for="headerProceso" value="Proceso de Liquidación."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.corteProceso.proceso.descripcion}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.corteProceso.proceso.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.corteProceso.proceso.descripcion}" id="editarCorteProceso" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.corteProceso.proceso.descripcion}" id="editarCorteProceso" style=" height: 12px;  border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 8)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCorteProceso"/>
                                  </p:inputText>
@@ -289,15 +288,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['tercero']}" sortBy="#{info.nit_nombre}" filterBy="#{info.nit_nombre}" filterMatchMode="contains" id="tercero" width="180" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['tercero']}" sortBy="#{info.nit_nombre}" filterBy="#{info.nit_nombre}" filterMatchMode="contains" id="tercero" width="180" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headertercero" value="#{msg['tercero']}" />
-                              <p:tooltip  for="headertercero" value="Descripción o nombre del tercero." />
+                              <h:outputText id="headertercero" value="#{msg['tercero']}"/>
+                              <p:tooltip  for="headertercero" value="Descripción o nombre del tercero."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.nit_nombre}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nit_nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.nit_nombre}" id="editarTercero" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.nit_nombre}" id="editarTercero" style="  height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 9)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarTercero"/>
                                  </p:inputText>
@@ -308,15 +307,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['formula']}" sortBy="#{info.formula.nombrelargo}" filterBy="#{info.formula.nombrelargo}" filterMatchMode="contains" id="formula" width="160" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['formula']}" sortBy="#{info.formula.nombrelargo}" filterBy="#{info.formula.nombrelargo}" filterMatchMode="contains" id="formula" width="160" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerformula" value="#{msg['formula']}" />
-                              <p:tooltip  for="headerformula" value="Formula Ejecutada." />
+                              <h:outputText id="headerformula" value="#{msg['formula']}"/>
+                              <p:tooltip  for="headerformula" value="Formula Ejecutada."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}" id="editarFormula" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}" id="editarFormula" style=" height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 10)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarFormula"/>
                                  </p:inputText>
@@ -327,15 +326,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['debito']}" sortBy="#{info.cuentaD.codigo}" filterBy="#{info.cuentaD.codigo}" filterMatchMode="contains" id="debito" width="65" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['debito']}" sortBy="#{info.cuentaD.codigo}" filterBy="#{info.cuentaD.codigo}" filterMatchMode="contains" id="debito" width="65" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerdebito" value="#{msg['debito']}" />
-                              <p:tooltip  for="headerdebito" value="Cuenta debito donde imputo el valor." />
+                              <h:outputText id="headerdebito" value="#{msg['debito']}"/>
+                              <p:tooltip  for="headerdebito" value="Cuenta debito donde imputo el valor."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.cuentaD.codigo}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.cuentaD.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.cuentaD.codigo}" id="editarDebito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.cuentaD.codigo}" id="editarDebito" style="  height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 11)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarDebito"/>
                                  </p:inputText>
@@ -346,15 +345,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['centrocostodebito']}" sortBy="#{info.centroCostoD.nombre}" filterBy="#{info.centroCostoD.nombre}" filterMatchMode="contains" id="centroCostoDebito" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['centrocostodebito']}" sortBy="#{info.centroCostoD.nombre}" filterBy="#{info.centroCostoD.nombre}" filterMatchMode="contains" id="centroCostoDebito" width="120" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerCCdebito" value="#{msg['centrocostodebito']}" />
-                              <p:tooltip  for="headerCCdebito" value="Centro Costo Debito." />
+                              <h:outputText id="headerCCdebito" value="#{msg['centrocostodebito']}"/>
+                              <p:tooltip  for="headerCCdebito" value="Centro Costo Debito."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.centroCostoD.nombre}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.centroCostoD.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.centroCostoD.nombre}" id="editarCentroCostoDebito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.centroCostoD.nombre}" id="editarCentroCostoDebito" style="  height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 12)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCentroCostoDebito"/>
                                  </p:inputText>
@@ -365,15 +364,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['credito']}" sortBy="#{info.cuentaC.codigo}" filterBy="#{info.cuentaC.codigo}" filterMatchMode="contains" id="credito" width="65" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['credito']}" sortBy="#{info.cuentaC.codigo}" filterBy="#{info.cuentaC.codigo}" filterMatchMode="contains" id="credito" width="65" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headercredito" value="#{msg['credito']}" />
-                              <p:tooltip  for="headercredito" value="Cuenta crédito donde imputo el valor." />
+                              <h:outputText id="headercredito" value="#{msg['credito']}"/>
+                              <p:tooltip  for="headercredito" value="Cuenta crédito donde imputo el valor."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.cuentaC.codigo}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.cuentaC.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.cuentaC.codigo}" id="editarCredito" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.cuentaC.codigo}" id="editarCredito" style=" height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 13)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCredito"/>
                                  </p:inputText>
@@ -384,15 +383,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['centrocostocredito']}" sortBy="#{info.centroCostoC.nombre}" filterBy="#{info.centroCostoC.nombre}" filterMatchMode="contains" id="centroCostoCredito" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['centrocostocredito']}" sortBy="#{info.centroCostoC.nombre}" filterBy="#{info.centroCostoC.nombre}" filterMatchMode="contains" id="centroCostoCredito" width="120" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerCCcredito" value="#{msg['centrocostocredito']}" />
-                              <p:tooltip  for="headerCCcredito" value="Centro Costo Credito." />
+                              <h:outputText id="headerCCcredito" value="#{msg['centrocostocredito']}"/>
+                              <p:tooltip  for="headerCCcredito" value="Centro Costo Credito."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.centroCostoC.nombre}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.centroCostoC.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.centroCostoC.nombre}" id="editarCentroCostoCredito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.centroCostoC.nombre}" id="editarCentroCostoCredito" style="  height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 14)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarCentroCostoCredito"/>
                                  </p:inputText>
@@ -403,22 +402,22 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column id="ultimaModificacion" headerText="#{msg['ultimamodificacion']}" sortBy="#{info.ultimaModificacion}" filterBy="#{info.ultimaModificacion}" filterMatchMode="contains"  width="120"  filterStyle="display: none; visibility: hidden;" >
+                        <p:column id="ultimaModificacion" headerText="#{msg['ultimamodificacion']}" sortBy="#{info.ultimaModificacion}" filterBy="#{info.ultimaModificacion}" filterMatchMode="contains"  width="120"  filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
-                              <h:outputText id="headerUModificacion" value="#{msg['ultimamodificacion']}" />
-                              <p:tooltip  for="headerUModificacion" value="Fecha última modificación." />
+                              <h:outputText id="headerUModificacion" value="#{msg['ultimamodificacion']}"/>
+                              <p:tooltip  for="headerUModificacion" value="Fecha última modificación."/>
                            </f:facet> 
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText value="#{info.ultimaModificacion}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+                                 <h:outputText value="#{info.ultimaModificacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>
                                  </h:outputText>
                               </f:facet>  
                               <f:facet  name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.ultimaModificacion}" id="editarUltimaModificacion" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.ultimaModificacion}" id="editarUltimaModificacion" style=" height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 15)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarUltimaModificacion"/>
-                                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />                                            
+                                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>                                            
                                  </p:inputText>
                               </f:facet>
                            </p:cellEditor>
@@ -427,15 +426,15 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="#{msg['observaciones']}" sortBy="#{info.observacionesMovedad}" filterBy="#{info.observacionesMovedad}" filterMatchMode="contains" id="observaciones" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['observaciones']}" sortBy="#{info.observacionesMovedad}" filterBy="#{info.observacionesMovedad}" filterMatchMode="contains" id="observaciones" width="100" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerobservaciones" value="#{msg['observaciones']}" />
-                              <p:tooltip  for="headerobservaciones" value="Observaciones." />
+                              <h:outputText id="headerobservaciones" value="#{msg['observaciones']}"/>
+                              <p:tooltip  for="headerobservaciones" value="Observaciones."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.observacionesMovedad}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.observacionesMovedad}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.observacionesMovedad}" id="editarObservaciones" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"   value="#{info.observacionesMovedad}" id="editarObservaciones" style=" height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 16)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarObservaciones"/>
                                  </p:inputText>
@@ -446,15 +445,15 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['motivonovedad']}" sortBy="#{info.motivoNovedad}" filterBy="#{info.motivoNovedad}" filterMatchMode="contains" id="motivoNovedad" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="#{msg['motivonovedad']}" sortBy="#{info.motivoNovedad}" filterBy="#{info.motivoNovedad}" filterMatchMode="contains" id="motivoNovedad" width="100" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headermotivonovedad" value="#{msg['motivonovedad']}" />
-                              <p:tooltip  for="headermotivonovedad" value="Motivo Novedad." />
+                              <h:outputText id="headermotivonovedad" value="#{msg['motivonovedad']}"/>
+                              <p:tooltip  for="headermotivonovedad" value="Motivo Novedad."/>
                            </f:facet> 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.motivoNovedad}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.motivoNovedad}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.motivoNovedad}" id="editarMotivoNovedad" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                 <p:inputText  autocomplete="off"  value="#{info.motivoNovedad}" id="editarMotivoNovedad" style=" height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 17)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarMotivoNovedad"/>
                                  </p:inputText>
@@ -467,11 +466,10 @@
 
                         <p:column headerText="..." width="25" style="padding: 0px;"  exportable="false">  
                            <f:facet name="header">
-                              <h:outputText id="headerDetalle" value="..." />
-                              <p:tooltip  for="headerDetalle" value="Detalles del Concepto." />
+                              <h:outputText id="headerDetalle" value="..."/>
+                              <p:tooltip  for="headerDetalle" value="Detalles del Concepto."/>
                            </f:facet> 
-                           <p:commandButton id="selectButton" icon="ui-icon-search" style=" height: 22px; width: 25px; height:15px;"  actionListener="#{controlEmplAcumulados.cambiarIndice(indice, 18)}" action="#{controlEmplAcumulados.editarCelda()}" title="View">  
-                           </p:commandButton>  
+                           <p:commandButton id="selectButton" icon="ui-icon-search" style=" height: 22px; width: 25px; height:15px;"  actionListener="#{controlEmplAcumulados.cambiarIndice(indice, 18)}" title="View"/>  
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -479,22 +477,22 @@
                      </p:dataTable>
                   </fieldset>
 
-                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplAcumulados.infoRegistro}" style="position: absolute; left: 20px; top: 480px; font-weight: bold"/>
-                  <p:commandButton style=" position: absolute; left: 760px; top: 505px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nominaf"   />
+                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplAcumulados.infoRegistro}" style="position: absolute; left: 20px; top: 480px; font-weight: bold;"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplAcumulados.salir()}"/>
 
                </p:panel>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplAcumulados.activarCtrlF11()}"  /> 
 
                <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
-                  <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 210px;" process="@this" />
+                  <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight: bold"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 210px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
-                  <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('repeticiones').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                  <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight: bold"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('repeticiones').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
             </h:form>
 
@@ -510,13 +508,13 @@
 
                <p:dialog id="editFechaDesde" header="#{msg['editFechaDesde']}" widgetVar="editFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                   <p:inputText  autocomplete="off"  readonly="true"  style="overflow: auto;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaDesde}" styleClass="ui-datepicker, myClass">
-                     <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputText>
                </p:dialog>
 
                <p:dialog id="editFechaPago" header="#{msg['editFechaPago']}" widgetVar="editFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                   <p:inputText  autocomplete="off"  readonly="true"  style="overflow: auto;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaPago}" styleClass="ui-datepicker, myClass">
-                     <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputText>
                </p:dialog>
 
@@ -566,7 +564,7 @@
 
                <p:dialog id="editFechaModificacion" header="#{msg['editFechaModificacion']}" widgetVar="editFechaModificacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                   <p:inputText  autocomplete="off"  readonly="true"  style="overflow: auto;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.ultimaModificacion}" styleClass="ui-datepicker, myClass">
-                     <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+                     <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>
                   </p:inputText>
                </p:dialog>
 
@@ -590,89 +588,89 @@
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet> 
-                     <h:outputText value="#{info.concepto_Codigo}" />
+                     <h:outputText value="#{info.concepto_Codigo}"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['descripcionconceptoXX']}">                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['descripcionconceptoX']}"/></f:facet>
-                     <h:outputText value="#{info.valor}" />
+                     <h:outputText value="#{info.valor}"/>
                   </p:column>  
 
                   <p:column>  
-                     <f:facet name="header"><h:outputText value="#{msg['desdeX']}" /></f:facet>
-                     <h:outputText value="#{info.fechaDesde}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:facet name="header"><h:outputText value="#{msg['desdeX']}"/></f:facet>
+                     <h:outputText value="#{info.fechaDesde}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
                   <p:column>  
-                     <f:facet name="header"><h:outputText value="#{msg['pagoX']}" /></f:facet>
-                     <h:outputText value="#{info.fechaPago}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:facet name="header"><h:outputText value="#{msg['pagoX']}"/></f:facet>
+                     <h:outputText value="#{info.fechaPago}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
                   <p:column headerText="#{msg['unidadX']}">                                                              
                      <f:facet name="header"> 
                         <h:outputText value="#{msg['unidadX']}"/>
                      </f:facet>
-                     <h:outputText value="#{info.unidades }" />
+                     <h:outputText value="#{info.unidades }"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['valorX']}">                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['valorX']}"/></f:facet>
-                     <h:outputText value="#{info.valor}" />
+                     <h:outputText value="#{info.valor}"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['saldoX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['saldoX']}"/></f:facet>
-                     <h:outputText value="#{info.saldo}" />
+                     <h:outputText value="#{info.saldo}"/>
                   </p:column>
                   <p:column headerText="#{msg['tipoX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['tipoX']}"/></f:facet>
-                     <h:outputText value="#{info.tipo}" />
+                     <h:outputText value="#{info.tipo}"/>
                   </p:column>
                   <p:column headerText="#{msg['procesoX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/></f:facet>
-                     <h:outputText value="#{info.corteProceso.proceso.descripcion}" />
+                     <h:outputText value="#{info.corteProceso.proceso.descripcion}"/>
                   </p:column>
                   <p:column headerText="#{msg['terceroX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['terceroX']}"/></f:facet>
-                     <h:outputText value="#{info.nit_nombre}" />
+                     <h:outputText value="#{info.nit_nombre}"/>
                   </p:column>
                   <p:column headerText="#{msg['formulaX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/></f:facet>
-                     <h:outputText value="#{info.formula.nombrelargo}" />
+                     <h:outputText value="#{info.formula.nombrelargo}"/>
                   </p:column>
                   <p:column headerText="#{msg['debitoX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['debitoX']}"/></f:facet>
-                     <h:outputText value="#{info.cuentaD.codigo}" />
+                     <h:outputText value="#{info.cuentaD.codigo}"/>
                   </p:column>
                   <p:column headerText="#{msg['centrocostodXX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['centrocostodX']}"/></f:facet>
-                     <h:outputText value="#{info.centroCostoD.nombre}" />
+                     <h:outputText value="#{info.centroCostoD.nombre}"/>
                   </p:column>
                   <p:column headerText="#{msg['creditoX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['creditoX']}"/></f:facet>
-                     <h:outputText value="#{info.cuentaC.codigo}" />
+                     <h:outputText value="#{info.cuentaC.codigo}"/>
                   </p:column>
                   <p:column headerText="#{msg['centrocostocXX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['centrocostocX']}"/></f:facet>
-                     <h:outputText value="#{info.centroCostoC.nombre}" />
+                     <h:outputText value="#{info.centroCostoC.nombre}"/>
                   </p:column>
                   <p:column headerText="#{msg['ultimamodificacionXX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['ultimamodificacionX']}"/></f:facet>
-                     <h:outputText value="#{info.ultimaModificacion}" />
+                     <h:outputText value="#{info.ultimaModificacion}"/>
                   </p:column>
                   <p:column headerText="#{msg['observacionesX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['observacionesX']}"/></f:facet>
-                     <h:outputText value="#{info.observacionesMovedad}" />
+                     <h:outputText value="#{info.observacionesMovedad}"/>
                   </p:column>
                   <p:column headerText="#{msg['motivonovedadXX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['motivonovedadX']}"/></f:facet>
-                     <h:outputText value="#{info.motivoNovedad}" />
+                     <h:outputText value="#{info.motivoNovedad}"/>
                   </p:column>
                   <p:column headerText="#{msg['detalleconceptoXX']}">                                                              
                      <f:facet name="header"><h:outputText value="#{msg['detalleconceptoX']}"/></f:facet>
-                     <h:outputText value="#{info.parciales}" />
+                     <h:outputText value="#{info.parciales}"/>
                   </p:column>
                </p:dataTable>
             </h:form>

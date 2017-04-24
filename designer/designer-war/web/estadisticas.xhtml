@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
    <h:head>
    </h:head>
    <h:body>
@@ -20,7 +19,6 @@
                }
                ;
             </script>
-            <!--<div class="loader"></div>-->
             <div style="position: static;"></div>
             <h:form id="form">
                <f:loadBundle basename="Recursos.estadisticas" var="msg"/>
@@ -28,7 +26,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left">
+                     <p:toolbarGroup align="left;">
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          disabled="true" id="guardarRapido" value=""/>
@@ -75,7 +73,7 @@
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          disabled="true" id="duplicar" value=""/>  
-                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);"
@@ -83,14 +81,14 @@
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" action="#{controlParametrosConjuntos.restablecerTablas()}"
+                        <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlParametrosConjuntos.salir()}"
                                          id="refrescar" value="" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" process="@this"
-                                         id="salir" value="" action="#{controlParametrosConjuntos.retornarPagina()}"/>  
+                                         id="salir" value="" actionListener="#{controlParametrosConjuntos.salir()}"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>
                   </p:toolbar>
@@ -118,9 +116,9 @@
                            </div>
                            <div style="position: relative; top: 17px; left: 4px; display: inline-block; ">
                               <p:selectOneMenu id="estadoParametro" style="text-transform: uppercase; padding: 0px 3px 0px 0px !important; width: 90px;" value="#{controlParametrosConjuntos.parametrosActuales.estado}">  
-                                 <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO" />  
-                                 <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO" />  
-                                 <f:selectItem itemLabel="" itemValue="" />  
+                                 <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO"/>  
+                                 <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO"/>  
+                                 <f:selectItem itemLabel="" itemValue=""/>  
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                               </p:selectOneMenu>
@@ -139,7 +137,7 @@
                            <h:outputText value="#{msg['filtro']}" style="font-weight: bold; left: 5px;"/>
 
                            <div style="position: relative; top: 1px; left: 6%; display: block; width: 86%;">
-                              <p:selectOneMenu id="parametroDimension" style="position: relative; text-transform: uppercase; height: 18px; text-align: left; padding: 0px 3px 0px 0px !important;" value="#{controlParametrosConjuntos.parametrosActuales.dimension}" >  
+                              <p:selectOneMenu id="parametroDimension" style="position: relative; text-transform: uppercase; height: 18px; text-align: left; padding: 0px 3px 0px 0px !important;" value="#{controlParametrosConjuntos.parametrosActuales.dimension}">  
                                  <f:selectItem itemLabel="#{msg['xempleado']}" itemValue="VWDSOLUCIONESNODOS0"/>  
                                  <f:selectItem itemLabel="#{msg['xestructura']}" itemValue="VWDSOLUCIONESNODOS1"/>  
                                  <f:selectItem itemLabel="#{msg['xcentroc']}" itemValue="VWDSOLUCIONESNODOS2"/>  
@@ -151,17 +149,17 @@
                                  <f:selectItem itemLabel="#{msg['xtercero']}" itemValue="VWDSOLUCIONESNODOS8"/>  
                                  <f:selectItem itemLabel="#{msg['xcuenta']}" itemValue="VWDSOLUCIONESNODOS9"/>  
                                  <f:selectItem itemLabel="#{msg['xconcepto']}" itemValue="VWDSOLUCIONESNODOS10"/>  
-                                 <f:selectItem itemLabel="" itemValue="" />
+                                 <f:selectItem itemLabel="" itemValue=""/>
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                               </p:selectOneMenu>
                            </div>
                            <div style="position: relative; top: 2px; left: 6%; display: block; width: 86%;">
-                              <p:selectOneMenu id="parametroPeriodicidad" style="position: relative; text-transform: uppercase; text-align: left; padding: 0px 3px 0px 0px !important;" value="#{controlParametrosConjuntos.parametrosActuales.tipoResumen}" >  
-                                 <f:selectItem itemLabel="#{msg['mensualizado']}" itemValue="MES" />  
-                                 <f:selectItem itemLabel="#{msg['trimestralizado']}" itemValue="TRI" />  
-                                 <f:selectItem itemLabel="#{msg['anualizado']}" itemValue="ANO" />  
-                                 <f:selectItem itemLabel="" itemValue="" />
+                              <p:selectOneMenu id="parametroPeriodicidad" style="position: relative; text-transform: uppercase; text-align: left; padding: 0px 3px 0px 0px !important;" value="#{controlParametrosConjuntos.parametrosActuales.tipoResumen}">  
+                                 <f:selectItem itemLabel="#{msg['mensualizado']}" itemValue="MES"/>  
+                                 <f:selectItem itemLabel="#{msg['trimestralizado']}" itemValue="TRI"/>  
+                                 <f:selectItem itemLabel="#{msg['anualizado']}" itemValue="ANO"/>  
+                                 <f:selectItem itemLabel="" itemValue=""/>
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                               </p:selectOneMenu>
@@ -189,10 +187,10 @@
                               </p:calendar>
                            </div>
                            <div style="position: relative; top: 17px; left: 4px; display: inline-block;">
-                              <p:selectOneMenu id="estadoParametroLB" style="text-transform: uppercase; padding: 0px 3px 0px 0px !important; width: 90px;" value="#{controlParametrosConjuntos.parametrosActuales.estadolineaBase}" >  
-                                 <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO" />  
-                                 <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO" />  
-                                 <f:selectItem itemLabel="" itemValue="" />  
+                              <p:selectOneMenu id="estadoParametroLB" style="text-transform: uppercase; padding: 0px 3px 0px 0px !important; width: 90px;" value="#{controlParametrosConjuntos.parametrosActuales.estadolineaBase}">  
+                                 <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO"/>  
+                                 <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO"/>  
+                                 <f:selectItem itemLabel="" itemValue=""/>  
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                               </p:selectOneMenu>
@@ -232,7 +230,7 @@
                                  <f:facet name="input">        
                                     <h:inputText style="width: 98%;" value="#{info.dimension}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '107'}]);
                                           PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});" />
+                                          PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer"><h:outputText value=""/></f:facet>
@@ -253,7 +251,7 @@
                                     <h:inputText value="#{info.z}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '108'}]);
                                           PF('tablaEstadisticas').unselectAllRows();
                                           PF('tablaEstadisticas').selectRow(#{indice});">
-                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                       <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </h:inputText>
                                  </f:facet>                                     
                               </p:cellEditor>
@@ -275,7 +273,7 @@
                                  <f:facet name="input">        
                                     <h:inputText value="#{info.estado}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '109'}]);
                                           PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});" />
+                                          PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -304,7 +302,7 @@
                                                  ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '1'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '1'}]);
                                                        PF('tablaEstadisticas').unselectAllRows();
-                                                       PF('tablaEstadisticas').selectRow(#{indice});" />
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1754,7 +1752,8 @@
                                  <f:facet name="input">                                         
                                     <p:inputText  autocomplete="off"  value="#{info.totalPasivos}" style="background-color: rgb(216, 155, 254);" readonly="true"
                                                   onselect="posicionEstadisticas([{name: 'n', value: '105'}]);
-                                                        PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                                        PF('tablaEstadisticas').unselectAllRows();
+                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                      
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1856,7 +1855,7 @@
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -1875,7 +1874,7 @@
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
                            <!--<p:commandButton value="" style="z-index: 5; width: 115px; height: 10px; border-radius: 0px; margin-left: -10px; margin-right: -10px; background-color: rgb(155, 216, 255);"/>-->
@@ -1886,7 +1885,7 @@
                      </div>
 
                      <div style="position: relative; display: block; height: 7px;"> 
-                        <h:outputText value="#{msg['totales']} >>>" style="position: relative; display: inline-block; font-weight: bold; width: 390px;
+                        <h:outputText value="#{msg['totales']}>>>" style="position: relative; display: inline-block; font-weight: bold; width: 390px;
                                       text-align: right; top: 0px; margin: 0px; padding: 0px; z-index: 88; top: -18px; left: -50px;"/>
                      </div>
 
@@ -1926,14 +1925,14 @@
                            <p:cellEditor> 
                               <f:facet name="output">
                                  <h:outputText style="padding: 0px;" value="#{infoLB.z}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>
                               <f:facet name="input">        
                                  <h:inputText value="#{infoLB.z}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '108'}]);
                                        PF('tablaEstadisticasLB').unselectAllRows();
                                        PF('tablaEstadisticasLB').selectRow(#{indice2});">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:inputText>
                               </f:facet>                                     
                            </p:cellEditor>
@@ -1957,7 +1956,8 @@
                               </f:facet>          
                               <f:facet name="input">        
                                  <h:inputText value="#{infoLB.estado}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '109'}]);
-                                       PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                     
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -1986,7 +1986,7 @@
                               </f:facet>                                          
                               <f:facet name="input">                                         
                                  <p:inputText  autocomplete="off" value="#{infoLB.conjunto1}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDCLB([{name: 'n', value: '1'}]);" onselect="posicionEstadisticas([{name: 'n', value: '1'}]);" />              
+                                       posicionEstadisticasDCLB([{name: 'n', value: '1'}]);" onselect="posicionEstadisticas([{name: 'n', value: '1'}]);"/>              
                                  PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>         
                               </f:facet>                                     
                            </p:cellEditor>
@@ -2043,7 +2043,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>            
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD2" value="#{controlParametrosConjuntos.parametrosActuales.desviacion2}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD2" value="#{controlParametrosConjuntos.parametrosActuales.desviacion2}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2087,7 +2087,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>           
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD3" value="#{controlParametrosConjuntos.parametrosActuales.desviacion3}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD3" value="#{controlParametrosConjuntos.parametrosActuales.desviacion3}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2117,7 +2117,8 @@
                               <f:facet name="input">                                            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto4}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
                                                          posicionEstadisticasDCLB([{name: 'n', value: '4'}]);" onselect="posicionEstadisticas([{name: 'n', value: '4'}]);
-                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                      
+                                                               PF('tablaEstadisticasLB').unselectAllRows();
+                                                               PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                      
                               </f:facet>                                    
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2129,7 +2130,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>           
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD4" value="#{controlParametrosConjuntos.parametrosActuales.desviacion4}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD4" value="#{controlParametrosConjuntos.parametrosActuales.desviacion4}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2159,7 +2160,8 @@
                               <f:facet name="input">                                          
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto5}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
                                                                posicionEstadisticasDCLB([{name: 'n', value: '5'}]);" onselect="posicionEstadisticas([{name: 'n', value: '5'}]);
-                                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                 
+                                                                     PF('tablaEstadisticasLB').unselectAllRows();
+                                                                     PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                 
                               </f:facet>                                  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2171,7 +2173,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>          
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD5" value="#{controlParametrosConjuntos.parametrosActuales.desviacion5}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD5" value="#{controlParametrosConjuntos.parametrosActuales.desviacion5}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2214,7 +2216,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>         
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD6" value="#{controlParametrosConjuntos.parametrosActuales.desviacion6}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD6" value="#{controlParametrosConjuntos.parametrosActuales.desviacion6}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/> 
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2257,7 +2259,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>         
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD7" value="#{controlParametrosConjuntos.parametrosActuales.desviacion7}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD7" value="#{controlParametrosConjuntos.parametrosActuales.desviacion7}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2300,7 +2302,7 @@
                                  <f:convertNumber pattern="#,##0.00"/> 
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD8" value="#{controlParametrosConjuntos.parametrosActuales.desviacion8}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD8" value="#{controlParametrosConjuntos.parametrosActuales.desviacion8}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2343,7 +2345,7 @@
                                  <f:convertNumber pattern="#,##0.00"/> 
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD9" value="#{controlParametrosConjuntos.parametrosActuales.desviacion9}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD9" value="#{controlParametrosConjuntos.parametrosActuales.desviacion9}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2386,7 +2388,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>  
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD10" value="#{controlParametrosConjuntos.parametrosActuales.desviacion10}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD10" value="#{controlParametrosConjuntos.parametrosActuales.desviacion10}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2428,7 +2430,7 @@
                                  <f:convertNumber pattern="#,##0.00"/> 
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD11" value="#{controlParametrosConjuntos.parametrosActuales.desviacion11}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD11" value="#{controlParametrosConjuntos.parametrosActuales.desviacion11}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/> 
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2471,7 +2473,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>   
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD12" value="#{controlParametrosConjuntos.parametrosActuales.desviacion12}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD12" value="#{controlParametrosConjuntos.parametrosActuales.desviacion12}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2500,7 +2502,7 @@
                               </f:facet>
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto13}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                                                               posicionEstadisticasDCLB([{name: 'n', value: '13'}]);" onselect="posicionEstadisticas([{name: 'n', value: '13'}]);" />   
+                                                                                                               posicionEstadisticasDCLB([{name: 'n', value: '13'}]);" onselect="posicionEstadisticas([{name: 'n', value: '13'}]);"/>   
                                  PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                  
                               </f:facet>                                 
                            </p:cellEditor>
@@ -2513,7 +2515,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>    
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD13" value="#{controlParametrosConjuntos.parametrosActuales.desviacion13}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD13" value="#{controlParametrosConjuntos.parametrosActuales.desviacion13}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2556,7 +2558,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>      
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD14" value="#{controlParametrosConjuntos.parametrosActuales.desviacion14}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD14" value="#{controlParametrosConjuntos.parametrosActuales.desviacion14}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2599,7 +2601,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>   
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD15" value="#{controlParametrosConjuntos.parametrosActuales.desviacion15}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD15" value="#{controlParametrosConjuntos.parametrosActuales.desviacion15}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2642,7 +2644,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>        
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD16" value="#{controlParametrosConjuntos.parametrosActuales.desviacion16}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD16" value="#{controlParametrosConjuntos.parametrosActuales.desviacion16}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2685,7 +2687,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>       
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD17" value="#{controlParametrosConjuntos.parametrosActuales.desviacion17}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD17" value="#{controlParametrosConjuntos.parametrosActuales.desviacion17}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2728,7 +2730,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>       
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD18" value="#{controlParametrosConjuntos.parametrosActuales.desviacion18}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD18" value="#{controlParametrosConjuntos.parametrosActuales.desviacion18}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2771,7 +2773,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>      
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD19" value="#{controlParametrosConjuntos.parametrosActuales.desviacion19}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD19" value="#{controlParametrosConjuntos.parametrosActuales.desviacion19}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2814,7 +2816,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>        
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD20" value="#{controlParametrosConjuntos.parametrosActuales.desviacion20}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD20" value="#{controlParametrosConjuntos.parametrosActuales.desviacion20}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2893,7 +2895,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>         
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD21" value="#{controlParametrosConjuntos.parametrosActuales.desviacion21}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD21" value="#{controlParametrosConjuntos.parametrosActuales.desviacion21}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2936,7 +2938,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>            
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD22" value="#{controlParametrosConjuntos.parametrosActuales.desviacion22}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD22" value="#{controlParametrosConjuntos.parametrosActuales.desviacion22}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -2979,7 +2981,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>              
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD23" value="#{controlParametrosConjuntos.parametrosActuales.desviacion23}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD23" value="#{controlParametrosConjuntos.parametrosActuales.desviacion23}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3009,7 +3011,8 @@
                               <f:facet name="input">                        
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto24}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
                                                          posicionEstadisticasDCLB([{name: 'n', value: '24'}]);" onselect="posicionEstadisticas([{name: 'n', value: '24'}]);
-                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                               PF('tablaEstadisticasLB').unselectAllRows();
+                                                               PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                              
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3021,7 +3024,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>             
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD24" value="#{controlParametrosConjuntos.parametrosActuales.desviacion24}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD24" value="#{controlParametrosConjuntos.parametrosActuales.desviacion24}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3064,7 +3067,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>            
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD25" value="#{controlParametrosConjuntos.parametrosActuales.desviacion25}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD25" value="#{controlParametrosConjuntos.parametrosActuales.desviacion25}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3107,7 +3110,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>             
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD26" value="#{controlParametrosConjuntos.parametrosActuales.desviacion26}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD26" value="#{controlParametrosConjuntos.parametrosActuales.desviacion26}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3150,7 +3153,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>          
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD27" value="#{controlParametrosConjuntos.parametrosActuales.desviacion27}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD27" value="#{controlParametrosConjuntos.parametrosActuales.desviacion27}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3193,7 +3196,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>           
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD28" value="#{controlParametrosConjuntos.parametrosActuales.desviacion28}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD28" value="#{controlParametrosConjuntos.parametrosActuales.desviacion28}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3236,7 +3239,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>           
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD29" value="#{controlParametrosConjuntos.parametrosActuales.desviacion29}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD29" value="#{controlParametrosConjuntos.parametrosActuales.desviacion29}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3279,7 +3282,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>        
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD30" value="#{controlParametrosConjuntos.parametrosActuales.desviacion30}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD30" value="#{controlParametrosConjuntos.parametrosActuales.desviacion30}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3397,7 +3400,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>  
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD31" value="#{controlParametrosConjuntos.parametrosActuales.desviacion31}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD31" value="#{controlParametrosConjuntos.parametrosActuales.desviacion31}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/> 
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3440,7 +3443,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>    
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD32" value="#{controlParametrosConjuntos.parametrosActuales.desviacion32}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD32" value="#{controlParametrosConjuntos.parametrosActuales.desviacion32}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3467,7 +3470,8 @@
                               <f:facet name="input">                                
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto33}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
                                                    posicionEstadisticasDCLB([{name: 'n', value: '33'}]);" onselect="posicionEstadisticas([{name: 'n', value: '33'}]);
-                                                         PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                         PF('tablaEstadisticasLB').unselectAllRows();
+                                                         PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                    
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3479,7 +3483,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>      
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD33" value="#{controlParametrosConjuntos.parametrosActuales.desviacion33}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD33" value="#{controlParametrosConjuntos.parametrosActuales.desviacion33}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3519,7 +3523,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>     
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD34" value="#{controlParametrosConjuntos.parametrosActuales.desviacion34}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD34" value="#{controlParametrosConjuntos.parametrosActuales.desviacion34}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3562,7 +3566,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>     
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD35" value="#{controlParametrosConjuntos.parametrosActuales.desviacion35}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD35" value="#{controlParametrosConjuntos.parametrosActuales.desviacion35}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3605,7 +3609,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>    
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD36" value="#{controlParametrosConjuntos.parametrosActuales.desviacion36}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD36" value="#{controlParametrosConjuntos.parametrosActuales.desviacion36}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3648,7 +3652,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>    
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD37" value="#{controlParametrosConjuntos.parametrosActuales.desviacion37}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD37" value="#{controlParametrosConjuntos.parametrosActuales.desviacion37}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3729,7 +3733,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>       
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD38" value="#{controlParametrosConjuntos.parametrosActuales.desviacion38}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD38" value="#{controlParametrosConjuntos.parametrosActuales.desviacion38}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3772,7 +3776,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>      
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD39" value="#{controlParametrosConjuntos.parametrosActuales.desviacion39}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD39" value="#{controlParametrosConjuntos.parametrosActuales.desviacion39}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3815,7 +3819,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>       
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD40" value="#{controlParametrosConjuntos.parametrosActuales.desviacion40}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD40" value="#{controlParametrosConjuntos.parametrosActuales.desviacion40}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3858,7 +3862,7 @@
                                  <f:convertNumber pattern="#,##0.00"/> 
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD41" value="#{controlParametrosConjuntos.parametrosActuales.desviacion41}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD41" value="#{controlParametrosConjuntos.parametrosActuales.desviacion41}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3901,7 +3905,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>  
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD42" value="#{controlParametrosConjuntos.parametrosActuales.desviacion42}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD42" value="#{controlParametrosConjuntos.parametrosActuales.desviacion42}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3944,7 +3948,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>   
                               </h:outputText>
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD43" value="#{controlParametrosConjuntos.parametrosActuales.desviacion43}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD43" value="#{controlParametrosConjuntos.parametrosActuales.desviacion43}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -3987,7 +3991,7 @@
                                  <f:convertNumber pattern="#,##0.00"/> 
                               </h:outputText> 
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD44" value="#{controlParametrosConjuntos.parametrosActuales.desviacion44}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD44" value="#{controlParametrosConjuntos.parametrosActuales.desviacion44}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -4068,7 +4072,7 @@
                                  <f:convertNumber pattern="#,##0.00"/>        
                               </h:outputText> 
                               <p:inputText class="footerEstadisticasTextSmall" style="width: 45% !important; display: inline-block !important; padding: 0px !important; height: 13px !important;"
-                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD45" value="#{controlParametrosConjuntos.parametrosActuales.desviacion45}" >
+                                           autocomplete="off"  onselect="#{controlParametrosConjuntos.seleccionPorcentajes()}" id="inputD45" value="#{controlParametrosConjuntos.parametrosActuales.desviacion45}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActualesDes()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                                  <f:convertNumber pattern="#,##0.00"/>                                     
@@ -4131,7 +4135,7 @@
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value="" />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -4150,7 +4154,7 @@
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value="" />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -4164,7 +4168,8 @@
                               </f:facet>                                  
                               <f:facet name="input">                                     
                                  <h:inputText style="width: 98%;" value="#{infoLB.cargo}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '112'}]);
-                                       PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -4179,9 +4184,9 @@
                      <p:remoteCommand name="posicionEstadisticasDCLB" actionListener="#{controlParametrosConjuntos.estadisticasDetalleLB()}"/>
 
                      <div style="position: relative; display: block; z-index: 2; top: -50px; left: -50px;">
-                        <h:outputText value="#{msg['totales']} >>>" style="margin-top: -6px; font-weight: bold; width: 390px; text-align: right; display: block;"/>
-                        <h:outputText value="#{msg['variacionN']} >>>" style="margin-top: 2px; font-weight: bold; width: 390px; text-align: right; display: block;"/>
-                        <h:outputText value="#{msg['estandarv']} >>>" style="margin-top: 4px; font-weight: bold; width: 390px; text-align: right; display: block;"/>
+                        <h:outputText value="#{msg['totales']}>>>" style="margin-top: -6px; font-weight: bold; width: 390px; text-align: right; display: block;"/>
+                        <h:outputText value="#{msg['variacionN']}>>>" style="margin-top: 2px; font-weight: bold; width: 390px; text-align: right; display: block;"/>
+                        <h:outputText value="#{msg['estandarv']}>>>" style="margin-top: 4px; font-weight: bold; width: 390px; text-align: right; display: block;"/>
                      </div>
                      <!--</div>-->
                      <!--<h:outputText id="prueba" value="ttt" style="left: 1600px; z-index: 99999; position: absolute;"/>-->
@@ -4201,13 +4206,11 @@
                      <f:selectItems value="#{controlParametrosConjuntos.conjuntoCSelect}"/>
                   </p:selectOneMenu>
 
-                  <p:commandButton styleClass="cssBotonCancelar" id="ATRAS" 
-                                   action="#{controlParametrosConjuntos.retornarPagina()}" process="@this" value=""/>
+                  <p:commandButton styleClass="cssBotonCancelar" id="ATRAS" actionListener="#{controlParametrosConjuntos.salir()}" process="@this" value=""/>
                </p:panel>
 
-
                <p:dialog header="#{msg['detalles']}" id="detallesDialogo" widgetVar="detallesDialogo" draggable="true" resizable="false" closable="true"  
-                         showEffect="fade" hideEffect="fade" width="840" modal="true" >
+                         showEffect="fade" hideEffect="fade" width="840" modal="true">
 
                   <h:outputText style="padding: 0px; font-size: 12px; font-weight: bold; color: red; position: relative;" value="#{controlParametrosConjuntos.descripcionDetalle}"/>
 
@@ -4238,32 +4241,32 @@
 
                      <p:column filterBy="#{detalle.z}" sortBy="#{detalle.z}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['fechamin']}" />
+                           <h:outputText value="#{msg['fechamin']}"/>
                         </f:facet>
                         <h:outputText  value="#{detalle.z}">
-                           <f:convertDateTime pattern="dd/MM/yyyy" />
+                           <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </h:outputText>
                      </p:column>
 
                      <p:column filterBy="#{detalle.nombreConcepto}" sortBy="#{detalle.nombreConcepto}" width="180" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['concepto']}" />
+                           <h:outputText value="#{msg['concepto']}"/>
                         </f:facet>
-                        <h:outputText value="#{detalle.nombreConcepto}" />
+                        <h:outputText value="#{detalle.nombreConcepto}"/>
                         <f:facet name="footer">
-                           <h:outputText value="#{msg['totales']} :" style="text-align: right;" />
+                           <h:outputText value="#{msg['totales']} :" style="text-align: right;"/>
                         </f:facet>
                         <f:facet name="footer">
-                           <h:outputText value=" " style="background-color: white;" />
+                           <h:outputText value=" " style="background-color: white;"/>
                         </f:facet>
                      </p:column>
 
                      <p:column filterBy="#{detalle.unidadesActivo}" sortBy="#{detalle.unidadesActivo}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText id="headerUni" value="Uni.."/>
-                           <p:tooltip for="headerUni" value="#{msg['unidades']}" />
+                           <p:tooltip for="headerUni" value="#{msg['unidades']}"/>
                         </f:facet>
-                        <h:outputText value="#{detalle.unidadesActivo}" />
+                        <h:outputText value="#{detalle.unidadesActivo}"/>
                         <f:facet name="footer">
                            <h:outputText value="#{controlParametrosConjuntos.totalUnidadesDetalles}"/>
                         </f:facet>
@@ -4271,7 +4274,7 @@
 
                      <p:column filterBy="#{detalle.valor}" sortBy="#{detalle.valor}" width="110" style="text-align: right;" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['valor']}" />
+                           <h:outputText value="#{msg['valor']}"/>
                         </f:facet>
                         <h:outputText value="#{detalle.valor}">
                            <f:convertNumber pattern="#,##0.00"/>
@@ -4293,7 +4296,7 @@
 
                <!-- L.O.V CONCEPTOS-->
                <p:dialog header="#{msg['conceptos']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="460" >
+                         showEffect="fade" hideEffect="fade" modal="true" width="460">
 
                   <p:dataTable  id="LOVConceptos" style=" width: 420px;" var="conceptos" value="#{controlParametrosConjuntos.listaConceptosEspecificos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="435" widgetVar="LOVConceptos" editable="true" editMode="cell"
@@ -4308,24 +4311,24 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVConceptos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="60" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
+                     <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="60" filterStyle="width: 85% !important;" filterMatchMode="contains"> 
                         <f:facet name="header">
-                           <h:outputText value="#{msg['codigo']}" />
+                           <h:outputText value="#{msg['codigo']}"/>
                         </f:facet>
-                        <h:outputText value="#{conceptos.codigo}" />  
+                        <h:outputText value="#{conceptos.codigo}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{conceptos.descripcion}" filterBy="#{conceptos.descripcion}" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
+                     <p:column sortBy="#{conceptos.descripcion}" filterBy="#{conceptos.descripcion}" filterStyle="width: 85% !important;" filterMatchMode="contains"> 
                         <f:facet name="header">
-                           <h:outputText value="#{msg['descripcionm']}" />
+                           <h:outputText value="#{msg['descripcionm']}"/>
                         </f:facet>
-                        <h:outputText value="#{conceptos.descripcion}" />  
+                        <h:outputText value="#{conceptos.descripcion}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{conceptos.conjunto}" filterBy="#{conceptos.conjunto}" width="32" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
+                     <p:column sortBy="#{conceptos.conjunto}" filterBy="#{conceptos.conjunto}" width="32" filterStyle="width: 85% !important;" filterMatchMode="contains"> 
                         <f:facet name="header">
-                           <h:outputText id="headerConjunto" value="Con" />
-                           <p:tooltip for="headerConjunto" value="#{msg['conjunto']}" />
+                           <h:outputText id="headerConjunto" value="Con"/>
+                           <p:tooltip for="headerConjunto" value="#{msg['conjunto']}"/>
                         </f:facet>
                         <p:cellEditor> 
                            <f:facet name="output">
@@ -4351,22 +4354,22 @@
                <!--    Dialogos    -->
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso" resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="editarDialogo" widgetVar="editarDialogo" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarDialogo" widgetVar="editarDialogo" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlParametrosConjuntos.textoEditar}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarDialogoNum" widgetVar="editarDialogoNum" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarDialogoNum" widgetVar="editarDialogoNum" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlParametrosConjuntos.textoEditar}" style="overflow: auto;" readonly="true">
                      <f:convertNumber pattern="#,##0.00"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarDialogoFecha" widgetVar="editarDialogoFecha" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+               <p:dialog id="editarDialogoFecha" widgetVar="editarDialogoFecha" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlParametrosConjuntos.textoEditar}" style="overflow: auto;" readonly="true">
-                     <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
@@ -4471,7 +4474,7 @@
                   <p:column headerText="#{msg['fecha']}">  
                      <f:facet name="header"><h:outputText value="#{msg['fecha']}"/> </f:facet>
                      <h:outputText value="#{info.z}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
@@ -4849,7 +4852,7 @@
                   <p:column headerText="#{msg['fecha']}">  
                      <f:facet name="header"><h:outputText value="#{msg['fecha']}"/> </f:facet>
                      <h:outputText value="#{infoLB.z}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 

@@ -13,46 +13,46 @@
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Evaluaciones" styleClass="panelTotal">    
-                        <f:loadBundle basename="Recursos.emplvigconvocatorias" var="msg" />
+                        <f:loadBundle basename="Recursos.emplvigconvocatorias" var="msg"/>
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.guardarCambios()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.guardarCambios()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlEmplVigConvocatorias.activarLOV}"  process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.limpiarNuevoResultado()}"  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlEmplVigConvocatorias.tablaImprimir}" fileName="#{controlEmplVigConvocatorias.nombreArchivo}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" oncomplete="PF('NuevoRegistroResultados').show()" update=":formularioDialogos:nuevoResultado"   process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) ; border: none;"  actionListener="#{controlEmplVigConvocatorias.borrarResultados()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.duplicarResultado()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
@@ -70,193 +70,193 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                             <h:outputText id="nombreEmpleado" value="#{controlEmplVigConvocatorias.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
                             <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: absolute; top: 10px; left: 400px;"/>
-                            <p:inputText autocomplete="off" id="codigoeval" style="height: 12px;  border-radius: 0px; width: 30px; text-transform: uppercase; position: absolute; top: 5px; left: 450px;"
+                            <p:inputText autocomplete="off" id="codigoeval" style="height: 12px; border-radius: 0px; width: 30px; text-transform: uppercase; position: absolute; top: 5px; left: 450px;"
                                          value="#{controlEmplVigConvocatorias.evalVigParametros.codigo}">
 
                             </p:inputText>
                             <h:outputText value="Fecha Vigencia:" style="font-weight: bold; color: #14388B; position: absolute; top: 10px; left: 520px;"/>
-                            <!--                            <p:inputText autocomplete="off" id="fechaeval" style="height: 12px;  border-radius: 0px; width: 100px; text-transform: uppercase; position: absolute; top: 5px; left: 620px;">
+                            <!--                            <p:inputText autocomplete="off" id="fechaeval" style="height: 12px; border-radius: 0px; width: 100px; text-transform: uppercase; position: absolute; top: 5px; left: 620px;">
                                                             
                                                         </p:inputText>-->
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateEval" style="position: absolute; top: 5px; left: 620px;" value="#{controlEmplVigConvocatorias.evalVigParametros.fechavigencia}"  > 
+                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateEval" style="position: absolute; top: 5px; left: 620px;" value="#{controlEmplVigConvocatorias.evalVigParametros.fechavigencia}"> 
                                 <p:ajax event="dateSelect"  update="dateEval" process="@this"/>
                                 <p:ajax event="change"  update="dateEval" process="@this"/>
                             </p:calendar>
 
                         </fieldset>
 
-                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlEmplVigConvocatorias.revisarDialogoGuardar()}" disabled="#{controlEmplVigConvocatorias.isGuardado()}" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlEmplVigConvocatorias.revisarDialogoGuardar()}" disabled="#{controlEmplVigConvocatorias.isGuardado()}" process="@this"/>
                         <p:commandButton class="cssBotonCancelar"  id="ATRAS" value=""  actionListener="#{controlEmplVigConvocatorias.salir()}" action="empleadoindividual" process="@this"  />
 
-                        <fieldset style="position: absolute;top: 105px;left: 10px;height: 165px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 105px; left: 10px; height: 165px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Convocatorias</strong></legend>
                             <p:dataTable id="datosConvocatorias" widgetVar="datosConvocatorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: none; "                           
                                          value="#{controlEmplVigConvocatorias.listEvalConvocatorias}" scrollable="true" scrollHeight="#{controlEmplVigConvocatorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlEmplVigConvocatorias.listEvalConvocatoriasFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false"   selection="#{controlEmplVigConvocatorias.evalConvocatoriaSeleccionado}" selectionMode="single" >
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlEmplVigConvocatorias.evalConvocatoriaSeleccionado}" selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlEmplVigConvocatorias.eventoFiltrar()}"/>
 
-                                <p:column headerText="Enfoque" sortBy="#{info.enfoque}" filterBy="#{info.enfoque}" filterMatchMode="contains" id="enfoque" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Enfoque" sortBy="#{info.enfoque}" filterBy="#{info.enfoque}" filterMatchMode="contains" id="enfoque" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.enfoque}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.enfoque}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.enfoque}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  value="#{info.enfoque}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"
                                                           onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 0)}" process="@this"
-                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
 
                                 </p:column>
 
-                                <p:column headerText="Nombre Convocatoria" sortBy="#{info.evalvigconvocatoria.codigo}" filterBy="#{info.evalvigconvocatoria.codigo}" filterMatchMode="contains" id="nomConvocatoria" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Nombre Convocatoria" sortBy="#{info.evalvigconvocatoria.codigo}" filterBy="#{info.evalvigconvocatoria.codigo}" filterMatchMode="contains" id="nomConvocatoria" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.evalvigconvocatoria.codigo}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.evalvigconvocatoria.codigo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.evalvigconvocatoria.codigo}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
+                                            <p:inputText  autocomplete="off"  value="#{info.evalvigconvocatoria.codigo}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 1)}" process="@this"
-                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
 
                                 </p:column>
 
-                                <p:column headerText="Fecha Inicio" sortBy="#{info.fechainicio}" filterBy="#{info.fechainicio}" filterMatchMode="contains" id="fechaInicio" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Fecha Inicio" sortBy="#{info.fechainicio}" filterBy="#{info.fechainicio}" filterMatchMode="contains" id="fechaInicio" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.fechainicio}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.fechainicio}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.fechainicio}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
+                                            <p:inputText  autocomplete="off"  value="#{info.fechainicio}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 2)}" process="@this"
-                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
+                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
 
                                 </p:column>
 
-                                <p:column headerText="Fecha Límite" sortBy="#{info.fechalimite}" filterBy="#{info.fechalimite}" filterMatchMode="contains" id="fechaLimite" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Fecha Límite" sortBy="#{info.fechalimite}" filterBy="#{info.fechalimite}" filterMatchMode="contains" id="fechaLimite" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.fechalimite}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.fechalimite}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.fechalimite}" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
+                                            <p:inputText  autocomplete="off"  value="#{info.fechalimite}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 3)}" process="@this"
-                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
+                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
 
                                 </p:column>
-                                <p:column headerText="Objetivos" sortBy="#{info.objetivos}" filterBy="#{info.objetivos}" filterMatchMode="contains" id="Objetivos" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Objetivos" sortBy="#{info.objetivos}" filterBy="#{info.objetivos}" filterMatchMode="contains" id="Objetivos" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.objetivos}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.objetivos}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.objetivos}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
+                                            <p:inputText  autocomplete="off"  value="#{info.objetivos}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 4)}" process="@this"
-                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
+                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistroConvocatorias" value="#{msg['infoRegistros']} #{controlEmplVigConvocatorias.infoRegistroConvocatorias}" style="position: absolute; left: 10px; top: 155px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroConvocatorias" value="#{msg['infoRegistros']} #{controlEmplVigConvocatorias.infoRegistroConvocatorias}" style="position: absolute; left: 10px; top: 155px; font-weight: bold;"/>
                         </fieldset>      
 
 
-                        <fieldset style="position: absolute;top: 305px;left: 10px;height: 165px;width: 510px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 305px; left: 10px; height: 165px; width: 510px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Evaluaciones</strong></legend>
                             <p:dataTable id="datosResultados" widgetVar="datosResultados" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indiceR" style="width: 510px ; border: none; "                           
                                          value="#{controlEmplVigConvocatorias.listEvalResultadosConv}" scrollable="true" scrollHeight="#{controlEmplVigConvocatorias.altoTabla2}" scrollRows="40"
                                          scrollWidth="500"  filteredValue="#{controlEmplVigConvocatorias.listEvalResultadosConvFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false"   selection="#{controlEmplVigConvocatorias.evalResultadosConvSeleccionado}" selectionMode="single" >
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlEmplVigConvocatorias.evalResultadosConvSeleccionado}" selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlEmplVigConvocatorias.eventoFiltrarResultados()}"/>
 
-                                <p:column headerText="Nombre Prueba" sortBy="#{info2.nombreprueba}" filterBy="#{info2.nombreprueba}" filterMatchMode="contains" id="nomPrueba" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Nombre Prueba" sortBy="#{info2.nombreprueba}" filterBy="#{info2.nombreprueba}" filterMatchMode="contains" id="nomPrueba" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info2.nombreprueba}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info2.nombreprueba}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info2.nombreprueba}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info2.nombreprueba}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 0)}" process="@this"
-                                                       onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});" /> 
+                                                       onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
 
                                 </p:column>
 
-                                <p:column headerText="Puntaje" sortBy="#{info2.puntajeobtenido}" filterBy="#{info2.puntajeobtenido}" filterMatchMode="contains" id="puntaje" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Puntaje" sortBy="#{info2.puntajeobtenido}" filterBy="#{info2.puntajeobtenido}" filterMatchMode="contains" id="puntaje" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info2.puntajeobtenido}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info2.puntajeobtenido}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info2.puntajeobtenido}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info2.puntajeobtenido}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 1)}" process="@this"
-                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});" /> 
+                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
-                                    <p:tooltip style="" for="puntaje" value="Puntaje Obtenido" />
+                                    <p:tooltip style="" for="puntaje" value="Puntaje Obtenido"/>
                                 </p:column>
 
-                                <p:column headerText="Fecha Inicio" sortBy="#{info2.fechaperiododesde}" filterBy="#{info2.fechaperiododesde}" filterMatchMode="contains" id="resfechaInicio" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Fecha Inicio" sortBy="#{info2.fechaperiododesde}" filterBy="#{info2.fechaperiododesde}" filterMatchMode="contains" id="resfechaInicio" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info2.fechaperiododesde}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info2.fechaperiododesde}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-<!--                                            <p:inputText  autocomplete="off"  value="#{info2.fechaperiododesde}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+<!--                                            <p:inputText  autocomplete="off"  value="#{info2.fechaperiododesde}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 2)}" process="@this"/> 
                                             </p:inputText>-->
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info2.fechaperiododesde}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info2.fechaperiododesde}"> 
                                                 <p:ajax event="dateSelect"  update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigConvocatorias.modificarFechas(info2,2)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 2)}" process="@this"
-                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});" /> 
+                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});"/> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
 
                                 </p:column>
 
-                                <p:column headerText="Fecha Fin" sortBy="#{info2.fechaperiodohasta}" filterBy="#{info2.fechaperiodohasta}" filterMatchMode="contains" id="resFechaFin" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Fecha Fin" sortBy="#{info2.fechaperiodohasta}" filterBy="#{info2.fechaperiodohasta}" filterMatchMode="contains" id="resFechaFin" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info2.fechaperiodohasta}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info2.fechaperiodohasta}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-<!--                                            <p:inputText  autocomplete="off"  value="#{info2.fechaperiodohasta}" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+<!--                                            <p:inputText  autocomplete="off"  value="#{info2.fechaperiodohasta}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 3)}" process="@this"/> 
                                             </p:inputText>-->
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info2.fechaperiododesde}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info2.fechaperiododesde}"> 
                                                 <p:ajax event="dateSelect" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigConvocatorias.modificarFechas(info2,3)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 3)}" process="@this"
@@ -265,13 +265,13 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistroResultados" value="#{msg['infoRegistros']} #{controlEmplVigConvocatorias.infoRegistroResultados}" style="position: absolute; left: 10px; top: 155px; font-weight: bold"/>
-                            <h:outputText  value="Promedio: " style="position: absolute; left: 145px; top: 155px; font-weight: bold" />
+                            <h:outputText id="infoRegistroResultados" value="#{msg['infoRegistros']} #{controlEmplVigConvocatorias.infoRegistroResultados}" style="position: absolute; left: 10px; top: 155px; font-weight: bold;"/>
+                            <h:outputText  value="Promedio: " style="position: absolute; left: 145px; top: 155px; font-weight: bold;"/>
                             <p:inputText value="#{controlEmplVigConvocatorias.calcularPromedio()}" style="position: absolute; left: 225px; top: 152px; width: 70px" readonly="true">
 
                             </p:inputText>
@@ -281,118 +281,118 @@
                     <p:remoteCommand name="posicionOtro" actionListener="#{controlEmplVigConvocatorias.posicionOtro()}"/>
                 </h:form>
 
-                <h:form id="formularioDialogos" >
+                <h:form id="formularioDialogos">
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" action="vigDepEmplInd" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigConvocatorias.guardarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" action="vigDepEmplInd" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigConvocatorias.cancelarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" action="empleadoindividual" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigConvocatorias.guardarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" action="empleadoindividual" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigConvocatorias.cancelarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 285px;" process="@this"
-                                         icon="ui-icon-arrowreturnthick-1-w" />
+                                         icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigConvocatorias.evalConvocatoriaSeleccionado.secuencia, 'EvalConvocatorias', 'EvalConvocatorias')}" 
-                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"  />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('EvalConvocatorias', 'EvalConvocatorias')}"
                                          style="position: absolute; top: 60px; left: 160px;" action="rastrotabla" icon="ui-icon-check"  process="@this"  />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigConvocatorias.evalConvocatoriaSeleccionado.secuencia, 'EvalConvocatorias', 'EvalConvocatorias')}" 
-                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 <!--                    <p:dialog id="errorDuplicarResultados" header="#{msg['error']}" widgetVar="errorDuplicarResultados"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorDuplicarVigenciaD']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorDuplicarVigenciaD']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>-->
 
 
                     <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 2px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 2px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
                     <p:dialog id="NuevoRegistroResultados" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroResultados" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoResultado" style="border: none;">
 
 
-                            <strong><h:outputText value="Nombre Prueba" style="position: absolute; top: 55px; left: 50px;" /></strong>
+                            <strong><h:outputText value="Nombre Prueba" style="position: absolute; top: 55px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevonomp" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.nombreprueba}" 
                                           style="width: 122px; position: absolute; left: 220px; top: 50px;">
                                 <p:ajax event="change" update="nuevonomp"/>
                             </p:inputText>
-                            <p:watermark for="nuevonomp" value="Nombre Prueba" />
+                            <p:watermark for="nuevonomp" value="Nombre Prueba"/>
 
-                            <strong><h:outputText value="Puntaje Obtenido:" style="position: absolute; top: 85px; left: 50px;" /></strong>
+                            <strong><h:outputText value="Puntaje Obtenido:" style="position: absolute; top: 85px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevoPuntaje" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.puntajeobtenido}"
                                           style="width: 122px; position: absolute; left: 220px; top: 80px;">
                                 <p:keyFilter for="nuevoPuntaje" mask="num"/>
                                 <p:ajax event="change" update="nuevoPuntaje"/>
                             </p:inputText>
-                            <p:watermark for="nuevoPuntaje" value="Puntaje Obtenido" />
+                            <p:watermark for="nuevoPuntaje" value="Puntaje Obtenido"/>
 
-                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 110px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 110px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 115px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiododesde}"  >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiododesde}">
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 140px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiodohasta}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiodohasta}">
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                                 </p:calendar>
@@ -406,36 +406,36 @@
 
                     <p:dialog id="DuplicarRegistroResultados" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroResultados" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarResultados" style="border: none;">
 
-                            <strong><h:outputText value="Nombre Prueba" style="position: absolute; top: 55px; left: 50px;" /></strong>
+                            <strong><h:outputText value="Nombre Prueba" style="position: absolute; top: 55px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarnomp" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.nombreprueba}" 
                                           style="width: 122px; position: absolute; left: 220px; top: 50px;">
                                 <p:ajax event="change" update="duplicarnomp"/>
                             </p:inputText>
-                            <p:watermark for="duplicarnomp" value="Nombre Prueba" />
+                            <p:watermark for="duplicarnomp" value="Nombre Prueba"/>
 
-                            <strong><h:outputText value="Puntaje Obtenido:" style="position: absolute; top: 85px; left: 50px;" /></strong>
+                            <strong><h:outputText value="Puntaje Obtenido:" style="position: absolute; top: 85px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarPuntaje" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.puntajeobtenido}"
                                           style="width: 122px; position: absolute; left: 220px; top: 80px;">
                                 <p:keyFilter for="duplicarPuntaje" mask="num"/>
                                 <p:ajax event="change" update="duplicarPuntaje"/>
                             </p:inputText>
-                            <p:watermark for="duplicarPuntaje" value="Puntaje Obtenido" />
+                            <p:watermark for="duplicarPuntaje" value="Puntaje Obtenido"/>
 
-                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 110px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 110px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaIniDupReg" style="position: absolute; top: 115px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiododesde}"  >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiododesde}">
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaFinDupReg" style="position: absolute; top: 140px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiodohasta}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiodohasta}">
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                                 </p:calendar>
@@ -459,15 +459,15 @@
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicioD" header="Fecha Inicio" widgetVar="editarFechaInicioD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaInicioD" header="Fecha Inicio" widgetVar="editarFechaInicioD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlEmplVigConvocatorias.editarEvalConvocatorias.fechainicio}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaLimiteD" header="Fecha Límite" widgetVar="editarFechaLimiteD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaLimiteD" header="Fecha Límite" widgetVar="editarFechaLimiteD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlEmplVigConvocatorias.editarEvalConvocatorias.fechalimite}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarObjetivoD" header="Objetivo" widgetVar="editarObjetivoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarObjetivoD" header="Objetivo" widgetVar="editarObjetivoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlEmplVigConvocatorias.editarEvalConvocatorias.objetivos}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -477,15 +477,15 @@
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarPuntajeD" header="Fecha Inicio" widgetVar="editarPuntajeD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarPuntajeD" header="Fecha Inicio" widgetVar="editarPuntajeD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlEmplVigConvocatorias.editarEvalResultadosConv.puntajeobtenido}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicioR" header="Fecha Límite" widgetVar="editarFechaInicioR" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaInicioR" header="Fecha Límite" widgetVar="editarFechaInicioR" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlEmplVigConvocatorias.editarEvalResultadosConv.fechaperiododesde}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinD" header="Objetivo" widgetVar="editarFechaFinD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaFinD" header="Objetivo" widgetVar="editarFechaFinD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlEmplVigConvocatorias.editarEvalResultadosConv.fechaperiodohasta}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                 </h:form>
@@ -496,25 +496,25 @@
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="Enfoque" />
+                                <h:outputText value="Enfoque"/>
                             </f:facet>
-                            <h:outputText value="#{infoExp.enfoque}" />
+                            <h:outputText value="#{infoExp.enfoque}"/>
                         </p:column>
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="Prueba" />
+                                <h:outputText value="Prueba"/>
                             </f:facet>
                             <h:outputText value="#{infoExp.evalvigconvocatoria.codigo}">
                             </h:outputText>
                         </p:column>
 
                         <p:column headerText="Fecha_Inicio">                                  
-                            <f:facet name="header" >
+                            <f:facet name="header">
                                 <h:outputText value="Fecha_Inicio"/> 
                             </f:facet> 
-                            <h:outputText value="#{infoExp.fechainicio}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp.fechainicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>  
 
@@ -522,14 +522,14 @@
                             <f:facet name="header">
                                 <h:outputText value="Fecha_Limite"/> 
                             </f:facet> 
-                            <h:outputText value="#{infoExp.fechalimite}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp.fechalimite}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
                         <p:column headerText="Objetivos">                                  
                             <f:facet name="header"><h:outputText value="Objetivos"/> </f:facet> 
-                            <h:outputText value="#{infoExp.objetivos}" />
+                            <h:outputText value="#{infoExp.objetivos}"/>
                         </p:column>
 
                     </p:dataTable>
@@ -539,29 +539,29 @@
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="Nombre_Prueba" />
+                                <h:outputText value="Nombre_Prueba"/>
                             </f:facet>
-                            <h:outputText value="#{infoExp1.nombreprueba}" />
+                            <h:outputText value="#{infoExp1.nombreprueba}"/>
                         </p:column>
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="Puntaje" />
+                                <h:outputText value="Puntaje"/>
                             </f:facet>
-                            <h:outputText value="#{infoExp1.puntajeobtenido}" />
+                            <h:outputText value="#{infoExp1.puntajeobtenido}"/>
                         </p:column>
 
                         <p:column headerText="Fecha_Inicio">                                  
                             <f:facet name="header"><h:outputText value="Fecha_Inicio"/> </f:facet> 
-                            <h:outputText value="#{infoExp1.fechaperiododesde}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp1.fechaperiododesde}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>  
 
                         <p:column headerText="Fecha_Fin">                                  
                             <f:facet name="header"><h:outputText value="Fecha_Fin}"/> </f:facet> 
-                            <h:outputText value="#{infoExp1.fechaperiodohasta}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp1.fechaperiodohasta}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 

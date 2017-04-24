@@ -23,7 +23,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -152,7 +153,7 @@ public class ControlGrupoConcepto implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -510,6 +511,11 @@ public class ControlGrupoConcepto implements Serializable {
       }
    }
 
+   public void guardarYSalir() {
+      guardarTodo();
+      salir();
+   }
+
    public void guardarTodo() {
       if (guardado == false) {
          System.out.println("Realizando Operaciones Grupo Concepto");
@@ -669,7 +675,8 @@ public class ControlGrupoConcepto implements Serializable {
       deshabilitarBotonLov();
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTablas();
       }
@@ -1452,14 +1459,15 @@ public class ControlGrupoConcepto implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior);
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "grupoconcepto";
+         */
+String pagActual = "grupoconcepto";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
 //         mapParametros.put("paginaAnterior", pagActual);
 //         mas Parametros
@@ -1480,10 +1488,27 @@ public class ControlGrupoConcepto implements Serializable {
             controlRastro.historicosTabla("VigenciasGruposConceptos", pagActual);
             pag = "rastrotabla";
          }
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
       }
       System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + pag);
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    public void recibirParametros(Map<String, Object> map) {

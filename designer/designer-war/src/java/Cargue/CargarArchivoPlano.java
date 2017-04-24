@@ -2,6 +2,7 @@ package Cargue;
 
 import ClasesAyuda.ErroresNovedades;
 import ClasesAyuda.ResultadoBorrarTodoNovedades;
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.ActualUsuario;
 import Entidades.Conceptos;
 import Entidades.Empleados;
@@ -31,7 +32,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -103,7 +106,6 @@ public class CargarArchivoPlano implements Serializable {
    private String infoRegistroFormula, infoRegistroDocumento, infoRegistro;
    //
    private String altoTabla;
-   private String paginaAnterior;
    //
    private int bandera, tipoLista;
    //
@@ -117,6 +119,8 @@ public class CargarArchivoPlano implements Serializable {
    private DataTable tabla;
    private int k;
    private BigInteger l;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public CargarArchivoPlano() {
       tempNovedadSeleccionada = null;
@@ -170,10 +174,48 @@ public class CargarArchivoPlano implements Serializable {
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
    }
 
-   public String retornarPagina() {
-      return paginaAnterior;
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      String pagActual = "novedadplano";
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      }
+      limpiarListasValor();
+   }
+
+   public void limpiarListasValor() {
+   }
+
+   public void salir() {
+      cancelarModificaciones();
+      navegar("atras");
    }
 
    public void cancelarModificaciones() {
@@ -1073,6 +1115,11 @@ public class CargarArchivoPlano implements Serializable {
       if (!listTempNovedades.isEmpty()) {
          administrarCargueArchivos.crearTempNovedades(listTempNovedades);
       }
+   }
+
+   public void guardarYSalir() {
+      guardar();
+      salir();
    }
 
    public void guardar() {

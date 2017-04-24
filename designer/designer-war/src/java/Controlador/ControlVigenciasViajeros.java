@@ -18,7 +18,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -79,8 +80,8 @@ public class ControlVigenciasViajeros implements Serializable {
    private DataTable tablaC;
    //
    private Boolean activarLOV;
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); 
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlVigenciasViajeros() {
       listVigenciasViajerosPorEmpleado = null;
@@ -103,10 +104,10 @@ public class ControlVigenciasViajeros implements Serializable {
       vigenciaSeleccionada = null;
       activarLOV = true;
       viajeroSeleccionado = null;
-       mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -122,7 +123,7 @@ public class ControlVigenciasViajeros implements Serializable {
          System.out.println("Causa: " + e.getCause());
       }
    }
-   
+
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -133,34 +134,51 @@ public class ControlVigenciasViajeros implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "emplviajero";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "emplviajero";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         //}
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
+      limpiarListasValor();
+   }
 
    public void recibirEmpleado(BigInteger sec) {
       secuenciaEmpleado = sec;
@@ -276,6 +294,11 @@ public class ControlVigenciasViajeros implements Serializable {
             tipoActualizacion = 0;
          }
       }
+   }
+
+   public void salir() {
+      cancelarModificacion();
+      navegar("atras");
    }
 
    public void cancelarModificacion() {
@@ -624,6 +647,11 @@ public class ControlVigenciasViajeros implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
 
+   }
+
+   public void guardarYSalir() {
+      guardarVigenciasViajeros();
+      salir();
    }
 
    public void guardarVigenciasViajeros() {

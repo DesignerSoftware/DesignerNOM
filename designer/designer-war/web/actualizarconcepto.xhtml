@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+  >
     <h:head>
     </h:head>
     <h:body>
@@ -16,64 +16,64 @@
                     <p:panel  id="PanelTotal" header="Conceptos" styleClass="panelTotal">  
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlActualizarConceptos.guardarConcepto()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlActualizarConceptos.guardarConcepto()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlActualizarConceptos.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="Editar" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlActualizarConceptos.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlActualizarConceptos.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlActualizarConceptos.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlActualizarConceptos.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlActualizarConceptos.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlActualizarConceptos.limpiarNuevoConceptos()}"  ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlActualizarConceptos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlActualizarConceptos.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlActualizarConceptos.limpiarNuevoConceptos()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosActualizarConceptosExportar" fileName="CONCEPTOS" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlActualizarConceptos.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlActualizarConceptos.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nueva Referencia Familiar" />
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Nueva Referencia Familiar"/>
 
-                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Referencia Familiar" />
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Referencia Familiar"/>
 
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) "  process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Referencia Familiar" />
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Referencia Familiar"/>
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlActualizarConceptos.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlActualizarConceptos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlActualizarConceptos.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlActualizarConceptos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlActualizarConceptos.salir()}"   action="perReferenciaLaboral1Atras" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlActualizarConceptos.salir()}"   action="empleadoindividual" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
-                        <h:outputText id="outEmpresaNombre" value="Empresa:" style="position: absolute; left: 20px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
-                        <h:outputText id="nombreEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nombre}" style="position: absolute; left: 90px; top: 85px; width:300px ;height:50px; color: #BF1A1A;font-weight: bold " />
-                        <h:outputText id="outEmpresaNit" value="Nit:" style="position: absolute; left: 400px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
-                        <h:outputText id="nitEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nit}" style="position: absolute; left: 228px; top: 85px; position: absolute; color: #BF1A1A; font-weight: bold; width: 285px; text-align: right; "/>
+                        <h:outputText id="outEmpresaNombre" value="Empresa:" style="position: absolute; left: 20px; top: 85px; width:50px ;height:50px; color: darkblue; font-weight: bold;"/> 
+                        <h:outputText id="nombreEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nombre}" style="position: absolute; left: 90px; top: 85px; width:300px ;height:50px; color: #BF1A1A; font-weight: bold;"/>
+                        <h:outputText id="outEmpresaNit" value="Nit:" style="position: absolute; left: 400px; top: 85px; width:50px ;height:50px; color: darkblue; font-weight: bold;"/> 
+                        <h:outputText id="nitEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nit}" style="position: absolute; left: 228px; top: 85px; position: absolute; color: #BF1A1A; font-weight: bold; width: 285px; text-align: right;"/>
 
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 330px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 330px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Conceptos</strong></legend>
 
                             <p:dataTable id="datosActualizarConceptos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
@@ -92,13 +92,13 @@
                                 <p:ajax event="filter" listener="#{controlActualizarConceptos.eventoFiltrar()}"/>
 
 
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigo}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.codigo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   disabled="true" value="#{info.codigo}" maxlength="100" id="editarCodigo" style="height: 12px;  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   disabled="true" value="#{info.codigo}" maxlength="100" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 0)}" process="@this"
-                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.codigo)}" update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -108,13 +108,13 @@
                                 </p:column>
 
 
-                                <p:column headerText="Descripción del Concepto" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="300" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción del Concepto" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="300" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 1)}" process="@this"
-                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -122,18 +122,18 @@
 
                                 </p:column>
 
-                                <p:column headerText="C.D." sortBy="#{info.clavecontabledebito.clave}" filterBy="#{info.clavecontabledebito.clave}" filterMatchMode="contains" id="claveDebito" width="15" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header" >
+                                <p:column headerText="C.D." sortBy="#{info.clavecontabledebito.clave}" filterBy="#{info.clavecontabledebito.clave}" filterMatchMode="contains" id="claveDebito" width="15" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
                                         <h:outputText id="idcd" value="C.D."/>  
-                                        <p:tooltip  for="idcd" value="Clave Contable Debito" />
+                                        <p:tooltip  for="idcd" value="Clave Contable Debito"/>
 
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.clavecontabledebito.clave}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.clavecontabledebito.clave}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clavecontabledebito.clave}" maxlength="50" id="editarClaveDebito" style="height: 12px;  border-radius: 0px; width: 210px;"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.clavecontabledebito.clave}" maxlength="50" id="editarClaveDebito" style="height: 12px; border-radius: 0px; width: 210px;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 2)}" process="@this"
-                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'CLAVESAPDEBITO', info.clavecontabledebito.clave)}"/>
 
@@ -141,22 +141,22 @@
                                         </f:facet>  
                                     </p:cellEditor>
 
-                                    <f:facet name="footer" >
+                                    <f:facet name="footer">
                                         <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveDebito" value=""/>
                                     </f:facet>
                                 </p:column>     
 
-                                <p:column headerText="C.C." sortBy="#{info.clavecontablecredito.clave}" filterBy="#{info.clavecontablecredito.clave}" filterMatchMode="contains" id="claveCredito" width="15" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header" >
+                                <p:column headerText="C.C." sortBy="#{info.clavecontablecredito.clave}" filterBy="#{info.clavecontablecredito.clave}" filterMatchMode="contains" id="claveCredito" width="15" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
                                         <h:outputText id="idcc" value="C.C."/>  
-                                        <p:tooltip  for="idcc" value="Clave Contable Credito" />
+                                        <p:tooltip  for="idcc" value="Clave Contable Credito"/>
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.clavecontablecredito.clave}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.clavecontablecredito.clave}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clavecontablecredito.clave}" maxlength="50" id="editarClaveCredito" style="height: 12px;  border-radius: 0px; width: 210px;"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.clavecontablecredito.clave}" maxlength="50" id="editarClaveCredito" style="height: 12px; border-radius: 0px; width: 210px;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 3)}" process="@this"
-                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,3)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'CLAVESAPCREDITO', info.clavecontablecredito.clave)}"/>
 
@@ -164,41 +164,41 @@
                                         </f:facet>  
                                     </p:cellEditor>
 
-                                    <f:facet name="footer" >
+                                    <f:facet name="footer">
                                         <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveCredito" value=""/>
                                     </f:facet>
                                 </p:column>                                
 
-                                <p:column headerText="I.D." sortBy="#{info.indicedeudor}" filterBy="#{info.indicedeudor}" filterMatchMode="contains" id="indiceDeudor" width="15" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header" >
+                                <p:column headerText="I.D." sortBy="#{info.indicedeudor}" filterBy="#{info.indicedeudor}" filterMatchMode="contains" id="indiceDeudor" width="15" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
                                         <h:outputText id="idid" value="I.D."/>  
-                                        <p:tooltip  for="idid" value="Indice del Deudor" />
+                                        <p:tooltip  for="idid" value="Indice del Deudor"/>
                                     </f:facet>
 
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.indicedeudor}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.indicedeudor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.indicedeudor}" maxlength="50" id="editarIndiceDeudor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.indicedeudor}" maxlength="50" id="editarIndiceDeudor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 4)}" process="@this"
-                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indicedeudor)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                 </p:column>
-                                <p:column headerText="I.A." sortBy="#{info.indiceacreedor}" filterBy="#{info.indiceacreedor}" filterMatchMode="contains" id="indiceAcredor" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="I.A." sortBy="#{info.indiceacreedor}" filterBy="#{info.indiceacreedor}" filterMatchMode="contains" id="indiceAcredor" width="15" filterStyle="display: none; visibility: hidden;">                                  
 
-                                    <f:facet name="header" >
+                                    <f:facet name="header">
                                         <h:outputText id="idia" value="I.A."/>  
-                                        <p:tooltip  for="idia" value="Indice del Acredor" />
+                                        <p:tooltip  for="idia" value="Indice del Acredor"/>
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.indiceacreedor}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.indiceacreedor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.indiceacreedor}" maxlength="50" id="editarIndiceAcredor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.indiceacreedor}" maxlength="50" id="editarIndiceAcredor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 5)}" process="@this"
-                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indiceacreedor)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -211,14 +211,14 @@
                                           filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechacreacion}" style="width: 80px; text-transform: uppercase">
+                                            <h:outputText value="#{info.fechacreacion}" style="width: 80px; text-transform: uppercase;">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaCreacion" value="#{info.fechacreacion}"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 6)}" process="@this"
-                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" />  
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/>  
                                                 <p:ajax event="change" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this" update="editFecha"/>
                                             </p:calendar>
@@ -233,11 +233,11 @@
                         </fieldset>
 
 
-                        <h:outputText id="informacionRegistro" value="#{controlActualizarConceptos.infoRegistro}" style="position: absolute; left: 15px; top: 460px; font-weight: bold"/>
-                        <p:commandButton style="position: absolute; left: 10px; top: 475px;  "  icon="ui-icon-search" id="BUSCARCONCEPTOS" disabled="#{controlActualizarConceptos.buscarConceptos}" value="Buscar Concepto" actionListener="#{controlActualizarConceptos.llamadoDialogoBuscarConceptos()}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 160px; top: 475px;  " icon="ui-icon-search" id="MOSTRARTODOS" disabled="#{controlActualizarConceptos.mostrartodos}" value="Mostrar Todos" actionListener="#{controlActualizarConceptos.cancelarModificacion()}" process="@this"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 475px;  " disabled="#{controlActualizarConceptos.guardado}" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlActualizarConceptos.revisarDialogoGuardar()}"   process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 475px;  " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="perReferenciaLaboral1Atras"    />
+                        <h:outputText id="informacionRegistro" value="#{controlActualizarConceptos.infoRegistro}" style="position: absolute; left: 15px; top: 460px; font-weight: bold;"/>
+                        <p:commandButton style="position: absolute; left: 10px; top: 475px; "  icon="ui-icon-search" id="BUSCARCONCEPTOS" disabled="#{controlActualizarConceptos.buscarConceptos}" value="Buscar Concepto" actionListener="#{controlActualizarConceptos.llamadoDialogoBuscarConceptos()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 160px; top: 475px; " icon="ui-icon-search" id="MOSTRARTODOS" disabled="#{controlActualizarConceptos.mostrartodos}" value="Mostrar Todos" actionListener="#{controlActualizarConceptos.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 475px; " disabled="#{controlActualizarConceptos.guardado}" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlActualizarConceptos.revisarDialogoGuardar()}"   process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 475px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="empleadoindividual"    />
 
 
                         <p:dialog header="CLAVES DEBITO" widgetVar="clavesSapDebitoDialgo" draggable="true" resizable="false" closable="false" id="clavesSapDebitoDialgo"  
@@ -246,26 +246,26 @@
                                          selection="#{controlActualizarConceptos.claveSapDebito}" selectionMode="single" widgetVar="lovClavesSap" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlActualizarConceptos.filtradoClavesSap}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlActualizarConceptos.activarAceptar()}" update=":form:aceptarS"/>
-                                <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveDebito()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveDebito()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Debito"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{idclavedebito.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Clave" />
+                                        <h:outputText value="Clave"/>
                                     </f:facet>
-                                    <h:outputText value="#{idclavedebito.clave}" />
+                                    <h:outputText value="#{idclavedebito.clave}"/>
                                 </p:column>
                                 <p:column filterBy="#{idclavedebito.clasificacion}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Clasificación" />
+                                        <h:outputText value="Clasificación"/>
                                     </f:facet>
-                                    <h:outputText value="#{idclavedebito.clasificacion}" />
+                                    <h:outputText value="#{idclavedebito.clasificacion}"/>
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistroClaveSapDebito" value="#{controlActualizarConceptos.infoRegistroClaveSapDebito}" style="position: absolute;  top: 355px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroClaveSapDebito" value="#{controlActualizarConceptos.infoRegistroClaveSapDebito}" style="position: absolute;  top: 355px; font-weight: bold;"/>
 
                             <p:commandButton id="aceptarS" icon="ui-icon-check" style="position: relative; left: 275px;" value="Aceptar" disabled="#{controlActualizarConceptos.aceptar}"   actionListener="#{controlActualizarConceptos.actualizarClaveDebito()}" process="@this"/>
 
@@ -279,26 +279,26 @@
                                          selection="#{controlActualizarConceptos.claveSapCredito}" selectionMode="single" widgetVar="lovClavesSapCredito" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlActualizarConceptos.filtradoClavesSap}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlActualizarConceptos.activarAceptar()}" update=":form:aceptarC"/>
-                                <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveCredito()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveCredito()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Credito"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSapCredito').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSapCredito').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{idclavecredito.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Clave" />
+                                        <h:outputText value="Clave"/>
                                     </f:facet>
-                                    <h:outputText value="#{idclavecredito.clave}" />
+                                    <h:outputText value="#{idclavecredito.clave}"/>
                                 </p:column>
                                 <p:column filterBy="#{idclavecredito.clasificacion}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Clasificación" />
+                                        <h:outputText value="Clasificación"/>
                                     </f:facet>
-                                    <h:outputText value="#{idclavecredito.clasificacion}" />
+                                    <h:outputText value="#{idclavecredito.clasificacion}"/>
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistroClaveSapCredito" value="#{controlActualizarConceptos.infoRegistroClaveSapCredito}" style="position: absolute;  top: 355px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroClaveSapCredito" value="#{controlActualizarConceptos.infoRegistroClaveSapCredito}" style="position: absolute;  top: 355px; font-weight: bold;"/>
 
                             <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 275px;" value="Aceptar" disabled="#{controlActualizarConceptos.aceptar}"  actionListener="#{controlActualizarConceptos.actualizarClaveCredito()}" process="@this"/>
 
@@ -308,55 +308,55 @@
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlActualizarConceptos.guardarConcepto()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlActualizarConceptos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlActualizarConceptos.guardarConcepto()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlActualizarConceptos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
                         <p:dialog id="confirmarGuardarCambioEmpresa" header="ATENCION...!" widgetVar="confirmarGuardarCambioEmpresa"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardarCambioEmpresa').hide();" actionListener="#{controlActualizarConceptos.guardarConceptoCambioEmpresa()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardarCambioEmpresa').hide();" actionListener="#{controlActualizarConceptos.cancelarModificacionCambioEmpresa()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardarCambioEmpresa').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardarCambioEmpresa').hide();" actionListener="#{controlActualizarConceptos.guardarConceptoCambioEmpresa()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardarCambioEmpresa').hide();" actionListener="#{controlActualizarConceptos.cancelarModificacionCambioEmpresa()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardarCambioEmpresa').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
                         <p:dialog id="confirmarGuardarCambiosConceptoLOV" header="ATENCION...!" widgetVar="confirmarGuardarCambiosConceptoLOV"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardarCambiosConceptoLOV').hide();" actionListener="#{controlActualizarConceptos.guardarConceptoCambioConceptoLOV()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardarCambiosConceptoLOV').hide();" actionListener="#{controlActualizarConceptos.cancelarModificacionCambioConceptoEmpresa()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardarCambiosConceptoLOV').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardarCambiosConceptoLOV').hide();" actionListener="#{controlActualizarConceptos.guardarConceptoCambioConceptoLOV()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardarCambiosConceptoLOV').hide();" actionListener="#{controlActualizarConceptos.cancelarModificacionCambioConceptoEmpresa()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardarCambiosConceptoLOV').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlActualizarConceptos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Necesita : #{controlActualizarConceptos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlActualizarConceptos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <h:outputText value=" #{controlActualizarConceptos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Se han borrado #{controlActualizarConceptos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <h:outputText value="Se han borrado #{controlActualizarConceptos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlActualizarConceptos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlActualizarConceptos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlActualizarConceptos.activarCtrlF11()}"/>
                     <p:hotkey bind="alt+p" actionListener="#{controlActualizarConceptos.lovEmpresas()}"/> 
@@ -367,67 +367,67 @@
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'CONCEPTOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla 'CONCEPTOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla CONCEPTOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla CONCEPTOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'CONCEPTOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="La tabla 'CONCEPTOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editClaveContableDebito" header="Clave Contable Debito" widgetVar="editClaveContableDebito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editClaveContableDebito" header="Clave Contable Debito" widgetVar="editClaveContableDebito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.clavecontabledebito.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editClaveContableCredito" header="Clave Contable Credito" widgetVar="editClaveContableCredito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editClaveContableCredito" header="Clave Contable Credito" widgetVar="editClaveContableCredito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.clavecontablecredito.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editIndiceDeudor" header="Indice Deudor" widgetVar="editIndiceDeudor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editIndiceDeudor" header="Indice Deudor" widgetVar="editIndiceDeudor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.indicedeudor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editIndiceAcredor" header="Indice Deudor" widgetVar="editIndiceAcredor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editIndiceAcredor" header="Indice Deudor" widgetVar="editIndiceAcredor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.indiceacreedor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editFechaCreacion" header="Fecha Creación" widgetVar="editFechaCreacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                    <p:dialog id="editFechaCreacion" header="Fecha Creación" widgetVar="editFechaCreacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
                         <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.fechacreacion}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -439,25 +439,25 @@
                                      selection="#{controlActualizarConceptos.empresaSeleccionadaMostrar}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="350" scrollHeight="250"
                                      filteredValue="#{controlActualizarConceptos.filtradoEmpresas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                             <p:ajax event="rowSelect" listener="#{controlActualizarConceptos.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.cambiarEmpresa()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.cambiarEmpresa()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empresas:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
-                                    <h:outputText value="nit" />
+                                    <h:outputText value="nit"/>
                                 </f:facet>
-                                <h:outputText  value="#{empresa.nit}" />
+                                <h:outputText  value="#{empresa.nit}"/>
                             </p:column>
                             <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="nombre" />
+                                    <h:outputText value="nombre"/>
                                 </f:facet>
-                                <h:outputText  value="#{empresa.nombre}" />
+                                <h:outputText  value="#{empresa.nombre}"/>
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEmpresas" value="#{controlActualizarConceptos.infoRegistroEmpresas}" style="position: absolute; left: 5px; top: 350px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEmpresas" value="#{controlActualizarConceptos.infoRegistroEmpresas}" style="position: absolute; left: 5px; top: 350px; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarE" icon="u-iicon-check" style="position: relative; left: 165px;" value="Aceptar" disabled="#{controlActualizarConceptos.aceptar}" actionListener="#{controlActualizarConceptos.cambiarEmpresa()}" process="@this"/>
 
@@ -470,22 +470,22 @@
                                       selection="#{controlActualizarConceptos.conceptoLOVSeleccionado}" selectionMode="single" widgetVar="lovConceptosPorEmpresa" scrollable="true" scrollWidth="360" scrollHeight="250"
                                       filteredValue="#{controlActualizarConceptos.filtrarLOVConceptos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                             <p:ajax event="rowSelect" listener="#{controlActualizarConceptos.activarAceptar()}" update=":formularioDialogos:aceptarNCC"/>
-                            <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.seleccionConceptosPorEmpresa()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.seleccionConceptosPorEmpresa()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Conceptos"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovConceptosPorEmpresa').filter();" style="width:150px; position: relative; left: 65px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovConceptosPorEmpresa').filter();" style="width:150px; position: relative; left: 65px;"/>  
                             </f:facet>
                             <p:column filterBy="#{conceptoslovporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="Codigo" />
+                                    <h:outputText style="text-align: center;" value="Codigo"/>
                                 </f:facet>
-                                <h:outputText  value="#{conceptoslovporempresa.codigo}" />
+                                <h:outputText  value="#{conceptoslovporempresa.codigo}"/>
                             </p:column>
                             <p:column filterBy="#{conceptoslovporempresa.descripcion}" width="120"  filterMatchMode="contains">
                                 <f:facet name="header"> 
-                                    <h:outputText value="Descripcion" />
+                                    <h:outputText value="Descripcion"/>
                                 </f:facet>
-                                <h:outputText value="#{conceptoslovporempresa.descripcion}" />
+                                <h:outputText value="#{conceptoslovporempresa.descripcion}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -502,35 +502,35 @@
                     <p:dataTable id="datosActualizarConceptosExportar" var="infoExp" style="visibility: hidden; display: none;"                           
                                  value="#{controlActualizarConceptos.listConceptos}">
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Codigo" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet>
                             <h:outputText value="#{infoExp.codigo}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="DescripcionConcepto" /></f:facet>
+                            <f:facet name="header"><h:outputText value="DescripcionConcepto"/></f:facet>
                             <h:outputText value="#{infoExp.descripcion}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="ClaveContableDebito" /></f:facet>
+                            <f:facet name="header"><h:outputText value="ClaveContableDebito"/></f:facet>
                             <h:outputText value="#{infoExp.clavecontabledebito.clave}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="ClaveContableCredito" /></f:facet>
+                            <f:facet name="header"><h:outputText value="ClaveContableCredito"/></f:facet>
                             <h:outputText value="#{infoExp.clavecontablecredito.clave}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="IndiceDeudor" /></f:facet>
+                            <f:facet name="header"><h:outputText value="IndiceDeudor"/></f:facet>
                             <h:outputText value="#{infoExp.indicedeudor}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="IndiceAcreedor" /></f:facet>
+                            <f:facet name="header"><h:outputText value="IndiceAcreedor"/></f:facet>
                             <h:outputText value="#{infoExp.indiceacreedor}"/>
                         </p:column>
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="FechaCreacion" />
+                                <h:outputText value="FechaCreacion"/>
                             </f:facet>
-                            <h:outputText value="#{infoExp.fechacreacion}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoExp.fechacreacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column> 
                     </p:dataTable>

@@ -11,17 +11,15 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.upmenu" var="msg" />
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="  position: absolute; width: 355px; height: 185px; left: 300px; top: 100px;text-align: left" >  
-                        <fieldset style="position: absolute; left: 10px; top: 35px;  width: 315px; height: 100px; border-radius: 10px; ">
+                    <f:loadBundle basename="Recursos.upmenu" var="msg"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="  position: absolute; width: 355px; height: 185px; left: 300px; top: 100px;text-align: left">  
+                        <fieldset style="position: absolute; left: 10px; top: 35px; width: 315px; height: 100px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: blue"></legend>
 
-                            <p:commandButton style=" border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 20px;left: 8px;" value="#{msg['configurar']}"></p:commandButton>
-                            <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute;top: 60px;left: 8px;" value="#{msg['producido']}"></p:commandButton>
-
-
+                            <p:commandButton style=" border-color:#045491; width:300px; border-width: 2px; position: absolute; top: 20px; left: 8px;" value="#{msg['configurar']}"></p:commandButton>
+                            <p:commandButton style="border-color:#045491; width:300px; border-width: 2px; position: absolute; top: 60px; left: 8px;" value="#{msg['producido']}"></p:commandButton>
                         </fieldset>
-                        <p:commandButton icon="ui-icon-closethick" style="position: absolute;top: 155px;left: 280px;" value="#{msg['salir']}" ></p:commandButton>
+                        <p:commandButton icon="ui-icon-closethick" style="position: absolute; top: 155px; left: 280px;" value="#{msg['salir']}"></p:commandButton>
 
                     </p:panel>
                 </h:form>

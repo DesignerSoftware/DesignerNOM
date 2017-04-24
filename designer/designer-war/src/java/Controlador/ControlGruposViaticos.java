@@ -99,15 +99,34 @@ public class ControlGruposViaticos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "grupoviatico";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "grupoviatico";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -117,12 +136,11 @@ public class ControlGruposViaticos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -190,7 +208,8 @@ public class ControlGruposViaticos implements Serializable {
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 1) {
          //CERRAR FILTRADO
@@ -205,7 +224,6 @@ public class ControlGruposViaticos implements Serializable {
          filtrarGruposViaticos = null;
          tipoLista = 0;
       }
-
       borrarGruposViaticos.clear();
       crearGruposViaticos.clear();
       modificarGruposViaticos.clear();
@@ -215,10 +233,10 @@ public class ControlGruposViaticos implements Serializable {
       guardado = true;
       permitirIndex = true;
       getListGruposViaticos();
-      RequestContext context = RequestContext.getCurrentInstance();
       contarRegistros();
       RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {
@@ -336,6 +354,11 @@ public class ControlGruposViaticos implements Serializable {
          RequestContext.getCurrentInstance().update("form:confirmarGuardar");
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
+   }
+
+   public void guardarYSalir() {
+      guardarGruposViaticos();
+      salir();
    }
 
    public void guardarGruposViaticos() {

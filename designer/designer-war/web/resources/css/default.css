@@ -141,7 +141,7 @@ a:link:hover, a:visited:hover  {
 .calendarEmpleadoPersonal button {
     position: relative;
     top: 0.5px;
-    width: 23px;  
+    width: 23px; 
     height: 24.5px;
     border-radius: 0px;
 }
@@ -156,7 +156,7 @@ a:link:hover, a:visited:hover  {
 .myClass button {
     position: relative;
     top: 0.5px;
-    width: 23px;  
+    width: 23px; 
     height: 24.5px;
     border-radius: 0px;
 }

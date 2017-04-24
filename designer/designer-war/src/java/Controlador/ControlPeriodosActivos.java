@@ -18,7 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -68,7 +69,7 @@ public class ControlPeriodosActivos implements Serializable {
 
    private String infoRegistro;
    private int tamano;
-      private String paginaAnterior = "nominaf";
+   private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlPeriodosActivos() {
@@ -80,10 +81,10 @@ public class ControlPeriodosActivos implements Serializable {
       guardado = true;
       tamano = 260;
       backUpEmpresaActual = new Empresas();
-       mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -99,7 +100,7 @@ public class ControlPeriodosActivos implements Serializable {
          System.out.println("Causa: " + e.getCause());
       }
    }
-   
+
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -110,34 +111,51 @@ public class ControlPeriodosActivos implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "controlperiodoactivo";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "controlperiodoactivo";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         //}
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
+      limpiarListasValor();
+   }
 
    public void recibirEmpresa(BigInteger secEmpresa) {
       empresaSeleccionada = null;
@@ -250,6 +268,11 @@ public class ControlPeriodosActivos implements Serializable {
       RequestContext.getCurrentInstance().update("form:datosEmpresas");
    }
 
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
+   }
+
    public void cancelarModificacion() {
       try {
          System.out.println("entre a CONTROLBETACENTROSCOSTOS.cancelarModificacion");
@@ -291,7 +314,8 @@ public class ControlPeriodosActivos implements Serializable {
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       try {
          System.out.println("entre a CONTROLBETACENTROSCOSTOS.Salir");
          FacesContext c = FacesContext.getCurrentInstance();
@@ -300,13 +324,11 @@ public class ControlPeriodosActivos implements Serializable {
             fechaInicial.setFilterStyle("display: none; visibility: hidden;");
             fechaFinal = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaFinal");
             fechaFinal.setFilterStyle("display: none; visibility: hidden;");
-
             tamano = 260;
             bandera = 0;
             filtrarEmpresas = null;
             tipoLista = 0;
          }
-
          modificarEmpresas.clear();
          empresaSeleccionada = null;
          k = 0;
@@ -315,14 +337,19 @@ public class ControlPeriodosActivos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosEmpresas");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
-
       } catch (Exception E) {
          System.out.println("ERROR CONTROLBETACENTROSCOSTOS.ModificarModificacion ERROR====================" + E.getMessage());
       }
+      navegar("atras");
    }
 
    public void activarAceptar() {
       aceptar = false;
+   }
+
+   public void guardarYSalir() {
+      guardarCambiosCentroCosto();
+      salir();
    }
 
    public void guardarCambiosCentroCosto() {
@@ -331,7 +358,6 @@ public class ControlPeriodosActivos implements Serializable {
             administrarEmpresas.editarEmpresas(modificarEmpresas);
             modificarEmpresas.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
          listaEmpresas = null;
          k = 0;
          guardado = true;
@@ -346,10 +372,6 @@ public class ControlPeriodosActivos implements Serializable {
    public void cancelarCambios() {
       empresaSeleccionada = backUpEmpresaActual;
       RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
-   }
-
-   public void limpiarNuevoPeriodosActivos() {
-
    }
 
    public void activarCtrlF11() {

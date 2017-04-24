@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+   >
 
    <h:head>
       <title></title>
@@ -15,12 +15,12 @@
          <ui:define name="body">                  
             <h:form id="form">
                <p:growl id="growl" showDetail="true"/>
-               <f:loadBundle basename="Recursos.tipofuncion" var="msg" />
+               <f:loadBundle basename="Recursos.tipofuncion" var="msg"/>
 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlTipoFuncion.guardarCambiosTiposFunciones()}" process="@this"/>
@@ -87,13 +87,13 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 70px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
-                     <h:outputText value="#{msg['Operando']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                     <h:outputText value="#{msg['Operando']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                      <h:outputText id="nombreEmpleadot" value="#{controlTipoFuncion.operando.nombre}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
                      <h:outputText id="docEmpleado" value="#{controlTipoFuncion.operando.codigo}" 
-                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 107px; left: 10px; height: 360px; width: 830px; border-radius: 10px; text-align: left; padding-top: 10px;">
@@ -106,17 +106,17 @@
                                   selectionMode="single" selection="#{controlTipoFuncion.tipoFuncionSeleccionada}">>
                         <p:ajax listener="#{controlTipoFuncion.eventoFiltrar()}" event="filter"/>
 
-                        <p:column headerText="#{msg['inicial']}" sortBy="#{tf.fechainicial}" filterBy="#{tf.fechainicial}" filterMatchMode="contains"  width="80" id="tiposFuncionesIniciales" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column headerText="#{msg['inicial']}" sortBy="#{tf.fechainicial}" filterBy="#{tf.fechainicial}" filterMatchMode="contains"  width="80" id="tiposFuncionesIniciales" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{tf.fechainicial}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 <h:outputText value="#{tf.fechainicial}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tf.fechainicial}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechainicial)}" update="@this"/>
-                                    <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechainicial)}" update="@this" />
+                                    <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechainicial)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoFuncion.cambiarIndice(tf, 0)}" process="@this"
                                             onstart="PF('datosTiposFunciones').unselectAllRows();PF('datosTiposFunciones').selectRow(#{indice});"/>
                                  </p:calendar>
@@ -127,17 +127,17 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['final']}" sortBy="#{tf.fechafinal}" filterBy="#{tf.fechafinal}" filterMatchMode="contains"  width="80" id="tiposFuncionesFinales" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column headerText="#{msg['final']}" sortBy="#{tf.fechafinal}" filterBy="#{tf.fechafinal}" filterMatchMode="contains"  width="80" id="tiposFuncionesFinales" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{tf.fechafinal}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 <h:outputText value="#{tf.fechafinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tf.fechafinal}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechainicial)}" update="@this"/>
-                                    <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechafinal)}" update="@this" />
+                                    <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechafinal)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoFuncion.cambiarIndice(tf, 1)}" process="@this"
                                             onstart="PF('datosTiposFunciones').unselectAllRows();PF('datosTiposFunciones').selectRow(#{indice});"/>
                                  </p:calendar>
@@ -148,7 +148,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['objeto']}" sortBy="#{tf.nombreobjeto}" filterBy="#{tf.nombreobjeto}"  filterMatchMode="contains" id="tiposFuncionesObjetos" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column headerText="#{msg['objeto']}" sortBy="#{tf.nombreobjeto}" filterBy="#{tf.nombreobjeto}"  filterMatchMode="contains" id="tiposFuncionesObjetos" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{tf.nombreobjeto}"  style="text-transform: uppercase;">
@@ -158,7 +158,7 @@
                                  <p:inputText  autocomplete="off"  value="#{tf.nombreobjeto}" id="editarObjetos"> 
                                     <p:ajax event="select" listener="#{controlTipoFuncion.cambiarIndice(tf, 2)}"
                                             onstart="PF('datosTiposFunciones').unselectAllRows();PF('datosTiposFunciones').selectRow(#{indice});"/>
-                                    <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.nombreobjeto)}" update="@this" />
+                                    <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.nombreobjeto)}" update="@this"/>
                                  </p:inputText> 
                               </f:facet>   
                            </p:cellEditor>
@@ -169,8 +169,8 @@
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlTipoFuncion.infoRegistro}" style="display: table; position: relative; left: 70px; top: 0px; font-weight: bold;"/>
                   </fieldset>
-                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" disabled="#{controlTipoFuncion.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposFunciones" process="@this" />
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTipoFuncion.salir()}" process="@this" />
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" disabled="#{controlTipoFuncion.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposFunciones" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTipoFuncion.salir()}" process="@this"/>
 
                </p:panel>
             </h:form>
@@ -199,7 +199,7 @@
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="65" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoFuncion.guardarYSalir()}"
                                    style="position: absolute; top: 60px; left: 135px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoFuncion.cancelarYSalir()}"
@@ -213,11 +213,11 @@
 
                <p:dialog id="NuevoTipoFuncion" header="#{msg['nuevoregistro']}" widgetVar="NuevoTipoFuncion" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="350" style=" padding: 0px">  
 
-                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="nuevoTipoFuncion" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;" /></strong>
+                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;"/></strong>
                      <div style=" position: absolute; top: 60px; left: 150px;">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoFuncion.nuevoTipoFuncion.fechainicial}">
                                      <p:ajax event="dateSelect" update="@this"/>
@@ -225,7 +225,7 @@
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;" /></strong>
+                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoFuncion.nuevoTipoFuncion.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
@@ -233,8 +233,8 @@
                         </p:calendar>
                      </div>                            
 
-                     <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 145px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoObjeto" value="#{controlTipoFuncion.nuevoTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 145px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoObjeto" value="#{controlTipoFuncion.nuevoTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -248,11 +248,11 @@
 
                <p:dialog id="DuplicarTipoFuncion" header="#{msg['duplicarregistro']}" widgetVar="DuplicarTipoFuncion" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="350" style=" padding: 0px">  
 
-                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="duplicarTipoFuncion" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;" /></strong>
+                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;"/></strong>
 
                      <div style=" position: absolute; top: 60px; left: 150px;">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoFuncion.duplicarTipoFuncion.fechainicial}">
@@ -261,7 +261,7 @@
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;" /></strong>
+                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoFuncion.duplicarTipoFuncion.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
@@ -269,8 +269,8 @@
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 145px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarObjeto" value="#{controlTipoFuncion.duplicarTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase" onclick="select();">
+                     <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 145px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarObjeto" value="#{controlTipoFuncion.duplicarTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -282,13 +282,13 @@
 
                <p:dialog id="validacionNuevoTipoFuncion" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoFuncion"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionNuevo']} #{controlTipoFuncion.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
+                  <h:outputText value="#{msg['validacionNuevo']} #{controlTipoFuncion.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoFuncion').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
+                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 90px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
@@ -296,54 +296,54 @@
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFuncion.tipoFuncionSeleccionada.secuencia, 'TiposFunciones', 'tiposfunciones')}"
-                                   style="position: absolute; top: 70px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 70px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('tipofuncion', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();"
                                    style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposFunciones', 'tiposfunciones')}"
-                                   style="position: absolute; top: 70px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 70px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('tipofuncion', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();"
                                    style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoFuncion.tipoFuncionSeleccionada.secuencia, 'TiposFunciones', 'tiposfunciones')}"
-                                   style="position: absolute; top: 70px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 70px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('tipofuncion', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="280"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 190px; font-weight:bold;" />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 190px; font-weight: bold;"/>
                </p:dialog>
             </h:form>
             <h:form id="formExportar">
@@ -352,25 +352,25 @@
                   <!--COLUMNAS TABLA Inforeportes--> 
                   <p:column headerText="#{msg['fechainicialXX']}">  
                      <f:facet name="header">
-                        <h:outputText value="#{msg['fechainicialX']}" />
+                        <h:outputText value="#{msg['fechainicialX']}"/>
                      </f:facet>
-                     <h:outputText value="#{tF.fechainicial}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{tF.fechainicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="#{msg['fechafinalXX']}">  
                      <f:facet name="header">
-                        <h:outputText value="#{msg['fechafinalX']}" />
+                        <h:outputText value="#{msg['fechafinalX']}"/>
                      </f:facet>
-                     <h:outputText value="#{tF.fechafinal}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{tF.fechafinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="#{msg['objetoX']}">
                      <f:facet name="header"><h:outputText value="#{msg['objetoX']}"/></f:facet>
-                     <h:outputText value="#{tF.nombreobjeto}" />
+                     <h:outputText value="#{tF.nombreobjeto}"/>
                   </p:column>
 
                </p:dataTable>

@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+      xmlns:p="http://primefaces.org/ui">
    <h:head>
    </h:head>
    <h:body>
@@ -13,20 +12,20 @@
          <ui:define name="body">    
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
             <div class="loader"/>
             <h:form id="form">
                <f:loadBundle basename="Recursos.busquedaavanzada" var="msg"/>
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
                         <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
@@ -78,7 +77,7 @@
 
                         <p:separator style="position: relative; top: -9px;"/> 
 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png)" process="@this" action="nominaf"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png)" process="@this" actionListener="#{controlBusquedaAvanzada.salir()}"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -101,14 +100,14 @@
                            <legend style="font-size: 11px; color: blue;"><strong>#{msg['cargo']}</strong></legend>
 
                            <p:tabView style="position: relative; top: -4px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesCosto" widgetVar="opcionesCosto" dir="ltr"
-                                      >
+                                  >
 
                               <p:ajax event="tabChange" update="@this"/>
 
                               <p:tab id="tabMensajeCargo" title="#{msg['infoBasica']}">
 
                                  <div style="height: 65px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textCargo" value="#{msg['textCargo']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
                                        <h:outputText value="#{msg['opcion2']}"/><br></br>
@@ -174,7 +173,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialCargo" disabled="#{controlBusquedaAvanzada.VTipoFechaCargo}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialCargo}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialCargo}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -199,9 +198,9 @@
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesCentroCosto" widgetVar="opcionesCentroCosto">
 
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeCentroCosto" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeCentroCosto" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textCentroCosto"
                                                      value="#{msg['textCentroCosto']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -248,7 +247,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalCentroCosto" disabled="#{controlBusquedaAvanzada.VTipoFechaCentroCosto}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalCentroCosto}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalCentroCosto}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalCentroCosto()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalCentroCosto()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -266,7 +265,7 @@
                               <p:ajax event="tabChange" update="@this"/>
                               <p:tab id="tabMensajeSueldo" title="#{msg['infoBasica']}">
                                  <div style="height: 63px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textSueldo" value="#{msg['textSueldo']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
                                        <h:outputText value="#{msg['opcion2']}"/><br></br>
@@ -340,9 +339,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesTipoContrato" widgetVar="opcionesTipoContrato">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeFechaContrato" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeFechaContrato" title="#{msg['infoBasica']}">
                                  <div style="height: 65px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textFechaContrato"
                                                      value="#{msg['textFechaContrato']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -380,7 +379,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialTipoContrato" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoContrato}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialTipoContrato}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialTipoContrato}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -389,7 +388,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalTipoContrato" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoContrato}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalTipoContrato}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalTipoContrato}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoContrato()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoContrato()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -405,9 +404,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 390px; font-size: 11px; border: none;" id="opcionesTipoTrabajador" widgetVar="opcionesTipoTrabajador">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeTipoTrabajador" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeTipoTrabajador" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textTipoTrabajador"
                                                      value="#{msg['textTipoTrabajador']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -437,7 +436,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 210px; top: 20px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 15px; left: 260px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialTipoTrabajador" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoTrabajador}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialTipoTrabajador}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialTipoTrabajador}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -446,7 +445,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 210px; top: 42px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 37px; left: 260px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalTipoTrabajador" disabled="#{controlBusquedaAvanzada.VTipoFechaTipoTrabajador}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalTipoTrabajador}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalTipoTrabajador}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoTrabajador()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoTrabajador()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -463,9 +462,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 390px; font-size: 11px; border: none;" id="opcionesTipoSalario" widgetVar="opcionesTipoSalario">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeTipoSalario" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeTipoSalario" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textTipoSalario"
                                                      value="#{msg['textTipoSalario']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -495,7 +494,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 210px; top: 20px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 15px; left: 260px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialTipoSalario" disabled="#{controlBusquedaAvanzada.VTipoFechaReformaLaboral}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialReformaLaboral}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialReformaLaboral}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -504,7 +503,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 210px; top: 42px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 37px; left: 260px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalTipoSalario" disabled="#{controlBusquedaAvanzada.VTipoFechaReformaLaboral}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalReformaLaboral}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalReformaLaboral}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoSalario()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalTipoSalario()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -524,7 +523,7 @@
                               <p:ajax event="tabChange" update="@this"/>
                               <p:tab id="tabMensajeLegislacionLaboral" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textLegislacionLaboral"
                                                      value="#{msg['textLegislacionLaboral']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -557,7 +556,7 @@
                                        <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div style="display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: 0px; left: 30px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialLegislacionLaboralMI" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialLegislacionMI}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialLegislacionMI}">
                                              <p:ajax event="dateSelect" update="@this" process="@this"/>
                                              <p:ajax event="change" update="@this" process="@this"/>
                                           </p:calendar>
@@ -566,7 +565,7 @@
                                        <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div style=" display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalLegislacionLaboralMI" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalLegislacionMI}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalLegislacionMI}">
                                              <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMI()}" update="@this" process="@this"/>
                                              <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMI()}" update="@this" process="@this"/>
                                           </p:calendar>
@@ -580,7 +579,7 @@
                                        <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div style=" display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top:0px; left: 30px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialLegislacionLaboralMF" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialLegislacionMF}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialLegislacionMF}">
                                              <p:ajax event="dateSelect" update="@this" process="@this"/>
                                              <p:ajax event="change" update="@this" process="@this"/>
                                           </p:calendar>
@@ -589,7 +588,7 @@
                                        <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div style=" display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalLegislacionLaboralMF" disabled="#{controlBusquedaAvanzada.VTipoFechaLegislacion}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalLegislacionMF}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalLegislacionMF}">
                                              <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMF()}" update="@this" process="@this"/>
                                              <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalContratoMF()}" update="@this" process="@this"/>
                                           </p:calendar>
@@ -607,9 +606,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesUbicacion" widgetVar="opcionesUbicacion">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeUbicacion" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeUbicacion" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textUbicacion"
                                                      value="#{msg['textUbicacion']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -644,7 +643,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialUbicacion" disabled="#{controlBusquedaAvanzada.VTipoFechaUbicacion}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialUbicacion}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialUbicacion}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -653,7 +652,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalUbicacion" disabled="#{controlBusquedaAvanzada.VTipoFechaUbicacion}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalUbicacion}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalUbicacion}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalUbicacion()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalUbicacion()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -669,9 +668,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesAfiliacion" widgetVar="opcionesAfiliacion">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeAfiliacion" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeAfiliacion" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textAfiliacion"
                                                      value="#{msg['textAfiliacion']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -718,7 +717,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialAfiliacion" disabled="#{controlBusquedaAvanzada.VTipoFechaAfiliacion}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialAfiliacion}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialAfiliacion}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -727,7 +726,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalAfiliacion" disabled="#{controlBusquedaAvanzada.VTipoFechaAfiliacion}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalAfiliacion}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalAfiliacion}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalAfiliacion()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalAfiliacion()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -744,9 +743,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesFormaPago" widgetVar="opcionesFormaPago">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeFormaPago" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeFormaPago" title="#{msg['infoBasica']}">
                                  <div style="height: 60px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textFormaPago"
                                                      value="#{msg['textFormaPago']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -785,7 +784,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialFormaPago" disabled="#{controlBusquedaAvanzada.VTipoFechaFormaPago}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialFormaPago}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialFormaPago}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -794,7 +793,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalFormaPago" disabled="#{controlBusquedaAvanzada.VTipoFechaFormaPago}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalFormaPago}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalFormaPago}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormaPago()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormaPago()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -812,9 +811,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesMvrs" widgetVar="opcionesMvrs">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeMvrs" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeMvrs" title="#{msg['infoBasica']}">
                                  <div style="height: 65px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textMvr"
                                                      value="#{msg['textMvr']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -857,7 +856,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialMvrs" disabled="#{controlBusquedaAvanzada.VTipoFechaMvr}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialMvr}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialMvr}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -866,7 +865,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalMvrs" disabled="#{controlBusquedaAvanzada.VTipoFechaMvr}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalMvr}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalMvr}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalMvr()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalMvr()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -884,9 +883,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesSets" widgetVar="opcionesSets">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeSets" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeSets" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textSet"
                                                      value="#{msg['textSet']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -912,7 +911,7 @@
                                     </p:inputText>
 
                                     <h:outputText value="#{msg['metodo']}" style="position: absolute; left: 110px; top: 50px; color: #14388B; font-weight: bold;"/>
-                                    <p:selectOneMenu id="parametroMetodoSets" style="position: absolute; left: 170px; top: 45px;width: 90px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.tipoMetodoSet}">
+                                    <p:selectOneMenu id="parametroMetodoSets" style="position: absolute; left: 170px; top: 45px; width: 90px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.tipoMetodoSet}">
                                        <f:selectItem itemLabel="" itemValue=""/>
                                        <f:selectItem itemLabel="#{msg['metodo1']}" itemValue="metodo1"/>
                                        <f:selectItem itemLabel="#{msg['metodo2']}" itemValue="metodo2"/>
@@ -931,7 +930,7 @@
                                        <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div style="display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: 0px; left: 30px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaMIInicialSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialSetMI}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialSetMI}">
                                              <p:ajax event="dateSelect" update="@this" process="@this"/>
                                              <p:ajax event="change" update="@this" process="@this"/>
                                           </p:calendar>
@@ -940,7 +939,7 @@
                                        <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div style=" display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaMIFinalSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalSetMI}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalSetMI}">
                                              <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMI()}" update="@this" process="@this"/>
                                              <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMI()}" update="@this" process="@this"/>
                                           </p:calendar>
@@ -954,7 +953,7 @@
                                        <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div id="posicionFechaMFInicialModSets" style="display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: 0px; left: 30px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaMFInicialModSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialSetMF}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialSetMF}">
                                              <p:ajax event="dateSelect" update="@this" process="@this"/>
                                              <p:ajax event="change" update="@this" process="@this"/>
                                           </p:calendar>
@@ -963,7 +962,7 @@
                                        <h:outputText value="#{msg['yel']}" style="display: block; position: relative; left: 10px; top: 0px; color: #14388B; font-weight: bold; width: 45px;"/>
                                        <div id="posicionFechaMFFinalModSets" style=" display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top: -15px; left: 79px;">
                                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaMFFinalModSets" disabled="#{controlBusquedaAvanzada.VTipoFechaSet}"
-                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalSetMF}" >
+                                                      value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalSetMF}">
                                              <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMF()}" update="@this" process="@this"/>
                                              <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalSetMF()}" update="@this" process="@this"/>
                                           </p:calendar>
@@ -981,9 +980,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 395px; font-size: 11px; border: none;" id="opcionesNormaLaboral" widgetVar="opcionesNormaLaboral">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeNormaLaboral" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeNormaLaboral" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textNormaLaboral"
                                                      value="#{msg['textNormaLaboral']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -1014,7 +1013,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 20px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 15px; left: 225px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialNormaLaboral" disabled="#{controlBusquedaAvanzada.VTipoFechaNormaLaboral}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialNormaLaboral}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialNormaLaboral}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1023,7 +1022,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 43px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 38px; left: 225px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalModNormaLaboral" disabled="#{controlBusquedaAvanzada.VTipoFechaNormaLaboral}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalNormaLaboral}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalNormaLaboral}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalNormaLaboral()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalNormaLaboral()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1041,9 +1040,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 375px; font-size: 11px; border: none;" id="opcionesVacacion" widgetVar="opcionesVacacion">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeVacacion" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeVacacion" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 105%; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 105%; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textVacacion"
                                                      value="#{msg['textVacacion']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -1064,7 +1063,7 @@
 
                                        <h:outputText value="#{msg['entre']}" style="display: inline-block; position: relative; left: 10px; top:0px; color: #14388B; font-weight: bold;"/>
                                        <div style="display: inline-block; padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: relative; top:0px; left: 20px;">
-                                          <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaMIInicialVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialVacacionesMI}" >
+                                          <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaMIInicialVacacion" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialVacacionesMI}">
                                              <p:ajax event="dateSelect" update="@this" process="@this"/>
                                              <p:ajax event="change" update="@this" process="@this"/>
                                           </p:calendar>
@@ -1110,9 +1109,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 390px; font-size: 11px; border: none;" id="opcionesJornadaLaboral" widgetVar="opcionesJornadaLaboral">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeJornadaLaboral" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeJornadaLaboral" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 380px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textJornadaLaboral"
                                                      value="#{msg['textJornadaLaboral']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -1136,7 +1135,7 @@
 
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 5px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 0px; left: 225px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialJornadaLaboral}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialJornadaLaboral}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1144,7 +1143,7 @@
 
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 30px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 25px; left: 225px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalJornadaLaboral}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalJornadaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalJornadaLaboral}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalJornadaLaboral()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalJornadaLaboral()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1162,9 +1161,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; font-size: 11px; border: none;" id="opcionesRetiro" widgetVar="opcionesRetiro">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeFechaRetiro" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeFechaRetiro" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="height: 55px; width: 105%; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="height: 55px; width: 105%; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textFechaRetiro"
                                                      value="#{msg['textFechaRetiro']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1']}"/><br></br>
@@ -1188,7 +1187,7 @@
 
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 175px; top: 5px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 0px; left: 225px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialRetiro}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaInicialRetiro}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1196,7 +1195,7 @@
 
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 175px; top: 30px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 25px; left: 225px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalRetiro}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalFechaRetiro" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.fechaFinalRetiro}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalRetiro()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalRetiro()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1218,9 +1217,9 @@
 
                            <p:tabView widgetVar="opcionesDatosPersonales" style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesDatosPersonales">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeDatosPersonales" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeDatosPersonales" title="#{msg['infoBasica']}">
                                  <div style="height: 65px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textDatosPersonales"
                                                      value="#{msg['textDatosPersonales']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1236,7 +1235,7 @@
 
                                     <h:outputText value="#{msg['ciudadNacimiento']}" style="position: absolute; left: 10px; top: 10px; color: #14388B; font-weight: bold;"/>
                                     <p:inputText autocomplete="off" id="parametroCiudadNacimientoDatosPersonales" onclick="select();" style="position: absolute; left: 140px; top: 5px; text-transform: uppercase; height: 10px; width: 140px;"
-                                                 value="#{controlBusquedaAvanzada.txtP_empleado_per_ciudadNac}" >
+                                                 value="#{controlBusquedaAvanzada.txtP_empleado_per_ciudadNac}">
                                        <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('CIUDADNACIMIENDO', controlBusquedaAvanzada.txtP_empleado_per_ciudadNac)}" process="@this" update="parametroCiudadNacimientoDatosPersonales"/>
                                        <p:ajax event="dblclick" listener="#{controlBusquedaAvanzada.requerirLOV('CIUDAD')}" process="@this" update=":formularioDialogos:CiudadNacimientoDatosPersonalesDialogo" oncomplete="PF('CiudadNacimientoDatosPersonalesDialogo').show();"/>
                                     </p:inputText>
@@ -1250,13 +1249,13 @@
                                     </p:inputText>
 
                                     <h:outputText value="#{msg['numeroDocumento']}" style="position: absolute; left: 300px; top: 10px; color: #14388B; font-weight: bold;"/>
-                                    <p:inputText autocomplete="off" id="parametroNDocDatosPersonales" maxlength="15" onclick="select();" style="position: absolute; left: 440px; top: 5px;width: 140px;height: 13px;"
+                                    <p:inputText autocomplete="off" id="parametroNDocDatosPersonales" maxlength="15" onclick="select();" style="position: absolute; left: 440px; top: 5px; width: 140px; height: 13px;"
                                                  value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.numerodocumento}">
                                        <p:ajax event="change" process="@this" update="@this"/>
                                     </p:inputText>
 
                                     <h:outputText value="#{msg['sexo']}" style="position: absolute; left: 300px; top: 45px; color: #14388B; font-weight: bold;"/>
-                                    <p:selectOneMenu id="parametroSexoDatosPersonales" style="position: absolute; left: 440px; top: 40px;width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.sexo}">
+                                    <p:selectOneMenu id="parametroSexoDatosPersonales" style="position: absolute; left: 440px; top: 40px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.sexo}">
                                        <f:selectItem itemLabel="" itemValue=""/>
                                        <f:selectItem itemLabel="#{msg['masculino']}" itemValue="M"/>
                                        <f:selectItem itemLabel="#{msg['femenino']}" itemValue="F"/>
@@ -1265,7 +1264,7 @@
 
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 15px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 10px; left: 680px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialDatosPersonales}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialDatosPersonales}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1273,7 +1272,7 @@
 
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 40px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 35px; left: 680px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalDatosPersonales}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalDatosPersonales" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalDatosPersonales}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalDatosPersonales()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalDatosPersonales()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1289,9 +1288,9 @@
 
                            <p:tabView widgetVar="opcionesFactorRH" style="position: relative; top: -6px; left: 0px; width: 310px; font-size: 11px; border: none;" id="opcionesFactorRH">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeFactorRH" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeFactorRH" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 300px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 300px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textFactorRH"
                                                      value="#{msg['textFactorRH']}"/><br></br>
                                        <h:outputText value="#{msg['textFactorRH2']}"/>
@@ -1302,7 +1301,7 @@
                               <p:tab id="tabDatosFactorRH" title="#{msg['tabDatosFactorRH']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                     <h:outputText value="#{msg['grupoSanguineo']}" style="position: absolute; left: 15px; top: 5px; color: #14388B; font-weight: bold;"/>
-                                    <p:selectOneMenu id="parametroGrupoSanguineoFactorRH" style="position: absolute; left: 140px; top: 0px;width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.gruposanguineo}">
+                                    <p:selectOneMenu id="parametroGrupoSanguineoFactorRH" style="position: absolute; left: 140px; top: 0px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.gruposanguineo}">
                                        <f:selectItem itemLabel="" itemValue=""/>
                                        <f:selectItem itemLabel="A" itemValue="A"/>
                                        <f:selectItem itemLabel="AB" itemValue="AB"/>
@@ -1312,7 +1311,7 @@
                                     </p:selectOneMenu>
 
                                     <h:outputText value="#{msg['factorRH']}" style="position: absolute; left: 15px; top: 35px; color: #14388B; font-weight: bold;"/>
-                                    <p:selectOneMenu id="parametroFactorRHFactorRH" style="position: absolute; left: 140px; top: 30px;width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.factorrh}">
+                                    <p:selectOneMenu id="parametroFactorRHFactorRH" style="position: absolute; left: 140px; top: 30px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.factorrh}">
                                        <f:selectItem itemLabel="" itemValue=""/>
                                        <f:selectItem itemLabel="+" itemValue="+"/>
                                        <f:selectItem itemLabel="-" itemValue="-"/>
@@ -1328,9 +1327,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 465px; font-size: 11px; border: none;" id="opcionesEstadoCivil" widgetVar="opcionesEstadoCivil">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeEstadoCivil" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeEstadoCivil" title="#{msg['infoBasica']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 455px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 455px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textEstadoCivil"
                                                      value="#{msg['textEstadoCivil']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1361,7 +1360,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 260px; top: 20px; color: #14388B; font-weight: bold;"/>
                                     <div  style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 13px; left: 310px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialEstadoCivil" disabled="#{controlBusquedaAvanzada.VTipoFechaEstadoCivil}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialEstadoCivil}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialEstadoCivil}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1370,7 +1369,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 260px; top: 45px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 38px; left: 310px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalEstadoCivil" disabled="#{controlBusquedaAvanzada.VTipoFechaEstadoCivil}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalEstadoCivil}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalEstadoCivil}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalEstadoCivil()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalEstadoCivil()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1383,11 +1382,11 @@
                         <fieldset style="display: block; position: relative; left: 5px; top: 0px; margin-top: 3px; font-size: 11px; width: 810px; height: 115px; border-radius: 5px;">
                            <legend style="font-size: 11px; color: blue;"><strong>#{msg['idioma']}</strong></legend>
 
-                           <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesIdioma" widgetVar="opcionesIdioma" >
+                           <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesIdioma" widgetVar="opcionesIdioma">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeIdioma" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeIdioma" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textIdioma"
                                                      value="#{msg['textIdioma']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1471,9 +1470,9 @@
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesCenso" widgetVar="opcionesCenso">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeCenso" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeCenso" title="#{msg['infoBasica']}">
                                  <div style="height: 65px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textCenso"
                                                      value="#{msg['textCenso']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1512,7 +1511,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialCenso" disabled="#{controlBusquedaAvanzada.VTipoFechaCenso}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialCenso}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialCenso}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1521,7 +1520,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalCenso" disabled="#{controlBusquedaAvanzada.VTipoFechaCenso}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalCenso}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalCenso}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalCenso()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalCenso()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1538,9 +1537,9 @@
 
                            <p:tabView style="position: relative; top: -3px; height: 90%; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesEducacionFormal" widgetVar="opcionesEducacionFormal">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeEducacionFormal" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeEducacionFormal" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textEducacionFormal"
                                                      value="#{msg['textEducacionFormal']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1587,7 +1586,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialEducacionFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionFormal}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialFormal}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialFormal}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1596,7 +1595,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalEducacionFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionFormal}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalFormal}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalFormal}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormal()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalFormal()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1612,9 +1611,9 @@
 
                            <p:tabView style="position: relative; top: -3px; height: 90%; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesEducacionNoFormal" widgetVar="opcionesEducacionNoFormal">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeEducacionNoFormal" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeEducacionNoFormal" title="#{msg['infoBasica']}">
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 70px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textEducacionNoFormal"
                                                      value="#{msg['textEducacionNoFormal']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1661,7 +1660,7 @@
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 25px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 20px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialEducacionNoFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionNoFormal}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialNoFormal}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialNoFormal}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1670,7 +1669,7 @@
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 50px; color: #14388B; font-weight: bold;"/>
                                     <div  style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 45px; left: 680px;">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalEducacionNoFormal" disabled="#{controlBusquedaAvanzada.VTipoFechaEducacionNoFormal}"
-                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalNoFormal}" >
+                                                   value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalNoFormal}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalNoFormal()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalNoFormal()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1687,9 +1686,9 @@
 
                            <p:tabView style="position: relative; top: -3px; height: 90%; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesExperienciaLaboral" widgetVar="opcionesExperienciaLaboral">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeExperienciaLaboral" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeExperienciaLaboral" title="#{msg['infoBasica']}">
                                  <div style="height: 65px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 800px; height: 80px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textExperienciaLaboral"
                                                      value="#{msg['textExperienciaLaboral']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1734,7 +1733,7 @@
 
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 630px; top: 10px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 5px; left: 680px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialExperienciaLaboral}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialExperienciaLaboral}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1742,7 +1741,7 @@
 
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 630px; top: 45px; color: #14388B; font-weight: bold;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 40px; left: 680px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalExperienciaLaboral}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalExperienciaLaboral}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalExperienciaLaboral()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalExperienciaLaboral()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1758,9 +1757,9 @@
 
                            <p:tabView style="position: relative; top: -3px; height: 90%; left: 0px; width: 410px; font-size: 11px; border: none;" id="opcionesProyecto" widgetVar="opcionesProyecto">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeProyecto" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeProyecto" title="#{msg['infoBasica']}">
                                  <div style="display: inline-block; height: 55px; position: relative; left: 0px; top: 0px;">
-                                    <p:scrollPanel style="width: 400px; height: 65px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 400px; height: 65px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textProyecto"
                                                      value="#{msg['textProyecto']}"/><br></br>
                                        <h:outputText value="#{msg['opcion1Personal']}"/><br></br>
@@ -1792,7 +1791,7 @@
 
                                     <h:outputText value="#{msg['entre']}" style="position: absolute; left: 265px; top: 10px; color: #14388B; font-weight: bold; width: 50px;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 5px; left: 315px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialProyecto}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicialProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaInicialProyecto}">
                                           <p:ajax event="dateSelect" update="@this" process="@this"/>
                                           <p:ajax event="change" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1800,7 +1799,7 @@
 
                                     <h:outputText value="#{msg['yel']}" style="position: absolute; left: 265px; top: 40px; color: #14388B; font-weight: bold; width: 50px;"/>
                                     <div style=" padding-top: 2px; padding-bottom: 2px; font-size: 11px; position: absolute; top: 35px; left: 315px;">
-                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalProyecto}" >
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinalProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.fechaFinalProyecto}">
                                           <p:ajax event="dateSelect" listener="#{controlBusquedaAvanzada.modificarFechaFinalProyecto()}" update="@this" process="@this"/>
                                           <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarFechaFinalProyecto()}" update="@this" process="@this"/>
                                        </p:calendar>
@@ -1815,9 +1814,9 @@
 
                            <p:tabView style="display: inline-block; position: relative; top: -3px; height: 90%; left: 0px; width: 370px; font-size: 11px; border: none;" id="opcionesCargoPostularse" widgetVar="opcionesCargoPostularse">
                               <p:ajax event="tabChange" update="@this"/>
-                              <p:tab id="tabMensajeCargoPostularse" title="#{msg['infoBasica']}" >
+                              <p:tab id="tabMensajeCargoPostularse" title="#{msg['infoBasica']}">
                                  <div style="display: inline-block; position: relative; left: 0px; top: 0px; height: 45px;">
-                                    <p:scrollPanel style="width: 360px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native" > 
+                                    <p:scrollPanel style="width: 360px; height: 55px; position: relative; left: 0px; top: -5px; border: none;" mode="native"> 
                                        <h:outputText id="textCargoPostularse"
                                                      value="#{msg['textCargoPostularse']}"/><br></br>
                                        <h:outputText value="#{msg['textCargoPostularse2']}"/>
@@ -1880,25 +1879,25 @@
                                    icon="ui-icon-extlink" id="ANADIRAPARAMETROS" value="#{msg['anadirParametros']}" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="ANADIRAPARAMETROS" value="#{msg['textAnadirParametros']}"/>
 
-                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlRemoto.recibirBusquedaAvansada(controlBusquedaAvanzada.listaSecuenciasEmpleado)}" process="@this" action="nominaf"/>
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" process="@this" action="nominaf"/>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlRemoto.recibirBusquedaAvansada(controlBusquedaAvanzada.listaSecuenciasEmpleado)}" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" process="@this" actionListener="#{controlBusquedaAvanzada.salir()}"/>
                </p:panel>
             </h:form>
 
             <h:form id="formularioDialogos">
 
                <p:dialog id="validarParametrosExistentes" widgetVar="validarParametrosExistentes" header="Parametros Existentes"
-                         resizable="false" draggable="true" modal="true" height="150" width="350" >
+                         resizable="false" draggable="true" modal="true" height="150" width="350">
                   <h:outputText value="Ya hay empleados en Parametros de Liquidación." style="position: absolute; left: 20px; top: 15px; color: blue; font-weight: bold;"/>
 
                   <p:commandButton value="Borrar Parametros Actuales y Agregar" style="position: absolute; left: 30px; top: 50px; width: 290px; height: 27px;" 
-                                   actionListener="#{controlBusquedaAvanzada.borrarYCrearNuavosParametros()}" onclick="PF('validarParametrosExistentes').hide();" process="@this" />
+                                   actionListener="#{controlBusquedaAvanzada.borrarYCrearNuavosParametros()}" onclick="PF('validarParametrosExistentes').hide();" process="@this"/>
 
                   <p:commandButton value="Añadir a parametros Actuales" style="position: absolute; left: 30px; top: 80px; width: 290px; height: 27px;" 
-                                   actionListener="#{controlBusquedaAvanzada.añadirMasParametros()}" onclick="PF('validarParametrosExistentes').hide();" process="@this" />
+                                   actionListener="#{controlBusquedaAvanzada.añadirMasParametros()}" onclick="PF('validarParametrosExistentes').hide();" process="@this"/>
 
                   <p:commandButton value="Cancelar" class="cssAtrasLOV" style="top: 120px !important;" icon="ui-icon-close"
-                                   onclick="PF('validarParametrosExistentes').hide();" process="@this" />
+                                   onclick="PF('validarParametrosExistentes').hide();" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validarCrearParametros" header="#{msg['informacion']}" widgetVar="validarCrearParametros" resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
@@ -1919,40 +1918,40 @@
                </p:dialog>
 
                <p:dialog id="errorCreandoParametros" header="#{msg['error']}" widgetVar="errorCreandoParametros" resizable="false" draggable="true" modal="true" height="70" width="300" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
-                  <h:outputText value="Ha ocurrido un ERROR agregar a Parámetros de Liquidación. No se pudo terminar la tarea." style="position: absolute; left: 70px; top: 10px; width: 200px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Ha ocurrido un ERROR agregar a Parámetros de Liquidación. No se pudo terminar la tarea." style="position: absolute; left: 70px; top: 10px; width: 200px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="ErrorSinEmpleadosAParametros" header="#{msg['error']}" widgetVar="ErrorSinEmpleadosAParametros" resizable="false" draggable="true" modal="true" height="70" width="300" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
-                  <h:outputText value="No hay resultados de la Busqueda que se puedan Añadir a Parametros de Liquidación." style="position: absolute; left: 75px; top: 10px; width: 200px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="No hay resultados de la Busqueda que se puedan Añadir a Parametros de Liquidación." style="position: absolute; left: 75px; top: 10px; width: 200px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechasIngresadas" header="#{msg['error']}" widgetVar="errorFechasIngresadas" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
-                  <h:outputText value="#{msg['errorFechasIngresadas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechasIngresadas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorSueldos" header="#{msg['error']}" widgetVar="errorSueldos" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
-                  <h:outputText value="#{msg['errorSueldos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorSueldos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorPromedios" header="#{msg['error']}" widgetVar="errorPromedios" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
-                  <h:outputText value="#{msg['errorPromedios']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorPromedios']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorIdiomaPorcentajes" header="#{msg['error']}" widgetVar="errorIdiomaPorcentajes" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
-                  <h:outputText value="#{msg['errorIdiomaPorcentajes']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorIdiomaPorcentajes']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog header="#{msg['cargoD']}" widgetVar="DialogoCargos" draggable="true" resizable="false" closable="false" id="DialogoCargos" 
-                         showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;" >
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="LOVCargos" scrollWidth="420" var="cargo" value="#{controlBusquedaAvanzada.lovCargos}" rowKey="#{cargo.secuencia}"
                                selection="#{controlBusquedaAvanzada.cargoSeleccionado}" selectionMode="single" widgetVar="LOVCargos" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovCargos}" emptyMessage="#{msg['lovvacio']}" >   
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovCargos}" emptyMessage="#{msg['lovvacio']}">   
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroC, :formularioDialogos:aceptarC"/>
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update= ":formularioDialogos:aceptarC"/>
@@ -2006,7 +2005,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuras').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{estructura.nombre}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{estructura.nombre}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                         </f:facet>
@@ -2026,7 +2025,7 @@
                         <p:resetInput target=":formularioDialogos:lovEstructuras:globalFilter"/>
                      </p:commandButton>
                      <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
-                                      actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('ESTRUCTURA')}" process="@this" oncomplete="PF('lovEstructuras').clearFilters(); PF('EstructuraDialogo').hide();" >
+                                      actionListener="#{controlBusquedaAvanzada.cancelarParametroNomina('ESTRUCTURA')}" process="@this" oncomplete="PF('lovEstructuras').clearFilters(); PF('EstructuraDialogo').hide();">
                         <p:resetInput target=":formularioDialogos:lovEstructuras:globalFilter"/>
                      </p:commandButton>
                   </div>
@@ -2150,7 +2149,7 @@
                         <h:outputText value="#{msg['buscarECC']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovLocalizacionCentroCosto').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterStyle="width: 80% !important" filterBy="#{localizacionCentroCosto.nombre}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{localizacionCentroCosto.nombre}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                         </f:facet>
@@ -2180,7 +2179,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovMotivoCentroCosto" scrollWidth="420" var="motivoCC" value="#{controlBusquedaAvanzada.lovMotivosLocalizaciones}" rowKey="#{motivoCC.secuencia}"
                                selection="#{controlBusquedaAvanzada.motivoLocalizacionSeleccionado}" selectionMode="single" widgetVar="lovMotivoCentroCosto" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosLocalizaciones}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosLocalizaciones}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroMCC, :formularioDialogos:aceptarMCC"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarMCC"/>
@@ -2215,7 +2214,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovTipoSueldoSueldo" scrollWidth="420" var="sueldoS" value="#{controlBusquedaAvanzada.lovTiposSueldos}" rowKey="#{sueldoS.secuencia}"
                                selection="#{controlBusquedaAvanzada.tipoSueldoSeleccionado}" selectionMode="single" widgetVar="lovTipoSueldoSueldo" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroTSS, :formularioDialogos:aceptarTSS"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarTSS"/>
@@ -2251,7 +2250,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovMotivoSueldo" scrollWidth="420" var="motivoS" value="#{controlBusquedaAvanzada.lovMotivosSueldos}" rowKey="#{motivoS.secuencia}"
                                selection="#{controlBusquedaAvanzada.motivoSueldoSeleccionado}" selectionMode="single" widgetVar="lovMotivoSueldo" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosSueldos}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosSueldos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroMSS, :formularioDialogos:aceptarMSS"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarMSS"/>
@@ -2286,7 +2285,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovTipoContratoFechaContrato" scrollWidth="420" var="tipoCFC" value="#{controlBusquedaAvanzada.lovTiposContratos}" rowKey="#{tipoCFC.secuencia}"
                                selection="#{controlBusquedaAvanzada.tipoContratoSeleccionado}" selectionMode="single" widgetVar="lovTipoContratoFechaContrato" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposContratos}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposContratos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroTCFC, :formularioDialogos:aceptarTCFC"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update= ":formularioDialogos:aceptarTCFC"/>
@@ -2321,7 +2320,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovMotivoFechaContrato" scrollWidth="420" var="motivoFC" value="#{controlBusquedaAvanzada.lovMotivosContratos}" rowKey="#{motivoFC.secuencia}"
                                selection="#{controlBusquedaAvanzada.motivoContratoSeleccionado}" selectionMode="single" widgetVar="lovMotivoFechaContrato" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosContratos}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosContratos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroMFC, :formularioDialogos:aceptarMFC"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarMFC"/>
@@ -2356,7 +2355,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovTipoTrabajadorTipoTrabajador" scrollWidth="420" var="tipoTTT" value="#{controlBusquedaAvanzada.lovTiposTrabajadores}" rowKey="#{tipoTTT.secuencia}"
                                selection="#{controlBusquedaAvanzada.tipoTrabajadorSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajadorTipoTrabajador" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroTTTT, :formularioDialogos:aceptarTTTT"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarTTTT"/>
@@ -2391,7 +2390,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovReformaLaboralTipoSalario" scrollWidth="420" var="reformaLTS" value="#{controlBusquedaAvanzada.lovReformasLaborales}" rowKey="#{reformaLTS.secuencia}"
                                selection="#{controlBusquedaAvanzada.reformaLaboralSeleccionada}" selectionMode="single" widgetVar="lovReformaLaboralTipoSalario" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovReformasLaborales}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroRLTS, :formularioDialogos:aceptarRLTS"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarRLTS"/>
@@ -2425,7 +2424,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovLegislacionLegislacionLaboral" scrollWidth="420" var="legislacionLL" value="#{controlBusquedaAvanzada.lovContratos}" rowKey="#{legislacionLL.secuencia}"
                                selection="#{controlBusquedaAvanzada.contratoSeleccionado}" selectionMode="single" widgetVar="lovLegislacionLegislacionLaboral" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovContratos}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovContratos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroLLL, :formularioDialogos:aceptarLLL"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarLLL"/>
@@ -2470,7 +2469,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUbicacionUbicacion').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{ubicacionUG.descripcion}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{ubicacionUG.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['descripcion']}"/>
                         </f:facet>
@@ -2510,7 +2509,7 @@
                         <h:outputText value="#{msg['buscarTSA']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTerceroAfiliacion').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterStyle="width: 80% !important" filterBy="#{terceroA.descripcion}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{terceroA.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['tercero']}"/>
                         </f:facet>
@@ -2546,7 +2545,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovTipoEntidadAfiliacion" scrollWidth="420" var="tipoEA" value="#{controlBusquedaAvanzada.lovTiposEntidades}" rowKey="#{tipoEA.secuencia}"
                                selection="#{controlBusquedaAvanzada.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidadAfiliacion" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroTEA, :formularioDialogos:aceptarTEA"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarTEA"/>
@@ -2581,7 +2580,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovEstadoAfiliacion" scrollWidth="420" var="estadoA" value="#{controlBusquedaAvanzada.lovEstadosAfiliaciones}" rowKey="#{estadoA.secuencia}"
                                selection="#{controlBusquedaAvanzada.estadoAfiliacionSeleccionado}" selectionMode="single" widgetVar="lovEstadoAfiliacion" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovEstadosAfiliaciones}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovEstadosAfiliaciones}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroEA, :formularioDialogos:aceptarEA"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarEA"/>
@@ -2616,7 +2615,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovPeriodicidadFormaPago" scrollWidth="420" var="periodicidadFP" value="#{controlBusquedaAvanzada.lovFormasPagos}" rowKey="#{periodicidadFP.secuencia}"
                                selection="#{controlBusquedaAvanzada.formaPagoSeleccionado}" selectionMode="single" widgetVar="lovPeriodicidadFormaPago" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovFormasPagos}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovFormasPagos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update= ":formularioDialogos:infoRegistroPFP, :formularioDialogos:aceptarPFP"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarPFP"/>
@@ -2650,7 +2649,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovSucursalFormaPago" style="font-size: 11px; width: 405px;" scrollWidth="420" var="sucursalFP" value="#{controlBusquedaAvanzada.lovSucursales}" rowKey="#{sucursalFP.secuencia}"
                                selection="#{controlBusquedaAvanzada.sucursalSeleccionado}" selectionMode="single" widgetVar="lovSucursalFormaPago" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovSucursales}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovSucursales}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroSFP, :formularioDialogos:aceptarSFP"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarSFP"/>
@@ -2686,7 +2685,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovMotivoMvrs" scrollWidth="420" var="motivoMVR" value="#{controlBusquedaAvanzada.lovMotivosmvrs}" rowKey="#{motivoMVR.secuencia}"
                                selection="#{controlBusquedaAvanzada.motivoMvrSeleccionado}" selectionMode="single" widgetVar="lovMotivoMvrs" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosmvrs}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovMotivosmvrs}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroMMVR, :formularioDialogos:aceptarMMVR"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarMMVR"/>
@@ -2722,7 +2721,7 @@
                          showEffect="fade" hideEffect="fade" width="440" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovNormaLaboralNormaLaboral" scrollWidth="420" var="normaLNL" value="#{controlBusquedaAvanzada.lovNormasLaborales}" rowKey="#{normaLNL.secuencia}"
                                selection="#{controlBusquedaAvanzada.normaLaboralSeleccionado}" selectionMode="single" widgetVar="lovNormaLaboralNormaLaboral" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlBusquedaAvanzada.filtroLovNormasLaborales}" emptyMessage="#{msg['lovvacio']}" >              
+                               filteredValue="#{controlBusquedaAvanzada.filtroLovNormasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroNLNL, :formularioDialogos:aceptarNLNL"/> 
                      <p:ajax event="rowSelect" listener="#{controlBusquedaAvanzada.activarAceptar()}" update=":formularioDialogos:aceptarNLNL"/>
@@ -2767,7 +2766,7 @@
                         <h:outputText value="#{msg['buscarJLJL']}:"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovJornadaJornadaLaboral').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterStyle="width: 80% !important" filterBy="#{jornadaJL.codigo}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{jornadaJL.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -2807,7 +2806,7 @@
                         <h:outputText value="#{msg['buscarMRFR']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoFechaRetiro').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterStyle="width: 80% !important" filterBy="#{motivoFR.codigo}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{motivoFR.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -2848,7 +2847,7 @@
                         <h:outputText value="#{msg['buscarCDP']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDocumentoDatosPersonales').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterStyle="width: 80% !important" filterBy="#{documentoDP.nombre}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{documentoDP.nombre}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                         </f:facet>
@@ -2889,7 +2888,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadNacimientoDatosPersonales').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{nacimientoDP.nombre}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{nacimientoDP.nombre}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                         </f:facet>
@@ -2930,7 +2929,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstadoCivilEstadoCivil').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{estadoCivilEC.codigo}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{estadoCivilEC.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -2972,7 +2971,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovIdiomaIdioma').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{idiomaI.codigo}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{idiomaI.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3013,7 +3012,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoIndicadorCenso').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{tipoIndicadorC.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{tipoIndicadorC.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3054,7 +3053,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovIndicadorCenso').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{indicadorC.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{indicadorC.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3095,7 +3094,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProfesionEducacionFormal').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{profesionEF.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{profesionEF.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3136,7 +3135,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovInstitucionEducacionFormal').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{institucionEF.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{institucionEF.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3177,7 +3176,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovInstitucionEducacionNoFormal').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{institucionENF.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{institucionENF.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3218,7 +3217,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCursoEducacionNoFormal').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{cursoENF.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{cursoENF.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3259,7 +3258,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSectorEconomicoExperienciaLaboral').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{sectorEEL.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{sectorEEL.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3300,7 +3299,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoRetiroExperienciaLaboral').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{motivoREL.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{motivoREL.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3341,7 +3340,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProyectoProyecto').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{proyectoP.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{proyectoP.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3382,7 +3381,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPryRolProyecto').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{pryRP.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{pryRP.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3423,7 +3422,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCargoCargoPostularse').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{cargoCP.codigo}" width="100" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{cargoCP.codigo}" width="100" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                         </f:facet>
@@ -3463,14 +3462,14 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovColumnasBusqueda').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{columnaBusqueda.descripcion}" sortBy="#{columnaBusqueda.descripcion}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{columnaBusqueda.descripcion}" sortBy="#{columnaBusqueda.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="Descripción"/>
                         </f:facet>
                         <h:outputText  value="#{columnaBusqueda.descripcion}"/>
                      </p:column>
 
-                     <p:column filterStyle="width: 80% !important" filterBy="#{columnaBusqueda.nombrecolumna}" sortBy="#{columnaBusqueda.nombrecolumna}" filterMatchMode="contains" >
+                     <p:column filterStyle="width: 80% !important" filterBy="#{columnaBusqueda.nombrecolumna}" sortBy="#{columnaBusqueda.nombrecolumna}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="Nombre Columna"/>
                         </f:facet>

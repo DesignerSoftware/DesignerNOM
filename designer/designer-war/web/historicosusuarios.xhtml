@@ -11,120 +11,120 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.historicosusuarios" var="msg" />
+                    <f:loadBundle basename="Recursos.historicosusuarios" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
 
                     <p:panel  id="PanelTotal" header="Históricos Usuario" styleClass="panelTotal">
                         <p:toolbar styleClass="cssToolbar">   
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlHistoricosUsuarios.guardarCambiosUsuario()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlHistoricosUsuarios.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" widgetVar="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlHistoricosUsuarios.listaValoresBoton()}" process="@this"
-                                                 disabled="#{controlHistoricosUsuarios.activarLov}" />
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlHistoricosUsuarios.activarCrtlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlHistoricosUsuarios.guardarCambiosUsuario()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlHistoricosUsuarios.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlHistoricosUsuarios.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="listaValores" widgetVar="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlHistoricosUsuarios.listaValoresBoton()}" process="@this"
+                                                 disabled="#{controlHistoricosUsuarios.activarLov}"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlHistoricosUsuarios.limpiarNuevoHistoricosUsuarios()}" ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlHistoricosUsuarios.activarCrtlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlHistoricosUsuarios.exportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlHistoricosUsuarios.limpiarNuevoHistoricosUsuarios()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlHistoricosUsuarios.tablaImprimir}" fileName="#{controlHistoricosUsuarios.nombreArchivo}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlHistoricosUsuarios.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " onclick="PF('NuevoRegistroUsuario').show()"  update=":formularioDialogos:nuevaUsuario" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlHistoricosUsuarios.borrarHistoricoUsuario()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlHistoricosUsuarios.duplicandoHistoricoUsuario()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlHistoricosUsuarios.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlHistoricosUsuarios.verificarRastro()}" process="@this"/>  
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" onclick="PF('NuevoRegistroUsuario').show()"  update=":formularioDialogos:nuevaUsuario" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlHistoricosUsuarios.borrarHistoricoUsuario()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlHistoricosUsuarios.duplicandoHistoricoUsuario()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlHistoricosUsuarios.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlHistoricosUsuarios.cancelarModificacion()}" process="@this"
-                                                 oncomplete="window.location.reload()" />  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlHistoricosUsuarios.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlHistoricosUsuarios.salir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 390px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Históricos Usuario</strong></legend>
 
                             <p:dataTable id="datosHistoricosUsuarios" var="usuario" rowKey="#{usuario.secuencia}" rowIndexVar="indice" value="#{controlHistoricosUsuarios.listaHistoricosUsuarios}" scrollable="true"
                                          filteredValue="#{controlHistoricosUsuarios.listaHistoricosUsuariosFiltrar}" scrollHeight="#{controlHistoricosUsuarios.altoTabla}" scrollWidth="830"
-                                         style="border: 1px;width: 810px;" liveScroll="true" scrollRows="80" emptyMessage="#{msg['vacio']}" widgetVar="datosHistoricosUsuarios"
+                                         style="border: 1px; width: 810px;" liveScroll="true" scrollRows="80" emptyMessage="#{msg['vacio']}" widgetVar="datosHistoricosUsuarios"
                                          editable="true" editMode="cell" selection="#{controlHistoricosUsuarios.historicoUsuarioSeleccionado}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlHistoricosUsuarios.eventofiltrar()}"/>
-                                <p:column headerText="Fecha Inicial" width="40" sortBy="#{usuario.fechainicial}" filterBy="#{usuario.fechainicial}" filterMatchMode="contains" id="fechainicial" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Fecha Inicial" width="40" sortBy="#{usuario.fechainicial}" filterBy="#{usuario.fechainicial}" filterMatchMode="contains" id="fechainicial" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{usuario.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{usuario.fechainicial}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{usuario.fechainicial}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{usuario.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario,0)}" process="@this"
-                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
-                                <p:column headerText="Fecha Final" width="40" sortBy="#{usuario.fechafinal}" filterBy="#{usuario.fechafinal}" filterMatchMode="contains" id="fechafinal" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Fecha Final" width="40" sortBy="#{usuario.fechafinal}" filterBy="#{usuario.fechafinal}" filterMatchMode="contains" id="fechafinal" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{usuario.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{usuario.fechafinal}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{usuario.fechafinal}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{usuario.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario,1)}" process="@this"
-                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="Alias" width="60" sortBy="#{usuario.usuario.alias}" filterBy="#{usuario.usuario.alias}"  filterMatchMode="contains" id="alias" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column headerText="Alias" width="60" sortBy="#{usuario.usuario.alias}" filterBy="#{usuario.usuario.alias}"  filterMatchMode="contains" id="alias" filterStyle="display: none; visibility: hidden;">  
                                     <f:facet name="header">
-                                        <h:outputText id="headeralias" value="Alias" />
+                                        <h:outputText id="headeralias" value="Alias"/>
                                         <p:tooltip for="headeralias" value="Alias Usuario"/>
                                     </f:facet>  
                                     <p:cellEditor>  
@@ -134,46 +134,46 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{usuario.usuario.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"
-                                                           onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" > 
+                                                           onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario, 2)}" 
-                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});" />
+                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/>
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
 
-                                <p:column headerText="Perfil" width="60" sortBy="#{usuario.perfil.descripcion}" filterBy="#{usuario.perfil.descripcion}" filterMatchMode="contains" id="perfil" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Perfil" width="60" sortBy="#{usuario.perfil.descripcion}" filterBy="#{usuario.perfil.descripcion}" filterMatchMode="contains" id="perfil" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerperfil" value="Perfil" />
+                                        <h:outputText id="headerperfil" value="Perfil"/>
                                         <p:tooltip for="headerperfil" value="Descripción Perfil"/>
                                     </f:facet>  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.perfil.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.perfil.descripcion}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off" readonly="true"  value="#{usuario.perfil.descripcion}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"
-                                                         onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" > 
+                                                         onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario,3 )}"  process="@this"
-                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});" />
+                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="Nombre Persona" width="100" sortBy="#{usuario.persona.nombreCompleto}" filterBy="#{usuario.persona.nombreCompleto}" filterMatchMode="contains" id="nombrepersona" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Nombre Persona" width="100" sortBy="#{usuario.persona.nombreCompleto}" filterBy="#{usuario.persona.nombreCompleto}" filterMatchMode="contains" id="nombrepersona" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.persona.nombreCompleto}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.persona.nombreCompleto}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{usuario.persona.nombreCompleto}" id="editarPersona" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario, 4)}" 
-                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});" />
+                                                        onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/>
                                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 0)}"/>
                                                 <p:ajax event="change" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}"/>
                                             </p:inputText>
@@ -181,38 +181,38 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column style="padding: 0px;" headerText="" sortBy="#{usuario.estadoDescripcion}" filterBy="#{usuario.estadoDescripcion}" filterMatchMode="contains" id="descripcion" width="110" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column style="padding: 0px;" headerText="" sortBy="#{usuario.estadoDescripcion}" filterBy="#{usuario.estadoDescripcion}" filterMatchMode="contains" id="descripcion" width="110" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerbaseestructura" value="Manipulación" />
+                                        <h:outputText id="headerbaseestructura" value="Manipulación"/>
                                         <p:tooltip for="headerbaseestructura" value="Descripción Cambio"/>
                                     </f:facet>  
                                     <p:selectOneMenu  id="editarBaseEstructura" value="#{usuario.estadoDescripcion}" style="width: 85%;height: 20px"
                                                       onblur="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"
-                                                      onfocus="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});" >  
-                                        <f:selectItem itemLabel="REGISTRO INSERTADO" itemValue="REGISTRO INSERTADO" />  
-                                        <f:selectItem itemLabel="REGISTRO ACTUALIZADO" itemValue="REGISTRO ACTUALIZADO" />
-                                        <f:selectItem itemLabel="REGISTRO MANUAL" itemValue="REGISTRO MANUAL" />
-                                        <f:selectItem itemLabel="REGISTRO MODIFICADO" itemValue="REGISTRO MODIFICADO" />
-                                        <p:ajax listener="#{controlHistoricosUsuarios.seleccionarDescripcion(usuario.estadoDescripcion, usuario)}" event="change" update="editarBaseEstructura" />
+                                                      onfocus="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});">  
+                                        <f:selectItem itemLabel="REGISTRO INSERTADO" itemValue="REGISTRO INSERTADO"/>  
+                                        <f:selectItem itemLabel="REGISTRO ACTUALIZADO" itemValue="REGISTRO ACTUALIZADO"/>
+                                        <f:selectItem itemLabel="REGISTRO MANUAL" itemValue="REGISTRO MANUAL"/>
+                                        <f:selectItem itemLabel="REGISTRO MODIFICADO" itemValue="REGISTRO MODIFICADO"/>
+                                        <p:ajax listener="#{controlHistoricosUsuarios.seleccionarDescripcion(usuario.estadoDescripcion, usuario)}" event="change" update="editarBaseEstructura"/>
                                     </p:selectOneMenu>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column> 
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlHistoricosUsuarios.infoRegistroHistoricos}" style="position: relative; left: 0px; top: 5px; font-weight: bold"/>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlHistoricosUsuarios.infoRegistroHistoricos}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
                         </fieldset>
-                        <p:commandButton style="position: relative; left: 10px; top: 465px;height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
+                        <p:commandButton style="position: relative; left: 10px; top: 465px; height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" icon="ui-icon-arrowreturnthick-1-s"
-                                         id="REPORTE" value="#{msg['reporte']}" update=":form:datosHistoricosUsuarios" process="@this" actionListener="#{controlHistoricosUsuarios.validarDescargaReporte()}" />
+                                         id="REPORTE" value="#{msg['reporte']}" update=":form:datosHistoricosUsuarios" process="@this" actionListener="#{controlHistoricosUsuarios.validarDescargaReporte()}"/>
 
-                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlHistoricosUsuarios.guardado}" update=":form:datosHistoricosUsuarios" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlHistoricosUsuarios.guardado}" update=":form:datosHistoricosUsuarios" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this"/>
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlHistoricosUsuarios.activarCrtlF11()}" process="@this"/> 
                     <p:remoteCommand name="posicionOtro" actionListener="#{controlHistoricosUsuarios.posicionOtro()}"/>
@@ -222,63 +222,63 @@
 
                     <p:dialog id="validacionNuevaUsuario" header="#{msg['atencion']}" widgetVar="validacionNuevaUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
-                        <h:outputText value="#{controlHistoricosUsuarios.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
+                        <h:outputText value="#{controlHistoricosUsuarios.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionPersona" header="#{msg['atencion']}" widgetVar="validacionPersona"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionPersona']}" style="position: absolute; left: 80px; top: 10px; width: 300px;" />
+                        <h:outputText value="#{msg['validacionPersona']}" style="position: absolute; left: 80px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionPersona').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"
-                                         icon="ui-icon-check" />
+                                         icon="ui-icon-check"/>
                     </p:dialog>  
 
                     <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="NuevoRegistroUsuario" header="Nuevo Registro" widgetVar="NuevoRegistroUsuario" closable="false" resizable="false"  draggable="true" modal="true" height="270" width="380" style=" padding: 0px">  
-                        <center><strong><h:outputText value="Ingrese la información del Histórico Usuario" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingrese la información del Histórico Usuario" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
                         <p:panel id="nuevaUsuario" style="border: none;">   
 
-                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;" /></strong>
-                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechainicial}"  >
+                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;"/></strong>
+                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechainicial}">
                                 <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                                 <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                             </p:calendar>
 
-                            <strong><h:outputText value="Fecha Final" style="position: absolute; top: 80px;" /></strong>
-                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechafinal}"  >
+                            <strong><h:outputText value="Fecha Final" style="position: absolute; top: 80px;"/></strong>
+                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechafinal}">
                                 <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                                 <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                             </p:calendar>
 
-                            <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoAlias" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}" />
+                            <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoAlias" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 113px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoPerfil" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}" />
+                            <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoPerfil" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 143px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoPersona" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}" />
+                            <p:inputText  autocomplete="off"  id="nuevoPersona" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 318px; top: 173px; " class="cssBotonLovDialogos" id="btnNuevoPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}"/>
 
-                            <strong><h:outputText value="Manipulación" style=" position: absolute; top: 200px;" /></strong>
-                            <p:selectOneMenu id="nuevaDescripcion" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.estadoDescripcion}"  style=" width: 130px; position: absolute; left: 180px; top: 200px; text-transform: uppercase">
-                                <f:selectItem itemLabel="REGISTRO INSERTADO" itemValue="REGISTRO INSERTADO" />  
-                                <f:selectItem itemLabel="REGISTRO ACTUALIZADO" itemValue="REGISTRO ACTUALIZADO" />
-                                <f:selectItem itemLabel="REGISTRO MANUAL" itemValue="REGISTRO MANUAL" />
-                                <f:selectItem itemLabel="REGISTRO MODIFICADO" itemValue="REGISTRO MODIFICADO" />
-                                <p:ajax event="change" listener="#{controlHistoricosUsuarios.seleccionarNuevaDescripcion(controlHistoricosUsuarios.nuevoHistoricoUsuario.estadoDescripcion, 1)}" update="@this" />
+                            <strong><h:outputText value="Manipulación" style=" position: absolute; top: 200px;"/></strong>
+                            <p:selectOneMenu id="nuevaDescripcion" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.estadoDescripcion}"  style=" width: 130px; position: absolute; left: 180px; top: 200px; text-transform: uppercase;">
+                                <f:selectItem itemLabel="REGISTRO INSERTADO" itemValue="REGISTRO INSERTADO"/>  
+                                <f:selectItem itemLabel="REGISTRO ACTUALIZADO" itemValue="REGISTRO ACTUALIZADO"/>
+                                <f:selectItem itemLabel="REGISTRO MANUAL" itemValue="REGISTRO MANUAL"/>
+                                <f:selectItem itemLabel="REGISTRO MODIFICADO" itemValue="REGISTRO MODIFICADO"/>
+                                <p:ajax event="change" listener="#{controlHistoricosUsuarios.seleccionarNuevaDescripcion(controlHistoricosUsuarios.nuevoHistoricoUsuario.estadoDescripcion, 1)}" update="@this"/>
                             </p:selectOneMenu>
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 250px;" actionListener="#{controlHistoricosUsuarios.limpiarNuevoHistoricosUsuarios()}" update="nuevaUsuario" process="@this"/>
@@ -288,46 +288,46 @@
                     </p:dialog>
 
                     <p:dialog id="DuplicarRegistroUsuario" header="Duplicar Registro" widgetVar="DuplicarRegistroUsuario" closable="false" resizable="false"  draggable="true" modal="true" height="270" width="380" style=" padding: 0px">  
-                        <center><strong><h:outputText value="Ingrese la información del Histórico Usuario" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingrese la información del Histórico Usuario" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarUsuario" style="border: none;">
 
-                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;" /></strong>
-                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechainicial}"  >
+                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;"/></strong>
+                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechainicial}">
                                 <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                 <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                             </p:calendar>
 
-                            <strong><h:outputText value="Fecha Final" style="position: absolute; top: 80px;" /></strong>
-                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechafinal}"  >
+                            <strong><h:outputText value="Fecha Final" style="position: absolute; top: 80px;"/></strong>
+                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechafinal}">
                                 <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                 <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                             </p:calendar>
 
-                            <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarAlias" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}" />
+                            <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarAlias" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 113px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
                             </p:inputText> 
 
-                            <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPerfil" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}" />
+                            <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarPerfil" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 143px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}" />
+                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 318px; top: 173px; " class="cssBotonLovDialogos" id="btnDuplicarPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}"/>
 
-                            <strong><h:outputText value="Manipulación" style=" position: absolute; top: 200px;" /></strong>
-                            <p:selectOneMenu id="duplicarDescripcion" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.estadoDescripcion}"  style=" width: 130px; position: absolute; left: 180px; top: 200px; text-transform: uppercase">
-                                <f:selectItem itemLabel="REGISTRO INSERTADO" itemValue="REGISTRO INSERTADO" />  
-                                <f:selectItem itemLabel="REGISTRO ACTUALIZADO" itemValue="REGISTRO ACTUALIZADO" />
-                                <f:selectItem itemLabel="REGISTRO MANUAL" itemValue="REGISTRO MANUAL" />
-                                <f:selectItem itemLabel="REGISTRO MODIFICADO" itemValue="REGISTRO MODIFICADO" />
-                                <p:ajax listener="#{controlHistoricosUsuarios.seleccionarNuevaDescripcion(controlHistoricosUsuarios.duplicarHistoricoUsuario.estadoDescripcion, 1)}" update="@this" />
+                            <strong><h:outputText value="Manipulación" style=" position: absolute; top: 200px;"/></strong>
+                            <p:selectOneMenu id="duplicarDescripcion" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.estadoDescripcion}"  style=" width: 130px; position: absolute; left: 180px; top: 200px; text-transform: uppercase;">
+                                <f:selectItem itemLabel="REGISTRO INSERTADO" itemValue="REGISTRO INSERTADO"/>  
+                                <f:selectItem itemLabel="REGISTRO ACTUALIZADO" itemValue="REGISTRO ACTUALIZADO"/>
+                                <f:selectItem itemLabel="REGISTRO MANUAL" itemValue="REGISTRO MANUAL"/>
+                                <f:selectItem itemLabel="REGISTRO MODIFICADO" itemValue="REGISTRO MODIFICADO"/>
+                                <p:ajax listener="#{controlHistoricosUsuarios.seleccionarNuevaDescripcion(controlHistoricosUsuarios.duplicarHistoricoUsuario.estadoDescripcion, 1)}" update="@this"/>
                             </p:selectOneMenu>
 
                             <p:commandButton id="limpiarDuplicadoUsuario" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 250px;" actionListener="#{controlHistoricosUsuarios.limpiarDuplicarHistoricosUsuarios()}" update="duplicarUsuario" process="@this"/>
@@ -338,22 +338,22 @@
 
                     <!-- DIALOGO L.O.V ESTATICO DE PERSONAS -->
                     <p:dialog header="Personas" widgetVar="personasDialogo" draggable="true" resizable="false" closable="false" id="personasDialogo"  
-                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPersonas" style="width: 330px;" var="personas" value="#{controlHistoricosUsuarios.lovPersonas}" rowKey="#{personas.secuencia}"
                                      selection="#{controlHistoricosUsuarios.personasSeleccionado}" selectionMode="single" widgetVar="LOVPersonas" scrollable="true" scrollHeight="200" scrollWidth="345"
                                      filteredValue="#{controlHistoricosUsuarios.lovFiltradoPersonas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlHistoricosUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarPS"/>
-                            <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarPersonas()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPersonas()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarPersonas()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPersonas()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Persona" />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPersonas').filter();" class="cssFiltroLOV" />  
+                                <h:outputText value="Buscar Persona"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPersonas').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{personas.nombreCompleto}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="Nombre" />
+                                    <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{personas.nombreCompleto}" />
+                                <h:outputText value="#{personas.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -365,22 +365,22 @@
                     </p:dialog>
                     
                     <p:dialog header="Usuarios" widgetVar="aliasDialogo" draggable="true" resizable="false" closable="false" id="aliasDialogo"  
-                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVUsuariosAlias" style="width: 330px;" var="aliasU" value="#{controlHistoricosUsuarios.lovUsuarios}" rowKey="#{aliasU.secuencia}"
                                      selection="#{controlHistoricosUsuarios.usuarioSeleccionado}" selectionMode="single" widgetVar="LOVUsuariosAlias" scrollable="true" scrollHeight="200" scrollWidth="345"
                                      filteredValue="#{controlHistoricosUsuarios.lovUsuariosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlHistoricosUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarAU"/>
-                            <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarUsuario()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosAlias()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarUsuario()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosAlias()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Alias" />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVUsuariosAlias').filter();" class="cssFiltroLOV" />  
+                                <h:outputText value="Buscar Alias"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVUsuariosAlias').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{aliasU.alias}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="Nombre" />
+                                    <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{aliasU.alias}" />
+                                <h:outputText value="#{aliasU.alias}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -392,27 +392,27 @@
                     </p:dialog>
                     
                     <p:dialog header="Perfiles" widgetVar="perfilesDialogo" draggable="true" resizable="false" closable="false" id="perfilesDialogo"  
-                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPerfiles" style="width: 330px;" var="perfiles" value="#{controlHistoricosUsuarios.lovPerfiles}" rowKey="#{perfiles.secuencia}"
                                      selection="#{controlHistoricosUsuarios.perfilSeleccionado}" selectionMode="single" widgetVar="LOVPerfiles" scrollable="true" scrollHeight="200" scrollWidth="345"
                                      filteredValue="#{controlHistoricosUsuarios.lovPerfilesFiltrar}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlHistoricosUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarPF"/>
-                            <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarPerfiles()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPerfiles()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarPerfiles()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPerfiles()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Perfil" />  
+                                <h:outputText value="Buscar Perfil"/>  
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPerfiles').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{perfiles.descripcion}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="Descripción" />
+                                    <h:outputText value="Descripción"/>
                                 </f:facet>
-                                <h:outputText value="#{perfiles.descripcion}" />
+                                <h:outputText value="#{perfiles.descripcion}"/>
                             </p:column>
                         </p:dataTable>
 
                         <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroPerfiles" value="#{msg['infoRegistro']} #{controlHistoricosUsuarios.infoRegistroPerfiles}" class="cssinfoRegistroLOV" />
+                            <h:outputText id="infoRegistroPerfiles" value="#{msg['infoRegistro']} #{controlHistoricosUsuarios.infoRegistroPerfiles}" class="cssinfoRegistroLOV"/>
                             <p:commandButton id="aceptarPF" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlHistoricosUsuarios.aceptar}" class="cssAceptarLOV" actionListener="#{controlHistoricosUsuarios.actualizarPerfiles()}" process="@this"/>
                             <p:commandButton id="cancelarPF" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atrás" actionListener="#{controlHistoricosUsuarios.cancelarCambioPerfil()}" process="@this"/>
                         </div>
@@ -421,104 +421,104 @@
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" >
-                            <f:actionListener binding="#{controlHistoricosUsuarios.guardarCambiosUsuario()}" />
-                            <f:actionListener binding="#{controlHistoricosUsuarios.navegar('atras')}" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check">
+                            <f:actionListener binding="#{controlHistoricosUsuarios.guardarCambiosUsuario()}"/>
+                            <f:actionListener binding="#{controlHistoricosUsuarios.navegar('atras')}"/>
                         </p:commandButton>
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" >
-                            <f:actionListener binding="#{controlHistoricosUsuarios.cancelarModificacion()}" />
-                            <f:actionListener binding="#{controlHistoricosUsuarios.navegar('atras')}" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close">
+                            <f:actionListener binding="#{controlHistoricosUsuarios.cancelarModificacion()}"/>
+                            <f:actionListener binding="#{controlHistoricosUsuarios.navegar('atras')}"/>
                         </p:commandButton>
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoricosUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
-                                         style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
+                                         style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('historicosusuarios', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
+                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('historicosusuarios', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoricosUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
+                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('historicosusuarios', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>                    
 
-                    <p:dialog id="editarFechaInicial" header="Fecha Inicial" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaInicial" header="Fecha Inicial" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlHistoricosUsuarios.editarHistoricoUsuario.fechainicial}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinal" header="Fecha Final" widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaFinal" header="Fecha Final" widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlHistoricosUsuarios.editarHistoricoUsuario.fechafinal}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarPersona" header="Persona" widgetVar="editarPersona" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarPersona" header="Persona" widgetVar="editarPersona" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlHistoricosUsuarios.editarHistoricoUsuario.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPerfil" header="Perfil" widgetVar="editarPerfil" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarPerfil" header="Perfil" widgetVar="editarPerfil" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlHistoricosUsuarios.editarHistoricoUsuario.perfil.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAlias" header="Alias" widgetVar="editarAlias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarAlias" header="Alias" widgetVar="editarAlias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlHistoricosUsuarios.editarHistoricoUsuario.usuario.alias}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog  id="verReportePDF" header="#{controlHistoricosUsuarios.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" >
+                    <p:dialog  id="verReportePDF" header="#{controlHistoricosUsuarios.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true">
                         <p:media value="#{controlHistoricosUsuarios.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlHistoricosUsuarios.reporte != null}"/>
                     </p:dialog>
                     <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlHistoricosUsuarios.reiniciarStreamedContent()}"/>
 
                     <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlHistoricosUsuarios.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
+                        <p:inputTextarea value="#{controlHistoricosUsuarios.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px" >  
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
-                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
-                        <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlHistoricosUsuarios.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />-->
+                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlHistoricosUsuarios.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                     </p:dialog>
                 </h:form>
 
@@ -527,39 +527,39 @@
                                  value="#{controlHistoricosUsuarios.listaHistoricosUsuarios}"> 
                         <p:column>  
                      <f:facet name="header">
-                        <h:outputText value="Fecha Inicial" />
+                        <h:outputText value="Fecha Inicial"/>
                      </f:facet>
-                     <h:outputText value="#{usu.fechainicial}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{usu.fechainicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column>  
                      <f:facet name="header">
-                        <h:outputText value="Fecha Final" />
+                        <h:outputText value="Fecha Final"/>
                      </f:facet>
-                     <h:outputText value="#{usu.fechafinal}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{usu.fechafinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
                         
                         <p:column headerText="Alias">                                  
                             <f:facet name="header"><h:outputText value="Alias"/> </f:facet> 
-                            <h:outputText value="#{usu.usuario.alias}" />
+                            <h:outputText value="#{usu.usuario.alias}"/>
                         </p:column> 
 
                         <p:column headerText="Perfil">                                  
                             <f:facet name="header"><h:outputText value="Perfil"/> </f:facet> 
-                            <h:outputText value="#{usu.perfil.descripcion}" />
+                            <h:outputText value="#{usu.perfil.descripcion}"/>
                         </p:column>
 
                         <p:column headerText="Persona">      
                             <f:facet name="header"><h:outputText value="Persona"/></f:facet>
-                            <h:outputText value="#{usu.persona.nombreCompleto}" />
+                            <h:outputText value="#{usu.persona.nombreCompleto}"/>
                         </p:column>
                         <p:column headerText="Manipulacion">      
                             <f:facet name="header"><h:outputText value="Manipulacion"/></f:facet>
-                            <h:outputText value="#{usu.descripcion}" />
+                            <h:outputText value="#{usu.descripcion}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

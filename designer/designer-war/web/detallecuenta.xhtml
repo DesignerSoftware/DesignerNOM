@@ -12,7 +12,7 @@
             <ui:define name="body">   
                 <script type="text/javascript">
                     $(window).load(function () {
-                        //$(".loader").fadeOut("slow");
+                        
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
@@ -22,60 +22,60 @@
                 <!--<div class="loader"></div>-->
                 <div style="position: static;"></div>
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.detallecuenta" var="msg" />
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+                    <f:loadBundle basename="Recursos.detallecuenta" var="msg"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                         <p:toolbar class="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; width: 25px; height: 25px;" />
-                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; width: 25px; height: 25px;"/>
+                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlDetalleCuenta.editarCelda()}" process="@this"/>
-                                <p:tooltip for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " />
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlDetalleCuenta.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlDetalleCuenta.editarCelda()}" process="@this"/>
+                                <p:tooltip for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlDetalleCuenta.verificarExportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) "  ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlDetalleCuenta.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlDetalleCuenta.verificarExportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlDetalleCuenta.exportXML()}" fileName="#{controlDetalleCuenta.nombreXML}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlDetalleCuenta.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " /> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png) " />  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) "/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlDetalleCuenta.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlDetalleCuenta.verificarRastroTabla()}" process="@this"/>  
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png);"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png)"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlDetalleCuenta.verificarRastroTabla()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " process="@this"/>  
+                                <p:commandButton id="refrescar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlDetalleCuenta.salir()}" action="cuentasBack" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlDetalleCuenta.salir()}" action="cuenta" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -88,135 +88,135 @@
                             </h:outputText>
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 10px; top: 120px; width: 830px; height: 160px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; left: 10px; top: 120px; width: 830px; height: 160px; border-radius: 10px; text-align: left;">
                             <legend style="color: blue"><strong>#{msg['cuentadebito']}</strong></legend> 
                             <p:dataTable id="datosCuentaDebito" widgetVar="datosCuentaDebito" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceD" value="#{controlDetalleCuenta.listCuentasDebito}" 
                                          filteredValue="#{controlDetalleCuenta.filtrarListCuentasDebito}" editable="true" editMode="cell" liveScroll="true" scrollRows="12"
                                          scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaDebito}" scrollWidth="830" emptyMessage="#{msg['vacio']}" 
-                                         selection="#{controlDetalleCuenta.cuentaDebitoTablaSeleccionada}" selectionMode="single" style="border: 1px;width: 830px">
+                                         selection="#{controlDetalleCuenta.cuentaDebitoTablaSeleccionada}" selectionMode="single" style="border: 1px; width: 830px">
 
                                 <p:ajax event="filter" listener="#{controlDetalleCuenta.eventoFiltrarDebito()}"/>
                                 <p:column headerText="#{msg['fechainicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" 
-                                          width="72" id="debitoFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                          width="72" id="debitoFechaInicial" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{info.fechainicial}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{info.fechainicial}" id="editarFechaInicialDebito"   
                                                           styleClass="ui-datepicker, myClass" 
                                                           onselect="posicionD([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);">    
-                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['fechafinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" 
-                                          filterMatchMode="contains"  width="72" id="debitoFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                          filterMatchMode="contains"  width="72" id="debitoFechaFinal" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{info.fechafinal}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{info.fechafinal}" id="editarFechaFinalDebito" 
                                                           styleClass="ui-datepicker, myClass" 
                                                           onselect="posicionD([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);">                                         
-                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.concepto.codigo}" filterBy="#{info.concepto.codigo}" filterMatchMode="contains" 
-                                          id="debitoCodigo" width="85" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="debitoCodigo" width="85" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.concepto.codigo}">
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.concepto.codigo}" id="editarCodigoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.concepto.codigo}" id="editarCodigoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['descripcion']}" sortBy="#{info.concepto.descripcion}" filterBy="#{info.concepto.descripcion}" 
-                                          filterMatchMode="contains" id="debitoDescripcion" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                          filterMatchMode="contains" id="debitoDescripcion" width="133" filterStyle="display: none; visibility: hidden">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.concepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{info.concepto.descripcion}"  id="editarDescipcionDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"   readonly="true" value="#{info.concepto.descripcion}"  id="editarDescipcionDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '3'}, {name: 't', value: '#{indiceD}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['descripcioncc']}" sortBy="#{info.consolidadord.nombre}" filterBy="#{info.consolidadord.nombre}" 
-                                          filterMatchMode="contains" id="debitoDescripcionCC" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="debitoDescripcionCC" width="120" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.consolidadord.nombre}">
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.nombre}" id="editarDescripcionCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.nombre}" id="editarDescripcionCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['cc']}" sortBy="#{info.consolidadord.codigo}" filterBy="#{info.consolidadord.codigo}" 
-                                          filterMatchMode="contains" id="debitoCC" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="debitoCC" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.consolidadord.codigo}">
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.codigo}" id="editarCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.codigo}" id="editarCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['tipo']}" sortBy="#{info.tipocc.nombre}" filterBy="#{info.tipocc.nombre}" 
-                                          filterMatchMode="contains" id="debitoTipo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="debitoTipo" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.tipocc.nombre}">
@@ -224,26 +224,26 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{info.tipocc.nombre}" id="editarTipoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"   readonly="true" value="#{info.tipocc.nombre}" id="editarTipoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '6'}, {name: 't', value: '#{indiceD}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistroDebito" value="#{msg['infoRegistro']} #{controlDetalleCuenta.infoRegistroDebito}" style="position: relative; left: 0px; top: 5px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroDebito" value="#{msg['infoRegistro']} #{controlDetalleCuenta.infoRegistroDebito}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 305px; left: 10px; width: 830px; height: 160px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 305px; left: 10px; width: 830px; height: 160px; border-radius: 10px; text-align: left;">
                             <legend style="color: blue"><strong>#{msg['cuentacredito']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
-                            <p:dataTable id="datosCuentaCredito" widgetVar="datosCuentaCredito" var="infoCredito" rowKey="#{infoCredito.secuencia}" rowIndexVar="indice" style="border: 1px;width: 820px;"   
+                            <p:dataTable id="datosCuentaCredito" widgetVar="datosCuentaCredito" var="infoCredito" rowKey="#{infoCredito.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"   
                                          value="#{controlDetalleCuenta.listCuentasCredito}" scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaCredito}" scrollWidth="835"
                                          filteredValue="#{controlDetalleCuenta.filtrarListCuentasCredito}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="12"
@@ -252,208 +252,208 @@
                                 <p:ajax event="filter" listener="#{controlDetalleCuenta.eventoFiltrarCredito()}"/>
 
                                 <p:column  headerText="#{msg['fechainicial']}" sortBy="#{infoCredito.fechainicial}" filterBy="#{infoCredito.fechainicial}" filterMatchMode="contains" 
-                                           width="80" id="creditoFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                           width="80" id="creditoFechaInicial" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{infoCredito.fechainicial}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{infoCredito.fechainicial}" id="editarFechaInicialCredito"   
                                                           styleClass="ui-datepicker, myClass"  onselect="posicionC([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);">      
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['fechafinal']}" sortBy="#{infoCredito.fechafinal}" filterBy="#{infoCredito.fechafinal}" 
-                                          filterMatchMode="contains"  width="72" id="creditoFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                          filterMatchMode="contains"  width="72" id="creditoFechaFinal" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <h:outputText value="#{infoCredito.fechafinal}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.fechafinal}" id="editarFechaFinalCredito" 
                                                           styleClass="ui-datepicker, myClass"   onselect="posicionC([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">                                         
-                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{infoCredito.concepto.codigo}" filterBy="#{infoCredito.concepto.codigo}" filterMatchMode="contains" 
-                                          id="creditoCodigo" width="85" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="creditoCodigo" width="85" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{infoCredito.concepto.codigo}">
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.concepto.codigo}" id="editarCodigoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.concepto.codigo}" id="editarCodigoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['descripcion']}" sortBy="#{infoCredito.concepto.descripcion}" filterBy="#{infoCredito.concepto.descripcion}" 
-                                          filterMatchMode="contains" id="creditoDescripcion" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                          filterMatchMode="contains" id="creditoDescripcion" width="133" filterStyle="display: none; visibility: hidden">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoCredito.concepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.concepto.descripcion}"  id="editarDescripcionCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.concepto.descripcion}"  id="editarDescripcionCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['descripcioncc']}" sortBy="#{infoCredito.consolidadorc.nombre}" filterBy="#{infoCredito.consolidadorc.nombre}" 
-                                          filterMatchMode="contains" id="creditoDescripcionCC" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="creditoDescripcionCC" width="120" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{infoCredito.consolidadorc.nombre}">
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.nombre}" id="editarDescripcionCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.nombre}" id="editarDescripcionCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['cc']}" sortBy="#{infoCredito.consolidadorc.codigo}" filterBy="#{infoCredito.consolidadorc.codigo}" 
-                                          filterMatchMode="contains" id="creditoCC" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="creditoCC" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{infoCredito.consolidadorc.codigo}">
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.codigo}" id="editarCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.codigo}" id="editarCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['tipo']}" sortBy="#{infoCredito.tipocc.nombre}" filterBy="#{infoCredito.tipocc.nombre}" 
-                                          filterMatchMode="contains" id="creditoTipo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="creditoTipo" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{infoCredito.tipocc.nombre}">
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.tipocc.nombre}" id="editarTipoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.tipocc.nombre}" id="editarTipoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistroCredito" value="#{msg['infoRegistro']} #{controlDetalleCuenta.infoRegistroCredito}" style="position: relative; left: 0px; top: 5px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroCredito" value="#{msg['infoRegistro']} #{controlDetalleCuenta.infoRegistroCredito}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
                         </fieldset>
 
                         <p:remoteCommand name="posicionC" actionListener="#{controlDetalleCuenta.posicionCredito()}"/>
                         <p:remoteCommand name="posicionD" actionListener="#{controlDetalleCuenta.posicionDebito()}"/>
 
 
-                        <p:commandButton class="cssBotonAceptar"  value="" actionListener="#{controlDetalleCuenta.salir()}" action="cuentasBack" process="@this" />
+                        <p:commandButton class="cssBotonAceptar"  value="" actionListener="#{controlDetalleCuenta.salir()}" action="cuenta" process="@this"/>
 
                     </p:panel>
 
 
 
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="Rastros Para Tablas Historicos Sueldos" resizable="false" draggable="true" modal="true" height="95" width="330px;" >
-                        <h:outputText value="#{msg['verificarRastrosTablas']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['cuentascredito']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlDetalleCuenta.verificarRastroCredito()}" process="@this" />
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="Rastros Para Tablas Historicos Sueldos" resizable="false" draggable="true" modal="true" height="95" width="330px;">
+                        <h:outputText value="#{msg['verificarRastrosTablas']}" style="position: absolute; left: 20px; top: 20px;color: blue; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['cuentascredito']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlDetalleCuenta.verificarRastroCredito()}" process="@this"/>
                         <p:commandButton value="#{msg['cuentasdebito']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlDetalleCuenta.verificarRastroDebito()}" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detallecuenta')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleCuenta.nombreTablaRastro , 'detallecuenta')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detallecuenta')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleCuenta.activarCtrlF11()}"/> 
                 </h:form>
-                <h:form id="formularioDialogos" >
+                <h:form id="formularioDialogos">
 
                     <!-- DIALOGOS DE EDITAR COLUMNAS -->
 
@@ -469,23 +469,23 @@
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCreditoD" header="#{msg['codigoE']}" widgetVar="editarCodigoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCodigoCreditoD" header="#{msg['codigoE']}" widgetVar="editarCodigoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCreditoD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionCreditoD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCCCreditoD" header="#{msg['descripcionccE']}" widgetVar="editarDescripcionCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionCCCreditoD" header="#{msg['descripcionccE']}" widgetVar="editarDescripcionCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCCreditoD" header="#{msg['ccE']}" widgetVar="editarCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCCCreditoD" header="#{msg['ccE']}" widgetVar="editarCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoCreditoD" header="#{msg['tipoE']}" widgetVar="editarTipoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarTipoCreditoD" header="#{msg['tipoE']}" widgetVar="editarTipoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.tipocc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -502,23 +502,23 @@
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoDebitoD" header="#{msg['codigoED']}" widgetVar="editarCodigoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCodigoDebitoD" header="#{msg['codigoED']}" widgetVar="editarCodigoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionDebitoD" header="#{msg['descripcionED']}" widgetVar="editarDescripcionDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionDebitoD" header="#{msg['descripcionED']}" widgetVar="editarDescripcionDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCCDebitoD" header="#{msg['descripcionCCED']}" widgetVar="editarDescripcionCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionCCDebitoD" header="#{msg['descripcionCCED']}" widgetVar="editarDescripcionCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCDebitoD" header="#{msg['ccED']}" widgetVar="editarCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCCDebitoD" header="#{msg['ccED']}" widgetVar="editarCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoDebitoD" header="#{msg['tipoED']}" widgetVar="editarTipoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarTipoDebitoD" header="#{msg['tipoED']}" widgetVar="editarTipoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.tipocc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -529,45 +529,45 @@
                                  value="#{controlDetalleCuenta.listCuentasCredito}"> 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechainicialX']}" />
+                                <h:outputText value="#{msg['fechainicialX']}"/>
                             </f:facet>
-                            <h:outputText value="#{infoC.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoC.fechainicial}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechafinalX']}" />
+                                <h:outputText value="#{msg['fechafinalX']}"/>
                             </f:facet>
-                            <h:outputText value="#{infoC.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoC.fechafinal}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
                         <p:column headerText="#{msg['codigo']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
-                            <h:outputText value="#{infoC.concepto.codigo}" />
+                            <h:outputText value="#{infoC.concepto.codigo}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['descripcion']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['descripcion']}"/> </f:facet> 
-                            <h:outputText value="#{infoC.concepto.descripcion}" />
+                            <h:outputText value="#{infoC.concepto.descripcion}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['descripcionccX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['descripcioncc']}"/> </f:facet> 
-                            <h:outputText value="#{infoC.consolidadorc.nombre}" />
+                            <h:outputText value="#{infoC.consolidadorc.nombre}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['cc']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['cc']}"/> </f:facet> 
-                            <h:outputText value="#{infoC.consolidadorc.codigo}" />
+                            <h:outputText value="#{infoC.consolidadorc.codigo}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['tipo']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['tipo']}"/> </f:facet> 
-                            <h:outputText value="#{infoC.tipocc.nombre}" />
+                            <h:outputText value="#{infoC.tipocc.nombre}"/>
                         </p:column>
 
                     </p:dataTable>
@@ -578,45 +578,45 @@
                                  value="#{controlDetalleCuenta.listCuentasDebito}"> 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechainicialX']}" />
+                                <h:outputText value="#{msg['fechainicialX']}"/>
                             </f:facet>
-                            <h:outputText value="#{infoD.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoD.fechainicial}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['fechafinalX']}" />
+                                <h:outputText value="#{msg['fechafinalX']}"/>
                             </f:facet>
-                            <h:outputText value="#{infoD.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{infoD.fechafinal}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
                         <p:column headerText="#{msg['codigo']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
-                            <h:outputText value="#{infoD.concepto.codigo}" />
+                            <h:outputText value="#{infoD.concepto.codigo}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['descripcion']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['descripcion']}"/> </f:facet> 
-                            <h:outputText value="#{infoD.concepto.descripcion}" />
+                            <h:outputText value="#{infoD.concepto.descripcion}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['descripcionccX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['descripcioncc']}"/> </f:facet> 
-                            <h:outputText value="#{infoD.consolidadord.nombre}" />
+                            <h:outputText value="#{infoD.consolidadord.nombre}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['cc']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['cc']}"/> </f:facet> 
-                            <h:outputText value="#{infoD.consolidadord.codigo}" />
+                            <h:outputText value="#{infoD.consolidadord.codigo}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['tipo']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['tipo']}"/> </f:facet> 
-                            <h:outputText value="#{infoD.tipocc.nombre}" />
+                            <h:outputText value="#{infoD.tipocc.nombre}"/>
                         </p:column>
 
 

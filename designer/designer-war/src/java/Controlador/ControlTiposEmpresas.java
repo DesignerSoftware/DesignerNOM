@@ -37,205 +37,380 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlTiposEmpresas implements Serializable {
 
-    @EJB
-    AdministrarTiposEmpresasInterface administrarTiposEmpresas;
-    @EJB
-    AdministrarRastrosInterface administrarRastros;
+   @EJB
+   AdministrarTiposEmpresasInterface administrarTiposEmpresas;
+   @EJB
+   AdministrarRastrosInterface administrarRastros;
 
-    private List<TiposEmpresas> listTiposEmpresas;
-    private List<TiposEmpresas> filtrarTiposEmpresas;
-    private List<TiposEmpresas> crearTiposEmpresas;
-    private List<TiposEmpresas> modificarTiposEmpresas;
-    private List<TiposEmpresas> borrarTiposEmpresas;
-    private TiposEmpresas nuevoTiposEmpresas;
-    private TiposEmpresas duplicarTiposEmpresas;
-    private TiposEmpresas editarTiposEmpresas;
-    private TiposEmpresas tiposEmpresasSeleccionado;
-    //otros
-    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
-    private BigInteger l;
-    private boolean aceptar, guardado;
-    //AutoCompletar
-    private boolean permitirIndex, activarLov;
-    //RASTRO
-    private Column codigo, descripcion;
-    //borrado
-    private int registrosBorrados;
-    private String mensajeValidacion;
-    //filtrado table
-    private int tamano;
-    private String infoRegistro;
-    private String paginaAnterior = "nominaf";
-    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private List<TiposEmpresas> listTiposEmpresas;
+   private List<TiposEmpresas> filtrarTiposEmpresas;
+   private List<TiposEmpresas> crearTiposEmpresas;
+   private List<TiposEmpresas> modificarTiposEmpresas;
+   private List<TiposEmpresas> borrarTiposEmpresas;
+   private TiposEmpresas nuevoTiposEmpresas;
+   private TiposEmpresas duplicarTiposEmpresas;
+   private TiposEmpresas editarTiposEmpresas;
+   private TiposEmpresas tiposEmpresasSeleccionado;
+   //otros
+   private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+   private BigInteger l;
+   private boolean aceptar, guardado;
+   //AutoCompletar
+   private boolean permitirIndex, activarLov;
+   //RASTRO
+   private Column codigo, descripcion;
+   //borrado
+   private int registrosBorrados;
+   private String mensajeValidacion;
+   //filtrado table
+   private int tamano;
+   private String infoRegistro;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-    public ControlTiposEmpresas() {
-        listTiposEmpresas = null;
-        crearTiposEmpresas = new ArrayList<TiposEmpresas>();
-        modificarTiposEmpresas = new ArrayList<TiposEmpresas>();
-        borrarTiposEmpresas = new ArrayList<TiposEmpresas>();
-        permitirIndex = true;
-        editarTiposEmpresas = new TiposEmpresas();
-        nuevoTiposEmpresas = new TiposEmpresas();
-        duplicarTiposEmpresas = new TiposEmpresas();
-        guardado = true;
-        tamano = 270;
-        activarLov = true;
-        mapParametros.put("paginaAnterior", paginaAnterior);
-    }
+   public ControlTiposEmpresas() {
+      listTiposEmpresas = null;
+      crearTiposEmpresas = new ArrayList<TiposEmpresas>();
+      modificarTiposEmpresas = new ArrayList<TiposEmpresas>();
+      borrarTiposEmpresas = new ArrayList<TiposEmpresas>();
+      permitirIndex = true;
+      editarTiposEmpresas = new TiposEmpresas();
+      nuevoTiposEmpresas = new TiposEmpresas();
+      duplicarTiposEmpresas = new TiposEmpresas();
+      guardado = true;
+      tamano = 270;
+      activarLov = true;
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
 
    public void limpiarListasValor() {
 
    }
 
    @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarTiposEmpresas.obtenerConexion(ses.getId());
-            administrarRastros.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarTiposEmpresas.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
 
-    public void recibirPaginaEntrante(String pagina) {
-        paginaAnterior = pagina;
-        //inicializarCosas(); Inicializar cosas de ser necesario
-    }
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
-    public void recibirParametros(Map<String, Object> map) {
-        mapParametros = map;
-        paginaAnterior = (String) mapParametros.get("paginaAnterior");
-        //inicializarCosas(); Inicializar cosas de ser necesario
-    }
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
-    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc,"#{controlListaNavegacion}", ControlListaNavegacion.class);
-        if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
-        } else {
-            String pagActual = "tipoempresa";
-            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-            //mapParametros.put("paginaAnterior", pagActual);
-            //mas Parametros
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      /*if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+
+      } else {
+         */
+String pagActual = "tipoempresa";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-            //      } else if (pag.equals("rastrotablaH")) {
-            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //     controlRastro.historicosTabla("Conceptos", pagActual);
-            //   pag = "rastrotabla";
-            //}
-            controlListaNavegacion.guardarNavegacion(pagActual, pag);
-        }
-        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+      }
+      limpiarListasValor();
+   }
 
-    public void eventoFiltrar() {
-        try {
-            if (tipoLista == 0) {
-                tipoLista = 1;
+   public void eventoFiltrar() {
+      try {
+         if (tipoLista == 0) {
+            tipoLista = 1;
+         }
+         contarRegistros();
+      } catch (Exception e) {
+         System.out.println("ERROR ControlTiposEmpresas eventoFiltrar ERROR===" + e.getMessage());
+      }
+   }
+
+   public void cambiarIndice(TiposEmpresas tipo, int celda) {
+
+      if (permitirIndex == true) {
+         tiposEmpresasSeleccionado = tipo;
+         cualCelda = celda;
+         tiposEmpresasSeleccionado.getSecuencia();
+         if (cualCelda == 0) {
+            tiposEmpresasSeleccionado.getCodigo();
+
+         } else if (cualCelda == 1) {
+            tiposEmpresasSeleccionado.getDescripcion();
+         }
+      }
+   }
+
+   public void activarAceptar() {
+      aceptar = false;
+   }
+
+   public void cancelarModificacion() {
+      if (bandera == 1) {
+         //CERRAR FILTRADO
+         FacesContext c = FacesContext.getCurrentInstance();
+         codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
+         codigo.setFilterStyle("display: none; visibility: hidden;");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
+         descripcion.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         bandera = 0;
+         filtrarTiposEmpresas = null;
+         tipoLista = 0;
+         tamano = 270;
+      }
+      borrarTiposEmpresas.clear();
+      crearTiposEmpresas.clear();
+      modificarTiposEmpresas.clear();
+      tiposEmpresasSeleccionado = null;
+      k = 0;
+      listTiposEmpresas = null;
+      guardado = true;
+      permitirIndex = true;
+      getListTiposEmpresas();
+      contarRegistros();
+      RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
+
+   public void salir() {
+      limpiarListasValor();
+      if (bandera == 1) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
+         codigo.setFilterStyle("display: none; visibility: hidden;");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
+         descripcion.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         bandera = 0;
+         filtrarTiposEmpresas = null;
+         tipoLista = 0;
+         tamano = 270;
+      }
+      borrarTiposEmpresas.clear();
+      crearTiposEmpresas.clear();
+      modificarTiposEmpresas.clear();
+      tiposEmpresasSeleccionado = null;
+      k = 0;
+      listTiposEmpresas = null;
+      guardado = true;
+      permitirIndex = true;
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
+   }
+
+   public void activarCtrlF11() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 0) {
+         tamano = 250;
+         codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
+         codigo.setFilterStyle("width: 85% !important;");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
+         descripcion.setFilterStyle("width: 85% !important;");
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         System.out.println("Activar");
+         bandera = 1;
+      } else if (bandera == 1) {
+         System.out.println("Desactivar");
+         tamano = 270;
+         codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
+         codigo.setFilterStyle("display: none; visibility: hidden;");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
+         descripcion.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         bandera = 0;
+         filtrarTiposEmpresas = null;
+         tipoLista = 0;
+      }
+   }
+
+   public void modificarTiposEmpresas(TiposEmpresas tipo) {
+      tiposEmpresasSeleccionado = tipo;
+
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (!crearTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
+         if (modificarTiposEmpresas.isEmpty()) {
+            modificarTiposEmpresas.add(tiposEmpresasSeleccionado);
+         } else if (!modificarTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
+            modificarTiposEmpresas.add(tiposEmpresasSeleccionado);
+         }
+         if (guardado == true) {
+            guardado = false;
+
+         }
+      }
+      RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+   }
+
+   public void borrandoTiposEmpresas() {
+      if (tiposEmpresasSeleccionado != null) {
+         System.out.println("Entro a borrandoTiposEmpresas");
+         if (!modificarTiposEmpresas.isEmpty() && modificarTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
+            int modIndex = modificarTiposEmpresas.indexOf(tiposEmpresasSeleccionado);
+            modificarTiposEmpresas.remove(modIndex);
+            borrarTiposEmpresas.add(tiposEmpresasSeleccionado);
+         } else if (!crearTiposEmpresas.isEmpty() && crearTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
+            int crearIndex = crearTiposEmpresas.indexOf(tiposEmpresasSeleccionado);
+            crearTiposEmpresas.remove(crearIndex);
+         } else {
+            borrarTiposEmpresas.add(tiposEmpresasSeleccionado);
+         }
+         listTiposEmpresas.remove(tiposEmpresasSeleccionado);
+         if (tipoLista == 1) {
+            filtrarTiposEmpresas.remove(tiposEmpresasSeleccionado);
+         }
+         tiposEmpresasSeleccionado = null;
+         contarRegistros();
+         if (guardado == true) {
+            guardado = false;
+         }
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistros').show()");
+      }
+   }
+
+   public void revisarDialogoGuardar() {
+      if (!borrarTiposEmpresas.isEmpty() || !crearTiposEmpresas.isEmpty() || !modificarTiposEmpresas.isEmpty()) {
+         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+      }
+   }
+
+   public void guardarYSalir() {
+      guardarTiposEmpresas();
+      salir();
+   }
+
+   public void guardarTiposEmpresas() {
+      RequestContext context = RequestContext.getCurrentInstance();
+
+      if (guardado == false) {
+         if (!borrarTiposEmpresas.isEmpty()) {
+            administrarTiposEmpresas.borrarTiposEmpresas(borrarTiposEmpresas);
+            registrosBorrados = borrarTiposEmpresas.size();
+            RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+            RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+            borrarTiposEmpresas.clear();
+         }
+         if (!modificarTiposEmpresas.isEmpty()) {
+            administrarTiposEmpresas.modificarTiposEmpresas(modificarTiposEmpresas);
+            modificarTiposEmpresas.clear();
+         }
+         if (!crearTiposEmpresas.isEmpty()) {
+            administrarTiposEmpresas.crearTiposEmpresas(crearTiposEmpresas);
+            crearTiposEmpresas.clear();
+         }
+         System.out.println("Se guardaron los datos con exito");
+         listTiposEmpresas = null;
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         k = 0;
+         guardado = true;
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      }
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+   }
+
+   public void editarCelda() {
+      if (tiposEmpresasSeleccionado != null) {
+         editarTiposEmpresas = tiposEmpresasSeleccionado;
+         if (cualCelda == 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
+            RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 1) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
+            RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
+            cualCelda = -1;
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public void agregarNuevoTiposEmpresas() {
+      System.out.println("agregarNuevoTiposEmpresas");
+      int contador = 0;
+      int duplicados = 0;
+      Integer a = 0;
+      a = null;
+      mensajeValidacion = " ";
+      if (nuevoTiposEmpresas.getCodigo() == a) {
+         mensajeValidacion = "El campo código no puede estar vacío";
+      } else {
+         for (int x = 0; x < listTiposEmpresas.size(); x++) {
+            if (listTiposEmpresas.get(x).getCodigo() == nuevoTiposEmpresas.getCodigo()) {
+               duplicados++;
             }
-            contarRegistros();
-        } catch (Exception e) {
-            System.out.println("ERROR ControlTiposEmpresas eventoFiltrar ERROR===" + e.getMessage());
-        }
-    }
+         }
+         if (duplicados > 0) {
+            mensajeValidacion = "El código ingresado ya existe. Por favor ingrese un código válido";
+         } else {
+            contador++;
+         }
+      }
+      if (nuevoTiposEmpresas.getDescripcion() == null) {
+         mensajeValidacion = "El campo descripción no puede estar vacío";
+      } else if (nuevoTiposEmpresas.getDescripcion().isEmpty()) {
+         mensajeValidacion = "El campo descripción no puede estar vacío";
+      } else {
+         contador++;
+      }
 
-    public void cambiarIndice(TiposEmpresas tipo, int celda) {
-
-        if (permitirIndex == true) {
-            tiposEmpresasSeleccionado = tipo;
-            cualCelda = celda;
-            tiposEmpresasSeleccionado.getSecuencia();
-            if (cualCelda == 0) {
-                tiposEmpresasSeleccionado.getCodigo();
-
-            } else if (cualCelda == 1) {
-                tiposEmpresasSeleccionado.getDescripcion();
-            }
-        }
-    }
-
-    public void activarAceptar() {
-        aceptar = false;
-    }
-
-    public void cancelarModificacion() {
-        if (bandera == 1) {
-            //CERRAR FILTRADO
+      if (contador == 2) {
+         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-            bandera = 0;
-            filtrarTiposEmpresas = null;
-            tipoLista = 0;
-            tamano = 270;
-        }
-        borrarTiposEmpresas.clear();
-        crearTiposEmpresas.clear();
-        modificarTiposEmpresas.clear();
-        tiposEmpresasSeleccionado = null;
-        k = 0;
-        listTiposEmpresas = null;
-        guardado = true;
-        permitirIndex = true;
-        getListTiposEmpresas();
-        contarRegistros();
-        RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void salir() {  limpiarListasValor();
-        if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-            bandera = 0;
-            filtrarTiposEmpresas = null;
-            tipoLista = 0;
-            tamano = 270;
-        }
-        borrarTiposEmpresas.clear();
-        crearTiposEmpresas.clear();
-        modificarTiposEmpresas.clear();
-        tiposEmpresasSeleccionado = null;
-        k = 0;
-        listTiposEmpresas = null;
-        guardado = true;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void activarCtrlF11() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 0) {
-            tamano = 250;
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
-            codigo.setFilterStyle("width: 85% !important;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
-            descripcion.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-            System.out.println("Activar");
-            bandera = 1;
-        } else if (bandera == 1) {
             System.out.println("Desactivar");
-            tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
@@ -244,425 +419,275 @@ public class ControlTiposEmpresas implements Serializable {
             bandera = 0;
             filtrarTiposEmpresas = null;
             tipoLista = 0;
-        }
-    }
+         }
+         k++;
+         l = BigInteger.valueOf(k);
+         nuevoTiposEmpresas.setSecuencia(l);
+         crearTiposEmpresas.add(nuevoTiposEmpresas);
+         listTiposEmpresas.add(nuevoTiposEmpresas);
+         tiposEmpresasSeleccionado = nuevoTiposEmpresas;
+         contarRegistros();
+         nuevoTiposEmpresas = new TiposEmpresas();
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
 
-    public void modificarTiposEmpresas(TiposEmpresas tipo) {
-        tiposEmpresasSeleccionado = tipo;
-
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (!crearTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
-            if (modificarTiposEmpresas.isEmpty()) {
-                modificarTiposEmpresas.add(tiposEmpresasSeleccionado);
-            } else if (!modificarTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
-                modificarTiposEmpresas.add(tiposEmpresasSeleccionado);
-            }
-            if (guardado == true) {
-                guardado = false;
-
-            }
-        }
-        RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-    }
-
-    public void borrandoTiposEmpresas() {
-        if (tiposEmpresasSeleccionado != null) {
-            System.out.println("Entro a borrandoTiposEmpresas");
-            if (!modificarTiposEmpresas.isEmpty() && modificarTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
-                int modIndex = modificarTiposEmpresas.indexOf(tiposEmpresasSeleccionado);
-                modificarTiposEmpresas.remove(modIndex);
-                borrarTiposEmpresas.add(tiposEmpresasSeleccionado);
-            } else if (!crearTiposEmpresas.isEmpty() && crearTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
-                int crearIndex = crearTiposEmpresas.indexOf(tiposEmpresasSeleccionado);
-                crearTiposEmpresas.remove(crearIndex);
-            } else {
-                borrarTiposEmpresas.add(tiposEmpresasSeleccionado);
-            }
-            listTiposEmpresas.remove(tiposEmpresasSeleccionado);
-            if (tipoLista == 1) {
-                filtrarTiposEmpresas.remove(tiposEmpresasSeleccionado);
-            }
-            tiposEmpresasSeleccionado = null;
-            contarRegistros();
-            if (guardado == true) {
-                guardado = false;
-            }
-            RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         if (guardado == true) {
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistros').show()");
-        }
-    }
+         }
+         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposEmpresas').hide()");
+      } else {
+         RequestContext.getCurrentInstance().update("form:validacionNuevoTipoEmpresa");
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoEmpresa').show()");
+         contador = 0;
+      }
+   }
 
-    public void revisarDialogoGuardar() {
-        if (!borrarTiposEmpresas.isEmpty() || !crearTiposEmpresas.isEmpty() || !modificarTiposEmpresas.isEmpty()) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-        }
-    }
+   public void limpiarNuevoTiposEmpresas() {
+      System.out.println("limpiarNuevoTiposEmpresas");
+      nuevoTiposEmpresas = new TiposEmpresas();
+   }
 
-    public void guardarTiposEmpresas() {
-        RequestContext context = RequestContext.getCurrentInstance();
+   //------------------------------------------------------------------------------
+   public void duplicandoTiposEmpresas() {
+      System.out.println("duplicandoTiposEmpresas");
+      if (tiposEmpresasSeleccionado != null) {
+         duplicarTiposEmpresas = new TiposEmpresas();
+         k++;
+         l = BigInteger.valueOf(k);
+         duplicarTiposEmpresas.setSecuencia(l);
+         duplicarTiposEmpresas.setCodigo(tiposEmpresasSeleccionado.getCodigo());
+         duplicarTiposEmpresas.setDescripcion(tiposEmpresasSeleccionado.getDescripcion());
+         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposEmpresas').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro'),show()");
+      }
+   }
 
-        if (guardado == false) {
-            if (!borrarTiposEmpresas.isEmpty()) {
-                administrarTiposEmpresas.borrarTiposEmpresas(borrarTiposEmpresas);
-                registrosBorrados = borrarTiposEmpresas.size();
-                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-                borrarTiposEmpresas.clear();
-            }
-            if (!modificarTiposEmpresas.isEmpty()) {
-                administrarTiposEmpresas.modificarTiposEmpresas(modificarTiposEmpresas);
-                modificarTiposEmpresas.clear();
-            }
-            if (!crearTiposEmpresas.isEmpty()) {
-                administrarTiposEmpresas.crearTiposEmpresas(crearTiposEmpresas);
-                crearTiposEmpresas.clear();
-            }
-            System.out.println("Se guardaron los datos con exito");
-            listTiposEmpresas = null;
-            RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-            k = 0;
-            guardado = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   public void confirmarDuplicar() {
+      int contador = 0;
+      mensajeValidacion = " ";
+      int duplicados = 0;
+      RequestContext context = RequestContext.getCurrentInstance();
+      Integer a = 0;
+      a = null;
+      System.err.println("ConfirmarDuplicar codigo " + duplicarTiposEmpresas.getCodigo());
+      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposEmpresas.getDescripcion());
 
-    }
-
-    public void editarCelda() {
-        if (tiposEmpresasSeleccionado != null) {
-            editarTiposEmpresas = tiposEmpresasSeleccionado;
-            if (cualCelda == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
-                cualCelda = -1;
-            } else if (cualCelda == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
-                cualCelda = -1;
+      if (duplicarTiposEmpresas.getCodigo() == a) {
+         mensajeValidacion = "El campo código no puede estar vacío";
+      } else {
+         for (int x = 0; x < listTiposEmpresas.size(); x++) {
+            if (listTiposEmpresas.get(x).getCodigo() == duplicarTiposEmpresas.getCodigo()) {
+               duplicados++;
             }
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-        }
-    }
-
-    public void agregarNuevoTiposEmpresas() {
-        System.out.println("agregarNuevoTiposEmpresas");
-        int contador = 0;
-        int duplicados = 0;
-        Integer a = 0;
-        a = null;
-        mensajeValidacion = " ";
-        if (nuevoTiposEmpresas.getCodigo() == a) {
-            mensajeValidacion = "El campo código no puede estar vacío";
-        } else {
-            for (int x = 0; x < listTiposEmpresas.size(); x++) {
-                if (listTiposEmpresas.get(x).getCodigo() == nuevoTiposEmpresas.getCodigo()) {
-                    duplicados++;
-                }
-            }
-            if (duplicados > 0) {
-                mensajeValidacion = "El código ingresado ya existe. Por favor ingrese un código válido";
-            } else {
-                contador++;
-            }
-        }
-        if (nuevoTiposEmpresas.getDescripcion() == null) {
-            mensajeValidacion = "El campo descripción no puede estar vacío";
-        } else if (nuevoTiposEmpresas.getDescripcion().isEmpty()) {
-            mensajeValidacion = "El campo descripción no puede estar vacío";
-        } else {
+         }
+         if (duplicados > 0) {
+            mensajeValidacion = "El código ingresado ya existe. Por favor ingrese un código válido";
+         } else {
             contador++;
-        }
+            duplicados = 0;
+         }
+      }
+      if (duplicarTiposEmpresas.getDescripcion() == null) {
+         mensajeValidacion = "El campo descripción no puede estar vacío";
+      } else if (duplicarTiposEmpresas.getDescripcion().isEmpty()) {
+         mensajeValidacion = "El campo descripción no puede estar vacío";
+      } else {
+         System.out.println("bandera");
+         contador++;
+      }
 
-        if (contador == 2) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                System.out.println("Desactivar");
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
-                codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
-                descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-                bandera = 0;
-                filtrarTiposEmpresas = null;
-                tipoLista = 0;
-            }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevoTiposEmpresas.setSecuencia(l);
-            crearTiposEmpresas.add(nuevoTiposEmpresas);
-            listTiposEmpresas.add(nuevoTiposEmpresas);
-            tiposEmpresasSeleccionado = nuevoTiposEmpresas;
-            contarRegistros();
-            nuevoTiposEmpresas = new TiposEmpresas();
+      if (contador == 2) {
+         listTiposEmpresas.add(duplicarTiposEmpresas);
+         crearTiposEmpresas.add(duplicarTiposEmpresas);
+         tiposEmpresasSeleccionado = duplicarTiposEmpresas;
+         RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+         if (guardado == true) {
+            guardado = false;
+         }
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         contarRegistros();
+
+         if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
+            bandera = 0;
+            filtrarTiposEmpresas = null;
+            tipoLista = 0;
+         }
+         duplicarTiposEmpresas = new TiposEmpresas();
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposEmpresas').hide()");
 
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposEmpresas').hide()");
-        } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevoTipoEmpresa");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoEmpresa').show()");
-            contador = 0;
-        }
-    }
+      } else {
+         contador = 0;
+         RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+         RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+      }
+   }
 
-    public void limpiarNuevoTiposEmpresas() {
-        System.out.println("limpiarNuevoTiposEmpresas");
-        nuevoTiposEmpresas = new TiposEmpresas();
-    }
+   public void limpiarDuplicarTiposEmpresas() {
+      duplicarTiposEmpresas = new TiposEmpresas();
+   }
 
-    //------------------------------------------------------------------------------
-    public void duplicandoTiposEmpresas() {
-        System.out.println("duplicandoTiposEmpresas");
-        if (tiposEmpresasSeleccionado != null) {
-            duplicarTiposEmpresas = new TiposEmpresas();
-            k++;
-            l = BigInteger.valueOf(k);
-            duplicarTiposEmpresas.setSecuencia(l);
-            duplicarTiposEmpresas.setCodigo(tiposEmpresasSeleccionado.getCodigo());
-            duplicarTiposEmpresas.setDescripcion(tiposEmpresasSeleccionado.getDescripcion());
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposEmpresas').show()");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro'),show()");
-        }
-    }
+   public void exportPDF() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposEmpresasExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarPDF();
+      exporter.export(context, tabla, "TIPOSEMPRESAS", false, false, "UTF-8", null, null);
+      context.responseComplete();
+   }
 
-    public void confirmarDuplicar() {
-        int contador = 0;
-        mensajeValidacion = " ";
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        Integer a = 0;
-        a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarTiposEmpresas.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposEmpresas.getDescripcion());
+   public void exportXLS() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposEmpresasExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarXLS();
+      exporter.export(context, tabla, "TIPOSEMPRESAS", false, false, "UTF-8", null, null);
+      context.responseComplete();
+   }
 
-        if (duplicarTiposEmpresas.getCodigo() == a) {
-            mensajeValidacion = "El campo código no puede estar vacío";
-        } else {
-            for (int x = 0; x < listTiposEmpresas.size(); x++) {
-                if (listTiposEmpresas.get(x).getCodigo() == duplicarTiposEmpresas.getCodigo()) {
-                    duplicados++;
-                }
-            }
-            if (duplicados > 0) {
-                mensajeValidacion = "El código ingresado ya existe. Por favor ingrese un código válido";
-            } else {
-                contador++;
-                duplicados = 0;
-            }
-        }
-        if (duplicarTiposEmpresas.getDescripcion() == null) {
-            mensajeValidacion = "El campo descripción no puede estar vacío";
-        } else if (duplicarTiposEmpresas.getDescripcion().isEmpty()) {
-            mensajeValidacion = "El campo descripción no puede estar vacío";
-        } else {
-            System.out.println("bandera");
-            contador++;
-        }
+   public void verificarRastro() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (tiposEmpresasSeleccionado != null) {
+         int resultado = administrarRastros.obtenerTabla(tiposEmpresasSeleccionado.getSecuencia(), "TIPOSEMPRESAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+         }
+      } else if (administrarRastros.verificarHistoricosTabla(
+              "TIPOSEMPRESAS")) { // igual acá
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+      }
+   }
 
-        if (contador == 2) {
-            listTiposEmpresas.add(duplicarTiposEmpresas);
-            crearTiposEmpresas.add(duplicarTiposEmpresas);
-            tiposEmpresasSeleccionado = duplicarTiposEmpresas;
-            RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-            if (guardado == true) {
-                guardado = false;
-            }
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            contarRegistros();
-
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
-                codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
-                descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-                bandera = 0;
-                filtrarTiposEmpresas = null;
-                tipoLista = 0;
-            }
-            duplicarTiposEmpresas = new TiposEmpresas();
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposEmpresas').hide()");
-
-        } else {
-            contador = 0;
-            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
-        }
-    }
-
-    public void limpiarDuplicarTiposEmpresas() {
-        duplicarTiposEmpresas = new TiposEmpresas();
-    }
-
-    public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposEmpresasExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "TIPOSEMPRESAS", false, false, "UTF-8", null, null);
-        context.responseComplete();
-    }
-
-    public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposEmpresasExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "TIPOSEMPRESAS", false, false, "UTF-8", null, null);
-        context.responseComplete();
-    }
-
-    public void verificarRastro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tiposEmpresasSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(tiposEmpresasSeleccionado.getSecuencia(), "TIPOSEMPRESAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            if (resultado == 1) {
-                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-        } else if (administrarRastros.verificarHistoricosTabla(
-                "TIPOSEMPRESAS")) { // igual acá
-            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-        }
-    }
-
-    public void contarRegistros() {
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-    }
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
 
 //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
-    public List<TiposEmpresas> getListTiposEmpresas() {
-        if (listTiposEmpresas == null) {
-            System.out.println("ControlTiposEmpresas getListTiposEmpresas");
-            listTiposEmpresas = administrarTiposEmpresas.consultarTiposEmpresas();
-        }
-        return listTiposEmpresas;
-    }
+   public List<TiposEmpresas> getListTiposEmpresas() {
+      if (listTiposEmpresas == null) {
+         System.out.println("ControlTiposEmpresas getListTiposEmpresas");
+         listTiposEmpresas = administrarTiposEmpresas.consultarTiposEmpresas();
+      }
+      return listTiposEmpresas;
+   }
 
-    public void setListTiposEmpresas(List<TiposEmpresas> listTiposEmpresas) {
-        this.listTiposEmpresas = listTiposEmpresas;
-    }
+   public void setListTiposEmpresas(List<TiposEmpresas> listTiposEmpresas) {
+      this.listTiposEmpresas = listTiposEmpresas;
+   }
 
-    public List<TiposEmpresas> getFiltrarTiposEmpresas() {
-        return filtrarTiposEmpresas;
-    }
+   public List<TiposEmpresas> getFiltrarTiposEmpresas() {
+      return filtrarTiposEmpresas;
+   }
 
-    public void setFiltrarTiposEmpresas(List<TiposEmpresas> filtrarTiposEmpresas) {
-        this.filtrarTiposEmpresas = filtrarTiposEmpresas;
-    }
+   public void setFiltrarTiposEmpresas(List<TiposEmpresas> filtrarTiposEmpresas) {
+      this.filtrarTiposEmpresas = filtrarTiposEmpresas;
+   }
 
-    public TiposEmpresas getNuevoTiposEmpresas() {
-        return nuevoTiposEmpresas;
-    }
+   public TiposEmpresas getNuevoTiposEmpresas() {
+      return nuevoTiposEmpresas;
+   }
 
-    public void setNuevoTiposEmpresas(TiposEmpresas nuevoTiposEmpresas) {
-        this.nuevoTiposEmpresas = nuevoTiposEmpresas;
-    }
+   public void setNuevoTiposEmpresas(TiposEmpresas nuevoTiposEmpresas) {
+      this.nuevoTiposEmpresas = nuevoTiposEmpresas;
+   }
 
-    public TiposEmpresas getDuplicarTiposEmpresas() {
-        return duplicarTiposEmpresas;
-    }
+   public TiposEmpresas getDuplicarTiposEmpresas() {
+      return duplicarTiposEmpresas;
+   }
 
-    public void setDuplicarTiposEmpresas(TiposEmpresas duplicarTiposEmpresas) {
-        this.duplicarTiposEmpresas = duplicarTiposEmpresas;
-    }
+   public void setDuplicarTiposEmpresas(TiposEmpresas duplicarTiposEmpresas) {
+      this.duplicarTiposEmpresas = duplicarTiposEmpresas;
+   }
 
-    public TiposEmpresas getEditarTiposEmpresas() {
-        return editarTiposEmpresas;
-    }
+   public TiposEmpresas getEditarTiposEmpresas() {
+      return editarTiposEmpresas;
+   }
 
-    public void setEditarTiposEmpresas(TiposEmpresas editarTiposEmpresas) {
-        this.editarTiposEmpresas = editarTiposEmpresas;
-    }
+   public void setEditarTiposEmpresas(TiposEmpresas editarTiposEmpresas) {
+      this.editarTiposEmpresas = editarTiposEmpresas;
+   }
 
-    public int getRegistrosBorrados() {
-        return registrosBorrados;
-    }
+   public int getRegistrosBorrados() {
+      return registrosBorrados;
+   }
 
-    public void setRegistrosBorrados(int registrosBorrados) {
-        this.registrosBorrados = registrosBorrados;
-    }
+   public void setRegistrosBorrados(int registrosBorrados) {
+      this.registrosBorrados = registrosBorrados;
+   }
 
-    public String getMensajeValidacion() {
-        return mensajeValidacion;
-    }
+   public String getMensajeValidacion() {
+      return mensajeValidacion;
+   }
 
-    public void setMensajeValidacion(String mensajeValidacion) {
-        this.mensajeValidacion = mensajeValidacion;
-    }
+   public void setMensajeValidacion(String mensajeValidacion) {
+      this.mensajeValidacion = mensajeValidacion;
+   }
 
-    public boolean isGuardado() {
-        return guardado;
-    }
+   public boolean isGuardado() {
+      return guardado;
+   }
 
-    public void setGuardado(boolean guardado) {
-        this.guardado = guardado;
-    }
+   public void setGuardado(boolean guardado) {
+      this.guardado = guardado;
+   }
 
-    public int getTamano() {
-        return tamano;
-    }
+   public int getTamano() {
+      return tamano;
+   }
 
-    public void setTamano(int tamano) {
-        this.tamano = tamano;
-    }
+   public void setTamano(int tamano) {
+      this.tamano = tamano;
+   }
 
-    public TiposEmpresas getTiposEmpresasSeleccionado() {
-        return tiposEmpresasSeleccionado;
-    }
+   public TiposEmpresas getTiposEmpresasSeleccionado() {
+      return tiposEmpresasSeleccionado;
+   }
 
-    public void setTiposEmpresasSeleccionado(TiposEmpresas tiposEmpresasSeleccionado) {
-        this.tiposEmpresasSeleccionado = tiposEmpresasSeleccionado;
-    }
+   public void setTiposEmpresasSeleccionado(TiposEmpresas tiposEmpresasSeleccionado) {
+      this.tiposEmpresasSeleccionado = tiposEmpresasSeleccionado;
+   }
 
-    public String getInfoRegistro() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTiposEmpresas");
-        infoRegistro = String.valueOf(tabla.getRowCount());
-        return infoRegistro;
-    }
+   public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTiposEmpresas");
+      infoRegistro = String.valueOf(tabla.getRowCount());
+      return infoRegistro;
+   }
 
-    public void setInfoRegistro(String infoRegistro) {
-        this.infoRegistro = infoRegistro;
-    }
+   public void setInfoRegistro(String infoRegistro) {
+      this.infoRegistro = infoRegistro;
+   }
 
-    public boolean isAceptar() {
-        return aceptar;
-    }
+   public boolean isAceptar() {
+      return aceptar;
+   }
 
-    public void setAceptar(boolean aceptar) {
-        this.aceptar = aceptar;
-    }
+   public void setAceptar(boolean aceptar) {
+      this.aceptar = aceptar;
+   }
 
-    public boolean isActivarLov() {
-        return activarLov;
-    }
+   public boolean isActivarLov() {
+      return activarLov;
+   }
 
-    public void setActivarLov(boolean activarLov) {
-        this.activarLov = activarLov;
-    }
+   public void setActivarLov(boolean activarLov) {
+      this.activarLov = activarLov;
+   }
 
 }

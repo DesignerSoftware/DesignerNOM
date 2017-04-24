@@ -136,15 +136,34 @@ public class ControlEmplVigenciaIndicador implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "emplvigenciaindicador";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "emplvigenciaindicador";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -154,12 +173,11 @@ public class ControlEmplVigenciaIndicador implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -449,6 +467,11 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             contarRegistroIndicador();
          }
       }
+   }
+
+   public void guardarYSalir() {
+      guardarCambiosV();
+      salir();
    }
 
    public void guardadoGeneral() {
@@ -805,10 +828,10 @@ public class ControlEmplVigenciaIndicador implements Serializable {
          filtrarListVigenciasIndicadores = null;
          tipoLista = 0;
       }
-
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (banderaV == 1) {
          altoTabla = "310";
          FacesContext c = FacesContext.getCurrentInstance();
@@ -837,12 +860,13 @@ public class ControlEmplVigenciaIndicador implements Serializable {
       guardado = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       tipoActualizacion = -1;
+      navegar("atras");
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 
    public void asignarIndex(VigenciasIndicadores vigenciaIndicador, int dlg, int LND) {
       RequestContext context = RequestContext.getCurrentInstance();
-     vigenciaTablaSeleccionada = vigenciaIndicador;
+      vigenciaTablaSeleccionada = vigenciaIndicador;
       tipoActualizacion = LND;
       if (dlg == 0) {
          contarRegistroTipo();

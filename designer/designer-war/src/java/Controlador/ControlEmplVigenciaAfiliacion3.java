@@ -173,15 +173,34 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "emplvigenciaafiliacion3";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "emplvigenciaafiliacion3";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -191,12 +210,11 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
       listEstadosAfiliaciones = null;
       listTerceros = null;
       listTiposEntidades = null;
@@ -1298,6 +1316,11 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    /**
     * Metodo de guardado general para la pagina
     */
+   public void guardarYSalir() {
+      guardadoGeneral();
+      salir();
+   }
+
    public void guardadoGeneral() {
       guardarCambiosVA();
       guardado = true;
@@ -1759,7 +1782,8 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       cerrarFiltrado();
       RequestContext.getCurrentInstance().update("form:listaValores");
       listVABorrar.clear();
@@ -1775,6 +1799,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       cambioVigenciaA = false;
       tipoActualizacion = -1;
       limpiarListasValor();
+      navegar("atras");
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 

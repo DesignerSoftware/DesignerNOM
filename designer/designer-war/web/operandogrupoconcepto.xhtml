@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
+      
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
@@ -14,10 +14,10 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.operandogrupoconcepto" var="msg" />
+                    <f:loadBundle basename="Recursos.operandogrupoconcepto" var="msg"/>
 
-                    <p:growl id="growl" showDetail="true" />
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 12px; position: absolute; width: 874px; height: 510px; text-align: left" >  
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 12px; position: absolute; width: 874px; height: 510px; text-align: left">  
 
                         <fieldset style="position: absolute; left: 220px; top: 75px; font-size: 11px; width: 430px; height: 168px; border-radius: 10px; ">
                             <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['procesos']}</legend>
@@ -30,8 +30,8 @@
                                 <p:ajax event="rowSelect" listener="#{controlOperandoGrupoConcepto.cambiarProceso()}"/>
 
 
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{p.descripcion}" filterBy="#{p.descripcion}" filterMatchMode="contains" id="pDescripcion" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <h:outputText value="#{p.descripcion}" />
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{p.descripcion}" filterBy="#{p.descripcion}" filterMatchMode="contains" id="pDescripcion" width="100" filterStyle="display: none; visibility: hidden;">                                  
+                                    <h:outputText value="#{p.descripcion}"/>
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
@@ -45,11 +45,11 @@
                                          editable="true" editMode="cell" scrollWidth="830" scrollHeight="#{controlOperandoGrupoConcepto.altoScrollOperandosGruposConceptos}" filteredValue="#{controlOperandoGrupoConcepto.filtradoListaOperandosGruposConceptos}" emptyMessage="Vacio">
 
 
-                                <p:column headerText="#{msg['operando']}" sortBy="#{o.operando.descripcion}" filterBy="#{o.operando.descripcion}" filterMatchMode="contains" id="oOperando" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['operando']}" sortBy="#{o.operando.descripcion}" filterBy="#{o.operando.descripcion}" filterMatchMode="contains" id="oOperando" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{o.operando.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{o.operando.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{o.operando.descripcion}" id="editarOperandoO" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{o.operando.descripcion}" id="editarOperandoO" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.modificarOperandosGruposConceptos(indice, 'OPERANDO', o.operando.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlOperandoGrupoConcepto.cambiarIndice(indice, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 0, 0)}"/>
@@ -62,11 +62,11 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['grupoconcepto']}" sortBy="#{o.grupoconcepto.descripcion}" filterBy="#{o.grupoconcepto.descripcion}" filterMatchMode="contains" id="oGrupo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['grupoconcepto']}" sortBy="#{o.grupoconcepto.descripcion}" filterBy="#{o.grupoconcepto.descripcion}" filterMatchMode="contains" id="oGrupo" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{o.grupoconcepto.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{o.grupoconcepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{o.grupoconcepto.descripcion}" id="editarGrupoConcepto" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{o.grupoconcepto.descripcion}" id="editarGrupoConcepto" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.modificarOperandosGruposConceptos(indice, 'GRUPO', o.grupoconcepto.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlOperandoGrupoConcepto.cambiarIndice(indice, 1)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 0)}"/>
@@ -83,54 +83,54 @@
                         </fieldset>
 
                         <p:toolbar style="font-size: 12px; position: absolute; top: 35px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlOperandoGrupoConcepto.guardarTodo()}" process="@this" />
-                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlOperandoGrupoConcepto.guardarTodo()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlOperandoGrupoConcepto.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
-
-                                <p:separator />
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlOperandoGrupoConcepto.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlOperandoGrupoConcepto.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlOperandoGrupoConcepto.editarCelda()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator />
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlOperandoGrupoConcepto.exportXLS()}" />
-                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlOperandoGrupoConcepto.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " actionListener="#{controlOperandoGrupoConcepto.limpiarNuevoOperando()}" ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlOperandoGrupoConcepto.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator />
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlOperandoGrupoConcepto.exportXLS()}"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png);" actionListener="#{controlOperandoGrupoConcepto.limpiarNuevoOperando()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlRetencion.tablaImprimir}" fileName="#{controlRetencion.nombreArchivo}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}"  />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlOperandoGrupoConcepto.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlOperandoGrupoConcepto.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoRegistroOperandosGruposConceptos').show()" update=":formularioDialogos:nuevoOperandoGrupoConcepto" process="@this"/>  
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroOperandosGruposConceptos').show()" update=":formularioDialogos:nuevoOperandoGrupoConcepto" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"  /> 
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlOperandoGrupoConcepto.borrar()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlOperandoGrupoConcepto.borrar()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlOperandoGrupoConcepto.duplicarE()}"  process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlOperandoGrupoConcepto.duplicarE()}"  process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}"/>
 
                                 <p:separator /> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlOperandoGrupoConcepto.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlOperandoGrupoConcepto.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
                             </p:toolbarGroup>
                         </p:toolbar>
 
-                        <p:commandButton style="position: absolute; left: 722px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlOperandoGrupoConcepto.cambiosPagina}" onclick="PF('confirmarGuardar').show();" update=":form:datosOperandosGruposConceptos" process="@this" />
-                        <p:commandButton style="position: absolute; left: 15px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlOperandoGrupoConcepto.cancelarModificacion()}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 805px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlOperandoGrupoConcepto.salir()}" action="individual" process="@this" /> 
+                        <p:commandButton style="position: absolute; left: 722px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlOperandoGrupoConcepto.cambiosPagina}" onclick="PF('confirmarGuardar').show();" update=":form:datosOperandosGruposConceptos" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 15px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlOperandoGrupoConcepto.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 805px; top: 470px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlOperandoGrupoConcepto.salir()}" action="empleadoindividual" process="@this"/> 
 
                     </p:panel>
                 </h:form>
@@ -139,26 +139,26 @@
                     <!-- Nuevo Operando -->
                     <p:dialog id="NuevoRegistroOperandosGruposConceptos" header="#{msg['nuevoregistro']}"  widgetVar="NuevoRegistroOperandosGruposConceptos" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="380" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoOperandoGrupoConcepto" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px; ">
 
-                                <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoOperando" value="#{controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(1, 'OPERANDO')}" />
-                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('OPERANDO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 1)}" />
-                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 0, 1)}" />
+                                <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="nuevoOperando" value="#{controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(1, 'OPERANDO')}"/>
+                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('OPERANDO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 1)}"/>
+                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 0, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top:17px;  " id="btnNuevoOperando" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice,0, 1)}" icon="ui-icon-search" process="@this" />
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top:17px; " id="btnNuevoOperando" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice,0, 1)}" icon="ui-icon-search" process="@this"/>
 
-                                <strong><h:outputText value="#{msg['grupoconceptoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="nuevoGrupo" value="#{controlOperandoGrupoConcepto.nuevoOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(1, 'GRUPO')}" />
-                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('GRUPO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 1)}" />
-                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 1)}" />
+                                <strong><h:outputText value="#{msg['grupoconceptoN']}" style="font-size: 12px; position: absolute; top: 57px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="nuevoGrupo" value="#{controlOperandoGrupoConcepto.nuevoOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(1, 'GRUPO')}"/>
+                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('GRUPO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 1)}"/>
+                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 57px;  " id="btnNuevoGrupo" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 1)}" icon="ui-icon-search" process="@this" />
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 57px; " id="btnNuevoGrupo" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 1)}" icon="ui-icon-search" process="@this"/>
 
                                 <p:commandButton id="limpiarN" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 130px;" actionListener="#{controlOperandoGrupoConcepto.limpiarNuevoOperando()}" update="nuevoOperandoGrupoConcepto" process="@this"/>
                                 <p:commandButton id="agregarN" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 190px; top: 130px;"  process="@this" actionListener="#{controlOperandoGrupoConcepto.agregarNuevoOperando()}"/>
@@ -174,26 +174,26 @@
 
                     <p:dialog id="DuplicarRegistroOperandosGruposConceptos" header="#{msg['duplicarregistro']}"  widgetVar="DuplicarRegistroOperandosGruposConceptos" closable="false" resizable="false"  draggable="true" modal="true"  height="200" width="380" style="font-size: 12px; padding: 0px">  
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarOperandoGrupoConcepto" style="border: none;">
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px; ">
 
-                                <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarOperando" value="#{controlOperandoGrupoConcepto.duplicarOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(2, 'OPERANDO')}" />
-                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('OPERANDO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 2)}" />
-                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 0, 2)}" />
+                                <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="duplicarOperando" value="#{controlOperandoGrupoConcepto.duplicarOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(2, 'OPERANDO')}"/>
+                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('OPERANDO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 2)}"/>
+                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 0, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top:17px;  " id="btnDuplicarOperando" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice,0, 2)}" icon="ui-icon-search" process="@this" />
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top:17px; " id="btnDuplicarOperando" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice,0, 2)}" icon="ui-icon-search" process="@this"/>
 
-                                <strong><h:outputText value="#{msg['grupoconceptoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText  autocomplete="off"  id="duplicarGrupo" value="#{controlOperandoGrupoConcepto.duplicarOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase" onclick="select();">
-                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(2, 'GRUPO')}" />
-                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('GRUPO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 2)}" />
-                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 2)}" />
+                                <strong><h:outputText value="#{msg['grupoconceptoN']}" style="font-size: 12px; position: absolute; top: 57px;"/></strong>
+                                <p:inputText  autocomplete="off"  id="duplicarGrupo" value="#{controlOperandoGrupoConcepto.duplicarOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase;" onclick="select();">
+                                    <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(2, 'GRUPO')}"/>
+                                    <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('GRUPO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 2)}"/>
+                                    <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 57px;  " id="btnDuplicarGrupo" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 2)}" icon="ui-icon-search" process="@this" />
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 57px; " id="btnDuplicarGrupo" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 2)}" icon="ui-icon-search" process="@this"/>
 
                                 <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 130px;" actionListener="#{controlOperandoGrupoConcepto.limpiarduplicarOperando()}" update="duplicarOperandoGrupoConcepto" process="@this"/>
                                 <p:commandButton id="agregarD" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 190px; top: 130px;"  process="@this" actionListener="#{controlOperandoGrupoConcepto.confirmarDuplicar()}"/>
@@ -211,24 +211,24 @@
                                       filteredValue="#{controlOperandoGrupoConcepto.lovfiltradoslistaOperandos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{o.secuencia}" selection="#{controlOperandoGrupoConcepto.operandosSeleccionado}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlOperandoGrupoConcepto.activarAceptar()}" update=":formularioDialogos:aceptarO"/>
-                            <p:ajax event="rowDblselect" listener="#{controlOperandoGrupoConcepto.actualizarOperandos()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlOperandoGrupoConcepto.actualizarOperandos()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarO']}" style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width: 150px; position: relative; left: 60px;"/>  
                             </f:facet>
 
-                            <p:column sortBy="#{o.nombre}" filterBy="#{o.nombre}" width="80%" filterMatchMode="contains" > 
+                            <p:column sortBy="#{o.nombre}" filterBy="#{o.nombre}" width="80%" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreO']}" />
+                                    <h:outputText value="#{msg['nombreO']}"/>
                                 </f:facet>
-                                <h:outputText value="#{o.nombre}" />  
+                                <h:outputText value="#{o.nombre}"/>  
                             </p:column>
 
-                            <p:column sortBy="#{o.codigo}" filterBy="#{o.codigo}" width="20%" filterStyle="width:40px;" filterMatchMode="contains" > 
+                            <p:column sortBy="#{o.codigo}" filterBy="#{o.codigo}" width="20%" filterStyle="width:40px;" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['codigoO']}" />
+                                    <h:outputText value="#{msg['codigoO']}"/>
                                 </f:facet>
-                                <h:outputText value="#{o.codigo}" />  
+                                <h:outputText value="#{o.codigo}"/>  
                             </p:column>
 
 
@@ -249,17 +249,17 @@
                                       filteredValue="#{controlOperandoGrupoConcepto.lovfiltradoslistaGruposConceptos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{g.secuencia}" selection="#{controlOperandoGrupoConcepto.gruposSeleccionado}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlOperandoGrupoConcepto.activarAceptar()}" update=":formularioDialogos:aceptarG"/>
-                            <p:ajax event="rowDblselect" listener="#{controlOperandoGrupoConcepto.actualizarGrupos()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlOperandoGrupoConcepto.actualizarGrupos()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarG']}" style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVGrupos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVGrupos').filter();" style="width: 150px; position: relative; left: 60px;"/>  
                             </f:facet>
 
-                            <p:column sortBy="#{g.descripcion}" filterBy="#{g.descripcion}"  filterMatchMode="contains" > 
+                            <p:column sortBy="#{g.descripcion}" filterBy="#{g.descripcion}"  filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcionG']}" />
+                                    <h:outputText value="#{msg['descripcionG']}"/>
                                 </f:facet>
-                                <h:outputText value="#{g.descripcion}" />  
+                                <h:outputText value="#{g.descripcion}"/>  
                             </p:column>
 
                         </p:dataTable>
@@ -273,15 +273,15 @@
                     <!-- DIALOGO CAMBIO DE EMPLEADO -->
                     <p:dialog id="cambiar" header="#{msg['atencion']}" widgetVar="cambiar"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('cambiar').hide();" actionListener="#{controlOperandoGrupoConcepto.guardarTodo()}" style="position: absolute; top: 63px; left: 230px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('cambiar').hide();" actionListener="#{controlOperandoGrupoConcepto.limpiarListas()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('cambiar').hide();" actionListener="#{controlOperandoGrupoConcepto.guardarTodo()}" style="position: absolute; top: 63px; left: 230px;" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('cambiar').hide();" actionListener="#{controlOperandoGrupoConcepto.limpiarListas()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevo" header="#{msg['atencion']}" widgetVar="validacionNuevo"  resizable="false" draggable="true" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionNuevo']}  #{controlOperandoGrupoConcepto.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['validacionNuevo']}  #{controlOperandoGrupoConcepto.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <!-- DIALOGOS EDITAR
@@ -301,58 +301,58 @@
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRetencion.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRetencion.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <!-- DIALOGOS Rastro Vigencias Retenciones -->
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlOperandoGrupoConcepto.secRegistro, 'OperandosGruposConceptos', 'operandosgruposconceptos')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlOperandoGrupoConcepto.secRegistro, 'OperandosGruposConceptos', 'operandosgruposconceptos')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('OperandosGruposConceptos', 'operandosgruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('OperandosGruposConceptos', 'operandosgruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'OperandosGruposConceptos', 'operandosgruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRetencion.secRegistro, 'OperandosGruposConceptos', 'operandosgruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                 </h:form>
@@ -365,12 +365,12 @@
 
                         <p:column headerText="#{msg['operandoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['operandoX']}"/> </f:facet> 
-                            <h:outputText value="#{o.operando.descripcion}" />
+                            <h:outputText value="#{o.operando.descripcion}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['grupoconceptoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['grupoconceptoX']}"/> </f:facet> 
-                            <h:outputText value="#{o.grupoconcepto.descripcion}" />
+                            <h:outputText value="#{o.grupoconcepto.descripcion}"/>
                         </p:column>  
 
                     </p:dataTable>

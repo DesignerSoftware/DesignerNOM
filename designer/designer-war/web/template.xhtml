@@ -6,14 +6,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
    <h:head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
-      <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
-      <link href="./resources/css/Tema.css" rel="stylesheet" type="text/css" />
-      <link rel="shortcut icon" href="Imagenes/Iconos/favicon.ico" />
-      <link rel="apple-touch-icon-precomposed" href="Imagenes/Iconos/innovina_icono_57x57.png" />
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="Imagenes/Iconos/innovina_icono_72x72.png" />
-      <link rel="apple-touch-icon-precomposed" sizes="180x180" href="Imagenes/Iconos/innovina_icono_180x180.png" />
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <link href="./resources/css/default.css" rel="stylesheet" type="text/css"/>
+      <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
+      <link href="./resources/css/Tema.css" rel="stylesheet" type="text/css"/>
+      <link rel="shortcut icon" href="Imagenes/Iconos/favicon.ico"/>
+      <link rel="apple-touch-icon-precomposed" href="Imagenes/Iconos/innovina_icono_57x57.png"/>
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="Imagenes/Iconos/innovina_icono_72x72.png"/>
+      <link rel="apple-touch-icon-precomposed" sizes="180x180" href="Imagenes/Iconos/innovina_icono_180x180.png"/>
       <script type="text/javascript" src="./resources/js/calendarioIdioma.js"></script>
       <title>..::Designer.NOM::..</title>
    </h:head>
@@ -25,8 +25,8 @@
       </script>
       <div class="loader"></div> 
       <div id="left" style="position: absolute; left: 0px; top:0px; width: 220px; height: 600px; padding-left: 5px; padding-right: 5px; background-image: url(Imagenes/Iconos/fondoizq.png); background-size: 100% 100%; background-repeat: repeat;">
-         <ui:insert name="left">
-            <ui:include src="templateleft.xhtml" />
+         <ui:insert name="left;">
+            <ui:include src="templateleft.xhtml"/>
          </ui:insert>
       </div>
       <div id="pnlRight" class="pnlRight_content">
@@ -36,7 +36,7 @@
             </ui:insert>
          </div>
          <div id="content" class="left_content">
-            <ui:insert name="body" />
+            <ui:insert name="body"/>
             <h:outputLabel style="position: absolute; left: 5px; top: 550px; width: 570px; font-size: 9px; font-weight: bold; color: #003382" 
                            value="Designer Software Ltda. - Su compa&ntilde;&iacute;a de Tecnolog&iacute;a y Consultor&iacute;a en N&oacute;mina y Talento Humano desde 1998"/>
          </div>
@@ -44,10 +44,10 @@
       <ui:insert name="status">
          <p:ajaxStatus style="width:50px; height:50px; position:fixed; right:50px; bottom:50px">
             <f:facet name="start">
-               <p:graphicImage value="Imagenes/Iconos/cargando.gif" stream="false" style="width: 50px; height: 50px; "/>
+               <p:graphicImage value="Imagenes/Iconos/cargando.gif" stream="false" style="width: 50px; height: 50px;"/>
             </f:facet>
             <f:facet name="complete">
-               <h:outputText value="" />
+               <h:outputText value=""/>
             </f:facet>
          </p:ajaxStatus>
       </ui:insert>

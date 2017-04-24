@@ -13,47 +13,47 @@
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Tipo de Ausentismo" styleClass="panelTotal">    
-                        <f:loadBundle basename="Recursos.diagnosticoscategorias" var="msg" />
+                        <f:loadBundle basename="Recursos.diagnosticoscategorias" var="msg"/>
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.guardarTodo()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.guardarTodo()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlDiagnosticosCategorias.isActivarLov()}"  process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.limpiarExportar()}"  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlDiagnosticosCategorias.tablaImprimir}" fileName="#{controlDiagnosticosCategorias.nombreArchivo}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoElegirTabla()}"   process="@this"/> 
                                 <!--update=":formularioDialogos:nuevaTipoempresa"-->
-                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) ; border: none;"  actionListener="#{controlDiagnosticosCategorias.borrarCategoria()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
@@ -73,35 +73,35 @@
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlDiagnosticosCategorias.revisarDialogoGuardar()}" disabled="#{controlDiagnosticosCategorias.isGuardado()}"    process="@this"   />
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"   />
 
-                        <fieldset style="position: absolute;top: 70px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 70px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Capítulo</strong></legend>
                             <p:dataTable id="datosCapitulos" widgetVar="datosCapitulos" var="capitulo" rowKey="#{capitulo.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: none; "                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCapitulos}" scrollable="true" scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCapitulos}"  emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCapituloSeleccionado}" selectionMode="single" >
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCapituloSeleccionado}" selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.contarRegistrosCapitulos()}"/>
 
-                                <p:column headerText="Código" sortBy="#{capitulo.codigo}" filterBy="#{capitulo.codigo}" filterMatchMode="contains" id="codigoCapitulo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{capitulo.codigo}" filterBy="#{capitulo.codigo}" filterMatchMode="contains" id="codigoCapitulo" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{capitulo.codigo}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{capitulo.codigo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{capitulo.codigo}" maxlength="10"  id="editarCodigoCategoria" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{capitulo.codigo}" maxlength="10"  id="editarCodigoCategoria" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 0)}" process="@this"
-                                                        onstart="PF('datosCapitulos').unselectAllRows();PF('datosCapitulos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosCapitulos').unselectAllRows();PF('datosCapitulos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarCapitulo(capitulo, 'N', info.codigo)}"  update="codigoCapitulo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
 
                                 </p:column>
-                                <p:column headerText="Descripción" sortBy="#{capitulo.descripcion}" filterBy="#{capitulo.descripcion}" filterMatchMode="contains" id="descripcionCapitulo" width="160" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción" sortBy="#{capitulo.descripcion}" filterBy="#{capitulo.descripcion}" filterMatchMode="contains" id="descripcionCapitulo" width="160" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{capitulo.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{capitulo.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{capitulo.descripcion}" maxlength="200" id="editarDescripcionCategoria" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{capitulo.descripcion}" maxlength="200" id="editarDescripcionCategoria" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 1)}"
                                                         onstart="PF('datosCapitulos').unselectAllRows();PF('datosCapitulos').selectRow(#{indice});" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarCapitulo(capitulo, 'N', info.descripcion)}" update="descripcionCapitulo"/>
@@ -109,25 +109,25 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistroCapitulo" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroCapitulos}" style="position: absolute; left: 10px; top: 110px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroCapitulo" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroCapitulos}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
                         </fieldset>
-                        <fieldset style="position: absolute;top: 205px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 205px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Sección</strong></legend>
                             <p:dataTable id="datosSecciones" widgetVar="datosSecciones" var="seccion" rowKey="#{seccion.secuencia}"  rowIndexVar="indiceDS" style="width: 810px ; border: 1px;"                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosSecciones}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosSecciones}"  emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoSeccionSeleccionado}" selectionMode="single" >
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoSeccionSeleccionado}" selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.contarRegistrosSecciones()}"/>
 
-                                <p:column headerText="Código" sortBy="#{seccion.codigo}" filterBy="#{seccion.codigo}" filterMatchMode="contains" id="codigoSeccion" width="30" filterStyle="display: none; visibility: hidden; " >                                  
+                                <p:column headerText="Código" sortBy="#{seccion.codigo}" filterBy="#{seccion.codigo}" filterMatchMode="contains" id="codigoSeccion" width="30" filterStyle="display: none; visibility: hidden; ">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{seccion.codigo}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{seccion.codigo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{seccion.codigo}" maxlength="10"  id="editarCodigoSeccion" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{seccion.codigo}" maxlength="10"  id="editarCodigoSeccion" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 0)}"
                                                         onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDS});" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarSeccion(seccion, 'N', info.codigo)}"  update="codigoSeccion"/>
@@ -135,69 +135,69 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
-                                <p:column headerText="Descripción" sortBy="#{seccion.descripcion}" filterBy="#{seccion.descripcion}" filterMatchMode="contains" id="descripcionSeccion" width="160" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción" sortBy="#{seccion.descripcion}" filterBy="#{seccion.descripcion}" filterMatchMode="contains" id="descripcionSeccion" width="160" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{seccion.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{seccion.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{seccion.descripcion}" maxlength="200" id="editarDescripcionSeccion" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{seccion.descripcion}" maxlength="200" id="editarDescripcionSeccion" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 1)}" process="@this"
-                                                        onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDS});" /> 
+                                                        onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDS});"/> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarSeccion(seccion, 'N', info.descripcion)}" update="descripcionSeccion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistroSeccion" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroSecciones}" style="position: absolute; left: 10px; top: 110px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroSeccion" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroSecciones}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
 
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 340px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 340px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Categoría</strong></legend>
                             <p:dataTable id="datosCategorias" widgetVar="datosCategorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indiceDC" style="width: 810px ; border: 1px;"                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCategorias}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCategorias}"  emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado}" selectionMode="single" >
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado}" selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.contarRegistroCategorias()}"/>
 
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="10"  id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="10"  id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 0)}" process="@this"
-                                                        onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});" /> 
+                                                        onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});"/> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarCategoria(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
-                                <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="160" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="160" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="200" id="editarDescripcion" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="200" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 1)}" process="@this"
-                                                         onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});" /> 
+                                                         onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});"/> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarCategoria(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistroCategoria" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroCategorias}" style="position: absolute; left: 20px; top: 115px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroCategoria" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroCategorias}" style="position: absolute; left: 20px; top: 115px; font-weight: bold;"/>
                         </fieldset>
                     </p:panel>
                 </h:form>
@@ -205,21 +205,21 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="nuevoRegistroDiagnosticoCapitulos" header="Nuevo Registro" widgetVar="nuevoRegistroDiagnosticoCapitulos" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Capítulos" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Capítulos" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevoCapitulo" style="border: none;">
-                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevoCodigoCapitulo" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCapitulo.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="nuevoCodigoCapitulo"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigoCapitulo" value="Código" />
+                            <p:watermark for="nuevoCodigoCapitulo" value="Código"/>
 
-                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevaDescripcionCapitulo" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCapitulo.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="nuevoCodigoCapitulo"/>
                             </p:inputText>
-                            <p:watermark for="nuevaDescripcionCapitulo" value="Descripción" />
+                            <p:watermark for="nuevaDescripcionCapitulo" value="Descripción"/>
 
                             <p:commandButton id="limpiarCap" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 285px;" actionListener="#{controlDiagnosticosCategorias.limpiarNuevoDiagnosticoCapitulo()}" update="nuevoRegistroDiagnosticoCapitulos" process="@this"/>
                             <p:commandButton id="agregarCap" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 185px; top: 285px;"  process="@this" actionListener="#{controlDiagnosticosCategorias.agregarNuevoDiagnosticosCapitulos()}"   />
@@ -228,22 +228,22 @@
                     </p:dialog>
 
                     <p:dialog id="duplicarRegistroDiagnosticoCapitulo" header="Duplicar Registro" widgetVar="duplicarRegistroDiagnosticoCapitulo" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Capítulos" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Capítulos" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarCapitulo" style="border: none;">
 
-                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigoCapitulo" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCapitulo.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="duplicarCodigoCapitulo"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigoCapitulo" value="Código" />
+                            <p:watermark for="duplicarCodigoCapitulo" value="Código"/>
 
-                            <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarDescripcionCapitulo" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCapitulo.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="duplicarCodigoCapitulo"/>
                             </p:inputText>
-                            <p:watermark for="duplicarDescripcionCapitulo" value="Descripción" />
+                            <p:watermark for="duplicarDescripcionCapitulo" value="Descripción"/>
 
                             <p:commandButton id="limpiarduplicar" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 285px;" actionListener="#{controlDiagnosticosCategorias.limpiarDuplicarDiagnosticoCapitulo()}" update="duplicarRegistroDiagnosticoCapitulo" process="@this"/>
                             <p:commandButton id="duplicarCap" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 185px; top: 285px;"  process="@this" actionListener="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria()}"   />
@@ -252,21 +252,21 @@
                     </p:dialog>
 
                     <p:dialog id="nuevoRegistroDiagnosticoSeccion" header="Nuevo Registro" widgetVar="nuevoRegistroDiagnosticoSeccion" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Sección" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Sección" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevaSeccion" style="border: none;">
-                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevoCodigoSeccion" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoSeccion.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="nuevoCodigoSeccion"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigoSeccion" value="Código" />
+                            <p:watermark for="nuevoCodigoSeccion" value="Código"/>
 
-                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevaDescripcionSeccion" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoSeccion.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="nuevoCodigoSeccion"/>
                             </p:inputText>
-                            <p:watermark for="nuevaDescripcionSeccion" value="Descripción" />
+                            <p:watermark for="nuevaDescripcionSeccion" value="Descripción"/>
 
                             <p:commandButton id="limpiarS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 285px;" actionListener="#{controlDiagnosticosCategorias.limpiarNuevoDiagnosticoSeccion()}" update="nuevoRegistroDiagnosticoSeccion" process="@this"/>
                             <p:commandButton id="agregarS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 185px; top: 285px;"  process="@this" actionListener="#{controlDiagnosticosCategorias.agregarNuevoDiagnosticosSecciones()}"   />
@@ -275,22 +275,22 @@
                     </p:dialog>
 
                     <p:dialog id="duplicarRegistroDiagnosticoSeccion" header="Duplicar Registro" widgetVar="duplicarRegistroDiagnosticoSeccion" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Sección" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Sección" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarSeccion" style="border: none;">
 
-                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigoSeccion" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoSeccion.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="duplicarCodigoSeccion"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigoSeccion" value="Código" />
+                            <p:watermark for="duplicarCodigoSeccion" value="Código"/>
 
-                            <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarDescripcionSeccion" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoSeccion.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="duplicarCodigoSeccion"/> 
                             </p:inputText>
-                            <p:watermark for="duplicarDescripcionSeccion" value="Descripción" />
+                            <p:watermark for="duplicarDescripcionSeccion" value="Descripción"/>
 
                             <p:commandButton id="limpiarduplicarS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 285px;" actionListener="#{controlDiagnosticosCategorias.limpiarDuplicarDiagnosticoSeccion()}" update="duplicarRegistroDiagnosticoSeccion" process="@this"/>
                             <p:commandButton id="duplicarS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 185px; top: 285px;"  process="@this" actionListener="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria()}"   />
@@ -300,21 +300,21 @@
 
 
                     <p:dialog id="nuevoRegistroDiagnosticoCategoria" header="Nuevo Registro" widgetVar="nuevoRegistroDiagnosticoCategoria" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Categoría" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Categoría" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevaCategoria" style="border: none;">
-                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevoCodigoCategoria" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCategoria.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="nuevoCodigoCategoria"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigoCategoria" value="Código" />
+                            <p:watermark for="nuevoCodigoCategoria" value="Código"/>
 
-                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevaDescripcionCategoria" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCategoria.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="nuevaDescripcionCategoria"/>
                             </p:inputText>
-                            <p:watermark for="nuevaDescripcionCategoria" value="Descripción" />
+                            <p:watermark for="nuevaDescripcionCategoria" value="Descripción"/>
 
                             <p:commandButton id="limpiarC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 285px;" actionListener="#{controlDiagnosticosCategorias.limpiarNuevoDiagnosticoCapitulo()}" update="nuevoRegistroDiagnosticoCategoria" process="@this"/>
                             <p:commandButton id="agregarC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 185px; top: 285px;"  process="@this" actionListener="#{controlDiagnosticosCategorias.agregarNuevoDiagnosticosCategorias()}"   />
@@ -323,22 +323,22 @@
                     </p:dialog>
 
                     <p:dialog id="duplicarRegistroDiagnosticoCategoria" header="Duplicar Registro" widgetVar="duplicarRegistroDiagnosticoCategoria" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Categoría" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Categoría" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarCategoria" style="border: none;">
 
-                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigoCategoria" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="duplicarCodigoCategoria"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigoCategoria" value="Código" />
+                            <p:watermark for="duplicarCodigoCategoria" value="Código"/>
 
-                            <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicarDescripcionCategoria" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="duplicarDescripcionCategoria"/> 
                             </p:inputText>
-                            <p:watermark for="duplicarDescripcionCategoria" value="Descripción" />
+                            <p:watermark for="duplicarDescripcionCategoria" value="Descripción"/>
 
                             <p:commandButton id="limpiarduplicarC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 285px;" actionListener="#{controlDiagnosticosCategorias.limpiarDuplicarDiagnosticoCategoria()}" update="duplicarRegistroDiagnosticoCategoria" process="@this"/>
                             <p:commandButton id="duplicarC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 185px; top: 285px;"  process="@this" actionListener="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria()}"   />
@@ -348,119 +348,119 @@
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDiagnosticosCategorias.guardarSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDiagnosticosCategorias.cancelarSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDiagnosticosCategorias.guardarSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDiagnosticosCategorias.cancelarSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Se han borrado #{controlDiagnosticosCategorias.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <h:outputText value="Se han borrado #{controlDiagnosticosCategorias.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado.getSecuencia(), 'TiposAusentismos', 'tipoausentismo')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado.getSecuencia(), 'TiposAusentismos', 'tipoausentismo')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DiagnosticoCategorias', 'diagnosticocategoria')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DiagnosticoCategorias', 'diagnosticocategoria')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado.getSecuencia(), 'DiagnosticoCategorias', 'diagnosticocategoria')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado.getSecuencia(), 'DiagnosticoCategorias', 'diagnosticocategoria')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="validacionDuplicarDiagnosticoCategoria" header="#{msg['atencion']}" widgetVar="validacionDuplicarDiagnosticoCategoria"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlDiagnosticosCategorias.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarTipoAusentismo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
+                        <h:outputText value="Necesita : #{controlDiagnosticosCategorias.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarTipoAusentismo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevoDiagnosticoCategorias" header="#{msg['atencion']}" widgetVar="validacionNuevoDiagnosticoCategorias"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlDiagnosticosCategorias.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevoTipoAusentismo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this" />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlDiagnosticosCategorias.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevoTipoAusentismo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 270px;" process="@this"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlDiagnosticosCategorias.activarCtrlF11()}"/>
 
                     <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlDiagnosticosCategorias.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 200px;" process="@this" />
+                        <h:outputText value=" #{controlDiagnosticosCategorias.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 200px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="260" width="360"  closable="false">  
-                        <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Capítulos" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarCapitulo()}" onclick="PF('seleccionarTablaNewReg').hide()" />
-                        <p:commandButton value="Secciones" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarSeccion()}" onclick="PF('seleccionarTablaNewReg').hide()" />
-                        <p:commandButton value="Categorías" style="position: absolute; left: 90px; top: 115px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarCategoria()}" onclick="PF('seleccionarTablaNewReg').hide()" />
+                        <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Capítulos" style="position: absolute; left: 90px; top: 55px; font-weight: bold; width: 180px; text-align: center;" process="@this"  actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarCapitulo()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="Secciones" style="position: absolute; left: 90px; top: 85px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarSeccion()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="Categorías" style="position: absolute; left: 90px; top: 115px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoInsertarCategoria()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
                         <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 235px; left: 260px;" onclick="PF('seleccionarTablaNewReg').hide()"  />
                     </p:dialog>
                     <!--
                     <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 270px;" process="@this" />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 270px;" process="@this"/>
                     </p:dialog>
                     -->
 
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlDiagnosticosCategorias.editarDiagnosticoCategoria.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlDiagnosticosCategorias.editarDiagnosticoCategoria.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editCodigoCapitulo" header="Código" widgetVar="editCodigoCapitulo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigoCapitulo" header="Código" widgetVar="editCodigoCapitulo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlDiagnosticosCategorias.editarDiagnosticoCapitulo.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editDescripcionCapitulo" header="Descripción" widgetVar="editDescripcionCapitulo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcionCapitulo" header="Descripción" widgetVar="editDescripcionCapitulo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlDiagnosticosCategorias.editarDiagnosticoCapitulo.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editCodigoSeccion" header="Código" widgetVar="editCodigoSeccion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigoSeccion" header="Código" widgetVar="editCodigoSeccion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlDiagnosticosCategorias.editarDiagnosticoSeccion.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editDescripcionSeccion" header="Descripción" widgetVar="editDescripcionSeccion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcionSeccion" header="Descripción" widgetVar="editDescripcionSeccion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlDiagnosticosCategorias.editarDiagnosticoSeccion.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                 </h:form>
@@ -471,14 +471,14 @@
                         <!--COLUMNAS TABLA DIAGNOSTICOS CAPITULOS--> 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['codigoexp']}" />
+                                <h:outputText value="#{msg['codigoexp']}"/>
                             </f:facet>
-                            <h:outputText value="#{datoscap.codigo}" />
+                            <h:outputText value="#{datoscap.codigo}"/>
                         </p:column>
 
-                        <p:column >                                  
+                        <p:column>                                  
                             <f:facet name="header"><h:outputText value="#{msg['descexp']}"/> </f:facet> 
-                            <h:outputText value="#{datoscap.descripcion}" />
+                            <h:outputText value="#{datoscap.descripcion}"/>
                         </p:column>  
 
                     </p:dataTable>    
@@ -490,14 +490,14 @@
                         <!--COLUMNAS TABLA DIAGNOSTICOS SECCIONES--> 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['codigoexp']}" />
+                                <h:outputText value="#{msg['codigoexp']}"/>
                             </f:facet>
-                            <h:outputText value="#{datosec.codigo}" />
+                            <h:outputText value="#{datosec.codigo}"/>
                         </p:column>
 
-                        <p:column >                                  
+                        <p:column>                                  
                             <f:facet name="header"><h:outputText value="#{msg['descexp']}"/> </f:facet> 
-                            <h:outputText value="#{datosec.descripcion}" />
+                            <h:outputText value="#{datosec.descripcion}"/>
                         </p:column>  
 
                     </p:dataTable>        
@@ -510,14 +510,14 @@
                         <!--COLUMNAS TABLA DIAGNOSTICOS CATEGORIAS--> 
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="#{msg['codigoexp']}" />
+                                <h:outputText value="#{msg['codigoexp']}"/>
                             </f:facet>
-                            <h:outputText value="#{datoscat.codigo}" />
+                            <h:outputText value="#{datoscat.codigo}"/>
                         </p:column>
 
-                        <p:column >                                  
+                        <p:column>                                  
                             <f:facet name="header"><h:outputText value="#{msg['descexp']}"/> </f:facet> 
-                            <h:outputText value="#{datoscat.descripcion}" />
+                            <h:outputText value="#{datoscat.descripcion}"/>
                         </p:column>  
 
                     </p:dataTable>      

@@ -157,15 +157,34 @@ public class ControlVigenciasTiposContratos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "emplvigenciatipocontrato";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "emplvigenciatipocontrato";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -175,9 +194,8 @@ public class ControlVigenciasTiposContratos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    //EMPLEADO DE LA VIGENCIA
@@ -500,6 +518,11 @@ public class ControlVigenciasTiposContratos implements Serializable {
       }
    }
 
+   public void guardarYSalir() {
+      guardarCambiosVTC();
+      salir();
+   }
+      
    //GUARDAR
    public void guardarCambiosVTC() {
       if (guardado == false) {
@@ -840,7 +863,8 @@ public class ControlVigenciasTiposContratos implements Serializable {
    }
 
    //SALIR
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       FacesContext c = FacesContext.getCurrentInstance();
       RequestContext context = RequestContext.getCurrentInstance();
       if (bandera == 1) {
@@ -859,6 +883,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
       permitirIndex = true;
       limpiarListasValor();
       RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
+      navegar("atras");
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
 

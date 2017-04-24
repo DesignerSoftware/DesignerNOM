@@ -308,15 +308,34 @@ public class ControlParametrosConjuntos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "estadisticas";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "estadisticas";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -326,9 +345,8 @@ public class ControlParametrosConjuntos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    public void recibirPaginaAnterior(String pagina) {
@@ -368,7 +386,6 @@ public class ControlParametrosConjuntos implements Serializable {
       periodicidad = "";
       textoEditar = "";
       tituloEditar = "";
-
       seleccionPorcentajes = false;
       return paginaAnterior;
    }
@@ -479,9 +496,9 @@ public class ControlParametrosConjuntos implements Serializable {
    public void cargarEstadisticas() {
       System.out.println("ControlParametrosConjuntos.cargarEstadisticas()");
       listaEstadisticas = administrarParametrosConjuntos.consultarDSolucionesNodosN(parametrosActuales.getDimension(), parametrosActuales.getFechaHasta());
-      if(listaEstadisticas != null){
+      if (listaEstadisticas != null) {
          System.out.println("listaEstadisticas.size()" + listaEstadisticas.size());
-      } else{
+      } else {
          System.out.println("listaEstadisticas == null");
       }
       if (listaEstadisticas != null) {
@@ -594,9 +611,9 @@ public class ControlParametrosConjuntos implements Serializable {
    public void cargarEstadisticasLB() {
       System.out.println("ControlParametrosConjuntos.cargarEstadisticasLB()");
       listaEstadisticasLB = administrarParametrosConjuntos.consultarDSolucionesNodosNLB(parametrosActuales.getDimension(), parametrosActuales.getFechaHasta());
-      if(listaEstadisticasLB != null){
+      if (listaEstadisticasLB != null) {
          System.out.println("listaEstadisticasLB.size()" + listaEstadisticasLB.size());
-      } else{
+      } else {
          System.out.println("listaEstadisticasLB == null");
       }
       totalesLB = new VWDSolucionesNodosN();
@@ -1992,6 +2009,11 @@ public class ControlParametrosConjuntos implements Serializable {
       RequestContext.getCurrentInstance().update("form:tablaEstadisticas");
    }
 
+   public void salir() {
+      restablecerTablas();
+      navegar("atras");
+   }
+   
    public void restablecerTablas() {
       FacesContext c = FacesContext.getCurrentInstance();
       eDimension = (Column) c.getViewRoot().findComponent("form:tablaEstadisticas:eDimension");

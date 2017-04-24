@@ -178,26 +178,45 @@ public class ControlNReporteContabilidad implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        if (pag.equals("atras")) {
+        /*if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina();
+            controlListaNavegacion.quitarPagina(pagActual);
+            
         } else {
-            String pagActual = "nreportescontabilidad";
-            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-            //mapParametros.put("paginaAnterior", pagActual);
-            //mas Parametros
+            */
+String pagActual = "nreportescontabilidad";
+            
+            
+            
+
+
+            
+            
+            
+            
+            
+            
+            if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-            //      } else if (pag.equals("rastrotablaH")) {
-            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //     controlRastro.historicosTabla("Conceptos", pagActual);
-            //   pag = "rastrotabla";
-            //}
-            controlListaNavegacion.adicionarPagina(pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        
     }
 
     @PostConstruct
@@ -400,6 +419,7 @@ public class ControlNReporteContabilidad implements Serializable {
         cambiosReporte = true;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void cancelarModificaciones() {

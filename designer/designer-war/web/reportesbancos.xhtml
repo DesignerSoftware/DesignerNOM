@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+   >
     <h:head>
     </h:head>
     <h:body>
@@ -14,7 +14,6 @@
             <ui:define name="body">                  
                 <script type="text/javascript">
                     $(window).load(function () {
-                        //$(".loader").fadeOut("slow");
                         foco('form:guardarRapido');
                     });
                     function foco(idElemento) {
@@ -22,89 +21,88 @@
                     }
                     ;
                 </script>
-                <!--<div class="loader"></div>-->
                 <div style="position: static;"></div>
                 <h:form id="form">
 
-                    <f:loadBundle basename="Recursos.reportesbancos" var="msg" />
+                    <f:loadBundle basename="Recursos.reportesbancos" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 40px; left: 20px; height: 24px">  
-                            <p:toolbarGroup align="left"> 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlReportesBancos.guardarCambios()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                            <p:toolbarGroup align="left;"> 
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlReportesBancos.guardarCambios()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " process="@this" actionListener="#{controlReportesBancos.editarCelda()}"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this" actionListener="#{controlReportesBancos.editarCelda()}"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " process="@this" actionListener="#{controlReportesBancos.listaValoresBoton()}" 
-                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" disabled="#{controlReportesBancos.activarLov}" />
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" actionListener="#{controlReportesBancos.listaValoresBoton()}" 
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" disabled="#{controlReportesBancos.activarLov}"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlReportesBancos.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png) "  />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png);"  />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" disabled="true" value="" style="background-image: url(Imagenes/Iconos/xml.png) " >
+                                <p:commandButton id="exportarXML" disabled="true" value="" style="background-image: url(Imagenes/Iconos/xml.png);">
                                 </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " />
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "   /> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"   /> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  />  
-                                <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  />  
+                                <p:tooltip for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " />  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png) "  process="@this"/>  
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlReportesBancos.cancelarModificaciones()}"   process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlReportesBancos.cancelarModificaciones()}"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlReportesBancos.salir()}"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlReportesBancos.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
 
                         <fieldset style="position: absolute; left: 10px; top: 224px; width: 835px; height: 250px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['reportes']}</strong></legend>
+                            <legend style="color: blue;text-align:left;"><strong>#{msg['reportes']}</strong></legend>
 
-                            <p:dataTable id="reportesBancos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 812px;"                           
+                            <p:dataTable id="reportesBancos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 812px;"                           
                                          value="#{controlReportesBancos.listaIR}" scrollable="true" scrollHeight="#{controlReportesBancos.altoTabla}" scrollWidth="830"
                                          filteredValue="#{controlReportesBancos.filtrarListInforeportesUsuario}"  selectionMode="single" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" selection="#{controlReportesBancos.inforreporteSeleccionado}" > 
+                                         editable="true" editMode="cell" selection="#{controlReportesBancos.inforreporteSeleccionado}"> 
 
-                                <p:ajax event="rowSelect" listener="#{controlReportesBancos.seleccionRegistro()}" process="@this" />
-                                <p:ajax event="rowDblselect" listener="#{controlReportesBancos.requisitosParaReporte()}" process="@this" />
+                                <p:ajax event="rowSelect" listener="#{controlReportesBancos.seleccionRegistro()}" process="@this"/>
+                                <p:ajax event="rowDblselect" listener="#{controlReportesBancos.requisitosParaReporte()}" process="@this"/>
                                 <p:ajax event="filter" listener="#{controlReportesBancos.eventoFiltrar()}"/>
 
-                                <p:column style="padding: 0px; text-align: center; width: 50px;" id="codigoIR" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column style="padding: 0px; text-align: center; width: 50px;" id="codigoIR" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">  
                                     <h:outputText value="#{info.codigo}"/>
                                 </p:column>
 
-                                <p:column  id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column  id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">  
                                     <h:outputText value="#{info.nombre}"/>
                                 </p:column>
 
-                                <p:column id="columnaGenerarR" width="150" style="padding-left: 5px;padding: 0px; text-align: center" >                                                              
+                                <p:column id="columnaGenerarR" width="150" style="padding-left: 5px;padding: 0px; text-align: center;">                                                              
                                     <f:facet name="header">
                                         <h:outputText id="GenerarR" value="Generar Archivo"/>
                                         <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
@@ -115,27 +113,27 @@
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlReportesBancos.infoRegistro}" style="position: relative; left: 0px; top: -10px; font-weight: bold"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlReportesBancos.infoRegistro}" style="position: relative; left: 0px; top: -10px; font-weight: bold;"/>
 
                             <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 570px; top: 4px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlReportesBancos.mostrarDialogoBuscarReporte()}" disabled="#{controlReportesBancos.activoBuscarReporte}"
-                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
-                            <p:tooltip  for="BUSCARREPORTE" value="Buscar Reportes" />
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            <p:tooltip  for="BUSCARREPORTE" value="Buscar Reportes"/>
 
                             <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 570px; top: 4px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlReportesBancos.mostrarTodos()}" disabled="#{controlReportesBancos.activoMostrarTodos}"/>
-                            <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
+                            <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}"/>
                         </fieldset>
 
                         <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=""
-                                         actionListener="#{controlReportesBancos.dispararDialogoGuardarCambios()}" disabled="#{controlReportesBancos.cambiosReporte}" process="@this" />
+                                         actionListener="#{controlReportesBancos.dispararDialogoGuardarCambios()}" disabled="#{controlReportesBancos.cambiosReporte}" process="@this"/>
 
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlReportesBancos.salir()}" process="@this" />
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlReportesBancos.salir()}" process="@this"/>
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 12px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" disabled="#{controlReportesBancos.activarEnvio}"
-                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('reportesbancos', controlReportesBancos.inforreporteSeleccionado.secuencia)}" process="@this" />
-                        <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
+                                         action="#{controlListaNavegacion.guardarNavegacion('reportesbancos', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('reportesbancos', controlReportesBancos.inforreporteSeleccionado.secuencia)}" process="@this"/>
+                        <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlReportesBancos.activarCtrlF11()}" process="@this"/> 
                 </h:form>
@@ -145,7 +143,7 @@
                               border-radius: 3px; padding: 0px; display: table; border-spacing: 5px;">
 
                         <div id="fila1parametros" style="display: table-row;">
-                            <div id="marcoizquierdo" style="display: inline-block; width: 35%; background-color: white; position: absolute; height: 94%; margin-top: 0px;" >
+                            <div id="marcoizquierdo" style="display: inline-block; width: 35%; background-color: white; position: absolute; height: 94%; margin-top: 0px;">
 
                                 <div style="position: absolute; width: 50%">
                                     <h:outputText value="#{msg['fechadesde']}:" style="top: 2px; position: relative;"/>
@@ -185,7 +183,7 @@
                                                  style="position: absolute; width: 125px; left: 120px; top: 25px; height: 10px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(2)}" process="@this"/> 
                                         <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('DESDE',controlReportesBancos.parametroDeReporte.codigoempleadodesde)}" update="empleadoDesdeParametro" process="@this"/>
-                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(2)}" process="@this" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(2)}" process="@this" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                     </p:inputText>
                                 </div>
 
@@ -259,10 +257,10 @@
                                 <div style="position: absolute; width: 50%">
                                     <h:outputText value="#{msg['tipocuenta']}:" style="top: 103px; position: relative;"/>
                                     <p:selectOneMenu id="tipoCuentaParametro" value="#{controlReportesBancos.parametroDeReporte.tipocuentabanco}" 
-                                                     style="position: absolute; width: 110px; left: 120px; top: 100px; text-transform: uppercase">  
-                                        <f:selectItem itemLabel="#{msg['ahorros']}" itemValue="A" />  
-                                        <f:selectItem itemLabel="#{msg['corriente']}" itemValue="C" />  
-                                        <f:selectItem itemLabel=" " itemValue=" " />
+                                                     style="position: absolute; width: 110px; left: 120px; top: 100px; text-transform: uppercase;">  
+                                        <f:selectItem itemLabel="#{msg['ahorros']}" itemValue="A"/>  
+                                        <f:selectItem itemLabel="#{msg['corriente']}" itemValue="C"/>  
+                                        <f:selectItem itemLabel=" " itemValue=" "/>
                                         <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this"/>
                                     </p:selectOneMenu>                            
                                 </div>
@@ -286,39 +284,39 @@
 
                 <h:form id="formDialogos">
                     <p:dialog header="#{msg['reporteR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
-                              showEffect="fade" hideEffect="fade" width="470" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlReportesBancos.listValInforeportes}" rowKey="#{reportes.secuencia}"
                                      selection="#{controlReportesBancos.reporteSeleccionadoLOV}" selectionMode="single" widgetVar="lovReportesDialogo" scrollable="true" scrollWidth="445" scrollHeight="240"
-                                     filteredValue="#{controlReportesBancos.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25" >              
+                                     filteredValue="#{controlReportesBancos.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosLovReportes()}"/>                            
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarR"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" immediate="true" />
+                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" immediate="true"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"/>   
-                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}" />  
+                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
                             </f:facet>
-                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important" width="50px;" sortBy="#{reportes.codigo}">
-                                <f:facet name="header" >
-                                    <h:outputText  value="#{msg['codigoR']}" />
+                            <p:column style="text-align: center;" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important" width="50px;" sortBy="#{reportes.codigo}">
+                                <f:facet name="header">
+                                    <h:outputText  value="#{msg['codigoR']}"/>
                                 </f:facet>
-                                <h:outputText style="text-align: center" value="#{reportes.codigo}" />
+                                <h:outputText style="text-align: center;" value="#{reportes.codigo}"/>
                             </p:column>
 
                             <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" sortBy="#{reportes.nombre}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreR']}" />
+                                    <h:outputText value="#{msg['nombreR']}"/>
                                 </f:facet>
-                                <h:outputText value="#{reportes.nombre}" />
+                                <h:outputText value="#{reportes.nombre}"/>
                             </p:column>
 
                         </p:dataTable>
                         <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroReportes" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlReportesBancos.infoRegistroReportes}" />
+                            <h:outputText id="infoRegistroReportes" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlReportesBancos.infoRegistroReportes}"/>
                             <p:commandButton id="aceptarR" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" icon="ui-icon-check"
                                              actionListener="#{controlReportesBancos.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this"/>
                             <p:commandButton id="atrasR" class="cssAtrasLOV" value="#{msg['cancelar']}" 
-                                             actionListener="#{controlReportesBancos.cancelarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this" />
+                                             actionListener="#{controlReportesBancos.cancelarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -330,7 +328,7 @@
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpeladoD()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarED"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarEmplDesde()}"  process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarEmplDesde()}"  process="@this"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMP']}"/>  
@@ -338,15 +336,15 @@
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="Código" />
+                                    <h:outputText style="text-align: center;" value="Código"/>
                                 </f:facet>
-                                <h:outputText  value="#{empleadoDesde.codigoempleado}" />
+                                <h:outputText  value="#{empleadoDesde.codigoempleado}"/>
                             </p:column>
                             <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMP']}" />
+                                    <h:outputText value="#{msg['nombreEMP']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleadoDesde.persona.nombreCompleto}" />
+                                <h:outputText value="#{empleadoDesde.persona.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -358,14 +356,14 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
-                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
                         <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlReportesBancos.listEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlReportesBancos.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpeladoH()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarEH"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarEmplHasta()}"  process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarEmplHasta()}"  process="@this"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPH']}"/>  
@@ -373,15 +371,15 @@
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="Código" />
+                                    <h:outputText style="text-align: center;" value="Código"/>
                                 </f:facet>
-                                <h:outputText  value="#{empleadoHasta.codigoempleado}" />
+                                <h:outputText  value="#{empleadoHasta.codigoempleado}"/>
                             </p:column>
                             <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMPH']}" />
+                                    <h:outputText value="#{msg['nombreEMPH']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleadoHasta.persona.nombreCompleto}" />
+                                <h:outputText value="#{empleadoHasta.persona.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV">
@@ -392,7 +390,7 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
-                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
                         <p:dataTable id="lovEmpresa" style="width: 400px;" var="empresa" value="#{controlReportesBancos.listEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlReportesBancos.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}">              
@@ -407,15 +405,15 @@
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nitE']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['nitE']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{empresa.nit}" />
+                                <h:outputText  value="#{empresa.nit}"/>
                             </p:column>
                             <p:column filterBy="#{empresa.nombre}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreE']}" />
+                                    <h:outputText value="#{msg['nombreE']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empresa.nombre}" />
+                                <h:outputText value="#{empresa.nombre}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -428,7 +426,7 @@
 
 
                     <p:dialog header="#{msg['tipostrabajadorTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
-                              showEffect="fade" hideEffect="fade" width="470" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovTipoTrabajador" style="width: 430px;" var="tipo" value="#{controlReportesBancos.listTiposTrabajadores}" rowKey="#{tipo.secuencia}"
                                      selection="#{controlReportesBancos.tipoTSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
@@ -443,21 +441,21 @@
                             </f:facet>
                             <p:column filterBy="#{tipo.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigoTT']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['codigoTT']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{tipo.codigo}" />
+                                <h:outputText  value="#{tipo.codigo}"/>
                             </p:column>
                             <p:column filterBy="#{tipo.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreTT']}" />
+                                    <h:outputText value="#{msg['nombreTT']}"/>
                                 </f:facet>
-                                <h:outputText value="#{tipo.nombre}" />
+                                <h:outputText value="#{tipo.nombre}"/>
                             </p:column>
                             <p:column filterBy="#{tipo.tipo}" width="90" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['tipoTT']}" />
+                                    <h:outputText value="#{msg['tipoTT']}"/>
                                 </f:facet>
-                                <h:outputText value="#{tipo.tipo}" />
+                                <h:outputText value="#{tipo.tipo}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -469,14 +467,14 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
                         <p:dataTable id="lovProceso" style="width: 400px;" var="proceso" value="#{controlReportesBancos.listProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlReportesBancos.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosProceso()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarPro"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarProceso()}"  process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarProceso()}"  process="@this"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"/>  
@@ -484,15 +482,15 @@
                             </f:facet>
                             <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="Código" />
+                                    <h:outputText style="text-align: center;" value="Código"/>
                                 </f:facet>
-                                <h:outputText  value="#{proceso.codigo}" />
+                                <h:outputText  value="#{proceso.codigo}"/>
                             </p:column>
                             <p:column filterBy="#{proceso.descripcion}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['procesoP']}" />
+                                    <h:outputText value="#{msg['procesoP']}"/>
                                 </f:facet>
-                                <h:outputText value="#{proceso.descripcion}" />
+                                <h:outputText value="#{proceso.descripcion}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -504,7 +502,7 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['bancosB']}" widgetVar="BancoDialogo" draggable="true" resizable="false" closable="false" id="BancoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
                         <p:dataTable id="lovBancos" style="width: 400px;" var="banco" value="#{controlReportesBancos.listBancos}" rowKey="#{banco.secuencia}"
                                      selection="#{controlReportesBancos.bancoSeleccionado}" selectionMode="single" widgetVar="lovBancos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListBancos}" emptyMessage="#{msg['lovvacio']}">              
@@ -519,9 +517,9 @@
                             </f:facet>
                             <p:column filterBy="#{banco.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nombreB']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['nombreB']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{banco.nombre}" />
+                                <h:outputText  value="#{banco.nombre}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -533,14 +531,14 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
-                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
                         <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlReportesBancos.listCiudades}" rowKey="#{ciudad.secuencia}"
                                      selection="#{controlReportesBancos.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosCiudades()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarCiu"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarCiudad()}"  process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarCiudad()}"  process="@this"/>
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"/>  
@@ -548,9 +546,9 @@
                             </f:facet>
                             <p:column filterBy="#{ciudad.nombre}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nombreC']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['nombreC']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{ciudad.nombre}" />
+                                <h:outputText  value="#{ciudad.nombre}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -563,78 +561,78 @@
                     
                     <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: justify" />
+                        <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: justify"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.guardarYSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.cancelarYSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.guardarYSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.cancelarYSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.guardarCambios()}"  style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.guardarCambios()}"  style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
 
-                    <p:dialog id="editarFechaDesde" header="Fecha Desde" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaDesde" header="Fecha Desde" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.fechadesde}" style="overflow: auto;" readonly="true">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="empleadoDesde" header="Empleado Desde" widgetVar="empleadoDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="empleadoDesde" header="Empleado Desde" widgetVar="empleadoDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.codigoempleadodesde}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.fechahasta}" style="overflow: auto;" readonly="true">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="empleadoHasta" header="Empleado Hasta" widgetVar="empleadoHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="empleadoHasta" header="Empleado Hasta" widgetVar="empleadoHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.codigoempleadohasta}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="empresa" header="Empresa" widgetVar="empresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="empresa" header="Empresa" widgetVar="empresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="tipoTrabajador" header="Tipo Trabajador" widgetVar="tipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="tipoTrabajador" header="Tipo Trabajador" widgetVar="tipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="proceso" header="Proceso" widgetVar="proceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="proceso" header="Proceso" widgetVar="proceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="ciudad" header="Ciudad" widgetVar="ciudad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="ciudad" header="Ciudad" widgetVar="ciudad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.ciudad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="banco" header="Banco" widgetVar="banco" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="banco" header="Banco" widgetVar="banco" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.banco.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="numeroCuenta" header="Número de Cuenta" widgetVar="numeroCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="numeroCuenta" header="Número de Cuenta" widgetVar="numeroCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.numerocuentacredi}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaCorte" header="Fecha Corte" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFechaCorte" header="Fecha Corte" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.fechacorte}" style="overflow: auto;" readonly="true">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
@@ -646,36 +644,36 @@
 
                     <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
-                        <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                        <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                         <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlReportesBancos.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
                     </p:dialog> 
 
                     <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlReportesBancos.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
+                        <p:inputTextarea value="#{controlReportesBancos.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="requisitosReporte" header="#{msg['requisitosReporte']}" widgetVar="requisitosReporte" resizable="false" draggable="true" modal="true" height="93" width="240" >  
+                    <p:dialog id="requisitosReporte" header="#{msg['requisitosReporte']}" widgetVar="requisitosReporte" resizable="false" draggable="true" modal="true" height="93" width="240">  
                         <h:outputText value="#{controlReportesBancos.requisitosReporte}" style="overflow: auto; width: 200px; height: 40px"/>
                         <p:commandButton id="cancelarRequisitoReporte" value="#{msg['atras']}" onclick="PF('requisitosReporte').hide();" actionListener="#{controlReportesBancos.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="infoReporteCodigoD" header="#{msg['infoReporteCodigoD']}" widgetVar="infoReporteCodigoD" resizable="false" draggable="true" modal="true" height="93" width="240" >  
+                    <p:dialog id="infoReporteCodigoD" header="#{msg['infoReporteCodigoD']}" widgetVar="infoReporteCodigoD" resizable="false" draggable="true" modal="true" height="93" width="240">  
                         <p:inputTextarea value="#{controlReportesBancos.inforreporteSeleccionado.codigo}" style="overflow: auto; width: 200px; height: 50px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="infoReporteNombreD" header="#{msg['infoReporteNombreD']}" widgetVar="infoReporteNombreD" resizable="false" draggable="true" modal="true" height="93" width="240" >  
+                    <p:dialog id="infoReporteNombreD" header="#{msg['infoReporteNombreD']}" widgetVar="infoReporteNombreD" resizable="false" draggable="true" modal="true" height="93" width="240">  
                         <p:inputTextarea value="#{controlReportesBancos.inforreporteSeleccionado.nombre}" style="overflow: auto; width: 200px; height: 50px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte" resizable="false" closable="true" draggable="true" modal="true" height="85" width="350" style="font-size: 12px;">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
-                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                     </p:dialog>
 
                     <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>
 
                 </h:form>

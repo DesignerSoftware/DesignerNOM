@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+   >
 
     <h:head>        
     </h:head>
@@ -14,79 +14,79 @@
             <ui:define name="body">                  
                 <h:form id="form">
                     <p:growl id="growl" showDetail="true"/>
-                    <f:loadBundle basename="Recursos.reingresarempleado" var="msg" />
+                    <f:loadBundle basename="Recursos.reingresarempleado" var="msg"/>
 
                     <p:panel  id="PanelTotal" header="Reingresar Empleado" styleClass="panelTotal">  
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
-                                <p:commandButton id="guardarRapido" value="" disabled="true" style="background-image: url(Imagenes/Iconos/guardar.png); "  process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                            <p:toolbarGroup align="left;"> 
+                                <p:commandButton id="guardarRapido" value="" disabled="true" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/editar.png) " process="@this" />
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                                <p:commandButton id="editar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " process="@this" />
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" disabled="true" style="background-image: url(Imagenes/Iconos/excel.png) "  />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                <p:commandButton id="exportarXLS" value="" disabled="true" style="background-image: url(Imagenes/Iconos/excel.png);"  />
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" disabled="true" style="background-image: url(Imagenes/Iconos/XML.png) " >
+                                <p:commandButton id="exportarXML" value="" disabled="true" style="background-image: url(Imagenes/Iconos/XML.png);">
                                 </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xmle']}" />
+                                <p:tooltip  for="exportarXML" value="#{msg['xmle']}"/>
 
                                 <p:commandButton id="exportarPDF" value="" disabled="true" style="background-image: url(Imagenes/Iconos/pdf.png)"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png) "  />  
+                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png);"  />  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " />  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png) "  process="@this"/>  
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlReingresarEmpleado.cancelarModificaciones()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlReingresarEmpleado.cancelarModificaciones()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlReingresarEmpleado.salir()}" action="nominaf"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlReingresarEmpleado.salir()}" action="nominaf"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Reingresar un Empleado</strong></legend>
 
-                            <h:outputText value="#{msg['nombredelempleado']}" style="position: absolute; left: 15px; top: 25px; font-weight: bold"/>
+                            <h:outputText value="#{msg['nombredelempleado']}" style="position: absolute; left: 15px; top: 25px; font-weight: bold;"/>
                             <p:inputText  autocomplete="off"  id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}" style="position: absolute; left: 15px; top: 65px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.persona.nombreCompleto)}"/>
                                 <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                             </p:inputText>
 
-                            <h:outputText value="#{msg['estructura']}" style="position: absolute; left: 15px; top: 105px; font-weight: bold"/>
+                            <h:outputText value="#{msg['estructura']}" style="position: absolute; left: 15px; top: 105px; font-weight: bold;"/>
                             <p:inputText  autocomplete="off"  id="estructura" value="#{controlReingresarEmpleado.estructura.nombre}" style="position: absolute; left: 15px; top: 145px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('ESTRUCTURA', controlReingresarEmpleado.estructura.nombre)}"/>
                                 <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
                             </p:inputText>
 
-                            <h:outputText  value="#{msg['fechareingreso']}" style="position: absolute; top: 185px; left: 15px;font-weight: bold"/>
+                            <h:outputText  value="#{msg['fechareingreso']}" style="position: absolute; top: 185px; left: 15px; font-weight: bold;"/>
                             <div id="divFechaReingreso" style="position: absolute; top: 225px; left: 15px;">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaReingreso" value="#{controlReingresarEmpleado.fechaReingreso}">
                                     <p:ajax event="dateSelect"  update="fechaReingreso" process="@this"/>
@@ -94,7 +94,7 @@
                                 </p:calendar>
                             </div>
 
-                            <h:outputText  value="#{msg['fechafincontrato']}" style="position: absolute; top: 265px; left: 15px;font-weight: bold"/>
+                            <h:outputText  value="#{msg['fechafincontrato']}" style="position: absolute; top: 265px; left: 15px; font-weight: bold;"/>
 
                             <div id="divFechaFinContrato" style="position: absolute; top: 305px; left: 15px;">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaFinContrato" value="#{controlReingresarEmpleado.fechaFinContrato}">
@@ -104,60 +104,60 @@
                             </div>
                         </fieldset>
 
-                        <p:commandButton style="position: absolute; left: 580px; top: 470px;" icon="ui-icon-check" id="REINGRESAR" value="#{msg['reingresarempleado']}"  process="@this" actionListener="#{controlReingresarEmpleado.reingresarEmpleado}" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 470px;"  icon="ui-icon-closethick" id="ATRAS" actionListener="#{controlReingresarEmpleado.salir()}" action="nominaf"  value="#{msg['cancelar']}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 580px; top: 470px;" icon="ui-icon-check" id="REINGRESAR" value="#{msg['reingresarempleado']}"  process="@this" actionListener="#{controlReingresarEmpleado.reingresarEmpleado}"/>
+                        <p:commandButton style="position: absolute; left: 775px; top: 470px;"  icon="ui-icon-closethick" id="ATRAS" actionListener="#{controlReingresarEmpleado.salir()}" action="nominaf"  value="#{msg['cancelar']}" process="@this"/>
                     </p:panel>
                 </h:form>
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="seleccioneEmpleado" header="#{msg['atencion']}" widgetVar="seleccioneEmpleado"  resizable="false" draggable="true" modal="true" height="105" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="Por favor, primero escoja el empleado que va a reingresar" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('seleccioneEmpleado').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this" />
+                        <h:outputText value="Por favor, primero escoja el empleado que va a reingresar" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('seleccioneEmpleado').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="105" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']} #{controlReingresarEmpleado.mostrarFechaRetiro}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['errorFechas']} #{controlReingresarEmpleado.mostrarFechaRetiro}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionReingreso" header="#{msg['atencion']}" widgetVar="validacionReingreso"  resizable="false" draggable="true" modal="true" height="105" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionReingreso']} #{controlReingresarEmpleado.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionReingreso').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['validacionReingreso']} #{controlReingresarEmpleado.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionReingreso').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <!--DIALOGO EMPLEADOS-->    
                     <p:dialog header="#{msg['empleadosEM']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="500" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="500">
 
                         <p:dataTable  id="LOVEmpleados" style=" width: 400px;" var="emp" value="#{controlReingresarEmpleado.lovEmpleados}"
                                       scrollable="true" scrollHeight="350" scrollWidth="415" widgetVar="LOVEmpleados" 
                                       filteredValue="#{controlReingresarEmpleado.filtradoLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{emp.secuencia}" selection="#{controlReingresarEmpleado.empleadoSeleccionado}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlReingresarEmpleado.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEmpleados()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEmpleados()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width:100px; position: relative; left: 80px;"/>  
                             </f:facet>
 
-                            <p:column  filterBy="#{emp.codigoempleado}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
+                            <p:column  filterBy="#{emp.codigoempleado}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['codigoEM']}" />
+                                    <h:outputText value="#{msg['codigoEM']}"/>
                                 </f:facet>
-                                <h:outputText value="#{emp.codigoempleado}" />  
+                                <h:outputText value="#{emp.codigoempleado}"/>  
                             </p:column>  
 
-                            <p:column filterBy="#{emp.persona.nombreCompleto}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{emp.persona.nombreCompleto}" width="150" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEM']}" />
+                                    <h:outputText value="#{msg['nombreEM']}"/>
                                 </f:facet>
-                                <h:outputText value="#{emp.persona.nombreCompleto}" />  
+                                <h:outputText value="#{emp.persona.nombreCompleto}"/>  
                             </p:column>
                         </p:dataTable>      
-                        <h:outputText id="infoRegistroEmpleados" value="#{controlReingresarEmpleado.infoRegistroEmpleados}" style="position: relative; left: 15px; top:25px ;font-weight: bold"/>
+                        <h:outputText id="infoRegistroEmpleados" value="#{controlReingresarEmpleado.infoRegistroEmpleados}" style="position: relative; left: 15px; top:25px ; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarE" value="#{msg['aceptar']}" disabled="#{controlReingresarEmpleado.aceptar}" style="position: absolute; top: 455px; left: 252px;" icon="ui-icon-check" actionListener="#{controlReingresarEmpleado.actualizarEmpleados()}" process="@this"/>
                         
@@ -165,55 +165,55 @@
                     </p:dialog>
                     <!--DIALOGO ESTRUCTURAS-->    
                     <p:dialog header="#{msg['estructurasE']}" widgetVar="estructurasDialogo" draggable="true" resizable="false" id="estructurasDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="700" height="500" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="700" height="500">
 
                         <p:dataTable  id="LOVEstructuras" style=" width: 660px;" var="es" value="#{controlReingresarEmpleado.lovEstructuras}"
                                       scrollable="true" scrollHeight="350" scrollWidth="678" widgetVar="LOVEstructuras" 
                                       filteredValue="#{controlReingresarEmpleado.filtradoLovEstructuras}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{es.secuencia}" selection="#{controlReingresarEmpleado.estructuraSeleccionada}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlReingresarEmpleado.activarAceptar()}" update=":formularioDialogos:aceptarES"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEstructuras()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEstructuras()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" style="width:100px; position: relative; left: 80px;"/>  
                             </f:facet>
 
-                            <p:column  filterBy="#{es.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
+                            <p:column  filterBy="#{es.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['codigoE']}" />
+                                    <h:outputText value="#{msg['codigoE']}"/>
                                 </f:facet>
-                                <h:outputText value="#{es.codigo}" />  
+                                <h:outputText value="#{es.codigo}"/>  
                             </p:column>  
 
-                            <p:column filterBy="#{es.nombre}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{es.nombre}" width="150" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreE']}" />
+                                    <h:outputText value="#{msg['nombreE']}"/>
                                 </f:facet>
-                                <h:outputText value="#{es.nombre}" />  
+                                <h:outputText value="#{es.nombre}"/>  
                             </p:column>
 
-                            <p:column filterBy="#{es.centrocosto.nombre}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{es.centrocosto.nombre}" width="150" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['centrocostoE']}" />
+                                    <h:outputText value="#{msg['centrocostoE']}"/>
                                 </f:facet>
-                                <h:outputText value="#{es.centrocosto.nombre}" />  
+                                <h:outputText value="#{es.centrocosto.nombre}"/>  
                             </p:column>
 
-                            <p:column filterBy="#{es.centrocosto.empresa.nombre}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{es.centrocosto.empresa.nombre}" width="150" filterMatchMode="contains"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['empresaE']}" />
+                                    <h:outputText value="#{msg['empresaE']}"/>
                                 </f:facet>
-                                <h:outputText value="#{es.centrocosto.empresa.nombre}" />  
+                                <h:outputText value="#{es.centrocosto.empresa.nombre}"/>  
                             </p:column>
 
-                            <p:column filterBy="#{es.centrocosto.empresa.codigo}" width="60" filterMatchMode="contains" filterStyle="width:40px;" > 
+                            <p:column filterBy="#{es.centrocosto.empresa.codigo}" width="60" filterMatchMode="contains" filterStyle="width:40px;"> 
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['codigoeE']}" />
+                                    <h:outputText value="#{msg['codigoeE']}"/>
                                 </f:facet>
-                                <h:outputText value="#{es.centrocosto.empresa.codigo}" />  
+                                <h:outputText value="#{es.centrocosto.empresa.codigo}"/>  
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEstructuras" value="#{controlReingresarEmpleado.infoRegistroEstructuras}" style="position: relative; left: 15px; top:25px ;font-weight: bold"/>
+                        <h:outputText id="infoRegistroEstructuras" value="#{controlReingresarEmpleado.infoRegistroEstructuras}" style="position: relative; left: 15px; top:25px ; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarES" value="#{msg['aceptar']}" disabled="#{controlReingresarEmpleado.aceptar}" style="position: absolute; top: 455px; left: 502px;" icon="ui-icon-check" actionListener="#{controlReingresarEmpleado.actualizarEstructuras()}" process="@this"/>
                         
@@ -222,35 +222,35 @@
                     
                     <p:dialog id="exito" header="#{msg['atencion']}" widgetVar="exito"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['exito']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('exito').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['exito']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('exito').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="paso1" header="#{msg['titulopaso1']}" widgetVar="paso1"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['paso1']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso1').hide(), PF('paso2').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso1').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['paso1']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso1').hide(), PF('paso2').show();" style="position: absolute; top: 50px; left: 210px;" process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso1').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="paso2" header="#{msg['titulopaso2']}" widgetVar="paso2"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['paso2']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlReingresarEmpleado.irPaso3()}" onclick="PF('paso2').hide(), PF('paso3').show();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso2').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['paso2']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlReingresarEmpleado.irPaso3()}" onclick="PF('paso2').hide(), PF('paso3').show();" style="position: absolute; top: 50px; left: 210px;" process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso2').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="paso3" header="#{msg['titulopaso3']}" widgetVar="paso3"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['paso3']} #{controlReingresarEmpleado.nombre}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlReingresarEmpleado.reingresoEmpleado()}" icon="ui-icon-check" onclick="PF('paso3').hide()" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso3').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['paso3']} #{controlReingresarEmpleado.nombre}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlReingresarEmpleado.reingresoEmpleado()}" icon="ui-icon-check" onclick="PF('paso3').hide()" style="position: absolute; top: 50px; left: 210px;" process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso3').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="error" header="#{msg['atencion']}" widgetVar="error"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['error']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}"  icon="ui-icon-check" onclick="PF('error').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['error']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}"  icon="ui-icon-check" onclick="PF('error').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                 </h:form>

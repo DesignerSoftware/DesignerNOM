@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -22,7 +23,7 @@ import javax.faces.bean.SessionScoped;
 public class ControlListaNavegacion implements Serializable {
 
    private List<String> listaPaginasAnteriores = new ArrayList<String>();
-   private String paginaActual = "";
+   private String paginaActual = "1";
 
    /**
     * Creates a new instance of ControlListaNavegacion
@@ -32,6 +33,12 @@ public class ControlListaNavegacion implements Serializable {
    }
 
    public String guardarNavegacion(String pagActual, String pagDestino) {
+      if (pagActual.equals("nominaf")) {
+         listaPaginasAnteriores.clear();
+         listaPaginasAnteriores.add("iniciored");
+      } else if (!pagActual.equals(paginaActual) && !paginaActual.equals("1")) {
+         adicionarPagina("nominaf");
+      }
       paginaActual = pagDestino;
       adicionarPagina(pagActual);
       return pagDestino;
@@ -39,22 +46,22 @@ public class ControlListaNavegacion implements Serializable {
 
    public void adicionarPagina(String pag) {
       listaPaginasAnteriores.add(pag);
-      System.out.println("ControlListaNavegacion.adicionarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores + " → " + paginaActual);
+      System.out.println("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
    }
 
-   public void quitarPagina() {
-      if (listaPaginasAnteriores.size() > 0) {
-         paginaActual = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
-         listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
+   public void quitarPagina(String pagParametro) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      System.out.println("quitarPagina(pag) : " + pagParametro + ", paginaActual : " + paginaActual);
+      if (paginaActual.equals(pagParametro)) {
+         if (listaPaginasAnteriores.size() > 1) {
+            paginaActual = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
+            listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
+         }
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, paginaActual);
+      } else {
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "nominaf");
       }
-      System.out.println("ControlListaNavegacion.quitarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores + " → " + paginaActual);
-   }
-
-   public String retornarPaginaAnterior() {
-      String s = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
-      listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
-      System.out.println("ControlListaNavegacion.retornarPaginaAnterior() listaPaginasAnteriores : " + listaPaginasAnteriores + " → " + paginaActual);
-      return s;
+      System.out.println("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
    }
 
    public List<String> getListaPaginasAnteriores() {

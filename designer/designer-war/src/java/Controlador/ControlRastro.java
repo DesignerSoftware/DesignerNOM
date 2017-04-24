@@ -69,7 +69,7 @@ public class ControlRastro implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -100,15 +100,34 @@ public class ControlRastro implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "rastrotabla";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "rastrotabla";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -118,9 +137,8 @@ public class ControlRastro implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    //PARAMETROS PARA EL RASTRO
@@ -319,6 +337,14 @@ public class ControlRastro implements Serializable {
       }
    }
 
+   public void salir() {
+      secRegistroT = null;
+      nombreTablaRastro = null;
+      btnValor = "Consultar Eliminados";
+      seleccionRastro = null;
+      navegar("atras");
+   }
+
    public void detallesRastro(Rastros rastro) {
       seleccionRastro = rastro;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -346,14 +372,6 @@ public class ControlRastro implements Serializable {
       Exporter exporter = new ExportarXLS();
       exporter.export(context, tabla, "RastroXLS", false, false, "UTF-8", null, null);
       context.responseComplete();
-   }
-
-   public String volverPaginaAnterior() {
-      secRegistroT = null;
-      nombreTablaRastro = null;
-      btnValor = "Consultar Eliminados";
-      seleccionRastro = null;
-      return nomPagina;
    }
 
    public void activarAceptar() {

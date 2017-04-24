@@ -166,26 +166,37 @@ public class ControlFormula implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      String pagActual = "formula";
+
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         cancelarModificaciones();
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
       } else {
-         String pagActual = "formula";
-         if (pag.equals("historiaFormula")) {
+         if (pag.equals("historiaformula")) {
             Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
             mapParaEnviar.put("paginaAnterior", pagActual);
             mapParaEnviar.put("formula", formulaSeleccionada);
             ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class);
             controlHistoriaFormula.recibirParametros(mapParaEnviar);
-            pag = "historiaFormula";
+            pag = "historiaformula";
          }
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
       }
       limpiarListasValor();
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+
    }
 
    public void verDetalle(Formulas formula) {
@@ -193,7 +204,7 @@ public class ControlFormula implements Serializable {
       unaVez = true;
       nombreLargoMientras = "0";
       formulaSeleccionada = formula;
-      navegar("historiaFormula");
+      navegar("historiaformula");
    }
 
    public boolean activarSelec() {

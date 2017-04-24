@@ -5,464 +5,465 @@
       xmlns:f="http://java.sun.com/jsf/core" 
       xmlns:ui="http://java.sun.com/jsf/facelets" 
       xmlns:p="http://primefaces.org/ui"> 
-    <h:head>
-    </h:head>
+   <h:head>
+   </h:head>
 
-    <h:body >
-        <ui:composition  template="/template.xhtml">
-            <ui:define  name="body">   
-                <script type="text/javascript">
-                    $(window).load(function () {
-                        //$(".loader").fadeOut("slow");
-                        foco('form:guardarRapido');
-                    });
-                    function foco(idElemento) {
-                        document.getElementById(idElemento).focus();
-                    }
-                    ;
-                </script>
-                <!--<div class="loader"></div>-->
-                <div style="position: static;"></div>               
-                <h:form id="form"> 
+   <h:body>
+      <ui:composition  template="/template.xhtml">
+         <ui:define  name="body">   
+            <script type="text/javascript">
+               $(window).load(function () {
+                  foco('form:guardarRapido');
+               });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               }
+               ;
+            </script>
+            <div style="position: static;"></div>               
+            <h:form id="form"> 
 
-                    <f:loadBundle basename="Recursos.parametroautoliq" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
+               <f:loadBundle basename="Recursos.parametroautoliq" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
 
-                    <p:panel  id="PanelTotal" header="Novedades AutoLiquidaciones" styleClass="panelTotal">  
+               <p:panel  id="PanelTotal" header="Novedades AutoLiquidaciones" styleClass="panelTotal">  
 
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.guardarCambios()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.guardarCambios()}" process="@this"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; "  disabled="#{controlAportesEntidadesXDia.activarLov}" process="@this"/>
-                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; "  disabled="#{controlAportesEntidadesXDia.activarLov}" process="@this"/>
+                        <p:tooltip for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlAportesEntidadesXDia.activarCtrlF11()}" process="@this" />
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlAportesEntidadesXDia.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlAportesEntidadesXDia.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlAportesEntidadesXDia.exportXLS()}"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " ajax="false">
-                                    <p:dataExporter type="xml"  target="#{controlAportesEntidadesXDia.exportXMLTabla()}" fileName="#{controlAportesEntidadesXDia.exportXMLNombreArchivo()}" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " ajax="false">
+                           <p:dataExporter type="xml"  target="#{controlAportesEntidadesXDia.exportXMLTabla()}" fileName="#{controlAportesEntidadesXDia.exportXMLNombreArchivo()}" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlAportesEntidadesXDia.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlAportesEntidadesXDia.exportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " disabled="true" actionListener="#{controlAportesEntidadesXDia.borrarAporteEntidad()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " disabled="true" actionListener="#{controlAportesEntidadesXDia.borrarAporteEntidad()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" disabled="true"  value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;" process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:commandButton id="duplicar" disabled="true"  value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;" process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlAportesEntidadesXDia.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlAportesEntidadesXDia.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.cancelarModificacion()}" process="@this"
-                                                 oncomplete="window.location.reload()" /> 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.cancelarModificacion()}" process="@this"
+                                         oncomplete="window.location.reload()"/> 
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlAportesEntidadesXDia.salir()}" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlAportesEntidadesXDia.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
-                            </p:toolbarGroup>  
-                        </p:toolbar>
-                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 40px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px "> <!--border: solid #C7BFBF 1px -->
+                     </p:toolbarGroup>  
+                  </p:toolbar>
+                  <fieldset style="position: absolute; top: 80px; left: 10px; height: 40px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;"> <!--border: solid #C7BFBF 1px -->
 
-                            <h:outputText value="TIPO ENTIDAD : " style="font-weight: bold; color: #BF1A1A; position: absolute; top: 10px; left: 10px;" />
-                            <h:outputText id="nombreEntidad" value="#{controlAportesEntidadesXDia.aporteEntidad.tipoentidad.nombre}" 
-                                          style="font-weight: bold; color: #14388B; position: absolute; left: 120px; top: 10px"/>
+                     <h:outputText value="TIPO ENTIDAD : " style="font-weight: bold; color: #BF1A1A; position: absolute; top: 10px; left: 10px;"/>
+                     <h:outputText id="nombreEntidad" value="#{controlAportesEntidadesXDia.aporteEntidad.tipoentidad.nombre}" 
+                                   style="font-weight: bold; color: #14388B; position: absolute; left: 120px; top: 10px"/>
 
-                            <h:outputText value="EMPLEADO : " style="font-weight: bold; color: #BF1A1A; position: absolute; top: 30px; left: 10px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlAportesEntidadesXDia.aporteEntidad.empleado.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #14388B; position: absolute; left: 95px; top: 32px;" />
-                        </fieldset>
-                        <fieldset  style="position: absolute; left: 5px; top: 150px; width: 835px; height: 315px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>Aportes día a día</strong></legend>
+                     <h:outputText value="EMPLEADO : " style="font-weight: bold; color: #BF1A1A; position: absolute; top: 30px; left: 10px;"/>
+                     <h:outputText id="nombreEmpleado" value="#{controlAportesEntidadesXDia.aporteEntidad.empleado.persona.nombreCompleto}" 
+                                   style="font-weight: bold; color: #14388B; position: absolute; left: 95px; top: 32px;"/>
+                  </fieldset>
+                  <fieldset  style="position: absolute; left: 5px; top: 150px; width: 835px; height: 315px; border-radius: 10px; ">
+                     <legend style="color: blue;text-align:left;"><strong>Aportes día a día</strong></legend>
 
-                            <p:dataTable id="tablaAportesEntidades" var="infoAE"  rowKey="#{infoAE.secuencia}" style="border: 1px; width: 830px; position: inherit;" value="#{controlAportesEntidadesXDia.listAportesEntidades}"
-                                         widgetVar="tablaAportesEntidades" filteredValue="#{controlAportesEntidadesXDia.listAportesEntidadesFiltrar}"  rowIndexVar="indiceAE"
-                                         selection="#{controlAportesEntidadesXDia.aporteSeleccionado}" scrollWidth="830" selectionMode="single" scrollable="true" emptyMessage="No se encontraron resultados para la búsqueda" 
-                                         editable="true" editMode="cell" liveScroll="true" scrollHeight="#{controlAportesEntidadesXDia.altoTabla}" scrollRows="30">
-                                <p:ajax event="filter" listener="#{controlAportesEntidadesXDia.contarRegistrosAporte()}"/>
+                     <p:dataTable id="tablaAportesEntidades" var="infoAE"  rowKey="#{infoAE.secuencia}" style="border: 1px; width: 830px; position: inherit;" value="#{controlAportesEntidadesXDia.listAportesEntidades}"
+                                  widgetVar="tablaAportesEntidades" filteredValue="#{controlAportesEntidadesXDia.listAportesEntidadesFiltrar}"  rowIndexVar="indiceAE"
+                                  selection="#{controlAportesEntidadesXDia.aporteSeleccionado}" scrollWidth="830" selectionMode="single" scrollable="true" emptyMessage="No se encontraron resultados para la búsqueda" 
+                                  editable="true" editMode="cell" liveScroll="true" scrollHeight="#{controlAportesEntidadesXDia.altoTabla}" scrollRows="30">
+                        <p:ajax event="filter" listener="#{controlAportesEntidadesXDia.contarRegistrosAporte()}"/>
 
-                                <p:column  id="dia"  sortBy="#{infoAE.dia}" width="60" filterBy="#{infoAEempleado.dia}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;"  >     
-                                    <f:facet name="header"> 
-                                        <h:outputText id="hcodempl" value="Día" />
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output" >
-                                            <h:outputText value="#{infoAE.dia}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  value="#{infoAE.dia}" style="border-radius: 0px; width: 98.5%;"> 
-                                                 <!--onselect="posicionAporteEntidad([{name: 'n', value: '0'}, {name: 't', value: '#{indiceAE}'}]);"-->
-                                                <p:ajax event="dateSelect" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
-                                                <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 0)}"  process="@this" />
-                                            </p:calendar>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>  
+                        <p:column  id="dia"  sortBy="#{infoAE.dia}" width="60" filterBy="#{infoAEempleado.dia}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">     
+                           <f:facet name="header"> 
+                              <h:outputText id="hcodempl" value="Día"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoAE.dia}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  value="#{infoAE.dia}" style="border-radius: 0px; width: 98.5%;"> 
+                                      <!--onselect="posicionAporteEntidad([{name: 'n', value: '0'}, {name: 't', value: '#{indiceAE}'}]);"-->
+                                    <p:ajax event="dateSelect" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
+                                    <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 0)}"  process="@this"/>
+                                 </p:calendar>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>  
 
-                                <p:column  id="novedad"  sortBy="#{infoAE.novedad}" filterBy="#{infoAE.novedad}" filterMatchMode="contains" width="40"   filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header"> 
-                                        <h:outputText id="anio" value="Novedad" /> 
-                                    </f:facet>
-                                    <p:cellEditor> 
-                                        <f:facet name="output"><h:outputText value="#{infoAE.novedad}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoAE.novedad}" id="editarAnoAporte" style="border-radius: 0px; width: 98.5%;" > 
-                                                <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" 
-                                                        listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 1)}" process="@this" />
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>  
+                        <p:column  id="novedad"  sortBy="#{infoAE.novedad}" filterBy="#{infoAE.novedad}" filterMatchMode="contains" width="40"   filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"> 
+                              <h:outputText id="anio" value="Novedad"/> 
+                           </f:facet>
+                           <p:cellEditor> 
+                              <f:facet name="output"><h:outputText value="#{infoAE.novedad}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{infoAE.novedad}" id="editarAnoAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                    <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" 
+                                            listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 1)}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>  
 
-                                <p:column  id="tarifa"  sortBy="#{infoAE.tarifaaux}" filterBy="#{infoAE.tarifaaux}"  filterMatchMode="contains" width="60"   filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header">
-                                        <h:outputText id="hmes" value="Tarifa"/>
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.tarifaaux}">
-                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoAE.tarifaaux}" id="editarMesAporte" style="border-radius: 0px; width: 98.5%;"> 
-                                                <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"  process="@this" 
-                                                        listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 2)}" />
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>  
+                        <p:column  id="tarifa"  sortBy="#{infoAE.tarifaaux}" filterBy="#{infoAE.tarifaaux}"  filterMatchMode="contains" width="60"   filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="hmes" value="Tarifa"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoAE.tarifaaux}">
+                                    <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3"/>-->
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{infoAE.tarifaaux}" id="editarMesAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                    <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"  process="@this" 
+                                            listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 2)}"/>
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>  
 
-                                <p:column  id="ibcdiario"  sortBy="#{infoAE.ibcaux}" width="80" filterBy="#{infoAE.ibcaux}" 
-                                           filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header"> 
-                                        <h:outputText id="nomempl" value="IBC Diario" /> 
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.ibcaux}">
-                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoAE.ibcaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" >
-                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
-                                                </p:ajax>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
+                        <p:column  id="ibcdiario"  sortBy="#{infoAE.ibcaux}" width="80" filterBy="#{infoAE.ibcaux}" 
+                                   filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"> 
+                              <h:outputText id="nomempl" value="IBC Diario"/> 
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoAE.ibcaux}">
+                                    <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3"/>-->
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{infoAE.ibcaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
+                                    <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});">
+                                       <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3"/>-->
+                                    </p:ajax>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
 
-                                <p:column id="aportediario" sortBy="#{infoAE.aporteaux}" filterBy="#{infoAE.aporteaux}" width="60" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
-                                    <f:facet name="header"> 
-                                        <h:outputText id="apord" value="Aporte" /> 
-                                        <p:tooltip  for="apord" value="Aporte Diario" />
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.aporteaux}">
-                                                <f:convertNumber pattern="#0.00" maxFractionDigits="3" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoAE.aporteaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 4)}"
-                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
+                        <p:column id="aportediario" sortBy="#{infoAE.aporteaux}" filterBy="#{infoAE.aporteaux}" width="60" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"> 
+                              <h:outputText id="apord" value="Aporte"/> 
+                              <p:tooltip  for="apord" value="Aporte Diario"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoAE.aporteaux}">
+                                    <f:convertNumber pattern="#0.00" maxFractionDigits="3"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{infoAE.aporteaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
+                                    <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 4)}"
+                                            onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
 
-                                <p:column id="tarifa2"  headerText="" sortBy="#{infoAE.tarifa2aux}" width="60" filterBy="#{infoAE.tarifa2aux}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header"> 
-                                        <h:outputText value="Tarifa" /> 
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.tarifa2aux}">
-                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
-                                            </h:outputText>  
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifa2aux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 5)}"
-                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>  
+                        <p:column id="tarifa2"  headerText="" sortBy="#{infoAE.tarifa2aux}" width="60" filterBy="#{infoAE.tarifa2aux}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"> 
+                              <h:outputText value="Tarifa"/> 
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoAE.tarifa2aux}">
+                                    <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3"/>-->
+                                 </h:outputText>  
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{infoAE.tarifa2aux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
+                                    <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 5)}"
+                                            onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>  
 
-                                <p:column id="ibcespecial"  sortBy="#{infoAE.ibcespaux}" filterBy="#{infoAE.ibcespaux}"  width="80" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"   >                                  
-                                    <f:facet name="header"> 
-                                        <h:outputText value="IBC Especial" /> 
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.ibcespaux}">
-                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoAE.ibcespaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE,6)}"
-                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
+                        <p:column id="ibcespecial"  sortBy="#{infoAE.ibcespaux}" filterBy="#{infoAE.ibcespaux}"  width="80" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"> 
+                              <h:outputText value="IBC Especial"/> 
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoAE.ibcespaux}">
+                                    <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3"/>-->
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{infoAE.ibcespaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
+                                    <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE,6)}"
+                                            onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
 
-                                <p:column id="aporteentidad"  sortBy="#{infoAE.aporteentaux}" filterBy="#{infoAE.aporteentaux}" width="65"  filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;"   >                                  
-                                    <f:facet name="header"> 
-                                        <h:outputText value="Aporte Entidad" /> 
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.aporteentaux}">
-                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoAE.aporteentaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE,7)}"
-                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-                            </p:dataTable>
-                            <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlAportesEntidadesXDia.infoRegistroAporte}" style="position: relative; left: 5px; top: 292px; font-weight: bold"/>
+                        <p:column id="aporteentidad"  sortBy="#{infoAE.aporteentaux}" filterBy="#{infoAE.aporteentaux}" width="65"  filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"> 
+                              <h:outputText value="Aporte Entidad"/> 
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoAE.aporteentaux}">
+                                    <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3"/>-->
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"   value="#{infoAE.aporteentaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
+                                    <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE,7)}"
+                                            onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
+                     </p:dataTable>
+                     <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlAportesEntidadesXDia.infoRegistroAporte}" style="position: relative; left: 5px; top: 292px; font-weight: bold;"/>
 
-                            <p:inputText  autocomplete="off"  id="ibcmensual" value="#{controlAportesEntidadesXDia.ibcmensual}" readonly="true" style="position: relative; top: 285px; left: 210px; width: 115px; height: 10px; text-align: left; border-color: transparent">
-                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
-                            </p:inputText>
+                     <p:inputText  autocomplete="off"  id="ibcmensual" value="#{controlAportesEntidadesXDia.ibcmensual}" readonly="true" style="position: relative; top: 285px; left: 210px; width: 115px; height: 10px; text-align: left; border-color: transparent">
+                        <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                     </p:inputText>
 
-                            <p:inputText  autocomplete="off"  id="aportemensual" value="#{controlAportesEntidadesXDia.aportemensual}" readonly="true" style="position: relative; top: 285px; left: 215px; width: 82px; height: 10px; text-align: left; border-color: transparent">
-                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
-                            </p:inputText>
+                     <p:inputText  autocomplete="off"  id="aportemensual" value="#{controlAportesEntidadesXDia.aportemensual}" readonly="true" style="position: relative; top: 285px; left: 215px; width: 82px; height: 10px; text-align: left; border-color: transparent">
+                        <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                     </p:inputText>
 
-                            <p:inputText  autocomplete="off"  id="ibcespecialmensual" value="#{controlAportesEntidadesXDia.ibcespecialmensual}" readonly="true" style="position: relative; top: 285px; left: 305px; width:100px; height: 10px; text-align: left; border-color: transparent">
-                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
-                            </p:inputText>
+                     <p:inputText  autocomplete="off"  id="ibcespecialmensual" value="#{controlAportesEntidadesXDia.ibcespecialmensual}" readonly="true" style="position: relative; top: 285px; left: 305px; width:100px; height: 10px; text-align: left; border-color: transparent">
+                        <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                     </p:inputText>
 
-                            <p:inputText  autocomplete="off"  id="aporteentidadmensual" value="#{controlAportesEntidadesXDia.aporteentidadmensual}" readonly="true" style="position: relative; top: 285px; left: 315px;width: 80px; height: 10px; text-align: left; border-color: transparent">
-                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
-                            </p:inputText>
-                        </fieldset>
+                     <p:inputText  autocomplete="off"  id="aporteentidadmensual" value="#{controlAportesEntidadesXDia.aporteentidadmensual}" readonly="true" style="position: relative; top: 285px; left: 315px; width: 80px; height: 10px; text-align: left; border-color: transparent">
+                        <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                     </p:inputText>
+                  </fieldset>
 
-                        <p:commandButton class="cssBotonAceptar" disabled="#{controlAportesEntidadesXDia.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlAportesEntidadesXDia.salir()}" process="@this" />
+                  <p:commandButton class="cssBotonAceptar" disabled="#{controlAportesEntidadesXDia.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlAportesEntidadesXDia.salir()}" process="@this"/>
 
 <!--                        <p:remoteCommand name="posicionAporteEntidad" actionListener="#{controlAportesEntidadesXDia.posicionAporteEntidad()}"/>
                         <p:remoteCommand name="posicionParametro" actionListener="#{controlAportesEntidadesXDia.posicionParametro()}"/>-->
-                    </p:panel>
-                </h:form>
+               </p:panel>
+            </h:form>
 
-                <h:form id="formularioDialogos" >
+            <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlAportesEntidadesXDia.guardarYSalir()}" action="#{controlAportesEntidadesXDia.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlAportesEntidadesXDia.cancelarYSalir()}" action="#{controlAportesEntidadesXDia.redirigir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
+               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlAportesEntidadesXDia.guardarYSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlAportesEntidadesXDia.cancelarYSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAportesEntidadesXDia.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAportesEntidadesXDia.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAportesEntidadesXDia.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAportesEntidadesXDia.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAportesEntidadesXDia.aporteSeleccionado.secuencia, 'AportesEntidadesXDia', 'AportesEntidadesXDia')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAportesEntidadesXDia.aporteSeleccionado.secuencia, 'AportesEntidadesXDia', 'AportesEntidadesXDia')}"
+                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+               </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidadesXDia', 'AportesEntidadesXDia')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidadesXDia', 'AportesEntidadesXDia')}"
+                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+               </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAportesEntidadesXDia.aporteSeleccionado.secuencia, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAportesEntidadesXDia.aporteSeleccionado.secuencia, 'ParametrosAutoliq', 'parametroautoliq')}"
+                                   style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
+               </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
 
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlAportesEntidadesXDia.activarCtrlF11()}"/> 
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlAportesEntidadesXDia.activarCtrlF11()}"/> 
 
-                    <p:dialog id="editarDia" header="Día" widgetVar="editarDia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.dia}" style="overflow: auto;" readonly="true">
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>      
-                    </p:dialog>
+               <p:dialog id="editarDia" header="Día" widgetVar="editarDia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.dia}" style="overflow: auto;" readonly="true">
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>      
+               </p:dialog>
 
-                    <p:dialog id="editarNovedad" header="Novedad" widgetVar="editarNovedad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.novedad}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+               <p:dialog id="editarNovedad" header="Novedad" widgetVar="editarNovedad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.novedad}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
 
-                    <p:dialog id="editarTarifa" header="Tarifa" widgetVar="editarTarifa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.tarifaaux}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editarIBCDiario" header="IBC Diario" widgetVar="editarIBCDiario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.ibcaux}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editarAporteDiario" header="Aporte Diario" widgetVar="editarAporteDiario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.aporteaux}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editarTarifa2" header="Tarifa" widgetVar="editarTarifa2" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.tarifa2aux}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editarIBCEspecial" header="IBC Especial" widgetVar="editarIBCEspecial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.ibcespaux}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editaAporteEntidad" header="Aporte Entidad" widgetVar="editaAporteEntidad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.aporteentaux}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+               <p:dialog id="editarTarifa" header="Tarifa" widgetVar="editarTarifa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.tarifaaux}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+               <p:dialog id="editarIBCDiario" header="IBC Diario" widgetVar="editarIBCDiario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.ibcaux}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+               <p:dialog id="editarAporteDiario" header="Aporte Diario" widgetVar="editarAporteDiario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.aporteaux}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+               <p:dialog id="editarTarifa2" header="Tarifa" widgetVar="editarTarifa2" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.tarifa2aux}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+               <p:dialog id="editarIBCEspecial" header="IBC Especial" widgetVar="editarIBCEspecial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.ibcespaux}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+               <p:dialog id="editaAporteEntidad" header="Aporte Entidad" widgetVar="editaAporteEntidad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlAportesEntidadesXDia.editarAporte.aporteentaux}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
 
-                </h:form>
+            </h:form>
 
-                <h:form id="formExportar">
+            <h:form id="formExportar">
 
-                    <p:dataTable id="datosAporteEntidadExportar" var="info2Exp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlAportesEntidadesXDia.listAportesEntidades}"> 
+               <p:dataTable id="datosAporteEntidadExportar" var="info2Exp" style="visibility: hidden; display: none;"                           
+                            value="#{controlAportesEntidadesXDia.listAportesEntidades}"> 
 
-                        <p:column headerText="Dia">                                  
-                            <f:facet name="header"><h:outputText value="Dia"/> </f:facet> 
-                            <h:outputText value="#{info2Exp.dia}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>  
+                  <p:column headerText="Dia">                                  
+                     <f:facet name="header"><h:outputText value="Dia"/> </f:facet> 
+                     <h:outputText value="#{info2Exp.dia}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>  
 
-                        <p:column headerText="Novedad">                                  
-                            <f:facet name="header"><h:outputText value="Novedad"/>
-                            </f:facet> 
-                            <h:outputText value="#{info2Exp.novedad}" />
-                        </p:column>
+                  <p:column headerText="Novedad">                                  
+                     <f:facet name="header"><h:outputText value="Novedad"/>
+                     </f:facet> 
+                     <h:outputText value="#{info2Exp.novedad}"/>
+                  </p:column>
 
-                        <p:column headerText="Tarifa">                                  
-                            <f:facet name="header">
-                                <h:outputText value="Tarifa"/> 
-                            </f:facet> 
-                            <h:outputText value="#{info2Exp.tarifacaja}" />
-                        </p:column>
+                  <p:column headerText="Tarifa">                                  
+                     <f:facet name="header">
+                        <h:outputText value="Tarifa"/> 
+                     </f:facet> 
+                     <h:outputText value="#{info2Exp.tarifacaja}"/>
+                  </p:column>
 
-                        <p:column headerText="IBC_Diario">                                  
-                            <f:facet name="header"><h:outputText value="IBC_Diario"/></f:facet> 
-                            <h:outputText value="#{info2Exp.ibccajareal}" />
-                        </p:column>
+                  <p:column headerText="IBC_Diario">                                  
+                     <f:facet name="header"><h:outputText value="IBC_Diario"/></f:facet> 
+                     <h:outputText value="#{info2Exp.ibccajareal}"/>
+                  </p:column>
 
-                        <p:column headerText="Aporte_Diario">                                  
-                            <f:facet name="header"><h:outputText value="Aporte_Diario"/> </f:facet> 
-                            <h:outputText value="#{info2Exp.aportecaja}" />
-                        </p:column>  
+                  <p:column headerText="Aporte_Diario">                                  
+                     <f:facet name="header"><h:outputText value="Aporte_Diario"/> </f:facet> 
+                     <h:outputText value="#{info2Exp.aportecaja}"/>
+                  </p:column>  
 
-                        <p:column headerText="Tarifa">                                  
-                            <f:facet name="header"><h:outputText value="Tarifa"/> </f:facet> 
-                            <h:outputText value="#{info2Exp.tarifacajasobrante}" />
-                        </p:column>
+                  <p:column headerText="Tarifa">                                  
+                     <f:facet name="header"><h:outputText value="Tarifa"/> </f:facet> 
+                     <h:outputText value="#{info2Exp.tarifacajasobrante}"/>
+                  </p:column>
 
-                        <p:column headerText="IBC_Especial">                                  
-                            <f:facet name="header"><h:outputText value="IBC_Especial"/> </f:facet> 
-                            <h:outputText value="#{info2Exp.ibcicbfreal}" />
-                        </p:column>
+                  <p:column headerText="IBC_Especial">                                  
+                     <f:facet name="header"><h:outputText value="IBC_Especial"/> </f:facet> 
+                     <h:outputText value="#{info2Exp.ibcicbfreal}"/>
+                  </p:column>
 
-                        <p:column headerText="Aporte_Entidad">                                  
-                            <f:facet name="header"><h:outputText value="Aporte_Entidad"/> </f:facet> 
-                            <h:outputText value="#{info2Exp.aportecajareal}" />
-                        </p:column>
+                  <p:column headerText="Aporte_Entidad">                                  
+                     <f:facet name="header"><h:outputText value="Aporte_Entidad"/> </f:facet> 
+                     <h:outputText value="#{info2Exp.aportecajareal}"/>
+                  </p:column>
 
-                    </p:dataTable>
-                </h:form>
+               </p:dataTable>
+            </h:form>
 
-            </ui:define>
-        </ui:composition>
-    </h:body>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

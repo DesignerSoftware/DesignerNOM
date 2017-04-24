@@ -124,7 +124,6 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
          cq.select(cq.from(DetallesEmpresas.class));
          List<DetallesEmpresas> listaResultado = em.createQuery(cq).getResultList();
-
          if (listaResultado != null) {
             if (!listaResultado.isEmpty()) {
                System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas()");
@@ -152,12 +151,10 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
                        + " AND C.SECUENCIA(+) = D.CIUDAD\n"
                        + " AND C2.SECUENCIA(+) = D.CIUDADDOCUMENTOREPRESENTANTE\n"
                        + " AND CA.SECUENCIA(+) = D.CARGOFIRMACONSTANCIA", DetallesEmpresasAux.class);
-
                List<DetallesEmpresasAux> listaAux = query.getResultList();
                if (listaAux != null) {
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaResultado.size(); j++) {
-                        System.out.println("");
                         for (int i = 0; i < listaAux.size(); i++) {
                            if (listaResultado.get(j).getSecuencia().equals(listaAux.get(i).getSecuencia())) {
                               listaResultado.get(j).setNombre_arquitecto(listaAux.get(i).getNombre_arquitecto());

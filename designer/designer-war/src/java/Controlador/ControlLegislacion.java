@@ -140,15 +140,34 @@ public class ControlLegislacion implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "legislacion";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "legislacion";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -158,10 +177,9 @@ public class ControlLegislacion implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
       limpiarListasValor();
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+
    }
 
    public void limpiarListasValor() {
@@ -429,6 +447,11 @@ public class ControlLegislacion implements Serializable {
             }
          }
       }
+   }
+
+   public void guardarYSalir() {
+      guardarCambios();
+      salir();
    }
 
    public void guardarCambios() {
@@ -855,13 +878,6 @@ public class ControlLegislacion implements Serializable {
       RequestContext.getCurrentInstance().update("form:ContratosDialogo");
       RequestContext.getCurrentInstance().update("form:lovContratos");
       RequestContext.getCurrentInstance().update("form:aceptarC");
-   }
-
-   //GUARDAR
-   public void guardarSalir() {
-      System.out.println("guardado : " + guardado);
-      guardarCambios();
-      //refrescar();
    }
 
    public void salir() {

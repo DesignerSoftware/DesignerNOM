@@ -13,7 +13,7 @@
                 <h:form id="form">                    
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Indices" styleClass="panelTotal">  
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Indices</strong></legend>
 
                             <p:dataTable id="datosIndices" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
@@ -25,16 +25,16 @@
                                          editable="true"
                                          editMode="cell"
                                          selection="#{controlIndices.indicesSeleccionada}"
-                                         selectionMode="single" >
+                                         selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlIndices.eventoFiltrar()}"/>
 
 
-                                <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="40" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="40" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigo}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.codigo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'CODIGO', info.codigo)}" update="@this"/>
                                             </p:inputText>
@@ -45,11 +45,11 @@
                                 </p:column>
 
 
-                                <p:column headerText="Descripcion" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="180" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripcion" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="180" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.descripcion)}" update="@this"/>
                                             </p:inputText>
@@ -58,15 +58,15 @@
                                 </p:column>
 
 
-                                <p:column headerText="T.I" sortBy="#{info.tipoindice.descripcion}" filterBy="#{info.tipoindice.descripcion}" filterMatchMode="contains" id="tipoindice" width="60" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="T.I" sortBy="#{info.tipoindice.descripcion}" filterBy="#{info.tipoindice.descripcion}" filterMatchMode="contains" id="tipoindice" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="textI" value="T.I"  />
                                         <p:tooltip for="textI" value="Tipo Indice"/> 
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tipoindice.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.tipoindice.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.tipoindice.descripcion}" maxlength="50" id="editarparentesco" style="height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipoindice.descripcion}" maxlength="50" id="editarparentesco" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlIndices.asignarIndex(indice, 0,2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlIndices.modificarIndice(indice, 'TIPOSINDICES', info.tipoindice.descripcion)}"/>
@@ -75,20 +75,20 @@
                                         </f:facet>  
                                     </p:cellEditor>
 
-                                    <f:facet name="footer" >
+                                    <f:facet name="footer">
                                         <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue"  id="fooparentesco" value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="%" sortBy="#{info.porcentajeestandar}" filterBy="#{info.porcentajeestandar}" filterMatchMode="contains" id="porcentajeestan" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="%" sortBy="#{info.porcentajeestandar}" filterBy="#{info.porcentajeestandar}" filterMatchMode="contains" id="porcentajeestan" width="30" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="textPor" value="%"  />
                                         <p:tooltip for="textPor" value="Porcentaje Estandar"/> 
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.porcentajeestandar}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.porcentajeestandar}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.porcentajeestandar}" maxlength="3" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.porcentajeestandar}" maxlength="3" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.porcentajeestandar)}" update="@this"/>
                                             </p:inputText>
@@ -97,11 +97,11 @@
 
                                 </p:column>
 
-                                <p:column headerText="Objetivo" sortBy="#{info.objetivo}" filterBy="#{info.objetivo}" filterMatchMode="contains" id="objetivo" width="300" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Objetivo" sortBy="#{info.objetivo}" filterBy="#{info.objetivo}" filterMatchMode="contains" id="objetivo" width="300" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.objetivo}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.objetivo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.objetivo}"  id="editarPuntaje" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.objetivo}"  id="editarPuntaje" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 4)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.objetivo)}" update="@this"/>
                                             </p:inputText>
@@ -110,11 +110,11 @@
                                 </p:column>
 
 
-                                <p:column headerText="Dividendo" sortBy="#{info.dividendo}" filterBy="#{info.dividendo}" filterMatchMode="contains" id="dividendo" width="300" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Dividendo" sortBy="#{info.dividendo}" filterBy="#{info.dividendo}" filterMatchMode="contains" id="dividendo" width="300" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.dividendo}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.dividendo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.dividendo}"  id="editarDividendo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.dividendo}"  id="editarDividendo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 5)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.dividendo)}" update="@this"/>
                                             </p:inputText>
@@ -123,11 +123,11 @@
                                 </p:column>
 
 
-                                <p:column headerText="Divisor" sortBy="#{info.divisor}" filterBy="#{info.divisor}" filterMatchMode="contains" id="divisor" width="300" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Divisor" sortBy="#{info.divisor}" filterBy="#{info.divisor}" filterMatchMode="contains" id="divisor" width="300" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.divisor}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.divisor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.divisor}"  id="editarDivisor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.divisor}"  id="editarDivisor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 6)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.divisor)}" update="@this"/>
                                             </p:inputText>
@@ -140,62 +140,62 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlIndices.guardarIndice()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlIndices.guardarIndice()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlIndices.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="Editar" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlIndices.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlIndices.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlIndices.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlIndices.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlIndices.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlIndices.limpiarNuevoIndices()}"  ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlIndices.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlIndices.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlIndices.limpiarNuevoIndices()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosIndicesExportar" fileName="INDICES" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlIndices.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlIndices.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="PF('nuevoRegistroIndices').show()" update=":formularioDialogos:nuevooHvReferenciaLab" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nueva Indice" />
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroIndices').show()" update=":formularioDialogos:nuevooHvReferenciaLab" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Nueva Indice"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlIndices.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Indice" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlIndices.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Indice"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlIndices.duplicandoIndices()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Indice" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlIndices.duplicandoIndices()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Indice"/>
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlIndices.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlIndices.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlIndices.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlIndices.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlIndices.salir()}"   action="perReferenciaLaboral1Atras" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlIndices.salir()}"   action="empleadoindividual" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <h:outputText id="informacionRegistro" value="#{controlIndices.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px;  " disabled="#{controlIndices.guardado}" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlIndices.revisarDialogoGuardar()}"   process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px;  " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="perReferenciaLaboral1Atras"    />
+                        <h:outputText id="informacionRegistro" value="#{controlIndices.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " disabled="#{controlIndices.guardado}" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlIndices.revisarDialogoGuardar()}"   process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="empleadoindividual"    />
 
 
                         <p:dialog header="Tipo Indice" widgetVar="tiposindicesDialogo" draggable="true" resizable="false" closable="false" id="tiposindicesDialogo"  
@@ -204,27 +204,27 @@
                                          selection="#{controlIndices.tipoIndiceSeleccionado}" selectionMode="single" widgetVar="lovTiposIndices" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlIndices.filtradoTiposIndices}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlIndices.activarAceptar()}" update=":form:aceptarS"/>
-                                <p:ajax event="rowDblselect" listener="#{controlIndices.actualizarTipoIndice()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlIndices.actualizarTipoIndice()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Tipo Indice"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposIndices').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposIndices').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tpoindice.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Codigo" />
+                                        <h:outputText value="Codigo"/>
                                     </f:facet>
-                                    <h:outputText value="#{tpoindice.codigo}" />
+                                    <h:outputText value="#{tpoindice.codigo}"/>
                                 </p:column>
                                 <p:column filterBy="#{tpoindice.descripcion}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Nombre Parentesco" />
+                                        <h:outputText value="Nombre Parentesco"/>
                                     </f:facet>
-                                    <h:outputText value="#{tpoindice.descripcion}" />
+                                    <h:outputText value="#{tpoindice.descripcion}"/>
                                 </p:column>
 
                             </p:dataTable>
                             
-                            <h:outputText id="infoRegistroParentesco" value="#{controlIndices.infoRegistroParentesco}" style="position: absolute;  top: 355px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroParentesco" value="#{controlIndices.infoRegistroParentesco}" style="position: absolute;  top: 355px; font-weight: bold;"/>
                             
                             <p:commandButton id="aceptarS" icon="ui-icon-check" style="position: relative; left: 275px;" value="Aceptar" disabled="#{controlIndices.aceptar}"   actionListener="#{controlIndices.actualizarTipoIndice()}" process="@this"/>
                             
@@ -235,41 +235,41 @@
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIndices.guardarIndice()}"  action="perReferenciaLaboral1Atras"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIndices.cancelarModificacion()}"  action="perReferenciaLaboral1Atras" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIndices.guardarIndice()}"  action="empleadoindividual"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIndices.cancelarModificacion()}"  action="empleadoindividual" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlIndices.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Necesita : #{controlIndices.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlIndices.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <h:outputText value=" #{controlIndices.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Se han borrado #{controlIndices.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <h:outputText value="Se han borrado #{controlIndices.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlIndices.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlIndices.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlIndices.activarCtrlF11()}"/> 
                 </h:form>
@@ -278,132 +278,132 @@
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'INDICES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIndices.secRegistro,'Indices', 'perreferencialaboral')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla 'INDICES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIndices.secRegistro,'Indices', 'perreferencialaboral')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla INDICES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Indices', 'perreferencialaboral')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla INDICES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Indices', 'perreferencialaboral')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIndices.secRegistro,'Indices', 'perreferencialaboral')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIndices.secRegistro,'Indices', 'perreferencialaboral')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'INDICES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="La tabla 'INDICES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
 
 
-                    <p:dialog id="editCodigo" header="Codigo" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigo" header="Codigo" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlIndices.editarIndices.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlIndices.editarIndices.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editTipoIndice" header="Tipo Indicice" widgetVar="editTipoIndice" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editTipoIndice" header="Tipo Indicice" widgetVar="editTipoIndice" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlIndices.editarIndices.tipoindice.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editPorcentajeEstandar" header="Porcentaje Estandar" widgetVar="editPorcentajeEstandar" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editPorcentajeEstandar" header="Porcentaje Estandar" widgetVar="editPorcentajeEstandar" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlIndices.editarIndices.porcentajeestandar}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editObjetivo" header="Objetivo" widgetVar="editObjetivo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editObjetivo" header="Objetivo" widgetVar="editObjetivo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlIndices.editarIndices.objetivo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDividendo" header="Dividendo" widgetVar="editDividendo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDividendo" header="Dividendo" widgetVar="editDividendo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlIndices.editarIndices.dividendo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDivisor" header="Divisor" widgetVar="editDivisor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDivisor" header="Divisor" widgetVar="editDivisor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlIndices.editarIndices.divisor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 
 
                     <p:dialog id="nuevoRegistroIndices" header="Nuevo Registro" widgetVar="nuevoRegistroIndices" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="370" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Indice" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Indice" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevooHvReferenciaLab" style="border: none;">
 
 
-                            <strong><h:outputText value="*Codigo :"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="4" value="#{controlIndices.nuevoIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
+                            <strong><h:outputText value="*Codigo :"  style=" position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="4" value="#{controlIndices.nuevoIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoNombre" value="Codigo" />
+                            <p:watermark for="nuevoNombre" value="Codigo"/>
 
-                            <strong><h:outputText value="Descripción :"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCargo" value="#{controlIndices.nuevoIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
+                            <strong><h:outputText value="Descripción :"  style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoCargo" value="#{controlIndices.nuevoIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCargo" value="Descripción" />
+                            <p:watermark for="nuevoCargo" value="Descripción"/>
 
-                            <strong><h:outputText value="Tipo Indice : " style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlIndices.nuevoIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlIndices.valoresBackupAutocompletar(1, 'TIPOSINDICES')}" />
-                                <p:ajax event="change" listener="#{controlIndices.autocompletarNuevoyDuplicado('TIPOSINDICES', controlIndices.nuevoIndices.tipoindice.descripcion, 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlIndices.asignarVariableTiposIndicesNuevo(0)}" />
+                            <strong><h:outputText value="Tipo Indice : " style=" position: absolute; top: 120px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlIndices.nuevoIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="click" listener="#{controlIndices.valoresBackupAutocompletar(1, 'TIPOSINDICES')}"/>
+                                <p:ajax event="change" listener="#{controlIndices.autocompletarNuevoyDuplicado('TIPOSINDICES', controlIndices.nuevoIndices.tipoindice.descripcion, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlIndices.asignarVariableTiposIndicesNuevo(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 325px; top: 115px;  " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlIndices.asignarVariableTiposIndicesNuevo(0)}"/>   
-                            <p:watermark for="nuevoNombreSucursal" value="Tipo Indice" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 325px; top: 115px; " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlIndices.asignarVariableTiposIndicesNuevo(0)}"/>   
+                            <p:watermark for="nuevoNombreSucursal" value="Tipo Indice"/>
 
-                            <strong><h:outputText value="Porcentaje Estandar :"  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="newTelefono" maxlength="3" value="#{controlIndices.nuevoIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase">
+                            <strong><h:outputText value="Porcentaje Estandar :"  style=" position: absolute; top: 150px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="newTelefono" maxlength="3" value="#{controlIndices.nuevoIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="newTelefono" value="Porcentaje Estandar" />
+                            <p:watermark for="newTelefono" value="Porcentaje Estandar"/>
 
 
-                            <strong><h:outputText value="Objetivo :"  style=" position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="newCelular" value="#{controlIndices.nuevoIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase">
+                            <strong><h:outputText value="Objetivo :"  style=" position: absolute; top: 180px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="newCelular" value="#{controlIndices.nuevoIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="newCelular" value="Objetivo" />
+                            <p:watermark for="newCelular" value="Objetivo"/>
 
 
-                            <strong><h:outputText value="Dividendo :"  style=" position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="newObjetivo" value="#{controlIndices.nuevoIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase">
+                            <strong><h:outputText value="Dividendo :"  style=" position: absolute; top: 210px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="newObjetivo" value="#{controlIndices.nuevoIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="newObjetivo" value="Dividendo" />
+                            <p:watermark for="newObjetivo" value="Dividendo"/>
 
-                            <strong><h:outputText value="Divisor :"  style=" position: absolute; top: 240px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="newDivisor" value="#{controlIndices.nuevoIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase">
+                            <strong><h:outputText value="Divisor :"  style=" position: absolute; top: 240px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="newDivisor" value="#{controlIndices.nuevoIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="newDivisor" value="Divisor" />
+                            <p:watermark for="newDivisor" value="Divisor"/>
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 270px;"  actionListener="#{controlIndices.limpiarNuevoIndices()}" update="nuevooHvReferenciaLab" process="@this"/>
-                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 270px;" actionListener="#{controlIndices.agregarNuevoIndices()}" process="@this" />
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 270px;" actionListener="#{controlIndices.agregarNuevoIndices()}" process="@this"/>
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 255px; top: 270px;"  update="nuevooHvReferenciaLab" onclick="PF('nuevoRegistroIndices').hide();"  actionListener="#{controlIndices.limpiarNuevoIndices()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -411,56 +411,56 @@
 
 
                     <p:dialog id="duplicarRegistroIndices" header="duplicar Registro" widgetVar="duplicarRegistroIndices" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="370" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Indice" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Indice" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarRRL" style="border: none;">
 
 
-                            <strong><h:outputText value="*Codigo :"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="4" value="#{controlIndices.duplicarIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
+                            <strong><h:outputText value="*Codigo :"  style=" position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="4" value="#{controlIndices.duplicarIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombre" value="Codigo" />
-                            <strong><h:outputText value="Descripción :"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCargo" maxlength="50" value="#{controlIndices.duplicarIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
+                            <p:watermark for="duplicarNombre" value="Codigo"/>
+                            <strong><h:outputText value="Descripción :"  style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarCargo" maxlength="50" value="#{controlIndices.duplicarIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCargo" value="Descripcion" />
-                            <strong><h:outputText value="Tipo Indice : " style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombreSucursal" value="#{controlIndices.duplicarIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlIndices.valoresBackupAutocompletar(2, 'TIPOSINDICES')}" />
-                                <p:ajax event="change" listener="#{controlIndices.autocompletarDuplicado('TIPOSINDICES', controlIndices.duplicarIndices.tipoindice.descripcion, 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlIndices.asignarVariableTiposIndicesNuevo(1)}" />
+                            <p:watermark for="duplicarCargo" value="Descripcion"/>
+                            <strong><h:outputText value="Tipo Indice : " style=" position: absolute; top: 120px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarNombreSucursal" value="#{controlIndices.duplicarIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="click" listener="#{controlIndices.valoresBackupAutocompletar(2, 'TIPOSINDICES')}"/>
+                                <p:ajax event="change" listener="#{controlIndices.autocompletarDuplicado('TIPOSINDICES', controlIndices.duplicarIndices.tipoindice.descripcion, 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlIndices.asignarVariableTiposIndicesNuevo(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 325px; top: 115px;  " id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlIndices.asignarVariableTiposIndicesNuevo(1)}"/>   
-                            <p:watermark for="duplicarNombreSucursal" value="Tipo Indice" />
-                            <strong><h:outputText value="Porcentaje Estandar :"  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="3" value="#{controlIndices.duplicarIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase">
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 325px; top: 115px; " id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlIndices.asignarVariableTiposIndicesNuevo(1)}"/>   
+                            <p:watermark for="duplicarNombreSucursal" value="Tipo Indice"/>
+                            <strong><h:outputText value="Porcentaje Estandar :"  style=" position: absolute; top: 150px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="3" value="#{controlIndices.duplicarIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarTelefono" value="Porcentaje Estandar" />
+                            <p:watermark for="duplicarTelefono" value="Porcentaje Estandar"/>
 
-                            <strong><h:outputText value="Objetivo :"  style=" position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCelular" value="#{controlIndices.duplicarIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase">
+                            <strong><h:outputText value="Objetivo :"  style=" position: absolute; top: 180px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarCelular" value="#{controlIndices.duplicarIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCelular" value="Objetivo" />
+                            <p:watermark for="duplicarCelular" value="Objetivo"/>
 
-                            <strong><h:outputText value="Dividendo :"  style=" position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarDividendo" value="#{controlIndices.duplicarIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase">
+                            <strong><h:outputText value="Dividendo :"  style=" position: absolute; top: 210px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarDividendo" value="#{controlIndices.duplicarIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarDividendo" value="Dividendo" />
+                            <p:watermark for="duplicarDividendo" value="Dividendo"/>
 
-                            <strong><h:outputText value="Divisor :"  style=" position: absolute; top: 240px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarDivisor" value="#{controlIndices.duplicarIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase">
+                            <strong><h:outputText value="Divisor :"  style=" position: absolute; top: 240px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarDivisor" value="#{controlIndices.duplicarIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarDivisor" value="Divisor" />
+                            <p:watermark for="duplicarDivisor" value="Divisor"/>
 
 
                             <p:commandButton id="limpiarD" icon="ui-icon-trash"  value="Limpiar" style=" position: absolute; left: 20px; top: 270px;"  actionListener="#{controlIndices.limpiarDuplicarIndices()}" update="duplicarRRL"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 270px;" actionListener="#{controlIndices.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 270px;" actionListener="#{controlIndices.confirmarDuplicar()}"  process="@this"/>
                             <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 255px; top: 270px;"  update="duplicarRRL" onclick="PF('duplicarRegistroIndices').hide();" actionListener="#{controlIndices.limpiarDuplicarIndices()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -472,11 +472,11 @@
                                  value="#{controlIndices.listIndices}">
 
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Codigo" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet>
                             <h:outputText value="#{info.codigo}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Descripcion" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
                             <h:outputText value="#{info.descripcion}"/>
                         </p:column>
                         <p:column>  
@@ -484,19 +484,19 @@
                             <h:outputText value="#{info.tipoindice.descripcion}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="PorcentajeEstandar" /></f:facet>
+                            <f:facet name="header"><h:outputText value="PorcentajeEstandar"/></f:facet>
                             <h:outputText value="#{info.porcentajeestandar}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Objetivo" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Objetivo"/></f:facet>
                             <h:outputText value="#{info.objetivo}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Dividendo" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Dividendo"/></f:facet>
                             <h:outputText value="#{info.dividendo}"/>
                         </p:column>
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="divisor" /></f:facet>
+                            <f:facet name="header"><h:outputText value="divisor"/></f:facet>
                             <h:outputText value="#{info.divisor}"/>
                         </p:column>
 

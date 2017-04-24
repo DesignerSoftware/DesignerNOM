@@ -18,11 +18,11 @@
                 <br/>
                 <p:panel id="izperiodo" header="PERIODO EN EL TIEMPO" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px; ">
                     <h:panelGrid columns="2" cellpadding="0" style="font-size: 11px;">
-                        <h:outputText id="lfdesde" style="font-weight: bold; color: #14388B;" value="Fecha desde: "/>
+                        <h:outputText id="lfdesde" style="font-weight: bold; color: #14388B;" value="Fecha desde:"/>
                         <h:outputText id="fdesde" style="font-weight: bold;" value="#{controlTemplate.fechaDesde}"/>
-                        <h:outputText id="lfhasta" style="font-weight: bold; color: #14388B;" value="Fecha hasta: "/>
+                        <h:outputText id="lfhasta" style="font-weight: bold; color: #14388B;" value="Fecha hasta:"/>
                         <h:outputText id="fhasta" style="font-weight: bold;" value="#{controlTemplate.fechaHasta}"/>
-                        <h:outputText id="lfcorte" style="font-weight: bold; color: #14388B;" value="Fecha corte: "/>
+                        <h:outputText id="lfcorte" style="font-weight: bold; color: #14388B;" value="Fecha corte:"/>
                         <h:outputText id="fcorte" style="font-weight: bold;" value="#{controlTemplate.fechaCorte}"/>
                     </h:panelGrid>
                 </p:panel>
@@ -45,7 +45,7 @@
                 </p:panel>
                 <p:panel id="pnUsuario" header="USUARIO CONECTADO" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px;">
                     <h:panelGrid columns="2" cellpadding="0" style="font-size: 10px;">
-                        <p:graphicImage value="#{controlTemplate.fotoUsuario}" stream="false" height="100" alt="Foto Usuario" />
+                        <p:graphicImage value="#{controlTemplate.fotoUsuario}" stream="false" height="100" alt="Foto Usuario"/>
                         <h:column>
                             <center>
                                 <h:outputText value="#{controlTemplate.nombreUsuario}" style="font-weight: bold;"/>
@@ -62,29 +62,29 @@
                     <h:panelGrid columns="2" cellpadding="0" style="font-size: 11px;">
                         <h:column>
                             <center>
-                                <h:outputText value="Salario Mínimo:" style="font-weight: bold; color: #14388B; position: absolute; left: 10px "/>
-                                <h:outputText value="#{controlTemplate.smlv}"  style="font-weight: bold;  position: absolute; left: 140px;" >
-                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0" />
+                                <h:outputText value="Salario Mínimo:" style="font-weight: bold; color: #14388B; position: absolute; left: 10px"/>
+                                <h:outputText value="#{controlTemplate.smlv}"  style="font-weight: bold;  position: absolute; left: 140px;">
+                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0"/>
                                 </h:outputText>
                                 <br/>
                                 <h:outputText value="Auxilio Transporte:" style="font-weight: bold; color: #14388B; position: absolute; left: 10px"/>
                                 <h:outputText value="#{controlTemplate.auxtrans}" style="font-weight: bold;  position: absolute; left: 140px;">
-                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0" />
+                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0"/>
                                 </h:outputText>
                                 <br/>
-                                <h:outputText value="Valor UVT:" style="font-weight: bold; color: #14388B; position: absolute; left: 10px "/>
+                                <h:outputText value="Valor UVT:" style="font-weight: bold; color: #14388B; position: absolute; left: 10px"/>
                                 <h:outputText value="#{controlTemplate.uvt}" style="font-weight: bold;  position: absolute; left: 140px;">
-                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0" />
+                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0"/>
                                 </h:outputText>
                                 <br/>
                                 <h:outputText value="IBC Min. Solidaridad:" style="font-weight: bold; color: #14388B; position: absolute;left: 10px"/>
                                 <h:outputText value="#{controlTemplate.minibc}" style="font-weight: bold;  position: absolute; left: 140px;">
-                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0" />
+                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0"/>
                                 </h:outputText>
                                 <br/>
                                 <h:outputText value="Tope Max, Seg. Social:" style="font-weight: bold; color: #14388B; position: absolute; left: 10px"/>
                                 <h:outputText value="#{controlTemplate.segsocial}" style="font-weight: bold;  position: absolute; left: 140px;">
-                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0" />
+                                    <f:convertNumber  currencySymbol="$" type="currency" minFractionDigits="0"/>
                                 </h:outputText>
                                 <br/>
                             </center>

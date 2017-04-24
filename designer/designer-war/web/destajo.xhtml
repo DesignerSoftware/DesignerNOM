@@ -11,30 +11,30 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.upmenu" var="msg" />
-                    <p:panel  id="PanelTotal" header="Administración Destajo" style="background: url('Imagenes/Iconos/image167.png')   ;position: absolute; width: 355px; width: 874px; height: 530px; top: 100px;text-align: left" >  
+                    <f:loadBundle basename="Recursos.upmenu" var="msg"/>
+                    <p:panel  id="PanelTotal" header="Administración Destajo" style="background: url('Imagenes/Iconos/image167.png')   ;position: absolute; width: 355px; width: 874px; height: 530px; top: 100px;text-align: left">  
 
 
 
-                        <h:outputText value="#{controlDestajo.titulo}" style="width: 600px; color: #ffffff; position: absolute; top: 70px;left: 210px;font-size: 14px;font-weight: bold"/>
-                        <h:outputText value="#{controlDestajo.tituloSeleccion}" style="width: 600px; color: #ffffff; position: absolute; top: 140px;left: 420px;font-size: 14px;font-weight: bold"/>
-                        <fieldset style="border-radius: 10px;border-color: #ffffff; position: absolute; left: 420px; top: 170px; width: 410px; height: 130px;" ><legend style="color: #ffffff; font-size: 14px;font-weight: bold ">[CONFIGURACIÓN]</legend>
-                            <p:commandButton id="PRODUCTOS" value="" style="position: absolute; left: 25px; background-image: url(Imagenes/Iconos/nom_comprobante.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px " process="@this"/>
-                            <h:outputText value="Productos" style="position: absolute; top: 120px;left: 40px;color: #ffffff "/>
-                            <p:commandButton id="TIPOSTARIFAS" value="" style="position: absolute; left: 170px; background-image: url(Imagenes/Iconos/nom_novedad.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px " process="@this"/>
-                            <h:outputText value="Tipos Tarifas" style="position: absolute; top: 120px;left: 180px;color: #ffffff "/>
-                            <p:commandButton id="PROCESOSPRODUCTIVOS" value="" style="position: absolute; left: 315px; background-image: url(Imagenes/Iconos/b_contabi.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px " process="@this"/>
-                            <h:outputText value="Procesos Productivos" style="position: absolute; top: 112px;left: 330px;color: #ffffff "/>
-
-                        </fieldset>
-                        <fieldset style="border-radius: 10px;border-color: #ffffff; position: absolute; left: 420px; top: 320px; width: 410px; height: 130px;" ><legend style="color: #ffffff; font-size: 14px;font-weight: bold ">[ADMINISTRACIÓN]</legend>
-                            <p:commandButton id="CONFIGURACION" value="" style="position: absolute; left: 100px; background-image: url(Imagenes/Iconos/nom_parametros.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px " process="@this"/>
-                            <h:outputText value="Configuración Producto Tarifa" style="position: absolute; width: 100px; top: 112px;left: 108px;color: #ffffff "/>
-                            <p:commandButton id="PRODUCIDO" value="" style="position: absolute; left: 240px; background-image: url(Imagenes/Iconos/GereEvaluacionComp.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px " process="@this"/>
-                            <h:outputText value="Producido por Empleado" style="position: absolute; top: 112px;left: 248px;width: 100px;color: #ffffff "/>
+                        <h:outputText value="#{controlDestajo.titulo}" style="width: 600px; color: #ffffff; position: absolute; top: 70px; left: 210px;font-size: 14px; font-weight: bold;"/>
+                        <h:outputText value="#{controlDestajo.tituloSeleccion}" style="width: 600px; color: #ffffff; position: absolute; top: 140px; left: 420px;font-size: 14px; font-weight: bold;"/>
+                        <fieldset style="border-radius: 10px;border-color: #ffffff; position: absolute; left: 420px; top: 170px; width: 410px; height: 130px;"><legend style="color: #ffffff; font-size: 14px; font-weight: bold;">[CONFIGURACIÓN]</legend>
+                            <p:commandButton id="PRODUCTOS" value="" style="position: absolute; left: 25px; background-image: url(Imagenes/Iconos/nom_comprobante.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px;" process="@this"/>
+                            <h:outputText value="Productos" style="position: absolute; top: 120px; left: 40px;color: #ffffff"/>
+                            <p:commandButton id="TIPOSTARIFAS" value="" style="position: absolute; left: 170px; background-image: url(Imagenes/Iconos/nom_novedad.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px;" process="@this"/>
+                            <h:outputText value="Tipos Tarifas" style="position: absolute; top: 120px; left: 180px;color: #ffffff"/>
+                            <p:commandButton id="PROCESOSPRODUCTIVOS" value="" style="position: absolute; left: 315px; background-image: url(Imagenes/Iconos/b_contabi.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px;" process="@this"/>
+                            <h:outputText value="Procesos Productivos" style="position: absolute; top: 112px; left: 330px;color: #ffffff"/>
 
                         </fieldset>
-                        <h:outputText value="#{controlDestajo.piePagina}" style="color: #ffffff; position: absolute; top: 515px;left: 10px;"  />
+                        <fieldset style="border-radius: 10px;border-color: #ffffff; position: absolute; left: 420px; top: 320px; width: 410px; height: 130px;"><legend style="color: #ffffff; font-size: 14px; font-weight: bold;">[ADMINISTRACIÓN]</legend>
+                            <p:commandButton id="CONFIGURACION" value="" style="position: absolute; left: 100px; background-image: url(Imagenes/Iconos/nom_parametros.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px;" process="@this"/>
+                            <h:outputText value="Configuración Producto Tarifa" style="position: absolute; width: 100px; top: 112px; left: 108px;color: #ffffff"/>
+                            <p:commandButton id="PRODUCIDO" value="" style="position: absolute; left: 240px; background-image: url(Imagenes/Iconos/GereEvaluacionComp.gif); background-size: 100% 100%; background-repeat: no-repeat; width: 90px; height: 90px;" process="@this"/>
+                            <h:outputText value="Producido por Empleado" style="position: absolute; top: 112px; left: 248px; width: 100px;color: #ffffff"/>
+
+                        </fieldset>
+                        <h:outputText value="#{controlDestajo.piePagina}" style="color: #ffffff; position: absolute; top: 515px; left: 10px;"  />
                         <p:commandButton style="width: 80px; position: absolute; left: 785px; top: 470px; " icon="ui-icon-closethick" id="SALIR" value="Salir"    />
 
                     </p:panel>

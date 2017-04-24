@@ -12,14 +12,13 @@
          <ui:define name="body">
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
-            <!--<div class="loader"></div>-->
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.cambiosmasivos" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
@@ -46,7 +45,7 @@
                         <p:commandButton id="filtrar" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/embudo.png);"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" ajax="false" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlCambiosMasivos.exportXLS()}"/>
@@ -54,14 +53,14 @@
 
                         <p:commandButton id="exportarXML" value="" ajax="false" style="background-image: url(Imagenes/Iconos/xml.png);">
                            <p:dataExporter type="xml" target=":formExportar:datosCambiosMasivosExportar" fileName="CambiosMasivos_XML" encoding="UTF-8"/> 
-                        </p:commandButton> 
+                        </p:commandButton>
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" ajax="false" style="background-image: url(Imagenes/Iconos/pdf.png);"
                                          actionListener="#{controlCambiosMasivos.exportPDF()}"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="insertar" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -71,18 +70,17 @@
                         <p:commandButton id="duplicar" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/rastro.png);"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="refrescar" value="" oncomplete="window.location.reload()" style="background-image: url(Imagenes/Iconos/refrescar.png)"
                                          actionListener="#{controlCambiosMasivos.cancelarModificaciones()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
-                        <p:commandButton id="salir" value="" action="#{controlCambiosMasivos.valorPaginaAnterior()}" process="@this" 
-                                         actionListener="#{controlCambiosMasivos.salir()}" style="background-image: url(Imagenes/Iconos/salir.png)"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" process="@this" actionListener="#{controlCambiosMasivos.salir()}" style="background-image: url(Imagenes/Iconos/salir.png)"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -144,7 +142,7 @@
                               <p:tooltip for="headerUM" value="#{msg['ultimamod']}"/>
                            </f:facet> 
                            <h:outputText value="#{cambioM.ultimaModificacion}">
-                              <f:convertDateTime pattern="dd/MM/yyyy" />
+                              <f:convertDateTime pattern="dd/MM/yyyy"/>
                            </h:outputText>
                         </p:column>  
 
@@ -709,7 +707,7 @@
 
                   </fieldset>
                   <p:commandButton id="ACEPTAR" disabled="#{controlCambiosMasivos.guardado}" class="cssBotonAceptar" value="" onclick="PF('confirmarGuardar').show()"/>
-                  <p:commandButton class="cssBotonCancelar" value="" action="#{controlCambiosMasivos.valorPaginaAnterior()}" actionListener="#{controlCambiosMasivos.salir()}" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" value="" actionListener="#{controlCambiosMasivos.salir()}" process="@this"/>
                </p:panel>
 
                <style>
@@ -1131,9 +1129,9 @@
                <!--11-->
                <p:dialog widgetVar="TiposSueldosDialogo" id="TiposSueldosDialogo" header="#{msg['tipossueldos']}" draggable="true"  
                          resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
-                  <p:dataTable id="lovTiposSueldos" widgetVar="lovTiposSueldos" var="tipossueldo" value="#{controlCambiosMasivos.lovTiposSueldos}"
+                  <p:dataTable id="lovTiposSueldos" widgetVar="lovTiposSueldos" var="tiposueldo" value="#{controlCambiosMasivos.lovTiposSueldos}"
                                selection="#{controlCambiosMasivos.tipoSueldoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
-                               rowKey="#{tipossueldo.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}">              
+                               rowKey="#{tiposueldo.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarTSu"/>
                      <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarTiposSueldos()}" process="@this"/>
@@ -1143,17 +1141,17 @@
                         <h:outputText value="#{msg['buscartipossueldo']}"/>
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposSueldos').filter();" class="cssFiltroLOV"/>
                      </f:facet>
-                     <p:column filterBy="#{tipossueldo.codigo}" sortBy="#{tipossueldo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <p:column filterBy="#{tiposueldo.codigo}" sortBy="#{tiposueldo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigo']}"/>
                         </f:facet>
-                        <h:outputText value="#{tipossueldo.codigo}"/>
+                        <h:outputText value="#{tiposueldo.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{tipossueldo.descripcion}" sortBy="#{tipossueldo.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <p:column filterBy="#{tiposueldo.descripcion}" sortBy="#{tiposueldo.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['descripcion']}"/>
                         </f:facet>
-                        <h:outputText value="#{tipossueldo.descripcion}"/>
+                        <h:outputText value="#{tiposueldo.descripcion}"/>
                      </p:column>
                   </p:dataTable>
                   <div class="cssBotonesLOV">
@@ -1383,12 +1381,12 @@
 
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;"/>
+                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="validacionCamposVacios" header="#{msg['atencion']}" widgetVar="validacionCamposVacios"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionCamposVacios']}" style="position: absolute; left: 100px; top: 20px; width: 270px;" />
+                  <h:outputText value="#{msg['validacionCamposVacios']}" style="position: absolute; left: 100px; top: 20px; width: 270px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionCamposVacios').hide();" style="position: absolute; top: 55px; left: 280px;" icon="ui-icon-check" process="@this"/>
                </p:dialog>
 
@@ -1396,14 +1394,12 @@
 
             <h:form id="formularioDialogos">
 
-               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" action="#{controlCambiosMasivos.valorPaginaAnterior()}"
-                                   actionListener="#{controlCambiosMasivos.guardarCambiosParametros()}" process="@this" icon="ui-icon-check"
-                                   oncomplete="#{controlCambiosMasivos.salir()}"
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCambiosMasivos.guardarYSalir()}" process="@this" icon="ui-icon-check"
                                    style="position: absolute; top: 60px; left: 137px;"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCambiosMasivos.salir()}" action="#{controlCambiosMasivos.valorPaginaAnterior()}" 
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCambiosMasivos.salir()}"
                                    style="position: absolute; top: 60px; left: 198px;" process="@this" icon="ui-icon-close"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();"
                                    style="position: absolute; top: 60px; left: 264px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1669,8 +1665,8 @@
 
                   <p:column headerText="#{msg['ultimamod']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['ultimamod']}"/> </f:facet> 
-                     <h:outputText value="#{exp.ultimaModificacion}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <h:outputText value="#{exp.ultimaModificacion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>   
                </p:dataTable>

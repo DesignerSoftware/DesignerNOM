@@ -12,15 +12,14 @@
             <ui:define name="body">                  
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
-                    <p:panel  id="PanelTotal" header="Giro de Nómina por pagar" style="position: absolute; width: 440px; height: 245px; text-align: left">    
-                        <fieldset style="position: absolute;top: 40px;left: 10px;height: 180px;width: 400px; border-radius: 10px; text-align: left">
+                    <p:panel  id="PanelTotal" header="Giro de Nómina por pagar" style="position: absolute; width: 440px; height: 245px; text-align: left;">    
+                        <fieldset style="position: absolute; top: 40px; left: 10px; height: 180px; width: 400px; border-radius: 10px; text-align: left;">
                             <h:outputText value="#{controlNppMenu.mensaje}"  style="width: 400px;position: absolute; top: 10px;"/>
                             <p:commandButton value="[Parametros...]" style="border-color: #2D7AD7; width: 250px; position: absolute; top: 80px; left: 80px"/>
                             <p:commandButton value="[Giro de Nómina por pagar...]" style="border-color: #2D7AD7;width: 250px; position: absolute; top: 130px; left: 80px"/>
                         </fieldset>
                     </p:panel>
                 </h:form>    
-
 
             </ui:define>
         </ui:composition>

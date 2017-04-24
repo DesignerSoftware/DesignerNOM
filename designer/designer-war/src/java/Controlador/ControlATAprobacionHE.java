@@ -168,7 +168,7 @@ public class ControlATAprobacionHE implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -202,15 +202,24 @@ public class ControlATAprobacionHE implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      /*if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+
+      }else {
+       */
+      String pagActual = "ataprobacionhe";
+
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
       } else {
-         String pagActual = "ataprobacionhe";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -220,13 +229,8 @@ public class ControlATAprobacionHE implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-   }
-
-   public String redirigir() {
-      return paginaAnterior;
+      limpiarListasValor();
    }
 
    public int obtenerNumeroScrollCabecera() {
@@ -757,7 +761,8 @@ public class ControlATAprobacionHE implements Serializable {
       RequestContext.getCurrentInstance().update("form:PanelTotal");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
 
       if (banderaCabecera == 1) {
          //CERRAR FILTRADO
@@ -799,6 +804,7 @@ public class ControlATAprobacionHE implements Serializable {
          topDivTablaInferiorDerecha = "37px";
 
          RequestContext.getCurrentInstance().update("form:PanelTotal");
+         navegar("atras");
       }
 
       if (banderaFlujo == 1) {

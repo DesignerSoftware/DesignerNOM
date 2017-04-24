@@ -15,54 +15,54 @@
                     <p:panel  id="PanelTotal" header="Normas Laborales"  styleClass="panelTotal">
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
-                                                 actionListener="#{controlNormasLaborales.guardarNormasLaborales()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                                                 actionListener="#{controlNormasLaborales.guardarNormasLaborales()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
                                                  actionListener="#{controlNormasLaborales.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="Editar" />
+                                <p:tooltip style="" for="editar" value="Editar"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                                  actionListener="#{controlNormasLaborales.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
                                                  actionListener="#{controlNormasLaborales.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                                  actionListener="#{controlNormasLaborales.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
                                                  actionListener="#{controlNormasLaborales.limpiarNuevoNormaLaboral()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosNormaLaboralExportar" fileName="NormaLaboral" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
                                                  actionListener="#{controlNormasLaborales.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                                  oncomplete="PF('nuevoRegistroNormaLaboral').show()" update=":formularioDialogos:nuevaNormaLaboral" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nuevo Registro" />
+                                <p:tooltip style="" for="insertar" value="Nuevo Registro"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
                                                  actionListener="#{controlNormasLaborales.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Registro" />
+                                <p:tooltip style="" for="eliminar" value="Eliminar Registro"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                                  actionListener="#{controlNormasLaborales.duplicarNormaLaborales()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Registro" />
+                                <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
@@ -99,12 +99,12 @@
                                 <f:event type="preRenderView" listener="#{controlNormasLaborales.recordarSeleccion()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"
-                                          id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="codigo" width="200" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo"
-                                                          style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                          style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlNormasLaborales.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosNormaLaboral').unselectAllRows();PF('datosNormaLaboral').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlNormasLaborales.modificarNormaLaboral(info, 'N', info.codigo)}"  update="codigo"/>
@@ -117,12 +117,12 @@
                                 </p:column>
 
                                 <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
-                                          id="descripcion" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="descripcion" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"/></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="40"  id="editarNombre"
-                                                          style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                                          style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlNormasLaborales.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosNormaLaboral').unselectAllRows();PF('datosNormaLaboral').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlNormasLaborales.modificarNormaLaboral(info, 'N', info.nombre)}" update="descripcion"/>
@@ -136,54 +136,54 @@
                             </p:dataTable>
                         </fieldset>
 
-                        <h:outputText id="informacionRegistro" value="Registros #{controlNormasLaborales.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
+                        <h:outputText id="informacionRegistro" value="Registros #{controlNormasLaborales.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold;"/>
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlNormasLaborales.guardado}" update="datosNormaLaboral" process="@this"/>
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNormasLaborales.salir()}"   />
 
 
                         <p:dialog id="confirmarGuardar" header="¡PRECAUCION!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" >
-                                <f:actionListener binding="#{controlNormasLaborales.guardarNormasLaborales()}" />
-                                <f:actionListener binding="#{controlNormasLaborales.salir()}" />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check">
+                                <f:actionListener binding="#{controlNormasLaborales.guardarNormasLaborales()}"/>
+                                <f:actionListener binding="#{controlNormasLaborales.salir()}"/>
                             </p:commandButton>
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 230px;" process="@this" icon="ui-icon-close" >
-                                <f:actionListener binding="#{controlNormasLaborales.cancelarModificacion()}" />
-                                <f:actionListener binding="#{controlNormasLaborales.salir()}" />
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 230px;" process="@this" icon="ui-icon-close">
+                                <f:actionListener binding="#{controlNormasLaborales.cancelarModificacion()}"/>
+                                <f:actionListener binding="#{controlNormasLaborales.salir()}"/>
                             </p:commandButton>
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="¡PRECAUCION!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this" />
+                        <h:outputText value="Necesita : #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="¡ERROR!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 200px;" process="@this" />
+                        <h:outputText value=" #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 200px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="¡ERROR!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this" />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="¡PRECAUCION!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="290" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Se han borrado #{controlNormasLaborales.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <h:outputText value="Se han borrado #{controlNormasLaborales.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="¡PRECAUCION!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNormasLaborales.activarCtrlF11()}"/> 
 
@@ -193,97 +193,97 @@
 
                     <p:dialog id="confirmarRastro" header="¡INFORMACION!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'NORMASLABORALES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 63px; left: 180px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" />
+                        <h:outputText value="La tabla 'NORMASLABORALES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 63px; left: 180px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="¡INFORMACION!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla NORMASLABORALES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NormasLaborales', 'normalaboral')}" style="position: absolute; top: 60px; left: 180px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
+                        <h:outputText value="La tabla NORMASLABORALES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NormasLaborales', 'normalaboral')}" style="position: absolute; top: 60px; left: 180px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="¡ERROR!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="¡ERROR!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="¡INFORMACION!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 70px; left: 180px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 250px;" process="@this" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 70px; left: 180px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 250px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="¡ERROR!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="¡ERROR!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="¡ERROR!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="80" width="295" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'NORMASLABORALES' no se encuentra en ObjetosDB. Por favor comunicarse con soporte." style="position: absolute; left: 70px; top: 15px; width: 205px; font-weight:bold;" />
+                        <h:outputText value="La tabla 'NORMASLABORALES' no se encuentra en ObjetosDB. Por favor comunicarse con soporte." style="position: absolute; left: 70px; top: 15px; width: 205px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlNormasLaborales.editarNormaLaboral.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea value="#{controlNormasLaborales.editarNormaLaboral.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>                    
 
                     <p:dialog id="nuevoRegistroNormaLaboral" header="Nuevo Registro" widgetVar="nuevoRegistroNormaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="350" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Nueva Norma Laboral" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Nueva Norma Laboral" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevaNormaLaboral" style="border: none;">
 
-                            <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlNormasLaborales.nuevoNormaLaboral.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlNormasLaborales.nuevoNormaLaboral.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigo" value="Código" />
+                            <p:watermark for="nuevoCodigo" value="Código"/>
 
-                            <strong><h:outputText value="*Descripcion: "  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="40" value="#{controlNormasLaborales.nuevoNormaLaboral.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <strong><h:outputText value="*Descripcion: "  style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="40" value="#{controlNormasLaborales.nuevoNormaLaboral.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoNombre" value="Descripcion" />
+                            <p:watermark for="nuevoNombre" value="Descripcion"/>
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlNormasLaborales.limpiarNuevoNormaLaboral()}" update="nuevaNormaLaboral" process="@this"/>
-                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 120px;" actionListener="#{controlNormasLaborales.agregarNuevoNormaLaboral()}" process="@this" />
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 120px;" actionListener="#{controlNormasLaborales.agregarNuevoNormaLaboral()}" process="@this"/>
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 225px; top: 120px;"  update="nuevaNormaLaboral" onclick="PF('nuevoRegistroNormaLaboral').hide();"  actionListener="#{controlNormasLaborales.limpiarNuevoNormaLaboral()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="duplicarRegistroNormasLaborales" header="duplicar Registro" widgetVar="duplicarRegistroNormasLaborales" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="350" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Norma Laboral" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Norma Laboral" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarNormaLaboral" style="border: none;">
-                            <strong><h:outputText value="*Código:"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlNormasLaborales.duplicarNormaLaboral.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <strong><h:outputText value="*Código:"  style=" position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlNormasLaborales.duplicarNormaLaboral.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigo" value="Código" />
+                            <p:watermark for="duplicarCodigo" value="Código"/>
 
-                            <strong><h:outputText value="*Descripción:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre"  maxlength="40" value="#{controlNormasLaborales.duplicarNormaLaboral.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <strong><h:outputText value="*Descripción:"  style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarNombre"  maxlength="40" value="#{controlNormasLaborales.duplicarNormaLaboral.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombre" value="Descripción" />
+                            <p:watermark for="duplicarNombre" value="Descripción"/>
 
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlNormasLaborales.limpiarDuplicarNormasLaborales()}" update="duplicarNormaLaboral"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 120px;" actionListener="#{controlNormasLaborales.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 120px;" actionListener="#{controlNormasLaborales.confirmarDuplicar()}"  process="@this"/>
                             <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 225px; top: 120px;"  update="duplicarNormaLaboral" onclick="PF('duplicarRegistroNormasLaborales').hide();" actionListener="#{controlNormasLaborales.limpiarDuplicarNormasLaborales()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -294,11 +294,11 @@
                                  value="#{controlNormasLaborales.listNormasLaborales}">
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
-                            <h:outputText value="#{info.codigo}" />
+                            <h:outputText value="#{info.codigo}"/>
                         </p:column>  
 
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Descripcion" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
                             <h:outputText value="#{info.nombre}"/>
                         </p:column>
                     </p:dataTable>

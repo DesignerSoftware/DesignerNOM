@@ -150,13 +150,14 @@ public class ControlOperando implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+         
       } else {
-         String pagActual = "operando";
+         */
+String pagActual = "operando";
          Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          mapParaEnviar = new LinkedHashMap<String, Object>();
          mapParaEnviar.put("paginaAnterior", pagActual);
@@ -164,12 +165,12 @@ public class ControlOperando implements Serializable {
 //         mas Parametros
          //if (pag.equals("rastrotabla")) {
          //ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+         
+         
+         
+         
+         
+         
          if (pag.equals("FORMULA")) {
             pag = "tipoformula";
             ControlTipoFormula controlTipoFormula = (ControlTipoFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoFormula}", ControlTipoFormula.class);
@@ -191,10 +192,27 @@ public class ControlOperando implements Serializable {
             ControlNovedadOperando controlNovedadOperando = (ControlNovedadOperando) fc.getApplication().evaluateExpressionGet(fc, "#{controlNovedadOperando}", ControlNovedadOperando.class);
             controlNovedadOperando.recibirParametros(mapParaEnviar);
          }
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
       }
       limpiarListasValor();
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      
    }
 
    public void seleccionarTipo(String estadoTipo, int indice, int celda) {

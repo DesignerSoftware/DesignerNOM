@@ -109,7 +109,6 @@ public class ControlConcepto implements Serializable {
 //   private List<String> listaNavegacion;
 
    public ControlConcepto() {
-
       conceptoSeleccionado = null;
       activoDetalle = true;
 //      altoTablaReg = "205";
@@ -153,7 +152,6 @@ public class ControlConcepto implements Serializable {
          i++;
          conjuntoC.put("" + i + "", "" + i + "");
       }
-
       continuarNuevoNat = false;
       estadoConceptoEmpresa = "S";
       unaVez = true;
@@ -225,17 +223,17 @@ public class ControlConcepto implements Serializable {
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
 //      HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 //      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) session.getAttribute("controlListaNavegacion");
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
 //         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).quitarPagina();
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
       } else {
-         String pagActual = "concepto";
+         */
+String pagActual = "concepto";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
 //         mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
+         
          if (pag.equals("rastrotabla")) {
             ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
             controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
@@ -259,10 +257,27 @@ public class ControlConcepto implements Serializable {
             ControlUnidad controlUnidad = (ControlUnidad) fc.getApplication().evaluateExpressionGet(fc, "#{controlUnidad}", ControlUnidad.class);
             controlUnidad.recibirPaginaEntrante(pagActual);
          }
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
 //         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).adicionarPagina(pagActual);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    public void inicializarCosas() {
@@ -1501,6 +1516,11 @@ public class ControlConcepto implements Serializable {
       } else if (tipoActualizacion == 2) {
          confirmarDuplicar();
       }
+   }
+
+   public void salir() {
+      refrescar();
+      navegar("atras");
    }
 
    public void refrescar() {

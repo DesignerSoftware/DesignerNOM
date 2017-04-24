@@ -146,15 +146,34 @@ public class ControlVigenciasFormasPagos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "emplvigenciaformapago";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "emplvigenciaformapago";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -164,9 +183,8 @@ public class ControlVigenciasFormasPagos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    public void recibirEmpleado(BigInteger sec) {
@@ -314,9 +332,11 @@ public class ControlVigenciasFormasPagos implements Serializable {
       aceptar = false;
    }
 
-   /**
-    *
-    */
+   public void guardarYSalir() {
+      guardarCambiosVigenciasFormasPagos();
+      salir();
+   }
+
    public void guardarCambiosVigenciasFormasPagos() {
       if (guardado == false) {
          if (!borrarVFP.isEmpty()) {
@@ -599,7 +619,8 @@ public class ControlVigenciasFormasPagos implements Serializable {
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       cerrarFiltrado();
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
@@ -611,6 +632,7 @@ public class ControlVigenciasFormasPagos implements Serializable {
       limpiarListasValor();
       listVigenciasFormasPagosPorEmpleado = null;
       guardado = true;
+      navegar("atras");
    }
 
    private void cerrarFiltrado() {

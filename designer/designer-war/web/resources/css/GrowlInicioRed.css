@@ -65,6 +65,6 @@ root {
 [id*=btnCandadoLogin]:focus {
     cursor: not-allowed;
 }
-#redessociales > a{
+#redessociales> a{
      color: transparent;
 }

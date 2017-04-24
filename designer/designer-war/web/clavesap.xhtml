@@ -13,7 +13,7 @@
                 <h:form id="form">                    
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Claves S.A.P" styleClass="panelTotal">  
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Claves S.A.P</strong></legend>
 
                             <p:dataTable id="datosClavesSap" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
@@ -25,18 +25,18 @@
                                          editable="true"
                                          editMode="cell"
                                          selection="#{controlClavesSap.clavesSapSeleccionada}"
-                                         selectionMode="single" >
+                                         selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlClavesSap.eventoFiltrar()}"/>
 
 
 
 
-                                <p:column headerText="Clave" sortBy="#{info.clave}" filterBy="#{info.clave}" filterMatchMode="contains" id="clave" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Clave" sortBy="#{info.clave}" filterBy="#{info.clave}" filterMatchMode="contains" id="clave" width="100" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.clave}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.clave}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clave}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.clave}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlClavesSap.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlClavesSap.modificarClaveSap(indice, 'N', info.clave)}" update="@this"/>
                                             </p:inputText>
@@ -45,11 +45,11 @@
                                 </p:column>
 
 
-                                <p:column headerText="Clave Ajuste" sortBy="#{info.claveAjuste.clave}" filterBy="#{info.claveAjuste.clave}" filterMatchMode="contains" id="claveajuste" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Clave Ajuste" sortBy="#{info.claveAjuste.clave}" filterBy="#{info.claveAjuste.clave}" filterMatchMode="contains" id="claveajuste" width="120" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.claveAjuste.clave}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.claveAjuste.clave}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.claveAjuste.clave}" maxlength="2" id="editarparentesco" style="height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.claveAjuste.clave}" maxlength="2" id="editarparentesco" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlClavesSap.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="click" listener="#{controlClavesSap.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlClavesSap.asignarIndex(indice, 0,1)}" process="@this"/>
@@ -59,22 +59,22 @@
                                         </f:facet>  
                                     </p:cellEditor>
 
-                                    <f:facet name="footer" >
+                                    <f:facet name="footer">
                                         <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue"  id="fooparentesco" value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="Clasificacion" sortBy="#{info.clasificacionTransient}" filterBy="#{info.clasificacionTransient}" filterMatchMode="contains" id="clasificacion" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Clasificacion" sortBy="#{info.clasificacionTransient}" filterBy="#{info.clasificacionTransient}" filterMatchMode="contains" id="clasificacion" width="200" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{info.clasificacionTransient}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.clasificacionTransient}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:selectOneMenu effect="fold" value="#{info.clasificacionTransient}" style="height: 20px; width:250px">  
-                                                <f:selectItem itemLabel=" " itemValue=" " />                
+                                                <f:selectItem itemLabel=" " itemValue=" "/>                
                                                 <f:selectItem itemLabel="DEUDORES" itemValue="DEUDORES"/>  
-                                                <f:selectItem itemLabel="STOCKS" itemValue="STOCKS" />  
-                                                <f:selectItem itemLabel="ACREEDOR" itemValue="ACREEDOR" />  
-                                                <f:selectItem itemLabel="ACTVOS FIJOS" itemValue="ACTVOS FIJOS" />  
-                                                <f:selectItem itemLabel="INVENTARIOS" itemValue="INVENTARIOS" />  
+                                                <f:selectItem itemLabel="STOCKS" itemValue="STOCKS"/>  
+                                                <f:selectItem itemLabel="ACREEDOR" itemValue="ACREEDOR"/>  
+                                                <f:selectItem itemLabel="ACTVOS FIJOS" itemValue="ACTVOS FIJOS"/>  
+                                                <f:selectItem itemLabel="INVENTARIOS" itemValue="INVENTARIOS"/>  
                                                 <p:ajax event="change" listener="#{controlClavesSap.mostrarInfo(indice, 2)}" update="@this"/>
                                             </p:selectOneMenu>                                          
                                         </f:facet>
@@ -82,14 +82,14 @@
 
                                 </p:column>
 
-                                <p:column headerText="Naturaleza" sortBy="#{info.naturalezaTransient}" filterBy="#{info.naturalezaTransient}" filterMatchMode="contains" id="naturaleza" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Naturaleza" sortBy="#{info.naturalezaTransient}" filterBy="#{info.naturalezaTransient}" filterMatchMode="contains" id="naturaleza" width="200" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{info.naturalezaTransient}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.naturalezaTransient}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:selectOneMenu effect="fold" value="#{info.naturalezaTransient}" style="height: 20px; width:250px">  
-                                                <f:selectItem itemLabel=" " itemValue=" " />                
+                                                <f:selectItem itemLabel=" " itemValue=" "/>                
                                                 <f:selectItem itemLabel="DEBITO" itemValue="DEBITO"/>  
-                                                <f:selectItem itemLabel="CREDITO" itemValue="CREDITO" />  
+                                                <f:selectItem itemLabel="CREDITO" itemValue="CREDITO"/>  
                                                 <p:ajax event="change" listener="#{controlClavesSap.mostrarInfo(indice, 3)}" update="@this"/>
                                             </p:selectOneMenu>                                          
                                         </f:facet>
@@ -107,62 +107,62 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlClavesSap.guardarClaveSap()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlClavesSap.guardarClaveSap()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlClavesSap.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="Editar" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlClavesSap.listaValoresBoton()}"   process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlClavesSap.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="Activar filtrado" />
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlClavesSap.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlClavesSap.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlClavesSap.listaValoresBoton()}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlClavesSap.limpiarNuevoClavesSap()}"  ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlClavesSap.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlClavesSap.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlClavesSap.limpiarNuevoClavesSap()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosClavesSapExportar" fileName="CLAVES_SAP" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlClavesSap.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlClavesSap.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="PF('nuevoRegistroClavesSap').show()" update=":formularioDialogos:nuevooHvReferenciaLab" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nueva Clave S.A.P" />
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroClavesSap').show()" update=":formularioDialogos:nuevooHvReferenciaLab" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Nueva Clave S.A.P"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlClavesSap.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Clave S.A.P" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlClavesSap.verificarBorrado()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Clave S.A.P"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlClavesSap.duplicandoClavesSap()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Clave S.A.P" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlClavesSap.duplicandoClavesSap()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Clave S.A.P"/>
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlClavesSap.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlClavesSap.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlClavesSap.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlClavesSap.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlClavesSap.salir()}"   action="perReferenciaLaboral1Atras" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlClavesSap.salir()}"   action="empleadoindividual" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <h:outputText id="informacionRegistro" value="#{controlClavesSap.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px;  " disabled="#{controlClavesSap.guardado}" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlClavesSap.revisarDialogoGuardar()}"   process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px;  " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="perReferenciaLaboral1Atras"    />
+                        <h:outputText id="informacionRegistro" value="#{controlClavesSap.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " disabled="#{controlClavesSap.guardado}" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlClavesSap.revisarDialogoGuardar()}"   process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="empleadoindividual"    />
 
 
                         <p:dialog header="Claves S.A.P" widgetVar="clavesajustesDialogo" draggable="true" resizable="false" closable="false" id="clavesajustesDialogo"  
@@ -171,26 +171,26 @@
                                          selection="#{controlClavesSap.claveAjusteSeleccionada}" selectionMode="single" widgetVar="lovClavesSap" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlClavesSap.filtradoClavesSap}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlClavesSap.activarAceptar()}" update=":form:aceptarS"/>
-                                <p:ajax event="rowDblselect" listener="#{controlClavesSap.actualizarClaveAjuste()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlClavesSap.actualizarClaveAjuste()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Ajuste :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tpoindice.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Clave" />
+                                        <h:outputText value="Clave"/>
                                     </f:facet>
-                                    <h:outputText value="#{tpoindice.clave}" />
+                                    <h:outputText value="#{tpoindice.clave}"/>
                                 </p:column>
                                 <p:column filterBy="#{tpoindice.clasificacion}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="Clasificación" />
+                                        <h:outputText value="Clasificación"/>
                                     </f:facet>
-                                    <h:outputText value="#{tpoindice.clasificacion}" />
+                                    <h:outputText value="#{tpoindice.clasificacion}"/>
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistroParentesco" value="#{controlClavesSap.infoRegistroParentesco}" style="position: absolute;  top: 355px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroParentesco" value="#{controlClavesSap.infoRegistroParentesco}" style="position: absolute;  top: 355px; font-weight: bold;"/>
                             
                             <p:commandButton id="aceptarS" icon="ui-icon-check" style="position: relative; left: 275px;" value="Aceptar" disabled="#{controlClavesSap.aceptar}"  actionListener="#{controlClavesSap.actualizarClaveAjuste()}" process="@this"/>
                             
@@ -200,41 +200,41 @@
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlClavesSap.guardarClaveSap()}"   style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlClavesSap.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlClavesSap.guardarClaveSap()}"   style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlClavesSap.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlClavesSap.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Necesita : #{controlClavesSap.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlClavesSap.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                        <h:outputText value=" #{controlClavesSap.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Se han borrado #{controlClavesSap.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <h:outputText value="Se han borrado #{controlClavesSap.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlClavesSap.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlClavesSap.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlClavesSap.activarCtrlF11()}"/> 
                 </h:form>
@@ -243,54 +243,54 @@
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'CLAVES_SAP' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlClavesSap.secRegistro,'Claves_Sap', 'clavesap')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla 'CLAVES_SAP' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlClavesSap.secRegistro,'Claves_Sap', 'clavesap')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla CLAVES_SAP tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Claves_Sap', 'clavesap')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla CLAVES_SAP tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Claves_Sap', 'clavesap')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlClavesSap.secRegistro,'Claves_Sap', 'clavesap')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlClavesSap.secRegistro,'Claves_Sap', 'clavesap')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'CLAVES_SAP' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="La tabla 'CLAVES_SAP' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="editClaveD" header="Clave" widgetVar="editClaveD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editClaveD" header="Clave" widgetVar="editClaveD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea  value="#{controlClavesSap.editarClavesSap.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editClaveAjusteD" header="Clave Ajuste" widgetVar="editClaveAjusteD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editClaveAjusteD" header="Clave Ajuste" widgetVar="editClaveAjusteD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
                         <p:inputTextarea  value="#{controlClavesSap.editarClavesSap.claveAjuste.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -300,44 +300,44 @@
 
 
                     <p:dialog id="nuevoRegistroClavesSap" header="Nuevo Registro" widgetVar="nuevoRegistroClavesSap" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="350" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Clave S.A.P" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Clave S.A.P" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevooHvReferenciaLab" style="border: none;">
 
-                            <strong><h:outputText value="Clave: "  style="position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCodigo" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <strong><h:outputText value="Clave: "  style="position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoCodigo" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigo" value="Clave" />
-                            <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombreSucursal" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.claveAjuste.clave}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(1, 'CLAVESAJUSTES')}" />
-                                <p:ajax event="change" listener="#{controlClavesSap.autocompletarNuevoyDuplicado('CLAVESAJUSTES', controlClavesSap.nuevoClavesSap.claveAjuste.clave, 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(0)}" />
+                            <p:watermark for="nuevoCodigo" value="Clave"/>
+                            <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoNombreSucursal" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.claveAjuste.clave}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(1, 'CLAVESAJUSTES')}"/>
+                                <p:ajax event="change" listener="#{controlClavesSap.autocompletarNuevoyDuplicado('CLAVESAJUSTES', controlClavesSap.nuevoClavesSap.claveAjuste.clave, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px;  " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlClavesSap.asignarVariableClavesSapNuevo(0)}"/>   
-                            <p:watermark for="nuevoNombreSucursal" value="Clave Ajuste" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px; " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlClavesSap.asignarVariableClavesSapNuevo(0)}"/>   
+                            <p:watermark for="nuevoNombreSucursal" value="Clave Ajuste"/>
 
-                            <strong><h:outputText value="Clasificacion:" style=" position: absolute; top: 120px;" /></strong>
+                            <strong><h:outputText value="Clasificacion:" style=" position: absolute; top: 120px;"/></strong>
                             <p:selectOneMenu id="nuevoClasificacion" value="#{controlClavesSap.nuevoClavesSap.clasificacionTransient}" style=" width: 150px; position: absolute;left: 150px; top: 115px">  
-                                <f:selectItem itemLabel=" " itemValue=" " />                
+                                <f:selectItem itemLabel=" " itemValue=" "/>                
                                 <f:selectItem itemLabel="DEUDORES" itemValue="DEUDORES"/>  
-                                <f:selectItem itemLabel="STOCKS" itemValue="STOCKS" />  
-                                <f:selectItem itemLabel="ACREEDOR" itemValue="ACREEDOR" />  
-                                <f:selectItem itemLabel="ACTVOS FIJOS" itemValue="ACTVOS FIJOS" />  
-                                <f:selectItem itemLabel="INVENTARIOS" itemValue="INVENTARIOS" />    
+                                <f:selectItem itemLabel="STOCKS" itemValue="STOCKS"/>  
+                                <f:selectItem itemLabel="ACREEDOR" itemValue="ACREEDOR"/>  
+                                <f:selectItem itemLabel="ACTVOS FIJOS" itemValue="ACTVOS FIJOS"/>  
+                                <f:selectItem itemLabel="INVENTARIOS" itemValue="INVENTARIOS"/>    
                                 <p:ajax update="@this"/>
                             </p:selectOneMenu>
-                            <strong><h:outputText value="Natuarelza:" style=" position: absolute; top: 150px;" /></strong>
+                            <strong><h:outputText value="Natuarelza:" style=" position: absolute; top: 150px;"/></strong>
                             <p:selectOneMenu id="nuevoNaturaleza" value="#{controlClavesSap.nuevoClavesSap.naturalezaTransient}" style=" width: 150px; position: absolute;left: 150px; top: 145px">  
-                                <f:selectItem itemLabel=" " itemValue=" " />                
+                                <f:selectItem itemLabel=" " itemValue=" "/>                
                                 <f:selectItem itemLabel="DEBITO" itemValue="DEBITO"/>  
-                                <f:selectItem itemLabel="CREDITO" itemValue="CREDITO" />  
+                                <f:selectItem itemLabel="CREDITO" itemValue="CREDITO"/>  
                                 <p:ajax update="@this"/>
                             </p:selectOneMenu>
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 180px;"  actionListener="#{controlClavesSap.limpiarNuevoClavesSap()}" update="nuevooHvReferenciaLab" process="@this"/>
-                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 145px; top: 180px;" actionListener="#{controlClavesSap.agregarNuevoClavesSap()}" process="@this" />
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 145px; top: 180px;" actionListener="#{controlClavesSap.agregarNuevoClavesSap()}" process="@this"/>
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 235px; top: 180px;"  update="nuevooHvReferenciaLab" onclick="PF('nuevoRegistroClavesSap').hide();"  actionListener="#{controlClavesSap.limpiarNuevoClavesSap()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -345,44 +345,44 @@
 
 
                     <p:dialog id="duplicarRegistroClavesSap" header="duplicar Registro" widgetVar="duplicarRegistroClavesSap" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="350" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Clave S.A.P" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Clave S.A.P" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarRRL" style="border: none;">
 
-                            <strong><h:outputText value="Código: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCodigo" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <strong><h:outputText value="Código: "  style=" position: absolute; top: 60px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarCodigo" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigo" value="Código" />
+                            <p:watermark for="duplicarCodigo" value="Código"/>
 
-                            <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombreSucursal" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.claveAjuste.clave}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(2, 'CLAVESAJUSTES')}" />
-                                <p:ajax event="change" listener="#{controlClavesSap.autocompletarDuplicado('CLAVESAJUSTES', controlClavesSap.duplicarClavesSap.claveAjuste.clave, 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(1)}" />
+                            <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;"/></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarNombreSucursal" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.claveAjuste.clave}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(2, 'CLAVESAJUSTES')}"/>
+                                <p:ajax event="change" listener="#{controlClavesSap.autocompletarDuplicado('CLAVESAJUSTES', controlClavesSap.duplicarClavesSap.claveAjuste.clave, 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px;  " id="btnnuevoduplicarClaveAjuste" icon="ui-icon-search" process="@this"  actionListener="#{controlClavesSap.asignarVariableClavesSapNuevo(1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 85px; " id="btnnuevoduplicarClaveAjuste" icon="ui-icon-search" process="@this"  actionListener="#{controlClavesSap.asignarVariableClavesSapNuevo(1)}"/>   
 
-                            <strong><h:outputText value="Clasificacion:" style=" position: absolute; top: 120px;" /></strong>
+                            <strong><h:outputText value="Clasificacion:" style=" position: absolute; top: 120px;"/></strong>
                             <p:selectOneMenu id="duplicarClasificacion" value="#{controlClavesSap.duplicarClavesSap.clasificacionTransient}" style=" width: 150px; position: absolute;left: 150px; top: 115px">  
-                                <f:selectItem itemLabel=" " itemValue=" " />                
+                                <f:selectItem itemLabel=" " itemValue=" "/>                
                                 <f:selectItem itemLabel="DEUDORES" itemValue="DEUDORES"/>  
-                                <f:selectItem itemLabel="STOCKS" itemValue="STOCKS" />  
-                                <f:selectItem itemLabel="ACREEDOR" itemValue="ACREEDOR" />  
-                                <f:selectItem itemLabel="ACTVOS FIJOS" itemValue="ACTVOS FIJOS" />  
-                                <f:selectItem itemLabel="INVENTARIOS" itemValue="INVENTARIOS" />    
+                                <f:selectItem itemLabel="STOCKS" itemValue="STOCKS"/>  
+                                <f:selectItem itemLabel="ACREEDOR" itemValue="ACREEDOR"/>  
+                                <f:selectItem itemLabel="ACTVOS FIJOS" itemValue="ACTVOS FIJOS"/>  
+                                <f:selectItem itemLabel="INVENTARIOS" itemValue="INVENTARIOS"/>    
                                 <p:ajax update="@this"/>
                             </p:selectOneMenu>
-                            <strong><h:outputText value="Natuarelza:" style=" position: absolute; top: 150px;" /></strong>
+                            <strong><h:outputText value="Natuarelza:" style=" position: absolute; top: 150px;"/></strong>
                             <p:selectOneMenu id="duplicarNaturaleza" value="#{controlClavesSap.duplicarClavesSap.naturalezaTransient}" style=" width: 150px; position: absolute;left: 150px; top: 145px">  
-                                <f:selectItem itemLabel=" " itemValue=" " />                
+                                <f:selectItem itemLabel=" " itemValue=" "/>                
                                 <f:selectItem itemLabel="DEBITO" itemValue="DEBITO"/>  
-                                <f:selectItem itemLabel="CREDITO" itemValue="CREDITO" />  
+                                <f:selectItem itemLabel="CREDITO" itemValue="CREDITO"/>  
                                 <p:ajax update="@this"/>
                             </p:selectOneMenu>
 
                             <p:commandButton id="limpiarD" icon="ui-icon-trash"  value="Limpiar" style=" position: absolute; left: 20px; top: 180px;"  actionListener="#{controlClavesSap.limpiarDuplicarClavesSap()}" update="duplicarRRL"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 145px; top: 180px;" actionListener="#{controlClavesSap.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 145px; top: 180px;" actionListener="#{controlClavesSap.confirmarDuplicar()}"  process="@this"/>
                             <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 235px; top: 180px;"  update="duplicarRRL" onclick="PF('duplicarRegistroClavesSap').hide();" actionListener="#{controlClavesSap.limpiarDuplicarClavesSap()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -394,21 +394,21 @@
                                  value="#{controlClavesSap.listClavesSap}">
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Clave"/></f:facet> 
-                            <h:outputText value="#{info.clave}" />
+                            <h:outputText value="#{info.clave}"/>
                         </p:column>  
 
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="ClaveAjuste" /></f:facet>
+                            <f:facet name="header"><h:outputText value="ClaveAjuste"/></f:facet>
                             <h:outputText value="#{info.claveAjuste.clave}"/>
                         </p:column>                    
 
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Clasificacion" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Clasificacion"/></f:facet>
                             <h:outputText value="#{info.clasificacionTransient}"/>
                         </p:column>                    
 
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="Naturaleza" /></f:facet>
+                            <f:facet name="header"><h:outputText value="Naturaleza"/></f:facet>
                             <h:outputText value="#{info.naturalezaTransient}"/>
                         </p:column>                    
                     </p:dataTable>

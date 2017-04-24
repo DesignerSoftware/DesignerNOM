@@ -16,11 +16,8 @@
          <ui:define name="body">
             <h:form id="form"> 
                <script>
-                  /*window.addEventListener('load', function () {*/
                   $(window).load(function () {
-                     //$(".loader").fadeOut("slow");
                      PF('EmpresaInformacionPersonalDialogo').show();
-                     /*}, false);*/
                      foco('form:btnempresaModPersonal');
                   });
                   function foco(idElemento) {
@@ -28,14 +25,12 @@
                   }
                   ;
                </script>
-               <!--<div class="loader"></div>--> 
-
                <f:loadBundle basename="Recursos.personaindividual" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left"> 
+                     <p:toolbarGroup align="left;"> 
                         <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
@@ -87,8 +82,8 @@
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/> 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nominaf" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this">
-                           <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this">
+                           <f:actionListener binding="#{controlPersonaIndividual.cancelarYSalir()}"/>
                            <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                         </p:commandButton>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -246,7 +241,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(0)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="*#{msg['motivoCargo']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['motivoCargo']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="motivoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCargo}"
                                         style="position: absolute; top: 40px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(1)}" process="@this"/>
@@ -256,7 +251,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(1)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoEstructuraCargoDesempeñado" value="*#{msg['nombreEstructuraCargo']}:" style="position: absolute; top: 70px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoEstructuraCargoDesempeñado" value="*#{msg['nombreEstructuraCargo']}:" style="position: absolute; top: 70px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="estructuraModCargoDesempeñado" widgetVar="estructuraModCargoDesempeñado" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}" onclick="select();"
                                         value="#{controlPersonaIndividual.nuevaVigenciaCargo.estructura.nombre}"
                                         style="position: absolute; top: 65px; left: 220px; width: 160px; text-transform: uppercase;">
@@ -268,7 +263,7 @@
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoEstructuraCargoDesempeñado" value="#{msg['infoEstructuraCargoDesempenado']}"/>
 
-                           <h:outputText  value="#{msg['papelDesempenado']}:" style="position: absolute; top: 95px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="#{msg['papelDesempenado']}:" style="position: absolute; top: 95px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="papelModCargoDesempeñado" widgetVar="papelModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_papel}"
                                         style="position: absolute; top: 90px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(3)}" process="@this"/>
@@ -279,7 +274,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(3)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['empleadoJefe']}:" style="position: absolute; top: 120px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="#{msg['empleadoJefe']}:" style="position: absolute; top: 120px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="empleadoJefeModCargoDesempeñado" widgetVar="empleadoJefeModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_empleado}"
                                         style="position: absolute; top: 115px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(4)}" process="@this"/>
@@ -297,7 +292,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/centroCosto.png); width: 50px; height: 50px; top: 20px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="*#{msg['descripcionMotivo']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['descripcionMotivo']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="motivoModCentroCosto" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCentroC}"
                                         style="position: absolute; top: 15px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(0)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
@@ -307,7 +302,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresCentroCosto(0)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoEstructuraCentroCosto" value="*#{msg['descripcionEstructura']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoEstructuraCentroCosto" value="*#{msg['descripcionEstructura']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="estructuraModCentroCosto" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.nombre}"
                                         style="position: absolute; top: 40px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(1)}" process="@this"/>
@@ -326,7 +321,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoTrabajador.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="*#{msg['tipoTrabajador']}:" style="position: absolute; top: 30px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['tipoTrabajador']}:" style="position: absolute; top: 30px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="tipoTrabajadorModTipoTrabajador" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre}"
                                         style="position: absolute; top: 25px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoTrabajador(0)}" process="@this"/>
@@ -365,11 +360,11 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/sueldo.png); width: 50px; height: 50px; top: 25px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="*#{msg['valorSueldo']}:" style="position: absolute; top: 22px; left: 65px;font-weight: bold">
+                           <h:outputText  value="*#{msg['valorSueldo']}:" style="position: absolute; top: 22px; left: 65px; font-weight: bold;">
                               <f:convertNumber currencyCode="COP"/>
                            </h:outputText>
                            <p:inputText autocomplete="off"  id="valorSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.valorSueldo}"
-                                        style="position: absolute; top: 17px; left: 230px;width: 150px;text-transform: uppercase;">
+                                        style="position: absolute; top: 17px; left: 230px; width: 150px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificacionValorSueldo(controlPersonaIndividual.valorSueldo)}" process="@this" update="valorSueldoModSueldo"/>
                               <p:keyFilter for="valorSueldoModSueldo" mask="num"/>
@@ -386,7 +381,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresSueldo(1)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoSueldoSuelo" value="*#{msg['tipoCompensacion']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoSueldoSuelo" value="*#{msg['tipoCompensacion']}:" style="position: absolute; top: 72px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="tipoSueldoModSueldo" widgetVar="tipoSueldoModSueldo" onclick="select();" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" 
                                         value="#{controlPersonaIndividual.txt_TipoSu}" style="position: absolute; top: 67px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(2)}" process="@this"/>
@@ -411,7 +406,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/fechaContratacion.png); width: 50px; height: 50px; top: 25px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="*#{msg['motivoContrato']}:" style="position: absolute; top: 22px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['motivoContrato']}:" style="position: absolute; top: 22px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="motivoContratoModTipoContrato" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre}"
                                         style="position: absolute; top: 17px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(0)}" process="@this"/>
@@ -421,7 +416,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresTipoContrato(0)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoContratoTipoContrato" value="*#{msg['tipoContrato']}:" style="position: absolute; top: 47px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoContratoTipoContrato" value="*#{msg['tipoContrato']}:" style="position: absolute; top: 47px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="tipoContratoModTipoContrato" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
                                         value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.tipocontrato.nombre}"
                                         style="position: absolute; top: 42px; left: 240px; width: 155px; text-transform: uppercase;">
@@ -435,7 +430,7 @@
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoContratoTipoContrato" value="#{msg['infoContratoTipoContrato']}"/>
 
-                           <h:outputText  value="#{msg['fechaFinalContrato']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="#{msg['fechaFinalContrato']}:" style="position: absolute; top: 72px; left: 65px; font-weight: bold;"/>
                            <div id="divFechaFinalContratoModTipoContrato" style="position: absolute; top: 67px; left: 240px;">
                               <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato">
                                  <p:ajax  event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" process="@this"/>
@@ -450,7 +445,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/normaLaboral.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoNormaNormaLaboral" value="*#{msg['normaLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoNormaNormaLaboral" value="*#{msg['normaLaboral']}:" style="position: absolute; top: 35px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="normaLaboralModNormaLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre}"
                                         style="position: absolute; top: 30px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemNormaLaboral(0)}" process="@this"/>
@@ -471,7 +466,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/legislacionLaboral.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoLegislacionLegislacionLaboral"  value="*#{msg['legislacionLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoLegislacionLegislacionLaboral"  value="*#{msg['legislacionLaboral']}:" style="position: absolute; top: 35px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="legislacionLaboralModLegislacionLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion}"
                                         style="position: absolute; top: 30px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemLegislacionLaboral(0)}" process="@this"/>
@@ -491,7 +486,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/ubicacionGeografica.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoUbicacionUbicacion" value="*#{msg['ubicacionGeografica']}:" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoUbicacionUbicacion" value="*#{msg['ubicacionGeografica']}:" style="position: absolute; top: 25px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="ubicacionGeograficaModUbicacionGeografica" onclick="select();" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
                                         value="#{controlPersonaIndividual.txt_ubicacionG}" style="position: absolute; top: 30px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemUbicacionGeografica(0)}" process="@this"/>
@@ -504,13 +499,13 @@
 
                         </fieldset>
 
-                        <fieldset style="position: absolute;font-size: 12px; top: 705px;left: 410px; width: 400px; height: 70px; border-radius: 10px; text-align: left;">
+                        <fieldset style="position: absolute;font-size: 12px; top: 705px; left: 410px; width: 400px; height: 70px; border-radius: 10px; text-align: left;">
                            <legend style="font-size: 12px; color: blue"><strong>#{msg['modJornadaLaboral']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/jornada.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="*#{msg['jornadaLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['jornadaLaboral']}:" style="position: absolute; top: 35px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="jornadaLaboralModJornadaLaboral" widgetVar="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}"
                                         style="position: absolute; top: 30px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemJornadaLaboral(0)}" process="@this"/>
@@ -527,7 +522,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/formaPago.png); width: 50px; height: 50px; top: 20px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="*#{msg['formaPago']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['formaPago']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="formaPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_formaP}"
                                         style="position: absolute; top: 15px; left: 230px; width: 200px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
@@ -537,7 +532,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresFormaPago(0)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['cuentaPago']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="#{msg['cuentaPago']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="cuentaPagoModFormaPago" maxlength="25"  onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.cuenta}"
                                         style="position: absolute; top: 40px; left: 230px; width: 200px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(1)}" process="@this"/>
@@ -563,7 +558,7 @@
                                                actionListener="#{controlPersonaIndividual.listaValoresFormaPago(3)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="*#{msg['metodoPago']}:" style="position: absolute; top: 45px; left: 475px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['metodoPago']}:" style="position: absolute; top: 45px; left: 475px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="metodoPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_metodoP}"
                                         style="position: absolute; top: 40px; left: 595px; width: 210px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(4)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
@@ -578,9 +573,9 @@
                            <legend style="font-size: 12px; color: blue"><strong>#{msg['modAfiliaciones']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/afiliaciones.png); background-repeat: no-repeat; border: none;
-                                         width: 50px; height: 50px; top: 22px; left: 5px;  background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
+                                         width: 50px; height: 50px; top: 22px; left: 5px; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoAfiliacionEPS" value="*#{msg['eps']}:" style="position: absolute; top: 17px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoAfiliacionEPS" value="*#{msg['eps']}:" style="position: absolute; top: 17px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="epsModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroEPS}" 
                                         style="position: absolute; top: 12px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionEPS(0)}" process="@this"/>
@@ -591,7 +586,7 @@
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionEPS" value="#{msg['infoAfiliacion']}"/>
 
-                           <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="arpModAfiliaciones" disabled="true" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
                                         style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;">
                               <!--                              <p:ajax event="focus" listener="#/{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
@@ -602,7 +597,7 @@
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionARP" value="#{msg['infoAfiliacion']}"/>
 
-                           <h:outputText id="infoAfiliacionFondo" value="#{msg['fondoCensantias']}:" style="position: absolute; top: 67px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoAfiliacionFondo" value="#{msg['fondoCensantias']}:" style="position: absolute; top: 67px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="fondoCensantiasModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroCes}" 
                                         style="position: absolute; top: 62px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionFondo(0)}" process="@this"/>
@@ -624,7 +619,7 @@
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionAFP" value="#{msg['infoAfiliacion']}"/>
 
-                           <h:outputText id="infoAfiliacionCaja" value="#{msg['cajaCompensacion']}:" style="position: absolute; top: 117px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoAfiliacionCaja" value="#{msg['cajaCompensacion']}:" style="position: absolute; top: 117px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="cajaCompensacionModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" value="#{controlPersonaIndividual.txt_terceroCC}" onclick="select();" 
                                         style="position: absolute; top: 112px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionCaja(0)}" process="@this"/>
@@ -672,7 +667,7 @@
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/estadocivil.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                              <h:outputText  value="#{msg['descripcion']}:" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['descripcion']}:" style="position: absolute; top: 25px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" id="estadoCivilModEstadoCivil" onclick="select();" value="#{controlPersonaIndividual.nuevoEstadoCivil.estadocivil.descripcion}"
                                            style="position: absolute; top: 20px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemEstadoCivil(0)}" process="@this"/>
@@ -689,7 +684,7 @@
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/direccion.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                              <h:outputText  value="#{msg['direccion']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['direccion']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" maxlength="100"  id="direccionModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.direccionalternativa}"
                                            style="position: absolute; top: 15px; left: 190px; width: 170px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemDireccion(0)}" process="@this"/>
@@ -697,7 +692,7 @@
                               </p:inputText>
 
 
-                              <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" id="ciudadModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.ciudad.nombre}"
                                            style="position: absolute; top: 40px; left: 190px; width: 170px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemDireccion(1)}" process="@this"/>
@@ -714,7 +709,7 @@
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/telefono.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                              <h:outputText  value="#{msg['tipoTelefono']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['tipoTelefono']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" id="tipoTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.tipotelefono.nombre}" 
                                            style="position: absolute; top: 15px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(0)}" process="@this"/>
@@ -725,9 +720,9 @@
                                                   actionListener="#{controlPersonaIndividual.listaValoresTelefono(0)}" process="@this"/>
                               </p:inputText>
 
-                              <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" id="ciudadModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.ciudad.nombre}" 
-                                           style="position: absolute; top: 40px; left: 185px;width: 175px;text-transform: uppercase;">
+                                           style="position: absolute; top: 40px; left: 185px; width: 175px;text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(1)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(1,'CIUDAD', controlPersonaIndividual.nuevoTelefono.ciudad.nombre)}"
                                          process="@this" update="ciudadModTelefono"/>
@@ -736,9 +731,9 @@
                                                   actionListener="#{controlPersonaIndividual.listaValoresTelefono(1)}" process="@this"/>
                               </p:inputText>
 
-                              <h:outputText  value="#{msg['numeroTelefono']}:" style="position: absolute; top: 70px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['numeroTelefono']}:" style="position: absolute; top: 70px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" id="numeroTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.numerotelefono}" 
-                                           style="position: absolute; top: 65px; left: 185px;width: 175px;text-transform: uppercase;">
+                                           style="position: absolute; top: 65px; left: 185px; width: 175px;text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(2)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroTelefonico(controlPersonaIndividual.nuevoTelefono.numerotelefono)}"
                                          process="@this" update="numeroTelefonoModTelefono"/>
@@ -750,21 +745,19 @@
                            span {
                               font-size: 11px !important;
                            }
-
                            fieldset input, fieldset .ui-input, fieldset .ui-inputfield {
                               font-size: 11px !important;
                               padding: 3px !important;
                            }
                         </style>
-
                      </p:scrollPanel>  
                   </fieldset>
 
                   <p:commandButton style="position: absolute; left: 595px; top: 500px; width: 175px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;  color: white; " 
-                                   id="ACEPTAR" value="#{msg['ingresarPersonal']}" icon="ui-icon-disk" actionListener="#{controlPersonaIndividual.crearNuevoEmpleado()}"  process="@this"/>
-                  <p:commandButton style="position: absolute; left: 775px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nominaf" process="@this">
-                     <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
+                                   id="ACEPTAR" value="#{msg['ingresarPersonal']}" icon="ui-icon-disk" actionListener="#{controlPersonaIndividual.crearNuevoEmpleado()}" process="@this"/>
+                  <p:commandButton style="position: absolute; left: 775px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
+                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" process="@this">
+                     <f:actionListener binding="#{controlPersonaIndividual.salir()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
                </p:panel>
@@ -1954,9 +1947,8 @@
                      <f:actionListener binding="#{controlPersonaIndividual.eliminarDatosCreados()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 130px; left: 250px;" process="@this"
-                                   action="nominaf">
-                     <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 130px; left: 250px;" process="@this">
+                     <f:actionListener binding="#{controlPersonaIndividual.salir()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
                </p:dialog>
@@ -2031,7 +2023,7 @@
                <p:dialog id="errorIngresoTotalRegistro" header="#{msg['error']}" widgetVar="errorIngresoTotalRegistro"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorIngresoTotalRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 285px; font-weight: bold;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" action="nominaf" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" 
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" actionListener="#{controlPersonaIndividual.salir()}" 
                                    onclick="PF('errorIngresoTotalRegistro').hide();" style="position: absolute; top: 67px; left: 320" process="@this"/>
                </p:dialog>
 
@@ -2086,8 +2078,8 @@
                <p:dialog id="procesoGuardadoOK" header="#{msg['informacion']}" widgetVar="procesoGuardadoOK"   resizable="false" draggable="true" modal="true" height="98" width="388" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/bien.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['procesoGuardadoOK']}" style="position: absolute; left: 70px; top: 10px; width: 235px; font-weight: bold;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('procesoGuardadoOK').hide();" action="nominaf" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" style="position: absolute; top: 57px; left: 275px;" process="@this">
-                     <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('procesoGuardadoOK').hide();" style="position: absolute; top: 57px; left: 275px;" process="@this">
+                     <f:actionListener binding="#{controlPersonaIndividual.salir()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
                </p:dialog>

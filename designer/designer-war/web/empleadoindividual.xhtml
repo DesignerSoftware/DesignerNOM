@@ -4,30 +4,28 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+      xmlns:f="http://java.sun.com/jsf/core">
    <h:head>
    </h:head>
-   <h:body  >
+   <h:body>
       <ui:composition template="/template.xhtml">
          <ui:define name="body">
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
-            <!--<div class="loader"></div>-->
             <div style="position: static;"></div>
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.empleadoindividual" var="msg"/>
                <p:growl id="growl" showDetail="true"/> 
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
-                  <p:toolbar styleClass="cssToolbar" >   
-                     <p:toolbarGroup align="left"> 
+                  <p:toolbar styleClass="cssToolbar">   
+                     <p:toolbarGroup align="left;"> 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;"
                                          actionListener="#{controlEmpleadoIndividual.guardarCambios()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -43,34 +41,34 @@
 
                         <p:commandButton id="filtrar" value="" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}"
                                          style="background-image: url(Imagenes/Iconos/embudo.png); border: none;"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px;" />
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none;"
-                                         ajax="false" actionListener="#{controlEmpleadoIndividual.exportXLS()}" />
-                        <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
+                                         ajax="false" actionListener="#{controlEmpleadoIndividual.exportXLS()}"/>
+                        <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none;" ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosEmpleadoExportar" fileName="HojaVidaEmpleadoXML" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
+                        <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none;"
                                          actionListener="#{controlEmpleadoIndividual.exportPDF()}" ajax="false"/>
-                        <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="insertar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value=""
                                          style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none;"/> 
-                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
                         <p:commandButton id="eliminar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value=""
                                          style="background-image: url(Imagenes/Iconos/delete.png); border: none;"/>  
-                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value=""
                                          style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;"/>  
-                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none;" 
@@ -84,7 +82,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none;" 
-                                         actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this"/>  
+                                         actionListener="#{controlEmpleadoIndividual.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
@@ -94,10 +92,10 @@
                                      alt="Foto empleado" value="#{controlEmpleadoIndividual.fotoEmpleado}" onclick="PF('subirFoto').show();"
                                      style="position: relative; top: 0px; left: 0px;"/> 
 
-                     <p:commandButton value="#{msg['tallas']}" process="@this" action="vigenciatalla" 
+                     <p:commandButton value="#{msg['tallas']}" process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','vigenciatalla')}" 
                                       actionListener="#{controlVigenciasTallas.recibirEmpleado(controlEmpleadoIndividual.empleado,'vigenciatalla')}" 
                                       style="position: relative; left: -107px; top: 20px; height: 23px; width: 115px; font-size: 12px;"/>
-                     <p:commandButton id="bntAntContratos" value="#{msg['anteriorescontratos']}" action="anteriorescontratos"
+                     <p:commandButton id="bntAntContratos" value="#{msg['anteriorescontratos']}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','anteriorescontratos')}"
                                       actionListener="#{controlAnterioresContratos.recibirPersona('empleadoindividual', controlEmpleadoIndividual.empleado.persona)}"
                                       style="position: relative; left: -223px; top: 45px; height: 23px; width: 115px;"/>
                      <p:tooltip for="bntAntContratos" value="#{msg['anteriorescontratostp']}"/>
@@ -109,7 +107,7 @@
                      <div id="secb" style="position: absolute; top: 0px; left: 0px; width: 711px; height: 23px; margin-top: 10px;">
 
                         <h:outputText id="apellidosNombres" value="#{msg['primerapellido']}" 
-                                      style="position: absolute; left: 10px; top: 5px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 5px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <!-- <p:tooltip for="apellidosNombres" value="#{msg['primerapellidoTT']}"/> -->
                         <p:inputText  autocomplete="off"  id="primerApellido" value="#{controlEmpleadoIndividual.persona.primerapellido}" 
                                       style="position: absolute; left: 150px; width: 160px; text-transform: uppercase; height: 12px;" 
@@ -117,7 +115,7 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="primerApellido" value="#{msg['primerapellidowm']}" />
+                        <p:watermark for="primerApellido" value="#{msg['primerapellidowm']}"/>
                         <h:outputText value="#{msg['primernombre']}" 
                                       style="position: absolute; left: 10px; top: 29px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="primerNombre" value="#{controlEmpleadoIndividual.persona.nombre}" 
@@ -126,9 +124,9 @@
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                            <p:ajax event="click"  listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                         </p:inputText>
-                        <p:watermark for="primerNombre" value="#{msg['primernombrewm']}" />
+                        <p:watermark for="primerNombre" value="#{msg['primernombrewm']}"/>
                         <h:outputText value="#{msg['identificacion']}" 
-                                      style="position: absolute; left: 10px; top: 53px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 53px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="tipo" value="#{controlEmpleadoIndividual.persona.tipodocumento.nombrecorto}" 
                                       style="position: absolute; left: 150px; top: 48px; width: 38px; text-transform: uppercase; height: 12px;" 
                                       onclick="select();" maxlength="3">
@@ -136,9 +134,9 @@
                            <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('TIPODOCUMENTO')}"/>-->
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('TIPODOCUMENTO', controlEmpleadoIndividual.persona.tipodocumento.nombrecorto)}"/>
                         </p:inputText>
-                        <p:watermark for="tipo" value="#{msg['tipowm']}" /> 
+                        <p:watermark for="tipo" value="#{msg['tipowm']}"/> 
                         <h:outputText id="txtDigito" value="#{msg['digitoverif']}" 
-                                      style="position: absolute; left: 10px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:tooltip for="txtDigito" value="#{msg['digitoveriftp']}"/>
                         <p:inputText  autocomplete="off"  id="digitoverificacion" value="#{controlEmpleadoIndividual.persona.digitoverificaciondocumento}" 
                                       style="position: absolute; left: 150px; top: 72px; width: 38px; text-transform: uppercase; height: 12px;" 
@@ -146,33 +144,33 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="digitoverificacion" value="#{msg['digitoverificacionwm']}" />
+                        <p:watermark for="digitoverificacion" value="#{msg['digitoverificacionwm']}"/>
                         <h:outputText id="grupoS" value="#{msg['grupos']}" 
-                                      style="position: absolute; left: 10px; top: 101px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 101px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:tooltip for="grupoS" value="#{msg['gruposTT']}"/>
                         <p:selectOneMenu id="grupoSanguineo" value="#{controlEmpleadoIndividual.persona.gruposanguineo}" 
                                          style="position: absolute; left: 150px; top: 96px; width: 45px; height: 20px;">  
-                           <f:selectItem itemLabel="" itemValue="" />
+                           <f:selectItem itemLabel="" itemValue=""/>
                            <f:selectItem itemLabel="#{msg['gruposa']}" itemValue="A"/>  
                            <f:selectItem itemLabel="#{msg['gruposab']}" itemValue="AB"/>
                            <f:selectItem itemLabel="#{msg['gruposb']}" itemValue="B"/>
                            <f:selectItem itemLabel="#{msg['gruposo']}" itemValue="O"/>
-                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this" />
+                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:selectOneMenu>
                         <h:outputText id="txtfactorRH" value="#{msg['factorrh']}" 
                                       style="position: absolute; left: 10px; top: 125px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                        <p:tooltip for="txtfactorRH" value="#{msg['factorrhtp']}" />
+                        <p:tooltip for="txtfactorRH" value="#{msg['factorrhtp']}"/>
                         <p:selectOneMenu id="factorRH" value="#{controlEmpleadoIndividual.persona.factorrh}"  
                                          style="position: absolute; left: 150px; top: 120px; width: 45px; height: 20px;" 
                                          panelStyle="font-size: 14px">  
-                           <f:selectItem itemLabel="" itemValue="" />  
-                           <f:selectItem itemLabel="+" itemValue="P" />  
-                           <f:selectItem itemLabel="-" itemValue="N" />
-                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this" />
+                           <f:selectItem itemLabel="" itemValue=""/>  
+                           <f:selectItem itemLabel="+" itemValue="P"/>  
+                           <f:selectItem itemLabel="-" itemValue="N"/>
+                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:selectOneMenu>
                         <br/>
                         <h:outputText value="#{msg['ciudadnacimiento']}" 
-                                      style="position: absolute; left: 10px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="lugarNacimiento" value="#{controlEmpleadoIndividual.persona.ciudadnacimiento.nombre}" 
                                       style="position: absolute; left: 150px; top: 144px; width: 120px; text-transform: uppercase; height: 12px;" 
                                       onclick="select();">
@@ -180,10 +178,10 @@
                            <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADNACIMIENTO')}"/>-->
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.ciudadnacimiento.nombre)}"/>
                         </p:inputText>
-                        <p:watermark for="lugarNacimiento" value="#{msg['lugarnacimientowm']}" />
+                        <p:watermark for="lugarNacimiento" value="#{msg['lugarnacimientowm']}"/>
 
                         <h:outputText id="txtcertjudicial" value="#{msg['certjudicial']}" 
-                                      style="position: absolute; left: 10px; top: 173px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 173px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:tooltip for="txtcertjudicial" value="#{msg['certjudicialtp']}"/>
                         <p:inputText  autocomplete="off"  id="certificadoJudicial" value="#{controlEmpleadoIndividual.persona.certificadojudicial}" 
                                       style="position: absolute; left: 150px; top: 168px; width: 120px; height: 12px;" 
@@ -191,9 +189,9 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="certificadoJudicial" value="#{msg['certjudicialwm']}" />
+                        <p:watermark for="certificadoJudicial" value="#{msg['certjudicialwm']}"/>
                         <h:outputText value="#{msg['libretamilitar']}" 
-                                      style="position: absolute; left: 10px; top: 197px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 197px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="libretaMilitar" value="#{controlEmpleadoIndividual.persona.numerolibretamilitar}" 
                                       style="position: absolute; left: 150px; top: 192px; width: 120px; height: 12px;" 
                                       onclick="select();">
@@ -203,7 +201,7 @@
                         <p:watermark for="libretaMilitar" value="#{msg['libretamilitarwm']}"/>
 
                         <h:outputText value="#{msg['clase']}" 
-                                      style="position: absolute; left: 10px; top: 221px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 10px; top: 221px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  value="#{controlEmpleadoIndividual.persona.claselibretamilitar}" 
                                       style="position: absolute; left: 150px; top: 216px; width: 38px; text-transform: uppercase; height: 12px;" 
                                       onclick="select();" maxlength="1">
@@ -218,7 +216,7 @@
                            <f:selectItem itemLabel="" itemValue=""/>
                            <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                            <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/>
-                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this" />
+                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:selectOneMenu>
                         <h:outputText value="#{msg['placa']}" 
                                       style="position: absolute; left: 10px; top: 269px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
@@ -228,7 +226,7 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="placa" value="#{msg['placawm']}" />
+                        <p:watermark for="placa" value="#{msg['placawm']}"/>
                         <h:outputText value="#{msg['rutadetransporte']}" 
                                       style="position: absolute; left: 10px; top: 293px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="ruta" value="#{controlEmpleadoIndividual.empleado.rutatransporte}" 
@@ -237,7 +235,7 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Empleados')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('E')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="ruta" value="#{msg['rutadetransportewm']}" />
+                        <p:watermark for="ruta" value="#{msg['rutadetransportewm']}"/>
                         <h:outputText value="#{msg['cargopostulado']}" 
                                       style="position: absolute; left: 10px; top: 317px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="cargoPostulado" value="#{controlEmpleadoIndividual.hojaDeVidaPersona.cargo.nombre}" 
@@ -247,7 +245,7 @@
                            <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CARGOPOSTULADO')}"/>-->
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CARGOPOSTULADO', controlEmpleadoIndividual.hojaDeVidaPersona.cargo.nombre)}"/>
                         </p:inputText>
-                        <p:watermark for="cargoPostulado" value="#{msg['cargopostuladowm']}" />
+                        <p:watermark for="cargoPostulado" value="#{msg['cargopostuladowm']}"/>
 
                         <!--  /////  Derecha  //////  -->
 
@@ -259,7 +257,7 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="segundoApellido" value="#{msg['segundoapellidowm']}" />
+                        <p:watermark for="segundoApellido" value="#{msg['segundoapellidowm']}"/>
                         <br/>
                         <h:outputText value="#{msg['segundonombre']}" 
                                       style="position: absolute; left: 370px; top: 29px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
@@ -269,37 +267,37 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="segundoNombre" value="#{msg['segundonombrewm']}" />
+                        <p:watermark for="segundoNombre" value="#{msg['segundonombrewm']}"/>
                         <br/>
                         <h:outputText value="#{msg['numidentificacion']}" 
-                                      style="position: absolute; left: 370px; top: 53px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 370px; top: 53px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="Identificacion" value="#{controlEmpleadoIndividual.persona.numerodocumento}" 
                                       style="position: absolute; left: 510px; top: 48px; width: 120px; text-transform: uppercase; height: 12px;" 
                                       onclick="select();">
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="Identificacion" value="#{msg['identificacionwm']}" /> 
+                        <p:watermark for="Identificacion" value="#{msg['identificacionwm']}"/> 
                         <br/>
                         <h:outputText value="#{msg['ciudaddocumento']}" 
                                       style="position: absolute; left: 370px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.nombreCiudadDocumento}"
-                                      style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;" >
+                                      style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;">
                            <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(0)}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDADDOCUMENTO', controlEmpleadoIndividual.persona.nombreCiudadDocumento)}"/>
-                           <!--<p:ajax event="change" update="@this" />-->
+                           <!--<p:ajax event="change" update="@this"/>-->
                         </p:inputText>
-                        <p:watermark for="lugarExpedicion" value="#{msg['lugarexpedicionwm']}" />
+                        <p:watermark for="lugarExpedicion" value="#{msg['lugarexpedicionwm']}"/>
                         <br/>
                         <h:outputText value="#{msg['email']}" 
-                                      style="position: absolute; left: 370px; top: 101px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 370px; top: 101px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText  autocomplete="off"  value="#{controlEmpleadoIndividual.persona.email}" id="email" 
                                       style="position: absolute; left: 510px; top: 96px; width: 160px; height: 12px;" 
                                       onclick="select();">
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="email" value="#{msg['emailwm']}" />
+                        <p:watermark for="email" value="#{msg['emailwm']}"/>
                         <br/>
                         <h:outputText value="#{msg['edad']}" 
                                       style="position: absolute; left: 370px; top: 125px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
@@ -308,37 +306,37 @@
                                       onclick="select();" readonly="true" maxlength="3"/>
                         <br/>
                         <h:outputText value="#{msg['fechanacimiento']}" 
-                                      style="position: absolute; left: 370px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
+                                      style="position: absolute; left: 370px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <div id="posicionFechaNacimiento" 
                              style="display: inline; position: absolute; left: 510px; top: 144px; width: 95px; height: 12px;">
-                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="calendarFechaNacimiento" value="#{controlEmpleadoIndividual.persona.fechanacimiento}" >
+                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="calendarFechaNacimiento" value="#{controlEmpleadoIndividual.persona.fechanacimiento}">
                               <p:ajax process="@this" event="dateSelect" listener="#{controlEmpleadoIndividual.eventoDataSelectFechaNacimiento('P')}" update="@this"/>
                               <p:ajax process="@this" event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                               <p:ajax process="@this" event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}"  update="@this"/>
                            </p:calendar>
                         </div>
-                        <p:watermark for="calendarFechaNacimiento" value="#{msg['fechanacimientowm']}" />
+                        <p:watermark for="calendarFechaNacimiento" value="#{msg['fechanacimientowm']}"/>
                         <br/>
                         <h:outputText value="#{msg['fechavencimiento']}" 
                                       style="position: absolute; left: 370px; top: 173px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <div id="posicionFechaVencimiento" style="display: inline; position: absolute; left: 510px; top: 168px; width: 95px; height: 12px;">
-                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaVencimientoCJ" value="#{controlEmpleadoIndividual.persona.fechavencimientocertificado}" >
+                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaVencimientoCJ" value="#{controlEmpleadoIndividual.persona.fechavencimientocertificado}">
                               <p:ajax event="dateSelect" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" process="@this" update="@this"/>
                               <p:ajax event="click" process="@this" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                               <p:ajax event="change" process="@this" listener="#{controlEmpleadoIndividual.eventoDataSelectFechaVencimiento('P')}" update="@this"/>
                            </p:calendar>
                         </div>
-                        <p:watermark for="fechaVencimientoCJ" value="#{msg['fechavencimientowm']}" />
+                        <p:watermark for="fechaVencimientoCJ" value="#{msg['fechavencimientowm']}"/>
                         <p:tooltip for="fechaVencimientoCJ" value="#{msg['fechavencimiento']}"/>
                         <br/>
                         <h:outputText value="#{msg['sexo']}" 
                                       style="position: absolute; left: 370px; top: 197px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:selectOneMenu id="sexo" value="#{controlEmpleadoIndividual.persona.sexo}" 
                                          style="position: absolute; left: 510px; top: 192px; width: 100px; height: 20px;">  
-                           <f:selectItem itemLabel="" itemValue="" />  
-                           <f:selectItem itemLabel="#{msg['sexom']}" itemValue="M" />  
-                           <f:selectItem itemLabel="#{msg['sexof']}" itemValue="F" />
-                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this" />
+                           <f:selectItem itemLabel="" itemValue=""/>  
+                           <f:selectItem itemLabel="#{msg['sexom']}" itemValue="M"/>  
+                           <f:selectItem itemLabel="#{msg['sexof']}" itemValue="F"/>
+                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:selectOneMenu>
                         <h:outputText value="#{msg['distritomilitar']}" 
                                       style="position: absolute; left: 370px; top: 221px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
@@ -354,9 +352,9 @@
                         <p:selectOneMenu id="vehiculoPropio" value="#{controlEmpleadoIndividual.vehiculoPropio}" 
                                          style="position: absolute; left: 510px; top: 240px; width: 45px; height: 20px;" 
                                          panelStyle="font-size: 14px">  
-                           <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
-                           <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" />
-                           <p:ajax listener="#{controlEmpleadoIndividual.estadoVehiculoPropio()}" update="@this" />
+                           <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
+                           <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/>
+                           <p:ajax listener="#{controlEmpleadoIndividual.estadoVehiculoPropio()}" update="@this"/>
                         </p:selectOneMenu>
                         <br/>
                         <h:outputText value="#{msg['parqueo']}" 
@@ -367,37 +365,37 @@
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Empleados')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('E')}" update="@this"/>
                         </p:inputText>
-                        <p:watermark for="parqueo" value="#{msg['parqueowm']}" />
+                        <p:watermark for="parqueo" value="#{msg['parqueowm']}"/>
                         <br/>
                         <h:outputText value="#{msg['vehiculoempresa']}" 
                                       style="position: absolute; left: 370px; top: 293px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:selectOneMenu id="vehiculoEmpresa" value="#{controlEmpleadoIndividual.persona.vehiculoempresa}"  
                                          style="position: absolute; left: 510px; top: 288px; width: 45px; height: 20px;" 
                                          panelStyle="font-size: 14px">  
-                           <f:selectItem itemLabel="" itemValue="" />
-                           <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
-                           <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" />
-                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this" />
+                           <f:selectItem itemLabel="" itemValue=""/>
+                           <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
+                           <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/>
+                           <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:selectOneMenu>
                         <br/>
                         <h:outputText id="lbfechafalle" value="#{msg['fechafallecimiento']}"
                                       style="position: absolute; left: 370px; top: 317px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                        <p:tooltip for="lbfechafalle" value="#{msg['fechafallecimientowm']}" />
+                        <p:tooltip for="lbfechafalle" value="#{msg['fechafallecimientowm']}"/>
                         <div id="posicionFechaFallecimiento" 
                              style="position: absolute; left: 510px; top: 312px; width: 95px; height: 12px;">
-                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaFallecimiento" value="#{controlEmpleadoIndividual.persona.fechafallecimiento}" >
+                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaFallecimiento" value="#{controlEmpleadoIndividual.persona.fechafallecimiento}">
                               <p:ajax process="@this" event="dateSelect" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                               <p:ajax process="@this" event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                               <p:ajax process="@this" event="change" listener="#{controlEmpleadoIndividual.eventoDataSelectFechaFallecimiento('P')}" update="@this"/>
                            </p:calendar>
                         </div>
-                        <p:watermark for="fechaFallecimiento" value="#{msg['fechafallecimientowm']}" />
+                        <p:watermark for="fechaFallecimiento" value="#{msg['fechafallecimientowm']}"/>
                      </div>
 
                      <fieldset style="position: relative; left: 0px; top: 355px; width: 683px; height: 72px; border-radius: 7px; border: none;">
-                        <div id="cabperfilinf" >
-                           <h:outputText value="#{msg['perfilprofesional']}" style="position: absolute; left: 10px; font-weight: bold; color: #14388B; width: 135px; text-align: right; top: 10px;" />
-                           <h:outputText value="#{msg['informeejecutivo']}" style="position: absolute; left: 370px; font-weight: bold; color: #14388B; width: 135px; text-align: right; top: 10px;" />
+                        <div id="cabperfilinf">
+                           <h:outputText value="#{msg['perfilprofesional']}" style="position: absolute; left: 10px; font-weight: bold; color: #14388B; width: 135px; text-align: right; top: 10px;"/>
+                           <h:outputText value="#{msg['informeejecutivo']}" style="position: absolute; left: 370px; font-weight: bold; color: #14388B; width: 135px; text-align: right; top: 10px;"/>
                         </div>
                         <div id="btnsperfilinf">
                            <p:inputTextarea value="#{controlEmpleadoIndividual.hojaDeVidaPersona.perfilprofesional}" 
@@ -415,73 +413,74 @@
                      </fieldset>
                      <!-- </fieldset> -->
                   </p:scrollPanel>    
-                  <!-- ********************************************************************** -->
-                  <!-- <p:scrollPanel id="panelInferior" style="position: absolute; top: 270px; width: 855px; height: 195px; left: 10px; border: none" mode="native">  -->
-                  <fieldset id="panelInferior" style="position: absolute; top: 270px; width: 832px; height: 200px; left: 10px; border-radius: 10px;" >
+                  <!--**********************************************************************-->
+                  <fieldset id="panelInferior" style="position: absolute; top: 270px; width: 832px; height: 200px; left: 10px; border-radius: 10px;">
                      <fieldset style="position: absolute; left: -2px; top: 2px; width: 197px; height: 205px; border-radius: 7px; padding: 0px; border: none;">
                          <!-- <legend style="font-weight: bold; color: blue">#{msg['ubicacion']}</legend> -->
-                        <p:commandButton id="btnTelefono" value="" action="telefonospersona" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'telefonospersona')}" process="@this"
+                        <p:commandButton id="btnTelefono" value="" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/telefono.png); background-size: 100% 100%; background-repeat: no-repeat; width: 40px; height: 40px; position: absolute; border:none;"/>
                         <h:commandLink value="#{msg['telefonos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;"
-                                       action="telefonospersona" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'telefonospersona')}"/>
-                        <p:inputText  autocomplete="off"  id="telefonos" value="#{controlEmpleadoIndividual.telefonoP}" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase" readonly="true"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}"/>
+                        <p:inputText  autocomplete="off"  id="telefonos" value="#{controlEmpleadoIndividual.telefonoP}" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
                         <p:commandButton id="btnDireccion" value="" style="background-image: url(Imagenes/Iconos/direccion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none;" 
-                                         action="direccionespersona" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'direccionespersona')}" process="@this"/>
+                                         action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perdireccion')}" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}" process="@this"/>
                         <h:commandLink value="#{msg['direcciones']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B; "
-                                       action="direccionespersona" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'direccionespersona')}"/>
-                        <p:inputText  autocomplete="off"  id="direcciones" value="#{controlEmpleadoIndividual.direccionP}" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase" readonly="true"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perdireccion')}" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}"/>
+                        <p:inputText  autocomplete="off"  id="direcciones" value="#{controlEmpleadoIndividual.direccionP}" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
                         <p:commandButton id="btnEstadoCivil" value="" style="background-image: url(Imagenes/Iconos/estadocivil.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none;"
-                                         actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona.secuencia)}" action="estadoCivil" process="@this"/>
+                                         actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona.secuencia)}"
+                                         action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perestadocivil')}" process="@this"/>
                         <h:commandLink value="#{msg['estadocivil']}" style="position: absolute; left: 47px; top: 82px; font-weight: bold; color: #14388B;"
-                                       actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona.secuencia)}" action="estadoCivil"/>
-                        <p:inputText  autocomplete="off"  id="estadoCivil" value="#{controlEmpleadoIndividual.estadoCivilP}" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase" readonly="true"/>
+                                       actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona.secuencia)}"
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perestadocivil')}"/>
+                        <p:inputText  autocomplete="off"  id="estadoCivil" value="#{controlEmpleadoIndividual.estadoCivilP}" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
                         <p:commandButton id="btnInformacionAdicional" value="" style="background-image: url(Imagenes/Iconos/relacione.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none; text-transform: uppercase;"
-                                         process="@this" action="infoAdicional" actionListener="#{controlEmplInformacionAdicional.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                         process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','infoAdicional')}" actionListener="#{controlEmplInformacionAdicional.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <h:commandLink value="#{msg['informacionadicional']}" style="position: absolute; left: 47px; top: 123px; font-weight: bold; color: #14388B;" 
-                                       action="infoAdicional" actionListener="#{controlEmplInformacionAdicional.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','infoAdicional')}" actionListener="#{controlEmplInformacionAdicional.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <p:inputText  autocomplete="off"  id="informacionAdicional" value="#{controlEmpleadoIndividual.informacionAdicionalP}" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
-                        <p:commandButton id="btnReemplazos" value="" action="novedadreemplazo" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,'novedadreemplazo')}" process="@this"
+                        <p:commandButton id="btnReemplazos" value="" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','novedadesreemplazos')}" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,'empleadoindividual')}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/reemplazo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;"/>
                         <h:commandLink value="#{msg['reemplazos']}" style="position: absolute; left: 47px; top: 164px; font-weight: bold; color: #14388B;"
-                                       action="novedadreemplazo" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,'novedadreemplazo')}"/>
-                        <p:inputText  autocomplete="off"  id="reemplazos" value="#{controlEmpleadoIndividual.reemplazoP}" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase" readonly="true"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','novedadesreemplazos')}" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,'empleadoindividual')}"/>
+                        <p:inputText  autocomplete="off"  id="reemplazos" value="#{controlEmpleadoIndividual.reemplazoP}" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
                      </fieldset>
                      <fieldset style="position: absolute; left: 208px; top: 2px; width: 197px; height: 120px; border-radius: 7px; padding: 0px; border: none;">
                          <!-- <legend style="font-weight: bold; color: blue">#{msg['educacion']}</legend> -->
 
-                        <p:commandButton id="btnEducacion" value="" process="@this" action="personaeducacion" actionListener="#{controlPersonaEducacion.recibirPersona(controlEmpleadoIndividual.persona.secuencia,'personaeducacion')}"
+                        <p:commandButton id="btnEducacion" value="" process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','personaeducacion')}" actionListener="#{controlPersonaEducacion.recibirPersona(controlEmpleadoIndividual.persona.secuencia,'empleadoindividual')}"
                                          style="background-image: url(Imagenes/Iconos/niveleducativo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none;"/>
                         <h:commandLink value="#{msg['educacion']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;"
-                                       action="personaeducacion" actionListener="#{controlPersonaEducacion.recibirPersona(controlEmpleadoIndividual.persona.secuencia,'personaeducacion')}"/>
-                        <p:inputText  autocomplete="off"  id="educacion" value="#{controlEmpleadoIndividual.educacionP}" readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','personaeducacion')}" actionListener="#{controlPersonaEducacion.recibirPersona(controlEmpleadoIndividual.persona.secuencia,'empleadoindividual')}"/>
+                        <p:inputText  autocomplete="off"  id="educacion" value="#{controlEmpleadoIndividual.educacionP}" readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnIdiomas" value="" style="background-image: url(Imagenes/Iconos/idioma.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none; " 
-                                         action="idiomapersona" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
+                                         action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','idiomapersona')}" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
                         <h:commandLink value="#{msg['idiomas']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B; "
-                                       action="idiomapersona" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="idiomas" value="#{controlEmpleadoIndividual.idiomasP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','idiomapersona')}" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="idiomas" value="#{controlEmpleadoIndividual.idiomasP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnProyectos" value="" style="background-image: url(Imagenes/Iconos/proyecto.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none;" 
                                          process="@this" action ="proyecto" actionListener="#{controlVigenciasProyectos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <h:commandLink value="#{msg['proyectos']}" style="position: absolute; left: 47px; top: 82px; font-weight: bold; color: #14388B; "
                                        action ="proyecto" actionListener="#{controlVigenciasProyectos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <p:inputText  autocomplete="off"  id="proyectos" value="#{controlEmpleadoIndividual.proyectosP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
-                    
+
                         <p:commandButton id="btnEventos" value="" style="background-image: url(Imagenes/Iconos/evento.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;"
-                                         process="@this" action="vigenciasEvents" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                         process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','vigenciasEvents')}" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <h:commandLink value="#{msg['eventos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 123px"
-                                       action="vigenciasEvents" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="eventos" value="#{controlEmpleadoIndividual.eventosP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','vigenciasEvents')}" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="eventos" value="#{controlEmpleadoIndividual.eventosP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnDeporte" value="" style="background-image: url(Imagenes/Iconos/deporte.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;" 
-                                         process="@this" action="infoDeportesPersona" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                         process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','infoDeportesPersona')}" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <h:commandLink value="#{msg['deporte']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px"
-                                       action="infoDeportesPersona" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="deporte" value="#{controlEmpleadoIndividual.deportesP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','infoDeportesPersona')}" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="deporte" value="#{controlEmpleadoIndividual.deportesP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                      </fieldset>
 
@@ -492,65 +491,66 @@
                                          style="background-image: url(Imagenes/Iconos/referencialaboral.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border: none;" process="@this"/>
                         <h:commandLink value="#{msg['referencialaboral']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;"
                                        actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaLaboral')}" immediate="#{controlHvReferencias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>  
-                        <p:inputText  autocomplete="off" id="referenciaLaboral" value="#{controlEmpleadoIndividual.referenciasPersonalesP}"  readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                        <p:inputText  autocomplete="off" id="referenciaLaboral" value="#{controlEmpleadoIndividual.referenciasPersonalesP}"  readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnReferenciaFamiliar" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
                                          style="background-image: url(Imagenes/Iconos/referenciafamiliar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border: none;" process="@this"/>
                         <h:commandLink value="#{msg['referenciafamiliar']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B;"
                                        actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off" id="referenciaFamiliar" value="#{controlEmpleadoIndividual.referenciasFamiliaresP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                        <p:inputText  autocomplete="off" id="referenciaFamiliar" value="#{controlEmpleadoIndividual.referenciasFamiliaresP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
-                        <p:commandButton id="btnExperienciaLaboral" value="" process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('experienciaLabPersona')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
+                        <p:commandButton id="btnExperienciaLaboral" value="" process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perexperiencialaboral')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
                                          style="background-image: url(Imagenes/Iconos/experiencialaboral.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border: none;"/>
                         <h:commandLink value="#{msg['experiencialaboral']}" style="position: absolute; left: 47px; top: 82px; font-weight: bold; color: #14388B; "
-                                       actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('experienciaLabPersona')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off" id="experienciaLaboral" value="#{controlEmpleadoIndividual.experienciaLaboralP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
-                        
-                         <p:commandButton id="btnAficiones" value="" style="background-image: url(Imagenes/Iconos/aficion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;"
-                                         action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
+                                       actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perexperiencialaboral')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off" id="experienciaLaboral" value="#{controlEmpleadoIndividual.experienciaLaboralP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
+
+                        <p:commandButton id="btnAficiones" value="" style="background-image: url(Imagenes/Iconos/aficion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;"
+                                         action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','vigenciaaficion')}" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
                         <h:commandLink value="#{msg['aficiones']}" style="position: absolute; left: 47px; top: 123px; font-weight: bold; color: #14388B;"
-                                       action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','vigenciaaficion')}" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;" 
-                                         process="@this"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
-                        <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}" />
-                        <p:inputText  autocomplete="off"  id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                         process="@this"  action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplfamiliares')}"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                        <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;"
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplfamiliares')}"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                      </fieldset>
 
                      <fieldset style="position: absolute; left: 630px; top: 2px; width: 197px; height: 205px; border-radius: 7px; padding: 0px; border: none;">
-                         <!-- <legend style="font-weight: bold; color: blue">#{msg['datos']}</legend> -->
 
                         <p:commandButton id="btnPruebasAplicadas" value="" style="background-image: url(Imagenes/Iconos/g_evaldesempeno.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none; "
-                                         process="@this" actionListener="#{controlEmplVigConvocatorias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" action="pruebasaplicadas"/>
+                                         process="@this" actionListener="#{controlEmplVigConvocatorias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
+                                         action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplvigconvocatoria')}"/>
                         <h:commandLink value="#{msg['pruebasaplicadas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;" actionListener="#{controlEmplVigConvocatorias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
-                                       action="pruebasaplicadas" />
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplvigconvocatoria')}"/>
 
                         <p:inputText  autocomplete="off"  id="pruebasAplicadas" value="#{controlEmpleadoIndividual.pruebasAplicadasP}" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none;"/>
 
                         <p:commandButton id="btnEntrevistas" value="" style="background-image: url(Imagenes/Iconos/entrevistas.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none;" 
                                          process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('hventrevista')}" oncomplete="#{controlHvEntrevistas.recibirEmpleado('hventrevista',controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <h:commandLink value="#{msg['entrevistas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 41px"
-                                       actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('hventrevista')}" immediate="#{controlHvEntrevistas.recibirEmpleado('hventrevista',controlEmpleadoIndividual.empleado.secuencia)}" />
-                        <p:inputText  autocomplete="off"  id="entrevistas" value="#{controlEmpleadoIndividual.entrevistasP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('hventrevista')}" immediate="#{controlHvEntrevistas.recibirEmpleado('hventrevista',controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="entrevistas" value="#{controlEmpleadoIndividual.entrevistasP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnCensos" value="" style="background-image: url(Imagenes/Iconos/indicadorgestion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none;"
-                                         process="@this" action="emplvigenciaindicador" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                         process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplvigenciaindicador')}" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <h:commandLink value="#{msg['censos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 82px"
-                                       action="emplvigenciaindicador" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="censos" value="#{controlEmpleadoIndividual.indicadoresP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplvigenciaindicador')}" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="censos" value="#{controlEmpleadoIndividual.indicadoresP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnDemandas" value="" style="background-image: url(Imagenes/Iconos/demanda.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;" 
-                                         process="@this" action="empldemanda" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                         process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','empldemanda')}" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <h:commandLink value="#{msg['demandas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 123px;"
-                                       action="empldemanda" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="demandas" value="#{controlEmpleadoIndividual.demandasP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                       action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','empldemanda')}" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="demandas" value="#{controlEmpleadoIndividual.demandasP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnVisitasDomiciliarias" value="" style="background-image: url(Imagenes/Iconos/visitadomiciliaria.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;"
-                                         action="visitadomiciliaria" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia)}"  process="@this"/>
-                        <h:commandLink value="#{msg['visitasdomiciliarias']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;" action="visitadomiciliaria" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia)}" />
-                        <p:inputText  autocomplete="off"  id="visitasDomiciliarias" value="#{controlEmpleadoIndividual.visitasDomiciliariasP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                                         action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pervigenciadomiciliaria')}" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia)}"  process="@this"/>
+                        <h:commandLink value="#{msg['visitasdomiciliarias']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pervigenciadomiciliaria')}" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="visitasDomiciliarias" value="#{controlEmpleadoIndividual.visitasDomiciliariasP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                      </fieldset>
 
@@ -562,22 +562,26 @@
                   <p:commandButton id="reportespersonal" icon="ui-icon-extlink"
                                    style="position: absolute; left: 200px; top: 495px; height: 32px; width: 181px; color: white; 
                                    background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                   value="#{msg['reportesdepersonal']}" process="@this" action="reportePersonal" 
+                                   value="#{msg['reportesdepersonal']}" process="@this" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','nreportepersonal')}" 
                                    actionListener="#{controlNReportePersonal.iniciarPagina()}"/>
 
-                  <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this" />
-                  <p:commandButton id="ACEPTAR" class="cssBotonAceptar" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="PF('confirmarGuardar').show()" process="@this" />
+                  <p:commandButton id="ACEPTAR" class="cssBotonAceptar" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="PF('confirmarGuardar').show()" process="@this"/>
+                  <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlEmpleadoIndividual.salir()}" process="@this"/>
 
                </p:panel>
                <!-- ********************************************************************** -->
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="413" closable="false">  
-                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                     <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.guardarCambios()}" action="nominaf" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                     <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
-                     <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.guardarYSalir()}"
+                                   style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.salir()}"
+                                   style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
+
             </h:form>
+
             <!-- ********************************************************************** -->
             <h:form id="formularioDialogos">
                <p:dialog id="TiposDocumentosDialogo" header="#{msg['tiposdedocumentosTD']}" widgetVar="TiposDocumentosDialogo" draggable="true" resizable="false" closable="false"   
@@ -586,23 +590,23 @@
                                selection="#{controlEmpleadoIndividual.seleccionTipoDocumento}" selectionMode="single" widgetVar="lovTiposDocumentos" scrollable="true" scrollWidth="416" scrollHeight="180"
                                filteredValue="#{controlEmpleadoIndividual.filtradoListaTiposDocumentos}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarTD"/>
-                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarTipoDocumento()}" />
-                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosTiposDocumentos()}" />
+                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarTipoDocumento()}"/>
+                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosTiposDocumentos()}"/>
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarTD']}" />  
+                        <h:outputText value="#{msg['buscarTD']}"/>  
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposDocumentos').filter();" class="cssFiltroLOV"  />  
                      </f:facet>
                      <p:column filterBy="#{tipoDocumento.nombrecorto}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['nombrecortoTD']}" />
+                           <h:outputText value="#{msg['nombrecortoTD']}"/>
                         </f:facet>
-                        <h:outputText value="#{tipoDocumento.nombrecorto}" />
+                        <h:outputText value="#{tipoDocumento.nombrecorto}"/>
                      </p:column>
                      <p:column filterBy="#{tipoDocumento.nombrelargo}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['nombrelargoTD']}" />
+                           <h:outputText value="#{msg['nombrelargoTD']}"/>
                         </f:facet>
-                        <h:outputText value="#{tipoDocumento.nombrelargo}" />
+                        <h:outputText value="#{tipoDocumento.nombrelargo}"/>
                      </p:column> 
                   </p:dataTable>
 
@@ -621,30 +625,30 @@
                                selection="#{controlEmpleadoIndividual.seleccionCiudades}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="418" scrollHeight="250"
                                filteredValue="#{controlEmpleadoIndividual.filtradoListaCiudades}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                scrollRows="15">              
-                     <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarC" />
-                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudad()}" />
-                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCiudades()}" />
+                     <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
+                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudad()}"/>
+                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCiudades()}"/>
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarC']}" />  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV" />  
+                        <h:outputText value="#{msg['buscarC']}"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['nombreC']}" />
+                           <h:outputText value="#{msg['nombreC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.nombre}" />
+                        <h:outputText value="#{ciudad.nombre}"/>
                      </p:column>
                      <p:column filterBy="#{ciudad.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['departamentoC']}" />
+                           <h:outputText value="#{msg['departamentoC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.departamento.nombre}" />
+                        <h:outputText value="#{ciudad.departamento.nombre}"/>
                      </p:column> 
                      <p:column filterBy="#{ciudad.departamento.pais.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['paisC']}" />
+                           <h:outputText value="#{msg['paisC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.departamento.pais.nombre}" />
+                        <h:outputText value="#{ciudad.departamento.pais.nombre}"/>
                      </p:column> 
                   </p:dataTable>
 
@@ -663,30 +667,30 @@
                                selection="#{controlEmpleadoIndividual.seleccionCiudadDocumento}" selectionMode="single" widgetVar="lovCiudadesDocumento" scrollable="true" scrollWidth="418" scrollHeight="250"
                                filteredValue="#{controlEmpleadoIndividual.filtradoCiudadesDocumento}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                scrollRows="15">              
-                     <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCD" />
-                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudadDocumento()}" />
-                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCiudadesDocumentos()}" />
+                     <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCD"/>
+                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudadDocumento()}"/>
+                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCiudadesDocumentos()}"/>
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarC']}" />  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV" />  
+                        <h:outputText value="#{msg['buscarC']}"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['nombreC']}" />
+                           <h:outputText value="#{msg['nombreC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.nombre}" />
+                        <h:outputText value="#{ciudad.nombre}"/>
                      </p:column>
                      <p:column filterBy="#{ciudad.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['departamentoC']}" />
+                           <h:outputText value="#{msg['departamentoC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.departamento.nombre}" />
+                        <h:outputText value="#{ciudad.departamento.nombre}"/>
                      </p:column> 
                      <p:column filterBy="#{ciudad.departamento.pais.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['paisC']}" />
+                           <h:outputText value="#{msg['paisC']}"/>
                         </f:facet>
-                        <h:outputText value="#{ciudad.departamento.pais.nombre}" />
+                        <h:outputText value="#{ciudad.departamento.pais.nombre}"/>
                      </p:column> 
                   </p:dataTable>
 
@@ -700,28 +704,28 @@
                </p:dialog> 
                <!-- ********************************************************************** -->
                <p:dialog id="CargosDialogo" header="Cargo Postulado" widgetVar="CargosDialogo" draggable="true" resizable="false" closable="false"   
-                         showEffect="fade" hideEffect="fade" width="492" modal="true" >
+                         showEffect="fade" hideEffect="fade" width="492" modal="true">
                   <p:dataTable id="lovCargos" style="width: 446px;" var="cargo" value="#{controlEmpleadoIndividual.listaCargos}" rowKey="#{cargo.secuencia}"
                                selection="#{controlEmpleadoIndividual.seleccionCargo}" selectionMode="single" widgetVar="lovCargos" scrollable="true" scrollWidth="464" scrollHeight="250"
                                filteredValue="#{controlEmpleadoIndividual.filtradoListaCargos}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCA"/>
-                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCargo()}" />
-                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCargos()}" />
+                     <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCargo()}"/>
+                     <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCargos()}"/>
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarCP']}" />  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCargos').filter();" class="cssFiltroLOV" />  
+                        <h:outputText value="#{msg['buscarCP']}"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCargos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{cargo.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['nombreCP']}" />
+                           <h:outputText value="#{msg['nombreCP']}"/>
                         </f:facet>
-                        <h:outputText value="#{cargo.nombre}" />
+                        <h:outputText value="#{cargo.nombre}"/>
                      </p:column> 
                      <p:column filterBy="#{cargo.empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['empresaCP']}" />
+                           <h:outputText value="#{msg['empresaCP']}"/>
                         </f:facet>
-                        <h:outputText value="#{cargo.empresa.nombre}" />
+                        <h:outputText value="#{cargo.empresa.nombre}"/>
                      </p:column>
                   </p:dataTable>
 
@@ -733,90 +737,90 @@
                                       actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCargo()}"  process="@this"/>
                   </div>
                </p:dialog> 
-               
+
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro" resizable="false" draggable="true" modal="true" height="95" width="350" closable="false" 
                          style="font-size: 12px;">  
-                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                     <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 255px; font-weight:bold; text-align: justify" />
-                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 60px; left: 235px;" process="@this" />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 255px; font-weight: bold; text-align: justify"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 60px; left: 235px;" process="@this"/>
                </p:dialog>
-               
+
 <!--               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350px;" 
-                         style="font-size: 12px;" closable="false">  
-                  <div style="float: left;">
-                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
-                  </div>
-                  <div style="text-align: center;">
-                     <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['confirmarRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
-                  </div>
-                  <div style="position: relative; top: -30px;">
-                     <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastrotabla" process="@this" />
-                     <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
-                  </div>
-               </p:dialog>
-               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
-                         style="font-size: 12px;" closable="true">  
-                  <div style="float: left;">
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
-                  </div>
-                  <div style="text-align: center;">
-                     <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight:bold;" />
-                  </div>
-               </p:dialog>
-               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
-                         style="font-size: 12px; " closable="true">  
-                  <div style="float: left;">
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
-                  </div>
-                  <div style="text-align: center;">
-                     <h:outputText value="#{msg['errorRegistroRastro']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight:bold;" />
-                  </div>
-               </p:dialog>
+          style="font-size: 12px;" closable="false">  
+   <div style="float: left;">
+      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+   </div>
+   <div style="text-align: center;">
+      <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['confirmarRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight: bold;"/>
+   </div>
+   <div style="position: relative; top: -30px;">
+      <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEmpleadoIndividual.nombreTabla, 'empleadoindividual')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','rastrotabla')}" process="@this"/>
+      <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this"/>
+   </div>
+</p:dialog>
+<p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
+          style="font-size: 12px;" closable="true">  
+   <div style="float: left;">
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+   </div>
+   <div style="text-align: center;">
+      <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
+   </div>
+</p:dialog>
+<p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
+          style="font-size: 12px; " closable="true">  
+   <div style="float: left;">
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+   </div>
+   <div style="text-align: center;">
+      <h:outputText value="#{msg['errorRegistroRastro']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
+   </div>
+</p:dialog>
 
-               <p:dialog id="errorTablaConRastro" header="#{msg['error']}" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="95" width="350px;" 
-                         style="font-size: 12px;" closable="false">  
-                  <div style="float: left;">
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
-                  </div>
-                  <div style="text-align: center;">
-                     <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaConRastro']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
-                  </div>
-                  <div style="position: relative; top: -30px;">
-                     <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastrotabla" process="@this" />
-                     <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
-                  </div>
-               </p:dialog>
-               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro" resizable="false" draggable="true" modal="true" height="60" width="285px;" 
-                         style="font-size: 12px;" closable="true">  
-                  <div style="float: left;">
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
-                  </div>
-                  <div style="text-align: center;">
-                     <h:outputText value="#{msg['error']} '#{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaSinRastro']}" style="position: relative; left: 10px; top: 10px; width: 195px; font-weight:bold;" />
-                  </div>
-               </p:dialog>
+<p:dialog id="errorTablaConRastro" header="#{msg['error']}" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="95" width="350px;" 
+          style="font-size: 12px;" closable="false">  
+   <div style="float: left;">
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+   </div>
+   <div style="text-align: center;">
+      <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaConRastro']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight: bold;"/>
+   </div>
+   <div style="position: relative; top: -30px;">
+      <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'empleadoindividual')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','rastrotabla')}" process="@this"/>
+      <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this"/>
+   </div>
+</p:dialog>
+<p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro" resizable="false" draggable="true" modal="true" height="60" width="285px;" 
+          style="font-size: 12px;" closable="true">  
+   <div style="float: left;">
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+   </div>
+   <div style="text-align: center;">
+      <h:outputText value="#{msg['error']} '#{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaSinRastro']}" style="position: relative; left: 10px; top: 10px; width: 195px; font-weight: bold;"/>
+   </div>
+</p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
-                         style="font-size: 12px;" closable="true">  
-                  <div style="float: left;">
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
-                  </div>
-                  <div style="text-align: center;">
-                     <h:outputText value="#{msg['seleccionarRegistro']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;" />
-                  </div>
-               </p:dialog>
+<p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
+          style="font-size: 12px;" closable="true">  
+   <div style="float: left;">
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+   </div>
+   <div style="text-align: center;">
+      <h:outputText value="#{msg['seleccionarRegistro']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
+   </div>
+</p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
-                         style="font-size: 12px;" closable="true">  
-                  <div style="float: left;">
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
-                  </div>
-                  <div style="text-align: center;">
-                     <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorObjetosDB']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight:bold;" />
-                  </div>
-               </p:dialog>-->
+<p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
+          style="font-size: 12px;" closable="true">  
+   <div style="float: left;">
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+   </div>
+   <div style="text-align: center;">
+      <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorObjetosDB']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
+   </div>
+</p:dialog>-->
 
-               <p:dialog id="subirFoto" header="#{msg['subirfotoempleado']}" widgetVar="subirFoto" resizable="false" draggable="true" modal="true" height="80" width="350" closable="true"  >  
+               <p:dialog id="subirFoto" header="#{msg['subirfotoempleado']}" widgetVar="subirFoto" resizable="false" draggable="true" modal="true" height="80" width="350" closable="true">  
                   <div style="text-align: center;">
                      <h:outputText value="#{msg['infCargueFoto']}" style="position: relative; left: 0px; top: 0px; font-weight: bold; width: 335px"/>
                   </div>
@@ -828,8 +832,8 @@
                </p:dialog>
 
                <p:dialog id="validarPerfilProfesional" header="#{msg['error']}" widgetVar="validarPerfilProfesional"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;" />
-                  <h:outputText value="#{msg['validarPerfilProfesional']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['validarPerfilProfesional']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog  id="verReportePDF" header="#{controlEmpleadoIndividual.cabezeraVisor}" widgetVar="verReportePDF"
@@ -839,13 +843,13 @@
                <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlEmpleadoIndividual.reiniciarStreamedContent()}"/>
 
                <p:dialog id="errorGenerandoReporte" header="Error generando el Reporte" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlEmpleadoIndividual.pathReporteGenerado}" style="position: absolute; left: 10px; top: 10px; width: 320px; height: 70px; overflow: hidden;" readonly="true" />
+                  <p:inputTextarea value="#{controlEmpleadoIndividual.pathReporteGenerado}" style="position: absolute; left: 10px; top: 10px; width: 320px; height: 70px; overflow: hidden;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
                   <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
-                  <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
-                  <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEmpleadoIndividual.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />-->
+                  <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                  <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEmpleadoIndividual.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                </p:dialog>
             </h:form>
 
@@ -854,85 +858,85 @@
                             value="#{controlEmpleadoIndividual.empleadoIndividualExportar}">
 
                   <p:column headerText="#{msg['nombrecompletoXX']}">  
-                     <f:facet name="header"><h:outputText value="#{msg['nombrecompletoX']}" /></f:facet>
+                     <f:facet name="header"><h:outputText value="#{msg['nombrecompletoX']}"/></f:facet>
                      <h:outputText value="#{infoExp.persona.nombreCompleto}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['tipodocumentoXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['tipodocumentoX']}"/></f:facet> 
-                     <h:outputText value="#{infoExp.persona.tipodocumento.nombrecorto}" />
+                     <h:outputText value="#{infoExp.persona.tipodocumento.nombrecorto}"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['numerodocumentoXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['numerodocumentoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.numerodocumento}" />
+                     <h:outputText value="#{infoExp.persona.numerodocumento}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['digitoverifXX']}">                                                              
                      <f:facet name="header"> 
                         <h:outputText value="#{msg['digitoverifX']}"/>
                      </f:facet>
-                     <h:outputText value="#{infoExp.persona.digitoverificaciondocumento}" />
+                     <h:outputText value="#{infoExp.persona.digitoverificaciondocumento}"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['ciudadexpedicionXX']}">                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['ciudadexpedicionX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.ciudaddocumento.nombre}" />
+                     <h:outputText value="#{infoExp.persona.ciudaddocumento.nombre}"/>
                   </p:column>  
 
                   <p:column>                                                              
                      <f:facet name="header"><h:outputText value="#{msg['edadX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.edad}" />
+                     <h:outputText value="#{infoExp.persona.edad}"/>
                   </p:column>
 
                   <p:column>                                                              
                      <f:facet name="header"><h:outputText value="#{msg['sexoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.sexo}" />
+                     <h:outputText value="#{infoExp.persona.sexo}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['fechanacimientoXX']}">  
                      <f:facet name="header"><h:outputText value="#{msg['fechanacimientoX']}"/></f:facet>
                      <h:outputText value="#{infoExp.persona.fechanacimiento}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="#{msg['ciudadnacimientoXX']}">                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['ciudadnacimientoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.ciudadnacimiento.nombre}" />
+                     <h:outputText value="#{infoExp.persona.ciudadnacimiento.nombre}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['gruposXX']}">                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['gruposX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.gruposanguineo}" />
+                     <h:outputText value="#{infoExp.persona.gruposanguineo}"/>
                   </p:column>
 
                   <p:column>                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['rhX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.factorrh}" />
+                     <h:outputText value="#{infoExp.persona.factorrh}"/>
                   </p:column>
 
                   <p:column>                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['emailX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.email}" />
+                     <h:outputText value="#{infoExp.persona.email}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['numerocertificadojudicialXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['numerocertificadojudicialX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.certificadojudicial}" />
+                     <h:outputText value="#{infoExp.persona.certificadojudicial}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['fechavencimientocertXX']}">  
                      <f:facet name="header"><h:outputText value="#{msg['fechavencimientocertX']}"/></f:facet>
                      <h:outputText value="#{infoExp.persona.fechavencimientocertificado}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="#{msg['libretaXX']}">  
                      <f:facet name="header"><h:outputText value="#{msg['libretaX']}"/></f:facet>
                      <h:outputText value="#{infoExp.persona.numerolibretamilitar}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
@@ -979,7 +983,7 @@
                   <p:column headerText="#{msg['fechafallecimientoXX']}">  
                      <f:facet name="header"><h:outputText value="#{msg['fechafallecimientoX']}"/></f:facet>
                      <h:outputText value="#{infoExp.persona.fechafallecimiento}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
                </p:dataTable>

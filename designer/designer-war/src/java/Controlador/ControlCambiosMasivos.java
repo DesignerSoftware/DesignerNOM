@@ -248,15 +248,34 @@ public class ControlCambiosMasivos {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "cambiosmasivos";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "cambiosmasivos";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -266,12 +285,11 @@ public class ControlCambiosMasivos {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -2151,7 +2169,6 @@ public class ControlCambiosMasivos {
       lovPapeles = new ArrayList<Papeles>();
       lovCausasausentismos = new ArrayList<Causasausentismos>();
       lovClasesausentismos = new ArrayList<Clasesausentismos>();
-
       campo = 0;
       panelActivo = 1;
       aceptar = true;
@@ -2160,13 +2177,15 @@ public class ControlCambiosMasivos {
       RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       listaParametros = null;
       listaCambiosMasivos = null;
       cambioMasivoSeleccionado = null;
       parametroCambioMasivoActual = null;
       campo = 0;
       panelActivo = 1;
+      navegar("atras");
    }
 
    public void editar() {
@@ -2456,15 +2475,16 @@ public class ControlCambiosMasivos {
       campo = 0;
    }
 
-   public String valorPaginaAnterior() {
-      return paginaAnterior;
-   }
-
    public void modificarParametros() {
       if (guardado) {
          guardado = false;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
+   }
+
+   public void guardarYSalir() {
+      guardarCambiosParametros();
+      salir();
    }
 
    public void guardarCambiosParametros() {

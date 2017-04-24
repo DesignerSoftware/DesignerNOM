@@ -5,849 +5,863 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form">
-                    <p:growl id="growl" showDetail="true"/> 
-                    <f:loadBundle basename="Recursos.familiares" var="msg" />
-
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
-                        <p:toolbar styleClass="cssToolbar" >  
-                            <p:toolbarGroup align="left"> 
-
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlFamiliares.guardarCambios()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
-
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlFamiliares.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlFamiliares.activarLOV}" process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlFamiliares.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlFamiliares.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlFamiliares.limpiarNuevoFamiliar()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosFamiliaresExportar" fileName="Familiares" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlFamiliares.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlFamiliares.mostrarDialogoElegirTabla()}" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlFamiliares.borrarFamiliar()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlFamiliares.duplicarFamiliar()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
-                                <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlFamiliares.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="" for="rastro" value="Rastro"/>
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
-                                                 actionListener="#{controlFamiliares.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" action="familiares" actionListener="#{controlFamiliares.salir()}" process="@this" />  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-                            </p:toolbarGroup>  
-                        </p:toolbar>
-
-                        <p:commandButton style=" position: absolute; left: 680px; top: 480px;" class="cssBotonAceptar" id="ACEPTAR" value=" " disabled="#{controlFamiliares.guardado}" 
-                                         onclick="PF('confirmarGuardar').show();"   update="datosFamiliares"  process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 770px; top: 480px;" class="cssBotonCancelar"  id="ATRAS" action="familiares" actionListener="#{controlFamiliares.salir()}" value=" "    />
-
-
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlFamiliares.personas.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-                        </fieldset>
-
-
-                        <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 340px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['datosFamiliares']}</strong></legend>
-
-                            <p:dataTable id="datosFamiliares"  widgetVar="datosFamiliares" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
-                                         value="#{controlFamiliares.listaFamiliares}" scrollable="true" scrollHeight="#{controlFamiliares.altoTabla}" scrollWidth="820"
-                                         filteredValue="#{controlFamiliares.listaFamiliaresFiltrar}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="15"
-                                         selection="#{controlFamiliares.familiarSeleccionado}" selectionMode="single">
-
-                                <p:ajax event="filter" listener="#{controlFamiliares.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlFamiliares.recordarSeleccionVD()}"/>
-
-
-                                <p:column headerText="#{msg['nombre']}" sortBy="#{info.personafamiliar.nombreCompleto}" filterBy="#{info.personafamiliar.nombreCompleto}" filterMatchMode="contains"  
-                                          id="nombreFamiliar" filterStyle="display: none; visibility: hidden;" width="300" >  
-                                    <f:facet name="header">
-                                        <h:outputText id="hnom" value="#{msg['nombre']}"/>   
-                                        <p:tooltip for="hnom" value="#{msg['nombreF']}" />              
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.personafamiliar.nombreCompleto}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.personafamiliar.nombreCompleto}" id="editarNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 1)}" process="@this"
-                                                        onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />   
-                                                <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarNombre" />
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['ocupacion']}" sortBy="#{info.ocupacion}" filterBy="#{info.ocupacion}" filterMatchMode="contains" 
-                                          id="ocupacionFamiliar" filterStyle="display: none; visibility: hidden;" >  
-
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.ocupacion}" style="text-transform: uppercase" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.ocupacion}" id="editarOcu" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}"  process="@this"
-                                                        onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />   
-                                                <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarOcu" />
-
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['tipof']}" sortBy="#{info.tipofamiliar.tipo}" filterBy="#{info.tipofamiliar.tipo}"
-                                          filterMatchMode="contains" id="ctipoFamiliar" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tipofamiliar.tipo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.tipofamiliar.tipo}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliar(info, 'N', info.tipofamiliar.tipo )}"/>
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 3)}" 
-                                                        onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />
-                                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 2, 0)}"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tiposfamiliares" onclick="#{controlTiposFamiliares.recibirPaginaEntrante('emplfamiliares')}"  value=" "/>
-                                    </f:facet>
-                                </p:column> 
-
-                                <p:column id="servicioMedico" sortBy="#{info.serviciomedico}" filterBy="#{info.serviciomedico}" width="20"
-                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
-                                    <f:facet name="header">
-                                        <h:outputText id="servmedico" value="SM"/>
-                                        <p:tooltip  for="servmedico" value="#{msg['sm']}" />
-                                    </f:facet>    
-
-                                    <p:selectBooleanCheckbox value="#{info.sm}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
-                                        <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this" />
-                                    </p:selectBooleanCheckbox>      
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column id="sFamiliar" sortBy="#{info.subsidiofamiliar}" filterBy="#{info.subsidiofamiliar}" width="20"
-                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
-                                    <f:facet name="header">
-                                        <h:outputText id="subf" value="SF"/>
-                                        <p:tooltip  for="subf" value="#{msg['sf']}" />
-                                    </f:facet>    
-
-                                    <p:selectBooleanCheckbox value="#{info.sf}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
-                                        <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this" />
-                                    </p:selectBooleanCheckbox>      
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column id="beneficiario" sortBy="#{info.beneficiario}" filterBy="#{info.beneficiario}" width="20"
-                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
-                                    <f:facet name="header">
-                                        <h:outputText id="tbeneficiario" value="BE"/>
-                                        <p:tooltip  for="tbeneficiario" value="#{msg['be']}" />
-                                    </f:facet>    
-
-                                    <p:selectBooleanCheckbox value="#{info.be}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
-                                        <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this" />
-                                    </p:selectBooleanCheckbox>      
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column id="upcAd" sortBy="#{info.upcadicional}" filterBy="#{info.upcadicional}" width="30"
-                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
-                                    <f:facet name="header">
-                                        <h:outputText id="upc" value="UPC"/>
-                                        <p:tooltip  for="upc" value="#{msg['upc']}" />
-                                    </f:facet>    
-
-                                    <p:selectBooleanCheckbox value="#{info.sm}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
-                                        <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this" />
-                                    </p:selectBooleanCheckbox>      
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['vlrupc']}" sortBy="#{info.valorupcadicional}" filterBy="#{info.valorupcadicional}" filterMatchMode="contains" 
-                                          id="valorUpc" filterStyle="display: none; visibility: hidden;" style="text-align: center" >  
-                                    <f:facet name="header">
-                                        <h:outputText id="hvlrupc" value="#{msg['vlrupc']}" style="text-align: center"/>   
-                                        <p:tooltip for="hvlrupc" value="#{msg['valorupc']}" />              
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.valorupcadicional}" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.valorupcadicional}" id="editarVlorUpc" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; text-align: center"  >
-                                                <p:keyFilter for="editarVlorUpc" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 8)}" process="@this" 
-                                                        onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />   
-                                                <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarVlorUpc" />
-
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-
-                            </p:dataTable>  
-                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroFamiliar}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
-                        </fieldset>   
-
-                        <fieldset style="position: absolute; left: 10px; top: 463px;width: 570px; height: 40px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['datosad']}</strong></legend>
-
-                            <div style="position: absolute; width: 175px"> 
-                                <h:outputText value="#{msg['msgdatos']}"  />
-                            </div>
-
-                            <p:commandButton id="btneducacion" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/niveleducativo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
-                                             left: 195px; background-color: white; " value=" "  actionListener="#{controlPersonaEducacion.recibirPersona(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'educacionfamiliares')}" action="educacionfamiliares" />
-                            <h:outputText value="#{msg['nivel']}" style="position: absolute; left: 240px; top: 22px; font-weight: bold; color: #14388B;" />
-
-                            <p:commandButton id="btntelefono" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/telefono.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
-                                             left: 350px; background-color: white; " value=" " action="telefonosfamiliares" actionListener="#{controlPerTelefonos.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'telefonosfamiliares')}" />
-                            <h:outputText value="#{msg['tel']}" style="position: absolute; left: 395px; top: 22px; font-weight: bold; color: #14388B;" />
-
-                            <p:commandButton id="btndireccion" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/direccion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
-                                             left: 475px; background-color: white; " value=" " action="direccionesfamiliares" actionListener="#{controlPerDirecciones.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'direccionesfamiliares')}" />
-                            <h:outputText value="#{msg['dir']}" style="position: absolute; left: 522px; top: 22px; font-weight: bold; color: #14388B;" />
-
-                        </fieldset>
-                    </p:panel>
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlFamiliares.activarCtrlF11()}"/> 
-
-                </h:form>
-
-                <h:form id="formularioDialogos">
-                    <p:dialog header="Tipos de Familiares" widgetVar="tipoFamiliarDialogo" draggable="true" resizable="false" closable="false" id="tipoFamiliarDialogo"  
-                              showEffect="fade" hideEffect="fade" width="445" modal="true">
-                        <p:dataTable id="lovFamiliares"  var="familiar" value="#{controlFamiliares.lovTiposFamiliares}" rowKey="#{familiar.secuencia}"
-                                     selection="#{controlFamiliares.tipoFamiliarSeleccionado}" selectionMode="single" widgetVar="lovFamiliares" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                     filteredValue="#{controlFamiliares.filtrarLovTiposFamiliares}" emptyMessage="#{msg['lovvacio']}">   
-                            <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroTipoFamiliar()}"/>
-                            <p:ajax event="rowSelect" listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarTipoFamiliar()}" process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarM']}" />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFamiliares').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column filterBy="#{familiar.tipo}" filterMatchMode="contains" filterStyle="width: 80% !important">
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nombre']}" />
-                                </f:facet>
-                                <h:outputText  value="#{familiar.tipo}" />
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroTiposFamiliares" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroTipoFamiliar}" class="cssinfoRegistroLOV" />
-                            <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}" 
-                                             actionListener="#{controlFamiliares.actualizarTipoFamiliar()}"  process="@this"/>
-                            <p:commandButton id="atrasT" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
-                                             actionListener="#{controlFamiliares.cancelarCambioTipoFamiliar()}"   process="@this"/>
-                        </div>
-                    </p:dialog> 
-
-                    <p:dialog header="Familiares" widgetVar="personaFamiliarDialogo" draggable="true" resizable="false" closable="false" id="personaFamiliarDialogo"  
-                              showEffect="fade" hideEffect="fade" width="445" modal="true">
-                        <p:dataTable id="lovPersonasFamiliares"  var="persona" value="#{controlFamiliares.lovPersonas}" rowKey="#{persona.secuencia}"
-                                     selection="#{controlFamiliares.personaSeleccionada}" selectionMode="single" widgetVar="lovPersonasFamiliares" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                     filteredValue="#{controlFamiliares.filtrarLovPersonas}" emptyMessage="#{msg['lovvacio']}">   
-                            <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroPersonas()}"/>
-                            <p:ajax event="rowSelect" listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
-                            <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarPersonaFamiliar()}" process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarM']}" />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPersonasFamiliares').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column filterBy="#{persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nombre']}" />
-                                </f:facet>
-                                <h:outputText  value="#{persona.nombreCompleto}" />
-                            </p:column>
-
-                            <p:column filterBy="#{persona.numerodocumento}" filterMatchMode="contains" filterStyle="width: 80% !important">
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['doc']}" />
-                                </f:facet>
-                                <h:outputText  value="#{persona.numerodocumento}" />
-                            </p:column>
-
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroPersonas" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroPersonas}" class="cssinfoRegistroLOV" />
-                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}" 
-                                             actionListener="#{controlFamiliares.actualizarPersonaFamiliar()}"  process="@this"/>
-                            <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
-                                             actionListener="#{controlFamiliares.cancelarCambioPersonaFamiliar()}"   process="@this"/>
-                        </div>
-                    </p:dialog> 
-
-
-                    <p:dialog header="Tipos Documentos" widgetVar="tipoDocumentoDialogo" draggable="true" resizable="false" closable="false" id="tipoDocumentoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="418" >
-                        <p:dataTable id="lovTipoDocumento" var="tipoDIP" value="#{controlFamiliares.lovTiposDocumentos}" rowKey="#{tipoDIP.secuencia}"
-                                     selection="#{controlFamiliares.tipoDocumentoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoDocumento" scrollable="true" scrollHeight="200"
-                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovTiposDocumentos}">
-
-                            <p:ajax event="filter" listener="#{controlFamiliares.contarRegistrosTipoDocumento()}"/>
-                            <p:ajax event="rowDblselect" immediate="true" listener="#{controlFamiliares.actualizarTipoDocumento()}"  process="@this"/>
-                            <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarTD"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="Buscar Tipo Documento"  />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
-                            </f:facet>
-                            <p:column filterBy="#{tipoDIP.nombrelargo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important">
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center;" value="#{msg['nombreCorto']}"/>
-                                </f:facet>
-                                <h:outputText  value="#{tipoDIP.nombrelargo}"/>
-                            </p:column>
-                            <p:column filterBy="#{tipoDIP.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['tipoDocumento']}"/>
-                                </f:facet>
-                                <h:outputText value="#{tipoDIP.nombrelargo}"/>
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroTipoDocumento" value="#{msg['infoRegistro']} #{controlFamiliares.infoRegistroTipoDocumento}" class="cssinfoRegistroLOV"/>
-
-                            <p:commandButton id="aceptarTD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}"
-                                             actionListener="#{controlFamiliares.actualizarTipoDocumento()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasTD" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlFamiliares.cancelarCambioTipoDocumento()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-                        </div>   
-                    </p:dialog>
-
-
-                    <p:dialog header="Ciudad de Documento" widgetVar="ciudadDocumentoDialogo" draggable="true"
-                              resizable="false" closable="false" id="ciudadDocumentoDialogo" showEffect="fade" hideEffect="fade" width="418" modal="true">
-                        <p:dataTable id="lovCiudadDocumento" var="ciudadDIP" value="#{controlFamiliares.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
-                                     selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="390" selectionMode="single" widgetVar="lovCiudadDocumento"
-                                     scrollable="true" scrollHeight="250"
-                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovCiudades}" liveScroll="true" scrollRows="50">
-
-                            <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroCiudades()}"/>
-                            <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarCiudad()}" process="@this"/>
-                            <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarCD"/>
-
-                            <f:facet name="header"> 
-                                <h:outputText value="Buscar Ciudad de Nacimiento"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" class="cssFiltroLOV"/>  
-                            </f:facet>
-
-                            <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
-                                </f:facet>
-                                <h:outputText  value="#{ciudadDIP.nombre}"/>
-                            </p:column>
-                            <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['departamento']}"/>
-                                </f:facet>
-                                <h:outputText value="#{ciudadDIP.departamento.nombre}"/>
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistro']} #{controlFamiliares.infoRegistroCiudades}" class="cssinfoRegistroLOV"/>
-
-                            <p:commandButton id="aceptarCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}" 
-                                             actionListener="#{controlFamiliares.actualizarCiudad()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasCD" class="cssAtrasLOV" value="#{msg['atras']}"
-                                             actionListener="#{controlFamiliares.cancelarCambioCiudad()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-                        </div>
-                    </p:dialog>
-
-                    <p:dialog header="Ciudad de Nacimiento" widgetVar="ciudadNacimientoDialogo" draggable="true" height="375"
-                              resizable="false" closable="false" id="ciudadNacimientoDialogo" showEffect="fade" hideEffect="fade" width="410" modal="true">
-
-                        <p:dataTable id="lovCiudadNacimiento" var="ciudadDIP" value="#{controlFamiliares.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
-                                     selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="380" selectionMode="single"
-                                     widgetVar="lovCiudadNacimiento" scrollable="true" scrollHeight="250"
-                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovCiudades}"
-                                     liveScroll="true" scrollRows="50">
-
-                            <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroCiudadNacimiento()}" /> 
-                            <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarCiudadNacimiento()}" process="@this"/>
-                            <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarCN"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="Buscar Ciudad de Nacimiento"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadNacimiento').filter();" class="cssFiltroLOV"/>  
-                            </f:facet>
-                            <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
-                                </f:facet>
-                                <h:outputText  value="#{ciudadDIP.nombre}"/>
-                            </p:column>
-                            <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['departamento']}"/>
-                                </f:facet>
-                                <h:outputText value="#{ciudadDIP.departamento.nombre}"/>
-                            </p:column>
-                        </p:dataTable>
-
-                        <div>
-                            <h:outputText id="infoRegistroCiudadNacimiento" value="#{msg['infoRegistro']} #{controlFamiliares.infoRegistroCiudadNacimiento}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarCN" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}"   
-                                             actionListener="#{controlFamiliares.actualizarCiudadNacimiento()}" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasCN" class="cssAtrasLOV" value="#{msg['atras']}" 
-                                             actionListener="#{controlFamiliares.cancelarCambioCiudadNacimiento()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-                        </div>
-                    </p:dialog>
-
-                    <p:dialog id="NuevoRegistroFamiliarPersona" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroFamiliarPersona" closable="false" resizable="false"  draggable="true" modal="true" height="340" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="nuevoPersonaFamiliar" style="border: none;">
-                            <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoNombre" value="#{controlFamiliares.nuevoFamiliar.personafamiliar.nombreCompleto}"
-                                          style="width: 122px; position: absolute; left: 220px; top: 50px;">
-                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,1,1)}"/>
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 353px; top: 53px;" class="cssBotonLovDialogos" id="btnNuevaNombre" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,1,1)}"/>   
-                            <p:watermark for="nuevoNombre" value="#{msg['nombre']}" />
-
-                            <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaOcupacion" value="#{controlFamiliares.nuevoFamiliar.ocupacion}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 80px;">
-                                <p:ajax event="change" update="nuevaOcupacion"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaOcupacion" value="#{msg['ocupacion']}" />
-
-                            <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoTipoFamiliar" value="#{controlFamiliares.nuevoFamiliar.tipofamiliar.tipo}"
-                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
-                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,2,1)}"/>
-                                <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPOFAMILIAR')}" />
-                                <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPOFAMILIAR', controlFamiliares.nuevoFamiliar.tipofamiliar.tipo, 1)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 353px; top: 112px;" class="cssBotonLovDialogos"  id="btnNuevoTipoFamiliar" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,2,1)}"/>   
-                            <p:watermark for="nuevoTipoFamiliar" value="#{msg['tipof']}" />
-
-                            <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sm}" style="position: absolute; top: 140px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-                            <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sf}" style="position: absolute; top: 170px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-                            <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.be}" style="position: absolute; top: 200px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-                            <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-
-                            <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoVlrupc" value="#{controlFamiliares.nuevoFamiliar.valorupcadicional}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 260px;">
-                                <p:keyFilter for="nuevoVlrupc" mask="num"/>
-                                <p:ajax event="change" update="nuevoVlrupc"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoVlrupc" value="#{msg['valorupc']}" />
-
-                            <p:commandButton id="limpiarFamiliar" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlFamiliares.limpiarNuevoFamiliar()}" update="nuevoPersonaFamiliar" process="@this"/>
-                            <p:commandButton id="agregarF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 300px;"  process="@this" actionListener="#{controlFamiliares.agregarNuevoFamilar()}"   />
-                            <p:commandButton id="cancelarF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 300px;" actionListener="#{controlFamiliares.limpiarNuevoFamiliar()}" update="nuevoPersonaFamiliar" onclick="PF('NuevoRegistroFamiliarPersona').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-
-                    <p:dialog id="DuplicarRegistroFamiliarPersona" header="#{msg['nuevoregistro']}" widgetVar="DuplicarRegistroFamiliarPersona" closable="false" resizable="false"  draggable="true" modal="true" height="340" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="duplicarPersonaFamiliar" style="border: none;">
-                            <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlFamiliares.duplicarFamiliares.personafamiliar.nombreCompleto}"
-                                          style="width: 122px; position: absolute; left: 220px; top: 50px;">
-                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,1,2)}"/>
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 353px; top: 53px;" class="cssBotonLovDialogos" id="btnDuplicarNombre" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,1,2)}"/>   
-                            <p:watermark for="duplicarNombre" value="#{msg['nombre']}" />
-
-                            <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarOcupacion" value="#{controlFamiliares.duplicarFamiliares.ocupacion}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 80px;">
-                                <p:ajax event="change" update="duplicarOcupacion"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarOcupacion" value="#{msg['ocupacion']}" />
-
-                            <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarTipoFamiliar" value="#{controlFamiliares.duplicarFamiliares.tipofamiliar.tipo}"
-                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
-                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,2,2)}"/>
-                                <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPOFAMILIAR')}" />
-                                <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPOFAMILIAR', controlFamiliares.nuevoFamiliar.tipofamiliar.tipo, 2)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 353px; top: 112px;" class="cssBotonLovDialogos"  id="btnDuplicarTipoFamiliar" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,2,2)}"/>   
-                            <p:watermark for="duplicarTipoFamiliar" value="#{msg['tipof']}" />
-
-                            <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sm}" style="position: absolute; top: 140px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-                            <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sf}" style="position: absolute; top: 170px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-                            <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.be}" style="position: absolute; top: 200px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-                            <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;" /> </strong>
-                            <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
-                                <p:ajax  update="@this" />
-                            </p:selectBooleanCheckbox>   
-
-                            <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarVlrupc" value="#{controlFamiliares.duplicarFamiliares.valorupcadicional}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 260px;">
-                                <p:keyFilter for="duplicarVlrupc" mask="num"/>
-                                <p:ajax event="change" update="duplicarVlrupc"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarVlrupc" value="#{msg['valorupc']}" />
-
-                            <p:commandButton id="limpiarDuplicarFamiliar" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlFamiliares.limpiarDuplicarFamiliar()}" update="duplicarPersonaFamiliar" process="@this"/>
-                            <p:commandButton id="agregarDuplicar" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 300px;"  process="@this" actionListener="#{controlFamiliares.confirmarDuplicar()}"   />
-                            <p:commandButton id="cancelarDuplicar" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 300px;" actionListener="#{controlFamiliares.limpiarDuplicarFamiliar()}" update="duplicarPersonaFamiliar" onclick="PF('DuplicarRegistroFamiliarPersona').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="nuevoFamiliarPersona" header="#{msg['datos']}" widgetVar="nuevoFamiliarPersona" closable="false" resizable="false"  draggable="true" modal="true" height="500" width="410" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="nuevoFamiliarP" style="border: none;">
-                            <strong><h:outputText value="* #{msg['papellido']}" style="position: absolute; top: 55px; left: 38px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoApellido" value="#{controlFamiliares.nuevaPersona.primerapellido}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 50px;">
-                                <p:ajax event="change" update="nuevoApellido"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoApellido" value="#{msg['papellido']}" />
-
-                            <strong><h:outputText value="#{msg['sapellido']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoSegundoApellido" value="#{controlFamiliares.nuevaPersona.segundoapellido}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 80px;">
-                                <p:ajax event="change" update="nuevoSegundoApellido"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoSegundoApellido" value="#{msg['sapellido']}" />
-
-                            <strong><h:outputText value="* #{msg['pnombre']}" style="position: absolute; top: 115px; left: 38px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoNombreD" value="#{controlFamiliares.nuevaPersona.nombre}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
-                                <p:ajax event="change" update="nuevoNombreD"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoNombreD" value="#{msg['pnombre']}" />
-
-                            <strong><h:outputText value="Sexo: "  style=" position: absolute; top: 145px; left: 50px;" /></strong>
-                            <p:selectOneMenu id="nuevoSexo" value="#{controlFamiliares.nuevaPersona.sexo}" style=" width: 60px; position: absolute; left: 220px; top: 140px; text-transform: uppercase">
-                                <f:selectItem itemLabel=" " itemValue="null" />  
-                                <f:selectItem itemLabel="Masculino" itemValue="M" />  
-                                <f:selectItem itemLabel="Femenino" itemValue="F" /> 
-                                <p:ajax event="change" update="nuevoSexo" process="@this" />
-                            </p:selectOneMenu>
-                            <p:watermark for="nuevoSexo" value="Sexo" />
-
-                            <strong><h:outputText value="* #{msg['tipoDoc']}:" style="position: absolute; top: 175px; left: 38px" /> </strong>
-                            <p:inputText  autocomplete="off"  onclick="select();" value="#{controlFamiliares.nuevaPersona.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
-                                          style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
-                             <!--<p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPODOCUMENTO', controlFamiliares.nuevaPersona.tipodocumento.nombrelargo, 1)}"/>-->
-                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 3, 1)}" process="@this"/>
-                                  <!--<p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPODOCUMENTO')}" />-->
-                                <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 170px; left: 380px; z-index: 5;"
-                                                 actionListener="#{controlFamiliares.asignarIndex(info, 3, 1)}" process="@this"/>
-                            </p:inputText>
-
-                            <h:outputText  value="* #{msg['numdoc']}:" style="position: absolute; top: 205px; left: 38px; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"  onclick="select();" value="#{controlFamiliares.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
-                                          style="position: absolute; top: 200px; left: 220px; width: 150px; text-transform: uppercase;">
-                                <p:ajax event="change" update="numeroDocumentoModPersonal" process="@this"/>
-                                <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
-                            </p:inputText>
-
-                            <h:outputText  value="* #{msg['ciudoc']}:" style="position: absolute; top: 235px; left: 38px; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"  widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
-                                          style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
-  <!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDAD', controlFamiliares.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
-                                 <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDAD')}" />-->
-                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 4, 1)}" process="@this"/>
-                                <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 230px; left: 380px; z-index: 5;"
-                                                 actionListener="#{controlFamiliares.asignarIndex(info, 4, 1)}" process="@this"/>
-                            </p:inputText>
-
-                            <h:outputText  value="* #{msg['fechaNacimiento']}:" style="position: absolute; top: 265px; left: 38px;font-weight: bold;"/>
-                            <div style="position: absolute; top: 260px; left: 220px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
-                                    <p:ajax event="dateSelect"  update="@this" />
-                                    <p:ajax event="change"  update="@this" />
-                                </p:calendar>
-                            </div>
-
-                            <h:outputText value="* #{msg['ciunac']}:" style="position: absolute; top: 295px; left: 38px; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"  widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
-                                          style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
-  <!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDADNACIMIENTO', controlFamiliares.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
-                                 <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDADNACIMIENTO')}" />-->
-                                <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 5, 1)}" process="@this"/>
-                                <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 290px; left: 380px; z-index: 5;"
-                                                 actionListener="#{controlFamiliares.asignarIndex(info, 5, 1)}" process="@this"/>
-                            </p:inputText>     
-                            <h:outputText  value="#{msg['grupoSanguineo']}:" style="position: absolute; top: 325px; left: 50px; font-weight: bold;"/>
-                            <p:selectOneMenu id="grupoSanguineoModFactorRH" widgetVar="grupoSanguineoModFactorRH" value="#{controlFamiliares.nuevaPersona.gruposanguineo}" 
-                                             style="position: absolute; top: 320px; left: 220px; font-weight: bold; width: 60px;" >  
-                                <f:selectItem itemLabel="" itemValue="null"/>  
-                                <f:selectItem itemLabel="A" itemValue="A"/>  
-                                <f:selectItem itemLabel="AB" itemValue="AB"/>
-                                <f:selectItem itemLabel="B" itemValue="B"/>  
-                                <f:selectItem itemLabel="O" itemValue="O"/>
-                                <p:ajax event="change" update="@this"/>
-                            </p:selectOneMenu>
-
-                            <h:outputText  value="#{msg['factorRH']}:" style="position: absolute; top: 355px; left: 50px; font-weight: bold;"/>
-                            <p:selectOneMenu id="factorRHModFactorRH" value="#{controlFamiliares.nuevaPersona.factorrh}" 
-                                             style="position: absolute; top: 350px; left: 220px; font-weight: bold;width: 60px;" >  
-                                <f:selectItem itemLabel="" itemValue="null"/>  
-                                <f:selectItem itemLabel="+" itemValue="P"/>  
-                                <f:selectItem itemLabel="-" itemValue="N"/>
-                                <p:ajax event="change" update="@this"/>
-                            </p:selectOneMenu>
-
-                            <strong><h:outputText value="#{msg['fechaf']}" style="position: absolute; top: 385px; left: 50px;" /></strong>
-                            <div style="position: absolute; top: 380px; left: 220px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.nuevaPersona.fechafallecimiento}" id="nuevaFechaF" >
-                                    <p:ajax event="dateSelect"  update="@this" />
-                                    <p:ajax event="change"  update="@this" />
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['obs']}" style="position: absolute; top: 415px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaObs" value="#{controlFamiliares.nuevaPersona.observacion}" 
-                                          style="width: 122px; position: absolute; left: 220px; top: 410px;">
-                                <p:ajax event="change" update="nuevaObs"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaObs" value="#{msg['obs']}" />
-
-                            <p:commandButton id="limpiarV" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 460px;" 
-                                             actionListener="#{controlFamiliares.limpiarPersona()}" update="nuevoFamiliarP" process="@this"/>
-                            <p:commandButton id="agregarV" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 460px;"  process="@this" 
-                                             actionListener="#{controlFamiliares.crearNuevaPersona()}"/>
-                            <p:commandButton id="cancelarV" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 460px;" 
-                                             actionListener="#{controlFamiliares.limpiarPersona()}" update="nuevoFamiliarP" onclick="PF('nuevoFamiliarPersona').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" action="vigDepEmplInd" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFamiliares.guardarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" action="vigDepEmplInd" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFamiliares.cancelarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this"
-                                         icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFamiliares.familiarSeleccionado.secuencia, 'VigenciasDeportes', 'vigenciasDepRastro')}" 
-                                         style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"  />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarPersona" header="#{msg['informacion']}" widgetVar="confirmarPersona"  resizable="false" draggable="true" modal="true" height="60" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['personaCreada']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarPersona').hide();" style="position: absolute; top: 40px; left: 160px;" icon="ui-icon-check"  process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasDeportes', 'vigenciasDepRastro')}"
-                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" icon="ui-icon-check"  process="@this"  />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFamiliares.familiarSeleccionado.secuencia, 'VigenciasDeportes', 'vigenciasDepRastro')}" 
-                                         style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="editarNombreD" header="#{msg['nombre']}" widgetVar="editarNombreD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlFamiliares.editarFamiliar.personafamiliar.nombreCompleto}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarOcupacionD" header="#{msg['ocupacion']}" widgetVar="editarOcupacionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlFamiliares.editarFamiliar.ocupacion}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarTipoFamiliarD" header="#{msg['tipof']}" widgetVar="editarTipoFamiliarD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlFamiliares.editarFamiliar.tipofamiliar.tipo}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarValorUpcD" header="#{msg['valorupc']}" widgetVar="editarValorUpcD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlFamiliares.editarFamiliar.valorupcadicional}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="110" width="360"  closable="true">  
-                        <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Personas" style="position: absolute; left: 60px; top: 55px; font-weight:bold; width: 110px; height: 25px; text-align: center" process="@this"  actionListener="#{controlFamiliares.dispararDialogoNuevoFamiliarPersona()}" onclick="PF('seleccionarTablaNewReg').hide()" />
-                        <p:commandButton value="Familiares" style="position: absolute; left: 205px; top: 55px; height: 25px; font-weight:bold; width: 120px; text-align: center" process="@this" actionListener="#{controlFamiliares.dispararDialogoNuevoFamiliar()}" onclick="PF('seleccionarTablaNewReg').hide()" />
-                    </p:dialog>
-
-
-                </h:form>
-
-                <h:form id="formExportar">
-                    <p:dataTable id="datosFamiliaresExportar" var="infoExp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlFamiliares.listaFamiliares}"> 
-
-
-                        <p:column headerText="#{msg['nombre']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['nombre']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.personafamiliar.nombreCompleto}" />
-                        </p:column>  
-
-                        <p:column headerText="#{msg['ocupacion']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['ocupacion']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.ocupacion}" />
+  >
+   <h:head>
+      <title>Facelet Title</title>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form">
+               <p:growl id="growl" showDetail="true"/> 
+               <f:loadBundle basename="Recursos.familiares" var="msg"/>
+
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left;"> 
+
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlFamiliares.guardarCambios()}" process="@this"/>
+                        <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlFamiliares.editarCelda()}"  process="@this"/>
+                        <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         disabled="#{controlFamiliares.activarLOV}" process="@this"/>
+                        <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlFamiliares.activarCtrlF11()}"  process="@this"/>
+                        <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         actionListener="#{controlFamiliares.exportXLS()}"  ajax="false"/>
+                        <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         actionListener="#{controlFamiliares.limpiarNuevoFamiliar()}"  ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosFamiliaresExportar" fileName="Familiares" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlFamiliares.exportPDF()}" ajax="false"/>
+                        <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         actionListener="#{controlFamiliares.mostrarDialogoElegirTabla()}" process="@this"/> 
+                        <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
+
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlFamiliares.borrarFamiliar()}" process="@this"/>  
+                        <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlFamiliares.duplicarFamiliar()}" process="@this"/>  
+                        <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlFamiliares.verificarRastro()}" process="@this"/>  
+                        <p:tooltip style="" for="rastro" value="Rastro"/>
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
+                                         actionListener="#{controlFamiliares.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlFamiliares.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                     </p:toolbarGroup>  
+                  </p:toolbar>
+
+                  <p:commandButton style=" position: absolute; left: 680px; top: 480px;" class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlFamiliares.guardado}" 
+                                   onclick="PF('confirmarGuardar').show();" update="datosFamiliares" process="@this"/>
+                  <p:commandButton style=" position: absolute; left: 770px; top: 480px;" class="cssBotonCancelar" id="ATRAS" actionListener="#{controlFamiliares.salir()}" value=""/>
+
+
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText id="nombreEmpleado" value="#{controlFamiliares.personas.nombreCompleto}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+                  </fieldset>
+
+
+                  <fieldset style="position: absolute; left: 10px; top: 105px; width: 830px; height: 340px; border-radius: 10px; ">
+                     <legend style="color: blue;text-align:left;"><strong>#{msg['datosFamiliares']}</strong></legend>
+
+                     <p:dataTable id="datosFamiliares"  widgetVar="datosFamiliares" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
+                                  value="#{controlFamiliares.listaFamiliares}" scrollable="true" scrollHeight="#{controlFamiliares.altoTabla}" scrollWidth="820"
+                                  filteredValue="#{controlFamiliares.listaFamiliaresFiltrar}" emptyMessage="#{msg['vacio']}"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="15"
+                                  selection="#{controlFamiliares.familiarSeleccionado}" selectionMode="single">
+
+                        <p:ajax event="filter" listener="#{controlFamiliares.eventoFiltrar()}"/>
+                        <f:event type="preRenderView" listener="#{controlFamiliares.recordarSeleccionVD()}"/>
+
+
+                        <p:column headerText="#{msg['nombre']}" sortBy="#{info.personafamiliar.nombreCompleto}" filterBy="#{info.personafamiliar.nombreCompleto}" filterMatchMode="contains"  
+                                  id="nombreFamiliar" filterStyle="display: none; visibility: hidden;" width="300">  
+                           <f:facet name="header">
+                              <h:outputText id="hnom" value="#{msg['nombre']}"/>   
+                              <p:tooltip for="hnom" value="#{msg['nombreF']}"/>              
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.personafamiliar.nombreCompleto}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.personafamiliar.nombreCompleto}" id="editarNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;">
+                                    <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 1)}" process="@this"
+                                            onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});"/>   
+                                    <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarNombre"/>
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['tipofX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['tipofX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.tipofamiliar.tipo}" />
+                        <p:column headerText="#{msg['ocupacion']}" sortBy="#{info.ocupacion}" filterBy="#{info.ocupacion}" filterMatchMode="contains" 
+                                  id="ocupacionFamiliar" filterStyle="display: none; visibility: hidden;">  
+
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.ocupacion}" style="text-transform: uppercase;"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.ocupacion}" id="editarOcu" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;">
+                                    <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}"  process="@this"
+                                            onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});"/>   
+                                    <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarOcu"/>
+
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['smx']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['smx']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.serviciomedico}" />
+                        <p:column headerText="#{msg['tipof']}" sortBy="#{info.tipofamiliar.tipo}" filterBy="#{info.tipofamiliar.tipo}"
+                                  filterMatchMode="contains" id="ctipoFamiliar" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.tipofamiliar.tipo}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.tipofamiliar.tipo}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliar(info, 'N', info.tipofamiliar.tipo )}"/>
+                                    <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 3)}" 
+                                            onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});"/>
+                                    <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 2, 0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','tiposfamiliar')}" onclick="#{controlTiposFamiliares.recibirPaginaEntrante('emplfamiliares')}"  value=""/>
+                           </f:facet>
+                        </p:column> 
+
+                        <p:column id="servicioMedico" sortBy="#{info.serviciomedico}" filterBy="#{info.serviciomedico}" width="20"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="servmedico" value="SM"/>
+                              <p:tooltip  for="servmedico" value="#{msg['sm']}"/>
+                           </f:facet>    
+
+                           <p:selectBooleanCheckbox value="#{info.sm}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
+                              <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this"/>
+                           </p:selectBooleanCheckbox>      
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['sfx']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['sfx']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.subsidiofamiliar}" />
+                        <p:column id="sFamiliar" sortBy="#{info.subsidiofamiliar}" filterBy="#{info.subsidiofamiliar}" width="20"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="subf" value="SF"/>
+                              <p:tooltip  for="subf" value="#{msg['sf']}"/>
+                           </f:facet>    
+
+                           <p:selectBooleanCheckbox value="#{info.sf}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
+                              <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this"/>
+                           </p:selectBooleanCheckbox>      
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['ben']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['ben']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.beneficiario}" />
+                        <p:column id="beneficiario" sortBy="#{info.beneficiario}" filterBy="#{info.beneficiario}" width="20"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="tbeneficiario" value="BE"/>
+                              <p:tooltip  for="tbeneficiario" value="#{msg['be']}"/>
+                           </f:facet>    
+
+                           <p:selectBooleanCheckbox value="#{info.be}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
+                              <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this"/>
+                           </p:selectBooleanCheckbox>      
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['upcadx']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['upcadx']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.upcadicional}" />
+                        <p:column id="upcAd" sortBy="#{info.upcadicional}" filterBy="#{info.upcadicional}" width="30"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="upc" value="UPC"/>
+                              <p:tooltip  for="upc" value="#{msg['upc']}"/>
+                           </f:facet>    
+
+                           <p:selectBooleanCheckbox value="#{info.sm}" style="border-radius: 4px; width: 15px; font-weight: bold; ">  
+                              <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" update="@this"/>
+                           </p:selectBooleanCheckbox>      
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['vlrupcx']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['vlrupcx']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.valorupcadicional}" />
+                        <p:column headerText="#{msg['vlrupc']}" sortBy="#{info.valorupcadicional}" filterBy="#{info.valorupcadicional}" filterMatchMode="contains" 
+                                  id="valorUpc" filterStyle="display: none; visibility: hidden;" style="text-align: center;">  
+                           <f:facet name="header">
+                              <h:outputText id="hvlrupc" value="#{msg['vlrupc']}" style="text-align: center;"/>   
+                              <p:tooltip for="hvlrupc" value="#{msg['valorupc']}"/>              
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.valorupcadicional}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.valorupcadicional}" id="editarVlorUpc" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; text-align: center;">
+                                    <p:keyFilter for="editarVlorUpc" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 8)}" process="@this" 
+                                            onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});"/>   
+                                    <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarVlorUpc"/>
+
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
 
-                    </p:dataTable>
-                </h:form>
+
+                     </p:dataTable>  
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroFamiliar}" style="position: relative; left: 15px; top: 1px; font-weight: bold;"/>
+                  </fieldset>   
+
+                  <fieldset style="position: absolute; left: 10px; top: 463px; width: 570px; height: 40px; border-radius: 10px; ">
+                     <legend style="color: blue;text-align:left;"><strong>#{msg['datosad']}</strong></legend>
+
+                     <div style="position: absolute; width: 175px"> 
+                        <h:outputText value="#{msg['msgdatos']}"  />
+                     </div>
+
+                     <p:commandButton id="btneducacion" value="" disabled="#{controlFamiliares.activardatos}" class="cssBotonConImagen"
+                                      style="background-image: url(Imagenes/Iconos/niveleducativo.png); width: 30px; height: 30px; left: 195px; background-color: white;"
+                                      actionListener="#{controlPersonaEducacion.recibirPersona(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}"
+                                      action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','personaeducacion')}"/>
+                     <h:outputText value="#{msg['nivel']}" style="position: absolute; left: 240px; top: 22px; font-weight: bold; color: #14388B;"/>
+
+                     <p:commandButton id="btntelefono" value="" disabled="#{controlFamiliares.activardatos}" class="cssBotonConImagen"
+                                      style="background-image: url(Imagenes/Iconos/telefono.png); width: 30px; height: 30px; left: 350px; background-color: white;"
+                                      action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}"/>
+                     <h:outputText value="#{msg['tel']}" style="position: absolute; left: 395px; top: 22px; font-weight: bold; color: #14388B;"/>
+
+                     <p:commandButton id="btndireccion" value="" disabled="#{controlFamiliares.activardatos}" class="cssBotonConImagen"
+                                      style="background-image: url(Imagenes/Iconos/direccion.png); width: 30px; height: 30px; left: 475px; background-color: white;"
+                                      action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','perdireccion')}" actionListener="#{controlPerDirecciones.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}"/>
+                     <h:outputText value="#{msg['dir']}" style="position: absolute; left: 522px; top: 22px; font-weight: bold; color: #14388B;"/>
+
+                  </fieldset>
+               </p:panel>
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlFamiliares.activarCtrlF11()}"/> 
+
+            </h:form>
+
+            <h:form id="formularioDialogos">
+               <p:dialog header="Tipos de Familiares" widgetVar="tipoFamiliarDialogo" draggable="true" resizable="false" closable="false" id="tipoFamiliarDialogo"  
+                         showEffect="fade" hideEffect="fade" width="445" modal="true">
+                  <p:dataTable id="lovFamiliares"  var="familiar" value="#{controlFamiliares.lovTiposFamiliares}" rowKey="#{familiar.secuencia}"
+                               selection="#{controlFamiliares.tipoFamiliarSeleccionado}" selectionMode="single" widgetVar="lovFamiliares" scrollable="true" scrollWidth="415" scrollHeight="250"
+                               filteredValue="#{controlFamiliares.filtrarLovTiposFamiliares}" emptyMessage="#{msg['lovvacio']}">   
+                     <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroTipoFamiliar()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
+                     <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarTipoFamiliar()}" process="@this"/>
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarM']}"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFamiliares').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+
+                     <p:column filterBy="#{familiar.tipo}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText  value="#{familiar.tipo}"/>
+                     </p:column>
+                  </p:dataTable>
+
+                  <div class="cssBotonesLOV"> 
+                     <h:outputText id="infoRegistroTiposFamiliares" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroTipoFamiliar}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}" 
+                                      actionListener="#{controlFamiliares.actualizarTipoFamiliar()}"  process="@this"/>
+                     <p:commandButton id="atrasT" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                      actionListener="#{controlFamiliares.cancelarCambioTipoFamiliar()}"   process="@this"/>
+                  </div>
+               </p:dialog> 
+
+               <p:dialog header="Familiares" widgetVar="personaFamiliarDialogo" draggable="true" resizable="false" closable="false" id="personaFamiliarDialogo"  
+                         showEffect="fade" hideEffect="fade" width="445" modal="true">
+                  <p:dataTable id="lovPersonasFamiliares"  var="persona" value="#{controlFamiliares.lovPersonas}" rowKey="#{persona.secuencia}"
+                               selection="#{controlFamiliares.personaSeleccionada}" selectionMode="single" widgetVar="lovPersonasFamiliares" scrollable="true" scrollWidth="415" scrollHeight="250"
+                               filteredValue="#{controlFamiliares.filtrarLovPersonas}" emptyMessage="#{msg['lovvacio']}">   
+                     <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroPersonas()}"/>
+                     <p:ajax event="rowSelect" listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
+                     <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarPersonaFamiliar()}" process="@this"/>
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarM']}"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPersonasFamiliares').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+
+                     <p:column filterBy="#{persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText  value="#{persona.nombreCompleto}"/>
+                     </p:column>
+
+                     <p:column filterBy="#{persona.numerodocumento}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="#{msg['doc']}"/>
+                        </f:facet>
+                        <h:outputText  value="#{persona.numerodocumento}"/>
+                     </p:column>
+
+                  </p:dataTable>
+
+                  <div class="cssBotonesLOV"> 
+                     <h:outputText id="infoRegistroPersonas" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroPersonas}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}" 
+                                      actionListener="#{controlFamiliares.actualizarPersonaFamiliar()}"  process="@this"/>
+                     <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                      actionListener="#{controlFamiliares.cancelarCambioPersonaFamiliar()}"   process="@this"/>
+                  </div>
+               </p:dialog> 
 
 
-            </ui:define>
-        </ui:composition>               
-    </h:body>
+               <p:dialog header="Tipos Documentos" widgetVar="tipoDocumentoDialogo" draggable="true" resizable="false" closable="false" id="tipoDocumentoDialogo"  
+                         showEffect="fade" hideEffect="fade" width="418">
+                  <p:dataTable id="lovTipoDocumento" var="tipoDIP" value="#{controlFamiliares.lovTiposDocumentos}" rowKey="#{tipoDIP.secuencia}"
+                               selection="#{controlFamiliares.tipoDocumentoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoDocumento" scrollable="true" scrollHeight="200"
+                               emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovTiposDocumentos}">
+
+                     <p:ajax event="filter" listener="#{controlFamiliares.contarRegistrosTipoDocumento()}"/>
+                     <p:ajax event="rowDblselect" immediate="true" listener="#{controlFamiliares.actualizarTipoDocumento()}"  process="@this"/>
+                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarTD"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="Buscar Tipo Documento"  />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+                     <p:column filterBy="#{tipoDIP.nombrelargo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="#{msg['nombreCorto']}"/>
+                        </f:facet>
+                        <h:outputText  value="#{tipoDIP.nombrelargo}"/>
+                     </p:column>
+                     <p:column filterBy="#{tipoDIP.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['tipoDocumento']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tipoDIP.nombrelargo}"/>
+                     </p:column>
+                  </p:dataTable>
+
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTipoDocumento" value="#{msg['infoRegistro']} #{controlFamiliares.infoRegistroTipoDocumento}" class="cssinfoRegistroLOV"/>
+
+                     <p:commandButton id="aceptarTD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}"
+                                      actionListener="#{controlFamiliares.actualizarTipoDocumento()}" process="@this" icon="ui-icon-check"/>
+                     <p:commandButton id="atrasTD" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlFamiliares.cancelarCambioTipoDocumento()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                  </div>   
+               </p:dialog>
+
+
+               <p:dialog header="Ciudad de Documento" widgetVar="ciudadDocumentoDialogo" draggable="true"
+                         resizable="false" closable="false" id="ciudadDocumentoDialogo" showEffect="fade" hideEffect="fade" width="418" modal="true">
+                  <p:dataTable id="lovCiudadDocumento" var="ciudadDIP" value="#{controlFamiliares.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
+                               selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="390" selectionMode="single" widgetVar="lovCiudadDocumento"
+                               scrollable="true" scrollHeight="250"
+                               emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovCiudades}" liveScroll="true" scrollRows="50">
+
+                     <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroCiudades()}"/>
+                     <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarCiudad()}" process="@this"/>
+                     <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarCD"/>
+
+                     <f:facet name="header"> 
+                        <h:outputText value="Buscar Ciudad de Nacimiento"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+
+                     <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText  value="#{ciudadDIP.nombre}"/>
+                     </p:column>
+                     <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['departamento']}"/>
+                        </f:facet>
+                        <h:outputText value="#{ciudadDIP.departamento.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistro']} #{controlFamiliares.infoRegistroCiudades}" class="cssinfoRegistroLOV"/>
+
+                     <p:commandButton id="aceptarCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}" 
+                                      actionListener="#{controlFamiliares.actualizarCiudad()}" process="@this" icon="ui-icon-check"/>
+                     <p:commandButton id="atrasCD" class="cssAtrasLOV" value="#{msg['atras']}"
+                                      actionListener="#{controlFamiliares.cancelarCambioCiudad()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                  </div>
+               </p:dialog>
+
+               <p:dialog header="Ciudad de Nacimiento" widgetVar="ciudadNacimientoDialogo" draggable="true" height="375"
+                         resizable="false" closable="false" id="ciudadNacimientoDialogo" showEffect="fade" hideEffect="fade" width="410" modal="true">
+
+                  <p:dataTable id="lovCiudadNacimiento" var="ciudadDIP" value="#{controlFamiliares.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
+                               selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="380" selectionMode="single"
+                               widgetVar="lovCiudadNacimiento" scrollable="true" scrollHeight="250"
+                               emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovCiudades}"
+                               liveScroll="true" scrollRows="50">
+
+                     <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroCiudadNacimiento()}"/> 
+                     <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarCiudadNacimiento()}" process="@this"/>
+                     <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlFamiliares.activarAceptar()}" update=":formularioDialogos:aceptarCN"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="Buscar Ciudad de Nacimiento"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadNacimiento').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+                     <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText  value="#{ciudadDIP.nombre}"/>
+                     </p:column>
+                     <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['departamento']}"/>
+                        </f:facet>
+                        <h:outputText value="#{ciudadDIP.departamento.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+
+                  <div>
+                     <h:outputText id="infoRegistroCiudadNacimiento" value="#{msg['infoRegistro']} #{controlFamiliares.infoRegistroCiudadNacimiento}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarCN" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlFamiliares.aceptar}"   
+                                      actionListener="#{controlFamiliares.actualizarCiudadNacimiento()}" process="@this" icon="ui-icon-check"/>
+                     <p:commandButton id="atrasCN" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                      actionListener="#{controlFamiliares.cancelarCambioCiudadNacimiento()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                  </div>
+               </p:dialog>
+
+               <p:dialog id="NuevoRegistroFamiliarPersona" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroFamiliarPersona" closable="false" resizable="false"  draggable="true" modal="true" height="340" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="nuevoPersonaFamiliar" style="border: none;">
+                     <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoNombre" value="#{controlFamiliares.nuevoFamiliar.personafamiliar.nombreCompleto}"
+                                   style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                        <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,1,1)}"/>
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 353px; top: 53px;" class="cssBotonLovDialogos" id="btnNuevaNombre" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,1,1)}"/>   
+                     <p:watermark for="nuevoNombre" value="#{msg['nombre']}"/>
+
+                     <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaOcupacion" value="#{controlFamiliares.nuevoFamiliar.ocupacion}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                        <p:ajax event="change" update="nuevaOcupacion"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaOcupacion" value="#{msg['ocupacion']}"/>
+
+                     <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoTipoFamiliar" value="#{controlFamiliares.nuevoFamiliar.tipofamiliar.tipo}"
+                                   style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                        <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,2,1)}"/>
+                        <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPOFAMILIAR')}"/>
+                        <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPOFAMILIAR', controlFamiliares.nuevoFamiliar.tipofamiliar.tipo, 1)}"/>
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 353px; top: 112px;" class="cssBotonLovDialogos"  id="btnNuevoTipoFamiliar" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,2,1)}"/>   
+                     <p:watermark for="nuevoTipoFamiliar" value="#{msg['tipof']}"/>
+
+                     <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sm}" style="position: absolute; top: 140px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+                     <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sf}" style="position: absolute; top: 170px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+                     <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.be}" style="position: absolute; top: 200px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+                     <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+
+                     <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoVlrupc" value="#{controlFamiliares.nuevoFamiliar.valorupcadicional}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 260px;">
+                        <p:keyFilter for="nuevoVlrupc" mask="num"/>
+                        <p:ajax event="change" update="nuevoVlrupc"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoVlrupc" value="#{msg['valorupc']}"/>
+
+                     <p:commandButton id="limpiarFamiliar" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlFamiliares.limpiarNuevoFamiliar()}" update="nuevoPersonaFamiliar" process="@this"/>
+                     <p:commandButton id="agregarF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 300px;"  process="@this" actionListener="#{controlFamiliares.agregarNuevoFamilar()}"   />
+                     <p:commandButton id="cancelarF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 300px;" actionListener="#{controlFamiliares.limpiarNuevoFamiliar()}" update="nuevoPersonaFamiliar" onclick="PF('NuevoRegistroFamiliarPersona').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+
+               <p:dialog id="DuplicarRegistroFamiliarPersona" header="#{msg['nuevoregistro']}" widgetVar="DuplicarRegistroFamiliarPersona" closable="false" resizable="false"  draggable="true" modal="true" height="340" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="duplicarPersonaFamiliar" style="border: none;">
+                     <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlFamiliares.duplicarFamiliares.personafamiliar.nombreCompleto}"
+                                   style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                        <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,1,2)}"/>
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 353px; top: 53px;" class="cssBotonLovDialogos" id="btnDuplicarNombre" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,1,2)}"/>   
+                     <p:watermark for="duplicarNombre" value="#{msg['nombre']}"/>
+
+                     <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarOcupacion" value="#{controlFamiliares.duplicarFamiliares.ocupacion}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                        <p:ajax event="change" update="duplicarOcupacion"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarOcupacion" value="#{msg['ocupacion']}"/>
+
+                     <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarTipoFamiliar" value="#{controlFamiliares.duplicarFamiliares.tipofamiliar.tipo}"
+                                   style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                        <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,2,2)}"/>
+                        <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPOFAMILIAR')}"/>
+                        <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPOFAMILIAR', controlFamiliares.nuevoFamiliar.tipofamiliar.tipo, 2)}"/>
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 353px; top: 112px;" class="cssBotonLovDialogos"  id="btnDuplicarTipoFamiliar" value="" process="@this" actionListener="#{controlFamiliares.asignarIndex(info,2,2)}"/>   
+                     <p:watermark for="duplicarTipoFamiliar" value="#{msg['tipof']}"/>
+
+                     <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sm}" style="position: absolute; top: 140px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+                     <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sf}" style="position: absolute; top: 170px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+                     <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.be}" style="position: absolute; top: 200px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+                     <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;"/> </strong>
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
+                        <p:ajax  update="@this"/>
+                     </p:selectBooleanCheckbox>   
+
+                     <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarVlrupc" value="#{controlFamiliares.duplicarFamiliares.valorupcadicional}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 260px;">
+                        <p:keyFilter for="duplicarVlrupc" mask="num"/>
+                        <p:ajax event="change" update="duplicarVlrupc"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarVlrupc" value="#{msg['valorupc']}"/>
+
+                     <p:commandButton id="limpiarDuplicarFamiliar" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlFamiliares.limpiarDuplicarFamiliar()}" update="duplicarPersonaFamiliar" process="@this"/>
+                     <p:commandButton id="agregarDuplicar" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 300px;"  process="@this" actionListener="#{controlFamiliares.confirmarDuplicar()}"   />
+                     <p:commandButton id="cancelarDuplicar" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 300px;" actionListener="#{controlFamiliares.limpiarDuplicarFamiliar()}" update="duplicarPersonaFamiliar" onclick="PF('DuplicarRegistroFamiliarPersona').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="nuevoFamiliarPersona" header="#{msg['datos']}" widgetVar="nuevoFamiliarPersona" closable="false" resizable="false"  draggable="true" modal="true" height="500" width="410" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="nuevoFamiliarP" style="border: none;">
+                     <strong><h:outputText value="* #{msg['papellido']}" style="position: absolute; top: 55px; left: 38px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoApellido" value="#{controlFamiliares.nuevaPersona.primerapellido}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                        <p:ajax event="change" update="nuevoApellido"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoApellido" value="#{msg['papellido']}"/>
+
+                     <strong><h:outputText value="#{msg['sapellido']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoSegundoApellido" value="#{controlFamiliares.nuevaPersona.segundoapellido}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                        <p:ajax event="change" update="nuevoSegundoApellido"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoSegundoApellido" value="#{msg['sapellido']}"/>
+
+                     <strong><h:outputText value="* #{msg['pnombre']}" style="position: absolute; top: 115px; left: 38px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoNombreD" value="#{controlFamiliares.nuevaPersona.nombre}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                        <p:ajax event="change" update="nuevoNombreD"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoNombreD" value="#{msg['pnombre']}"/>
+
+                     <strong><h:outputText value="Sexo: "  style=" position: absolute; top: 145px; left: 50px;"/></strong>
+                     <p:selectOneMenu id="nuevoSexo" value="#{controlFamiliares.nuevaPersona.sexo}" style=" width: 60px; position: absolute; left: 220px; top: 140px; text-transform: uppercase;">
+                        <f:selectItem itemLabel=" " itemValue="null"/>  
+                        <f:selectItem itemLabel="Masculino" itemValue="M"/>  
+                        <f:selectItem itemLabel="Femenino" itemValue="F"/> 
+                        <p:ajax event="change" update="nuevoSexo" process="@this"/>
+                     </p:selectOneMenu>
+                     <p:watermark for="nuevoSexo" value="Sexo"/>
+
+                     <strong><h:outputText value="* #{msg['tipoDoc']}:" style="position: absolute; top: 175px; left: 38px"/> </strong>
+                     <p:inputText  autocomplete="off"  onclick="select();" value="#{controlFamiliares.nuevaPersona.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
+                                   style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
+                      <!--<p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPODOCUMENTO', controlFamiliares.nuevaPersona.tipodocumento.nombrelargo, 1)}"/>-->
+                        <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 3, 1)}" process="@this"/>
+                          <!--<p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPODOCUMENTO')}"/>-->
+                        <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 170px; left: 380px; z-index: 5;"
+                                         actionListener="#{controlFamiliares.asignarIndex(info, 3, 1)}" process="@this"/>
+                     </p:inputText>
+
+                     <h:outputText  value="* #{msg['numdoc']}:" style="position: absolute; top: 205px; left: 38px; font-weight: bold;"/>
+                     <p:inputText  autocomplete="off"  onclick="select();" value="#{controlFamiliares.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
+                                   style="position: absolute; top: 200px; left: 220px; width: 150px; text-transform: uppercase;">
+                        <p:ajax event="change" update="numeroDocumentoModPersonal" process="@this"/>
+                        <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
+                     </p:inputText>
+
+                     <h:outputText  value="* #{msg['ciudoc']}:" style="position: absolute; top: 235px; left: 38px; font-weight: bold;"/>
+                     <p:inputText  autocomplete="off"  widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
+                                   style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
+<!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDAD', controlFamiliares.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
+                          <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDAD')}"/>-->
+                        <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 4, 1)}" process="@this"/>
+                        <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 230px; left: 380px; z-index: 5;"
+                                         actionListener="#{controlFamiliares.asignarIndex(info, 4, 1)}" process="@this"/>
+                     </p:inputText>
+
+                     <h:outputText  value="* #{msg['fechaNacimiento']}:" style="position: absolute; top: 265px; left: 38px; font-weight: bold;"/>
+                     <div style="position: absolute; top: 260px; left: 220px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal">
+                           <p:ajax event="dateSelect"  update="@this"/>
+                           <p:ajax event="change"  update="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <h:outputText value="* #{msg['ciunac']}:" style="position: absolute; top: 295px; left: 38px; font-weight: bold;"/>
+                     <p:inputText  autocomplete="off"  widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
+                                   style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
+<!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDADNACIMIENTO', controlFamiliares.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
+                          <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDADNACIMIENTO')}"/>-->
+                        <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 5, 1)}" process="@this"/>
+                        <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 290px; left: 380px; z-index: 5;"
+                                         actionListener="#{controlFamiliares.asignarIndex(info, 5, 1)}" process="@this"/>
+                     </p:inputText>     
+                     <h:outputText  value="#{msg['grupoSanguineo']}:" style="position: absolute; top: 325px; left: 50px; font-weight: bold;"/>
+                     <p:selectOneMenu id="grupoSanguineoModFactorRH" widgetVar="grupoSanguineoModFactorRH" value="#{controlFamiliares.nuevaPersona.gruposanguineo}" 
+                                      style="position: absolute; top: 320px; left: 220px; font-weight: bold; width: 60px;">  
+                        <f:selectItem itemLabel="" itemValue="null"/>  
+                        <f:selectItem itemLabel="A" itemValue="A"/>  
+                        <f:selectItem itemLabel="AB" itemValue="AB"/>
+                        <f:selectItem itemLabel="B" itemValue="B"/>  
+                        <f:selectItem itemLabel="O" itemValue="O"/>
+                        <p:ajax event="change" update="@this"/>
+                     </p:selectOneMenu>
+
+                     <h:outputText  value="#{msg['factorRH']}:" style="position: absolute; top: 355px; left: 50px; font-weight: bold;"/>
+                     <p:selectOneMenu id="factorRHModFactorRH" value="#{controlFamiliares.nuevaPersona.factorrh}" 
+                                      style="position: absolute; top: 350px; left: 220px; font-weight: bold;width: 60px;">  
+                        <f:selectItem itemLabel="" itemValue="null"/>  
+                        <f:selectItem itemLabel="+" itemValue="P"/>  
+                        <f:selectItem itemLabel="-" itemValue="N"/>
+                        <p:ajax event="change" update="@this"/>
+                     </p:selectOneMenu>
+
+                     <strong><h:outputText value="#{msg['fechaf']}" style="position: absolute; top: 385px; left: 50px;"/></strong>
+                     <div style="position: absolute; top: 380px; left: 220px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.nuevaPersona.fechafallecimiento}" id="nuevaFechaF">
+                           <p:ajax event="dateSelect"  update="@this"/>
+                           <p:ajax event="change"  update="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['obs']}" style="position: absolute; top: 415px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaObs" value="#{controlFamiliares.nuevaPersona.observacion}" 
+                                   style="width: 122px; position: absolute; left: 220px; top: 410px;">
+                        <p:ajax event="change" update="nuevaObs"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaObs" value="#{msg['obs']}"/>
+
+                     <p:commandButton id="limpiarV" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 460px;" 
+                                      actionListener="#{controlFamiliares.limpiarPersona()}" update="nuevoFamiliarP" process="@this"/>
+                     <p:commandButton id="agregarV" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 460px;"  process="@this" 
+                                      actionListener="#{controlFamiliares.crearNuevaPersona()}"/>
+                     <p:commandButton id="cancelarV" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 460px;" 
+                                      actionListener="#{controlFamiliares.limpiarPersona()}" update="nuevoFamiliarP" onclick="PF('nuevoFamiliarPersona').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','empleadoindividual')}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFamiliares.guardarSalir()}" 
+                                   style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','empleadoindividual')}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFamiliares.cancelarSalir()}" 
+                                   style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this"
+                                   icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFamiliares.familiarSeleccionado.secuencia, 'VigenciasDeportes', 'vigenciasdeportes')}" 
+                                   style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"  />
+               </p:dialog>
+
+               <p:dialog id="confirmarPersona" header="#{msg['informacion']}" widgetVar="confirmarPersona"  resizable="false" draggable="true" modal="true" height="60" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['personaCreada']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarPersona').hide();" style="position: absolute; top: 40px; left: 160px;" icon="ui-icon-check"  process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasDeportes', 'vigenciasdeportes')}"
+                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','rastrotabla')}" icon="ui-icon-check"  process="@this"  />
+                                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFamiliares.familiarSeleccionado.secuencia, 'VigenciasDeportes', 'vigenciasdeportes')}" 
+                                   style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('emplfamiliares','rastrotabla')}" process="@this"/>
+                                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="editarNombreD" header="#{msg['nombre']}" widgetVar="editarNombreD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlFamiliares.editarFamiliar.personafamiliar.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarOcupacionD" header="#{msg['ocupacion']}" widgetVar="editarOcupacionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlFamiliares.editarFamiliar.ocupacion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarTipoFamiliarD" header="#{msg['tipof']}" widgetVar="editarTipoFamiliarD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlFamiliares.editarFamiliar.tipofamiliar.tipo}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarValorUpcD" header="#{msg['valorupc']}" widgetVar="editarValorUpcD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlFamiliares.editarFamiliar.valorupcadicional}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="110" width="360"  closable="true">  
+                  <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="Personas" style="position: absolute; left: 60px; top: 55px; font-weight: bold; width: 110px; height: 25px; text-align: center;" process="@this"  actionListener="#{controlFamiliares.dispararDialogoNuevoFamiliarPersona()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                  <p:commandButton value="Familiares" style="position: absolute; left: 205px; top: 55px; height: 25px; font-weight: bold; width: 120px; text-align: center;" process="@this" actionListener="#{controlFamiliares.dispararDialogoNuevoFamiliar()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+               </p:dialog>
+
+
+            </h:form>
+
+            <h:form id="formExportar">
+               <p:dataTable id="datosFamiliaresExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                            value="#{controlFamiliares.listaFamiliares}"> 
+
+
+                  <p:column headerText="#{msg['nombre']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['nombre']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.personafamiliar.nombreCompleto}"/>
+                  </p:column>  
+
+                  <p:column headerText="#{msg['ocupacion']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['ocupacion']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.ocupacion}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['tipofX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['tipofX']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.tipofamiliar.tipo}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['smx']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['smx']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.serviciomedico}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['sfx']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['sfx']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.subsidiofamiliar}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['ben']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['ben']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.beneficiario}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['upcadx']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['upcadx']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.upcadicional}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['vlrupcx']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['vlrupcx']}"/> </f:facet> 
+                     <h:outputText value="#{infoExp.valorupcadicional}"/>
+                  </p:column>
+
+               </p:dataTable>
+            </h:form>
+
+
+         </ui:define>
+      </ui:composition>               
+   </h:body>
 </html>
 

@@ -169,15 +169,34 @@ public class ControlGrupoSalarial implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "gruposalarial";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "gruposalarial";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -187,12 +206,11 @@ public class ControlGrupoSalarial implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -324,6 +342,11 @@ public class ControlGrupoSalarial implements Serializable {
          filtrarListVigenciasGruposSalariales = null;
          tipoListaVigencia = 0;
       }
+   }
+
+   public void guardarYSalir() {
+      guardarGeneral();
+      salir();
    }
 
    public void guardarGeneral() {
@@ -983,7 +1006,8 @@ public class ControlGrupoSalarial implements Serializable {
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          altoTablaGrupo = "140";
@@ -998,7 +1022,6 @@ public class ControlGrupoSalarial implements Serializable {
          filtrarListGruposSalariales = null;
          tipoLista = 0;
       }
-
       if (banderaVGS == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          altoTablaVigencia = "100";
@@ -1011,7 +1034,6 @@ public class ControlGrupoSalarial implements Serializable {
          filtrarListVigenciasGruposSalariales = null;
          tipoListaVigencia = 0;
       }
-
       listGrupoSalarialBorrar.clear();
       listGrupoSalarialCrear.clear();
       listGrupoSalarialModificar.clear();
@@ -1028,7 +1050,7 @@ public class ControlGrupoSalarial implements Serializable {
       cambiosPagina = true;
       contarRegistrosGrupo();
       contarRegistrosVigencia();
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarAceptar() {

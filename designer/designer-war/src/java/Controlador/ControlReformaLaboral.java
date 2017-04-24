@@ -139,7 +139,7 @@ public class ControlReformaLaboral implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -171,15 +171,34 @@ public class ControlReformaLaboral implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "reformalaboral";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "reformalaboral";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -189,9 +208,8 @@ public class ControlReformaLaboral implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
    public void inicializarPagina() {
@@ -875,9 +893,9 @@ public class ControlReformaLaboral implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       restaurartablas();
-
       listReformasLaboralesBorrar.clear();
       listReformasLaboralesCrear.clear();
       listReformasLaboralesModificar.clear();
@@ -1115,7 +1133,7 @@ public class ControlReformaLaboral implements Serializable {
    }
 
    public void clonarReformaLaboral() {
-      if ((nombreReformaClonar.isEmpty()) || (codigoReformaClonar <= 0) || (reformaLaboralAClonar.getCodigo() <=0)) {
+      if ((nombreReformaClonar.isEmpty()) || (codigoReformaClonar <= 0) || (reformaLaboralAClonar.getCodigo() <= 0)) {
          RequestContext.getCurrentInstance().update("form:errorClonadoReforma");
          RequestContext.getCurrentInstance().execute("PF('errorClonadoReforma').show()");
       } else if (validarCodigoNuevoClonado() == true) {
@@ -1126,10 +1144,10 @@ public class ControlReformaLaboral implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('errorCodigoClonado').show()");
       }
    }
-   
-   public void clonar(){
+
+   public void clonar() {
       resultadoClonacion = administrarReformaLaboral.clonarReformaLaboral(nombreReformaClonar, codigoReformaClonar, reformaLaboralAClonar.getCodigo());
-      if(resultadoClonacion.equals("BIEN")){
+      if (resultadoClonacion.equals("BIEN")) {
          cancelarModificacionGeneral();
          FacesMessage msg = new FacesMessage("Información", "Los datos se clonaron con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);

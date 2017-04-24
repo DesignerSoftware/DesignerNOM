@@ -26,7 +26,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left">
+                     <p:toolbarGroup align="left;">
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlProceso.guardarGeneral()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -156,977 +156,977 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 160px;" action="tipopago" actionListener="#{controlTiposPagos.recibirPaginaEntrante('proceso')}" value=""/>
-                           </f:facet>
-                        </p:column>
+                              <p:commandButton style="width: 160px;" action="#{controlListaNavegacion.guardarNavegacion('proceso', 'tipopago')}" actionListener="#{controlTiposPagos.recibirPaginaEntrante('proceso')}" value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column headerText="#{msg['comentario']}" sortBy="#{info.comentarios}" filterBy="#{info.comentarios}" filterMatchMode="contains"
-                                  id="procesoComentario" width="200" filterStyle="display: none; visibility: hidden;">                                  
-                           <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.comentarios}" style="text-transform: uppercase;"/></f:facet>  
-                              <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.comentarios}" maxlength="500" onclick="select();" id="editarComentarioProceso" style="text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" update="editarComentarioProceso" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 3)}" process="@this"
-                                            onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
-                                 </p:inputText>
-                              </f:facet>  
-                           </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column headerText="#{msg['comentario']}" sortBy="#{info.comentarios}" filterBy="#{info.comentarios}" filterMatchMode="contains"
+                               id="procesoComentario" width="200" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:cellEditor>  
+                           <f:facet name="output"><h:outputText value="#{info.comentarios}" style="text-transform: uppercase;"/></f:facet>  
+                           <f:facet name="input">
+                              <p:inputText autocomplete="off" value="#{info.comentarios}" maxlength="500" onclick="select();" id="editarComentarioProceso" style="text-transform: uppercase;"> 
+                                 <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" update="editarComentarioProceso" process="@this"/>
+                                 <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 3)}" process="@this"
+                                         onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
+                              </p:inputText>
+                           </f:facet>  
+                        </p:cellEditor>
+                        <f:facet name="footer">
+                           <h:outputText value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column sortBy="#{info.numerocierrerequerido}" filterBy="#{info.numerocierrerequerido}" filterMatchMode="contains"
-                                  id="procesoNumero" width="40" filterStyle="display: none; visibility: hidden;">                                  
-                           <f:facet name="header">
-                              <h:outputText id="headerProcesoNumero" value="#"/>
-                              <p:tooltip for="headerProcesoNumero" value="#{msg['numero']}"/>
-                           </f:facet> 
-                           <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.numerocierrerequerido}" style="text-transform: uppercase;"/></f:facet>  
-                              <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.numerocierrerequerido}" onclick="select();" id="editarNumeroProceso" style="text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" update="editarNumeroProceso" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 4)}" process="@this"
-                                            onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
-                                 </p:inputText>
-                              </f:facet>  
-                           </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column sortBy="#{info.numerocierrerequerido}" filterBy="#{info.numerocierrerequerido}" filterMatchMode="contains"
+                               id="procesoNumero" width="40" filterStyle="display: none; visibility: hidden;">                                  
+                        <f:facet name="header">
+                           <h:outputText id="headerProcesoNumero" value="#"/>
+                           <p:tooltip for="headerProcesoNumero" value="#{msg['numero']}"/>
+                        </f:facet> 
+                        <p:cellEditor>  
+                           <f:facet name="output"><h:outputText value="#{info.numerocierrerequerido}" style="text-transform: uppercase;"/></f:facet>  
+                           <f:facet name="input">
+                              <p:inputText autocomplete="off" value="#{info.numerocierrerequerido}" onclick="select();" id="editarNumeroProceso" style="text-transform: uppercase;"> 
+                                 <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" update="editarNumeroProceso" process="@this"/>
+                                 <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 4)}" process="@this"
+                                         onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
+                              </p:inputText>
+                           </f:facet>  
+                        </p:cellEditor>
+                        <f:facet name="footer">
+                           <h:outputText value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column style="padding: 0px;alignment-adjust: central;"  width="20" sortBy="#{info.strContabilizacion}" filterBy="#{info.strContabilizacion}" filterMatchMode="contains" 
-                                  id="procesoContabilizacion" filterStyle="display: none; visibility: hidden;">     
-                           <f:facet name="header">
-                              <h:outputText id="headerProcesoContabilizacion" value="C"/>
-                              <p:tooltip for="headerProcesoContabilizacion" value="#{msg['contabilizacion']}"/>
-                           </f:facet> 
-                           <p:selectBooleanCheckbox id="editarContabilizacionProceso" style="alignment-adjust: central;" value="#{info.checkContabilizacion}">
-                              <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
-                              <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
-                                      onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
-                           </p:selectBooleanCheckbox> 
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column style="padding: 0px;alignment-adjust: central;"  width="20" sortBy="#{info.strContabilizacion}" filterBy="#{info.strContabilizacion}" filterMatchMode="contains" 
+                               id="procesoContabilizacion" filterStyle="display: none; visibility: hidden;">     
+                        <f:facet name="header">
+                           <h:outputText id="headerProcesoContabilizacion" value="C"/>
+                           <p:tooltip for="headerProcesoContabilizacion" value="#{msg['contabilizacion']}"/>
+                        </f:facet> 
+                        <p:selectBooleanCheckbox id="editarContabilizacionProceso" style="alignment-adjust: central;" value="#{info.checkContabilizacion}">
+                           <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
+                           <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
+                                   onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
+                        </p:selectBooleanCheckbox> 
+                        <f:facet name="footer">
+                           <h:outputText value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column style="padding: 0px;alignment-adjust: central;" width="20" sortBy="#{info.strEliminarSNodo}" filterBy="#{info.strEliminarSNodo}" filterMatchMode="contains" 
-                                  id="procesoSolucionNodo" filterStyle="display: none; visibility: hidden;">     
-                           <f:facet name="header">
-                              <h:outputText id="headerProcesoSolucionNodo" value="Es"/>
-                              <p:tooltip for="headerProcesoSolucionNodo" value="#{msg['solucionnodo']}"/>
-                           </f:facet> 
-                           <p:selectBooleanCheckbox id="editarSolucionNodoProceso" style="alignment-adjust: central;" value="#{info.checkEliminarSNodo}">
-                              <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
-                              <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
-                                      onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
-                           </p:selectBooleanCheckbox> 
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column style="padding: 0px;alignment-adjust: central;" width="20" sortBy="#{info.strEliminarSNodo}" filterBy="#{info.strEliminarSNodo}" filterMatchMode="contains" 
+                               id="procesoSolucionNodo" filterStyle="display: none; visibility: hidden;">     
+                        <f:facet name="header">
+                           <h:outputText id="headerProcesoSolucionNodo" value="Es"/>
+                           <p:tooltip for="headerProcesoSolucionNodo" value="#{msg['solucionnodo']}"/>
+                        </f:facet> 
+                        <p:selectBooleanCheckbox id="editarSolucionNodoProceso" style="alignment-adjust: central;" value="#{info.checkEliminarSNodo}">
+                           <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
+                           <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
+                                   onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
+                        </p:selectBooleanCheckbox> 
+                        <f:facet name="footer">
+                           <h:outputText value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column style="padding: 0px; alignment-adjust: central;" width="20" sortBy="#{info.strEliminarAdelanto}" filterBy="#{info.strEliminarAdelanto}" filterMatchMode="contains" 
-                                  id="procesoAdelanto" filterStyle="display: none; visibility: hidden;">     
-                           <f:facet name="header">
-                              <h:outputText id="headerProcesoAdelanto" value="Ea"/>
-                              <p:tooltip for="headerProcesoAdelanto" value="#{msg['adelanto']}"/>
-                           </f:facet> 
-                           <p:selectBooleanCheckbox id="editarAdelantoProceso" style="alignment-adjust: central;" value="#{info.checkEliminarAdelanto}">
-                              <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
-                              <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
-                                      onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
-                           </p:selectBooleanCheckbox> 
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column style="padding: 0px; alignment-adjust: central;" width="20" sortBy="#{info.strEliminarAdelanto}" filterBy="#{info.strEliminarAdelanto}" filterMatchMode="contains" 
+                               id="procesoAdelanto" filterStyle="display: none; visibility: hidden;">     
+                        <f:facet name="header">
+                           <h:outputText id="headerProcesoAdelanto" value="Ea"/>
+                           <p:tooltip for="headerProcesoAdelanto" value="#{msg['adelanto']}"/>
+                        </f:facet> 
+                        <p:selectBooleanCheckbox id="editarAdelantoProceso" style="alignment-adjust: central;" value="#{info.checkEliminarAdelanto}">
+                           <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
+                           <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
+                                   onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
+                        </p:selectBooleanCheckbox> 
+                        <f:facet name="footer">
+                           <h:outputText value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column style="padding: 0px; alignment-adjust: central;" width="20" sortBy="#{info.strEliminarCSobregiro}" filterBy="#{info.strEliminarCSobregiro}" filterMatchMode="contains" 
-                                  id="procesoSobregiro" filterStyle="display: none; visibility: hidden;">     
-                           <f:facet name="header">
-                              <h:outputText id="headerProcesoSobregiro" value="Ec"/>
-                              <p:tooltip for="headerProcesoSobregiro" value="#{msg['sobregiro']}"/>
-                           </f:facet>
-                           <p:selectBooleanCheckbox id="editarSobregiroProceso" style="alignment-adjust: central;" value="#{info.checkEliminarCSobregiro}">
-                              <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
-                              <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
-                                      onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
-                           </p:selectBooleanCheckbox> 
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column style="padding: 0px; alignment-adjust: central;" width="20" sortBy="#{info.strEliminarCSobregiro}" filterBy="#{info.strEliminarCSobregiro}" filterMatchMode="contains" 
+                               id="procesoSobregiro" filterStyle="display: none; visibility: hidden;">     
+                        <f:facet name="header">
+                           <h:outputText id="headerProcesoSobregiro" value="Ec"/>
+                           <p:tooltip for="headerProcesoSobregiro" value="#{msg['sobregiro']}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox id="editarSobregiroProceso" style="alignment-adjust: central;" value="#{info.checkEliminarCSobregiro}">
+                           <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
+                           <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
+                                   onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
+                        </p:selectBooleanCheckbox> 
+                        <f:facet name="footer">
+                           <h:outputText value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column style="padding: 0px; alignment-adjust: central;" width="20" sortBy="#{info.strAutomatico}" filterBy="#{info.strAutomatico}" filterMatchMode="contains" 
-                                  id="procesoAutomatico" filterStyle="display: none; visibility: hidden;">     
-                           <f:facet name="header">
-                              <h:outputText id="headerProcesoAutomatico" value="Au"/>
-                              <p:tooltip for="headerProcesoAutomatico" value="#{msg['automatico']}"/>
-                           </f:facet>
-                           <p:selectBooleanCheckbox id="editarAutomaticoProceso" style="alignment-adjust: central;" value="#{info.checkAutomatico}">
-                              <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
-                              <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
-                                      onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
-                           </p:selectBooleanCheckbox> 
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column style="padding: 0px; alignment-adjust: central;" width="20" sortBy="#{info.strAutomatico}" filterBy="#{info.strAutomatico}" filterMatchMode="contains" 
+                               id="procesoAutomatico" filterStyle="display: none; visibility: hidden;">     
+                        <f:facet name="header">
+                           <h:outputText id="headerProcesoAutomatico" value="Au"/>
+                           <p:tooltip for="headerProcesoAutomatico" value="#{msg['automatico']}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox id="editarAutomaticoProceso" style="alignment-adjust: central;" value="#{info.checkAutomatico}">
+                           <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(info)}" process="@this"/>
+                           <p:ajax event="select" listener="#{controlProceso.cambiarIndice(info, 5)}" process="@this"
+                                   onstart="PF('datosProceso').unselectAllRows(); PF('datosProceso').selectRow(#{indice});"/>
+                        </p:selectBooleanCheckbox> 
+                        <f:facet name="footer">
+                           <h:outputText value=""/>
+                        </f:facet>
+                     </p:column>
 
-                     </p:dataTable>  
-                     <h:outputText id="infoRegistroP" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroProceso}" style="position: relative; left: 10px; top: 1px; font-weight: bold;"/>
-                  </fieldset> 
+                  </p:dataTable>  
+                  <h:outputText id="infoRegistroP" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroProceso}" style="position: relative; left: 10px; top: 1px; font-weight: bold;"/>
+               </fieldset> 
 
-                  <fieldset style="position: absolute; left: 10px; top: 250px; width: 315px; height: 151px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['formulaProceso']}</strong></legend>
+               <fieldset style="position: absolute; left: 10px; top: 250px; width: 315px; height: 151px; border-radius: 10px; padding-top: 0px;">
+                  <legend style="color: blue"><strong>#{msg['formulaProceso']}</strong></legend>
 
-                     <p:dataTable id="datosFormulaProceso" widgetVar="datosFormulaProceso" var="infoFP" rowKey="#{infoFP.secuencia}" rowIndexVar="indiceFP" style="width: 310px;"
-                                  value="#{controlProceso.listaFormulasProcesos}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="310"
-                                  filteredValue="#{controlProceso.filtrarListaFormulasProcesos}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                  editable="true" editMode="cell"  selection="#{controlProceso.formulaProcesoSeleccionada}">
+                  <p:dataTable id="datosFormulaProceso" widgetVar="datosFormulaProceso" var="infoFP" rowKey="#{infoFP.secuencia}" rowIndexVar="indiceFP" style="width: 310px;"
+                               value="#{controlProceso.listaFormulasProcesos}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="310"
+                               filteredValue="#{controlProceso.filtrarListaFormulasProcesos}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                               editable="true" editMode="cell"  selection="#{controlProceso.formulaProcesoSeleccionada}">
 
-                        <p:ajax event="filter" listener="#{controlProceso.eventoFiltrar(1)}"/>
+                     <p:ajax event="filter" listener="#{controlProceso.eventoFiltrar(1)}"/>
 
-                        <p:column headerText="#{msg['formula']}" sortBy="#{infoFP.formula.nombrelargo}" filterBy="#{infoFP.formula.nombrelargo}" filterMatchMode="contains"
-                                  id="formulaProcesoFormula" filterStyle="display: none; visibility: hidden;">  
-                           <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{infoFP.formula.nombrelargo}" style="text-transform: uppercase;">
-                                 </h:outputText>
-                              </f:facet>  
-                              <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoFP.formula.nombrelargo}" onclick="select();" id="editarFormulaFormulaProceso" style="text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(infoFP, 'FORMULA', infoFP.formula.nombrelargo)}" process="@this" update="editarFormulaFormulaProceso"/>
-                                    <p:ajax event="select" listener="#{controlProceso.cambiarIndiceFormulaProceso(infoFP,0)}" process="@this"
-                                            onstart="PF('datosFormulaProceso').unselectAllRows(); PF('datosFormulaProceso').selectRow(#{indiceFP});"/> 
-                                    <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexFP(infoFP,0)}" process="@this" update="editarFormulaFormulaProceso"/>
-                                 </p:inputText>
-                              </f:facet>   
-                           </p:cellEditor>
-                           <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column headerText="#{msg['formula']}" sortBy="#{infoFP.formula.nombrelargo}" filterBy="#{infoFP.formula.nombrelargo}" filterMatchMode="contains"
+                               id="formulaProcesoFormula" filterStyle="display: none; visibility: hidden;">  
+                        <p:cellEditor>  
+                           <f:facet name="output">
+                              <h:outputText value="#{infoFP.formula.nombrelargo}" style="text-transform: uppercase;">
+                              </h:outputText>
+                           </f:facet>  
+                           <f:facet name="input">
+                              <p:inputText autocomplete="off" value="#{infoFP.formula.nombrelargo}" onclick="select();" id="editarFormulaFormulaProceso" style="text-transform: uppercase;"> 
+                                 <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(infoFP, 'FORMULA', infoFP.formula.nombrelargo)}" process="@this" update="editarFormulaFormulaProceso"/>
+                                 <p:ajax event="select" listener="#{controlProceso.cambiarIndiceFormulaProceso(infoFP,0)}" process="@this"
+                                         onstart="PF('datosFormulaProceso').unselectAllRows(); PF('datosFormulaProceso').selectRow(#{indiceFP});"/> 
+                                 <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexFP(infoFP,0)}" process="@this" update="editarFormulaFormulaProceso"/>
+                              </p:inputText>
+                           </f:facet>   
+                        </p:cellEditor>
+                        <f:facet name="footer">
+                           <p:commandButton style="width: 120%;" value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column width="21" sortBy="#{infoFP.strPeriodicidad}" filterBy="#{infoFP.strPeriodicidad}" filterMatchMode="contains" 
-                                  id="formulaProcesoPeriodicidad" class="cssColumnasCentradas" filterStyle="display: none; visibility: hidden;">     
-                           <f:facet name="header">
-                              <h:outputText id="headerProcesoPeriodicidad" value="PP"/>
-                              <p:tooltip for="headerProcesoPeriodicidad" value="#{msg['periodicidad']}"/>
-                           </f:facet>
-                           <p:selectBooleanCheckbox id="editarPeriodicidadFormulaProceso" style="alignment-adjust: central;" value="#{infoFP.checkPeriodicidad}">
-                              <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(infoFP)}" process="@this"/>
-                              <p:ajax event="select" listener="#{controlProceso.cambiarIndiceFormulaProceso(infoFP,0)}" process="@this"
-                                      onstart="PF('datosFormulaProceso').unselectAllRows(); PF('datosFormulaProceso').selectRow(#{indiceFP});"/> 
-                           </p:selectBooleanCheckbox> 
-                        </p:column>
+                     <p:column width="21" sortBy="#{infoFP.strPeriodicidad}" filterBy="#{infoFP.strPeriodicidad}" filterMatchMode="contains" 
+                               id="formulaProcesoPeriodicidad" class="cssColumnasCentradas" filterStyle="display: none; visibility: hidden;">     
+                        <f:facet name="header">
+                           <h:outputText id="headerProcesoPeriodicidad" value="PP"/>
+                           <p:tooltip for="headerProcesoPeriodicidad" value="#{msg['periodicidad']}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox id="editarPeriodicidadFormulaProceso" style="alignment-adjust: central;" value="#{infoFP.checkPeriodicidad}">
+                           <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(infoFP)}" process="@this"/>
+                           <p:ajax event="select" listener="#{controlProceso.cambiarIndiceFormulaProceso(infoFP,0)}" process="@this"
+                                   onstart="PF('datosFormulaProceso').unselectAllRows(); PF('datosFormulaProceso').selectRow(#{indiceFP});"/> 
+                        </p:selectBooleanCheckbox> 
+                     </p:column>
 
-                     </p:dataTable>  
-                     <h:outputText id="infoRegistroFormulasP" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroFormulaP}" style="position: relative; left: 10px; top: 1px; font-weight: bold;"/>
-                  </fieldset> 
+                  </p:dataTable>  
+                  <h:outputText id="infoRegistroFormulasP" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroFormulaP}" style="position: relative; left: 10px; top: 1px; font-weight: bold;"/>
+               </fieldset> 
 
-                  <fieldset style="position: absolute; left: 350px; top: 250px; width: 492px; height: 151px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['operandoLog']}</strong></legend>
+               <fieldset style="position: absolute; left: 350px; top: 250px; width: 492px; height: 151px; border-radius: 10px; padding-top: 0px;">
+                  <legend style="color: blue"><strong>#{msg['operandoLog']}</strong></legend>
 
-                     <p:dataTable id="datosOperando" widgetVar="datosOperando" var="infoOL" rowKey="#{infoOL.secuencia}" rowIndexVar="indiceOL" style="width: 485px"
-                                  value="#{controlProceso.listaOperandosLogs}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="485"
-                                  filteredValue="#{controlProceso.filtrarListaOperandosLogs}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                  editable="true" editMode="cell"  selection="#{controlProceso.operandoLogSeleccionado}">
+                  <p:dataTable id="datosOperando" widgetVar="datosOperando" var="infoOL" rowKey="#{infoOL.secuencia}" rowIndexVar="indiceOL" style="width: 485px"
+                               value="#{controlProceso.listaOperandosLogs}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="485"
+                               filteredValue="#{controlProceso.filtrarListaOperandosLogs}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                               editable="true" editMode="cell"  selection="#{controlProceso.operandoLogSeleccionado}">
 
-                        <p:ajax event="filter" listener="#{controlProceso.eventoFiltrar(2)}"/>
+                     <p:ajax event="filter" listener="#{controlProceso.eventoFiltrar(2)}"/>
 
-                        <p:column headerText="#{msg['operando']}" sortBy="#{infoOL.operando.nombre}" filterBy="#{infoOL.operando.nombre}" filterMatchMode="contains" 
-                                  id="operandoOperando" filterStyle="display: none; visibility: hidden;">  
-                           <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{infoOL.operando.nombre}" style="text-transform: uppercase;">
-                                 </h:outputText>
-                              </f:facet>  
-                              <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoOL.operando.nombre}" onclick="select();" id="editarOperandoOperando" style="text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlProceso.modificarOperandoLog(infoOL, 'OPERANDO', indiceOL.grupotipoentidad.nombre)}" process="@this" update="editarOperandoOperando"/>
-                                    <p:ajax event="select" listener="#{controlProceso.cambiarIndiceOperandoLog(infoOL,0)}" process="@this"
-                                            onstart="PF('datosOperando').unselectAllRows(); PF('datosOperando').selectRow(#{indiceOL});"/> 
-                                    <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexOL(infoOL,0)}" process="@this" update="editarOperandoOperando"/>
-                                 </p:inputText>
-                              </f:facet>   
-                           </p:cellEditor>
-                           <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" value=""/>
-                           </f:facet>
-                        </p:column>
+                     <p:column headerText="#{msg['operando']}" sortBy="#{infoOL.operando.nombre}" filterBy="#{infoOL.operando.nombre}" filterMatchMode="contains" 
+                               id="operandoOperando" filterStyle="display: none; visibility: hidden;">  
+                        <p:cellEditor>  
+                           <f:facet name="output">
+                              <h:outputText value="#{infoOL.operando.nombre}" style="text-transform: uppercase;">
+                              </h:outputText>
+                           </f:facet>  
+                           <f:facet name="input">
+                              <p:inputText autocomplete="off" value="#{infoOL.operando.nombre}" onclick="select();" id="editarOperandoOperando" style="text-transform: uppercase;"> 
+                                 <p:ajax event="change" listener="#{controlProceso.modificarOperandoLog(infoOL, 'OPERANDO', indiceOL.grupotipoentidad.nombre)}" process="@this" update="editarOperandoOperando"/>
+                                 <p:ajax event="select" listener="#{controlProceso.cambiarIndiceOperandoLog(infoOL,0)}" process="@this"
+                                         onstart="PF('datosOperando').unselectAllRows(); PF('datosOperando').selectRow(#{indiceOL});"/> 
+                                 <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexOL(infoOL,0)}" process="@this" update="editarOperandoOperando"/>
+                              </p:inputText>
+                           </f:facet>   
+                        </p:cellEditor>
+                        <f:facet name="footer">
+                           <p:commandButton style="width: 120%;" value=""/>
+                        </f:facet>
+                     </p:column>
 
-                        <p:column headerText="#{msg['descripcion']}" sortBy="#{infoOL.descripcion}" filterBy="#{infoTSF.descripcion}" filterMatchMode="contains" width="190" 
-                                  id="operandoDescripcion" filterStyle="display: none; visibility: hidden;">  
-                           <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{infoOL.descripcion}" style="text-transform: uppercase;"/>
-                              </f:facet>  
-                              <f:facet name="input">
-                                 <p:inputText autocomplete="off" readonly="true" onclick="select();" id="editarOperandoDescripcion" value="#{infoOL.descripcion}"
-                                              onselect="posicionOperando([{name: 'n', value: '1'}, {name: 't', value: '#{indiceOL}'}]);">
-                                    <p:ajax event="select" listener="#{controlProceso.cambiarIndiceOperandoLog(infoOL,0)}" process="@this"
-                                            onstart="PF('datosOperando').unselectAllRows(); PF('datosOperando').selectRow(#{indiceOL});"/> 
-                                 </p:inputText>
-                              </f:facet>   
-                           </p:cellEditor>
-                        </p:column>
+                     <p:column headerText="#{msg['descripcion']}" sortBy="#{infoOL.descripcion}" filterBy="#{infoTSF.descripcion}" filterMatchMode="contains" width="190" 
+                               id="operandoDescripcion" filterStyle="display: none; visibility: hidden;">  
+                        <p:cellEditor>  
+                           <f:facet name="output">
+                              <h:outputText value="#{infoOL.descripcion}" style="text-transform: uppercase;"/>
+                           </f:facet>  
+                           <f:facet name="input">
+                              <p:inputText autocomplete="off" readonly="true" onclick="select();" id="editarOperandoDescripcion" value="#{infoOL.descripcion}"
+                                           onselect="posicionOperando([{name: 'n', value: '1'}, {name: 't', value: '#{indiceOL}'}]);">
+                                 <p:ajax event="select" listener="#{controlProceso.cambiarIndiceOperandoLog(infoOL,0)}" process="@this"
+                                         onstart="PF('datosOperando').unselectAllRows(); PF('datosOperando').selectRow(#{indiceOL});"/> 
+                              </p:inputText>
+                           </f:facet>   
+                        </p:cellEditor>
+                     </p:column>
 
-                     </p:dataTable>  
-                     <h:outputText id="infoRegistroOperandoL" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroOperandoL}" style="position: relative; left: 10px; top: 1px; font-weight: bold;"/>
-                  </fieldset> 
+                  </p:dataTable>  
+                  <h:outputText id="infoRegistroOperandoL" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroOperandoL}" style="position: relative; left: 10px; top: 1px; font-weight: bold;"/>
+               </fieldset> 
 
-                  <fieldset style="position: absolute; left: 10px; top: 414px; width: 830px; height: 52px; border-radius: 10px; padding-top: 1px !important;">
-                     <legend style="color: blue"><strong>#{msg['procesoClonar']}</strong></legend>
+               <fieldset style="position: absolute; left: 10px; top: 414px; width: 830px; height: 52px; border-radius: 10px; padding-top: 1px !important;">
+                  <legend style="color: blue"><strong>#{msg['procesoClonar']}</strong></legend>
 
-                     <div style="display: inline-block;">
-                        <div style="display: block;">
-                           <h:outputText style="color: #14388B; font-weight: bold; position: relative; top: -2px; left: 15px; width: 420px;" value="#{msg['nuevoClonado']}"/>
-                        </div>
-                        <div style="display: block;">
-                           <p:inputText autocomplete="off" id="CodigoNuevoClonado" value="#{controlProceso.procesoNuevoClonado.codigo}" onclick="select();"
-                                        style="position: relative; width: 60px; height: 14px; margin: 1px; left: 10px; top: 0px">
-                              <p:ajax event="change" update="CodigoNuevoClonado" process="@this"/>
-                           </p:inputText>
-                           <p:inputText autocomplete="off" id="DescripcionNuevoClonado" value="#{controlProceso.procesoNuevoClonado.descripcion}" onclick="select();"
-                                        style="position: relative; width: 270px; height: 14px; margin: 1px; left: 10px; top: 0px;">
-                              <p:ajax event="change" update="DescripcionNuevoClonado" process="@this"/>
-                           </p:inputText>
-                        </div>
+                  <div style="display: inline-block;">
+                     <div style="display: block;">
+                        <h:outputText style="color: #14388B; font-weight: bold; position: relative; top: -2px; left: 15px; width: 420px;" value="#{msg['nuevoClonado']}"/>
                      </div>
-
-                     <div style="display: inline-block; margin-left: 30px;">
-                        <div style="display: block;">
-                           <h:outputText style="color: #14388B; font-weight: bold; position: relative; left: 10px; top: -2px; width: 280px;" value="#{msg['baseClonado']}"/>
-                        </div>
-                        <div style="display: block;">
-                           <p:inputText autocomplete="off" id="CodigoBaseClonado" value="#{controlProceso.procesoBaseClonado.codigo}" onclick="select();"
-                                        style="position: relative; width: 60px; height: 14px; margin: 1px; left: 0px; top: 0px">
-                              <p:ajax event="change" update="CodigoBaseClonado" process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.codigo,0)}"/>
-                              <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
-                              <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
-                           </p:inputText>
-                           <p:inputText autocomplete="off" id="DescripcionBaseClonado" onclick="select();" value="#{controlProceso.procesoBaseClonado.descripcion}"
-                                        style="position: relative; width: 270px; height: 14px; margin: 1px; left: 0px; top: 0px;">
-                              <p:ajax event="change" update="DescripcionBaseClonado"  process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.descripcion,1)}"/>
-                              <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
-                              <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
-                           </p:inputText>
-                        </div>
+                     <div style="display: block;">
+                        <p:inputText autocomplete="off" id="CodigoNuevoClonado" value="#{controlProceso.procesoNuevoClonado.codigo}" onclick="select();"
+                                     style="position: relative; width: 60px; height: 14px; margin: 1px; left: 10px; top: 0px">
+                           <p:ajax event="change" update="CodigoNuevoClonado" process="@this"/>
+                        </p:inputText>
+                        <p:inputText autocomplete="off" id="DescripcionNuevoClonado" value="#{controlProceso.procesoNuevoClonado.descripcion}" onclick="select();"
+                                     style="position: relative; width: 270px; height: 14px; margin: 1px; left: 10px; top: 0px;">
+                           <p:ajax event="change" update="DescripcionNuevoClonado" process="@this"/>
+                        </p:inputText>
                      </div>
-                  </fieldset>
+                  </div>
 
-                  <p:commandButton style="position: absolute; top: 427px; left: 790px;" value="" id="botomClonar" class="cssBotonClonar"
-                                   actionListener="#{controlProceso.clonarProceso()}"/>
-                  <p:tooltip for="botomClonar" value="#{msg['clonar']}"/>
+                  <div style="display: inline-block; margin-left: 30px;">
+                     <div style="display: block;">
+                        <h:outputText style="color: #14388B; font-weight: bold; position: relative; left: 10px; top: -2px; width: 280px;" value="#{msg['baseClonado']}"/>
+                     </div>
+                     <div style="display: block;">
+                        <p:inputText autocomplete="off" id="CodigoBaseClonado" value="#{controlProceso.procesoBaseClonado.codigo}" onclick="select();"
+                                     style="position: relative; width: 60px; height: 14px; margin: 1px; left: 0px; top: 0px">
+                           <p:ajax event="change" update="CodigoBaseClonado" process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.codigo,0)}"/>
+                           <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
+                           <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
+                        </p:inputText>
+                        <p:inputText autocomplete="off" id="DescripcionBaseClonado" onclick="select();" value="#{controlProceso.procesoBaseClonado.descripcion}"
+                                     style="position: relative; width: 270px; height: 14px; margin: 1px; left: 0px; top: 0px;">
+                           <p:ajax event="change" update="DescripcionBaseClonado"  process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.descripcion,1)}"/>
+                           <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
+                           <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
+                        </p:inputText>
+                     </div>
+                  </div>
+               </fieldset>
 
-                  <p:commandButton class="cssBoton" icon="ui-icon-arrowreturnthick-1-w" id="OPERANDOGC" value="#{msg['operandoGC']}" process="@this"
-                                   action="operandogrupoconcepto" actionListener="#{controlGrupoConcepto.recibirPaginaEntrante('proceso')}" style="position: absolute; left: 20px; top: 478px;"/>
-                  <p:tooltip for="OPERANDOGC">
+               <p:commandButton style="position: absolute; top: 427px; left: 790px;" value="" id="botomClonar" class="cssBotonClonar"
+                                actionListener="#{controlProceso.clonarProceso()}"/>
+               <p:tooltip for="botomClonar" value="#{msg['clonar']}"/>
+
+               <p:commandButton class="cssBoton" icon="ui-icon-arrowreturnthick-1-w" id="OPERANDOGC" value="#{msg['operandoGC']}" process="@this"
+                                action="#{controlListaNavegacion.guardarNavegacion('proceso', 'operandogrupoconcepto')}" actionListener="#{controlGrupoConcepto.recibirPaginaEntrante('proceso')}" style="position: absolute; left: 20px; top: 478px;"/>
+                                <p:tooltip for="OPERANDOGC">
                      #{msg['operandoGCToll']} <br></br> #{msg['operandoGCToll2']}
                   </p:tooltip>
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlProceso.cambiosPagina}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlProceso.salir()}" process="@this"/>
+            </p:panel>
+
+            <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+               <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+               <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 10px; width: 250px; font-weight: bold;"/>
+               <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();"
+                                style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check">
+                  <f:actionListener binding="#{controlProceso.guardarGeneral()}"/>
+                  <f:actionListener binding="#{controlProceso.salir()}"/>
+               </p:commandButton>
+               <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"
+                                style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close">
+                  <f:actionListener binding="#{controlProceso.cancelarModificacionGeneral()}"/>
+                  <f:actionListener binding="#{controlProceso.salir()}"/>
+               </p:commandButton>
+               <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();"
+                                style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+            </p:dialog>
+
+            <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+               <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+               <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 10px; width: 250px; font-weight: bold;"/>
+               <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.guardarYSalir()}"
+                                style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
+               <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.cancelarYSalir()}"
+                                style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close"/>
+               <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();"
+                                style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+            </p:dialog>
+
+            <p:dialog id="verificarNuevo" widgetVar="verificarNuevo" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="160" width="420" style="text-align: center;">
+               <h:outputText value="#{msg['seleccione']}" style="position: relative; top: 10px; color: blue; font-weight: bold; margin: auto;"/>
+               <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarNuevo').hide();" actionListener="#{controlProceso.dialogoNuevoRegistro(0)}"
+                                style="position: absolute; left: 60px; top: 50px; width: 300px; height: 27px;" process="@this"/>
+               <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarNuevo').hide();" actionListener="#{controlProceso.dialogoNuevoRegistro(1)}"
+                                style="position: absolute; left: 60px; top: 80px; width: 300px; height: 27px;" process="@this"/>
+               <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarNuevo').hide();" actionListener="#{controlProceso.dialogoNuevoRegistro(2)}"
+                                style="position: absolute; left: 60px; top: 110px; width: 300px; height: 27px;" process="@this"/>
+            </p:dialog>
+
+            <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="150" width="430" style="text-align: center;">
+               <h:outputText value="#{msg['seleccioneRH']}" style="position: relative; top: 10px; color: blue; font-weight: bold; margin: auto;"/>
+               <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarRastrosTablas').hide();"
+                                style="position: absolute; left: 60px; top: 50px; width: 300px; height: 27px;" actionListener="#{controlProceso.verificarRastroProcesoH()}" process="@this"/>
+               <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarRastrosTablas').hide();"
+                                style="position: absolute; left: 60px; top: 80px; width: 300px; height: 27px;" actionListener="#{controlProceso.verificarRastroFormulaProcesoH()}" process="@this"/>
+               <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarRastrosTablas').hide();"
+                                style="position: absolute; left: 60px; top: 110px; width: 300px; height: 27px;" actionListener="#{controlProceso.verificarRastroOperandoLogH()}" process="@this"/>
+            </p:dialog>
+
+            <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{controlProceso.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+               <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'proceso')}"
+                                style="position: absolute; top: 70px; left: 210px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('proceso', 'rastrotabla')}" process="@this"/>
+                                <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}"
+                                style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
+            </p:dialog>
+
+            <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{controlProceso.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+               <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlProceso.nombreTablaRastro , 'proceso')}"
+                                style="position: absolute; top: 70px; left: 210px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('proceso', 'rastrotabla')}" process="@this"/>
+                                <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}"
+                                style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
+            </p:dialog>
+
+            <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+            </p:dialog>
+
+            <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+            </p:dialog>
+
+            <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+               <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'proceso')}"
+                                style="position: absolute; top: 70px; left: 210px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('proceso', 'rastrotabla')}" process="@this"/>
+                                <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
+                                style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
+            </p:dialog>
+
+            <p:dialog id="errorSeleccionProceso" header="#{msg['error']}" widgetVar="errorSeleccionProceso"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorSeleccionProceso']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+            </p:dialog>
+
+            <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+            </p:dialog>
+
+            <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+            </p:dialog>
+
+            <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 76px; top: 8px; width: 200px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="errorClonado" header="#{msg['error']}" widgetVar="errorClonado"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{controlProceso.errorClonado}" style="position: absolute; left: 76px; top: 8px; width: 200px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="errorDatosNullProceso" header="#{msg['error']}" widgetVar="errorDatosNullProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorDatosNullProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="errorDescripcionProceso" header="#{msg['error']}" widgetVar="errorDescripcionProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorDescripcionProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="errorDatosNullFormulaProceso" header="#{msg['error']}" widgetVar="errorDatosNullFormulaProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorDatosNullFormulaProceso']}" style="position: absolute; left: 74px; top: 14px; width: 185px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="errorDatosNullOperando" header="#{msg['error']}" widgetVar="errorDatosNullOperando"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorDatosNullOperando']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="errorCodigoClon" header="#{msg['error']}" widgetVar="errorCodigoClon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorCodigoClon']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="errorDatosClonado" header="#{msg['error']}" widgetVar="errorDatosClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorDatosClonado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaDialogo" draggable="true" resizable="false" closable="false" id="FormulaDialogo"  
+                      showEffect="fade" hideEffect="fade" width="605" modal="true">
+               <p:dataTable id="lovFormula" liveScroll="true" scrollRows="25" var="formula" value="#{controlProceso.lovFormulas}" rowKey="#{formula.secuencia}"
+                            selection="#{controlProceso.formulaLovSeleccionada}" scrollWidth="585" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="250" 
+                            filteredValue="#{controlProceso.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}">              
+
+                  <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarF"/>
+                  <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarFormula()}"  process="@this"/>
+                  <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovFormula()}"/>
+
+                  <f:facet name="header">  
+                     <h:outputText value="#{msg['buscarF']}"/>  
+                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
+                  </f:facet>
+
+                  <p:column filterBy="#{formula.nombrelargo}" sortBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['nombreL']}"/>
+                     </f:facet>
+                     <h:outputText value="#{formula.nombrelargo}"/>
+                  </p:column>
+                  <p:column filterBy="#{formula.nombrecorto}" sortBy="#{formula.nombrecorto}" width="84" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['nombreC']}"/>
+                     </f:facet>
+                     <h:outputText value="#{formula.nombrecorto}"/>
+                  </p:column>
+                  <p:column filterBy="#{formula.observaciones}" sortBy="#{formula.observaciones}" width="300" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['observacionesF']}" style="text-align: justify !important;"/>
+                     </f:facet>
+                     <h:outputText value="#{formula.observaciones}" style="text-transform: uppercase;"/>
+                  </p:column>
+               </p:dataTable>
+               <div class="cssBotonesLOV">
+                  <h:outputText id="infoRegistroFormula" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovFormula}" class="cssinfoRegistroLOV"/>
+                  <p:commandButton icon="ui-icon-check" id="aceptarF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.actualizarFormula()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasF" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioFormula()}" process="@this"/>
+               </div>
+            </p:dialog>
+
+            <p:dialog header="#{msg['tipoPagoD']}" widgetVar="TipoPagoDialogo" draggable="true" resizable="false" closable="false" id="TipoPagoDialogo"  
+                      showEffect="fade" hideEffect="fade" width="431" modal="true">
+               <p:dataTable id="lovTipoPago" liveScroll="true" scrollRows="25" var="tipoP" value="#{controlProceso.lovTiposPagos}" rowKey="#{tipoP.secuencia}"
+                            selection="#{controlProceso.tipoPagoLovSeleccionado}" scrollWidth="410" selectionMode="single" widgetVar="lovTipoPago" scrollable="true"
+                            scrollHeight="250" filteredValue="#{controlProceso.filtrarLovTiposPagos}" emptyMessage="#{msg['lovvacio']}">
+
+                  <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarTP"/>
+                  <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarTipoPago()}" process="@this"/>
+                  <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovTipoPago()}"/>
+
+                  <f:facet name="header">  
+                     <h:outputText value="#{msg['buscarTP']}"/>  
+                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoPago').filter();" class="cssFiltroLOV"/>  
+                  </f:facet>
+
+                  <p:column filterBy="#{tipoP.codigo}" sortBy="#{tipoP.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['codigo']}"/>
+                     </f:facet>
+                     <h:outputText value="#{tipoP.codigo}"/>
+                  </p:column>
+
+                  <p:column filterBy="#{tipoP.descripcion}" sortBy="#{tipoP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['descripcionTP']}"/>
+                     </f:facet>
+                     <h:outputText value="#{tipoP.descripcion}"/>
+                  </p:column>
+               </p:dataTable>
+
+               <div class="cssBotonesLOV">
+                  <h:outputText id="infoRegistroTipoPago" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovTipoPago}" class="cssinfoRegistroLOV"/>
+                  <p:commandButton icon="ui-icon-check" id="aceptarTP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.actualizarTipoPago()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTP" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioTipoPago()}"  process="@this"/>
+               </div>
+            </p:dialog>
+
+            <p:dialog header="#{msg['procesoD']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
+                      showEffect="fade" hideEffect="fade" width="435" modal="true">
+               <p:dataTable id="lovProceso" liveScroll="true" scrollRows="25" var="proceso" value="#{controlProceso.lovProcesos}" rowKey="#{proceso.secuencia}"
+                            selection="#{controlProceso.procesoLovSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollHeight="250" 
+                            filteredValue="#{controlProceso.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+
+                  <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarP"/>
+                  <p:ajax event="rowDblselect" listener="#{controlProceso.seleccionarProcesoClonado()}" process="@this"/>
+                  <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovProceso()}"/>
+
+                  <f:facet name="header">  
+                     <h:outputText value="#{msg['buscarP']}:"/>  
+                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();" class="cssFiltroLOV"/>  
+                  </f:facet>
+
+                  <p:column filterBy="#{proceso.codigo}" sortBy="#{proceso.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['codigoP']}"/>
+                     </f:facet>
+                     <h:outputText value="#{proceso.codigo}"/>
+                  </p:column>
+                  <p:column filterBy="#{proceso.descripcion}" sortBy="#{proceso.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['descripcionP']}"/>
+                     </f:facet>
+                     <h:outputText value="#{proceso.descripcion}"/>
+                  </p:column>
+               </p:dataTable>
+
+               <div class="cssBotonesLOV">
+                  <h:outputText id="infoRegistroLovProceso" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovProceso}" class="cssinfoRegistroLOV"/>
+                  <p:commandButton icon="ui-icon-check" id="aceptarP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.seleccionarProcesoClonado()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarProcesoClonado()}" process="@this"/>
+               </div>
+            </p:dialog>
+
+            <p:dialog header="#{msg['operandoD']}" widgetVar="OperandoDialogo" draggable="true" resizable="false" closable="false" id="OperandoDialogo"  
+                      showEffect="fade" hideEffect="fade" width="531" modal="true">
+               <p:dataTable id="lovOperando" liveScroll="true" scrollRows="25" var="operando" value="#{controlProceso.lovOperandos}" rowKey="#{operando.secuencia}"
+                            selection="#{controlProceso.operandoLovSeleccionado}" scrollWidth="516" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" 
+                            filteredValue="#{controlProceso.filtrarLovOperandos}" emptyMessage="#{msg['lovvacio']}">              
+
+                  <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarO"/>
+                  <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarOperando()}"  process="@this"/>
+                  <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovOperando()}"/>
+
+                  <f:facet name="header">  
+                     <h:outputText value="#{msg['buscarO']}"/>  
+                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovOperando').filter();" class="cssFiltroLOV"/>  
+                  </f:facet>
+
+                  <p:column filterBy="#{operando.codigo}" sortBy="#{operando.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['codigoO']}"/>
+                     </f:facet>
+                     <h:outputText value="#{operando.codigo}"/>
+                  </p:column>
+                  <p:column filterBy="#{operando.nombre}" sortBy="#{operando.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['nombreO']}"/>
+                     </f:facet>
+                     <h:outputText value="#{operando.nombre}"/>
+                  </p:column>
+                  <p:column filterBy="#{operando.descripcion}" sortBy="#{operando.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['descripcionO']}"/>
+                     </f:facet>
+                     <h:outputText value="#{operando.descripcion}"/>
+                  </p:column>
+               </p:dataTable>
+
+               <div class="cssBotonesLOV">
+                  <h:outputText id="infoRegistroOperando" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovOperando}" class="cssinfoRegistroLOV"/>
+                  <p:commandButton icon="ui-icon-check" id="aceptarO" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.actualizarOperando()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasO" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioFormula()}" process="@this"/>
+               </div>
+            </p:dialog>
+
+            <p:remoteCommand name="posicionOperando" actionListener="#{controlProceso.posicionOperando()}"/>
+            <p:hotkey bind="ctrl+f11" actionListener="#{controlProceso.activarCtrlF11()}"/> 
+         </h:form>
+         <h:form id="formularioDialogos">
+
+            <p:dialog id="errorBorrarRegistro" header="#{msg['error']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
+               <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+               <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 190px; font-weight: bold;"/>
+            </p:dialog>
+
+            <p:dialog id="NuevoRegistroProceso" header="#{msg['nuevoregistroP']}" widgetVar="NuevoRegistroProceso" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style="padding: 0px">  
+               <center><strong><h:outputText value="#{msg['ingresarnuevoP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+               <p:panel id="nuevoProceso" style="border: none;">
+
+                  <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoProcesoCodigo" onclick="select();" value="#{controlProceso.nuevoProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                     <p:ajax event="change" update="nuevoProcesoCodigo"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['codigo']}" for="nuevoProcesoCodigo"/>
+
+                  <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.nuevoProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
+                     <p:ajax event="change" update="nuevoProcesoDescripcion"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['descripcion']}" for="nuevoProcesoDescripcion"/>
+
+                  <strong><h:outputText value="*#{msg['tipoPagoNP']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoProcesoTipoPago" onclick="select();" value="#{controlProceso.nuevoProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;">
+                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexNuevos(0, 1)}" process="@this" update="nuevoProcesoTipoPago"/>
+                     <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'TIPOPAGO')}"/>
+                     <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.nuevoProceso.tipopago.descripcion, 1)}"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['tipoPago']}" for="nuevoProcesoTipoPago"/>
+                  <p:commandButton style="position: absolute; left: 331px; top: 130px;" value="" class="cssBotonLovDialogos" id="btnNuevoProcesoTipoPago" process="@this"  actionListener="#{controlProceso.asignarIndex(indice,0,1,0)}"/>   
+
+                  <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.nuevoProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase;">
+                     <p:ajax event="change" update="nuevoProcesoComentario"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['comentario']}" for="nuevoProcesoComentario"/>
+
+                  <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoProcesoNumero" onclick="select();" value="#{controlProceso.nuevoProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase;">
+                     <p:ajax event="change" update="nuevoProcesoNumero"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="nuevoProcesoNumero"/>
+
+                  <strong><h:outputText  value="#{msg['contabilizacionNP']}" style="position: absolute; top: 225px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="nuevaProcesoContabilizacion" value="#{controlProceso.nuevoProceso.checkContabilizacion}" style="position: absolute; left: 315px; top: 220px;">
+                     <p:ajax event="change" update="nuevaProcesoContabilizacion"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['solucionNodosNP']}" style="position: absolute; top: 255px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="nuevaProcesoSolucionNodo" value="#{controlProceso.nuevoProceso.checkEliminarSNodo}" style="position: absolute; left: 315px; top: 250px;">
+                     <p:ajax event="change" update="nuevaProcesoSolucionNodo"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['adelantosNP']}" style="position: absolute; top: 285px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="nuevaProcesoAdelanto" value="#{controlProceso.nuevoProceso.checkEliminarAdelanto}" style="position: absolute; left: 315px; top: 280px;">
+                     <p:ajax event="change" update="nuevaProcesoAdelanto"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['controlSobregirosNP']}" style="position: absolute; top: 315px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="nuevaProcesoSobregiros" value="#{controlProceso.nuevoProceso.checkEliminarCSobregiro}" style="position: absolute; left: 315px; top: 310px;">
+                     <p:ajax event="change" update="nuevaProcesoSobregiros"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['automaticoNP']}" style="position: absolute; top: 345px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="nuevaProcesoAutomatico" value="#{controlProceso.nuevoProceso.checkAutomatico}" style="position: absolute; left: 315px; top: 340px;">
+                     <p:ajax event="change" update="nuevaProcesoAutomatico"/>
+                  </p:selectBooleanCheckbox>   
+
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarNP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 390px;" actionListener="#{controlProceso.limpiarNuevaProceso()}" update="nuevoProceso" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="aceptarNP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 390px;"  actionListener="#{controlProceso.agregarNuevoProceso()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarNP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 390px;" actionListener="#{controlProceso.limpiarNuevaProceso()}" update="nuevoProceso" onclick="PF('NuevoRegistroProceso').hide();"  process="@this"/>
                </p:panel>
-
-               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 10px; width: 250px; font-weight: bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();"
-                                   style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check">
-                     <f:actionListener binding="#{controlProceso.guardarGeneral()}"/>
-                     <f:actionListener binding="#{controlProceso.salir()}"/>
-                  </p:commandButton>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"
-                                   style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close">
-                     <f:actionListener binding="#{controlProceso.cancelarModificacionGeneral()}"/>
-                     <f:actionListener binding="#{controlProceso.salir()}"/>
-                  </p:commandButton>
-                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();"
-                                   style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-               </p:dialog>
-
-               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 10px; width: 250px; font-weight: bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.guardarYSalir()}"
-                                   style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.cancelarYSalir()}"
-                                   style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close"/>
-                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();"
-                                   style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-               </p:dialog>
-
-               <p:dialog id="verificarNuevo" widgetVar="verificarNuevo" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="160" width="420" style="text-align: center;">
-                  <h:outputText value="#{msg['seleccione']}" style="position: relative; top: 10px; color: blue; font-weight: bold; margin: auto;"/>
-                  <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarNuevo').hide();" actionListener="#{controlProceso.dialogoNuevoRegistro(0)}"
-                                   style="position: absolute; left: 60px; top: 50px; width: 300px; height: 27px;" process="@this"/>
-                  <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarNuevo').hide();" actionListener="#{controlProceso.dialogoNuevoRegistro(1)}"
-                                   style="position: absolute; left: 60px; top: 80px; width: 300px; height: 27px;" process="@this"/>
-                  <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarNuevo').hide();" actionListener="#{controlProceso.dialogoNuevoRegistro(2)}"
-                                   style="position: absolute; left: 60px; top: 110px; width: 300px; height: 27px;" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="150" width="430" style="text-align: center;">
-                  <h:outputText value="#{msg['seleccioneRH']}" style="position: relative; top: 10px; color: blue; font-weight: bold; margin: auto;"/>
-                  <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarRastrosTablas').hide();"
-                                   style="position: absolute; left: 60px; top: 50px; width: 300px; height: 27px;" actionListener="#{controlProceso.verificarRastroProcesoH()}" process="@this"/>
-                  <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarRastrosTablas').hide();"
-                                   style="position: absolute; left: 60px; top: 80px; width: 300px; height: 27px;" actionListener="#{controlProceso.verificarRastroFormulaProcesoH()}" process="@this"/>
-                  <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarRastrosTablas').hide();"
-                                   style="position: absolute; left: 60px; top: 110px; width: 300px; height: 27px;" actionListener="#{controlProceso.verificarRastroOperandoLogH()}" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{controlProceso.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}"
-                                   style="position: absolute; top: 70px; left: 210px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}"
-                                   style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{controlProceso.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlProceso.nombreTablaRastro , 'rastroProceso')}"
-                                   style="position: absolute; top: 70px; left: 210px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}"
-                                   style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center"/>
-               </p:dialog>
-
-               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center"/>
-               </p:dialog>
-
-               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}"
-                                   style="position: absolute; top: 70px; left: 210px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
-                                   style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="errorSeleccionProceso" header="#{msg['error']}" widgetVar="errorSeleccionProceso"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorSeleccionProceso']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center"/>
-               </p:dialog>
-
-               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center"/>
-               </p:dialog>
-
-               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center"/>
-               </p:dialog>
-
-               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 76px; top: 8px; width: 200px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorClonado" header="#{msg['error']}" widgetVar="errorClonado"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{controlProceso.errorClonado}" style="position: absolute; left: 76px; top: 8px; width: 200px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorDatosNullProceso" header="#{msg['error']}" widgetVar="errorDatosNullProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorDatosNullProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorDescripcionProceso" header="#{msg['error']}" widgetVar="errorDescripcionProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorDescripcionProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorDatosNullFormulaProceso" header="#{msg['error']}" widgetVar="errorDatosNullFormulaProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorDatosNullFormulaProceso']}" style="position: absolute; left: 74px; top: 14px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorDatosNullOperando" header="#{msg['error']}" widgetVar="errorDatosNullOperando"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorDatosNullOperando']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorCodigoClon" header="#{msg['error']}" widgetVar="errorCodigoClon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorCodigoClon']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorDatosClonado" header="#{msg['error']}" widgetVar="errorDatosClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorDatosClonado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaDialogo" draggable="true" resizable="false" closable="false" id="FormulaDialogo"  
-                         showEffect="fade" hideEffect="fade" width="605" modal="true">
-                  <p:dataTable id="lovFormula" liveScroll="true" scrollRows="25" var="formula" value="#{controlProceso.lovFormulas}" rowKey="#{formula.secuencia}"
-                               selection="#{controlProceso.formulaLovSeleccionada}" scrollWidth="585" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlProceso.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}">              
-
-                     <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarF"/>
-                     <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarFormula()}"  process="@this"/>
-                     <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovFormula()}"/>
-
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarF']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
-                     </f:facet>
-
-                     <p:column filterBy="#{formula.nombrelargo}" sortBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['nombreL']}"/>
-                        </f:facet>
-                        <h:outputText value="#{formula.nombrelargo}"/>
-                     </p:column>
-                     <p:column filterBy="#{formula.nombrecorto}" sortBy="#{formula.nombrecorto}" width="84" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['nombreC']}"/>
-                        </f:facet>
-                        <h:outputText value="#{formula.nombrecorto}"/>
-                     </p:column>
-                     <p:column filterBy="#{formula.observaciones}" sortBy="#{formula.observaciones}" width="300" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['observacionesF']}" style="text-align: justify !important;"/>
-                        </f:facet>
-                        <h:outputText value="#{formula.observaciones}" style="text-transform: uppercase;"/>
-                     </p:column>
-                  </p:dataTable>
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroFormula" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovFormula}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton icon="ui-icon-check" id="aceptarF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.actualizarFormula()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasF" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioFormula()}" process="@this"/>
-                  </div>
-               </p:dialog>
-
-               <p:dialog header="#{msg['tipoPagoD']}" widgetVar="TipoPagoDialogo" draggable="true" resizable="false" closable="false" id="TipoPagoDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
-                  <p:dataTable id="lovTipoPago" liveScroll="true" scrollRows="25" var="tipoP" value="#{controlProceso.lovTiposPagos}" rowKey="#{tipoP.secuencia}"
-                               selection="#{controlProceso.tipoPagoLovSeleccionado}" scrollWidth="410" selectionMode="single" widgetVar="lovTipoPago" scrollable="true"
-                               scrollHeight="250" filteredValue="#{controlProceso.filtrarLovTiposPagos}" emptyMessage="#{msg['lovvacio']}">
-
-                     <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarTP"/>
-                     <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarTipoPago()}" process="@this"/>
-                     <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovTipoPago()}"/>
-
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarTP']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoPago').filter();" class="cssFiltroLOV"/>  
-                     </f:facet>
-
-                     <p:column filterBy="#{tipoP.codigo}" sortBy="#{tipoP.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['codigo']}"/>
-                        </f:facet>
-                        <h:outputText value="#{tipoP.codigo}"/>
-                     </p:column>
-
-                     <p:column filterBy="#{tipoP.descripcion}" sortBy="#{tipoP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['descripcionTP']}"/>
-                        </f:facet>
-                        <h:outputText value="#{tipoP.descripcion}"/>
-                     </p:column>
-                  </p:dataTable>
-
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroTipoPago" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovTipoPago}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton icon="ui-icon-check" id="aceptarTP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.actualizarTipoPago()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTP" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioTipoPago()}"  process="@this"/>
-                  </div>
-               </p:dialog>
-
-               <p:dialog header="#{msg['procesoD']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
-                         showEffect="fade" hideEffect="fade" width="435" modal="true">
-                  <p:dataTable id="lovProceso" liveScroll="true" scrollRows="25" var="proceso" value="#{controlProceso.lovProcesos}" rowKey="#{proceso.secuencia}"
-                               selection="#{controlProceso.procesoLovSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlProceso.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
-
-                     <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarP"/>
-                     <p:ajax event="rowDblselect" listener="#{controlProceso.seleccionarProcesoClonado()}" process="@this"/>
-                     <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovProceso()}"/>
-
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarP']}: "/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();" class="cssFiltroLOV"/>  
-                     </f:facet>
-
-                     <p:column filterBy="#{proceso.codigo}" sortBy="#{proceso.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['codigoP']}"/>
-                        </f:facet>
-                        <h:outputText value="#{proceso.codigo}"/>
-                     </p:column>
-                     <p:column filterBy="#{proceso.descripcion}" sortBy="#{proceso.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['descripcionP']}"/>
-                        </f:facet>
-                        <h:outputText value="#{proceso.descripcion}"/>
-                     </p:column>
-                  </p:dataTable>
-
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroLovProceso" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovProceso}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton icon="ui-icon-check" id="aceptarP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.seleccionarProcesoClonado()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarProcesoClonado()}" process="@this"/>
-                  </div>
-               </p:dialog>
-
-               <p:dialog header="#{msg['operandoD']}" widgetVar="OperandoDialogo" draggable="true" resizable="false" closable="false" id="OperandoDialogo"  
-                         showEffect="fade" hideEffect="fade" width="531" modal="true">
-                  <p:dataTable id="lovOperando" liveScroll="true" scrollRows="25" var="operando" value="#{controlProceso.lovOperandos}" rowKey="#{operando.secuencia}"
-                               selection="#{controlProceso.operandoLovSeleccionado}" scrollWidth="516" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlProceso.filtrarLovOperandos}" emptyMessage="#{msg['lovvacio']}">              
-
-                     <p:ajax event="rowSelect" listener="#{controlProceso.activarAceptar()}" update=":form:aceptarO"/>
-                     <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarOperando()}"  process="@this"/>
-                     <p:ajax event="filter" listener="#{controlProceso.contarRegistrosLovOperando()}"/>
-
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarO']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovOperando').filter();" class="cssFiltroLOV"/>  
-                     </f:facet>
-
-                     <p:column filterBy="#{operando.codigo}" sortBy="#{operando.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['codigoO']}"/>
-                        </f:facet>
-                        <h:outputText value="#{operando.codigo}"/>
-                     </p:column>
-                     <p:column filterBy="#{operando.nombre}" sortBy="#{operando.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['nombreO']}"/>
-                        </f:facet>
-                        <h:outputText value="#{operando.nombre}"/>
-                     </p:column>
-                     <p:column filterBy="#{operando.descripcion}" sortBy="#{operando.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['descripcionO']}"/>
-                        </f:facet>
-                        <h:outputText value="#{operando.descripcion}"/>
-                     </p:column>
-                  </p:dataTable>
-
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroOperando" value="#{msg['infoRegistro']} #{controlProceso.infoRegistroLovOperando}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton icon="ui-icon-check" id="aceptarO" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProceso.aceptar}" actionListener="#{controlProceso.actualizarOperando()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasO" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioFormula()}" process="@this"/>
-                  </div>
-               </p:dialog>
-
-               <p:remoteCommand name="posicionOperando" actionListener="#{controlProceso.posicionOperando()}"/>
-               <p:hotkey bind="ctrl+f11" actionListener="#{controlProceso.activarCtrlF11()}"/> 
-            </h:form>
-            <h:form id="formularioDialogos">
-
-               <p:dialog id="errorBorrarRegistro" header="#{msg['error']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 190px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="NuevoRegistroProceso" header="#{msg['nuevoregistroP']}" widgetVar="NuevoRegistroProceso" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style="padding: 0px">  
-                  <center><strong><h:outputText value="#{msg['ingresarnuevoP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-                  <p:panel id="nuevoProceso" style="border: none;">
-
-                     <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoProcesoCodigo" onclick="select();" value="#{controlProceso.nuevoProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                        <p:ajax event="change" update="nuevoProcesoCodigo"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['codigo']}" for="nuevoProcesoCodigo"/>
-
-                     <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.nuevoProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
-                        <p:ajax event="change" update="nuevoProcesoDescripcion"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['descripcion']}" for="nuevoProcesoDescripcion"/>
-
-                     <strong><h:outputText value="*#{msg['tipoPagoNP']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoProcesoTipoPago" onclick="select();" value="#{controlProceso.nuevoProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexNuevos(0, 1)}" process="@this" update="nuevoProcesoTipoPago"/>
-                        <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'TIPOPAGO')}"/>
-                        <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.nuevoProceso.tipopago.descripcion, 1)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['tipoPago']}" for="nuevoProcesoTipoPago"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 130px;" value="" class="cssBotonLovDialogos" id="btnNuevoProcesoTipoPago" process="@this"  actionListener="#{controlProceso.asignarIndex(indice,0,1,0)}"/>   
-
-                     <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.nuevoProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase;">
-                        <p:ajax event="change" update="nuevoProcesoComentario"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['comentario']}" for="nuevoProcesoComentario"/>
-
-                     <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoProcesoNumero" onclick="select();" value="#{controlProceso.nuevoProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase;">
-                        <p:ajax event="change" update="nuevoProcesoNumero"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="nuevoProcesoNumero"/>
-
-                     <strong><h:outputText  value="#{msg['contabilizacionNP']}" style="position: absolute; top: 225px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="nuevaProcesoContabilizacion" value="#{controlProceso.nuevoProceso.checkContabilizacion}" style="position: absolute; left: 315px; top: 220px;">
-                        <p:ajax event="change" update="nuevaProcesoContabilizacion"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['solucionNodosNP']}" style="position: absolute; top: 255px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="nuevaProcesoSolucionNodo" value="#{controlProceso.nuevoProceso.checkEliminarSNodo}" style="position: absolute; left: 315px; top: 250px;">
-                        <p:ajax event="change" update="nuevaProcesoSolucionNodo"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['adelantosNP']}" style="position: absolute; top: 285px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="nuevaProcesoAdelanto" value="#{controlProceso.nuevoProceso.checkEliminarAdelanto}" style="position: absolute; left: 315px; top: 280px;">
-                        <p:ajax event="change" update="nuevaProcesoAdelanto"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['controlSobregirosNP']}" style="position: absolute; top: 315px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="nuevaProcesoSobregiros" value="#{controlProceso.nuevoProceso.checkEliminarCSobregiro}" style="position: absolute; left: 315px; top: 310px;">
-                        <p:ajax event="change" update="nuevaProcesoSobregiros"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['automaticoNP']}" style="position: absolute; top: 345px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="nuevaProcesoAutomatico" value="#{controlProceso.nuevoProceso.checkAutomatico}" style="position: absolute; left: 315px; top: 340px;">
-                        <p:ajax event="change" update="nuevaProcesoAutomatico"/>
-                     </p:selectBooleanCheckbox>   
-
-
-                     <p:commandButton icon="ui-icon-trash" id="limpiarNP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 390px;" actionListener="#{controlProceso.limpiarNuevaProceso()}" update="nuevoProceso" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="aceptarNP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 390px;"  actionListener="#{controlProceso.agregarNuevoProceso()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 390px;" actionListener="#{controlProceso.limpiarNuevaProceso()}" update="nuevoProceso" onclick="PF('NuevoRegistroProceso').hide();"  process="@this"/>
-                  </p:panel>
-               </p:dialog>
-
-               <p:dialog id="DuplicarRegistroProceso" header="#{msg['duplicarregistroP']}" widgetVar="DuplicarRegistroProceso" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style="padding: 0px">  
-
-                  <center><strong><h:outputText value="#{msg['ingresarnuevoP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-
-                  <p:panel id="duplicarProceso" style="border: none;">
-
-                     <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarProcesoCodigo" onclick="select();" value="#{controlProceso.duplicarProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                        <p:ajax event="change" update="duplicarProcesoCodigo"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['codigo']}" for="duplicarProcesoCodigo"/>
-
-                     <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.duplicarProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
-                        <p:ajax event="change" update="duplicarProcesoDescripcion"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['descripcion']}" for="duplicarProcesoDescripcion"/>
-
-                     <strong><h:outputText value="*#{msg['tipoPagoNP']}" style=" position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarProcesoTipoPago" onclick="select();" value="#{controlProceso.duplicarProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexNuevos(0, 2)}" process="@this" update="duplicarProcesoTipoPago"/>
-                        <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'TIPOPAGO')}"/>
-                        <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.duplicarProceso.tipopago.descripcion, 2)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['tipoPago']}" for="duplicarProcesoTipoPago"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 130px;" value="" class="cssBotonLovDialogos" id="btnDuplicarProcesoTipoPago" process="@this" actionListener="#{controlProceso.asignarIndex(indice,0,2,0)}"/>   
-
-                     <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.duplicarProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase;">
-                        <p:ajax event="change" update="duplicarProcesoComentario"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['comentario']}" for="duplicarProcesoComentario"/>
-
-                     <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarProcesoNumero" onclick="select();" value="#{controlProceso.duplicarProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase;">
-                        <p:ajax event="change" update="duplicarProcesoNumero"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="duplicarProcesoNumero"/>
-
-                     <strong><h:outputText  value="#{msg['contabilizacionNP']}" style="position: absolute; top: 225px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="duplicarProcesoContabilizacion" value="#{controlProceso.duplicarProceso.checkContabilizacion}" style="position: absolute; left: 315px; top: 220px;">
-                        <p:ajax event="change" update="duplicarProcesoContabilizacion"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['solucionNodosNP']}" style="position: absolute; top: 255px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="duplicarProcesoSolucionNodo" value="#{controlProceso.duplicarProceso.checkEliminarSNodo}" style="position: absolute; left: 315px; top: 250px;">
-                        <p:ajax event="change" update="duplicarProcesoSolucionNodo"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['adelantosNP']}" style="position: absolute; top: 285px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="duplicarProcesoAdelanto" value="#{controlProceso.duplicarProceso.checkEliminarAdelanto}" style="position: absolute; left: 315px; top: 280px;">
-                        <p:ajax event="change" update="duplicarProcesoAdelanto"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['controlSobregirosNP']}" style="position: absolute; top: 315px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="duplicarProcesoSobregiros" value="#{controlProceso.duplicarProceso.checkEliminarCSobregiro}" style="position: absolute; left: 315px; top: 310px;">
-                        <p:ajax event="change" update="duplicarProcesoSobregiros"/>
-                     </p:selectBooleanCheckbox>   
-
-                     <strong><h:outputText  value="#{msg['automaticoNP']}" style="position: absolute; top: 345px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="duplicarProcesoAutomatico" value="#{controlProceso.duplicarProceso.checkAutomatico}" style="position: absolute; left: 315px; top: 340px;">
-                        <p:ajax event="change" update="duplicarProcesoAutomatico"/>
-                     </p:selectBooleanCheckbox>                               
-
-                     <p:commandButton icon="ui-icon-trash" id="limpiarDP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 390px;" actionListener="#{controlProceso.limpiarDuplicarProceso()}" update="duplicarProceso" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarDP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 390px;"  actionListener="#{controlProceso.confirmarDuplicarProceso()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 390px;" actionListener="#{controlProceso.limpiarDuplicarProceso()}" update="duplicarProceso" onclick="PF('DuplicarRegistroProceso').hide();"  process="@this"/>
-                  </p:panel>
-               </p:dialog>
-
-               <p:dialog id="NuevoRegistroFormulaProceso" header="#{msg['nuevoregistroFP']}" widgetVar="NuevoRegistroFormulaProceso"
-                         closable="false" resizable="false" draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
-                  <center><strong><h:outputText value="#{msg['ingresarnuevoFP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-                  <p:panel id="nuevoFormulaProceso" style="border: none;">
-
-                     <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoFormulaProcesoFormula" onclick="select();" value="#{controlProceso.nuevoFormulaProceso.formula.nombrelargo}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 68px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexFPNuevos(0,1)}" process="@this" update="nuevoFormulaProcesoFormula"/>
-                        <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'FORMULA')}"/>
-                        <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.nuevoFormulaProceso.formula.nombrelargo, 1)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['formula']}" for="nuevoFormulaProcesoFormula"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnNuevoFormulaProcesoFormula" value="" process="@this" actionListener="#{controlProceso.asignarIndex(indiceFP,0,1,1)}"/>   
-
-                     <strong><h:outputText value="#{msg['periodicidadesNFP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="nuevoFormulaProcesoPeriodicidad" style="position: absolute; top: 102px; left: 330px; alignment-adjust: central;" value="#{controlProceso.nuevoFormulaProceso.checkPeriodicidad}">
-                        <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(indiceFP)}" process="@this"/>
-                     </p:selectBooleanCheckbox> 
-
-                     <p:commandButton icon="ui-icon-trash" id="limpiarNFP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormulaProceso" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="aceptarNFP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.agregarNuevoFormulaProceso()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormulaProceso" onclick="PF('NuevoRegistroFormulaProceso').hide();"  process="@this"/>
-                  </p:panel>
-               </p:dialog>
-
-               <p:dialog id="DuplicarRegistroFormulaProceso" header="#{msg['duplicarregistroFP']}" widgetVar="DuplicarRegistroFormulaProceso"
-                         closable="false" resizable="false"  draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
-                  <center><strong><h:outputText value="#{msg['ingresarnuevoFP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-                  <p:panel id="duplicaFormulaProceso" style="border: none;">
-
-                     <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarFormulaProcesoFormula" onclick="select();" value="#{controlProceso.duplicarFormulaProceso.formula.nombrelargo}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 68px;text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexFPNuevos(0,2)}" process="@this" update="duplicarFormulaProcesoFormula"/>
-                        <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'FORMULA')}"/>
-                        <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.duplicarFormulaProceso.formula.nombrelargo, 2)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['formula']}" for="duplicarFormulaProcesoFormula"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnDuplicarFormulaProcesoFormula" value="" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceFP,0,2,1)}"/>   
-
-                     <strong><h:outputText value="#{msg['periodicidadesNFP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:selectBooleanCheckbox id="duplicarFormulaProcesoPeriodicidad" style="alignment-adjust: central; position: absolute; top: 102px; left: 330px;" value="#{controlProceso.duplicarFormulaProceso.checkPeriodicidad}">
-                        <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(indiceFP)}" process="@this"/>
-                     </p:selectBooleanCheckbox> 
-
-                     <p:commandButton icon="ui-icon-trash" id="limpiarDFP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarFormulaProceso()}" update="duplicaFormulaProceso" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="aceptarDFP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.confirmarDuplicarFormulaProceso()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarFormulaProceso()}" update="duplicaFormulaProceso" onclick="PF('DuplicarRegistroFormulaProceso').hide();"  process="@this"/>
-                  </p:panel>
-               </p:dialog>
-
-
-               <p:dialog id="NuevoRegistroOperandoLog" header="#{msg['nuevoregistroOL']}" widgetVar="NuevoRegistroOperandoLog"
-                         closable="false" resizable="false"  draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
-                  <center><strong><h:outputText value="#{msg['ingresarnuevoOL']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-                  <p:panel id="nuevoOperandoLog" style="border: none;">
-
-                     <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoOperandoLogOperando" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.nombre}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 65px;text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexOLNuevos(0,1)}" process="@this" update="nuevoOperandoLogOperando"/>
-                        <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'OPERANDO')}"/>
-                        <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.nuevoOperandoLog.operando.nombre, 1)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['operando']}" for="nuevoOperandoLogOperando"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 67px;" class="cssBotonLovDialogos" id="btnNuevoOperandoLogOperando" value="" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,1,2)}"/>   
-
-                     <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.nuevoOperandoLog.descripcion}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;"/>
-                     <p:watermark value="#{msg['descripcion']}" for="nuevoOperandoLogDescripcion"/>
-
-                     <p:commandButton icon="ui-icon-trash" id="limpiarNOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="aceptarNOL" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.agregarNuevoOperandoLog()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" onclick="PF('NuevoRegistroOperandoLog').hide();"  process="@this"/>
-                  </p:panel>
-               </p:dialog>
-
-               <p:dialog id="DuplicarRegistroOperandoLog" header="#{msg['duplicarregistroOL']}" widgetVar="DuplicarRegistroOperandoLog"
-                         closable="false" resizable="false"  draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
-                  <center><strong><h:outputText value="#{msg['ingresarnuevoOL']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-                  <p:panel id="duplicarOperandoLog" style="border: none;">
-
-                     <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarOperandoLogOperando" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.nombre}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 65px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexOLNuevos(0,2)}" process="@this" update="duplicarOperandoLogOperando"/>
-                        <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'OPERANDO')}"/>
-                        <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.duplicarOperandoLog.operando.nombre, 2)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['operando']}" for="duplicarOperandoLogOperando"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 67px;" class="cssBotonLovDialogos" id="btnDuplicarOperandoLogOperando" value="" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,2,2)}"/>   
-
-                     <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.duplicarOperandoLog.descripcion}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;"/>
-                     <p:watermark value="#{msg['descripcion']}" for="duplicarOperandoLogDescripcion"/>
-
-                     <p:commandButton icon="ui-icon-trash" id="limpiarDOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="aceptarDOL" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.confirmarDuplicarOperandoLog()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" onclick="PF('DuplicarRegistroOperandoLog').hide();"  process="@this"/>
-                  </p:panel>
-               </p:dialog>
-
-
-               <!-- editar celdas proceso -->
-
-               <p:dialog id="editarCodigoProcesoD" header="#{msg['editarCodigoProcesoD']}" widgetVar="editarCodigoProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarProceso.codigo}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <p:dialog id="editarDescripcionProcesoD" header="#{msg['editarDescripcionProcesoD']}" widgetVar="editarDescripcionProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarProceso.descripcion}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <p:dialog id="editarTipoPagoProcesoD" header="#{msg['editarTipoPagoProcesoD']}" widgetVar="editarTipoPagoProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarProceso.tipopago.descripcion}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <p:dialog id="editarComentarioProcesoD" header="#{msg['editarComentarioProcesoD']}" widgetVar="editarComentarioProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarProceso.comentarios}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <p:dialog id="editarNumeroProcesoD" header="#{msg['editarNumeroProcesoD']}" widgetVar="editarNumeroProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarProceso.numerocierrerequerido}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <!-- editar celdas formula proceso -->
-
-               <p:dialog id="editarFormulaFormulaProceso" header="#{msg['editarFormulaFormulaProceso']}" widgetVar="editarFormulaFormulaProceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarFormulaProceso.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <!-- editar celdas operando log -->
-
-               <p:dialog id="editarOperandoOperandoLogD" header="#{msg['editarOperandoOperandoLogD']}" widgetVar="editarOperandoOperandoLogD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarOperandoLog.operando.nombre}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <p:dialog id="editarDescripcionOperandoLogD" header="#{msg['editarDescripcionOperandoLogD']}" widgetVar="editarDescripcionOperandoLogD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlProceso.editarOperandoLog.descripcion}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-            </h:form>
-            <h:form id="formExportarP">
-               <p:dataTable id="datosProcesoExportar" var="expP" style="visibility: hidden; display: none;"                           
-                            value="#{controlProceso.listaProcesos}"> 
-
-                  <p:column headerText="#{msg['codigoX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.codigo}"/>
-                  </p:column>  
-
-                  <p:column headerText="#{msg['descripcionX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.descripcion}"/>
-                  </p:column>
-
-                  <p:column headerText="#{msg['tipoPagoXX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['tipoPagoX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.tipopago.descripcion}">
-                     </h:outputText>
-                  </p:column>
-
-                  <p:column headerText="#{msg['comentarioX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['comentarioX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.comentarios}">
-                     </h:outputText>
-                  </p:column>
-
-                  <p:column headerText="#{msg['numeroXX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['numeroX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.numerocierrerequerido}">
-                     </h:outputText>
-                  </p:column>
-
-                  <p:column headerText="#{msg['contabilizacionXX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['contabilizacionX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.strContabilizacion}">
-                     </h:outputText>
-                  </p:column>
-
-                  <p:column headerText="#{msg['solucionNodoXX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['solucionNodoX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.strEliminarSNodo}">
-                     </h:outputText>
-                  </p:column> 
-
-                  <p:column headerText="#{msg['adelantosXX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['adelantosX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.strEliminarAdelanto}">
-                     </h:outputText>
-                  </p:column>
-
-                  <p:column headerText="#{msg['controlSobregiroXX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['controlSobregiroX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.strEliminarCSobregiro}">
-                     </h:outputText>
-                  </p:column> 
-
-                  <p:column headerText="#{msg['automaticoX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['automaticoX']}"/> </f:facet> 
-                     <h:outputText value="#{expP.strAutomatico}">
-                     </h:outputText>
-                  </p:column>
-
-               </p:dataTable>
-            </h:form>
-
-            <h:form id="formExportarFP">
-               <p:dataTable id="datosFormulaProcesoExportar" var="expFP" style="visibility: hidden; display: none;"                           
-                            value="#{controlProceso.listaFormulasProcesos}"> 
-
-                  <p:column headerText="#{msg['formulaX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/> </f:facet> 
-                     <h:outputText value="#{expFP.formula.nombrelargo}">
-                     </h:outputText>
-                  </p:column>  
-
-                  <p:column headerText="#{msg['periodicidadXX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['periodicidadX']}"/> </f:facet> 
-                     <h:outputText value="#{expFP.strPeriodicidad}">
-                     </h:outputText>
-                  </p:column>
-
-               </p:dataTable>
-            </h:form>
-
-            <h:form id="formExportarOL">
-               <p:dataTable id="datosOperandoExportar" var="expOL" style="visibility: hidden; display: none;"                           
-                            value="#{controlProceso.listaOperandosLogs}"> 
-
-                  <p:column headerText="#{msg['operandoX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['operandoX']}"/> </f:facet> 
-                     <h:outputText value="#{expOL.operando.descripcion}">
-                     </h:outputText>
-                  </p:column> 
-
-                  <p:column headerText="#{msg['descripcionX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
-                     <h:outputText value="#{expOL.operando.codigo}">
-                     </h:outputText>
-                  </p:column>  
-
-               </p:dataTable>
-            </h:form>
-         </ui:define>
-      </ui:composition>
-   </h:body>
+            </p:dialog>
+
+            <p:dialog id="DuplicarRegistroProceso" header="#{msg['duplicarregistroP']}" widgetVar="DuplicarRegistroProceso" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style="padding: 0px">  
+
+               <center><strong><h:outputText value="#{msg['ingresarnuevoP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+               <p:panel id="duplicarProceso" style="border: none;">
+
+                  <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarProcesoCodigo" onclick="select();" value="#{controlProceso.duplicarProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                     <p:ajax event="change" update="duplicarProcesoCodigo"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['codigo']}" for="duplicarProcesoCodigo"/>
+
+                  <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.duplicarProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
+                     <p:ajax event="change" update="duplicarProcesoDescripcion"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['descripcion']}" for="duplicarProcesoDescripcion"/>
+
+                  <strong><h:outputText value="*#{msg['tipoPagoNP']}" style=" position: absolute; top: 135px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarProcesoTipoPago" onclick="select();" value="#{controlProceso.duplicarProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;">
+                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexNuevos(0, 2)}" process="@this" update="duplicarProcesoTipoPago"/>
+                     <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'TIPOPAGO')}"/>
+                     <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.duplicarProceso.tipopago.descripcion, 2)}"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['tipoPago']}" for="duplicarProcesoTipoPago"/>
+                  <p:commandButton style="position: absolute; left: 331px; top: 130px;" value="" class="cssBotonLovDialogos" id="btnDuplicarProcesoTipoPago" process="@this" actionListener="#{controlProceso.asignarIndex(indice,0,2,0)}"/>   
+
+                  <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.duplicarProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase;">
+                     <p:ajax event="change" update="duplicarProcesoComentario"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['comentario']}" for="duplicarProcesoComentario"/>
+
+                  <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarProcesoNumero" onclick="select();" value="#{controlProceso.duplicarProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase;">
+                     <p:ajax event="change" update="duplicarProcesoNumero"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="duplicarProcesoNumero"/>
+
+                  <strong><h:outputText  value="#{msg['contabilizacionNP']}" style="position: absolute; top: 225px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="duplicarProcesoContabilizacion" value="#{controlProceso.duplicarProceso.checkContabilizacion}" style="position: absolute; left: 315px; top: 220px;">
+                     <p:ajax event="change" update="duplicarProcesoContabilizacion"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['solucionNodosNP']}" style="position: absolute; top: 255px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="duplicarProcesoSolucionNodo" value="#{controlProceso.duplicarProceso.checkEliminarSNodo}" style="position: absolute; left: 315px; top: 250px;">
+                     <p:ajax event="change" update="duplicarProcesoSolucionNodo"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['adelantosNP']}" style="position: absolute; top: 285px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="duplicarProcesoAdelanto" value="#{controlProceso.duplicarProceso.checkEliminarAdelanto}" style="position: absolute; left: 315px; top: 280px;">
+                     <p:ajax event="change" update="duplicarProcesoAdelanto"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['controlSobregirosNP']}" style="position: absolute; top: 315px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="duplicarProcesoSobregiros" value="#{controlProceso.duplicarProceso.checkEliminarCSobregiro}" style="position: absolute; left: 315px; top: 310px;">
+                     <p:ajax event="change" update="duplicarProcesoSobregiros"/>
+                  </p:selectBooleanCheckbox>   
+
+                  <strong><h:outputText  value="#{msg['automaticoNP']}" style="position: absolute; top: 345px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="duplicarProcesoAutomatico" value="#{controlProceso.duplicarProceso.checkAutomatico}" style="position: absolute; left: 315px; top: 340px;">
+                     <p:ajax event="change" update="duplicarProcesoAutomatico"/>
+                  </p:selectBooleanCheckbox>                               
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarDP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 390px;" actionListener="#{controlProceso.limpiarDuplicarProceso()}" update="duplicarProceso" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="agregarDP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 390px;"  actionListener="#{controlProceso.confirmarDuplicarProceso()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarDP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 390px;" actionListener="#{controlProceso.limpiarDuplicarProceso()}" update="duplicarProceso" onclick="PF('DuplicarRegistroProceso').hide();"  process="@this"/>
+               </p:panel>
+            </p:dialog>
+
+            <p:dialog id="NuevoRegistroFormulaProceso" header="#{msg['nuevoregistroFP']}" widgetVar="NuevoRegistroFormulaProceso"
+                      closable="false" resizable="false" draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
+               <center><strong><h:outputText value="#{msg['ingresarnuevoFP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+               <p:panel id="nuevoFormulaProceso" style="border: none;">
+
+                  <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoFormulaProcesoFormula" onclick="select();" value="#{controlProceso.nuevoFormulaProceso.formula.nombrelargo}"
+                               style="width: 122px; position: absolute; left: 200px; top: 68px; text-transform: uppercase;">
+                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexFPNuevos(0,1)}" process="@this" update="nuevoFormulaProcesoFormula"/>
+                     <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'FORMULA')}"/>
+                     <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.nuevoFormulaProceso.formula.nombrelargo, 1)}"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['formula']}" for="nuevoFormulaProcesoFormula"/>
+                  <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnNuevoFormulaProcesoFormula" value="" process="@this" actionListener="#{controlProceso.asignarIndex(indiceFP,0,1,1)}"/>   
+
+                  <strong><h:outputText value="#{msg['periodicidadesNFP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="nuevoFormulaProcesoPeriodicidad" style="position: absolute; top: 102px; left: 330px; alignment-adjust: central;" value="#{controlProceso.nuevoFormulaProceso.checkPeriodicidad}">
+                     <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(indiceFP)}" process="@this"/>
+                  </p:selectBooleanCheckbox> 
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarNFP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormulaProceso" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="aceptarNFP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.agregarNuevoFormulaProceso()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarNFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaFormulaProceso()}" update="nuevoFormulaProceso" onclick="PF('NuevoRegistroFormulaProceso').hide();"  process="@this"/>
+               </p:panel>
+            </p:dialog>
+
+            <p:dialog id="DuplicarRegistroFormulaProceso" header="#{msg['duplicarregistroFP']}" widgetVar="DuplicarRegistroFormulaProceso"
+                      closable="false" resizable="false"  draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
+               <center><strong><h:outputText value="#{msg['ingresarnuevoFP']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+               <p:panel id="duplicaFormulaProceso" style="border: none;">
+
+                  <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarFormulaProcesoFormula" onclick="select();" value="#{controlProceso.duplicarFormulaProceso.formula.nombrelargo}"
+                               style="width: 122px; position: absolute; left: 200px; top: 68px;text-transform: uppercase;">
+                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexFPNuevos(0,2)}" process="@this" update="duplicarFormulaProcesoFormula"/>
+                     <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'FORMULA')}"/>
+                     <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.duplicarFormulaProceso.formula.nombrelargo, 2)}"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['formula']}" for="duplicarFormulaProcesoFormula"/>
+                  <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnDuplicarFormulaProcesoFormula" value="" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceFP,0,2,1)}"/>   
+
+                  <strong><h:outputText value="#{msg['periodicidadesNFP']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                  <p:selectBooleanCheckbox id="duplicarFormulaProcesoPeriodicidad" style="alignment-adjust: central; position: absolute; top: 102px; left: 330px;" value="#{controlProceso.duplicarFormulaProceso.checkPeriodicidad}">
+                     <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(indiceFP)}" process="@this"/>
+                  </p:selectBooleanCheckbox> 
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarDFP" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarFormulaProceso()}" update="duplicaFormulaProceso" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="aceptarDFP" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.confirmarDuplicarFormulaProceso()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarDFP" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarFormulaProceso()}" update="duplicaFormulaProceso" onclick="PF('DuplicarRegistroFormulaProceso').hide();"  process="@this"/>
+               </p:panel>
+            </p:dialog>
+
+
+            <p:dialog id="NuevoRegistroOperandoLog" header="#{msg['nuevoregistroOL']}" widgetVar="NuevoRegistroOperandoLog"
+                      closable="false" resizable="false"  draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
+               <center><strong><h:outputText value="#{msg['ingresarnuevoOL']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+               <p:panel id="nuevoOperandoLog" style="border: none;">
+
+                  <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoOperandoLogOperando" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.nombre}"
+                               style="width: 122px; position: absolute; left: 200px; top: 65px;text-transform: uppercase;">
+                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexOLNuevos(0,1)}" process="@this" update="nuevoOperandoLogOperando"/>
+                     <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'OPERANDO')}"/>
+                     <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.nuevoOperandoLog.operando.nombre, 1)}"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['operando']}" for="nuevoOperandoLogOperando"/>
+                  <p:commandButton style="position: absolute; left: 331px; top: 67px;" class="cssBotonLovDialogos" id="btnNuevoOperandoLogOperando" value="" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,1,2)}"/>   
+
+                  <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="nuevoOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.nuevoOperandoLog.descripcion}"
+                               style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;"/>
+                  <p:watermark value="#{msg['descripcion']}" for="nuevoOperandoLogDescripcion"/>
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarNOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="aceptarNOL" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.agregarNuevoOperandoLog()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarNOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" onclick="PF('NuevoRegistroOperandoLog').hide();"  process="@this"/>
+               </p:panel>
+            </p:dialog>
+
+            <p:dialog id="DuplicarRegistroOperandoLog" header="#{msg['duplicarregistroOL']}" widgetVar="DuplicarRegistroOperandoLog"
+                      closable="false" resizable="false"  draggable="true" modal="true" height="190" width="400" style="padding: 0px">  
+               <center><strong><h:outputText value="#{msg['ingresarnuevoOL']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+               <p:panel id="duplicarOperandoLog" style="border: none;">
+
+                  <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarOperandoLogOperando" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.nombre}"
+                               style="width: 122px; position: absolute; left: 200px; top: 65px; text-transform: uppercase;">
+                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndexOLNuevos(0,2)}" process="@this" update="duplicarOperandoLogOperando"/>
+                     <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'OPERANDO')}"/>
+                     <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.duplicarOperandoLog.operando.nombre, 2)}"/>
+                  </p:inputText>
+                  <p:watermark value="#{msg['operando']}" for="duplicarOperandoLogOperando"/>
+                  <p:commandButton style="position: absolute; left: 331px; top: 67px;" class="cssBotonLovDialogos" id="btnDuplicarOperandoLogOperando" value="" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,2,2)}"/>   
+
+                  <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                  <p:inputText autocomplete="off" id="duplicarOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.duplicarOperandoLog.descripcion}"
+                               style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;"/>
+                  <p:watermark value="#{msg['descripcion']}" for="duplicarOperandoLogDescripcion"/>
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarDOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="aceptarDOL" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 160px;"  actionListener="#{controlProceso.confirmarDuplicarOperandoLog()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarDOL" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 160px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" onclick="PF('DuplicarRegistroOperandoLog').hide();"  process="@this"/>
+               </p:panel>
+            </p:dialog>
+
+
+            <!-- editar celdas proceso -->
+
+            <p:dialog id="editarCodigoProcesoD" header="#{msg['editarCodigoProcesoD']}" widgetVar="editarCodigoProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarProceso.codigo}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+            <p:dialog id="editarDescripcionProcesoD" header="#{msg['editarDescripcionProcesoD']}" widgetVar="editarDescripcionProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarProceso.descripcion}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+            <p:dialog id="editarTipoPagoProcesoD" header="#{msg['editarTipoPagoProcesoD']}" widgetVar="editarTipoPagoProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarProceso.tipopago.descripcion}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+            <p:dialog id="editarComentarioProcesoD" header="#{msg['editarComentarioProcesoD']}" widgetVar="editarComentarioProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarProceso.comentarios}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+            <p:dialog id="editarNumeroProcesoD" header="#{msg['editarNumeroProcesoD']}" widgetVar="editarNumeroProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarProceso.numerocierrerequerido}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+            <!-- editar celdas formula proceso -->
+
+            <p:dialog id="editarFormulaFormulaProceso" header="#{msg['editarFormulaFormulaProceso']}" widgetVar="editarFormulaFormulaProceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarFormulaProceso.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+            <!-- editar celdas operando log -->
+
+            <p:dialog id="editarOperandoOperandoLogD" header="#{msg['editarOperandoOperandoLogD']}" widgetVar="editarOperandoOperandoLogD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarOperandoLog.operando.nombre}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+            <p:dialog id="editarDescripcionOperandoLogD" header="#{msg['editarDescripcionOperandoLogD']}" widgetVar="editarDescripcionOperandoLogD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:inputTextarea value="#{controlProceso.editarOperandoLog.descripcion}" style="overflow: auto;" readonly="true"/>
+            </p:dialog>
+
+         </h:form>
+         <h:form id="formExportarP">
+            <p:dataTable id="datosProcesoExportar" var="expP" style="visibility: hidden; display: none;"                           
+                         value="#{controlProceso.listaProcesos}"> 
+
+               <p:column headerText="#{msg['codigoX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.codigo}"/>
+               </p:column>  
+
+               <p:column headerText="#{msg['descripcionX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.descripcion}"/>
+               </p:column>
+
+               <p:column headerText="#{msg['tipoPagoXX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['tipoPagoX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.tipopago.descripcion}">
+                  </h:outputText>
+               </p:column>
+
+               <p:column headerText="#{msg['comentarioX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['comentarioX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.comentarios}">
+                  </h:outputText>
+               </p:column>
+
+               <p:column headerText="#{msg['numeroXX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['numeroX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.numerocierrerequerido}">
+                  </h:outputText>
+               </p:column>
+
+               <p:column headerText="#{msg['contabilizacionXX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['contabilizacionX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.strContabilizacion}">
+                  </h:outputText>
+               </p:column>
+
+               <p:column headerText="#{msg['solucionNodoXX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['solucionNodoX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.strEliminarSNodo}">
+                  </h:outputText>
+               </p:column> 
+
+               <p:column headerText="#{msg['adelantosXX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['adelantosX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.strEliminarAdelanto}">
+                  </h:outputText>
+               </p:column>
+
+               <p:column headerText="#{msg['controlSobregiroXX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['controlSobregiroX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.strEliminarCSobregiro}">
+                  </h:outputText>
+               </p:column> 
+
+               <p:column headerText="#{msg['automaticoX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['automaticoX']}"/> </f:facet> 
+                  <h:outputText value="#{expP.strAutomatico}">
+                  </h:outputText>
+               </p:column>
+
+            </p:dataTable>
+         </h:form>
+
+         <h:form id="formExportarFP">
+            <p:dataTable id="datosFormulaProcesoExportar" var="expFP" style="visibility: hidden; display: none;"                           
+                         value="#{controlProceso.listaFormulasProcesos}"> 
+
+               <p:column headerText="#{msg['formulaX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/> </f:facet> 
+                  <h:outputText value="#{expFP.formula.nombrelargo}">
+                  </h:outputText>
+               </p:column>  
+
+               <p:column headerText="#{msg['periodicidadXX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['periodicidadX']}"/> </f:facet> 
+                  <h:outputText value="#{expFP.strPeriodicidad}">
+                  </h:outputText>
+               </p:column>
+
+            </p:dataTable>
+         </h:form>
+
+         <h:form id="formExportarOL">
+            <p:dataTable id="datosOperandoExportar" var="expOL" style="visibility: hidden; display: none;"                           
+                         value="#{controlProceso.listaOperandosLogs}"> 
+
+               <p:column headerText="#{msg['operandoX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['operandoX']}"/> </f:facet> 
+                  <h:outputText value="#{expOL.operando.descripcion}">
+                  </h:outputText>
+               </p:column> 
+
+               <p:column headerText="#{msg['descripcionX']}">                                  
+                  <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                  <h:outputText value="#{expOL.operando.codigo}">
+                  </h:outputText>
+               </p:column>  
+
+            </p:dataTable>
+         </h:form>
+      </ui:define>
+   </ui:composition>
+</h:body>
 </html>

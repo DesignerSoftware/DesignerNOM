@@ -138,15 +138,34 @@ public class ControlCausasAusentismos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "causaausentismo";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "causaausentismo";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -156,12 +175,11 @@ public class ControlCausasAusentismos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -1185,6 +1203,11 @@ public class ControlCausasAusentismos implements Serializable {
    }
 
    //REFRESCAR LA PAGINA, CANCELAR MODIFICACION SI NO SE A GUARDADO
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
+   }
+
    public void cancelarModificacion() {
       if (bandera == 1) {
          //CERRAR FILTRADO
@@ -1242,7 +1265,8 @@ public class ControlCausasAusentismos implements Serializable {
    }
 
    //MÉTODO SALIR DE LA PAGINA ACTUAL
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
@@ -1275,9 +1299,7 @@ public class ControlCausasAusentismos implements Serializable {
          filtrarCausasAusentismos = null;
          tipoLista = 0;
          System.out.println("TipoLista= " + tipoLista);
-
       }
-
       listaCausasAusentismosBorrar.clear();
       listaCausasAusentismosCrear.clear();
       listaCausasAusentismosModificar.clear();
@@ -1286,13 +1308,18 @@ public class ControlCausasAusentismos implements Serializable {
       listaCausasAusentismos = null;
       guardado = true;
       permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      navegar("atras");
    }
 
    //GUARDAR
+   public void guardarYSalir() {
+      guardarCambiosCausaAusentismo();
+      salir();
+   }
+
    public void guardarCambiosCausaAusentismo() {
       RequestContext context = RequestContext.getCurrentInstance();
       try {

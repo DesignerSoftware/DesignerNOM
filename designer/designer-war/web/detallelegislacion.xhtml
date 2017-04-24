@@ -4,57 +4,57 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+  >
     <h:head>
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.detallelegislacion" var="msg" />
+                    <f:loadBundle basename="Recursos.detallelegislacion" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-                        <h:outputText value="#{msg['contrato']}: " style="position: absolute;left: 380px; top: 45px;color: #14388B;font-weight: bold"/>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+                        <h:outputText value="#{msg['contrato']}: " style="position: absolute;left: 380px; top: 45px;color: #14388B; font-weight: bold;"/>
                         <h:outputText id="nombreContrato" value="#{controlDetalleLegislacion.contratoActual.descripcion}" style="font-weight: bold; color: #BF1A1A; position: absolute; left: 450px; top: 45px"/>
 
                         <p:toolbar styleClass="cssToolbar">
-                            <p:toolbarGroup align="left"> 
+                            <p:toolbarGroup align="left;"> 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this" actionListener="#{controlDetalleLegislacion.guardadoGeneral()}"/>
-                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlDetalleLegislacion.editarCelda()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator />
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlDetalleLegislacion.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlDetalleLegislacion.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator />
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlDetalleLegislacion.verificarExportXLS()}" ajax="false"  />
-                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}"/>
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlDetalleLegislacion.exportXML()}" fileName="#{controlDetalleLegislacion.nombreXML}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}"/>
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlDetalleLegislacion.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator /> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlDetalleLegislacion.validarIngresoNuevoRegistro()}"  process="@this"/> 
-                                <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlDetalleLegislacion.validarBorradoRegistro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlDetalleLegislacion.validarDuplicadoRegistro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}"/>
 
                                 <p:separator /> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlDetalleLegislacion.verificarRastroTabla()}" process="@this"/>  
@@ -62,13 +62,13 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; left: 10px; top: 70px; font-size: 10px; width: 830px; height: 400px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; left: 10px; top: 70px; font-size: 10px; width: 830px; height: 400px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 12px; color: blue"><strong>#{msg['formula']}</strong></legend>
 
                             <p:dataTable id="datosFormulaContrato" var="infoC" rowKey="#{infoC.secuencia}" 
                                          rowIndexVar="indice" filteredValue="#{controlDetalleLegislacion.filtrarListFormulasContratosDetalle}"
                                          emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" scrollable="true" scrollWidth="830"
-                                         scrollHeight="263" style="border: 1px;width: 830px;"   
+                                         scrollHeight="263" style="border: 1px; width: 830px;"   
                                          value="#{controlDetalleLegislacion.listFormulasContratosDetalle}" paginator="true" rows="11" 
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
@@ -79,18 +79,18 @@
                                           id="formulaFechaInicial" width="80"
                                           filterStyle="display: none; visibility: hidden;"  style="width: 80px; font-size: 11px">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerFechaInicial" value="#{msg['fechaInicial']}" />
-                                        <p:tooltip style="font-size: 12px;" for="headerFechaInicial" value="#{msg['toolTipFechaInicial']}" />
+                                        <h:outputText id="headerFechaInicial" value="#{msg['fechaInicial']}"/>
+                                        <p:tooltip style="font-size: 12px;" for="headerFechaInicial" value="#{msg['toolTipFechaInicial']}"/>
                                     </f:facet> 
                                     <p:cellEditor> 
 
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoC.fechainicial}" style="width: 80px; font-size: 11px;text-transform: uppercase">
+                                            <h:outputText value="#{infoC.fechainicial}" style="width: 80px; font-size: 11px;text-transform: uppercase;">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoC.fechainicial}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoC.fechainicial}"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,0)}" update="dateFechaInicial" process="@this"/>
@@ -103,18 +103,18 @@
                                           id="formulaFechaFinal" width="80"
                                           filterStyle="display: none; visibility: hidden;"  style="width: 80px; font-size: 11px">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerFechaFinal" value="#{msg['fechaFinal']}" />
-                                        <p:tooltip style="font-size: 12px;" for="headerFechaFinal" value="#{msg['toolTipFechaFinal']}" />
+                                        <h:outputText id="headerFechaFinal" value="#{msg['fechaFinal']}"/>
+                                        <p:tooltip style="font-size: 12px;" for="headerFechaFinal" value="#{msg['toolTipFechaFinal']}"/>
                                     </f:facet>
                                     <p:cellEditor>
 
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoC.fechafinal}" style="width: 80px; font-size: 11px;text-transform: uppercase">
+                                            <h:outputText value="#{infoC.fechafinal}" style="width: 80px; font-size: 11px;text-transform: uppercase;">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fechafinal}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fechafinal}"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,1)}" process="@this" update="dateFecha"/>
                                                 <p:ajax event="dateSelect" listener="#{controlDetalleLegislacion.modificacionesFechaHistoriaFormula(indice,1)}" process="@this" update="dateFecha"/>
@@ -125,37 +125,37 @@
 
 
                                 <p:column headerText="#{msg['nombreLargo']}" sortBy="#{infoC.formula.nombrelargo}" filterBy="#{infoC.formula.nombrelargo}" 
-                                          style="font-size: 11px;"  filterMatchMode="contains" id="formulaNombreLargo" width="150" filterStyle="display: none; visibility: hidden" >                                  
+                                          style="font-size: 11px;"  filterMatchMode="contains" id="formulaNombreLargo" width="150" filterStyle="display: none; visibility: hidden">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerNombreLargo" value="#{msg['nombreLargo']}" />
-                                        <p:tooltip style="font-size: 11px;" for="headerNombreLargo" value="#{msg['toolTipNombreLargo']}" />
+                                        <h:outputText id="headerNombreLargo" value="#{msg['nombreLargo']}"/>
+                                        <p:tooltip style="font-size: 11px;" for="headerNombreLargo" value="#{msg['toolTipNombreLargo']}"/>
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.formula.nombrelargo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.nombrelargo}"  id="editarNombreLargo" style="border-radius: 0px; height: 12px;  width: 94%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.nombrelargo}"  id="editarNombreLargo" style="border-radius: 0px; height: 12px; width: 94%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContratoAutocompletar(indice, 'NOMBRELARGO', infoC.formula.nombrelargo)}" process="@this" update="editarNombreLargo"/>
                                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,0)}" process="@this" update="editarNombreLargo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-                                    <f:facet name="footer" >
+                                    <f:facet name="footer">
                                         <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooNombreLargo" process="@this"/> 
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['nombreCorto']}" sortBy="#{infoC.formula.nombrecorto}" filterBy="#{infoC.formula.nombrecorto}" filterMatchMode="contains" 
-                                          style="font-size: 11px;"  id="formulaNombreCorto" width="90" filterStyle="display: none; visibility: hidden" >                                  
+                                          style="font-size: 11px;"  id="formulaNombreCorto" width="90" filterStyle="display: none; visibility: hidden">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerNombreCorto" value="#{msg['nombreCorto']}" />
-                                        <p:tooltip style="font-size: 12px;" for="headerNombreCorto" value="#{msg['toolTipNombre']}" />
+                                        <h:outputText id="headerNombreCorto" value="#{msg['nombreCorto']}"/>
+                                        <p:tooltip style="font-size: 12px;" for="headerNombreCorto" value="#{msg['toolTipNombre']}"/>
                                     </f:facet>
                                     <p:cellEditor> 
 
                                         <f:facet name="output"><h:outputText value="#{infoC.formula.nombrecorto}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.nombrecorto}"  id="editarNombreCorto" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.nombrecorto}"  id="editarNombreCorto" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 3)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContratoAutocompletar(indice, 'NOMBRECORTO', infoC.formula.nombrecorto)}" process="@this" update="editarNombreCorto"/>
                                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,0)}" process="@this" update="editarNombreCorto"/>
@@ -169,16 +169,16 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['estado']}" sortBy="#{infoC.formula.estado}" filterBy="#{infoC.formula.estado}"  filterMatchMode="contains"
-                                          style="font-size: 11px;"     id="formulaEstado" width="70" filterStyle="display: none; visibility: hidden;" >      
+                                          style="font-size: 11px;"     id="formulaEstado" width="70" filterStyle="display: none; visibility: hidden;">      
                                     <f:facet name="header">
-                                        <h:outputText id="headerEstado" value="#{msg['estado']}" />
-                                        <p:tooltip style="font-size: 12px;" for="headerEstado" value="#{msg['toolTipEstado']}" />
+                                        <h:outputText id="headerEstado" value="#{msg['estado']}"/>
+                                        <p:tooltip style="font-size: 12px;" for="headerEstado" value="#{msg['toolTipEstado']}"/>
                                     </f:facet>
                                     <p:cellEditor> 
 
                                         <f:facet name="output"><h:outputText value="#{infoC.formula.estado}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.estado}"  id="editarEstado" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.estado}"  id="editarEstado" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 4)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContratoAutocompletar(indice, 'ESTADO', infoC.formula.estado)}" process="@this" update="editarEstado"/>
                                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,0)}" process="@this" update="editarEstado"/>
@@ -191,15 +191,15 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['periodicidad']}" sortBy="#{infoC.periodicidad.nombre}" filterBy="#{infoC.periodicidad.nombre}" filterMatchMode="contains" 
-                                          style="font-size: 11px;"   id="formulaPeriodicidad" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                          style="font-size: 11px;"   id="formulaPeriodicidad" width="133" filterStyle="display: none; visibility: hidden">                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerPeriodicidad" value="#{msg['periodicidad']}" />
-                                        <p:tooltip style="font-size: 12px;" for="headerPeriodicidad" value="#{msg['toolTipPeriodicidad']}" />
+                                        <h:outputText id="headerPeriodicidad" value="#{msg['periodicidad']}"/>
+                                        <p:tooltip style="font-size: 12px;" for="headerPeriodicidad" value="#{msg['toolTipPeriodicidad']}"/>
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.periodicidad.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.periodicidad.nombre}"  id="editarPeriodicidad" style="border-radius: 0px; height: 12px;  width: 94%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.periodicidad.nombre}"  id="editarPeriodicidad" style="border-radius: 0px; height: 12px; width: 94%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 5)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContratoAutocompletar(indice, 'PERIODICIDAD', infoC.periodicidad.nombre)}" process="@this" update="editarPeriodicidad"/>
                                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,1,0)}" process="@this" update="editarPeriodicidad"/>
@@ -207,17 +207,17 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooPeriodicidad" />
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooPeriodicidad"/>
                                     </f:facet>
                                 </p:column>
 
 
                                 <p:column headerText="#{msg['nit']}" sortBy="#{infoC.tercero.strNit}" filterBy="#{infoC.tercero.strNit}" filterMatchMode="contains" 
-                                          style="font-size: 11px;"   id="formulaNit" width="100" filterStyle="display: none; visibility: hidden" >                                  
+                                          style="font-size: 11px;"   id="formulaNit" width="100" filterStyle="display: none; visibility: hidden">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.tercero.strNit}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.tercero.strNit}"  id="editarNit" style="border-radius: 0px; height: 12px;  width: 94%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.tercero.strNit}"  id="editarNit" style="border-radius: 0px; height: 12px; width: 94%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 6)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContratoAutocompletar(indice, 'NIT', infoC.tercero.strNit)}" process="@this" update="editarNit"/>
                                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,2,0)}" process="@this" update="editarNit"/>
@@ -230,11 +230,11 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['tercero']}" sortBy="#{infoC.tercero.nombre}" filterBy="#{infoC.tercero.nombre}" filterMatchMode="contains" 
-                                          style="font-size: 11px;"   id="formulaTercero" width="130" filterStyle="display: none; visibility: hidden" >                                  
+                                          style="font-size: 11px;"   id="formulaTercero" width="130" filterStyle="display: none; visibility: hidden">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.tercero.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.tercero.nombre}"  id="editarTercero" style="border-radius: 0px; height: 12px;  width: 94%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.tercero.nombre}"  id="editarTercero" style="border-radius: 0px; height: 12px; width: 94%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 7)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContratoAutocompletar(indice, 'TERCERO', infoC.tercero.strNit)}" process="@this" update="editarTercero"/>
                                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,2,0)}" process="@this" update="editarTercero"/>
@@ -247,11 +247,11 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['observacionFormula']}" sortBy="#{infoC.formula.observaciones}" filterBy="#{infoC.formula.observaciones}" filterMatchMode="contains" 
-                                          style="font-size: 11px;"   id="formulaObservacion" width="130" filterStyle="display: none; visibility: hidden" >                                  
+                                          style="font-size: 11px;"   id="formulaObservacion" width="130" filterStyle="display: none; visibility: hidden">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.formula.observaciones}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.observaciones}"  id="editarObservacion" style="border-radius: 0px; height: 12px;  width: 94%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.formula.observaciones}"  id="editarObservacion" style="border-radius: 0px; height: 12px; width: 94%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 8)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContrato(indice)}" process="@this" update="editarObservacion"/>
                                             </p:inputText>
@@ -260,11 +260,11 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['concepto']}" sortBy="#{infoC.strConcepto}" filterBy="#{infoC.strConcepto}" filterMatchMode="contains" 
-                                          style="font-size: 11px;"    id="formulaConcepto" width="130" filterStyle="display: none; visibility: hidden" >                                  
+                                          style="font-size: 11px;"    id="formulaConcepto" width="130" filterStyle="display: none; visibility: hidden">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.strConcepto}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.strConcepto}"  id="editarConcepto" style="border-radius: 0px; height: 12px;  width: 94%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoC.strConcepto}"  id="editarConcepto" style="border-radius: 0px; height: 12px; width: 94%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleLegislacion.cambiarIndice(indice, 9)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleLegislacion.modificarFormulaContrato(indice)}" process="@this" update="editarConcepto"/>
                                             </p:inputText>
@@ -281,10 +281,10 @@
                         <p:commandButton value="#{msg['buscarFormula']}"  style="position: absolute; left: 10px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="BUSCARTODOS" actionListener="#{controlDetalleLegislacion.dialogoSeleccionarFormula()}" process="@this"/>
                         <p:commandButton value="#{msg['mostrarTodos']}" style="position: absolute; left: 115px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="MOSTRARTODOS" actionListener="#{controlDetalleLegislacion.mostrarTodos()}" process="@this"/>
 
-                        <p:separator style="position: absolute; left: 230px; top: 495px;width: 2px; height: 25px"/>
-                        <p:commandButton style="position: absolute; left: 700px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosFormulaContrato" process="@this" />
-                        <p:commandButton style="position: absolute; left: 240px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="REFRESCAR" value="#{msg['refrescar']}" icon="ui-icon-refresh" actionListener="#{controlDetalleLegislacion.cancelarModificacion()}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 790px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="ATRAS" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlDetalleLegislacion.salir()}" action="legislacion" process="@this" />
+                        <p:separator style="position: absolute; left: 230px; top: 495px; width: 2px; height: 25px"/>
+                        <p:commandButton style="position: absolute; left: 700px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosFormulaContrato" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 240px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="REFRESCAR" value="#{msg['refrescar']}" icon="ui-icon-refresh" actionListener="#{controlDetalleLegislacion.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 790px; top: 500px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="ATRAS" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlDetalleLegislacion.salir()}" action="legislacion" process="@this"/>
                     </p:panel>
 
                     <p:dialog header="#{msg['tituloLovFormula']}" widgetVar="FormulaDialogo" draggable="true" resizable="false" closable="false" id="FormulaDialogo"  
@@ -293,34 +293,34 @@
                                      selection="#{controlDetalleLegislacion.formulaSeleccionada}" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollWidth="700" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListFormulas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarF"/>
-                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarFormula()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarFormula()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['lovBuscarFormula']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:150px; position: relative; left: 20px;"/>  
                             </f:facet>
-                            <p:column filterBy="#{formula.estado}" width="80" filterMatchMode="contains" >
+                            <p:column filterBy="#{formula.estado}" width="80" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['estado']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['estado']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{formula.estado}" />
+                                <h:outputText  value="#{formula.estado}"/>
                             </p:column>
                             <p:column filterBy="#{formula.nombrecorto}" width="80"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText  style="text-align: center" value="#{msg['nombreCortoLov']}" />
+                                    <h:outputText  style="text-align: center;" value="#{msg['nombreCortoLov']}"/>
                                 </f:facet>
-                                <h:outputText value="#{formula.nombrecorto}" />
+                                <h:outputText value="#{formula.nombrecorto}"/>
                             </p:column>
                             <p:column filterBy="#{formula.nombrelargo}" width="80"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreLargo']}" />
+                                    <h:outputText value="#{msg['nombreLargo']}"/>
                                 </f:facet>
-                                <h:outputText value="#{formula.nombrelargo}" />
+                                <h:outputText value="#{formula.nombrelargo}"/>
                             </p:column>
                             <p:column filterBy="#{formula.observaciones}" width="100"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['observacionFormula']}" />
+                                    <h:outputText value="#{msg['observacionFormula']}"/>
                                 </f:facet>
-                                <h:outputText value="#{formula.observaciones}" />
+                                <h:outputText value="#{formula.observaciones}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -335,16 +335,16 @@
                                      selection="#{controlDetalleLegislacion.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovPeriodicidad" scrollable="true" scrollWidth="495" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListPeriodicidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarPeriodicidad()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarPeriodicidad()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarPeriodicidad']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPeriodicidad').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPeriodicidad').filter();" style="width:150px; position: relative; left: 20px;"/>  
                             </f:facet>
-                            <p:column filterBy="#{periodicidad.nombre}" width="200" filterMatchMode="contains" >
+                            <p:column filterBy="#{periodicidad.nombre}" width="200" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nombrePeriodicidad']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['nombrePeriodicidad']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{periodicidad.nombre}" />
+                                <h:outputText  value="#{periodicidad.nombre}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -359,22 +359,22 @@
                                      selection="#{controlDetalleLegislacion.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="510" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListTerceros}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarTercero()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarTercero()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['lovBuscarTercero']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:150px; position: relative; left: 20px;"/>  
                             </f:facet>
-                            <p:column filterBy="#{tercero.nit}" width="50" filterMatchMode="contains" >
+                            <p:column filterBy="#{tercero.nit}" width="50" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nit']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['nit']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{tercero.nit}" />
+                                <h:outputText  value="#{tercero.nit}"/>
                             </p:column>
-                            <p:column filterBy="#{tercero.nombre}" width="150" filterMatchMode="contains" >
+                            <p:column filterBy="#{tercero.nombre}" width="150" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['lovNombreTercero']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['lovNombreTercero']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{tercero.nombre}" />
+                                <h:outputText  value="#{tercero.nombre}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -389,34 +389,34 @@
                                      selection="#{controlDetalleLegislacion.formulaContratosSeleccionado}" selectionMode="single" widgetVar="lovBuscarFormula" scrollable="true" scrollWidth="705" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListFormulasContratos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarBF"/>
-                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarFormula()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarFormula()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['lovBuscarFormula']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBuscarFormula').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBuscarFormula').filter();" style="width:150px; position: relative; left: 20px;"/>  
                             </f:facet>
                             <p:column filterBy="#{buscarF.strFechaIni}" width="100"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['fechaInicial']}" />
+                                    <h:outputText value="#{msg['fechaInicial']}"/>
                                 </f:facet>
-                                <h:outputText value="#{buscarF.strFechaIni}" />
+                                <h:outputText value="#{buscarF.strFechaIni}"/>
                             </p:column>
                             <p:column filterBy="#{buscarF.strFechaFin}" width="100"  filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['fechaFinal']}" />
+                                    <h:outputText value="#{msg['fechaFinal']}"/>
                                 </f:facet>
-                                <h:outputText value="#{buscarF.strFechaFin}" />
+                                <h:outputText value="#{buscarF.strFechaFin}"/>
                             </p:column>
-                            <p:column filterBy="#{buscarF.formula.nombrelargo}" width="200" filterMatchMode="contains" >
+                            <p:column filterBy="#{buscarF.formula.nombrelargo}" width="200" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nombreLargo']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['nombreLargo']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{buscarF.formula.nombrelargo}" />
+                                <h:outputText  value="#{buscarF.formula.nombrelargo}"/>
                             </p:column>
-                            <p:column filterBy="#{buscarF.formula.nombrecorto}" width="200" filterMatchMode="contains" >
+                            <p:column filterBy="#{buscarF.formula.nombrecorto}" width="200" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['nombreCortoLov']}" />
+                                    <h:outputText style="text-align: center;" value="#{msg['nombreCortoLov']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{buscarF.formula.nombrecorto}" />
+                                <h:outputText  value="#{buscarF.formula.nombrecorto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -427,58 +427,58 @@
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlDetalleLegislacion.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleLegislacion.backUp, controlDetalleLegislacion.nombreTablaRastro , 'detalleLegislacionRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlDetalleLegislacion.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{controlDetalleLegislacion.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleLegislacion.backUp, controlDetalleLegislacion.nombreTablaRastro , 'detallelegislacion')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlDetalleLegislacion.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlDetalleLegislacion.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleLegislacion.nombreTablaRastro , 'detalleLegislacionRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleLegislacion.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{controlDetalleLegislacion.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleLegislacion.nombreTablaRastro , 'detallelegislacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleLegislacion.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleLegislacion.backUp, controlDetalleLegislacion.nombreTablaRastro , 'detalleLegislacionRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleLegislacion.backUp, controlDetalleLegislacion.nombreTablaRastro , 'detallelegislacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegNuevo" header="#{msg['atencion']}" widgetVar="errorRegNuevo"  resizable="false" draggable="true" modal="true" height="70" width="295" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegNuevo']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorRegNuevo']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechasHF" header="#{msg['atencion']}" widgetVar="errorFechasHF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechasHF']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorFechasHF']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
@@ -488,10 +488,10 @@
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleLegislacion.guardayYSalir()}" style="position: absolute; top: 60px; left: 215px;" action="formula" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 60px; left: 255px;" actionListener="#{controlDetalleLegislacion.cancelarModificacion()}" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleLegislacion.guardayYSalir()}" style="position: absolute; top: 60px; left: 215px;" action="formula" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 60px; left: 255px;" actionListener="#{controlDetalleLegislacion.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleLegislacion.activarCtrlF11()}"/>
                 </h:form>
@@ -501,82 +501,82 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="NuevoRegistroFormula" header="#{msg['tituloNuevoReg']}" widgetVar="NuevoRegistroFormula" closable="false" resizable="false"  draggable="true" modal="true" height="470" width="400" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['infoNuevoReg']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['infoNuevoReg']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevaFC" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['nuevoFechaIni']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
+                            <strong><h:outputText value="#{msg['nuevoFechaIni']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 70px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaInicial" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaInicial" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechainicial}">
                                     <p:ajax event="dateSelect" update="nuevoDateFormulaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevoDateFormulaFechaInicial" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['nuevoFechaFin']}" style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
+                            <strong><h:outputText value="#{msg['nuevoFechaFin']}" style="font-size: 14px; position: absolute; top: 110px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 110px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaFinal" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevoDateFormulaFechaFinal" value="#{controlDetalleLegislacion.nuevoFormulaContrato.fechafinal}">
                                     <p:ajax event="dateSelect" update="nuevoDateFormulaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevoDateFormulaFechaFinal" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['nuevoNombreLargo']}" style="font-size: 14px; position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormulaNombreLargo" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrelargo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoNombreLargo']}" style="font-size: 14px; position: absolute; top: 150px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaFormulaNombreLargo" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrelargo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'NOMBRELARGO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRELARGO', controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrelargo, 1)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'NOMBRELARGO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRELARGO', controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrelargo, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 150px;  " id="btnNuevoNombreLargo9" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>   
-                            <p:watermark for="nuevaFormulaNombreLargo" value="#{msg['nombreLargo']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 150px; " id="btnNuevoNombreLargo9" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>   
+                            <p:watermark for="nuevaFormulaNombreLargo" value="#{msg['nombreLargo']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoNombre']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormulaNombreCorto" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrecorto}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoNombre']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaFormulaNombreCorto" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrecorto}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'NOMBRECORTO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRECORTO', controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrecorto, 1)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'NOMBRECORTO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRECORTO', controlDetalleLegislacion.nuevoFormulaContrato.formula.nombrecorto, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 190px;  " id="btnNuevoNombreCorto" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>   
-                            <p:watermark for="nuevaFormulaNombreCorto" value="#{msg['nombreCorto']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 190px; " id="btnNuevoNombreCorto" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>   
+                            <p:watermark for="nuevaFormulaNombreCorto" value="#{msg['nombreCorto']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoEstado']}" style="font-size: 14px; position: absolute; top: 230px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormulaEstado" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.estado}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoEstado']}" style="font-size: 14px; position: absolute; top: 230px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaFormulaEstado" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.estado}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'ESTADO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('ESTADO', controlDetalleLegislacion.nuevoFormulaContrato.formula.estado, 1)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'ESTADO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('ESTADO', controlDetalleLegislacion.nuevoFormulaContrato.formula.estado, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 230px;  " id="btnNuevoEstado" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>   
-                            <p:watermark for="nuevaFormulaEstado" value="#{msg['estado']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 230px; " id="btnNuevoEstado" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,1)}"/>   
+                            <p:watermark for="nuevaFormulaEstado" value="#{msg['estado']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoPeriodicidad']}" style="font-size: 14px; position: absolute; top: 270px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormulaPeriodicidad" value="#{controlDetalleLegislacion.nuevoFormulaContrato.periodicidad.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 270px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoPeriodicidad']}" style="font-size: 14px; position: absolute; top: 270px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaFormulaPeriodicidad" value="#{controlDetalleLegislacion.nuevoFormulaContrato.periodicidad.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 270px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,1,1)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'PERIODICIDAD')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('PERIODICIDAD', controlDetalleLegislacion.nuevoFormulaContrato.periodicidad.nombre, 1)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'PERIODICIDAD')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('PERIODICIDAD', controlDetalleLegislacion.nuevoFormulaContrato.periodicidad.nombre, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 270px;  " id="btnNuevoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,1,1)}"/>   
-                            <p:watermark for="nuevaFormulaPeriodicidad" value="#{msg['periodicidad']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 270px; " id="btnNuevoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,1,1)}"/>   
+                            <p:watermark for="nuevaFormulaPeriodicidad" value="#{msg['periodicidad']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoNit']}" style="font-size: 14px; position: absolute; top: 310px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormulaNit" value="#{controlDetalleLegislacion.nuevoFormulaContrato.tercero.strNit}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 310px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoNit']}" style="font-size: 14px; position: absolute; top: 310px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaFormulaNit" value="#{controlDetalleLegislacion.nuevoFormulaContrato.tercero.strNit}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 310px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,2,1)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'NIT')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NIT', controlDetalleLegislacion.nuevoFormulaContrato.tercero.strNit, 1)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'NIT')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NIT', controlDetalleLegislacion.nuevoFormulaContrato.tercero.strNit, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 310px;  " id="btnNuevoNit" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,1)}"/>   
-                            <p:watermark for="nuevaFormulaNit" value="#{msg['nit']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 310px; " id="btnNuevoNit" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,1)}"/>   
+                            <p:watermark for="nuevaFormulaNit" value="#{msg['nit']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoTercero']}" style="font-size: 14px; position: absolute; top: 350px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormulaTercero" value="#{controlDetalleLegislacion.nuevoFormulaContrato.tercero.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoTercero']}" style="font-size: 14px; position: absolute; top: 350px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaFormulaTercero" value="#{controlDetalleLegislacion.nuevoFormulaContrato.tercero.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,2,1)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'TERCERO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('TERCERO', controlDetalleLegislacion.nuevoFormulaContrato.tercero.nombre, 1)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(1, 'TERCERO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('TERCERO', controlDetalleLegislacion.nuevoFormulaContrato.tercero.nombre, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 350px;  " id="btnNuevoTercero" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,1)}"/>   
-                            <p:watermark for="nuevaFormulaTercero" value="#{msg['tercero']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 350px; " id="btnNuevoTercero" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,1)}"/>   
+                            <p:watermark for="nuevaFormulaTercero" value="#{msg['tercero']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoObservacion']}" style="font-size: 14px; position: absolute; top: 390px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormulaObservacion" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.observaciones}" readonly="true" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 390px; text-transform: uppercase"/>
-                            <p:watermark for="nuevaFormulaObservacion" value="#{msg['observacionFormula']}" />
+                            <strong><h:outputText value="#{msg['nuevoObservacion']}" style="font-size: 14px; position: absolute; top: 390px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaFormulaObservacion" value="#{controlDetalleLegislacion.nuevoFormulaContrato.formula.observaciones}" readonly="true" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 390px; text-transform: uppercase;"/>
+                            <p:watermark for="nuevaFormulaObservacion" value="#{msg['observacionFormula']}"/>
 
                             <p:commandButton id="limpiarNFC" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 430px;" actionListener="#{controlDetalleLegislacion.limpiarNuevoFormula()}" update="nuevaFC" process="@this"/>
                             <p:commandButton id="agregarNFC" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 200px; top: 430px;"  process="@this" actionListener="#{controlDetalleLegislacion.agregarNuevoFormula()}"  />
@@ -586,86 +586,86 @@
 
 
                     <p:dialog id="DuplicarRegistroFormula" header="#{msg['tituloNuevoReg']}" widgetVar="DuplicarRegistroFormula" closable="false" resizable="false"  draggable="true" modal="true" height="450" width="400" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['infoNuevoReg']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="#{msg['infoNuevoReg']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicaFC" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['nuevoFechaIni']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
+                            <strong><h:outputText value="#{msg['nuevoFechaIni']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 70px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaInicial" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaInicial" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechainicial}">
                                     <p:ajax event="dateSelect" update="duplicarDateFormulaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateFormulaFechaInicial" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['nuevoFechaFin']}" style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
+                            <strong><h:outputText value="#{msg['nuevoFechaFin']}" style="font-size: 14px; position: absolute; top: 110px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 110px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaFinal" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFormulaFechaFinal" value="#{controlDetalleLegislacion.duplicarFormulaContrato.fechafinal}">
                                     <p:ajax event="dateSelect" update="duplicarDateFormulaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarDateFormulaFechaFinal" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['nuevoNombreLargo']}" style="font-size: 14px; position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaFormulaNombreLargo" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrelargo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoNombreLargo']}" style="font-size: 14px; position: absolute; top: 150px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicaFormulaNombreLargo" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrelargo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'NOMBRELARGO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRELARGO', controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrelargo, 2)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'NOMBRELARGO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRELARGO', controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrelargo, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 150px;  " id="btnDupliNombreLargo" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>   
-                            <p:watermark for="duplicaFormulaNombreLargo" value="#{msg['nombreLargo']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 150px; " id="btnDupliNombreLargo" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>   
+                            <p:watermark for="duplicaFormulaNombreLargo" value="#{msg['nombreLargo']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoNombre']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaFormulaNombreCorto" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrecorto}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();"> 
+                            <strong><h:outputText value="#{msg['nuevoNombre']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicaFormulaNombreCorto" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrecorto}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase;" onclick="select();"> 
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'NOMBRECORTO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRECORTO', controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrecorto, 2)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'NOMBRECORTO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NOMBRECORTO', controlDetalleLegislacion.duplicarFormulaContrato.formula.nombrecorto, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 190px;  " id="btnDupliNombre" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>   
-                            <p:watermark for="duplicaFormulaNombreCorto" value="#{msg['nombreCorto']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 190px; " id="btnDupliNombre" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>   
+                            <p:watermark for="duplicaFormulaNombreCorto" value="#{msg['nombreCorto']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoEstado']}" style="font-size: 14px; position: absolute; top: 230px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaFormulaEstado" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.estado}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoEstado']}" style="font-size: 14px; position: absolute; top: 230px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicaFormulaEstado" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.estado}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'ESTADO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('ESTADO', controlDetalleLegislacion.duplicarFormulaContrato.formula.estado, 2)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'ESTADO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('ESTADO', controlDetalleLegislacion.duplicarFormulaContrato.formula.estado, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 230px;  " id="btnDupliEstado" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>   
-                            <p:watermark for="duplicaFormulaEstado" value="#{msg['estado']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 230px; " id="btnDupliEstado" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,0,2)}"/>   
+                            <p:watermark for="duplicaFormulaEstado" value="#{msg['estado']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoPeriodicidad']}" style="font-size: 14px; position: absolute; top: 270px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaFormulaPeriodicidad" value="#{controlDetalleLegislacion.duplicarFormulaContrato.periodicidad.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 270px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoPeriodicidad']}" style="font-size: 14px; position: absolute; top: 270px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicaFormulaPeriodicidad" value="#{controlDetalleLegislacion.duplicarFormulaContrato.periodicidad.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 270px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,1,2)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'PERIODICIDAD')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('PERIODICIDAD', controlDetalleLegislacion.duplicarFormulaContrato.periodicidad.nombre, 2)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'PERIODICIDAD')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('PERIODICIDAD', controlDetalleLegislacion.duplicarFormulaContrato.periodicidad.nombre, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 270px;  " id="btnDupliPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,1,2)}"/>   
-                            <p:watermark for="duplicaFormulaPeriodicidad" value="#{msg['periodicidad']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 270px; " id="btnDupliPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,1,2)}"/>   
+                            <p:watermark for="duplicaFormulaPeriodicidad" value="#{msg['periodicidad']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoNit']}" style="font-size: 14px; position: absolute; top: 310px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaFormulaNit" value="#{controlDetalleLegislacion.duplicarFormulaContrato.tercero.strNit}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 310px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoNit']}" style="font-size: 14px; position: absolute; top: 310px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicaFormulaNit" value="#{controlDetalleLegislacion.duplicarFormulaContrato.tercero.strNit}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 310px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,2,2)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'NIT')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NIT', controlDetalleLegislacion.duplicarFormulaContrato.tercero.strNit, 2)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'NIT')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('NIT', controlDetalleLegislacion.duplicarFormulaContrato.tercero.strNit, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 310px;  " id="btnDupliNit" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,2)}"/>   
-                            <p:watermark for="duplicaFormulaNit" value="#{msg['nit']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 310px; " id="btnDupliNit" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,2)}"/>   
+                            <p:watermark for="duplicaFormulaNit" value="#{msg['nit']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoTercero']}" style="font-size: 14px; position: absolute; top: 350px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaFormulaTercero" value="#{controlDetalleLegislacion.duplicarFormulaContrato.tercero.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="#{msg['nuevoTercero']}" style="font-size: 14px; position: absolute; top: 350px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicaFormulaTercero" value="#{controlDetalleLegislacion.duplicarFormulaContrato.tercero.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlDetalleLegislacion.asignarIndex(indice,2,2)}"/>
-                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'TERCERO')}" />
-                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('TERCERO', controlDetalleLegislacion.duplicarFormulaContrato.tercero.nombre, 2)}" />
+                                <p:ajax event="click" listener="#{controlDetalleLegislacion.valoresBackupAutocompletar(2, 'TERCERO')}"/>
+                                <p:ajax event="change" listener="#{controlDetalleLegislacion.autocompletarNuevoyDuplicadoFormula('TERCERO', controlDetalleLegislacion.duplicarFormulaContrato.tercero.nombre, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 350px;  " id="btnDupliTercero" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,2)}"/>   
-                            <p:watermark for="duplicaFormulaTercero" value="#{msg['tercero']}" />
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 330px; top: 350px; " id="btnDupliTercero" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleLegislacion.asignarIndex(indice,2,2)}"/>   
+                            <p:watermark for="duplicaFormulaTercero" value="#{msg['tercero']}"/>
 
-                            <strong><h:outputText value="#{msg['nuevoObservacion']}" style="font-size: 14px; position: absolute; top: 390px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaFormulaObservacion" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.observaciones}" readonly="true" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 390px; text-transform: uppercase"/>
-                            <p:watermark for="duplicaFormulaObservacion" value="#{msg['observacionFormula']}" />
+                            <strong><h:outputText value="#{msg['nuevoObservacion']}" style="font-size: 14px; position: absolute; top: 390px; left: 50px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplicaFormulaObservacion" value="#{controlDetalleLegislacion.duplicarFormulaContrato.formula.observaciones}" readonly="true" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 390px; text-transform: uppercase;"/>
+                            <p:watermark for="duplicaFormulaObservacion" value="#{msg['observacionFormula']}"/>
 
 
                             <p:commandButton id="limpiarDFC" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 430px;" actionListener="#{controlDetalleLegislacion.limpiarDuplicarFormula()}" update="duplicaFC" process="@this"/>
-                            <p:commandButton id="agregarDFC" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 200px; top: 430px;"  process="@this" actionListener="#{controlDetalleLegislacion.confirmarDuplicar()}" />
+                            <p:commandButton id="agregarDFC" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 200px; top: 430px;"  process="@this" actionListener="#{controlDetalleLegislacion.confirmarDuplicar()}"/>
                             <p:commandButton id="cancelarDFC" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 300px; top: 430px;" actionListener="#{controlDetalleLegislacion.limpiarDuplicarFormula()}" update="duplicaFC" onclick="PF('DuplicarRegistroFormula').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -731,52 +731,52 @@
 
                         <p:column headerText="#{msg['fechaIniXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['fechaIniX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.strFechaIni}" />
+                            <h:outputText value="#{infoEXP.strFechaIni}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['fechaFinXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['fechaFinX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.strFechaFin}" />
+                            <h:outputText value="#{infoEXP.strFechaFin}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['nombreLargoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreLargoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.formula.nombrelargo}" />
+                            <h:outputText value="#{infoEXP.formula.nombrelargo}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['nombreX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.formula.nombrecorto}" />
+                            <h:outputText value="#{infoEXP.formula.nombrecorto}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['estadoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['estadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.formula.estado}" />
+                            <h:outputText value="#{infoEXP.formula.estado}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['periodicidadX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['periodicidadX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.periodicidad.nombre}" />
+                            <h:outputText value="#{infoEXP.periodicidad.nombre}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['nitX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nitX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.tercero.strNit}" />
+                            <h:outputText value="#{infoEXP.tercero.strNit}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['terceroX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['terceroX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.tercero.nombre}" />
+                            <h:outputText value="#{infoEXP.tercero.nombre}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['observacionFormulaXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['observacionFormulaX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.formula.observaciones}" />
+                            <h:outputText value="#{infoEXP.formula.observaciones}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['conceptoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXP.strConcepto}" />
+                            <h:outputText value="#{infoEXP.strConcepto}"/>
                         </p:column>
 
                     </p:dataTable>

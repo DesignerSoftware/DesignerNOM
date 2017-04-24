@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+  >
     <h:head>
     </h:head>
     <h:body>
@@ -13,9 +13,9 @@
             <ui:define name="body">                  
                 <h:form id="form">
                     <p:growl id="growl" showDetail="true"/> 
-                    <f:loadBundle basename="Recursos.centrocosto" var="msg" />
+                    <f:loadBundle basename="Recursos.centrocosto" var="msg"/>
                     <p:panel  id="PanelTotal" header="Proyecciones" styleClass="panelTotal">    
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Proyecciones</strong></legend>
 
                             <!-- TABLA EMPLVIGENCIACARGO -->
@@ -28,18 +28,18 @@
                                          selection="#{controlProyecciones.proyeccionesSeleccionada}"
                                          selectionMode="single"
                                          editable="true" editMode="cell" scrollable="true"
-                                         liveScroll="true" scrollRows="50"  scrollWidth="830" >
+                                         liveScroll="true" scrollRows="50"  scrollWidth="830">
 
                                 <p:ajax event="filter" listener="#{controlProyecciones.eventoFiltrar()}"/>
 
 
-                                <p:column headerText="Descripción Concepto" sortBy="#{info.concepto.descripcion}" filterBy="#{info.concepto.descripcion}" filterMatchMode="contains" id="descripcionConcepto" width="180" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción Concepto" sortBy="#{info.concepto.descripcion}" filterBy="#{info.concepto.descripcion}" filterMatchMode="contains" id="descripcionConcepto" width="180" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.concepto.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.concepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}" id="editarCodigoCC" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}" id="editarCodigoCC" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase;"> 
                                                 <p:ajax  event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.concepto.descripcion)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice,0)}" /> 
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice,0)}"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -47,13 +47,13 @@
 
                                 </p:column>  
 
-                                <p:column headerText="Nombre Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}" filterMatchMode="contains"  id="nombreEmpleado" width="200" filterStyle="display: none; visibility: hidden;" >      
+                                <p:column headerText="Nombre Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}" filterMatchMode="contains"  id="nombreEmpleado" width="200" filterStyle="display: none; visibility: hidden;">      
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.empleado.persona.nombreCompleto}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.empleado.persona.nombreCompleto}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" value="#{info.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 99%;height: 12px; text-transform: uppercase">
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.empleado.persona.nombreCompleto)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 1)}" />
+                                            <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" value="#{info.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 99%;height: 12px; text-transform: uppercase;">
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.empleado.persona.nombreCompleto)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 1)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -64,7 +64,7 @@
                                           filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechaDesde}" style="width: 80px; text-transform: uppercase">
+                                            <h:outputText value="#{info.fechaDesde}" style="width: 80px; text-transform: uppercase;">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
@@ -83,7 +83,7 @@
                                           filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.fechaHasta}" style="width: 80px; text-transform: uppercase">
+                                            <h:outputText value="#{info.fechaHasta}" style="width: 80px; text-transform: uppercase;">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
@@ -97,13 +97,13 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="Valor" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Valor" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor" width="70" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.valor}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.valor}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.valor}" maxlength="30" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.valor )}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 4)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.valor}" maxlength="30" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.valor )}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 4)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -112,11 +112,11 @@
 
                                 <p:column headerText="Formula" sortBy="#{info.formula.nombrelargo}" filterBy="#{info.formula.nombrelargo}" filterMatchMode="contains" id="formula" width="180" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}" maxlength="20" id="editarCodigoCTT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.formula.nombrelargo )}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 5)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}" maxlength="20" id="editarCodigoCTT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.formula.nombrelargo )}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 5)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -126,11 +126,11 @@
 
                                 <p:column headerText="Centro Costo" sortBy="#{info.centroCosto.nombre}" filterBy="#{info.centroCosto.nombre}" filterMatchMode="contains" id="centroCosto" width="180" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.centroCosto.nombre}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.centroCosto.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.centroCosto.nombre}" maxlength="20" id="editarCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.centroCosto.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 6)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.centroCosto.nombre}" maxlength="20" id="editarCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.centroCosto.nombre)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 6)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -139,11 +139,11 @@
 
                                 <p:column headerText="Cod CuentaC" sortBy="#{info.cuentaC.codigo}" filterBy="#{info.cuentaC.codigo}" filterMatchMode="contains" id="codigoCuentaC" width="113" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.cuentaC.codigo}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.cuentaC.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.cuentaC.codigo}" maxlength="20" id="editarCCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaC.codigo)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 7)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaC.codigo}" maxlength="20" id="editarCCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaC.codigo)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 7)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -153,11 +153,11 @@
 
                                 <p:column headerText="Descripción CtaC" sortBy="#{info.cuentaC.descripcion}" filterBy="#{info.cuentaC.descripcion}" filterMatchMode="contains" id="descripcionCuentaC" width="180" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.cuentaC.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.cuentaC.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.cuentaC.descripcion}" maxlength="20" id="editarCCD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaC.descripcion)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 8)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaC.descripcion}" maxlength="20" id="editarCCD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaC.descripcion)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 8)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -167,11 +167,11 @@
 
                                 <p:column headerText="Cod CuentaD" sortBy="#{info.cuentaD.codigo}" filterBy="#{info.cuentaD.codigo}" filterMatchMode="contains" id="codigoCuentaD" width="113" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.cuentaD.codigo}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.cuentaD.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.cuentaD.codigo}" maxlength="20" id="editarCDC" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaD.codigo)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 9)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaD.codigo}" maxlength="20" id="editarCDC" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaD.codigo)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 9)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -181,11 +181,11 @@
 
                                 <p:column headerText="Descripción CtaD" sortBy="#{info.cuentaD.descripcion}" filterBy="#{info.cuentaD.descripcion}" filterMatchMode="contains" id="descripcionCuentaD" width="180" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.cuentaD.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.cuentaD.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.cuentaD.descripcion}" maxlength="20" id="editarCDD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaD.descripcion)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 10)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaD.descripcion}" maxlength="20" id="editarCDD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaD.descripcion)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 10)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -195,11 +195,11 @@
 
                                 <p:column headerText="Nit" sortBy="#{info.nit.codigo}" filterBy="#{info.nit.codigo}" filterMatchMode="contains" id="nit" width="113" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.nit.codigo}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.nit.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nit.codigo}" maxlength="20" id="editarnitcodigo" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.nit.codigo)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 11)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.nit.codigo}" maxlength="20" id="editarnitcodigo" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.nit.codigo)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 11)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -209,11 +209,11 @@
 
                                 <p:column headerText="Nombre del Tercero" sortBy="#{info.nit.nombre}" filterBy="#{info.nit.nombre}" filterMatchMode="contains" id="nitNombre" width="180" filterStyle="display: none; visibility: hidden;" style="padding: 0px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.nit.nombre}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.nit.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nit.nombre}" maxlength="20" id="editarnitnombre" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.nit.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 12)}" />
+                                            <p:inputText  autocomplete="off"  value="#{info.nit.nombre}" maxlength="20" id="editarnitnombre" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.nit.nombre)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 12)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -224,184 +224,184 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left">
+                            <p:toolbarGroup align="left;">
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlProyecciones.guardarCambiosProyecciones()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="Guardar Cambios" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlProyecciones.editarCelda()}" process="@this"/>
-                                <p:tooltip style="" for="editar" value="Editar Celda" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores"  value="" style="background-image: url(Imagenes/Iconos/lupa.png) " disabled="true" process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlProyecciones.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="Filtrar" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlProyecciones.guardarCambiosProyecciones()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardar Cambios"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlProyecciones.editarCelda()}" process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar Celda"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlProyecciones.exportXLS()}" />
-                                <p:tooltip style="" for="exportarXLS" value="Exportar XLS" />
+                                <p:commandButton id="listaValores"  value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " actionListener="#{controlProyecciones.limpiarNuevoProyecciones()}" ajax="false">
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlProyecciones.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Filtrar"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlProyecciones.exportXLS()}"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar XLS"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png);" actionListener="#{controlProyecciones.limpiarNuevoProyecciones()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosProyeccionesExportar" fileName="PROYECCIONES" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="Exporta XLS" />
+                                <p:tooltip style="" for="exportarXML" value="Exporta XLS"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlProyecciones.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="Exportar PDF" />
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlProyecciones.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar PDF"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  disabled="true" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nueva Proyeccion" />
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Nueva Proyeccion"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlProyecciones.borrandoProyecciones()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Proyeccion" />
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlProyecciones.borrandoProyecciones()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Proyeccion"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " disabled="true" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Proyeccion" />
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" disabled="true" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Proyeccion"/>
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlProyecciones.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlProyecciones.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlProyecciones.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlProyecciones.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) "  actionListener="#{controlProyecciones.salir()}" action="#{controlProyecciones.redirigirPaginaAnterior()}"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"  actionListener="#{controlProyecciones.salir()}" action="#{controlProyecciones.redirigirPaginaAnterior()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
 
-                        <h:outputText id="informacionRegistro" value="#{controlProyecciones.infoRegistro}" style="position: absolute; left: 15px; top: 455px; font-weight: bold"/>
-                        <p:commandButton style="position: absolute; left: 10px; top: 475px;  "  icon="ui-icon-search" id="BUSCARCENTROCOSTO" disabled="#{controlProyecciones.buscarCentrocosto}" value="Buscar Empleado" actionListener="#{controlProyecciones.lovEmpleados()}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 180px; top: 475px;  " icon="ui-icon-search" id="MOSTRARTODOS" disabled="#{controlProyecciones.mostrartodos}" value="Mostrar Todos" actionListener="#{controlProyecciones.cancelarModificacion()}" process="@this"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 475px;  " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlProyecciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosProyecciones" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 475px;  " icon="ui-icon-closethick" id="ATRAS" value="Atras" actionListener="#{controlProyecciones.salir()}" action="#{controlProyecciones.redirigirPaginaAnterior()}" process="@this" />
+                        <h:outputText id="informacionRegistro" value="#{controlProyecciones.infoRegistro}" style="position: absolute; left: 15px; top: 455px; font-weight: bold;"/>
+                        <p:commandButton style="position: absolute; left: 10px; top: 475px; "  icon="ui-icon-search" id="BUSCARCENTROCOSTO" disabled="#{controlProyecciones.buscarCentrocosto}" value="Buscar Empleado" actionListener="#{controlProyecciones.lovEmpleados()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 180px; top: 475px; " icon="ui-icon-search" id="MOSTRARTODOS" disabled="#{controlProyecciones.mostrartodos}" value="Mostrar Todos" actionListener="#{controlProyecciones.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 475px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlProyecciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosProyecciones" process="@this"/>
+                        <p:commandButton style=" position: absolute; left: 785px; top: 475px; " icon="ui-icon-closethick" id="ATRAS" value="Atras" actionListener="#{controlProyecciones.salir()}" action="#{controlProyecciones.redirigirPaginaAnterior()}" process="@this"/>
 
                     </p:panel>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!!!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="100" width="320" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="65" height="70" style="position: absolute; left: 20px; top: 15px;"  />
-                        <h:outputText value="Se han Borrado #{controlProyecciones.registrosBorrados} Registros" style="position: absolute; left: 100px; top: 20px; width: 200px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+                        <h:outputText value="Se han Borrado #{controlProyecciones.registrosBorrados} Registros" style="position: absolute; left: 100px; top: 20px; width: 200px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  action="#{controlProyecciones.redireccionarAtras()}"  actionListener="#{controlProyecciones.guardarCambiosProyecciones()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"  action="#{controlProyecciones.redireccionarAtras()}"  actionListener="#{controlProyecciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  action="#{controlProyecciones.redireccionarAtras()}"  actionListener="#{controlProyecciones.guardarCambiosProyecciones()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"  action="#{controlProyecciones.redireccionarAtras()}"  actionListener="#{controlProyecciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlProyecciones.activarCtrlF11()}"/> 
                 </h:form>
 
-                <h:form id="formularioDialogos" >
+                <h:form id="formularioDialogos">
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'PROYECCIONES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecciones.secRegistro, 'Proyecciones', 'proyeccion')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla 'PROYECCIONES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecciones.secRegistro, 'Proyecciones', 'proyeccion')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla PROYECCIONES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Proyecciones', 'proyeccion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla PROYECCIONES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Proyecciones', 'proyeccion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecciones.secRegistro, 'Proyecciones', 'proyeccion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecciones.secRegistro, 'Proyecciones', 'proyeccion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'PROYECCIONES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="La tabla 'PROYECCIONES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
-                    <p:dialog id="editarDescripcionConceptoD" header="Descripción Concepto" widgetVar="editarDescripcionConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionConceptoD" header="Descripción Concepto" widgetVar="editarDescripcionConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreEmpleadoD" header="Nombre Empleado" widgetVar="editarNombreEmpleadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarNombreEmpleadoD" header="Nombre Empleado" widgetVar="editarNombreEmpleadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaDesdeD" header="Fecha Desde" widgetVar="editarFechaDesdeD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                    <p:dialog id="editarFechaDesdeD" header="Fecha Desde" widgetVar="editarFechaDesdeD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.fechaDesde}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaHastaD" header="Fecha Hasta" widgetVar="editarFechaHastaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                    <p:dialog id="editarFechaHastaD" header="Fecha Hasta" widgetVar="editarFechaHastaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.fechaHasta}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValorD" header="Valor" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarValorD" header="Valor" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.valor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFormulaD" header="Formula" widgetVar="editarFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarFormulaD" header="Formula" widgetVar="editarFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCentroCostoD" header="Centro Costo" widgetVar="editarCentroCostoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCentroCostoD" header="Centro Costo" widgetVar="editarCentroCostoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.centroCosto.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCuentaCD" header="Codigo Cuenta C" widgetVar="editarCodigoCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCodigoCuentaCD" header="Codigo Cuenta C" widgetVar="editarCodigoCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaC.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCuentaCD" header="Descripcion Cuenta C" widgetVar="editarDescripcionCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionCuentaCD" header="Descripcion Cuenta C" widgetVar="editarDescripcionCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaC.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCuentaDD" header="Formula" widgetVar="editarCodigoCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarCodigoCuentaDD" header="Formula" widgetVar="editarCodigoCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaD.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCuentaDD" header="Formula" widgetVar="editarDescripcionCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionCuentaDD" header="Formula" widgetVar="editarDescripcionCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaD.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNitCodigoD" header="Nit" widgetVar="editarNitCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarNitCodigoD" header="Nit" widgetVar="editarNitCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.nit.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNitNombreD" header="Nombre Tercero" widgetVar="editarNitNombreD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarNitNombreD" header="Nombre Tercero" widgetVar="editarNitNombreD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlProyecciones.editarProyeccion.nit.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -412,25 +412,25 @@
                                      selection="#{controlProyecciones.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleados" scrollable="true" scrollWidth="350" scrollHeight="250"
                                      filteredValue="#{controlProyecciones.filtradoListaEmpleados}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlProyecciones.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlProyecciones.cambiarEmpleado()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlProyecciones.cambiarEmpleado()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empleados :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:100px; position: relative; left: 10px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.persona.numerodocumento}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
-                                    <h:outputText value="Num Documento" />
+                                    <h:outputText value="Num Documento"/>
                                 </f:facet>
-                                <h:outputText  value="#{empresa.persona.numerodocumento}" />
+                                <h:outputText  value="#{empresa.persona.numerodocumento}"/>
                             </p:column>
                             <p:column filterBy="#{empresa.persona.nombreCompleto}" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="Nombre" />
+                                    <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText  value="#{empresa.persona.nombreCompleto}" />
+                                <h:outputText  value="#{empresa.persona.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEmpleados" value="#{controlProyecciones.infoRegistroEmpleados}" style="position: absolute; left: 5px; top: 350px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEmpleados" value="#{controlProyecciones.infoRegistroEmpleados}" style="position: absolute; left: 5px; top: 350px; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarE" icon="u-iicon-check" style="position: relative; left: 165px;" value="Aceptar" disabled="#{controlProyecciones.aceptar}" actionListener="#{controlProyecciones.cambiarEmpleado()}" process="@this"/>
                         <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" id="atrasE" style="position: relative; left: 165px;" value="Cancelar" actionListener="#{controlProyecciones.cancelarCambioEmpleado()}" process="@this"/>
@@ -449,66 +449,66 @@
 
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Concepto"/></f:facet>
-                            <h:outputText value="#{info.concepto.descripcion}" />
+                            <h:outputText value="#{info.concepto.descripcion}"/>
                         </p:column>
                         <!--1-->
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Empelado"/></f:facet>
-                            <h:outputText value="#{info.empleado.persona.nombreCompleto}" />
+                            <h:outputText value="#{info.empleado.persona.nombreCompleto}"/>
                         </p:column>
                         <!--2-->
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="FechaDesde" />
+                                <h:outputText value="FechaDesde"/>
                             </f:facet>
-                            <h:outputText value="#{info.fechaDesde}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{info.fechaDesde}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column> 
                         <!--3-->
                         <p:column>  
                             <f:facet name="header">
-                                <h:outputText value="FechaHasta" />
+                                <h:outputText value="FechaHasta"/>
                             </f:facet>
-                            <h:outputText value="#{info.fechaHasta}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <h:outputText value="#{info.fechaHasta}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column> 
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Valor"/></f:facet>
-                            <h:outputText value="#{info.valor}" />
+                            <h:outputText value="#{info.valor}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Formula"/></f:facet>
-                            <h:outputText value="#{info.formula.nombrelargo}" />
+                            <h:outputText value="#{info.formula.nombrelargo}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="CentroCosto"/></f:facet>
-                            <h:outputText value="#{info.centroCosto.nombre}" />
+                            <h:outputText value="#{info.centroCosto.nombre}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="CodigoCuentaC"/></f:facet>
-                            <h:outputText value="#{info.cuentaC.codigo}" />
+                            <h:outputText value="#{info.cuentaC.codigo}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="DescripcionCuentaC"/></f:facet>
-                            <h:outputText value="#{info.cuentaC.descripcion}" />
+                            <h:outputText value="#{info.cuentaC.descripcion}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="CodigoCuentaD"/></f:facet>
-                            <h:outputText value="#{info.cuentaD.codigo}" />
+                            <h:outputText value="#{info.cuentaD.codigo}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="DescripcionCuentaD"/></f:facet>
-                            <h:outputText value="#{info.cuentaD.descripcion}" />
+                            <h:outputText value="#{info.cuentaD.descripcion}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Nit"/></f:facet>
-                            <h:outputText value="#{info.nit.codigo}" />
+                            <h:outputText value="#{info.nit.codigo}"/>
                         </p:column>
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="NombreTercero"/></f:facet>
-                            <h:outputText value="#{info.nit.nombre}" />
+                            <h:outputText value="#{info.nit.nombre}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

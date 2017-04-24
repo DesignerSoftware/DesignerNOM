@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -92,7 +93,7 @@ public class ControlVigenciasContratos implements Serializable {
    //
    private DataTable tablaC;
    private boolean activarLOV;
-      private String paginaAnterior = "nominaf";
+   private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlVigenciasContratos() {
@@ -124,9 +125,10 @@ public class ControlVigenciasContratos implements Serializable {
       permitirIndex = true;
       altoTabla = "295";
       activarLOV = true;
-       mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
-  public void limpiarListasValor() {
+
+   public void limpiarListasValor() {
       listaContratos = null;
       listaTiposContratos = null;
    }
@@ -154,34 +156,51 @@ public class ControlVigenciasContratos implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "empllegislacionlaboral";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "empllegislacionlaboral";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         //}
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
+      limpiarListasValor();
+   }
 
    //EMPLEADO DE LA VIGENCIA
    /**
@@ -530,6 +549,11 @@ public class ControlVigenciasContratos implements Serializable {
    /**
     * Metodo que guarda los cambios efectuados en la pagina Vigencias Contratos
     */
+   public void guardarYSalir() {
+      guardarCambiosVC();
+      salir();
+   }
+
    public void guardarCambiosVC() {
       if (guardado == false) {
          if (!listVCBorrar.isEmpty()) {
@@ -571,6 +595,11 @@ public class ControlVigenciasContratos implements Serializable {
    /**
     * Cancela las modificaciones realizas en la pagina
     */
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
+   }
+
    public void cancelarModificacion() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (bandera == 1) {
@@ -878,8 +907,8 @@ public class ControlVigenciasContratos implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
-      RequestContext context = RequestContext.getCurrentInstance();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          vcFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcFechaInicial");
@@ -907,6 +936,7 @@ public class ControlVigenciasContratos implements Serializable {
       vigenciasContratos = null;
       guardado = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = CONTRATOS - TIPOSCONTRATOS)
 
@@ -931,7 +961,7 @@ public class ControlVigenciasContratos implements Serializable {
       }
 
       if (list == 0) {
-        contarRegistrosC();
+         contarRegistrosC();
          RequestContext.getCurrentInstance().update("form:ContratosDialogo");
          RequestContext.getCurrentInstance().execute("PF('ContratosDialogo').show()");
 

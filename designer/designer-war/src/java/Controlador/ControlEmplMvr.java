@@ -20,7 +20,8 @@ import java.math.BigInteger;
 import java.security.acl.Group;
 import java.util.*;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -122,7 +123,7 @@ public class ControlEmplMvr implements Serializable {
    private boolean activarLOV;
    private String estadoMientras;
    private HashMap<Integer, String> hMapEstados;
-      private String paginaAnterior = "nominaf";
+   private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlEmplMvr() {
@@ -182,7 +183,7 @@ public class ControlEmplMvr implements Serializable {
 
       estadoMientras = "";
       hMapEstados = new HashMap<Integer, String>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -195,35 +196,53 @@ public class ControlEmplMvr implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "emplmvrs";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "emplmvrs";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         //}
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
+      limpiarListasValor();
+   }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
       listMotivosMvrs = null;
       listTiposCertificados = null;
    }
@@ -774,6 +793,11 @@ public class ControlEmplMvr implements Serializable {
       RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
    }
 
+   public void guardarYSalir() {
+      guardadoGeneral();
+      salir();
+   }
+
    //GUARDAR
    /**
     * Metodo de guardado general para la pagina
@@ -784,7 +808,6 @@ public class ControlEmplMvr implements Serializable {
       guardado = true;
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
@@ -1432,7 +1455,8 @@ public class ControlEmplMvr implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaMvrs == 1) {
          restablecerTablaMVR();
@@ -1458,6 +1482,7 @@ public class ControlEmplMvr implements Serializable {
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 

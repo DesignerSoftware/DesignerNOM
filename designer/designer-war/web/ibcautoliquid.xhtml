@@ -4,563 +4,575 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
+  >
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
 
-                    <f:loadBundle basename="Recursos.ibcautoliquid" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
+               <f:loadBundle basename="Recursos.ibcautoliquid" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
-                        <p:toolbar  styleClass="cssToolbar">
-                            <p:toolbarGroup align="left"> 
+                  <p:toolbar  styleClass="cssToolbar">
+                     <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}"/>
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         process="@this" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlIbcAutoliquid.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlIbcAutoliquid.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         actionListener="#{controlIbcAutoliquid.listaValoresBoton()}" process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlIbcAutoliquid.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlIbcAutoliquid.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlIbcAutoliquid.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlIbcAutoliquid.verificarExportXLS()}" ajax="false"  />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
-                                    <p:dataExporter type="xml"  target="#{controlIbcAutoliquid.exportXML()}" fileName="#{controlIbcAutoliquid.nombreXML}" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlIbcAutoliquid.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlIbcAutoliquid.validarIngresoNuevoRegistro()}"  process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlIbcAutoliquid.validarBorradoRegistro()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlIbcAutoliquid.validarDuplicadoRegistro()}" process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlIbcAutoliquid.verificarRastroTabla()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlIbcAutoliquid.cancelarModificacion()}" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlIbcAutoliquid.salir()}" action="emplibcs" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-                            </p:toolbarGroup>  
-                        </p:toolbar> 
-
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlIbcAutoliquid.empleado.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlIbcAutoliquid.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
-                        </fieldset>
-
-                        <fieldset style="position: absolute; left: 210px; top: 110px; width: 410px; height: 135px; border-radius: 10px; text-align: left">
-                            <legend style="color: blue"><strong>#{msg['tipoentidad']}</strong></legend>
-
-                            <p:dataTable id="datosTipoEntidad" var="infoTE" rowKey="#{infoTE.secuencia}" rowIndexVar="indiceTE" widgetVar="datosTipoEntidad"
-                                         style="border: 1px;width: 390px;"  value="#{controlIbcAutoliquid.listTiposEntidades}" 
-                                         scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTablaTipoE}" scrollWidth="410" selection="#{controlIbcAutoliquid.tipoEntidadActual}"
-                                         filteredValue="#{controlIbcAutoliquid.filtrarListTiposEntidades}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="5" selectionMode="single">
-
-                                <p:ajax event="filter" listener="#{controlIbcAutoliquid.eventoFiltrarTE}"/>
-                                <f:event type="preRenderView" listener="#{controlIbcAutoliquid.recordarSeleccion()}"/>
-
-                                <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.obtenerDetallesIBCS()}" />
-                                <p:column filterBy="#{infoTE.codigo}" width="40" id="codigoTipoEntidad" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                    <f:facet name="header">
-                                        <h:outputText  style="text-align: center" value="#{msg['codigo']}" />
-                                    </f:facet>
-                                    <h:outputText  value="#{infoTE.codigo}" />
-                                </p:column>
-                                <p:column filterBy="#{infoTE.nombre}" id="nombreTipoEntidad" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >
-                                    <f:facet name="header">
-                                        <h:outputText style="text-align: center" value="#{msg['nombre']}" />
-                                    </f:facet>
-                                    <h:outputText  value="#{infoTE.nombre}" />
-                                </p:column>
-                            </p:dataTable>    
-                        </fieldset>    
-
-                        <fieldset style="position: absolute; left: 10px; top: 260px; width: 830px; height: 220px; border-radius: 10px; text-align: left">
-                            <legend style="color: blue"><strong>#{msg['ibcs']}</strong></legend>
-
-                            <p:dataTable id="datosIBCS" var="infoIBC" rowKey="#{infoIBC.secuencia}" rowIndexVar="indice" widgetVar="datosIBCS"
-                                         style="border: 1px;width: 810px;"  value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}" 
-                                         scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTabla}" scrollWidth="825"
-                                         filteredValue="#{controlIbcAutoliquid.filtrarListIbcsAutoliquidaciones}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="9" selection="#{controlIbcAutoliquid.ibcsTablaSeleccionada}">
-
-                                <p:ajax event="filter" listener="#{controlIbcAutoliquid.eventoFiltrarTE}"/>
-
-                                <p:column headerText="#{msg['fechainicial']}" sortBy="#{infoIBC.fechainicial}" filterBy="#{infoIBC.fechainicial}" filterMatchMode="contains"  width="72" id="ibcFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoIBC.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoIBC.fechainicial}"> 
-                                                <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,0)}" process="@this"
-                                                        onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});" /> 
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{infoIBC.fechafinal}" filterBy="#{infoIBC.fechafinal}" filterMatchMode="contains"  width="72" id="ibcFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoIBC.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{infoIBC.fechafinal}"> 
-                                                <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,1)}" process="@this"
-                                                       onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});" /> 
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="#{msg['estado']}" sortBy="#{infoIBC.estado}" filterBy="#{infoIBC.estado}" filterMatchMode="contains" 
-                                          id="ibcEstado" width="133" filterStyle="display: none; visibility: hidden" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoIBC.estado}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoIBC.estado}"  id="editarEstadoIBC" style="border-radius: 0px; width: 94%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC, 2)}" process="@this"
-                                                       onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="#{msg['proceso']}" sortBy="#{infoIBC.proceso.descripcion}" filterBy="#{infoIBC.proceso.descripcion}" filterMatchMode="contains" 
-                                          id="ibcProceso" width="133" filterStyle="display: none; visibility: hidden" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoIBC.proceso.descripcion}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoIBC.proceso.descripcion}"  id="editarProcesoIBC" style="width: 94%; border-radius: 0px;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC, 3)}" process="@this"
-                                                       onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCSAutocompletar(infoIBC,'PROCESO',infoIBC.proceso.descripcion)}" process="@this" update="editarProcesoIBC"/>
-                                                <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,0)}" process="@this" update="editarProcesoIBC"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="#{msg['valor']}" sortBy="#{infoIBC.valor}" filterBy="#{infoIBC.valor}" filterMatchMode="contains" 
-                                          id="ibcValor" width="100" filterStyle="display: none; visibility: hidden" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoIBC.valor}">
-                                                <f:convertNumber type="currency" currencySymbol="$"/>
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoIBC.valor}"  id="editarvalorIBC" style="border-radius: 0px; width: 94%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC, 4)}" process="@this"
-                                                       onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="#{msg['fechapago']}" sortBy="#{infoIBC.fechapago}" filterBy="#{infoIBC.fechapago}" filterMatchMode="contains"  width="72" id="ibcFechaPago" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoIBC.fechapago}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaPagoIBC" value="#{infoIBC.fechapago}"> 
-                                                <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" update="editarFechaPagoIBC" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" update="editarFechaPagoIBC" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,5)}" process="@this"
-                                                       onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});" /> 
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                </p:column>
-
-                            </p:dataTable>
-                        </fieldset>
-
-                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlIbcAutoliquid.guardado}" update=":form:datosIBCS" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlIbcAutoliquid.salir()}" action="emplibcs" process="@this" />
-                    </p:panel>
-
-                    <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" id="ProcesosDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovProcesos" style="width: 400px;" var="proceso" value="#{controlIbcAutoliquid.listProcesos}" rowKey="#{proceso.secuencia}"
-                                     selection="#{controlIbcAutoliquid.procesoSeleccionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlIbcAutoliquid.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.activarAceptar()}" update=":form:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlIbcAutoliquid.actualizarProceso()}" process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width:150px; position: relative; left: 20px;" />  
-                            </f:facet>
-
-                            <p:column filterBy="#{proceso.codigo}" filterStyle="width: 60px;" width="80" filterMatchMode="contains" >
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigoP']}" />
-                                </f:facet>
-                                <h:outputText  value="#{proceso.codigo}" />
-                            </p:column>
-                            <p:column filterBy="#{proceso.descripcion}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcionP']}" />
-                                </f:facet>
-                                <h:outputText value="#{proceso.descripcion}" />
-                            </p:column>
-                        </p:dataTable>
-
-                        <h:outputText id="infoRegistroProceso" value="#{controlIbcAutoliquid.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarP" style="position: relative; left: 230px;top: 5px;" icon="ui-icon-check" value="#{msg['aceptar']}" actionListener="#{controlIbcAutoliquid.actualizarProceso()}" disabled="#{controlIbcAutoliquid.aceptar}" process="@this" />
-
-                        <p:commandButton id="atrasP" style="position: relative; left: 230px;top: 5px;" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlIbcAutoliquid.cancelarCambioProceso()}"   process="@this" />
-
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlIbcAutoliquid.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlIbcAutoliquid.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}" action="emplibcs" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlVigenciasUbicaciones.salir()}" action="emplibcs" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                </h:form>
-
-                <h:form>
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlIbcAutoliquid.activarCtrlF11()}"/>
-                </h:form>
-
-                <h:form id="formularioDialogos">
-
-                    <p:dialog id="NuevoRegistroIBCS" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroIBCS" closable="false" resizable="false"  draggable="true" modal="true" height="305" width="350" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="nuevaIBC" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 170px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlIbcAutoliquid.nuevoIBC.fechainicial}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['fechafinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 170px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlIbcAutoliquid.nuevoIBC.fechafinal}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaEstadoIBCS" value="#{controlIbcAutoliquid.nuevoIBC.estado}" style="width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
-                                <p:ajax event="change" update="nuevaEstadoIBCS"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaEstadoIBCS" value="#{msg['estado']}" />
-
-                            <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaProcesoIBCS" value="#{controlIbcAutoliquid.nuevoIBC.proceso.descripcion}" style="width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,1)}"/>
-                                <p:ajax event="click" listener="#{controlIbcAutoliquid.valoresBackupAutocompletar(1, 'PROCESO')}" />
-                                <p:ajax event="change" listener="#{controlIbcAutoliquid.autocompletarNuevoyDuplicadoIBCS('PROCESO',controlIbcAutoliquid.nuevoIBC.proceso.descripcion,1)}" />
-                            </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 160px;  " id="btnNuevaProcesoIBCS" actionListener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,1)}" icon="ui-icon-search" process="@this" />
-                            <p:watermark for="nuevaProcesoIBCS" value="#{msg['proceso']}" />
-
-                            <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaValorIBCS" value="#{controlIbcAutoliquid.nuevoIBC.valor}" style="width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
-                                <p:ajax event="change" update="nuevaValorIBCS"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaValorIBCS" value="#{msg['valor']}" />
-
-                            <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <div id="posicionFechaPagoIBCSNuevoReg" style="position: absolute; top: 220px; left: 170px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlIbcAutoliquid.nuevoIBC.fechapago}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaPago"/>
-                                    <p:ajax event="change" update="nuevaFechaPago"/>
-                                </p:calendar>
-                            </div>
-
-                            <p:commandButton id="limpiarNIBC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarNuevoIBCS()}" update="nuevaIBC" process="@this" icon="ui-icon-trash"/>
-                            <p:commandButton id="agregarNIBC" value="#{msg['agregar']}" style="position: absolute; left: 140px; top: 270px;"  process="@this" actionListener="#{controlIbcAutoliquid.agregarNuevoIBCS()}"  icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarNIBC" value="#{msg['cancelar']}" style="position: absolute; left: 240px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarNuevoIBCS()}" update="nuevaIBC" onclick="PF('NuevoRegistroIBCS').hide();"  process="@this" icon="ui-icon-circle-close"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroIBCS" header="#{msg['duplicarregistroN']}" widgetVar="DuplicarRegistroIBCS" closable="false" resizable="false"  draggable="true" modal="true" height="305" width="350" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="duplicaIBC" style="border: none;">
-
-
-                            <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniDupliReg" style="position: absolute; top: 70px; left: 170px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlIbcAutoliquid.duplicarIBC.fechainicial}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
-                                </p:calendar>
-                            </div>
-                            <strong><h:outputText value="#{msg['fechafinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaFinDupliReg" style="position: absolute; top: 100px; left: 170px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlIbcAutoliquid.duplicarIBC.fechafinal}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaEstadoIBCS" value="#{controlIbcAutoliquid.duplicarIBC.estado}" style="width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
-                                <p:ajax event="change" update="duplicaEstadoIBCS"/>
-                            </p:inputText>
-                            <p:watermark for="duplicaEstadoIBCS" value="#{msg['estado']}" />
-
-                            <strong><h:outputText value="#{msg['procesoN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaProcesoIBCS" value="#{controlIbcAutoliquid.duplicarIBC.proceso.descripcion}" style="width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,2)}"/>
-                                <p:ajax event="click" listener="#{controlIbcAutoliquid.valoresBackupAutocompletar(1, 'PROCESO')}" />
-                                <p:ajax event="change" listener="#{controlIbcAutoliquid.autocompletarNuevoyDuplicadoIBCS('PROCESO',controlIbcAutoliquid.duplicarIBC.proceso.descripcion,2)}" />
-                            </p:inputText>
-                            <p:watermark for="duplicaProcesoIBCS" value="#{msg['proceso']}" />
-
-                            <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicaValorIBCS" value="#{controlIbcAutoliquid.duplicarIBC.valor}" style="width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
-                                <p:ajax event="change" update="duplicaValorIBCS"/>
-                            </p:inputText>
-                            <p:watermark for="duplicaValorIBCS" value="#{msg['valor']}" />
-
-                            <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <div id="posicionFormulaPagoFinDupliReg" style="position: absolute; left: 170px; top: 220px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlIbcAutoliquid.duplicarIBC.fechapago}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaPago" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaPago" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <p:commandButton id="limpiarDIBC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarDuplicarIBCS()}" update="duplicaIBC" process="@this" icon="ui-icon-trash"/>
-                            <p:commandButton id="agregarDIBC" value="#{msg['agregar']}" style="position: absolute; left: 155px; top: 270px;"  process="@this" actionListener="#{controlIbcAutoliquid.confirmarDuplicar()}" icon="ui-icon-circle-check"/>
-                            <p:commandButton id="cancelarDIBC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarDuplicarIBCS()}" update="duplicaIBC" onclick="PF('DuplicarRegistroIBCS').hide();"  process="@this"  icon="ui-icon-circle-close"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechainicial}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechafinal}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarEstadoD" header="#{msg['estadoE']}" widgetVar="editarEstadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.estado}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.valor}" style="overflow: auto;" readonly="true">
-                            <f:convertNumber type="currency" currencySymbol="$"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechaPagoD" header="#{msg['fechapagoE']}" widgetVar="editarFechaPagoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechapago}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                </h:form>
-
-                <h:form id="formExportarIBCS">
-                    <p:dataTable id="datosIBCSExportar" var="infoIBCExp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}"> 
-                        <!--COLUMNAS TABLA DATOS VIGENCIAS LOCALIZACIONES DE UN EMPLEADO --> 
-
-                        <p:column>  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechainicialXX']}" />
-                            </f:facet>
-                            <h:outputText value="#{infoIBCExp.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         actionListener="#{controlIbcAutoliquid.verificarExportXLS()}" ajax="false"  />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
+                           <p:dataExporter type="xml"  target="#{controlIbcAutoliquid.exportXML()}" fileName="#{controlIbcAutoliquid.nombreXML}" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlIbcAutoliquid.validarExportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         actionListener="#{controlIbcAutoliquid.validarIngresoNuevoRegistro()}"  process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlIbcAutoliquid.validarBorradoRegistro()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlIbcAutoliquid.validarDuplicadoRegistro()}" process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlIbcAutoliquid.verificarRastroTabla()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlIbcAutoliquid.cancelarModificacion()}" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlIbcAutoliquid.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText id="nombreEmpleado" value="#{controlIbcAutoliquid.empleado.persona.nombreCompleto}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
+                     <h:outputText id="docEmpleado" value="#{controlIbcAutoliquid.empleado.codigoempleado}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
+                  </fieldset>
+
+                  <fieldset style="position: absolute; left: 210px; top: 110px; width: 410px; height: 135px; border-radius: 10px; text-align: left;">
+                     <legend style="color: blue"><strong>#{msg['tipoentidad']}</strong></legend>
+
+                     <p:dataTable id="datosTipoEntidad" var="infoTE" rowKey="#{infoTE.secuencia}" rowIndexVar="indiceTE" widgetVar="datosTipoEntidad"
+                                  style="border: 1px; width: 390px;"  value="#{controlIbcAutoliquid.listTiposEntidades}" 
+                                  scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTablaTipoE}" scrollWidth="410" selection="#{controlIbcAutoliquid.tipoEntidadActual}"
+                                  filteredValue="#{controlIbcAutoliquid.filtrarListTiposEntidades}" emptyMessage="#{msg['vacio']}"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="5" selectionMode="single">
+
+                        <p:ajax event="filter" listener="#{controlIbcAutoliquid.eventoFiltrarTE}"/>
+                        <f:event type="preRenderView" listener="#{controlIbcAutoliquid.recordarSeleccion()}"/>
+
+                        <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.obtenerDetallesIBCS()}"/>
+                        <p:column filterBy="#{infoTE.codigo}" width="40" id="codigoTipoEntidad" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
+                           <f:facet name="header">
+                              <h:outputText  style="text-align: center;" value="#{msg['codigo']}"/>
+                           </f:facet>
+                           <h:outputText  value="#{infoTE.codigo}"/>
+                        </p:column>
+                        <p:column filterBy="#{infoTE.nombre}" id="nombreTipoEntidad" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
+                           <f:facet name="header">
+                              <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
+                           </f:facet>
+                           <h:outputText  value="#{infoTE.nombre}"/>
+                        </p:column>
+                     </p:dataTable>    
+                  </fieldset>    
+
+                  <fieldset style="position: absolute; left: 10px; top: 260px; width: 830px; height: 220px; border-radius: 10px; text-align: left;">
+                     <legend style="color: blue"><strong>#{msg['ibcs']}</strong></legend>
+
+                     <p:dataTable id="datosIBCS" var="infoIBC" rowKey="#{infoIBC.secuencia}" rowIndexVar="indice" widgetVar="datosIBCS"
+                                  style="border: 1px; width: 810px;"  value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}" 
+                                  scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTabla}" scrollWidth="825"
+                                  filteredValue="#{controlIbcAutoliquid.filtrarListIbcsAutoliquidaciones}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="9" selection="#{controlIbcAutoliquid.ibcsTablaSeleccionada}">
+
+                        <p:ajax event="filter" listener="#{controlIbcAutoliquid.eventoFiltrarTE}"/>
+
+                        <p:column headerText="#{msg['fechainicial']}" sortBy="#{infoIBC.fechainicial}" filterBy="#{infoIBC.fechainicial}" filterMatchMode="contains"  width="72" id="ibcFechaInicial" filterStyle="display: none; visibility: hidden;">  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoIBC.fechainicial}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoIBC.fechainicial}"> 
+                                    <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,0)}" update="dateFechaInicial" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,0)}" update="dateFechaInicial" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,0)}" process="@this"
+                                            onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});"/> 
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column>  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechafinalXX']}" />
-                            </f:facet>
-                            <h:outputText value="#{infoIBCExp.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:column headerText="#{msg['fechafinal']}" sortBy="#{infoIBC.fechafinal}" filterBy="#{infoIBC.fechafinal}" filterMatchMode="contains"  width="72" id="ibcFechaFinal" filterStyle="display: none; visibility: hidden;">  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoIBC.fechafinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{infoIBC.fechafinal}"> 
+                                    <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,1)}" update="dateFechaFinal" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarFechas(infoIBC,1)}" update="dateFechaFinal" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,1)}" process="@this"
+                                            onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});"/> 
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="#{msg['estadoX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['estadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoIBCExp.estado}" />
+                        <p:column headerText="#{msg['estado']}" sortBy="#{infoIBC.estado}" filterBy="#{infoIBC.estado}" filterMatchMode="contains" 
+                                  id="ibcEstado" width="133" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoIBC.estado}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{infoIBC.estado}"  id="editarEstadoIBC" style="border-radius: 0px; width: 94%;text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC, 2)}" process="@this"
+                                            onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="#{msg['procesoX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoIBCExp.proceso.descripcion}" />
+                        <p:column headerText="#{msg['proceso']}" sortBy="#{infoIBC.proceso.descripcion}" filterBy="#{infoIBC.proceso.descripcion}" filterMatchMode="contains" 
+                                  id="ibcProceso" width="133" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoIBC.proceso.descripcion}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{infoIBC.proceso.descripcion}"  id="editarProcesoIBC" style="width: 94%; border-radius: 0px;text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC, 3)}" process="@this"
+                                            onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCSAutocompletar(infoIBC,'PROCESO',infoIBC.proceso.descripcion)}" process="@this" update="editarProcesoIBC"/>
+                                    <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,0)}" process="@this" update="editarProcesoIBC"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="#{msg['valorX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['valorX']}"/> </f:facet> 
-                            <h:outputText value="#{infoIBCExp.valor}" >
-                                <f:convertNumber type="currency" currencySymbol="$"/>
-                            </h:outputText>
+                        <p:column headerText="#{msg['valor']}" sortBy="#{infoIBC.valor}" filterBy="#{infoIBC.valor}" filterMatchMode="contains" 
+                                  id="ibcValor" width="100" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoIBC.valor}">
+                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{infoIBC.valor}"  id="editarvalorIBC" style="border-radius: 0px; width: 94%;text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC, 4)}" process="@this"
+                                            onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column>  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechapagoXX']}" />
-                            </f:facet>
-                            <h:outputText value="#{infoIBCExp.fechapago}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:column headerText="#{msg['fechapago']}" sortBy="#{infoIBC.fechapago}" filterBy="#{infoIBC.fechapago}" filterMatchMode="contains"  width="72" id="ibcFechaPago" filterStyle="display: none; visibility: hidden;">  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoIBC.fechapago}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaPagoIBC" value="#{infoIBC.fechapago}"> 
+                                    <p:ajax event="dateSelect" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" update="editarFechaPagoIBC" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlIbcAutoliquid.modificarIBCS(infoIBC)}" update="editarFechaPagoIBC" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlIbcAutoliquid.cambiarIndice(infoIBC,5)}" process="@this"
+                                            onstart="PF('datosIBCS').unselectAllRows();PF('datosIBCS').selectRow(#{indice});"/> 
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
                         </p:column>
 
-                    </p:dataTable>
-                </h:form>
+                     </p:dataTable>
+                  </fieldset>
 
-                <h:form id="formExportarTipoEntidad">
-                    <p:dataTable id="datosTipoEntidadExportar" var="infoTEExp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlIbcAutoliquid.listTiposEntidades}"> 
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlIbcAutoliquid.guardado}" update=":form:datosIBCS" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlIbcAutoliquid.salir()}" process="@this"/>
+               </p:panel>
 
-                        <p:column headerText="#{msg['codigo']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
-                            <h:outputText value="#{infoTEExp.codigo}" />
-                        </p:column>
+               <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" id="ProcesosDialogo"  
+                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                  <p:dataTable id="lovProcesos" style="width: 400px;" var="proceso" value="#{controlIbcAutoliquid.listProcesos}" rowKey="#{proceso.secuencia}"
+                               selection="#{controlIbcAutoliquid.procesoSeleccionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="250"
+                               filteredValue="#{controlIbcAutoliquid.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                     <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.activarAceptar()}" update=":form:aceptarP"/>
+                     <p:ajax event="rowDblselect" listener="#{controlIbcAutoliquid.actualizarProceso()}" process="@this"/>
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width:150px; position: relative; left: 20px;"/>  
+                     </f:facet>
 
-                        <p:column headerText="#{msg['nombre']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['nombre']}"/> </f:facet> 
-                            <h:outputText value="#{infoTEExp.nombre}" />
-                        </p:column>
+                     <p:column filterBy="#{proceso.codigo}" filterStyle="width: 60px;" width="80" filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="#{msg['codigoP']}"/>
+                        </f:facet>
+                        <h:outputText  value="#{proceso.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{proceso.descripcion}" filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcionP']}"/>
+                        </f:facet>
+                        <h:outputText value="#{proceso.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+
+                  <h:outputText id="infoRegistroProceso" value="#{controlIbcAutoliquid.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
+
+                  <p:commandButton id="aceptarP" style="position: relative; left: 230px; top: 5px;" icon="ui-icon-check" value="#{msg['aceptar']}" actionListener="#{controlIbcAutoliquid.actualizarProceso()}" disabled="#{controlIbcAutoliquid.aceptar}" process="@this"/>
+
+                  <p:commandButton id="atrasP" style="position: relative; left: 230px; top: 5px;" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlIbcAutoliquid.cancelarCambioProceso()}"   process="@this"/>
+
+               </p:dialog>
+
+               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{controlIbcAutoliquid.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 63px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('ibcautoliquid', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{controlIbcAutoliquid.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('ibcautoliquid', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlIbcAutoliquid.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIbcAutoliquid.backUp, controlIbcAutoliquid.nombreTablaRastro , 'ibcsRastro')}" style="position: absolute; top: 60px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('ibcautoliquid', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 60px; left: 255px;" process="@this"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlIbcAutoliquid.guardadoYSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlVigenciasUbicaciones.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+               </p:dialog>
+
+            </h:form>
+
+            <h:form>
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlIbcAutoliquid.activarCtrlF11()}"/>
+            </h:form>
+
+            <h:form id="formularioDialogos">
+
+               <p:dialog id="NuevoRegistroIBCS" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroIBCS" closable="false" resizable="false"  draggable="true" modal="true" height="305" width="350" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="nuevaIBC" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                     <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 170px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlIbcAutoliquid.nuevoIBC.fechainicial}">
+                           <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
+                           <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['fechafinalN']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                     <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 170px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlIbcAutoliquid.nuevoIBC.fechafinal}">
+                           <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
+                           <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaEstadoIBCS" value="#{controlIbcAutoliquid.nuevoIBC.estado}" style="width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase;">
+                        <p:ajax event="change" update="nuevaEstadoIBCS"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaEstadoIBCS" value="#{msg['estado']}"/>
+
+                     <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaProcesoIBCS" value="#{controlIbcAutoliquid.nuevoIBC.proceso.descripcion}" style="width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase;">
+                        <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,1)}"/>
+                        <p:ajax event="click" listener="#{controlIbcAutoliquid.valoresBackupAutocompletar(1, 'PROCESO')}"/>
+                        <p:ajax event="change" listener="#{controlIbcAutoliquid.autocompletarNuevoyDuplicadoIBCS('PROCESO',controlIbcAutoliquid.nuevoIBC.proceso.descripcion,1)}"/>
+                     </p:inputText>
+                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 160px; " id="btnNuevaProcesoIBCS" actionListener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,1)}" icon="ui-icon-search" process="@this"/>
+                     <p:watermark for="nuevaProcesoIBCS" value="#{msg['proceso']}"/>
+
+                     <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaValorIBCS" value="#{controlIbcAutoliquid.nuevoIBC.valor}" style="width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase;">
+                        <p:ajax event="change" update="nuevaValorIBCS"/>
+                     </p:inputText>
+                     <p:watermark for="nuevaValorIBCS" value="#{msg['valor']}"/>
+
+                     <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;"/></strong>
+                     <div id="posicionFechaPagoIBCSNuevoReg" style="position: absolute; top: 220px; left: 170px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlIbcAutoliquid.nuevoIBC.fechapago}">
+                           <p:ajax event="dateSelect" update="nuevaFechaPago"/>
+                           <p:ajax event="change" update="nuevaFechaPago"/>
+                        </p:calendar>
+                     </div>
+
+                     <p:commandButton id="limpiarNIBC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarNuevoIBCS()}" update="nuevaIBC" process="@this" icon="ui-icon-trash"/>
+                     <p:commandButton id="agregarNIBC" value="#{msg['agregar']}" style="position: absolute; left: 140px; top: 270px;"  process="@this" actionListener="#{controlIbcAutoliquid.agregarNuevoIBCS()}"  icon="ui-icon-circle-check"/>
+                     <p:commandButton id="cancelarNIBC" value="#{msg['cancelar']}" style="position: absolute; left: 240px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarNuevoIBCS()}" update="nuevaIBC" onclick="PF('NuevoRegistroIBCS').hide();"  process="@this" icon="ui-icon-circle-close"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroIBCS" header="#{msg['duplicarregistroN']}" widgetVar="DuplicarRegistroIBCS" closable="false" resizable="false"  draggable="true" modal="true" height="305" width="350" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="duplicaIBC" style="border: none;">
 
 
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                     <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                     <div id="posicionFormulaFechaIniDupliReg" style="position: absolute; top: 70px; left: 170px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlIbcAutoliquid.duplicarIBC.fechainicial}">
+                           <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
+                           <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
+                        </p:calendar>
+                     </div>
+                     <strong><h:outputText value="#{msg['fechafinalN']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
+                     <div id="posicionFormulaFechaFinDupliReg" style="position: absolute; top: 100px; left: 170px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlIbcAutoliquid.duplicarIBC.fechafinal}">
+                           <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
+                           <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['estadoN']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicaEstadoIBCS" value="#{controlIbcAutoliquid.duplicarIBC.estado}" style="width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase;">
+                        <p:ajax event="change" update="duplicaEstadoIBCS"/>
+                     </p:inputText>
+                     <p:watermark for="duplicaEstadoIBCS" value="#{msg['estado']}"/>
+
+                     <strong><h:outputText value="#{msg['procesoN']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicaProcesoIBCS" value="#{controlIbcAutoliquid.duplicarIBC.proceso.descripcion}" style="width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase;">
+                        <p:ajax event="dblclick" listener="#{controlIbcAutoliquid.asignarIndex(infoIBC,0,2)}"/>
+                        <p:ajax event="click" listener="#{controlIbcAutoliquid.valoresBackupAutocompletar(1, 'PROCESO')}"/>
+                        <p:ajax event="change" listener="#{controlIbcAutoliquid.autocompletarNuevoyDuplicadoIBCS('PROCESO',controlIbcAutoliquid.duplicarIBC.proceso.descripcion,2)}"/>
+                     </p:inputText>
+                     <p:watermark for="duplicaProcesoIBCS" value="#{msg['proceso']}"/>
+
+                     <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 195px; left: 50px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicaValorIBCS" value="#{controlIbcAutoliquid.duplicarIBC.valor}" style="width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase;">
+                        <p:ajax event="change" update="duplicaValorIBCS"/>
+                     </p:inputText>
+                     <p:watermark for="duplicaValorIBCS" value="#{msg['valor']}"/>
+
+                     <strong><h:outputText value="#{msg['fechapagoN']}" style="position: absolute; top: 225px; left: 50px;"/></strong>
+                     <div id="posicionFormulaPagoFinDupliReg" style="position: absolute; left: 170px; top: 220px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlIbcAutoliquid.duplicarIBC.fechapago}">
+                           <p:ajax event="dateSelect" update="duplicarFechaPago" process="@this"/>
+                           <p:ajax event="change" update="duplicarFechaPago" process="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <p:commandButton id="limpiarDIBC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarDuplicarIBCS()}" update="duplicaIBC" process="@this" icon="ui-icon-trash"/>
+                     <p:commandButton id="agregarDIBC" value="#{msg['agregar']}" style="position: absolute; left: 155px; top: 270px;"  process="@this" actionListener="#{controlIbcAutoliquid.confirmarDuplicar()}" icon="ui-icon-circle-check"/>
+                     <p:commandButton id="cancelarDIBC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 270px;" actionListener="#{controlIbcAutoliquid.limpiarDuplicarIBCS()}" update="duplicaIBC" onclick="PF('DuplicarRegistroIBCS').hide();"  process="@this"  icon="ui-icon-circle-close"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechainicial}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechafinal}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarEstadoD" header="#{msg['estadoE']}" widgetVar="editarEstadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.estado}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.valor}" style="overflow: auto;" readonly="true">
+                     <f:convertNumber type="currency" currencySymbol="$"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechaPagoD" header="#{msg['fechapagoE']}" widgetVar="editarFechaPagoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechapago}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+            </h:form>
+
+            <h:form id="formExportarIBCS">
+               <p:dataTable id="datosIBCSExportar" var="infoIBCExp" style="visibility: hidden; display: none;"                           
+                            value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}"> 
+                  <!--COLUMNAS TABLA DATOS VIGENCIAS LOCALIZACIONES DE UN EMPLEADO --> 
+
+                  <p:column>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechainicialXX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{infoIBCExp.fechainicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechafinalXX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{infoIBCExp.fechafinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['estadoX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['estadoX']}"/> </f:facet> 
+                     <h:outputText value="#{infoIBCExp.estado}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['procesoX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                     <h:outputText value="#{infoIBCExp.proceso.descripcion}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['valorX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['valorX']}"/> </f:facet> 
+                     <h:outputText value="#{infoIBCExp.valor}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechapagoXX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{infoIBCExp.fechapago}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
+               </p:dataTable>
+            </h:form>
+
+            <h:form id="formExportarTipoEntidad">
+               <p:dataTable id="datosTipoEntidadExportar" var="infoTEExp" style="visibility: hidden; display: none;"                           
+                            value="#{controlIbcAutoliquid.listTiposEntidades}"> 
+
+                  <p:column headerText="#{msg['codigo']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
+                     <h:outputText value="#{infoTEExp.codigo}"/>
+                  </p:column>
+
+                  <p:column headerText="#{msg['nombre']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['nombre']}"/> </f:facet> 
+                     <h:outputText value="#{infoTEExp.nombre}"/>
+                  </p:column>
+
+
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

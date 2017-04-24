@@ -177,15 +177,34 @@ public class ControlNovedadesTerceros implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
+      /*if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+         controlListaNavegacion.quitarPagina(pagActual);
+
       } else {
-         String pagActual = "novedadtercero";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
+         */
+String pagActual = "novedadtercero";
+         
+         
+         
+
+
+         
+         
+         
+         
+         
+         
+         if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -195,12 +214,11 @@ public class ControlNovedadesTerceros implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -558,7 +576,7 @@ public class ControlNovedadesTerceros implements Serializable {
             equipo = request.getRemoteAddr();
          }
          localMachine = java.net.InetAddress.getByName(equipo);
-         //}
+         
          getAlias();
          System.out.println("Alias: " + alias);
          getUsuarioBD();
@@ -1677,7 +1695,8 @@ public class ControlNovedadesTerceros implements Serializable {
       RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          altoTabla = "145";
          cerrarFiltrado();
@@ -1685,17 +1704,13 @@ public class ControlNovedadesTerceros implements Serializable {
       listaNovedadesBorrar.clear();
       listaNovedadesCrear.clear();
       listaNovedadesModificar.clear();
-      //listaConceptos.clear();
-      //listaEmpleados.clear();
-      //listaFormulas.clear();
-      //listaTerceros.clear();
-//        listaPeriodicidades.clear();
       terceroSeleccionado = null;
       listaNovedades = null;
       novedadSeleccionada = null;
       resultado = 0;
       guardado = true;
       permitirIndex = true;
+      navegar("atras");
    }
 
    public void cerrarFiltrado() {
