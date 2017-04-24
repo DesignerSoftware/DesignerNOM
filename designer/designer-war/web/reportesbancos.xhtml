@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-   >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -294,7 +294,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" immediate="true"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"/>   
-                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
+                                <p:inputText autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
                             </f:facet>
                             <p:column style="text-align: center;" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important" width="50px;" sortBy="#{reportes.codigo}">
                                 <f:facet name="header">
@@ -332,7 +332,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMP']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
@@ -367,7 +367,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPH']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
@@ -401,7 +401,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}:"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresa').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
@@ -437,7 +437,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTT']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{tipo.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
@@ -513,7 +513,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarB']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBancos').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovBancos').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{banco.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
@@ -542,7 +542,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudades').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{ciudad.nombre}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">

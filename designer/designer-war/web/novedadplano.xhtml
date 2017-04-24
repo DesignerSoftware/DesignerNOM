@@ -104,7 +104,7 @@
                   <fieldset style="position: absolute; left: 10px; top: 75px; width: 290px; height: 178px; border-radius: 10px;">
                      <center><h:outputText value="#{msg['cap']}" style="color: #009; font-weight: bold;"/></center>
                      <br></br>
-                     <p:inputText  autocomplete="off" id="nombreArchivo" value="#{cargarArchivoPlano.nombreArchivoPlano}" readonly="true"
+                     <p:inputText autocomplete="off" id="nombreArchivo" value="#{cargarArchivoPlano.nombreArchivoPlano}" readonly="true"
                                    style="position: absolute; top: 30px; left: 8px; width: 158px; z-index: 1; height: 12px;"/>
                      <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}"/>
 
@@ -302,7 +302,7 @@
                                  <h:outputText value="#{tNovedades.documentosoporte}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{tNovedades.documentosoporte}">
+                                 <p:inputText autocomplete="off" value="#{tNovedades.documentosoporte}">
                                     <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 5)}"
                                             onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
@@ -324,7 +324,7 @@
                                                             </h:outputText>
                                                          </f:facet>  -->
                            <!--<f:facet name="input">-->
-                           <p:inputNumber  autocomplete="off"  value="#{tNovedades.valortotal}" symbol="$" decimalPlaces="2">
+                           <p:inputNumber autocomplete="off" value="#{tNovedades.valortotal}" symbol="$" decimalPlaces="2">
                               <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 6)}"
                                       onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
                               <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
@@ -344,7 +344,7 @@
                                  <h:outputText value="#{tNovedades.periodicidad}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.periodicidad}">
+                                 <p:inputText autocomplete="off" value="#{tNovedades.periodicidad}">
                                     <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 7)}"
                                             onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
@@ -364,7 +364,7 @@
                                  <h:outputText value="#{tNovedades.tercero}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.tercero}">
+                                 <p:inputText autocomplete="off" value="#{tNovedades.tercero}">
                                     <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 8)}"
                                             onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
@@ -386,7 +386,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.saldo}">
+                                 <p:inputText autocomplete="off" value="#{tNovedades.saldo}">
                                     <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 9)}"
                                             onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
@@ -406,7 +406,7 @@
                                  <h:outputText value="#{tNovedades.unidadesparteentera}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.unidadesparteentera}">
+                                 <p:inputText autocomplete="off" value="#{tNovedades.unidadesparteentera}">
                                     <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 10)}"
                                             onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
@@ -426,7 +426,7 @@
                                  <h:outputText value="#{tNovedades.unidadespartefraccion}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{tNovedades.unidadespartefraccion}">
+                                 <p:inputText autocomplete="off" value="#{tNovedades.unidadespartefraccion}">
                                     <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 11)}"
                                             onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
@@ -439,7 +439,7 @@
                      <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{cargarArchivoPlano.infoRegistro}" style="position: relative; left: 10px; top: 2px; font-weight: bold;"/>
                      <!--<div style="">-->
                      <h:outputText value="#{msg['subtotal']}" style="font-weight: bold; position: relative; top: 2px; left: 370px"/>
-                     <p:inputText  autocomplete="off" id="subtotal" value="$ #{cargarArchivoPlano.subTotal} " readonly="true" onclick="select();"
+                     <p:inputText autocomplete="off" id="subtotal" value="$ #{cargarArchivoPlano.subTotal} " readonly="true" onclick="select();"
                                    style="position: relative; top: 2px; left: 390px; font-weight: bold; width: 80px; border-radius: 2px; text-align: right; height: 14px !important; padding: 1px;">
                         <f:convertNumber currencyCode="COP"/>
                      </p:inputText> 
@@ -499,7 +499,7 @@
                      <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px; ">
                         <legend style="color: blue"><strong>Reversar Cargue Novedades</strong></legend>
                         <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;"/></strong>
-                        <p:inputText  autocomplete="off"  id="documentoR" value="#{cargarArchivoPlano.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
+                        <p:inputText autocomplete="off" id="documentoR" value="#{cargarArchivoPlano.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
                            <p:ajax event="dblclick" listener="#{cargarArchivoPlano.llamarDialogoDocumentoSoporte()}"/>
                            <p:ajax event="change" listener="#{cargarArchivoPlano.autocompletarDocumentoSoporte}" update="@this"/>
                         </p:inputText>
@@ -560,13 +560,13 @@
                   <p:panel id="nuevaNovedad" style="border: none;">
 
                      <strong><h:outputText value="#{msg['concepto']}:" style=" position: absolute; top: 75px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoConcepto" widgetVar="nuevoConcepto" value="#{cargarArchivoPlano.nuevaTempNovedades.concepto}"
+                     <p:inputText autocomplete="off" id="nuevoConcepto" widgetVar="nuevoConcepto" value="#{cargarArchivoPlano.nuevaTempNovedades.concepto}"
                                    style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:keyFilter for="duplicaConcepto" mask="9999999999"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['empleado']}:" style=" position: absolute; top: 105px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaEmpleado" value="#{cargarArchivoPlano.nuevaTempNovedades.empleado}" 
+                     <p:inputText autocomplete="off" id="nuevaEmpleado" value="#{cargarArchivoPlano.nuevaTempNovedades.empleado}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:keyFilter for="nuevaEmpleado" mask="9999999999"/>
                      </p:inputText>
@@ -606,11 +606,11 @@
                                     style=" width: 122px; position: absolute; left: 550px; top: 160px; text-transform: uppercase;"/>
 
                      <strong><h:outputText value="#{msg['unidadentera']}:" style=" position: absolute; top: 195px; left: 410px"/></strong>
-                     <p:inputNumber  autocomplete="off" id="nuevoHoras" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
+                     <p:inputNumber autocomplete="off" id="nuevoHoras" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
                                      style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase;"/>
 
                      <strong><h:outputText value="#{msg['unidadfraccion']}:" style=" position: absolute; top: 225px; left: 410px;"/></strong>
-                     <p:inputNumber  autocomplete="off" id="nuevoMinutos" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
+                     <p:inputNumber autocomplete="off" id="nuevoMinutos" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
                                      style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase;"/>
 
                      <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
@@ -628,13 +628,13 @@
                   <p:panel id="duplicaNovedad" style="border: none;">
 
                      <strong><h:outputText value="#{msg['concepto']}:" style=" position: absolute; top: 75px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicaConcepto" widgetVar="duplicaConcepto" value="#{cargarArchivoPlano.duplicarTempNovedades.concepto}"
+                     <p:inputText autocomplete="off" id="duplicaConcepto" widgetVar="duplicaConcepto" value="#{cargarArchivoPlano.duplicarTempNovedades.concepto}"
                                    style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:keyFilter for="duplicaConcepto" mask="9999999999"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['empleado']}:" style=" position: absolute; top: 105px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicaEmpleado" value="#{cargarArchivoPlano.duplicarTempNovedades.empleado}" 
+                     <p:inputText autocomplete="off" id="duplicaEmpleado" value="#{cargarArchivoPlano.duplicarTempNovedades.empleado}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:keyFilter for="duplicaEmpleado" mask="9999999999"/>
                      </p:inputText>
@@ -674,11 +674,11 @@
                                     style=" width: 122px; position: absolute; left: 550px; top: 160px; text-transform: uppercase;"/>
 
                      <strong><h:outputText value="#{msg['unidadentera']}:" style=" position: absolute; top: 195px; left: 410px"/></strong>
-                     <p:inputNumber  autocomplete="off" id="duplicaHoras" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
+                     <p:inputNumber autocomplete="off" id="duplicaHoras" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
                                      style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase;"/>
 
                      <strong><h:outputText value="#{msg['unidadfraccion']}:" style=" position: absolute; top: 225px; left: 410px;"/></strong>
-                     <p:inputNumber  autocomplete="off" id="duplicaMinutos" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
+                     <p:inputNumber autocomplete="off" id="duplicaMinutos" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
                                      style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase;"/>
 
                      <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
@@ -742,7 +742,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarDS']}"/>
-                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{documentoSoporte}" width="300" filterMatchMode="contains" filterStyle="width: 85% !important;">

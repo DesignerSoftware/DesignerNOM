@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -118,7 +118,7 @@
                                         <f:facet id="hacerReporte" name="output"><img src="Imagenes/Iconos/generarReporte.png" width="18" height="18"/></f:facet>  
                                         <p:tooltip for="hacerReporte" value="#{msg['generarReporte']}"/>
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off" value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="EdGenerarR">
+                                            <p:inputText autocomplete="off" value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="EdGenerarR">
                                                 <p:ajax event="select" listener="#{controlNReporteBienestar.generarReporte(info)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>
@@ -167,7 +167,7 @@
 
                         <h:outputText value="#{msg['fechadesde']}:" style="position: absolute; top: 20px; left: 30px;"/>
                         <div id="posicionFechaDesdeParametro" style="position: absolute; top: 40px; left: 30px; width: 90px">
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteBienestar.parametroDeReporte.fechadesde}" id="fechaDesdeParametroL">
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteBienestar.parametroDeReporte.fechadesde}" id="fechaDesdeParametroL">
                                 <p:ajax event="click" listener="#{controlNReporteBienestar.posicionCelda(1)}" process="@this"/>
                                 <p:ajax event="change" listener="#{controlNReporteBienestar.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
                                 <p:ajax event="dateSelect" listener="#{controlNReporteBienestar.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
@@ -176,7 +176,7 @@
 
                         <h:outputText value="#{msg['fechahasta']}:" style="position: absolute; top: 20px; left: 150px;"/>
                         <div id="posicionFechaHastaParametro" style="position: absolute; top: 40px; left: 150px; width: 90px">
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteBienestar.parametroDeReporte.fechahasta}" id="fechaHastaParametroL">
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteBienestar.parametroDeReporte.fechahasta}" id="fechaHastaParametroL">
                                 <p:ajax event="click" listener="#{controlNReporteBienestar.posicionCelda(3)}" process="@this"/> 
                                 <p:ajax event="change" listener="#{controlNReporteBienestar.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
                                 <p:ajax event="dateSelect" listener="#{controlNReporteBienestar.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
@@ -186,14 +186,14 @@
                         <p:separator id="separator"  style="vertical-align: central;position: absolute;height: 70px; width: 1px; top: 5px; left: 240px"/>  
 
                         <h:outputText value="#{msg['empleadodesde']}:" style="position: absolute; top: 20px; left: 260px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlNReporteBienestar.parametroDeReporte.codigoempleadodesde}" id="empleadoDesdeParametroL" style="position: absolute; top: 40px; left: 260px; height: 15px; width: 90px;" onclick="select();">
+                        <p:inputText autocomplete="off" value="#{controlNReporteBienestar.parametroDeReporte.codigoempleadodesde}" id="empleadoDesdeParametroL" style="position: absolute; top: 40px; left: 260px; height: 15px; width: 90px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReporteBienestar.posicionCelda(2)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReporteBienestar.autocompletarGeneral('DESDE',controlNReporteBienestar.parametroDeReporte.codigoempleadodesde)}" update="empleadoDesdeParametroL"  process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReporteBienestar.mostrarDialogosListas()}"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['empleadohasta']}:" style="position: absolute; top: 20px; left: 400px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlNReporteBienestar.parametroDeReporte.codigoempleadohasta}" id="empleadoHastaParametroL" style="position: absolute; top: 40px; left: 400px; height: 15px; width: 90px;" onclick="select();">
+                        <p:inputText autocomplete="off" value="#{controlNReporteBienestar.parametroDeReporte.codigoempleadohasta}" id="empleadoHastaParametroL" style="position: absolute; top: 40px; left: 400px; height: 15px; width: 90px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReporteBienestar.posicionCelda(4)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReporteBienestar.autocompletarGeneral('HASTA',controlNReporteBienestar.parametroDeReporte.codigoempleadohasta)}" update="empleadoHastaParametroL" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReporteBienestar.mostrarDialogosListas()}"/>
@@ -202,7 +202,7 @@
                         <p:separator id="separator2"  style="vertical-align: central;position: absolute;height: 70px; width: 1px; top: 5px; left: 520px"/>  
 
                         <h:outputText value="#{msg['nombreactividad']}" style="position: absolute; top: 20px; left: 605px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlNReporteBienestar.parametroDeReporte.actividadbienestar.descripcion}" id="actividadParametroL" style="position: absolute; top: 40px; left: 540px; width: 230px;" onclick="select()">
+                        <p:inputText autocomplete="off" value="#{controlNReporteBienestar.parametroDeReporte.actividadbienestar.descripcion}" id="actividadParametroL" style="position: absolute; top: 40px; left: 540px; width: 230px;" onclick="select()">
                             <p:ajax event="click" listener="#{controlNReporteBienestar.posicionCelda(5)}" process="@this"/> 
                             <p:ajax event="change" update="actividadParametroL" listener="#{controlNReporteBienestar.autocompletarGeneral('ACTIVIDAD',controlNReporteBienestar.parametroDeReporte.actividadbienestar.descripcion)}"  process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReporteBienestar.mostrarDialogosListas()}" process="@this"/>
@@ -221,7 +221,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteBienestar.actualizarActividad()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarA']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovActividad').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovActividad').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{actividad.codigo}" width="110" filterMatchMode="contains" filterStyle="width: 95px">
                                 <f:facet name="header">
@@ -259,7 +259,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMP']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -294,7 +294,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPH']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -328,7 +328,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" style="width:150px; position: relative; left: 30px;"/>  
                             </f:facet>
                             <p:column  filterBy="#{reportes.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 60px">
                                 <f:facet name="header">

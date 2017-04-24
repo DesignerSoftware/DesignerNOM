@@ -272,7 +272,7 @@
                                  <h:outputText value="#{infoVMB.moneda.codigo}" style="text-transform: uppercase;"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.codigo}" onclick="select();"  id="editarCodigoVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.codigo}" onclick="select();"  id="editarCodigoVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.modificarVigenciaMonedaBase(infoVMB, 'CODIGOMONEDA', infoVMB.moneda.codigo)}" process="@this" update="editarCodigoVigenciaMonedaBase"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceVigencia(infoVMB,1)}" process="@this"
                                             onstart="PF('datosVigenciaMonedaBase').unselectAllRows();PF('datosVigenciaMonedaBase').selectRow(#{indiceVMB});"/> 
@@ -292,7 +292,7 @@
                                  <h:outputText value="#{infoVMB.moneda.nombre}" style="text-transform: uppercase;"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.nombre}" onclick="select();"  id="editarNombreVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.nombre}" onclick="select();"  id="editarNombreVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.modificarVigenciaMonedaBase(infoVMB, 'MONEDA', infoVMB.moneda.nombre)}" process="@this" update="editarNombreVigenciaMonedaBase"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceVigencia(infoVMB,2)}" process="@this"
                                             onstart="PF('datosVigenciaMonedaBase').unselectAllRows();PF('datosVigenciaMonedaBase').selectRow(#{indiceVMB});"/> 
@@ -712,14 +712,14 @@
 
                      <strong><h:outputText value="*#{msg['nitNE']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoEmpresaNIT" onclick="select();" value="#{controlEmpresa.nuevoEmpresa.nit}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 90px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEmpresaNIT"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nit']}" for="nuevoEmpresaNIT"/>
 
                      <strong><h:outputText value="*#{msg['nombreNE']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoEmpresaNombre" onclick="select();" maxlength="50" value="#{controlEmpresa.nuevoEmpresa.nombre}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 120px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEmpresaNombre"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nombre']}" for="nuevoEmpresaNombre"/>
@@ -783,28 +783,28 @@
 
                      <strong><h:outputText value="*#{msg['nitNE']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEmpresaNIT" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.nit}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 90px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaNIT"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nit']}" for="duplicarEmpresaNIT"/>
 
                      <strong><h:outputText value="*#{msg['nombreNE']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEmpresaNombre" onclick="select();" maxlength="50" value="#{controlEmpresa.duplicarEmpresa.nombre}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 120px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaNombre"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nombre']}" for="duplicarEmpresaNombre"/>
 
                      <strong><h:outputText value="#{msg['reglamentoNE']}" style="position: absolute; top: 155px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEmpresaReglamento" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.reglamento}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 150px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaReglamento"/>
                      </p:inputText>
                      <p:watermark value="#{msg['reglamento']}" for="duplicarEmpresaReglamento"/>
 
                      <strong><h:outputText value="#{msg['manualNE']}" style="position: absolute; top: 185px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEmpresaManual" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.manualadministrativo}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 180px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaManual"/>
                      </p:inputText>
                      <p:watermark value="#{msg['manual']}" for="duplicarEmpresaManual"/>
@@ -828,7 +828,7 @@
 
                      <strong><h:outputText value="#{msg['codigoAlternativoNE']}" style="position: absolute; top: 275px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEmpresaCodigoAlternativo" onclick="select();" maxlength="10" value="#{controlEmpresa.duplicarEmpresa.codigoalternativo}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 270px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 270px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaCodigoAlternativo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigoAlternativo']}" for="duplicarEmpresaCodigoAlternativo"/>
@@ -891,7 +891,7 @@
 
                      <strong><h:outputText value="*#{msg['codigoNVMB']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarVigenciaMonedaBaseCodigo" onclick="select();" value="#{controlEmpresa.duplicarVigenciaMB.moneda.codigo}"
-                                  style="width: 122px; position: absolute; left: 200px; top: 90px;text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEmpresa.asignarIndex2(0,2,1)}" process="@this" update="duplicarVigenciaMonedaBaseCodigo"/>
                         <p:ajax event="click" listener="#{controlEmpresa.valoresBackupAutocompletarGeneral(2, 'CODIGOMONEDA')}"/>
                         <p:ajax event="change" listener="#{controlEmpresa.autocompletarNuevoyDuplicadoVigenciaMonedaBase('CODIGOMONEDA', controlEmpresa.duplicarVigenciaMB.moneda.codigo, 2)}"/>

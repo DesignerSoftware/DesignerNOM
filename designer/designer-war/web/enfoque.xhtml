@@ -89,14 +89,14 @@
                                          editable="true" editMode="cell" paginator="false" 
                                          selection="#{controlEnfoques.enfoqueSeleccionado}"
                                          selectionMode="single"
-                                     > 
+                             > 
                                 <p:ajax event="filter" listener="#{controlEnfoques.eventoFiltrar()}"/>
 
                                 <p:column headerText="#{msg['cod']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEnfoques.cambiarIndice(info, 0)}" process="@this"
                                                        onstart="PF('datosEnfoque').unselectAllRows();PF('datosEnfoque').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlEnfoques.modificarEnfoques(info)}"  update="codigo"/>
@@ -113,7 +113,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="20" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="20" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEnfoques.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosEnfoque').unselectAllRows();PF('datosEnfoque').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlEnfoques.modificarEnfoques(info)}" update="descripcion"/>
@@ -234,13 +234,13 @@
                         <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Enfoque " style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevoEnfoques" style="border: none;">
                             <strong><h:outputText value="*#{msg['cod']}: "   style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlEnfoques.nuevoEnfoque.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlEnfoques.nuevoEnfoque.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['cod']}"/>
 
                             <strong><h:outputText value="*#{msg['desc']}: "  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="20" value="#{controlEnfoques.nuevoEnfoque.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="20" value="#{controlEnfoques.nuevoEnfoque.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['desc']}"/>
@@ -256,13 +256,13 @@
                         <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Enfoque " style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarEnfoques" style="border: none;">
                             <strong><h:outputText value="*#{msg['cod']}: "  style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlEnfoques.duplicarEnfoque.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlEnfoques.duplicarEnfoque.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['cod']}"/>
 
                             <strong><h:outputText value="*#{msg['desc']}:"  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="20" value="#{controlEnfoques.duplicarEnfoque.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="20" value="#{controlEnfoques.duplicarEnfoque.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['desc']}"/>

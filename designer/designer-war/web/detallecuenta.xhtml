@@ -105,7 +105,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true" value="#{info.fechainicial}" id="editarFechaInicialDebito"   
+                                            <p:inputText autocomplete="off" readonly="true" value="#{info.fechainicial}" id="editarFechaInicialDebito"   
                                                           styleClass="ui-datepicker, myClass" 
                                                           onselect="posicionD([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);">    
                                                 <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
@@ -128,7 +128,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{info.fechafinal}" id="editarFechaFinalDebito" 
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{info.fechafinal}" id="editarFechaFinalDebito" 
                                                           styleClass="ui-datepicker, myClass" 
                                                           onselect="posicionD([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);">                                         
                                                 <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
@@ -150,7 +150,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.concepto.codigo}" id="editarCodigoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{info.concepto.codigo}" id="editarCodigoDebito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
@@ -166,7 +166,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.concepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{info.concepto.descripcion}"  id="editarDescipcionDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{info.concepto.descripcion}"  id="editarDescipcionDebito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '3'}, {name: 't', value: '#{indiceD}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
@@ -185,7 +185,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.nombre}" id="editarDescripcionCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{info.consolidadord.nombre}" id="editarDescripcionCCDebito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
@@ -204,7 +204,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.codigo}" id="editarCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{info.consolidadord.codigo}" id="editarCCDebito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
@@ -224,7 +224,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{info.tipocc.nombre}" id="editarTipoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{info.tipocc.nombre}" id="editarTipoDebito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionD([{name: 'n', value: '6'}, {name: 't', value: '#{indiceD}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});"/>
                                             </p:inputText>
@@ -260,7 +260,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true" value="#{infoCredito.fechainicial}" id="editarFechaInicialCredito"   
+                                            <p:inputText autocomplete="off" readonly="true" value="#{infoCredito.fechainicial}" id="editarFechaInicialCredito"   
                                                           styleClass="ui-datepicker, myClass"  onselect="posicionC([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);">      
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                 <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
@@ -282,7 +282,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.fechafinal}" id="editarFechaFinalCredito" 
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{infoCredito.fechafinal}" id="editarFechaFinalCredito" 
                                                           styleClass="ui-datepicker, myClass"   onselect="posicionC([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">                                         
                                                 <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -303,7 +303,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.concepto.codigo}" id="editarCodigoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{infoCredito.concepto.codigo}" id="editarCodigoCredito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
@@ -319,7 +319,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoCredito.concepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.concepto.descripcion}"  id="editarDescripcionCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{infoCredito.concepto.descripcion}"  id="editarDescripcionCredito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
@@ -338,7 +338,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.nombre}" id="editarDescripcionCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{infoCredito.consolidadorc.nombre}" id="editarDescripcionCCCredito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
@@ -357,7 +357,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.codigo}" id="editarCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{infoCredito.consolidadorc.codigo}" id="editarCCCredito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>
@@ -376,7 +376,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.tipocc.nombre}" id="editarTipoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{infoCredito.tipocc.nombre}" id="editarTipoCredito" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                           onselect="posicionC([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});"/>
                                             </p:inputText>

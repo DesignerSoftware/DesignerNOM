@@ -106,7 +106,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlSets.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="change" listener="#{controlSets.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="select" listener="#{controlSets.cambiarIndice(info,0)}" process="@this"
@@ -129,7 +129,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlSets.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="change" listener="#{controlSets.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="select" listener="#{controlSets.cambiarIndice(info,1)}" process="@this"
@@ -148,7 +148,7 @@
                               <f:facet name="output"><h:outputText value="#{info.porcentaje}">
                                  </h:outputText></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.porcentaje}" id="editarPorcentaje" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                 <p:inputText autocomplete="off" value="#{info.porcentaje}" id="editarPorcentaje" style="border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px"> 
                                     <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
                                     <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 2)}"
                                             onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
@@ -165,7 +165,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.promedio}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.promedio}" id="editarPromedio" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                 <p:inputText autocomplete="off" value="#{info.promedio}" id="editarPromedio" style="border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px"> 
                                     <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
                                     <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 3)}"
                                             onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
@@ -178,11 +178,11 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['tiposet']}"  sortBy="#{info.tiposet}" filterBy="#{info.tiposet}" filterMatchMode="contains" id="setsTipo" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column headerText="#{msg['tiposet']}" sortBy="#{info.tiposet}" filterBy="#{info.tiposet}" filterMatchMode="contains" id="setsTipo" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tiposet}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.tiposet}" id="editarTipoSet" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                 <p:inputText autocomplete="off" value="#{info.tiposet}" id="editarTipoSet" style="border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px"> 
                                     <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
                                     <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 4)}"
                                             onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
@@ -195,13 +195,13 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['totalingreso']}"  sortBy="#{info.totalingresos}" filterBy="#{info.totalingresos}" filterMatchMode="contains" id="setsTotalIngresos" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column headerText="#{msg['totalingreso']}" sortBy="#{info.totalingresos}" filterBy="#{info.totalingresos}" filterMatchMode="contains" id="setsTotalIngresos" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.totalingresos}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                  </h:outputText></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.totalingresos}" id="editarTotal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;"> 
+                                 <p:inputText autocomplete="off" value="#{info.totalingresos}" id="editarTotal" style="border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"> 
                                     <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
                                     <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 5)}"
                                             onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
@@ -308,7 +308,7 @@
 
                      <strong><h:outputText value="*#{msg['inicialN']}" style=" position: absolute; top: 85px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 80px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlSets.nuevoSet.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlSets.nuevoSet.fechainicial}">
                            <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                         </p:calendar>
@@ -316,27 +316,27 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaFinNuevoReg" style=" position: absolute; top: 120px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlSets.nuevoSet.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlSets.nuevoSet.fechafinal}">
                            <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['porcentajeN']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoPorcentaje" value="#{controlSets.nuevoSet.porcentaje}" style=" width: 122px; position: absolute; left: 170px; top: 160px;">
+                     <p:inputText autocomplete="off" id="nuevoPorcentaje" value="#{controlSets.nuevoSet.porcentaje}" style=" width: 122px; position: absolute; left: 170px; top: 160px;">
                         <p:ajax event="change" update="nuevoPorcentaje"/>
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['promedioN']}" style=" position: absolute; top: 205px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoPromedio" value="#{controlSets.nuevoSet.promedio}" style=" width: 122px; position: absolute; left: 170px; top: 200px;">
+                     <p:inputText autocomplete="off" id="nuevoPromedio" value="#{controlSets.nuevoSet.promedio}" style=" width: 122px; position: absolute; left: 170px; top: 200px;">
                         <p:ajax event="change" update="nuevoPromedio"/>
                      </p:inputText>
                      <strong><h:outputText value="*#{msg['tiposetN']}" style=" position: absolute; top: 245px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTipoSet" value="#{controlSets.nuevoSet.tiposet}" style=" width: 122px; position: absolute; left: 170px; top: 240px;">
+                     <p:inputText autocomplete="off" id="nuevoTipoSet" value="#{controlSets.nuevoSet.tiposet}" style=" width: 122px; position: absolute; left: 170px; top: 240px;">
                         <p:ajax event="change" update="nuevoTipoSet"/>
                      </p:inputText>
                      <strong><h:outputText value="#{msg['totalingresosN']}" style=" position: absolute; top: 285px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTotalIngresos" value="#{controlSets.nuevoSet.totalingresos}" style=" width: 122px; position: absolute; left: 170px; top: 280px;">
+                     <p:inputText autocomplete="off" id="nuevoTotalIngresos" value="#{controlSets.nuevoSet.totalingresos}" style=" width: 122px; position: absolute; left: 170px; top: 280px;">
                         <p:ajax event="change" update="nuevoTotalIngresos"/>
                      </p:inputText>
 
@@ -354,36 +354,36 @@
 
                      <strong><h:outputText value="*#{msg['inicialN']}" style=" position: absolute; top: 85px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaIniDupliReg" style=" position: absolute; top: 80px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlSets.duplicarSet.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlSets.duplicarSet.fechainicial}">
                            <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                         </p:calendar>
                      </div>
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaFinDupliReg" style=" position: absolute; top: 120px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlSets.duplicarSet.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlSets.duplicarSet.fechafinal}">
                            <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['porcentajeN']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarPorcentaje" value="#{controlSets.duplicarSet.porcentaje}" style=" width: 122px; position: absolute; left: 170px; top: 160px;">
+                     <p:inputText autocomplete="off" id="duplicarPorcentaje" value="#{controlSets.duplicarSet.porcentaje}" style=" width: 122px; position: absolute; left: 170px; top: 160px;">
                         <p:ajax event="change" update="duplicarPorcentaje"/>
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['promedioN']}" style=" position: absolute; top: 205px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarPromedio" value="#{controlSets.duplicarSet.promedio}" style=" width: 122px; position: absolute; left: 170px; top: 200px;">
+                     <p:inputText autocomplete="off" id="duplicarPromedio" value="#{controlSets.duplicarSet.promedio}" style=" width: 122px; position: absolute; left: 170px; top: 200px;">
                         <p:ajax event="change" update="duplicarPromedio"/>
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['tiposetN']}" style=" position: absolute; top: 245px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTipoSet" value="#{controlSets.duplicarSet.tiposet}" style=" width: 122px; position: absolute; left: 170px; top: 240px;">
+                     <p:inputText autocomplete="off" id="duplicarTipoSet" value="#{controlSets.duplicarSet.tiposet}" style=" width: 122px; position: absolute; left: 170px; top: 240px;">
                         <p:ajax event="change" update="duplicarTipoSet"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['totalingresosN']}" style=" position: absolute; top: 285px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTotalIngresos" value="#{controlSets.duplicarSet.totalingresos}" style=" width: 122px; position: absolute; left: 170px; top: 280px;">
+                     <p:inputText autocomplete="off" id="duplicarTotalIngresos" value="#{controlSets.duplicarSet.totalingresos}" style=" width: 122px; position: absolute; left: 170px; top: 280px;">
                         <p:ajax event="change" update="duplicarTotalIngresos"/>
                      </p:inputText>
 

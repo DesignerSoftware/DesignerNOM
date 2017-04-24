@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
 
    <h:head>
    </h:head>
@@ -98,7 +98,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                     <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 0)}" process="@this" 
                                             onstart="PF('datosEstadoCivil').unselectAllRows();PF('datosEstadoCivil').selectRow(#{indice});"/>  
                                     <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.mostrarInfo(info,0)}" process="@this"/> 
@@ -113,7 +113,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.estadocivil.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.estadocivil.descripcion}" id="editarparentesco" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.estadocivil.descripcion}" id="editarparentesco" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosEstadoCivil').unselectAllRows();PF('datosEstadoCivil').selectRow(#{indice});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.asignarIndex(info, 0,1)}" process="@this"/>
@@ -143,7 +143,7 @@
                         <p:ajax event="filter" listener="#{controlVigenciasEstadosCiviles.contarRegistroEC()}"/>
                         <f:facet name="header">  
                            <h:outputText value="Buscar Estado Civil: "/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{estadocivil.codigo}" width="60" filterStyle="width: 80% !important" filterMatchMode="contains">
                            <f:facet name="header">
@@ -281,7 +281,7 @@
 
                      <strong><h:outputText value="*Fecha: "  style=" position: absolute; top: 55px;"/></strong>
                      <div  id="nuevaFechaa" style="width: 135px; position: absolute; top: 50px; left: 135px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.fechavigencia}">
                            <p:ajax event="dateSelect" update="nuevaFecha"/>
                            <p:ajax event="change" update="nuevaFecha"/>
                         </p:calendar>
@@ -289,7 +289,7 @@
                      <p:watermark for="nuevaFecha" value="Fecha"/>
 
                      <strong><h:outputText value="*Estado Civil: " style=" position: absolute; top: 85px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 80px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoNombreSucursal" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(1)}"/>
                         <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarNuevo('VIGESTADOSCIVILES',controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.mostrarDialogoEstadosCiviles(0)}"/>
@@ -311,7 +311,7 @@
 
                      <strong><h:outputText value="Fecha: "  style=" position: absolute; top: 55px;"/></strong>
                      <div  id="duplicarFecha" style="width: 135px; position: absolute; top: 50px; left: 135px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.fechavigencia}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -319,7 +319,7 @@
                      <p:watermark for="duplicarFechaa" value="Fecha"/>
 
                      <strong><h:outputText value="Estado Civil: " style=" position: absolute; top: 85px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarEstadoCivil" value="#{controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.estadocivil.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 80px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarEstadoCivil" value="#{controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.estadocivil.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(2)}"/>
                         <p:ajax event="click" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(2)}"/>
                         <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarDuplicado('VIGESTADOSCIVILES',controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.estadocivil.descripcion, 2)}"/>

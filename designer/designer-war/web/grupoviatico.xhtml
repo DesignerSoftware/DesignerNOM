@@ -96,7 +96,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 0)}" process="@this" 
                                                        onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.codigo)}"  update="codigo"/>
@@ -111,7 +111,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="40" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="40" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 1)}" process="@this" 
                                                         onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.descripcion)}" update="descripcion"/>
@@ -126,7 +126,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.porcentajelastday}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputNumber autocomplete="off"  value="#{info.porcentajelastday}" id="editarEestado" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputNumber autocomplete="off" value="#{info.porcentajelastday}" id="editarEestado" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 2)}" process="@this"
                                                        onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.porcentajelastday)}" update="estado"/>
@@ -256,18 +256,18 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoN']} "  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4"  value="#{controlGruposViaticos.nuevoGruposViaticos.codigo}" style="width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4"  value="#{controlGruposViaticos.nuevoGruposViaticos.codigo}" style="width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigo']}"/>
 
                             <strong><h:outputText value="*#{msg['descripcionN']} "  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="40" value="#{controlGruposViaticos.nuevoGruposViaticos.descripcion}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="40" value="#{controlGruposViaticos.nuevoGruposViaticos.descripcion}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcion']}"/>
                             <strong><h:outputText value="*Porcentaje : "  style=" position: absolute; top: 120px;"/></strong>
-                            <p:inputNumber  autocomplete="off"   id="nuevoEstado" value="#{controlGruposViaticos.nuevoGruposViaticos.porcentajelastday}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase;">
+                            <p:inputNumber autocomplete="off"  id="nuevoEstado" value="#{controlGruposViaticos.nuevoGruposViaticos.porcentajelastday}" style="width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputNumber>
                             <p:watermark for="nuevoEstado" value="PORCENTAJE"/>
@@ -284,18 +284,18 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputNumber  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlGruposViaticos.duplicarGruposViaticos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px">
+                            <p:inputNumber autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlGruposViaticos.duplicarGruposViaticos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputNumber>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigo']}"/>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="40" value="#{controlGruposViaticos.duplicarGruposViaticos.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px">
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="40" value="#{controlGruposViaticos.duplicarGruposViaticos.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcion']}"/>
                             <strong><h:outputText value="*Porcentaje : "  style=" position: absolute; top: 120px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarEstado" value="#{controlGruposViaticos.duplicarGruposViaticos.porcentajelastday}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarEstado" value="#{controlGruposViaticos.duplicarGruposViaticos.porcentajelastday}" style="width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarEstado" value="Porcentaje"/>

@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -197,7 +197,7 @@
 
                      <div style="display: block;">
                         <h:outputText value="#{msg['fechahasta']}:" style="position: relative; top: -4px; left: 100px;"/>
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaHastaParametroL" 
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaHastaParametroL" 
                                      style="position: absolute; left: 100px; top: 35px;" value="#{controlNReporteContabilidad.parametroDeReporte.fechahasta}">
                            <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(3)}" process="@this"/> 
                            <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
@@ -221,7 +221,7 @@
                      </div>
                      <div style="display: block;">
                         <h:outputText value="#{msg['empleadohasta']}:" style="top: -5px; position: relative; left: 165px"/>
-                        <p:inputText id="empleadoHastaParametroL" autocomplete="off"  value="#{controlNReporteContabilidad.parametroDeReporte.codigoempleadohasta}" 
+                        <p:inputText id="empleadoHastaParametroL" autocomplete="off" value="#{controlNReporteContabilidad.parametroDeReporte.codigoempleadohasta}" 
                                      style="position: absolute; top: 35px; left: 165px; height: 11px; width: 90px;" onclick="select();">
                            <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(4)}" process="@this"/> 
                            <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroEmpleadoDesde(controlNReporteContabilidad.modificarParametroEmpleadoHasta(controlNReporteContabilidad.parametroDeReporte.codigoempleadodesde))}"  
@@ -281,7 +281,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarR']}"/>   
-                        <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
+                        <p:inputText autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
                      </f:facet>
                      <p:column style="text-align: center;" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important" width="50px;" sortBy="#{reportes.codigo}">
                         <f:facet name="header">
@@ -320,7 +320,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEMP']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
                      </f:facet>
                      <p:column filterBy="#{empleadoDesde.codigoempleado}" filterMatchMode="contains" width="55" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -354,7 +354,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEMPH']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
                      </f:facet>
                      <p:column filterBy="#{empleadoHasta.codigoempleado}"  filterMatchMode="contains" width="55" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -387,7 +387,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"/>  
-                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();"/>  
                      </f:facet>
                      <p:column filterBy="#{proceso.codigo}" width="30" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">

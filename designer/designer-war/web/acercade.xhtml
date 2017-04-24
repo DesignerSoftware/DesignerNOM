@@ -37,34 +37,34 @@
                         </fieldset>                       
                         <fieldset style="position: absolute; left: 5px; top: 260px; width: 840px; height: 143px; border-radius: 11px; ">
                             <h:outputText value="Cantidad de Usúarios:" style="position: absolute; left: 20px; top: 11px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   readonly="true" id="cantUsuarios" value="#{controlAcercaDe.empresaSeleccionada.cantidadusuario}" style=" width: 122px; position: absolute; left: 200px; top: 5px;"/>
+                            <p:inputText autocomplete="off"  readonly="true" id="cantUsuarios" value="#{controlAcercaDe.empresaSeleccionada.cantidadusuario}" style=" width: 122px; position: absolute; left: 200px; top: 5px;"/>
                             <h:outputText value="Empleados Licenciados:" style=" position: absolute; left: 20px; top: 40px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   id="empLicensiados" readonly="true" value="#{controlAcercaDe.empresaSeleccionada.controlempleados}" style="width: 122px; position: absolute; left: 200px; top: 35px;"/>
+                            <p:inputText autocomplete="off"  id="empLicensiados" readonly="true" value="#{controlAcercaDe.empresaSeleccionada.controlempleados}" style="width: 122px; position: absolute; left: 200px; top: 35px;"/>
                             <h:outputText value="Fecha Instalación:" style="position: absolute; left: 20px; top: 70px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   value="#{controlAcercaDe.empresaSeleccionada.fechainstalacion}" readonly="true" style=" width: 122px; position: absolute; left: 200px; top: 65px; ">  
+                            <p:inputText autocomplete="off"  value="#{controlAcercaDe.empresaSeleccionada.fechainstalacion}" readonly="true" style=" width: 122px; position: absolute; left: 200px; top: 65px; ">  
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </p:inputText>
                             <h:outputText value="Salida en Producción:" style="position: absolute; left: 20px; top: 100px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   value="#{controlAcercaDe.empresaSeleccionada.fechasalidaproduccion}" readonly="true" style=" width: 122px; position: absolute; left: 200px; top: 95px; ">  
+                            <p:inputText autocomplete="off"  value="#{controlAcercaDe.empresaSeleccionada.fechasalidaproduccion}" readonly="true" style=" width: 122px; position: absolute; left: 200px; top: 95px; ">  
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </p:inputText>
                             <h:outputText value="Vencimiento Soporte:" style="position: absolute; left: 20px; top: 130px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   value="#{controlAcercaDe.empresaSeleccionada.fecharenovarsoporte}" readonly="true" style=" width: 122px; position: absolute; left: 200px; top: 125px; ">  
+                            <p:inputText autocomplete="off"  value="#{controlAcercaDe.empresaSeleccionada.fecharenovarsoporte}" readonly="true" style=" width: 122px; position: absolute; left: 200px; top: 125px; ">  
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </p:inputText>
                             <a href="http://www.nomina.com.co" target="_blank">
                                 <h:outputText value="#{controlAcercaDe.correo}" style=" position: absolute; left: 530px; top: 11px; width:180px ;height:50px; font-size: 30px; color: darkblue; font-weight: bold;"/>
                             </a> 
                             <h:outputText value="Codigo:" style=" position: absolute; left: 350px; top: 11px; width:130px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   readonly="true" id="codigo" value="#{controlAcercaDe.empresaSeleccionada.codigo}" style=" width: 80px; position: absolute; left: 430px; top: 5px;"/>
+                            <p:inputText autocomplete="off"  readonly="true" id="codigo" value="#{controlAcercaDe.empresaSeleccionada.codigo}" style=" width: 80px; position: absolute; left: 430px; top: 5px;"/>
                             <h:outputText value="Nit:" style=" position: absolute; left: 350px; top: 40px; width:130px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   readonly="true" id="nit" value="#{controlAcercaDe.empresaSeleccionada.nit}" style=" width: 80px; position: absolute; left: 430px; top: 35px;"/>
+                            <p:inputText autocomplete="off"  readonly="true" id="nit" value="#{controlAcercaDe.empresaSeleccionada.nit}" style=" width: 80px; position: absolute; left: 430px; top: 35px;"/>
                             <h:outputText value="Nombre:" style=" position: absolute; left: 350px; top: 70px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   readonly="true" id="nombre" value="#{controlAcercaDe.empresaSeleccionada.nombre}" style=" width: 400px; position: absolute; left: 430px; top: 65px;"/>
+                            <p:inputText autocomplete="off"  readonly="true" id="nombre" value="#{controlAcercaDe.empresaSeleccionada.nombre}" style=" width: 400px; position: absolute; left: 430px; top: 65px;"/>
                             <h:outputText value="Producto:" style=" position: absolute; left: 350px; top: 100px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   readonly="true" id="producto" value="#{controlAcercaDe.empresaSeleccionada.producto}" style=" width: 400px; position: absolute; left: 430px; top: 95px;"/>
+                            <p:inputText autocomplete="off"  readonly="true" id="producto" value="#{controlAcercaDe.empresaSeleccionada.producto}" style=" width: 400px; position: absolute; left: 430px; top: 95px;"/>
                             <h:outputText value="Logo:" style=" position: absolute; left: 350px; top: 130px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
-                            <p:inputText  autocomplete="off"   readonly="true" id="logo" value="#{controlAcercaDe.empresaSeleccionada.logo}" style=" width: 400px; position: absolute; left: 430px; top: 125px;"/>
+                            <p:inputText autocomplete="off"  readonly="true" id="logo" value="#{controlAcercaDe.empresaSeleccionada.logo}" style=" width: 400px; position: absolute; left: 430px; top: 125px;"/>
 
                         </fieldset>
                         <p:toolbar styleClass="cssToolbar">  
@@ -129,7 +129,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlAcercaDe.cambiarEmpresa()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 11px;"/>  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 11px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

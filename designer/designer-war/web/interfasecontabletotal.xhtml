@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -98,7 +98,7 @@
 
                                 <div id="pempresa" style="position: relative; top: -35px; left: 10px"> 
                                     <strong><h:outputText value="#{msg['empresa']}" style="position: relative; top: -10px; left: 49px"/></strong>
-                                    <p:inputText  autocomplete="off"  id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 85px; width: 308px;text-transform: uppercase; height: 10px;">
+                                    <p:inputText autocomplete="off" id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 85px; width: 308px; text-transform: uppercase; height: 10px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable(controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,0)}"/>
                                         <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.parametroContableActual, 0, 0)}"/>
@@ -107,13 +107,13 @@
 
                                 <div id="pdoccontable" style="position: relative; top: -60px; left: 410px">
                                     <strong><h:outputText value="#{msg['docContable']}" style="position: relative; top: 20px; left: -352px;"/></strong>
-                                    <p:inputText  autocomplete="off"  maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px;text-transform: uppercase;width: 100px; height: 10px;">
+                                    <p:inputText autocomplete="off" maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px; text-transform: uppercase;width: 100px; height: 10px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable()}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,1)}"/>
                                     </p:inputText> 
 
                                     <strong><h:outputText value="#{msg['proceso']}" style="position: relative; top: 20px; left: -340px; display: inline-block; height: 10px;"/></strong>
-                                    <p:inputText  autocomplete="off"  id="parametroProceso" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="position: relative; top: 20px; left: -335px;text-transform: uppercase; height: 10px;">
+                                    <p:inputText autocomplete="off" id="parametroProceso" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="position: relative; top: 20px; left: -335px; text-transform: uppercase; height: 10px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable(controlInterfaseContableTotal.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,2)}"/>
                                         <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.parametroContableActual, 1, 0)}"/>
@@ -123,7 +123,7 @@
 
                                 <strong><h:outputText value="#{msg['fechaInicial']}" style="position: relative; top: -90px; left: 480px"/></strong>
                                 <div id="posicionFechaIni" style="position: relative; top: -110px; left: 580px">
-                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableTotal.parametroContableActual.fechainicialcontabilizacion}">
+                                    <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableTotal.parametroContableActual.fechainicialcontabilizacion}">
                                        <p:ajax event="dateSelect"  update="@this"  listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,3)}"/> 
                                        <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,3)}"  update="@this"/> 
                                        <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,3)}"/>
@@ -132,7 +132,7 @@
 
                                 <strong><h:outputText value="#{msg['fechaFinal']}" style="position: relative; top: -95px; left: 480px"/></strong>
                                 <div id="posicionFechaFin" style="position: relative; top: -115px; left: 580px">
-                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableTotal.parametroContableActual.fechafinalcontabilizacion}">
+                                    <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableTotal.parametroContableActual.fechafinalcontabilizacion}">
                                        <p:ajax event="dateSelect"  update="@this"  listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,4)}"/> 
                                        <p:ajax event="change" update="@this"  listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,4)}"/> 
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,4)}"/>
@@ -167,7 +167,7 @@
                                             <h:outputText value="#{infoG.nombreproceso}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="generadoProceso" readonly="true" value="#{infoG.nombreproceso}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="generadoProceso" readonly="true" value="#{infoG.nombreproceso}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '0'}, {name: 't', value: '#{indiceG}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>    
@@ -185,7 +185,7 @@
                                             <h:outputText value="#{infoG.nombreempleado}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="generadoEmpleado" readonly="true" value="#{infoG.nombreempleado}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText autocomplete="off" id="generadoEmpleado" readonly="true" value="#{infoG.nombreempleado}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionGenerado([{name: 'n', value: '1'}, {name: 't', value: '#{indiceG}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>    
@@ -203,7 +203,7 @@
                                             <h:outputText value="#{infoG.codigocuentac}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="generadoCntCredito" readonly="true" value="#{infoG.codigocuentac}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="generadoCntCredito" readonly="true" value="#{infoG.codigocuentac}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '2'}, {name: 't', value: '#{indiceG}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -221,7 +221,7 @@
                                             <h:outputText value="#{infoG.codigocuentad}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="generadoCntDebito" readonly="true" value="#{infoG.codigocuentad}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="generadoCntDebito" readonly="true" value="#{infoG.codigocuentad}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '3'}, {name: 't', value: '#{indiceG}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -239,7 +239,7 @@
                                             <h:outputText value="#{infoG.nittercero}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="generadoTercero" readonly="true" value="#{infoG.nittercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="generadoTercero" readonly="true" value="#{infoG.nittercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '4'}, {name: 't', value: '#{indiceG}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -259,7 +259,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="generadoValor" readonly="true" value="#{infoG.valor}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="generadoValor" readonly="true" value="#{infoG.valor}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '5'}, {name: 't', value: '#{indiceG}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency"/>
                                                 <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});PF('datosIntercon').unselectAllRows()"/>    
@@ -279,7 +279,7 @@
                                             <h:outputText value="#{infoG.nombreconcepto}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="generadoConcepto" readonly="true" value="#{infoG.nombreconcepto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText autocomplete="off" id="generadoConcepto" readonly="true" value="#{infoG.nombreconcepto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionGenerado([{name: 'n', value: '6'}, {name: 't', value: '#{indiceG}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -308,12 +308,12 @@
                             <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}"/>
 
                             <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 0px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalDGenerado" value="#{controlInterfaseContableTotal.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px; width: 100px; height: 10px; text-align: left; border-color: transparent">
+                            <p:inputText autocomplete="off" id="totalDGenerado" value="#{controlInterfaseContableTotal.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px; width: 100px; height: 10px; text-align: left; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 0px; left: 22px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px; width: 100px; height: 10px; text-align: right; border-color: transparent">
+                            <p:inputText autocomplete="off" id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px; width: 100px; height: 10px; text-align: right; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                             </p:inputText>
                         </fieldset>
@@ -341,7 +341,7 @@
                                             <h:outputText value="#{infoI.empleado.persona.nombreCompleto}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="interconEmpleado" readonly="true" value="#{infoI.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="interconEmpleado" readonly="true" value="#{infoI.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '0'}, {name: 't', value: '#{indiceI}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -360,7 +360,7 @@
                                             <h:outputText value="#{infoI.codigotercero}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="interconTercero" readonly="true" value="#{infoI.codigotercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText autocomplete="off" id="interconTercero" readonly="true" value="#{infoI.codigotercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionIntercon([{name: 'n', value: '1'}, {name: 't', value: '#{indiceI}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -378,7 +378,7 @@
                                             <h:outputText value="#{infoI.cuenta.codigo}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="interconCuenta" readonly="true" value="#{infoI.cuenta.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="interconCuenta" readonly="true" value="#{infoI.cuenta.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '2'}, {name: 't', value: '#{indiceI}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -398,7 +398,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="interconDebito" readonly="true" value="#{infoI.valord}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="interconDebito" readonly="true" value="#{infoI.valord}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '3'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency"/>
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
@@ -419,7 +419,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="interconCredito" readonly="true" value="#{infoI.valorc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="interconCredito" readonly="true" value="#{infoI.valorc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '4'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency"/>
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
@@ -438,7 +438,7 @@
                                             <h:outputText value="#{infoI.concepto.descripcion}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="interconConcepto" readonly="true" value="#{infoI.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="interconConcepto" readonly="true" value="#{infoI.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '5'}, {name: 't', value: '#{indiceI}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -457,7 +457,7 @@
                                             <h:outputText value="#{infoI.centrocosto.nombre}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="interconCentroCosto" readonly="true" value="#{infoI.centrocosto.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText autocomplete="off" id="interconCentroCosto" readonly="true" value="#{infoI.centrocosto.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionIntercon([{name: 'n', value: '6'}, {name: 't', value: '#{indiceI}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -472,12 +472,12 @@
                             <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroContabilizados}" style="position: relative; left: 3px; top: 8px; font-weight: bold;"/>
 
                             <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 8px; left: 313px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalDInter" readonly="true" value="#{controlInterfaseContableTotal.totalDInter}" style="position: relative; top: 8px; left: 316px; width: 90px; height: 10px; text-align: left; border-color: transparent">
+                            <p:inputText autocomplete="off" id="totalDInter" readonly="true" value="#{controlInterfaseContableTotal.totalDInter}" style="position: relative; top: 8px; left: 316px; width: 90px; height: 10px; text-align: left; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 8px; left: 328px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalCInter" readonly="true" value="#{controlInterfaseContableTotal.totalCInter}" style="position: relative; top: 8px; left: 345px; width: 90px; height: 10px; text-align: right; border-color: transparent">
+                            <p:inputText autocomplete="off" id="totalCInter" readonly="true" value="#{controlInterfaseContableTotal.totalCInter}" style="position: relative; top: 8px; left: 345px; width: 90px; height: 10px; text-align: right; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"  />
                             </p:inputText>
 
@@ -520,7 +520,7 @@
                                 <p:ajax event="filter" listener="#{controlInterfaseContableTotal.contarRegistroProcesos()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarP']}"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProceso').filter();" class="cssFiltroLOV"/>  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{proceso.descripcion}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
@@ -554,7 +554,7 @@
                                 <p:ajax event="filter" listener="#{controlInterfaseContableTotal.contarRegistroEmpresas()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarE']}"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV"  />  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV"  />  
                                 </f:facet>
                                 <p:column filterBy="#{empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
@@ -875,7 +875,7 @@
                     <p:dialog id="planoGeneradoOK" header="#{msg['reporteExito']}" widgetVar="planoGeneradoOK"  resizable="false" draggable="true" modal="true" height="160" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight: bold;width: 250px;"  />
-                        <p:inputText  autocomplete="off"  value="#{controlInterfaseContableTotal.rutaArchivo}" style="position: absolute; left: 70px; top: 50px;text-transform: uppercase;width: 230px;" readonly="true"/>
+                        <p:inputText autocomplete="off" value="#{controlInterfaseContableTotal.rutaArchivo}" style="position: absolute; left: 70px; top: 50px; text-transform: uppercase;width: 230px;" readonly="true"/>
                         <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 70px; top: 80px; font-weight: bold;width: 230px;"  />
                         <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 118px; left: 70px"  icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.exportarPlano()}"
                                          onclick="PF('planoGeneradoOK').hide()">

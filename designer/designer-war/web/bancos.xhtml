@@ -109,7 +109,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlBancos.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosBancos').unselectAllRows();PF('datosBancos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlBancos.modificarBanco(info)}"  update="codigo"/>
@@ -129,7 +129,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="40" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="40" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlBancos.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosBancos').unselectAllRows();PF('datosBancos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlBancos.modificarBanco(info)}" update="nombre"/>
@@ -148,7 +148,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.codigocompensacion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigocompensacion}" maxlength="30" id="editarComp" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigocompensacion}" maxlength="30" id="editarComp" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlBancos.cambiarIndice(info, 2)}" process="@this"
                                                         onstart="PF('datosBancos').unselectAllRows();PF('datosBancos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlBancos.modificarBanco(info)}" update="compensacion"/>
@@ -167,7 +167,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.codigoalternativo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigoalternativo}" maxlength="30" id="editarCodalt" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigoalternativo}" maxlength="30" id="editarCodalt" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlBancos.cambiarIndice(info, 3)}" process="@this"
                                                         onstart="PF('datosBancos').unselectAllRows();PF('datosBancos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlBancos.modificarBanco(info)}" update="codalt"/>
@@ -186,7 +186,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.prefijocuentas}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.prefijocuentas}" maxlength="30" id="editarPrefijo" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.prefijocuentas}" maxlength="30" id="editarPrefijo" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlBancos.cambiarIndice(info, 4)}" process="@this"
                                                         onstart="PF('datosBancos').unselectAllRows();PF('datosBancos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlBancos.modificarBanco(info)}" update="prefijo"/>
@@ -205,7 +205,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.numeroidentificaciont}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.numeroidentificaciont}" maxlength="40" id="editarnumid" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.numeroidentificaciont}" maxlength="40" id="editarnumid" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlBancos.cambiarIndice(info, 5)}" process="@this"
                                                         onstart="PF('datosBancos').unselectAllRows();PF('datosBancos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlBancos.modificarBanco(info)}" update="numid"/>
@@ -224,7 +224,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.cuentaempresa}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.cuentaempresa}" maxlength="40" id="editarcuenta" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.cuentaempresa}" maxlength="40" id="editarcuenta" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlBancos.cambiarIndice(info, 6)}" process="@this" 
                                                        onstart="PF('datosBancos').unselectAllRows();PF('datosBancos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlBancos.modificarBanco(info)}" update="cuenta"/>
@@ -350,43 +350,43 @@
                         <p:panel id="nuevoBanco" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style="position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlBancos.nuevoBanco.codigo}" style=" width: 140px; position: absolute; left: 200px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlBancos.nuevoBanco.codigo}" style=" width: 140px; position: absolute; left: 200px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código"/>
 
                             <strong><h:outputText value="*Nombre: "  style="position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="40" value="#{controlBancos.nuevoBanco.nombre}" style=" width: 140px; position: absolute; left: 200px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="40" value="#{controlBancos.nuevoBanco.nombre}" style=" width: 140px; position: absolute; left: 200px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre"/>
 
                             <strong><h:outputText value="Código Compensación: "  style="position: absolute; top: 120px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCodCompen" maxlength="30" value="#{controlBancos.nuevoBanco.codigocompensacion}" style=" width: 140px; position: absolute; left: 200px; top: 115px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoCodCompen" maxlength="30" value="#{controlBancos.nuevoBanco.codigocompensacion}" style=" width: 140px; position: absolute; left: 200px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodCompen" value="Código Compensación"/>
 
                             <strong><h:outputText value="Código Alternativo: "  style="position: absolute; top: 150px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCodALte" maxlength="30" value="#{controlBancos.nuevoBanco.codigoalternativo}" style=" width: 140px; position: absolute; left: 200px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoCodALte" maxlength="30" value="#{controlBancos.nuevoBanco.codigoalternativo}" style=" width: 140px; position: absolute; left: 200px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodALte" value="Código Alternativo"/>
 
                             <strong><h:outputText value="Prefijo: "  style="position: absolute; top: 180px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoPrefijo" maxlength="30" value="#{controlBancos.nuevoBanco.prefijocuentas}" style=" width: 140px; position: absolute; left: 200px; top: 175px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoPrefijo" maxlength="30" value="#{controlBancos.nuevoBanco.prefijocuentas}" style=" width: 140px; position: absolute; left: 200px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoPrefijo" value="Prefijo"/>
 
                             <strong><h:outputText value="NIT: "  style="position: absolute; top: 210px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNit" maxlength="30" value="#{controlBancos.nuevoBanco.numeroidentificaciont}" style=" width: 140px; position: absolute; left: 200px; top: 205px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNit" maxlength="30" value="#{controlBancos.nuevoBanco.numeroidentificaciont}" style=" width: 140px; position: absolute; left: 200px; top: 205px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNit" value="NIT"/>
 
                             <strong><h:outputText value="Cuenta: "  style="position: absolute; top: 240px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevaCuenta" maxlength="30" value="#{controlBancos.nuevoBanco.cuentaempresa}" style=" width: 140px; position: absolute; left: 200px; top: 235px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevaCuenta" maxlength="30" value="#{controlBancos.nuevoBanco.cuentaempresa}" style=" width: 140px; position: absolute; left: 200px; top: 235px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCuenta" value="Cuenta"/>
@@ -404,43 +404,43 @@
 
                         <p:panel id="duplicarBanco" style="border: none;">
                             <strong><h:outputText value="*Código: "  style="position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlBancos.duplicarBanco.codigo}" style=" width: 140px; position: absolute; left: 200px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlBancos.duplicarBanco.codigo}" style=" width: 140px; position: absolute; left: 200px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código"/>
 
                             <strong><h:outputText value="*Nombre: "  style="position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="40" value="#{controlBancos.duplicarBanco.nombre}" style=" width: 140px; position: absolute; left: 200px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarNombre" maxlength="40" value="#{controlBancos.duplicarBanco.nombre}" style=" width: 140px; position: absolute; left: 200px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre"/>
 
                             <strong><h:outputText value="Código Compensación: "  style="position: absolute; top: 120px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCodCompen" maxlength="30" value="#{controlBancos.duplicarBanco.codigocompensacion}" style=" width: 140px; position: absolute; left: 200px; top: 115px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarCodCompen" maxlength="30" value="#{controlBancos.duplicarBanco.codigocompensacion}" style=" width: 140px; position: absolute; left: 200px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodCompen" value="Código Compensación"/>
 
                             <strong><h:outputText value="Código Alternativo: "  style="position: absolute; top: 150px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCodALte" maxlength="30" value="#{controlBancos.duplicarBanco.codigoalternativo}" style=" width: 140px; position: absolute; left: 200px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarCodALte" maxlength="30" value="#{controlBancos.duplicarBanco.codigoalternativo}" style=" width: 140px; position: absolute; left: 200px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodALte" value="Código Alternativo"/>
 
                             <strong><h:outputText value="Prefijo: "  style="position: absolute; top: 180px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarPrefijo" maxlength="30" value="#{controlBancos.duplicarBanco.prefijocuentas}" style=" width: 140px; position: absolute; left: 200px; top: 175px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarPrefijo" maxlength="30" value="#{controlBancos.duplicarBanco.prefijocuentas}" style=" width: 140px; position: absolute; left: 200px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarPrefijo" value="Prefijo"/>
 
                             <strong><h:outputText value="NIT: "  style="position: absolute; top: 210px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNit" maxlength="30" value="#{controlBancos.duplicarBanco.numeroidentificaciont}" style=" width: 140px; position: absolute; left: 200px; top: 205px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarNit" maxlength="30" value="#{controlBancos.duplicarBanco.numeroidentificaciont}" style=" width: 140px; position: absolute; left: 200px; top: 205px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNit" value="NIT"/>
 
                             <strong><h:outputText value="Cuenta: "  style="position: absolute; top: 240px; left: 34px"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCuenta" maxlength="30" value="#{controlBancos.nuevoBanco.cuentaempresa}" style=" width: 140px; position: absolute; left: 200px; top: 235px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarCuenta" maxlength="30" value="#{controlBancos.nuevoBanco.cuentaempresa}" style=" width: 140px; position: absolute; left: 200px; top: 235px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCuenta" value="Cuenta"/>

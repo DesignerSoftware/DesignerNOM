@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -96,7 +96,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.codigo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   disabled="true" value="#{info.codigo}" maxlength="100" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  disabled="true" value="#{info.codigo}" maxlength="100" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 0)}" process="@this"
                                                         onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.codigo)}" update="codigo"/>
@@ -112,7 +112,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 1)}" process="@this"
                                                         onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.descripcion)}" update="descripcion"/>
@@ -131,7 +131,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.clavecontabledebito.clave}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clavecontabledebito.clave}" maxlength="50" id="editarClaveDebito" style="height: 12px; border-radius: 0px; width: 210px;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.clavecontabledebito.clave}" maxlength="50" id="editarClaveDebito" style="height: 12px; border-radius: 0px; width: 210px;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 2)}" process="@this"
                                                         onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,2)}" process="@this"/>
@@ -154,7 +154,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.clavecontablecredito.clave}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clavecontablecredito.clave}" maxlength="50" id="editarClaveCredito" style="height: 12px; border-radius: 0px; width: 210px;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.clavecontablecredito.clave}" maxlength="50" id="editarClaveCredito" style="height: 12px; border-radius: 0px; width: 210px;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 3)}" process="@this"
                                                         onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,3)}" process="@this"/>
@@ -178,7 +178,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.indicedeudor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.indicedeudor}" maxlength="50" id="editarIndiceDeudor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.indicedeudor}" maxlength="50" id="editarIndiceDeudor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 4)}" process="@this"
                                                         onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indicedeudor)}" update="descripcion"/>
@@ -196,7 +196,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.indiceacreedor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.indiceacreedor}" maxlength="50" id="editarIndiceAcredor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.indiceacreedor}" maxlength="50" id="editarIndiceAcredor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 5)}" process="@this"
                                                         onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indiceacreedor)}" update="descripcion"/>
@@ -216,7 +216,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaCreacion" value="#{info.fechacreacion}"> 
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaCreacion" value="#{info.fechacreacion}"> 
                                                 <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 6)}" process="@this"
                                                         onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});"/>  
                                                 <p:ajax event="change" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this"/> 
@@ -249,7 +249,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveDebito()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Debito"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;"/>  
+                                    <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{idclavedebito.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -282,7 +282,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.actualizarClaveCredito()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Credito"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSapCredito').filter();" style="width:150px; position: relative; left: 50px;"/>  
+                                    <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovClavesSapCredito').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{idclavecredito.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -442,7 +442,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.cambiarEmpresa()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empresas:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;"/>  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -473,7 +473,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlActualizarConceptos.seleccionConceptosPorEmpresa()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Conceptos"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovConceptosPorEmpresa').filter();" style="width:150px; position: relative; left: 65px;"/>  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovConceptosPorEmpresa').filter();" style="width:150px; position: relative; left: 65px;"/>  
                             </f:facet>
                             <p:column filterBy="#{conceptoslovporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">

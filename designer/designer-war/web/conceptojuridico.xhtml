@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -36,12 +36,12 @@
                                           filterStyle="display: none; visibility: hidden;"  style="width: 20px;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoC.fecha}" style="width: 20px;text-transform: uppercase;">
+                                            <h:outputText value="#{infoC.fecha}" style="width: 20px; text-transform: uppercase;">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fecha}"> 
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoC.fecha}"> 
                                                 <p:ajax event="select" listener="#{controlConceptoJuridico.cambiarIndice(indice,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlConceptoJuridico.modificarFecha(indice,0)}" process="@this" update="dateFecha"/>
                                                 <p:ajax event="dateSelect" listener="#{controlConceptoJuridico.modificarFecha(indice,0)}" process="@this" update="dateFecha"/>
@@ -59,7 +59,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.expedidopor}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.expedidopor}"  id="editarNombreConcepto" style="border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{infoC.expedidopor}"  id="editarNombreConcepto" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select"  listener="#{controlConceptoJuridico.cambiarIndice(indice, 1)}" process="@this"/>
                                                 <p:ajax event="change" update="editarNombreConcepto" listener="#{controlConceptoJuridico.modificarConcepto(indice)}" process="@this"/>
                                             </p:inputText>
@@ -75,7 +75,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoC.quien}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoC.quien}"  id="editarCargoConcepto" style="border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{infoC.quien}"  id="editarCargoConcepto" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select"  listener="#{controlConceptoJuridico.cambiarIndice(indice, 2)}" process="@this"/>
                                                 <p:ajax event="change" update="editarCargoConcepto" listener="#{controlConceptoJuridico.modificarConcepto(indice)}" process="@this"/>
                                             </p:inputText>
@@ -171,7 +171,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlConceptoJuridico.actualizarEmpresa()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 30px;"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 30px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -279,20 +279,20 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px; left: 40px;"/></strong>
                             <div id="posicionFechaNuevoReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateFecha" value="#{controlConceptoJuridico.nuevoConcepto.fecha}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFecha" value="#{controlConceptoJuridico.nuevoConcepto.fecha}">
                                     <p:ajax event="dateSelect" update="nuevaDateFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaDateFecha" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['nombreN']}" style=" position: absolute; top: 105px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaNombreC" value="#{controlConceptoJuridico.nuevoConcepto.expedidopor}" style="width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevaNombreC" value="#{controlConceptoJuridico.nuevoConcepto.expedidopor}" style="width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="change" process="@this" update="nuevaNombreC"/>
                             </p:inputText>
                             <p:watermark for="nuevaNombreC" value="#{msg['nombreWM']}"/>
 
                             <strong><h:outputText value="*#{msg['profesionN']}" style="  position: absolute; top: 135px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaCargoC" value="#{controlConceptoJuridico.nuevoConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevaCargoC" value="#{controlConceptoJuridico.nuevoConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="change" process="@this" update="nuevaCargoC"/>
                             </p:inputText>
                             <p:watermark for="nuevaCargoC" value="#{msg['profesionWM']}"/>
@@ -316,20 +316,20 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px; left: 40px;"/></strong>
                             <div style="position: absolute;  top: 70px; left: 200px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFecha" value="#{controlConceptoJuridico.duplicarConcepto.fecha}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarDateFecha" value="#{controlConceptoJuridico.duplicarConcepto.fecha}">
                                     <p:ajax event="dateSelect" update="duplicarDateFecha"/>
                                     <p:ajax event="change" update="duplicarDateFecha"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['nombreN']}" style=" position: absolute; top: 105px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombreC" value="#{controlConceptoJuridico.duplicarConcepto.expedidopor}" style=" width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarNombreC" value="#{controlConceptoJuridico.duplicarConcepto.expedidopor}" style=" width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="change" update="duplicarNombreC"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombreC" value="#{msg['nombreWM']}"/>
 
                             <strong><h:outputText value="*#{msg['profesionN']}" style=" position: absolute; top: 135px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCargoC" value="#{controlConceptoJuridico.duplicarConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarCargoC" value="#{controlConceptoJuridico.duplicarConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="change" update="duplicarCargoC"/>
                             </p:inputText>
                             <p:watermark for="duplicarCargoC" value="#{msg['profesionWM']}"/>

@@ -363,8 +363,8 @@
                            <h:outputText  value="*#{msg['valorSueldo']}:" style="position: absolute; top: 22px; left: 65px; font-weight: bold;">
                               <f:convertNumber currencyCode="COP"/>
                            </h:outputText>
-                           <p:inputText autocomplete="off"  id="valorSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.valorSueldo}"
-                                        style="position: absolute; top: 17px; left: 230px; width: 150px;text-transform: uppercase;">
+                           <p:inputText autocomplete="off" id="valorSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.valorSueldo}"
+                                        style="position: absolute; top: 17px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificacionValorSueldo(controlPersonaIndividual.valorSueldo)}" process="@this" update="valorSueldoModSueldo"/>
                               <p:keyFilter for="valorSueldoModSueldo" mask="num"/>
@@ -722,7 +722,7 @@
 
                               <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" id="ciudadModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.ciudad.nombre}" 
-                                           style="position: absolute; top: 40px; left: 185px; width: 175px;text-transform: uppercase;">
+                                           style="position: absolute; top: 40px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(1)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(1,'CIUDAD', controlPersonaIndividual.nuevoTelefono.ciudad.nombre)}"
                                          process="@this" update="ciudadModTelefono"/>
@@ -733,7 +733,7 @@
 
                               <h:outputText  value="#{msg['numeroTelefono']}:" style="position: absolute; top: 70px; left: 65px; font-weight: bold;"/>
                               <p:inputText autocomplete="off" id="numeroTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.numerotelefono}" 
-                                           style="position: absolute; top: 65px; left: 185px; width: 175px;text-transform: uppercase;">
+                                           style="position: absolute; top: 65px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(2)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroTelefonico(controlPersonaIndividual.nuevoTelefono.numerotelefono)}"
                                          process="@this" update="numeroTelefonoModTelefono"/>

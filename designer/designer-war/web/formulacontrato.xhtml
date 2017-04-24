@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -127,7 +127,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoFC.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoFC.fechainicial}"> 
                                     <p:ajax event="select" listener="#{controlFormulaContrato.cambiarIndiceFormulaContrato(infoFC,0)}" process="@this"
                                             onstart="PF('datosFormulaContrato').unselectAllRows();PF('datosFormulaContrato').selectRow(#{indiceFC});"/>
                                     <p:ajax event="change" listener="#{controlFormulaContrato.modificacionesFechaFormula(infoFC,0)}" process="@this" update="dateFechaInicial"/>
@@ -149,7 +149,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoFC.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoFC.fechafinal}"> 
                                     <p:ajax event="select" listener="#{controlFormulaContrato.cambiarIndiceFormulaContrato(infoFC,1)}" process="@this"
                                             onstart="PF('datosFormulaContrato').unselectAllRows();PF('datosFormulaContrato').selectRow(#{indiceFC});"/>
                                     <p:ajax event="change" listener="#{controlFormulaContrato.modificacionesFechaFormula(infoFC,1)}" process="@this" update="dateFecha"/>
@@ -167,7 +167,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.contrato.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoFC.contrato.descripcion}"  id="editarLegislacionFC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoFC.contrato.descripcion}"  id="editarLegislacionFC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlFormulaContrato.cambiarIndiceFormulaContrato(infoFC, 2)}" process="@this"
                                             onstart="PF('datosFormulaContrato').unselectAllRows();PF('datosFormulaContrato').selectRow(#{indiceFC});"/>
                                     <p:ajax event="change" update="editarLegislacionFC" listener="#{controlFormulaContrato.modificarFormulaContrato(infoFC,'LEGISLACION',infoFC.contrato.descripcion)}" process="@this"/>
@@ -185,7 +185,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.periodicidad.nombre}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoFC.periodicidad.nombre}"  id="editarPeriodicidad" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoFC.periodicidad.nombre}"  id="editarPeriodicidad" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlFormulaContrato.cambiarIndiceFormulaContrato(infoFC, 3)}" process="@this"
                                             onstart="PF('datosFormulaContrato').unselectAllRows();PF('datosFormulaContrato').selectRow(#{indiceFC});"/>
                                     <p:ajax event="change" update="editarPeriodicidad" listener="#{controlFormulaContrato.modificarFormulaContrato(infoFC,'PERIODICIDAD',infoFC.periodicidad.nombre)}" process="@this"/>
@@ -203,7 +203,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.tercero.nombre}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoFC.tercero.nombre}"  id="editarTercero" style="border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoFC.tercero.nombre}"  id="editarTercero" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlFormulaContrato.cambiarIndiceFormulaContrato(infoFC, 4)}" process="@this"
                                             onstart="PF('datosFormulaContrato').unselectAllRows();PF('datosFormulaContrato').selectRow(#{indiceFC});"/>
                                     <p:ajax event="change" update="editarTercero" listener="#{controlFormulaContrato.modificarFormulaContrato(infoFC,'TERCERO',infoFC.tercero.nombre)}" process="@this"/>
@@ -314,7 +314,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarC']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovContrato').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovContrato').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{contrato.codigo}" sortBy="#{contrato.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important;">
@@ -352,7 +352,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarP']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPeriodicidad').filter();" class="cssFiltroLOV"/>
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPeriodicidad').filter();" class="cssFiltroLOV"/>
                         </f:facet>
 
                         <p:column filterBy="#{periodicidad.codigo}" sortBy="#{periodicidad.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important;">
@@ -389,7 +389,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarT']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" class="cssFiltroLOV"/>
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTercero').filter();" class="cssFiltroLOV"/>
                         </f:facet>
 
                         <p:column filterBy="#{tercero.nombre}" sortBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
@@ -426,7 +426,7 @@
 
                      <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 65px; left: 50px;"/></strong>
                      <div id="posicionFechaIniNuevoReg" style="position: absolute; top: 60px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaInicial" value="#{controlFormulaContrato.nuevaFormulaContrato.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaInicial" value="#{controlFormulaContrato.nuevaFormulaContrato.fechainicial}">
                            <p:ajax event="dateSelect" update="nuevaDateFechaInicial" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaInicial" process="@this"/>
                         </p:calendar>
@@ -434,14 +434,14 @@
 
                      <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
                      <div id="posicionFechaFinNuevoReg" style="position: absolute; top: 90px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaFinal" value="#{controlFormulaContrato.nuevaFormulaContrato.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaFinal" value="#{controlFormulaContrato.nuevaFormulaContrato.fechafinal}">
                            <p:ajax event="dateSelect" update="nuevaDateFechaFinal" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['legislacionLaboralN']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaLegislacion" value="#{controlFormulaContrato.nuevaFormulaContrato.contrato.descripcion}"
+                     <p:inputText autocomplete="off" id="nuevaLegislacion" value="#{controlFormulaContrato.nuevaFormulaContrato.contrato.descripcion}"
                                    style="width: 142px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaContrato.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaContrato.valoresBackupAutocompletar(1, 'LEGISLACION')}"/>
@@ -452,7 +452,7 @@
                      <p:watermark for="nuevaLegislacion" value="#{msg['legislacionLaboral']}"/>
 
                      <strong><h:outputText value="*#{msg['perdiodicidadN']}" style="position: absolute; top: 155px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaPeriodicidad" value="#{controlFormulaContrato.nuevaFormulaContrato.periodicidad.nombre}"
+                     <p:inputText autocomplete="off" id="nuevaPeriodicidad" value="#{controlFormulaContrato.nuevaFormulaContrato.periodicidad.nombre}"
                                    style="width: 142px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaContrato.asignarIndex(1,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaContrato.valoresBackupAutocompletar(1, 'PERIODICIDAD')}"/>
@@ -463,7 +463,7 @@
                      <p:watermark for="nuevaPeriodicidad" value="#{msg['periodicidad']}"/>
 
                      <strong><h:outputText value="#{msg['terceroN']}" style="position: absolute; top: 185px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaTercero" value="#{controlFormulaContrato.nuevaFormulaContrato.tercero.nombre}"
+                     <p:inputText autocomplete="off" id="nuevaTercero" value="#{controlFormulaContrato.nuevaFormulaContrato.tercero.nombre}"
                                    style="width: 142px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaContrato.asignarIndex(2,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaContrato.valoresBackupAutocompletar(1, 'TERCERO')}"/>
@@ -490,7 +490,7 @@
 
                      <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 65px; left: 50px;"/></strong>
                      <div id="posicionFechaIniDuplicarReg" style="position: absolute; top: 60px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaInicial" value="#{controlFormulaContrato.duplicarFormulaContrato.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaInicial" value="#{controlFormulaContrato.duplicarFormulaContrato.fechainicial}">
                            <p:ajax event="dateSelect" update="duplicarDateFechaInicial" process="@this"/>
                            <p:ajax event="change" update="duplicarDateFechaInicial" process="@this"/>
                         </p:calendar>
@@ -498,14 +498,14 @@
 
                      <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
                      <div id="posicionFechaFinDuplicarReg" style="position: absolute; top: 90px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaFinal" value="#{controlFormulaContrato.duplicarFormulaContrato.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaFinal" value="#{controlFormulaContrato.duplicarFormulaContrato.fechafinal}">
                            <p:ajax event="dateSelect" update="duplicarDateFechaFinal" process="@this"/>
                            <p:ajax event="change" update="duplicarDateFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['legislacionLaboralN']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarLegislacion" value="#{controlFormulaContrato.duplicarFormulaContrato.contrato.descripcion}"
+                     <p:inputText autocomplete="off" id="duplicarLegislacion" value="#{controlFormulaContrato.duplicarFormulaContrato.contrato.descripcion}"
                                    style="width: 142px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaContrato.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaContrato.valoresBackupAutocompletar(2, 'LEGISLACION')}"/>
@@ -516,7 +516,7 @@
                      <p:watermark for="duplicarLegislacion" value="#{msg['legislacionLaboral']}"/>
 
                      <strong><h:outputText value="*#{msg['perdiodicidadN']}" style="position: absolute; top: 155px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarPeriodicidad" value="#{controlFormulaContrato.duplicarFormulaContrato.periodicidad.nombre}"
+                     <p:inputText autocomplete="off" id="duplicarPeriodicidad" value="#{controlFormulaContrato.duplicarFormulaContrato.periodicidad.nombre}"
                                    style="width: 142px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaContrato.asignarIndex(1,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaContrato.valoresBackupAutocompletar(2, 'PERIODICIDAD')}"/>
@@ -527,7 +527,7 @@
                      <p:watermark for="duplicarPeriodicidad" value="#{msg['periodicidad']}"/>
 
                      <strong><h:outputText value="#{msg['terceroN']}" style="position: absolute; top: 185px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTercero" value="#{controlFormulaContrato.duplicarFormulaContrato.tercero.nombre}"
+                     <p:inputText autocomplete="off" id="duplicarTercero" value="#{controlFormulaContrato.duplicarFormulaContrato.tercero.nombre}"
                                    style="width: 142px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaContrato.asignarIndex(2,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaContrato.valoresBackupAutocompletar(2, 'TERCERO')}"/>

@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -115,7 +115,7 @@
                                  <h:outputText value="#{comprobante.numero}"/>
                               </f:facet>   
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{comprobante.numero}" readonly="#{comprobante.readOnlyNumero}" id="editarNumero" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;"
+                                 <p:inputText autocomplete="off" value="#{comprobante.numero}" readonly="#{comprobante.readOnlyNumero}" id="editarNumero" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;"
                                                onselect="posicionComprobante([{name: 'n', value: '0'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 0)}" process="@this"
@@ -137,7 +137,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFecha" readonly="#{comprobante.readOnlyFecha}" value="#{comprobante.fecha}"
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFecha" readonly="#{comprobante.readOnlyFecha}" value="#{comprobante.fecha}"
                                               onselect="posicionComprobante([{name: 'n', value: '1'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
@@ -172,7 +172,7 @@
                                  <h:outputText value="#{comprobante.fechaentregado}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaEntregado" readonly="#{comprobante.readOnlyFechaEntregado}" value="#{comprobante.fechaentregado}"
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaEntregado" readonly="#{comprobante.readOnlyFechaEntregado}" value="#{comprobante.fechaentregado}"
                                               onselect="posicionComprobante([{name: 'n', value: '2'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
 
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantesFechaEntregado(comprobante,2)}" process="@this"/>
@@ -209,7 +209,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaCorte" value="#{corteProceso.corte}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaCorte" value="#{corteProceso.corte}">
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'N', corteProceso.corte)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'N', corteProceso.corte)}"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceCortesProcesos(corteProceso, 0)}"
@@ -229,7 +229,7 @@
                                  <h:outputText value="#{corteProceso.proceso.descripcion}"/>
                               </f:facet>   
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{corteProceso.proceso.descripcion}" id="editarProceso" style="border-radius: 0px; text-transform: uppercase; width: 92%;"> 
+                                 <p:inputText autocomplete="off" value="#{corteProceso.proceso.descripcion}" id="editarProceso" style="border-radius: 0px; text-transform: uppercase; width: 92%;"> 
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'PROCESO', corteProceso.proceso.descripcion)}"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceCortesProcesos(corteProceso, 1)}"
                                             onstart="PF('datosCortesProcesos').unselectAllRows();PF('datosCortesProcesos').selectRow(#{indiceCorteProceso});"/>
@@ -333,7 +333,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleado.nombretercero}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleado.nombretercero}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('TERCERO', solucionNodoEmpleado, solucionNodoEmpleado.nombretercero)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 7)}"
                                                   onstart="PF('tablaEmpleado').unselectAllRows();PF('tablaEmpleado').selectRow(#{indiceEM});"/>
@@ -354,7 +354,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleado.codigocuentad}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleado.codigocuentad}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('DEBITO', solucionNodoEmpleado, solucionNodoEmpleado.codigocuentad)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 8)}"
                                                   onstart="PF('tablaEmpleado').unselectAllRows();PF('tablaEmpleado').selectRow(#{indiceEM});"/>
@@ -375,7 +375,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleado.nombrecentrocostod}" style="width: 96%; text-transform: uppercase; height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleado.nombrecentrocostod}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTODEBITO', solucionNodoEmpleado, solucionNodoEmpleado.nombrecentrocostod)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 9)}"
                                                   onstart="PF('tablaEmpleado').unselectAllRows();PF('tablaEmpleado').selectRow(#{indiceEM});"/>
@@ -398,7 +398,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleado.codigocuentac}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleado.codigocuentac}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CREDITO', solucionNodoEmpleado, solucionNodoEmpleado.codigocuentac)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 10)}"
                                                   onstart="PF('tablaEmpleado').unselectAllRows();PF('tablaEmpleado').selectRow(#{indiceEM});"/>
@@ -419,7 +419,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleado.nombrecentrocostoc}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleado.nombrecentrocostoc}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTOCREDITO', solucionNodoEmpleado, solucionNodoEmpleado.nombrecentrocostoc)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado(solucionNodoEmpleado, 11)}"
                                                   onstart="PF('tablaEmpleado').unselectAllRows();PF('tablaEmpleado').selectRow(#{indiceEM});"/>
@@ -456,17 +456,17 @@
                         <div style="left: 0px; display: block; margin-top: -5px; margin-left: 33px;">
 
                            <h:outputText value="#{msg['neto']}" style="color: #14388B; font-weight: bold; position: relative; left: 310px; top: 0px; display: inline-block;"/>
-                           <p:inputText  autocomplete="off"  id="neto" value="#{controlEmplComprobantes.neto}" readonly="true"
+                           <p:inputText autocomplete="off" id="neto" value="#{controlEmplComprobantes.neto}" readonly="true"
                                          style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 323px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
 
                            <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: relative; left: 357px; top: 0px; display: inline-block;"/>
-                           <p:inputText  autocomplete="off"  id="subTotalPago" value="#{controlEmplComprobantes.subtotalPago}" readonly="true"
+                           <p:inputText autocomplete="off" id="subTotalPago" value="#{controlEmplComprobantes.subtotalPago}" readonly="true"
                                          style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 370px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  id="subTotalDescuento" value="#{controlEmplComprobantes.subtotalDescuento}" readonly="true"
+                           <p:inputText autocomplete="off" id="subTotalDescuento" value="#{controlEmplComprobantes.subtotalDescuento}" readonly="true"
                                          style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 371px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
@@ -551,7 +551,7 @@
                                        <h:outputText value="#{solucionNodoEmpleador.nombretercero}"/>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleador.nombretercero}" style="width: 96%; text-transform: uppercase; height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.nombretercero}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('TERCERO',solucionNodoEmpleador, solucionNodoEmpleador.nombretercero)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 7)}"
                                                   onstart="PF('tablaEmpleador').unselectAllRows();PF('tablaEmpleador').selectRow(#{indiceER});"/>
@@ -572,7 +572,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleador.codigocuentad}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.codigocuentad}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('DEBITO',solucionNodoEmpleador, solucionNodoEmpleador.codigocuentad)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 8)}"
                                                   onstart="PF('tablaEmpleador').unselectAllRows();PF('tablaEmpleador').selectRow(#{indiceER});"/>
@@ -593,7 +593,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleador.nombrecentrocostod}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.nombrecentrocostod}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTODEBITO',solucionNodoEmpleador, solucionNodoEmpleador.nombrecentrocostod)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 9)}"
                                                   onstart="PF('tablaEmpleador').unselectAllRows();PF('tablaEmpleador').selectRow(#{indiceER});"/>
@@ -614,7 +614,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleador.codigocuentac}" style="width: 96%; text-transform: uppercase;height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.codigocuentac}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CREDITO',solucionNodoEmpleador, solucionNodoEmpleador.codigocuentac)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 10)}"
                                                   onstart="PF('tablaEmpleador').unselectAllRows();PF('tablaEmpleador').selectRow(#{indiceER});"/>
@@ -634,7 +634,7 @@
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText  autocomplete="off"  value="#{solucionNodoEmpleador.nombrecentrocostoc}" style="width: 96%; text-transform: uppercase; height: 12px;">
+                                       <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.nombrecentrocostoc}" style="width: 96%; text-transform: uppercase; height: 12px;">
                                           <p:ajax event="change" listener="#{controlEmplComprobantes.modificarSolucionesNodos('CENTROCOSTOCREDITO',solucionNodoEmpleador, solucionNodoEmpleador.nombrecentrocostoc)}"/>
                                           <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador(solucionNodoEmpleador, 11)}"
                                                   onstart="PF('tablaEmpleador').unselectAllRows();PF('tablaEmpleador').selectRow(#{indiceER});"/>
@@ -670,11 +670,11 @@
                         <div id="inferiorDerechaSubtotalesEmpleador" style="left: 0px; display: block; margin-top: 10px; margin-left: 33px;">
 
                            <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: relative; left: 467px; top: 0px; display: inline-block;"/>
-                           <p:inputText  autocomplete="off"  id="subTotalPasivo" value="#{controlEmplComprobantes.subtotalPasivo}" readonly="true"
+                           <p:inputText autocomplete="off" id="subTotalPasivo" value="#{controlEmplComprobantes.subtotalPasivo}" readonly="true"
                                          style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 479px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  id="subTotalGasto" value="#{controlEmplComprobantes.subtotalGasto}" readonly="true"
+                           <p:inputText autocomplete="off" id="subTotalGasto" value="#{controlEmplComprobantes.subtotalGasto}" readonly="true"
                                          style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 480px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
@@ -715,13 +715,13 @@
                   <p:panel id="nuevoComprobante" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['numeroC']}" style=" position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoNumeroComprobante" value="#{controlEmplComprobantes.nuevoComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoNumeroComprobante" value="#{controlEmplComprobantes.nuevoComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['fechacomprobanteC']}" style=" position: absolute; top: 90px;"/></strong>
                      <div id="posicionFechaComprobanteNuevoReg" style=" position: absolute; top: 85px; left: 200px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaComprobante" value="#{controlEmplComprobantes.nuevoComprobante.fecha}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaComprobante" value="#{controlEmplComprobantes.nuevoComprobante.fecha}">
                            <p:ajax event="dateSelect" update="nuevaFechaComprobante" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaComprobante" process="@this"/>
                         </p:calendar>
@@ -734,7 +734,7 @@
 
                      <strong><h:outputText value="#{msg['fechaentregaC']}" style=" position: absolute; top: 150px;"/></strong>
                      <div id="posicionFechaEntregarNuevoReg" style=" position: absolute; top: 145px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaEntrega" value="#{controlEmplComprobantes.nuevoComprobante.fechaentregado}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaEntrega" value="#{controlEmplComprobantes.nuevoComprobante.fechaentregado}">
                            <p:ajax event="dateSelect" update="nuevaFechaEntrega" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaEntrega" process="@this"/>
                         </p:calendar>
@@ -753,13 +753,13 @@
 
                   <p:panel id="duplicadoComprobante" style="border: none;">
                      <strong><h:outputText value="*#{msg['numeroC']}" style=" position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoNumeroComprobante" value="#{controlEmplComprobantes.duplicarComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicadoNumeroComprobante" value="#{controlEmplComprobantes.duplicarComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['fechacomprobanteC']}" style=" position: absolute; top: 90px;"/></strong>
                      <div id="posicionFechaComprobanteDuplicarReg" style=" position: absolute; top: 85px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaComprobante" value="#{controlEmplComprobantes.duplicarComprobante.fecha}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaComprobante" value="#{controlEmplComprobantes.duplicarComprobante.fecha}">
                            <p:ajax event="dateSelect" update="duplicadoFechaComprobante" process="@this"/>
                            <p:ajax event="change" update="duplicadoFechaComprobante" process="@this"/>
                         </p:calendar>
@@ -772,7 +772,7 @@
 
                      <strong><h:outputText value="#{msg['fechaentregaC']}" style=" position: absolute; top: 150px;"/></strong>
                      <div id="posicionFechaEntregarDuplicarReg" style=" position: absolute; top: 145px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaEntrega" value="#{controlEmplComprobantes.duplicarComprobante.fechaentregado}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaEntrega" value="#{controlEmplComprobantes.duplicarComprobante.fechaentregado}">
                            <p:ajax event="dateSelect" update="duplicadoFechaEntrega" process="@this"/>
                            <p:ajax event="change" update="duplicadoFechaEntrega" process="@this"/>
                         </p:calendar>
@@ -792,14 +792,14 @@
                   <p:panel id="nuevoCorteProceso" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechaP']}" style=" position: absolute; top: 60px;"/></strong>
                      <div id="posicionFechaCorteNuevoReg" style=" position: absolute; top: 55px; left: 150px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCorte" value="#{controlEmplComprobantes.nuevoCorteProceso.corte}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCorte" value="#{controlEmplComprobantes.nuevoCorteProceso.corte}">
                            <p:ajax event="dateSelect" update="nuevaFechaCorte" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaCorte" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['procesoP']}" style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoProceso" value="#{controlEmplComprobantes.nuevoCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoProceso" value="#{controlEmplComprobantes.nuevoCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlEmplComprobantes.valoresBackupAutocompletar(1, 'PROCESO')}"/>
                         <p:ajax event="change" listener="#{controlEmplComprobantes.autocompletarNuevoyDuplicado('PROCESO', controlEmplComprobantes.nuevoCorteProceso.proceso.descripcion, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVProcesosNuevo_Duplicado(1)}"/>
@@ -820,14 +820,14 @@
                   <p:panel id="duplicadoCorteProceso" style="border: none;"> 
                      <strong><h:outputText value="*#{msg['fechaP']}" style=" position: absolute; top: 60px;"/></strong>
                      <div id="posicionFechaCorteDuplicarReg" style=" position: absolute; top: 55px; left: 150px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaCorte" value="#{controlEmplComprobantes.duplicarCorteProceso.corte}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicadoFechaCorte" value="#{controlEmplComprobantes.duplicarCorteProceso.corte}">
                            <p:ajax event="dateSelect" update="duplicadoFechaCorte" process="@this"/>
                            <p:ajax event="change" update="duplicadoFechaCorte" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['procesoP']}" style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoProceso" value="#{controlEmplComprobantes.duplicarCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicadoProceso" value="#{controlEmplComprobantes.duplicarCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlEmplComprobantes.valoresBackupAutocompletar(2, 'PROCESO')}"/>
                         <p:ajax event="change" listener="#{controlEmplComprobantes.autocompletarNuevoyDuplicado('PROCESO', controlEmplComprobantes.duplicarCorteProceso.proceso.descripcion, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVProcesosNuevo_Duplicado(2)}"/>
@@ -990,7 +990,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{proceso.codigo}" width="50" sortBy="#{proceso.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
@@ -1030,7 +1030,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarTercero()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTerceros').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTerceros').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tercero.nombre}" sortBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
@@ -1069,7 +1069,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCuentaDebito()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCD']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCuentaDebito').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCuentaDebito').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{cuentaDebito.codigo}" width="70" sortBy="#{cuentaDebito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
@@ -1110,7 +1110,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCuentaCredito()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCC']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCuentaCredito').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCuentaCredito').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{cuentaCredito.codigo}" width="70" sortBy="#{cuentaCredito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
@@ -1149,7 +1149,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCentroCostoDebito()}" process="@this"/>
                      <f:facet name="header">
                         <h:outputText value="#{msg['buscarCCD']}"/>
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCentroCostoDebito').filter();" class="cssFiltroLOV"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCentroCostoDebito').filter();" class="cssFiltroLOV"/>
                      </f:facet>
                      <p:column filterBy="#{centroCostoDebito.codigo}" width="70" sortBy="#{centroCostoDebito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
@@ -1188,7 +1188,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCentroCostoCredito()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCCC']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCentroCostoCredito').filter();" class="cssFiltroLOV"  />  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCentroCostoCredito').filter();" class="cssFiltroLOV"  />  
                      </f:facet>
                      <p:column filterBy="#{centroCostoCredito.codigo}" width="70" sortBy="#{centroCostoCredito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
@@ -1238,15 +1238,15 @@
                                    rowKey="#{detalleFormula.id}">
 
                         <p:column  headerText="#{msg['valor']}" width="80" style="padding: 0px">  
-                           <p:inputText  autocomplete="off"  value="#{detalleFormula.valor}" style="border-radius: 0px; width: 87%"/>  
+                           <p:inputText autocomplete="off" value="#{detalleFormula.valor}" style="border-radius: 0px; width: 87%"/>  
                         </p:column>  
 
                         <p:column headerText="#{msg['formula']}" style="padding: 0px">  
-                           <p:inputText  autocomplete="off"  value="#{detalleFormula.nombreNodo}" style="border-radius: 0px; width: 94.5%"/>  
+                           <p:inputText autocomplete="off" value="#{detalleFormula.nombreNodo}" style="border-radius: 0px; width: 94.5%"/>  
                         </p:column>  
 
                         <p:column headerText="#{msg['descripcion']}" style="padding: 0px">  
-                           <p:inputText  autocomplete="off"  value="#{detalleFormula.descripcion}" style="border-radius: 0px; width: 94.5%"/>  
+                           <p:inputText autocomplete="off" value="#{detalleFormula.descripcion}" style="border-radius: 0px; width: 94.5%"/>  
                         </p:column> 
                      </p:dataTable>
                      <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 170px; left: 350px;" icon="ui-icon-check" onclick="PF('detallesFormulas').hide();" process="@this"/>

@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-   >
+>
 
    <h:head>
       <title></title>
@@ -137,7 +137,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechainicial)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechainicial)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 1)}" process="@this"
@@ -158,7 +158,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechafinal)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechafinal)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 2)}" process="@this"
@@ -178,7 +178,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputNumber autocomplete="off"  onclick="#{controlTipoConstante.revisarTipo(tc)}" readonly="#{controlTipoConstante.numericoB}" value="#{tc.valorreal}" id="editarValoresReales"> 
+                                 <p:inputNumber autocomplete="off" onclick="#{controlTipoConstante.revisarTipo(tc)}" readonly="#{controlTipoConstante.numericoB}" value="#{tc.valorreal}" id="editarValoresReales"> 
                                     <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 3)}"
                                             onstart="PF('datosTiposConstantes').unselectAllRows(); PF('datosTiposConstantes').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.valorreal)}" update="@this"/>
@@ -267,7 +267,7 @@
                </p:dialog>
 
                <p:dialog id="editarValoresDates" header="#{msg['editarValoresDates']}" widgetVar="editarValoresDates" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
+                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
                                navigator="true" showButtonPanel="true">
                   </p:calendar>
                </p:dialog>
@@ -305,7 +305,7 @@
 
                      <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -313,21 +313,21 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 145px;"/></strong>
                      <div style=" position: absolute; top: 140px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 185px;"/></strong>
-                     <p:inputNumber  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.numericoBN}" id="nuevoValorReal" value="#{controlTipoConstante.nuevoTipoConstante.valorreal}"
+                     <p:inputNumber autocomplete="off" onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.numericoBN}" id="nuevoValorReal" value="#{controlTipoConstante.nuevoTipoConstante.valorreal}"
                                      style=" width: 122px; position: absolute; left: 150px; top: 180px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputNumber>
 
                      <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 225px;"/></strong>
                      <div style=" position: absolute; top: 220px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                            <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoN()}" update="@this"/>
@@ -335,7 +335,7 @@
                      </div>
 
                      <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 265px;"/></strong>
-                     <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.cadenaBN}" id="nuevoValorCadena" value="#{controlTipoConstante.nuevoTipoConstante.valorstring}"
+                     <p:inputText autocomplete="off" onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.cadenaBN}" id="nuevoValorCadena" value="#{controlTipoConstante.nuevoTipoConstante.valorstring}"
                                    style=" width: 122px; position: absolute; left: 150px; top: 260px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -364,7 +364,7 @@
 
                      <strong><h:outputText value="#{msg['inicialN']}" style="position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -372,7 +372,7 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 145px;"/></strong>
                      <div style=" position: absolute; top: 140px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -386,7 +386,7 @@
 
                      <strong><h:outputText value="#{msg['valordateN']}" style="position: absolute; top: 225px;"/></strong>
                      <div style=" position: absolute; top: 220px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                            <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoD()}" update="@this"/>
@@ -394,7 +394,7 @@
                      </div>
 
                      <strong><h:outputText value="#{msg['valorcadenaN']}" style="position: absolute; top: 265px;"/></strong>
-                     <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.cadenaBD}" id="duplicarValorCadena" value="#{controlTipoConstante.duplicarTipoConstante.valorstring}"
+                     <p:inputText autocomplete="off" onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.cadenaBD}" id="duplicarValorCadena" value="#{controlTipoConstante.duplicarTipoConstante.valorstring}"
                                    style=" width: 122px; position: absolute; left: 150px; top: 260px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>

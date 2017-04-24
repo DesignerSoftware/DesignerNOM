@@ -55,7 +55,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.dia}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.dia}"> 
                                     <p:ajax event="select" listener="#{controlFestivos.cambiarIndice(indice, 0)}" process="@this"/>  
                                     <p:ajax event="change" listener="#{controlFestivos.mostrarInfo(indice,0)}" process="@this"/> 
                                     <p:ajax event="dateSelect" listener="#{controlFestivos.mostrarInfo(indice,0)}" process="@this" update="editFecha"/>
@@ -241,7 +241,7 @@
 
 
                <p:dialog id="editarFecha" header="Día " widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
-                  <p:inputText  autocomplete="off"  value="#{controlFestivos.editarFestivos.dia}" style="position: absolute; top: 20px;" readonly="true">  
+                  <p:inputText autocomplete="off" value="#{controlFestivos.editarFestivos.dia}" style="position: absolute; top: 20px;" readonly="true">  
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputText>
                </p:dialog>
@@ -256,7 +256,7 @@
 
                      <strong><h:outputText value="*Día: "  style="left: 15px; position: absolute; top: 60px;"/></strong>
                      <div  id="nuevaFechaa" style="width: 140px; position: absolute; top: 55px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlFestivos.nuevoFestivos.dia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlFestivos.nuevoFestivos.dia}">
                            <p:ajax event="dateSelect" update="nuevaFecha"/>
                            <p:ajax event="change" update="nuevaFecha"/>
                         </p:calendar>
@@ -276,9 +276,9 @@
                   <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Festivo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="duplicarEvC" style="border: none;">
-                     <strong><h:outputText value="Dia "  style="left: 15px; position: absolute; top: 60px;text-transform: uppercase;"/></strong>
+                     <strong><h:outputText value="Dia "  style="left: 15px; position: absolute; top: 60px; text-transform: uppercase;"/></strong>
                      <div id="duplicarFecha" style="width: 140px; position: absolute; top: 55px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlFestivos.duplicarFestivos.dia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlFestivos.duplicarFestivos.dia}">
                            <p:ajax event="dateSelect" update="duplicarFechaa"/>
                            <p:ajax event="change" update="duplicarFechaa"/>
                         </p:calendar>

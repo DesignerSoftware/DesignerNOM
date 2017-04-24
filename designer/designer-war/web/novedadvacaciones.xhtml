@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       
-  >
+>
 
     <h:head>
     </h:head>
@@ -161,7 +161,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{novedades.fechainicialdisfrute}" id="editarFechaInicial" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{novedades.fechainicialdisfrute}" id="editarFechaInicial" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;" 
                                                           onselect="posicionOtro([{name: 'celda', value: '0'}, {name: 'registro', value: '#{indice}'}]);">
 
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -181,7 +181,7 @@
                                         <f:facet name="output">
                                             <h:outputText value="#{novedades.vacacion.periodo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true" value="#{novedades.vacacion.periodo}" id="editarPeriodo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height:12px"
+                                            <p:inputText autocomplete="off" readonly="true" value="#{novedades.vacacion.periodo}" id="editarPeriodo" style=" border-radius: 0px; width: 95.5%; text-transform: uppercase; height:12px"
                                                           onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <p:ajax event="select" process="@this"  onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                             </p:inputText>
@@ -198,8 +198,8 @@
                                         <f:facet name="output">
                                             <h:outputText value="#{novedades.dias}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{novedades.dias}" id="editarDias" style=" border-radius: 0px; width: 93.5%;
-                                                          text-transform: uppercase;height:12px;" readonly="true" onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);">
+                                            <p:inputText autocomplete="off" value="#{novedades.dias}" id="editarDias" style=" border-radius: 0px; width: 93.5%;
+                                                          text-transform: uppercase; height:12px;" readonly="true" onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"  process="@this"/>
                                             </p:inputText>
                                             <p:keyFilter for="editarDias" mask="num"/>
@@ -224,7 +224,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{novedades.fechasiguientefinvaca}" id="editarFechaSiguiente" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{novedades.fechasiguientefinvaca}" id="editarFechaSiguiente" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px"
                                                           onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                 <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
@@ -242,7 +242,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.subtipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true" value="#{novedades.subtipo}" id="editarSubtipo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
+                                            <p:inputText autocomplete="off" readonly="true" value="#{novedades.subtipo}" id="editarSubtipo" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;" 
                                                           onselect="posicionOtro([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <p:ajax event="change" update="@this"/>
                                                 <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
@@ -264,7 +264,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true" value="#{novedades.adelantapagohasta}" id="editarAdelantoHasta" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
+                                            <p:inputText autocomplete="off" readonly="true" value="#{novedades.adelantapagohasta}" id="editarAdelantoHasta" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;" 
                                                           onselect="posicionOtro([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                 <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
@@ -286,7 +286,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{novedades.fechapago}" id="editarFechaPago" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
+                                            <p:inputText autocomplete="off"  readonly="true" value="#{novedades.fechapago}" id="editarFechaPago" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px"
                                                           onselect="posicionOtro([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                 <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
@@ -309,7 +309,7 @@
                                         <f:facet name="output">
                                             <h:outputText value="#{novedades.vacadiasaplazados}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off" readonly="true"  value="#{novedades.vacadiasaplazados}" id="editarDiasAplazados" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{novedades.vacadiasaplazados}" id="editarDiasAplazados" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"
                                                           onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                                 <!--<p:ajax event="change" listener="#{controlNovedadesVacaciones.modificarDiasAplazados(novedad)}" process="@this" update="editarDiasAplazados"/>-->   
@@ -352,7 +352,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Periodo: "/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column style="text-align: center;" sortBy="#{per.diaspendientes}" filterStyle="width: 80% !important" filterBy="#{per.diaspendientes}" width="100" filterMatchMode="contains"> 
@@ -393,7 +393,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadesVacaciones.contarRegistroEmpleadosLOV()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="Nombre: "/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column style="text-align: center;" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -436,14 +436,14 @@
                         <p:panel id="nuevaNovedad" style="border: none;">
                             <strong><h:outputText value="*Fecha Inicial Disfrute: " style=" position: absolute; top: 65px;"/></strong>
                             <div id="posicionFechaInicialNuevoReg" style=" position: absolute; top: 60px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesVacaciones.nuevaNovedad.fechainicialdisfrute}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesVacaciones.nuevaNovedad.fechainicialdisfrute}">
                                     <p:ajax event="dateSelect" listener="#{controlNovedadesVacaciones.validaciones(1)}"/>
                                     <p:ajax event="change" listener="#{controlNovedadesVacaciones.validaciones(1)}"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*Período: " style=" position: absolute; top: 105px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoPeriodo" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.periodo}" 
+                            <p:inputText autocomplete="off" id="nuevoPeriodo" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.periodo}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" 
                                         onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -454,14 +454,14 @@
                                              onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.dias}" 
+                            <p:inputText autocomplete="off" id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.dias}" 
                                           style=" width: 70px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.nuevaNovedad.dias,1)}"/>
                             </p:inputText>
                             <p:keyFilter for="nuevoDias" mask="num"/>
 
                             <strong><h:outputText value="Fecha Sig. Fin. Vacacion: " style=" position: absolute; top: 185px;"/></strong>
-                            <p:calendar  autocomplete="off" style=" position: absolute; top: 180px; left: 200px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaSiguiente" value="#{controlNovedadesVacaciones.nuevaNovedad.fechasiguientefinvaca}">
+                            <p:calendar autocomplete="off" style=" position: absolute; top: 180px; left: 200px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaSiguiente" value="#{controlNovedadesVacaciones.nuevaNovedad.fechasiguientefinvaca}">
                                 <p:ajax event="dateSelect" update="nuevaFechaSiguiente"/>
                                 <p:ajax event="change" update="nuevaFechaSiguiente"/>
                             </p:calendar>
@@ -475,19 +475,19 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="Adelanto Hasta: " style=" position: absolute; top: 265px;"/></strong>
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 260px; left: 200px" id="nuevoAdelantoHasta" value="#{controlNovedadesVacaciones.nuevaNovedad.adelantapagohasta}">
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 260px; left: 200px" id="nuevoAdelantoHasta" value="#{controlNovedadesVacaciones.nuevaNovedad.adelantapagohasta}">
                                 <p:ajax event="dateSelect" update="nuevoAdelantoHasta"/>
                                 <p:ajax event="change" update="nuevoAdelantoHasta"/>
                             </p:calendar>
 
                             <strong><h:outputText value="Fecha Pago" style=" position: absolute; top: 305px;"/></strong>
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 300px; left: 200px" id="nuevaFechaPago" value="#{controlNovedadesVacaciones.nuevaNovedad.fechapago}">
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 300px; left: 200px" id="nuevaFechaPago" value="#{controlNovedadesVacaciones.nuevaNovedad.fechapago}">
                                 <p:ajax event="dateSelect" update="nuevaFechaPago"/>
                                 <p:ajax event="change" update="nuevaFechaPago"/>
                             </p:calendar>
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoDiasAplazados" value="#{controlNovedadesVacaciones.nuevaNovedad.vacadiasaplazados}" 
+                            <p:inputText autocomplete="off" id="nuevoDiasAplazados" value="#{controlNovedadesVacaciones.nuevaNovedad.vacadiasaplazados}" 
                                           style=" width: 70px; position: absolute; left: 200px; top: 340px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -506,14 +506,14 @@
 
                             <strong><h:outputText value="*Fecha Inicial Disfrute: " style=" position: absolute; top: 65px;"/></strong>
                             <div id="posicionFechaInicialDuplicarReg" style=" position: absolute; top: 60px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesVacaciones.duplicarNovedad.fechainicialdisfrute}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesVacaciones.duplicarNovedad.fechainicialdisfrute}">
                                     <p:ajax event="dateSelect" listener="#{controlNovedadesVacaciones.validaciones(2)}" update="duplicarFechaInicial"/>
                                     <p:ajax event="change" update="duplicarFechaInicial"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*Período: " style=" position: absolute; top: 105px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPeriodo" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.periodo}" 
+                            <p:inputText autocomplete="off" id="duplicarPeriodo" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.periodo}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}"
                                         onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -523,14 +523,14 @@
                                              onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;"/></strong>
-                            <p:inputText  autocomplete="off"  readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.dias}" 
+                            <p:inputText autocomplete="off" readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.dias}" 
                                           style=" width: 70px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.duplicarNovedad.dias,2)}"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Fecha Sig. Fin. Vacacion: " style=" position: absolute; top: 185px;"/></strong>
                             <div id="posicionFechaSiguienteDuplicarReg" style=" position: absolute; top: 180px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaSiguiente" value="#{controlNovedadesVacaciones.duplicarNovedad.fechasiguientefinvaca}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaSiguiente" value="#{controlNovedadesVacaciones.duplicarNovedad.fechasiguientefinvaca}">
                                     <p:ajax event="dateSelect" update="duplicarFechaSiguiente"/>
                                     <p:ajax event="change" update="duplicarFechaSiguiente"/>
                                 </p:calendar>
@@ -547,7 +547,7 @@
 
                             <strong><h:outputText value="Adelanto Hasta: " style=" position: absolute; top: 265px;"/></strong>
                             <div id="posicionFechaSiguienteDuplicarReg" style=" position: absolute; top: 260px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarAdelantoHasta" value="#{controlNovedadesVacaciones.duplicarNovedad.adelantapagohasta}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarAdelantoHasta" value="#{controlNovedadesVacaciones.duplicarNovedad.adelantapagohasta}">
                                     <p:ajax event="dateSelect" update="duplicarAdelantoHasta"/>
                                     <p:ajax event="change" update="duplicarAdelantoHasta"/>
                                 </p:calendar>
@@ -555,14 +555,14 @@
 
                             <strong><h:outputText value="Fecha Pago" style=" position: absolute; top: 305px;"/></strong>
                             <div id="posicionFechaPagoDuplicarReg" style=" position: absolute; top: 300px; left: 200px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlNovedadesVacaciones.duplicarNovedad.fechapago}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlNovedadesVacaciones.duplicarNovedad.fechapago}">
                                     <p:ajax event="dateSelect" update="duplicarFechaPago"/>
                                     <p:ajax event="change" update="duplicarFechaPago"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarDiasAplazados" value="#{controlNovedadesVacaciones.duplicarNovedad.vacadiasaplazados}" 
+                            <p:inputText autocomplete="off" id="duplicarDiasAplazados" value="#{controlNovedadesVacaciones.duplicarNovedad.vacadiasaplazados}" 
                                           style=" width: 70px; position: absolute; left: 200px; top: 340px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>

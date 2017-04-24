@@ -43,7 +43,7 @@
                      value="#{cc.attrs.value}" style="height: #{cc.attrs.height}px; width: #{cc.attrs.width}px; 
                      color: #{cc.attrs.color}; text-decoration: #{cc.attrs.decoration}" 
                      styleClass="masked_calendar"
-                  >
+          >
             <f:convertDateTime pattern="#{cc.attrs.pattern}" timeZone="America/Bogota" locale="es"/>
         </p:inputMask>
         <h:outputScript target="head" library="js" name="calendar.js"  />

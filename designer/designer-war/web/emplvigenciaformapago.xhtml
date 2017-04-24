@@ -110,7 +110,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{info.fechavigencia}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{info.fechavigencia}">
                                     <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechavigencia)}" update="editFechaVigencia"/>
@@ -123,7 +123,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.cuenta}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.cuenta}" maxlength="25" id="editarCuenta" style="  border-radius: 0px; width: 210px;; height: 12px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.cuenta}" maxlength="25" id="editarCuenta" style="  border-radius: 0px; width: 210px;; height: 12px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.cuenta)}" update="cuenta"/>
@@ -144,7 +144,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaCuenta" value="#{info.fechacuenta}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaCuenta" value="#{info.fechacuenta}">
                                     <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info,2)}" process="@this"
                                             onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechacuenta)}" update="editFechaCuenta" process="@this"/>
@@ -158,7 +158,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.sucursal.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.sucursal.nombre}" id="editarSucursal" style="  border-radius: 0px; width: 210px; height: 12px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.sucursal.nombre}" id="editarSucursal" style="  border-radius: 0px; width: 210px; height: 12px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,3)}" process="@this"/>
@@ -179,7 +179,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.formapago.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.formapago.nombre}" id="editarFormaPago" style="  border-radius: 0px; height: 12px; width: 96%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.formapago.nombre}" id="editarFormaPago" style="  border-radius: 0px; height: 12px; width: 96%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 4)}" process="@this"
                                             onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,4)}" process="@this"/>
@@ -203,7 +203,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipocuenta}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.tipocuenta}" maxlength="1" id="editarTC" style="border-radius: 0px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.tipocuenta}" maxlength="1" id="editarTC" style="border-radius: 0px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 5)}" process="@this"
                                             onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.tipocuenta)}" update="tc" process="@this"/>
@@ -216,7 +216,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.metodopago.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.metodopago.descripcion}" id="editarMetodoPago" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.metodopago.descripcion}" id="editarMetodoPago" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 6)}" process="@this"
                                             onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,6)}" process="@this"/>
@@ -248,7 +248,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarS']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovSucursales').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSucursales').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{sucursal.codigo}" width="60" filterStyle="width: 85% !important" filterMatchMode="contains">
                            <f:facet name="header">
@@ -291,7 +291,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarFP']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovperiodicidades').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovperiodicidades').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{periodicidades.codigo}" width="50" filterStyle="width: 85% !important" filterMatchMode="contains">
@@ -333,7 +333,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarMP']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmetodospagos').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovmetodospagos').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{metodospagos.codigo}" filterStyle="width: 85% !important;" filterMatchMode="contains">
@@ -500,28 +500,28 @@
                   <p:panel id="nuevaVigenciaFormasPagos" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px;"/></strong>
                      <div id="posicionFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 150px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechavigencia}">
                            <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['cuentaN']}"  style=" position: absolute; top: 125px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCuenta" maxlength="25" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.cuenta}" style=" width: 140px; position: absolute; left: 150px; top: 120px;">
+                     <p:inputText autocomplete="off" id="nuevoCuenta" maxlength="25" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.cuenta}" style=" width: 140px; position: absolute; left: 150px; top: 120px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoCuenta" value="#{msg['cuenta']}"/>
 
                      <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px;"/></strong>
                      <div id="posicionFechaCuentaNuevoReg" style=" position: absolute; top: 160px; left: 150px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCuenta" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechacuenta}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCuenta" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechacuenta}">
                            <p:ajax event="dateSelect" update="nuevaFechaCuenta" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaCuenta" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['sucursalN']}" style=" position: absolute; top: 205px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoNombreSucursal" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'SUCURSAL')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre,1)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(0)}"/>
@@ -531,7 +531,7 @@
                      <p:watermark for="nuevoNombreSucursal" value="#{msg['sucursal']}"/>
 
                      <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaFormaPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaFormaPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'FORMAPAGO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(0)}"/>
@@ -541,13 +541,13 @@
                      <p:watermark for="nuevaFormaPago" value="#{msg['formaPago']}"/>
 
                      <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px ; "/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTC" maxlength="1" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.tipocuenta}"  style=" width: 140px; position: absolute; left: 150px; top: 280px;">
+                     <p:inputText autocomplete="off" id="nuevoTC" maxlength="1" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.tipocuenta}"  style=" width: 140px; position: absolute; left: 150px; top: 280px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoTC" value="#{msg['tc']}"/>
 
                      <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaMetodoPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaMetodoPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'METODOPAGO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion ,1)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(0)}"/>
@@ -570,28 +570,28 @@
                   <p:panel id="duplicarVigenciaFormasPagos" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px;"/></strong>
                      <div id="posicionFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 150px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechavigencia}">
                            <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['cuentaN']}" style=" position: absolute; top: 125px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.cuenta}" style=" width: 102px; position: absolute; left: 150px; top: 120px;">
+                     <p:inputText autocomplete="off" id="duplicarCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.cuenta}" style=" width: 102px; position: absolute; left: 150px; top: 120px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCuenta" value="#{msg['cuenta']}"/>
 
                      <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px;"/></strong>
                      <div id="posicionFechaCuentaDuplicarReg" style=" position: absolute; top: 160px; left: 150px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechacuenta}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechacuenta}">
                            <p:ajax event="dateSelect" update="duplicarFechaCuenta" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaCuenta" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['sucursalM']}"  style=" position: absolute; top: 205px;"/></strong>
-                     <p:inputText  autocomplete="off" id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'SUCURSAL')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre,2)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(1)}"/>
@@ -601,7 +601,7 @@
                      <p:watermark for="duplicarNombreSucursal" value="#{msg['sucursal']}"/>
 
                      <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarFormaPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarFormaPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'FORMAPAGO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(1)}"/>
@@ -611,13 +611,13 @@
                      <p:watermark for="duplicarFormaPago" value="#{msg['formaPago']}"/>
 
                      <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px; text-transform: uppercase;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTC" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.tipocuenta}"  style=" width: 102px; position: absolute; left: 150px; top: 280px;">
+                     <p:inputText autocomplete="off" id="duplicarTC" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.tipocuenta}"  style=" width: 102px; position: absolute; left: 150px; top: 280px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarTC" value="#{msg['tc']}"/>
 
                      <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarMetodoPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarMetodoPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'METODOPAGO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion ,2)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(1)}"/>

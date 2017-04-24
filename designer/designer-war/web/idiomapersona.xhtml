@@ -116,7 +116,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.idioma.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.idioma.nombre}" id="editarIdioma" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.idioma.nombre}" id="editarIdioma" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}"/>
                                     <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info, 0)}"
                                             onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/>
@@ -134,7 +134,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.habla}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.habla}" id="editarConversacion" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.habla}" id="editarConversacion" maxlength="3" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarConversacion" mask="num"/>
                                     <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,1)}" process="@this" onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarConversacion"/>                                   
@@ -151,7 +151,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.lectura}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.lectura}" id="editarLectura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.lectura}" id="editarLectura" maxlength="3" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarLectura" mask="num"/>
                                     <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,2)}" process="@this"
                                             onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/> 
@@ -169,7 +169,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.escritura}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.escritura}" id="editarEscritura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.escritura}" id="editarEscritura" maxlength="3" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarEscritura" mask="num"/>
                                     <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,3)}" process="@this" 
                                             onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});"/> 
@@ -196,7 +196,7 @@
                         <p:ajax event="rowDblselect" listener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this"/>
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarI']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovIdiomas').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovIdiomas').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{idiomas.nombre}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important">
@@ -292,7 +292,7 @@
                   <p:panel id="nuevaIdiomas" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['idiomaN']}" style="position: absolute; top: 45px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaIdioma" value="#{controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
+                     <p:inputText autocomplete="off" id="nuevaIdioma" value="#{controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
                         <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>
                         <p:ajax event="click" listener="#{controlIdiomaPersona.valoresBackupAutocompletar(1, 'IDIOMAS')}"/>
                         <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre, 1)}"/>
@@ -302,21 +302,21 @@
 
 
                      <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px; "/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaConversacion"  maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
+                     <p:inputText autocomplete="off" id="nuevaConversacion"  maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
                         <p:keyFilter for="nuevaConversacion" mask="num"/>
                         <p:ajax event="change" update="nuevaConversacion"/>
                      </p:inputText>
                      <p:watermark for="nuevaConversacion" value="#{msg['conversacion']}"/>
 
                      <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px; "/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaLectura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
+                     <p:inputText autocomplete="off" id="nuevaLectura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
                         <p:keyFilter for="nuevaLectura" mask="num"/>
                         <p:ajax event="change" update="nuevaLectura"/>
                      </p:inputText>
                      <p:watermark for="nuevaLectura" value="#{msg['lectura']}"/>
 
                      <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px; "/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaEscritura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
+                     <p:inputText autocomplete="off" id="nuevaEscritura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
                         <p:keyFilter for="nuevaEscritura" mask="num"/>
                         <p:ajax event="change" update="nuevaEscritura"/>
                      </p:inputText>
@@ -334,7 +334,7 @@
 
                   <p:panel id="duplicarIdiomas" style="border: none;">
                      <strong><h:outputText value="*#{msg['idiomaN']}" style="position: absolute; top: 45px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarIdioma" value="#{controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
+                     <p:inputText autocomplete="off" id="duplicarIdioma" value="#{controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre}" style="width: 122px; position: absolute; left: 180px; top: 40px;">
                         <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info,2)}"/>
                         <p:ajax event="click" listener="#{controlIdiomaPersona.valoresBackupAutocompletar(2, 'IDIOMAS')}"/>
                         <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre, 2)}"/>
@@ -343,21 +343,21 @@
                      <p:watermark for="duplicarIdioma" value="#{msg['idioma']}"/>
 
                      <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarConversacion" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
+                     <p:inputText autocomplete="off" id="duplicarConversacion" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
                         <p:keyFilter for="duplicarConversacion" mask="num"/>
                         <p:ajax event="change" update="duplicarConversacion"/>
                      </p:inputText>
                      <p:watermark for="duplicarConversacion" value="#{msg['conversacion']}"/>
 
                      <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarLectura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
+                     <p:inputText autocomplete="off" id="duplicarLectura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
                         <p:keyFilter for="duplicarLectura" mask="num"/>
                         <p:ajax event="change" update="duplicarLectura"/>
                      </p:inputText>
                      <p:watermark for="duplicarLectura" value="#{msg['lectura']}"/>
 
                      <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarEscritura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
+                     <p:inputText autocomplete="off" id="duplicarEscritura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
                         <p:keyFilter for="duplicarEscritura" mask="num"/>
                         <p:ajax event="change" update="duplicarEscritura"/>
                      </p:inputText>

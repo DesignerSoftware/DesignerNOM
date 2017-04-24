@@ -96,7 +96,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{unidades.codigo}" id="editarUnidadesCodigos" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{unidades.codigo}" id="editarUnidadesCodigos" style="border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUnidad.cambiarIndice(unidades, 0)}"
                                                         onstart="PF('datosUnidades').unselectAllRows();PF('datosUnidades').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlUnidad.modificarUnidades (unidades)}" update="@this"/>
@@ -118,7 +118,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{unidades.nombre}" id="editarNombresUnidades" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{unidades.nombre}" id="editarNombresUnidades" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUnidad.cambiarIndice(unidades, 1)}" 
                                                         onstart="PF('datosUnidades').unselectAllRows();PF('datosUnidades').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlUnidad.modificarUnidades (unidades)}" update="@this"/>
@@ -137,7 +137,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{unidades.tipounidad.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{unidades.tipounidad.nombre}" id="editarTiposUnidades" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{unidades.tipounidad.nombre}" id="editarTiposUnidades" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlUnidad.modificarUnidades(unidades)}"/>
                                                 <p:ajax event="select" listener="#{controlUnidad.cambiarIndice(unidades, 2)}" 
                                                         onstart="PF('datosUnidades').unselectAllRows();PF('datosUnidades').selectRow(#{indice});"/>
@@ -172,17 +172,17 @@
 
                         <p:panel id="nuevaUnidad" style="border: none;">
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 55px;"/></strong>
-                            <p:inputText  autocomplete="off"  maxlength="4" id="nuevoCodigo" value="#{controlUnidad.nuevaUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 50px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" maxlength="4" id="nuevoCodigo" value="#{controlUnidad.nuevaUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 50px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 85px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoNombreUnidad" value="#{controlUnidad.nuevaUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoNombreUnidad" value="#{controlUnidad.nuevaUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['tipounidadN']}" style=" position: absolute; top: 115px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoTipoUnidad" value="#{controlUnidad.nuevaUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 110px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoTipoUnidad" value="#{controlUnidad.nuevaUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 110px; text-transform: uppercase;">
                                 <p:ajax event="dblclick" listener="#{controlUnidad.asignarIndex(unidades,0,1)}" process="@this"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 261px; top: 110px;" id="btnNuevoTipoUnidad" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUnidad.asignarIndex(unidades,0,1)}"/>
@@ -202,17 +202,17 @@
                         <p:panel id="duplicarUnidad" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 55px;"/></strong>
-                            <p:inputText  autocomplete="off"  maxlength="4" id="duplicarCodigo" value="#{controlUnidad.duplicarUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 50px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" maxlength="4" id="duplicarCodigo" value="#{controlUnidad.duplicarUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 50px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 85px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlUnidad.duplicarUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarNombre" value="#{controlUnidad.duplicarUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['tipounidadN']}" style=" position: absolute; top: 115px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarTipoUnidad" value="#{controlUnidad.duplicarUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 110px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarTipoUnidad" value="#{controlUnidad.duplicarUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 110px; text-transform: uppercase;">
                                 <p:ajax event="dblclick" listener="#{controlUnidad.asignarIndex(unidades,0,2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 261px; top: 110px; " id="btnDuplicarTipoUnidad" process="@this" value="" class="cssBotonLovDialogos" actionListener="#{controlUnidad.asignarIndex(unidades,0,2)}"/>
@@ -295,7 +295,7 @@
                             <p:ajax event="filter" listener="#{controlUnidad.contarRegistroTUnidades()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposUnidades').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVTiposUnidades').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{tiposunidades.codigo}" width="45" filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">

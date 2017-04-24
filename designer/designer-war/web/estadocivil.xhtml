@@ -102,7 +102,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosEstadosCiviles').unselectAllRows();PF('datosEstadosCiviles').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlEstadosCiviles.modificarEstadoCivil(info)}"  update="codigo"/>
@@ -117,7 +117,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="20" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="20" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosEstadosCiviles').unselectAllRows();PF('datosEstadosCiviles').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlEstadosCiviles.modificarEstadoCivil(info)}" update="descripcion"/>
@@ -241,13 +241,13 @@
                         <p:panel id="nuevaEstadoCivil" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlEstadosCiviles.nuevoEstadoCivil.codigo}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 55px;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlEstadosCiviles.nuevoEstadoCivil.codigo}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código"/>
 
                             <strong><h:outputText value="*Descripción: "  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="20" value="#{controlEstadosCiviles.nuevoEstadoCivil.descripcion}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="20" value="#{controlEstadosCiviles.nuevoEstadoCivil.descripcion}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripción"/>
@@ -264,13 +264,13 @@
 
                         <p:panel id="duplicarEC" style="border: none;">
                             <strong><h:outputText value="*Codigo: "  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlEstadosCiviles.duplicarEstadoCivil.codigo}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 55px;">
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlEstadosCiviles.duplicarEstadoCivil.codigo}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código"/>
 
                             <strong><h:outputText value="*Descripción:"  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="20" value="#{controlEstadosCiviles.duplicarEstadoCivil.descripcion}"  style="left: 15px; width: 140px; position: absolute; left: 150px; top: 85px;">
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="20" value="#{controlEstadosCiviles.duplicarEstadoCivil.descripcion}"  style="left: 15px; width: 140px; position: absolute; left: 150px; top: 85px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripcón"/>

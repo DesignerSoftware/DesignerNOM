@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -111,7 +111,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechadesde}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechadesde}"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/>  
                                     <p:ajax event="change" listener="#{controlErroresLiquidacion.modificarRegistro(info,0)}" process="@this"/> 
@@ -129,7 +129,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechahasta}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechahasta}"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/>  
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.mostrarInfo(indice,1)}" process="@this"/>--> 
@@ -159,7 +159,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" maxlength="50"  id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" maxlength="50"  id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre)}"  update="@this"/>-->
@@ -173,7 +173,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.concepto.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}"  maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.concepto.descripcion}"  maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 4)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.concepto.descripcion)}"  update="@this"/>-->
@@ -187,7 +187,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.formula.nombrelargo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}"  maxlength="50" id="editarNombreLargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.formula.nombrelargo}"  maxlength="50" id="editarNombreLargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 5)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.concepto.descripcion)}"  update="@this"/>-->
@@ -205,7 +205,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 6)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/>  
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.mostrarInfo(indice,6)}" process="@this"/>--> 
@@ -219,7 +219,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.error}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.error}"  maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.error}"  maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 7)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/> 
                                     <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.error)}"  update="@this"/>-->

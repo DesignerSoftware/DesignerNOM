@@ -106,7 +106,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.modificarFechasVTT(info,0)}" update="editFecha" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.modificarFechasVTT(info,0)}" update="editFecha" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciaTipoTrabajador.cambiarIndice(info,0)}" process="@this"
@@ -127,7 +127,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipotrabajador.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.tipotrabajador.nombre}" id="editarTipoTrabajador" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{info.tipotrabajador.nombre}" id="editarTipoTrabajador" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.modificarVTT(info, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciaTipoTrabajador.cambiarIndice(info, 1)}"
                                             onstart="PF('datosVTTEmpleado').unselectAllRows();PF('datosVTTEmpleado').selectRow(#{indice});"/>
@@ -176,7 +176,7 @@
 
                      <h:outputText value="#{msg['fechainicioP']}:" style="position: absolute; left: 5px; top: 28px;"/>
                      <div id="posicionFechaInicialDialogo" style="position: absolute; left: 5px; top: 43px;">
-                        <p:calendar autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaPensionInicio" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechainiciopension}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaPensionInicio" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechainiciopension}">
                            <!-- onclick="PF('peguelo1();"-->
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionInicio" process="@this" immediate="true"/>
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionInicio" process="@this" immediate="true"/>
@@ -186,7 +186,7 @@
 
                      <h:outputText value="#{msg['fechafinalP']}:" style="position: absolute; left: 118px; top: 28px; font-size: 11px;"/>
                      <div id="posicionFechaFinalDialogo" style="position: absolute; left: 118px; top: 43px; height: 10px">
-                        <p:calendar autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaPensionFinal" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechafinalpension}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaPensionFinal" value="#{controlVigenciaTipoTrabajador.pensionVigencia.fechafinalpension}">
                            <!-- onclick="PF('peguelo2();"-->
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionFinal" process="@this" immediate="true"/>
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosPensionados()}" update="fechaPensionFinal" process="@this" immediate="true"/>
@@ -195,18 +195,18 @@
                      </div>
 
                      <h:outputText value="#{msg['porc']}:" style="position: absolute; left: 230px; top: 28px; font-size: 11px;"/>
-                     <p:inputText autocomplete="off"  onclick="select();" id="porcentajePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.porcentaje}" style="position: absolute; left: 230px; top: 43px; width: 40px; height: 10px">
+                     <p:inputText autocomplete="off" onclick="select();" id="porcentajePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.porcentaje}" style="position: absolute; left: 230px; top: 43px; width: 40px; height: 10px">
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.cambiosPension()}" update="porcentajePension"/>
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>
                      </p:inputText>
 
                      <h:outputText value="#{msg['resolucionP']}:" style="position: absolute; left: 303px; top: 28px; font-size: 11px;"/>
-                     <p:inputText autocomplete="off"  onclick="select();" id="resolucionPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.resolucionpension}" style="position: absolute; left: 303px; top: 43px; width: 95px; height: 10px">
+                     <p:inputText autocomplete="off" onclick="select();" id="resolucionPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.resolucionpension}" style="position: absolute; left: 303px; top: 43px; width: 95px; height: 10px">
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>
                      </p:inputText>
 
                      <h:outputText value="#{msg['claseP']}:" style="position: absolute; left: 5px; top: 67px; font-size: 11px;"/>
-                     <p:inputText autocomplete="off"  onclick="select();" id="clasePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.clase.descripcion}" style="position: absolute; left: 5px; top: 82px; width: 175px; height: 10px">
+                     <p:inputText autocomplete="off" onclick="select();" id="clasePension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.clase.descripcion}" style="position: absolute; left: 5px; top: 82px; width: 175px; height: 10px">
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.cambiosPension()}" update="clasePension"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(0, 0, 1)}"/>
@@ -216,7 +216,7 @@
                                       width: 23px; height: 23px;"/>
 
                      <h:outputText value="#{msg['tipoP']}:" style="position: absolute; left: 230px; top: 67px; font-size: 11px;"/>
-                     <p:inputText autocomplete="off"  onclick="select();" id="tipoPensionado" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tipopensionado.descripcion}"
+                     <p:inputText autocomplete="off" onclick="select();" id="tipoPensionado" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tipopensionado.descripcion}"
                                   style="position: absolute; left: 230px; top: 82px; width: 120px; height: 10px;">
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.cambiosPension()}" update="tipoPensionado"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(1, 0, 1)}" immediate="true"/>
@@ -233,7 +233,7 @@
                      </p:inputText>
 
                      <h:outputText value="#{msg['nombretutorP']}:" style="position: absolute; left: 5px; top: 150px; font-size: 11px;"/>
-                     <p:inputText  autocomplete="off"  onclick="select();" id="tutorPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tutor.nombreCompleto}"
+                     <p:inputText autocomplete="off" onclick="select();" id="tutorPension" value="#{controlVigenciaTipoTrabajador.pensionVigencia.tutor.nombreCompleto}"
                                    style="position: absolute; left: 5px; top: 165px; width: 270px; height: 10px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(3, 0, 1)}"  process="@this"/>    
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoPensionado()}"  process="@this"/>-->
@@ -250,14 +250,14 @@
                   <p:panel id="panelRetiradosInput" header="#{msg['informacionR']}" style="#{controlVigenciaTipoTrabajador.estiloRetiradosInput}">
                      <h:outputText value="#{msg['fecharetiroR']}:" style="position: absolute; left: 10px; top: 45px"/>
                      <div id="posicionFechaRetiroDialogo" style=" position: absolute; left: 85px; top: 40px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaRetiro" value="#{controlVigenciaTipoTrabajador.retiroVigencia.fecharetiro}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaRetiro" value="#{controlVigenciaTipoTrabajador.retiroVigencia.fecharetiro}">
                            <p:ajax event="dateSelect" listener="#{controlVigenciaTipoTrabajador.banderaCambiosRetirados()}" update="fechaRetiro" process="@this"/>
                            <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.banderaCambiosRetirados()}" update="fechaRetiro" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <h:outputText value="#{msg['motivoretiroR']}:" style="position: absolute; left: 180px; top: 45px"/>
-                     <p:inputText  autocomplete="off" id="motivoRetiro" value="#{controlVigenciaTipoTrabajador.retiroVigencia.motivoretiro.nombre}"
+                     <p:inputText autocomplete="off" id="motivoRetiro" value="#{controlVigenciaTipoTrabajador.retiroVigencia.motivoretiro.nombre}"
                                    style="position: absolute; left: 260px; top: 40px; width: 123px; height: 11px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(0, 0, 2)}" immediate="true" process="@this"/>
                         <p:ajax event="click"  listener="#{controlVigenciaTipoTrabajador.validarRegistroSeleccionadoRetirados()}" process="@this" immediate="true"/>
@@ -379,7 +379,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}:"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{tipoTrabajador.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -423,7 +423,7 @@
                      <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarMR"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarM']}:"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovMotivosRetiros').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivosRetiros').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -462,7 +462,7 @@
 
                      <f:facet name="header">
                         <h:outputText value="#{msg['buscarCP']}"/>
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovClasePension').filter();" class="cssFiltroLOV"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovClasePension').filter();" class="cssFiltroLOV"/>
                      </f:facet>
 
                      <p:column filterBy="#{clasePension.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -502,7 +502,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTP']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoPensionado').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoPensionado').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{tipoPensionado.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -541,7 +541,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCB']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCausaBientes').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCausaBientes').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{causaBiente.causabiente.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -580,7 +580,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTU']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTutor').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTutor').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tutor.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -608,13 +608,13 @@
                   <p:panel id="nuevaVTT" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 55px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaVigNuevoRegVTT" style=" position: absolute; top: 50px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.fechavigencia}">
                            <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                            <p:ajax event="change" update="nuevaFecha" process="@this"/>
                         </p:calendar>
                      </div>
                      <strong><h:outputText value="*#{msg['tipoN']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTipoTrabajador" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.tipotrabajador.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 80px;">
+                     <p:inputText autocomplete="off" id="nuevoTipoTrabajador" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.tipotrabajador.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 80px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(0, 1, 0)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.autocompletarNuevoyDuplicado('TIPOTRABAJADOR', controlVigenciaTipoTrabajador.nuevaVigencia.tipotrabajador.nombre, 1)}"/>
@@ -624,7 +624,7 @@
                      <p:watermark for="nuevoTipoTrabajador" value="#{msg['tipo']}"/>
 
                      <strong><h:outputText value="*#{msg['tipocotizanteN']}" style=" position: absolute; top: 115px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTipoCotizante" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.tipotrabajador.tipocotizante.descripcion}" readonly="true" style=" width: 122px; position: absolute; left: 170px; top: 110px;">
+                     <p:inputText autocomplete="off" id="nuevoTipoCotizante" value="#{controlVigenciaTipoTrabajador.nuevaVigencia.tipotrabajador.tipocotizante.descripcion}" readonly="true" style=" width: 122px; position: absolute; left: 170px; top: 110px;">
                      </p:inputText>
                      <p:watermark for="nuevoTipoCotizante" value="#{msg['tipocotizante']}"/>
 
@@ -642,13 +642,13 @@
                   <p:panel id="duplicarVTT" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 55px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaVigDuplicarRegVTT" style=" position: absolute; top: 50px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciaTipoTrabajador.duplicarVTT.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciaTipoTrabajador.duplicarVTT.fechavigencia}">
                            <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                            <p:ajax event="change" update="duplicarFecha" process="@this"/>
                         </p:calendar>
                      </div>
                      <strong><h:outputText value="*#{msg['tipoN']}" style=" position: absolute; top: 85px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTipoTrabajador" value="#{controlVigenciaTipoTrabajador.duplicarVTT.tipotrabajador.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 80px;">
+                     <p:inputText autocomplete="off" id="duplicarTipoTrabajador" value="#{controlVigenciaTipoTrabajador.duplicarVTT.tipotrabajador.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 80px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaTipoTrabajador.asignarIndex(0, 2, 0)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaTipoTrabajador.valoresBackupAutocompletar(2, 'TIPOTRABAJADOR')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaTipoTrabajador.autocompletarNuevoyDuplicado('TIPOTRABAJADOR', controlVigenciaTipoTrabajador.duplicarVTT.tipotrabajador.nombre, 2)}"/>
@@ -658,7 +658,7 @@
                      <p:watermark for="duplicarTipoTrabajador" value="#{msg['tipotrabajador']}"/>
 
                      <strong><h:outputText value="*#{msg['tipocotizanteN']}" style=" position: absolute; top: 115px; left: 50px"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTipoCotizante" value="#{controlVigenciaTipoTrabajador.duplicarVTT.tipotrabajador.tipocotizante.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 110px;" readonly="true"/>
+                     <p:inputText autocomplete="off" id="duplicarTipoCotizante" value="#{controlVigenciaTipoTrabajador.duplicarVTT.tipotrabajador.tipocotizante.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 110px;" readonly="true"/>
                      <p:watermark for="duplicarTipoCotizante" value="#{msg['tipocotizante']}"/>
 
                      <p:commandButton id="limpiarDuplicadoVTT" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 150px;" actionListener="#{controlVigenciaTipoTrabajador.limpiarduplicarVTT()}" update="duplicarVTT" process="@this" icon="ui-icon-trash"/>

@@ -26,14 +26,14 @@
                                          editable="true" editMode="cell" paginator="false" 
                                          selection="#{controlTiposExamenes.tiposExamenesSeleccionado}"
                                          selectionMode="single"
-                                      >
+                              >
                                 <p:ajax event="filter" listener="#{controlTiposExamenes.eventoFiltrar()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -45,7 +45,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
@@ -57,7 +57,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.minimonormal}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.minimonormal}" id="editarMinimoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.minimonormal}" id="editarMinimoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.minimonormal)}" update="minimoNormal"/>
                                             </p:inputText>
@@ -69,7 +69,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.maximonormal}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.maximonormal}" id="editarMaximoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.maximonormal}" id="editarMaximoNormal" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.maximonormal)}" update="maximoNormal"/>
                                             </p:inputText>
@@ -81,7 +81,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.diasrecurrencia}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.diasrecurrencia}" id="editarDiasRecurrencia" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.diasrecurrencia}" id="editarDiasRecurrencia" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposExamenes.cambiarIndice(indice, 4)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposExamenes.modificarTipoExamen(indice, 'N', info.diasrecurrencia)}" update="diasRecurrencia"/>
                                             </p:inputText>
@@ -272,28 +272,28 @@
                         <p:panel id="nuevaTipoExamen" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlTiposExamenes.nuevoTipoExamen.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlTiposExamenes.nuevoTipoExamen.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código"/>
 
                             <strong><h:outputText value="*Descripción: "  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlTiposExamenes.nuevoTipoExamen.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="30" value="#{controlTiposExamenes.nuevoTipoExamen.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripción"/>
                             <strong><h:outputText value="Minimo Normal:"  style=" position: absolute; top: 120px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoMinimo" value="#{controlTiposExamenes.nuevoTipoExamen.minimonormal}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoMinimo" value="#{controlTiposExamenes.nuevoTipoExamen.minimonormal}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoMinimo" value="Minimo Normal"/>
                             <strong><h:outputText value="Maximo Normal:"  style=" position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoMaximo" value="#{controlTiposExamenes.nuevoTipoExamen.maximonormal}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoMaximo" value="#{controlTiposExamenes.nuevoTipoExamen.maximonormal}" style=" width: 140px; position: absolute; left: 150px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoMaximo" value="Maximo Normal"/>
                             <strong><h:outputText value="Dias Recurrencia: "  style=" position: absolute; top: 180px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoDiasRecurrencia" value="#{controlTiposExamenes.nuevoTipoExamen.diasrecurrencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoDiasRecurrencia" value="#{controlTiposExamenes.nuevoTipoExamen.diasrecurrencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoDiasRecurrencia" value="Dias Recurrencia"/>
@@ -310,28 +310,28 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlTiposExamenes.duplicarTipoExamen.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlTiposExamenes.duplicarTipoExamen.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código"/>
 
                             <strong><h:outputText value="*Descripción: "  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="30" value="#{controlTiposExamenes.duplicarTipoExamen.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlTiposExamenes.duplicarTipoExamen.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripción"/>
                             <strong><h:outputText value="Minimo Normal:"  style=" position: absolute; top: 120px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarMinimo" value="#{controlTiposExamenes.duplicarTipoExamen.minimonormal}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarMinimo" value="#{controlTiposExamenes.duplicarTipoExamen.minimonormal}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarMinimo" value="Minimo Normal"/>
                             <strong><h:outputText value="Maximo Normal:"  style=" position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarMaximo" value="#{controlTiposExamenes.duplicarTipoExamen.maximonormal}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarMaximo" value="#{controlTiposExamenes.duplicarTipoExamen.maximonormal}" style=" width: 140px; position: absolute; left: 150px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarMaximo" value="Maximo Normal"/>
                             <strong><h:outputText value="Dias Recurrencia: "  style=" position: absolute; top: 180px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarDiasRecurrencia" value="#{controlTiposExamenes.duplicarTipoExamen.diasrecurrencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarDiasRecurrencia" value="#{controlTiposExamenes.duplicarTipoExamen.diasrecurrencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDiasRecurrencia" value="Dias Recurrencia"/>

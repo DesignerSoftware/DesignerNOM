@@ -82,7 +82,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="5" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.codigo}" maxlength="5" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlSoActosInseguros.cambiarIndice(indice, 0)}" process="@this"
                                                         onstart="PF('datosSoCondicionesAmbientalesP').unselectAllRows();PF('datosSoCondicionesAmbientalesP').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlSoActosInseguros.modificandoSoActosInseguros(indice, 'N', info.codigo)}"  update="codigo"/>
@@ -95,7 +95,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="2000" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.descripcion}" maxlength="2000" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlSoActosInseguros.cambiarIndice(indice, 1)}" process="@this"
                                                         onstart="PF('datosSoCondicionesAmbientalesP').unselectAllRows();PF('datosSoCondicionesAmbientalesP').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlSoActosInseguros.modificandoSoActosInseguros(indice, 'N', info.descripcion)}" update="descripcion"/>
@@ -223,13 +223,13 @@
                         <p:panel id="nuevaaSoCondicionesAmbientalP" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoN']}"  style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCodigo" maxlength="5" value="#{controlSoActosInseguros.nuevaSoActoInseguro.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoCodigo" maxlength="5" value="#{controlSoActosInseguros.nuevaSoActoInseguro.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigoWM']}"/>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"    id="nuevoNombre" maxlength="2000" value="#{controlSoActosInseguros.nuevaSoActoInseguro.descripcion}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"   id="nuevoNombre" maxlength="2000" value="#{controlSoActosInseguros.nuevaSoActoInseguro.descripcion}" style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcionWM']}"/>
@@ -246,13 +246,13 @@
 
                         <p:panel id="duplicarRCAP" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}" style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCodigo" maxlength="5" value="#{controlSoActosInseguros.duplicarSoActoInseguro.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarCodigo" maxlength="5" value="#{controlSoActosInseguros.duplicarSoActoInseguro.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigoWM']}"/>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="2000" value="#{controlSoActosInseguros.duplicarSoActoInseguro.descripcion}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarNombre" maxlength="2000" value="#{controlSoActosInseguros.duplicarSoActoInseguro.descripcion}"  style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcionWM']}"/>

@@ -87,7 +87,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodAntecedente" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodAntecedente" style=" border-radius: 0px; width: 95.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:keyFilter for="editarCodAntecedente" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 0)}"
                                                         onstart="PF('datosAntecedentes').unselectAllRows();PF('datosAntecedentes').selectRow(#{indice});"/>
@@ -105,7 +105,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarDescAntecedente" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;"> 
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" id="editarDescAntecedente" style=" border-radius: 0px; width: 95.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.modificarAntecedentes(info)}"/>
                                                 <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 1)}"
                                                         onstart="PF('datosAntecedentes').unselectAllRows();PF('datosAntecedentes').selectRow(#{indice});"/>
@@ -122,7 +122,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoantecedente.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.tipoantecedente.descripcion}" id="editarTipoAntecedentee" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
+                                            <p:inputText autocomplete="off" value="#{info.tipoantecedente.descripcion}" id="editarTipoAntecedentee" style=" border-radius: 0px; width: 96.5%; text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.actualizarTiposAntecedentes()}"/>
                                                 <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 2)}"
                                                         onstart="PF('datosAntecedentes').unselectAllRows();PF('datosAntecedentes').selectRow(#{indice});"/>
@@ -155,18 +155,18 @@
                         <p:panel id="nuevoAntecedente" style="border: none;">
 
                             <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlSoAntecedentes.nuevoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" value="#{controlSoAntecedentes.nuevoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
                                 <p:keyFilter for="nuevoCodigo" mask="num"/>
                                 <p:ajax event="change" update="nuevoCodigo"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;"/></strong>
-                            <p:inputText  autocomplete="off"  maxlength="50" id="nuevaDesc" value="#{controlSoAntecedentes.nuevoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" maxlength="50" id="nuevaDesc" value="#{controlSoAntecedentes.nuevoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="change" update="nuevaDesc"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*Tipo Antecedente" style=" position: absolute; top: 115px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoTipoA" value="#{controlSoAntecedentes.nuevoAntecedente.tipoantecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 110px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoTipoA" value="#{controlSoAntecedentes.nuevoAntecedente.tipoantecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlSoAntecedentes.asignarIndex(info, 0, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 285px; top: 113px;" class="cssBotonLovDialogos" id="btnNuevoTipo" actionListener="#{controlSoAntecedentes.asignarIndex(info, 0, 1)}" value=" " process="@this"/>
@@ -184,18 +184,18 @@
                         <p:panel id="duplicarAntecedente" style="border: none;">
 
                             <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlSoAntecedentes.duplicarAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarCodigo" value="#{controlSoAntecedentes.duplicarAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
                                 <p:keyFilter for="duplicarCodigo" mask="num"/>
                                 <p:ajax event="change" update="duplicarCodigo"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;"/></strong>
-                            <p:inputText  autocomplete="off"  maxlength="50" id="duplicarDesc" value="#{controlSoAntecedentes.duplicarAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" maxlength="50" id="duplicarDesc" value="#{controlSoAntecedentes.duplicarAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="change" update="duplicarDesc"/>
                             </p:inputText>
 
                             <strong><h:outputText value="* Tipo Antecedente" style=" position: absolute; top: 115px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarTipoA" value="#{controlSoAntecedentes.duplicarAntecedente.tipoantecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 110px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarTipoA" value="#{controlSoAntecedentes.duplicarAntecedente.tipoantecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlSoAntecedentes.asignarIndex(info, 0, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 285px; top: 113px;" class="cssBotonLovDialogos" id="btnDuplicarTipo" actionListener="#{controlSoAntecedentes.asignarIndex(info, 0, 2)}" value=" " process="@this"/>
@@ -240,7 +240,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlSoAntecedentes.actualizarTiposAntecedentes()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoAntecedente').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoAntecedente').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column  filterBy="#{tipoAntecedente.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important"> 

@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       
-  >
+>
    <h:head>
       <title>Facelet Title</title>
    </h:head>
@@ -174,7 +174,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" readonly="true"  id="editarfechacortecesantia"  value="#{novedades.fechainicialdisfrute}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
+                                 <p:inputText autocomplete="off" readonly="true"  id="editarfechacortecesantia"  value="#{novedades.fechainicialdisfrute}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;" 
                                                onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);
                                                      PF('datosNovedadesEmpleado').unselectAllRows();
                                                      PF('datosNovedadesEmpleado').selectRow(#{indice});
@@ -204,7 +204,7 @@
                               </f:facet> 
 
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" readonly="true"  id="editarfechacorteintcesantia"  value="#{novedades.fechacortecesantia}" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height:12px" 
+                                 <p:inputText autocomplete="off" readonly="true"  id="editarfechacorteintcesantia"  value="#{novedades.fechacortecesantia}" style=" border-radius: 0px; width: 95.5%; text-transform: uppercase; height:12px" 
                                                onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);
                                                      PF('datosNovedadesEmpleado').unselectAllRows();
                                                      PF('datosNovedadesEmpleado').selectRow(#{indice});
@@ -219,7 +219,7 @@
                         </p:column>
 
                         <p:column id="valorcesantias" style="text-align: center;" headerText="Valor Cesantías" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;" 
-                                  sortBy="#{novedades.valorcesantia}" filterBy="#{novedades.valorcesantia}">                                  
+                                 sortBy="#{novedades.valorcesantia}" filterBy="#{novedades.valorcesantia}">                                  
                            <f:facet name="header">
                               <h:outputText id="headervalorcesantia" value="Valor Cesantia"/>
                               <p:tooltip  for="headervalorcesantia" value="Valor de la Cesantía"/>
@@ -229,7 +229,7 @@
                               <f:facet name="output">
                                  <h:outputText value="#{novedades.valorcesantia}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  id="editarvalorcesantias" readonly="true" value="#{novedades.valorcesantia}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;height:12px;"
+                                 <p:inputText autocomplete="off" id="editarvalorcesantias" readonly="true" value="#{novedades.valorcesantia}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"
                                                onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);
                                                      PF('datosNovedadesEmpleado').unselectAllRows();
                                                      PF('datosNovedadesEmpleado').selectRow(#{indice});">
@@ -246,7 +246,7 @@
                         </p:column>
 
                         <p:column id="valorintcesantias" style="text-align: center;" headerText="Valor Int Cesantías"  filterMatchMode="contains"  width="86" filterStyle="display: none; visibility: hidden;" 
-                                  sortBy="#{novedades.fechasiguientefinvaca}" filterBy="#{novedades.fechasiguientefinvaca}">                                  
+                                 sortBy="#{novedades.fechasiguientefinvaca}" filterBy="#{novedades.fechasiguientefinvaca}">                                  
                            <f:facet name="header">
                               <h:outputText id="headervalorintcesantias" value="Valor Int"/>
                               <p:tooltip  for="headervalorintcesantias" value="Valor Intereses de Cesantías"/>
@@ -257,7 +257,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   id="editarvalorintcesantias" readonly="true" value="#{novedades.valorinterescesantia}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px" 
+                                 <p:inputText autocomplete="off"  id="editarvalorintcesantias" readonly="true" value="#{novedades.valorinterescesantia}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px" 
                                                onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
                                                      PF('datosNovedadesEmpleado').unselectAllRows();
                                                      PF('datosNovedadesEmpleado').selectRow(#{indice});
@@ -273,7 +273,7 @@
                         </p:column>
 
                         <p:column id="valorsolicitado" style="text-align: center;" headerText="Valor Solicitado"  filterMatchMode="contains"  width="80" filterStyle="display: none; visibility: hidden;"
-                                  sortBy="#{novedades.valorsolicitado}" filterBy="#{novedades.valorsolicitado}">                                  
+                                 sortBy="#{novedades.valorsolicitado}" filterBy="#{novedades.valorsolicitado}">                                  
                            <f:facet name="header">
                               <h:outputText id="headervalorsolicitado" value="Vlr Solicitado"/>
                               <p:tooltip  for="headervalorsolicitado" value="Valor Solicitado"/>
@@ -281,10 +281,10 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{novedades.valorsolicitado}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  id="editarvalorsolicitado" readonly="true" value="#{novedades.valorsolicitado}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
+                                 <p:inputText autocomplete="off" id="editarvalorsolicitado" readonly="true" value="#{novedades.valorsolicitado}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px"
                                                onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
                                                      PF('datosNovedadesEmpleado').unselectAllRows();
-                                                     PF('datosNovedadesEmpleado').selectRow(#{indice});" >
+                                                     PF('datosNovedadesEmpleado').selectRow(#{indice});">
 <!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 4)}" process="@this"
                                                  onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
                                  </p:inputText>
@@ -296,7 +296,7 @@
                         </p:column>
 
                         <p:column id="motivocesantia" style="text-align: center;" headerText="Motivo Cesantías" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;"
-                                  sortBy="#{novedades.motivocesantia}" filterBy="#{novedades.motivocesantia.nombre}">                                  
+                                 sortBy="#{novedades.motivocesantia}" filterBy="#{novedades.motivocesantia.nombre}">                                  
                            <f:facet name="header">
                               <h:outputText id="headermotivocesantia" value="Mot. Cesantía"/>
                               <p:tooltip  for="headermotivocesantia" value="Motivo Cesantía"/>
@@ -308,7 +308,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  id="editarmotivocesantia"  value="#{novedades.motivocesantia.nombre}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px">
+                                 <p:inputText autocomplete="off" id="editarmotivocesantia"  value="#{novedades.motivocesantia.nombre}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px">
                                     <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,0)}"
                                             onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                     <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 5)}" process="@this"
@@ -324,7 +324,7 @@
                         </p:column>
 
                         <p:column  id="observaciones" style="text-align: center;" headerText="Observaciones"  filterMatchMode="contains" width="86" filterStyle="display: none; visibility: hidden;" 
-                                   sortBy="#{novedades.observaciones}" filterBy="#{novedades.observaciones}">                                  
+                                  sortBy="#{novedades.observaciones}" filterBy="#{novedades.observaciones}">                                  
                            <f:facet name="header">
                               <h:outputText id="headerobservaciones" value="Observaciones"/>
                               <p:tooltip  for="headerobservaciones" value="Observaciones"/>
@@ -335,7 +335,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  id="editarobservaciones" value="#{novedades.observaciones}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;">
+                                 <p:inputText autocomplete="off" id="editarobservaciones" value="#{novedades.observaciones}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;">
                                     <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}" update="@this" process="@this"/>
                                     <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 6)}" process="@this"
                                             onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
@@ -358,8 +358,8 @@
                               <f:facet name="output">
                                  <h:outputText value="#{novedades.beneficiario}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{novedades.beneficiario}" id="editarbeneficiarios" style=" border-radius: 0px; width: 93.5%;
-                                               text-transform: uppercase;height:12px;">
+                                 <p:inputText autocomplete="off" value="#{novedades.beneficiario}" id="editarbeneficiarios" style=" border-radius: 0px; width: 93.5%;
+                                               text-transform: uppercase; height:12px;">
                                     <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 7)}" process="@this"
                                             onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}" update="@this" process="@this"/>
@@ -392,7 +392,7 @@
                      <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroMotivosNovedades()}"/>
                      <f:facet name="header">  
                         <h:outputText value="Buscar Periodo: "  />  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmotivoscesantias').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovmotivoscesantias').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column style="text-align: center;" sortBy="#{mov.codigo}" filterStyle="width: 94%" filterBy="#{mov.codigo}" width="70" filterMatchMode="contains"> 
@@ -431,7 +431,7 @@
                      <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroEmpleadosLov()}"/>
                      <f:facet name="header">  
                         <h:outputText value="Nombre: "/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column style="text-align: center;" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
@@ -465,21 +465,21 @@
 
                      <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;"/></strong>
                      <div id="posicionFechaCorteCesantia" style=" position: absolute; top: 60px; left: 220px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechainicialdisfrute}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechainicialdisfrute}">
                            <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['fechacorteint']} " style=" position: absolute; top: 105px;"/></strong>
                      <div id="posicionFechaCorteIntCesantia" style=" position: absolute; top: 100px; left: 220px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechacortecesantia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.nuevaNovedad.fechacortecesantia}">
                            <p:ajax event="dateSelect" update="nuevaFechaInicialInt" process="@this"/>
                            <!--<p:ajax event="change" update="nuevaFechaInicialInt"  process="@this"/>-->
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['vlrCesantias']}" style=" position: absolute; top: 145px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="vlrcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorcesantia}" 
+                     <p:inputText autocomplete="off" id="vlrcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorcesantia}" 
                                    style=" width: 122px; position: absolute; left: 220px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="vlrcesantias" mask="num"/>
@@ -487,7 +487,7 @@
                                       actionListener="#{controlNovedadCesantiasRC.autocompletarVlrCesantias()}"/>
 
                      <strong><h:outputText value="#{msg['vlrintcesantias']}" style=" position: absolute; top: 185px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="vlrintcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorinterescesantia}" 
+                     <p:inputText autocomplete="off" id="vlrintcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorinterescesantia}" 
                                    style=" width: 122px; position: absolute; left: 220px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="vlrintcesantias" mask="num"/>
@@ -495,7 +495,7 @@
                                       actionListener="#{controlNovedadCesantiasRC.autocompletarVlrIntCesantias()}"/>
 
                      <strong><h:outputText value="#{msg['vlrsolicitado']}" style=" position: absolute; top: 225px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="vlrsolicitado" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorsolicitado} " readonly="true" 
+                     <p:inputText autocomplete="off" id="vlrsolicitado" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorsolicitado} " readonly="true" 
                                    style=" width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="vlrsolicitado" mask="num"/>
@@ -503,7 +503,7 @@
                                       position: absolute; top: 220px; left: 355px; " value="" actionListener="#{controlNovedadCesantiasRC.autocompletarVlrSolicitado()}"/>
 
                      <strong><h:outputText value="#{msg['motcesantias']}" style=" position: absolute; top: 265px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="motivoces" value="#{controlNovedadCesantiasRC.nuevaNovedad.motivocesantia.nombre}"  readonly="true"
+                     <p:inputText autocomplete="off" id="motivoces" value="#{controlNovedadCesantiasRC.nuevaNovedad.motivocesantia.nombre}"  readonly="true"
                                    style=" width: 122px; position: absolute; left: 220px; top: 260px; text-align: right; " onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades,5, 1)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
@@ -511,13 +511,13 @@
                                       id="btnNuevoMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,1)}" value="" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="obsv" value="#{controlNovedadCesantiasRC.nuevaNovedad.observaciones}" 
+                     <p:inputText autocomplete="off" id="obsv" value="#{controlNovedadCesantiasRC.nuevaNovedad.observaciones}" 
                                    style=" width: 122px; position: absolute; left: 220px; top: 300px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="obsv"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['beneficiarios']}" style=" position: absolute; top: 345px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="beneficiario" value="#{controlNovedadCesantiasRC.nuevaNovedad.beneficiario}" 
+                     <p:inputText autocomplete="off" id="beneficiario" value="#{controlNovedadCesantiasRC.nuevaNovedad.beneficiario}" 
                                    style=" width: 122px; position: absolute; left: 220px; top: 340px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="beneficiario"/>
                      </p:inputText>
@@ -535,21 +535,21 @@
 
                      <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;"/></strong>
                      <div id="duplicarposicionFechaCorteCesantia" style=" position: absolute; top: 60px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicial" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechainicialdisfrute}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicial" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechainicialdisfrute}">
                            <p:ajax event="dateSelect" update="duplicarnuevaFechaInicial"  process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['fechacorteint']}" style=" position: absolute; top: 105px;"/></strong>
                      <div id="duplicarposicionFechaCorteIntCesantia" style=" position: absolute; top: 100px; left: 200px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechacortecesantia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicialInt" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechacortecesantia}">
                            <p:ajax event="dateSelect" update="duplicarnuevaFechaInicialInt" process="@this"/>
                            <p:ajax event="change" update="duplicarnuevaFechaInicialInt" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['vlrCesantias']}" style=" position: absolute; top: 145px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarvlrcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorcesantia}" 
+                     <p:inputText autocomplete="off" id="duplicarvlrcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorcesantia}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="duplicarvlrcesantias" mask="num"/>
@@ -557,7 +557,7 @@
                                       actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrCesantias()}"/>
 
                      <strong><h:outputText value="#{msg['vlrintcesantias']}" style=" position: absolute; top: 185px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarvlrintcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorinterescesantia}" 
+                     <p:inputText autocomplete="off"  id="duplicarvlrintcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorinterescesantia}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="duplicarvlrintcesantias" mask="num"/>
@@ -566,7 +566,7 @@
 
 
                      <strong><h:outputText value="#{msg['vlrsolicitado']}" style=" position: absolute; top: 225px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarvlrsolicitado" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorsolicitado}" 
+                     <p:inputText autocomplete="off" id="duplicarvlrsolicitado" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorsolicitado}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="duplicarvlrsolicitado" mask="num"/>
@@ -574,7 +574,7 @@
                                       actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrSolicitado()}"/>
 
                      <strong><h:outputText value="#{msg['motcesantias']}" style=" position: absolute; top: 265px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarmotivoces" value="#{controlNovedadCesantiasRC.duplicarNovedad.motivocesantia.nombre}" 
+                     <p:inputText autocomplete="off"  id="duplicarmotivoces" value="#{controlNovedadCesantiasRC.duplicarNovedad.motivocesantia.nombre}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase;" readonly="true" onclick="select();">
                         <p:ajax event="click" listener="#{controlNovedadCesantiasRC.autocompletar(2,'MOTIVO')}"/>
                         <p:ajax event="change" listener="#{controlNovedadCesantiasRC.valoresautocompletarnuevo('MOTIVO', controlNovedadCesantiasRC.duplicarNovedad.motivocesantia.nombre, 2)}"/>
@@ -584,13 +584,13 @@
                                       id="btnDuplicarMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,2)}" value="" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarobsv" value="#{controlNovedadCesantiasRC.duplicarNovedad.observaciones}" 
+                     <p:inputText autocomplete="off" id="duplicarobsv" value="#{controlNovedadCesantiasRC.duplicarNovedad.observaciones}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 300px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarobsv"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['beneficiarios']}" style=" position: absolute; top: 345px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarbeneficiario" value="#{controlNovedadCesantiasRC.duplicarNovedad.beneficiario}" 
+                     <p:inputText autocomplete="off"  id="duplicarbeneficiario" value="#{controlNovedadCesantiasRC.duplicarNovedad.beneficiario}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarbeneficiario"/>
                      </p:inputText>

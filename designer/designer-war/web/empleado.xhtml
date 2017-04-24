@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -99,7 +99,7 @@
                         <p:ajax event="filter" listener="#{controlEmpleado.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlEmpleado.recordarSeleccion()}"/>
 
-                        <p:column headerText="#{msg['codempl']}"  sortBy="#{info.codigoempleado}" filterBy="#{info.codigoempleado}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['codempl']}" sortBy="#{info.codigoempleado}" filterBy="#{info.codigoempleado}" filterMatchMode="contains" 
                                   id="codigoEmpl" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -139,7 +139,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigoalternativodeudor}"  /></f:facet>  
                               <f:facet name="input">
-                                 <h:inputText  autocomplete="off"  value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                 <h:inputText autocomplete="off" value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                     <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigodeudor"/>                                   
                                     <p:ajax event="select" onstart="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indice});"/>
@@ -157,7 +157,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigoalternativoacreedor}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <h:inputText  autocomplete="off"  value="#{info.codigoalternativoacreedor}" id="editarcodigoacreedor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"
+                                 <h:inputText autocomplete="off" value="#{info.codigoalternativoacreedor}" id="editarcodigoacreedor" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                     <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigoacreedor"/>                                   
                                     <p:ajax event="select" onstart="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indice});"/>
@@ -178,7 +178,7 @@
                                  </h:outputText>    
                               </f:facet>  
                               <f:facet name="input">
-                                 <h:inputText  autocomplete="off"   readonly="true" onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
+                                 <h:inputText autocomplete="off"  readonly="true" onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
                                     <p:ajax event="select" onstart="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indice});"/>
                                  </h:inputText>
                               </f:facet>  
@@ -213,7 +213,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlEmpleado.actualizarEmpleados()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarE']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDeLOVEmpleados').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovDeLOVEmpleados').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{empl.codigoempleado}" filterMatchMode="contains" filterStyle="width:80%">

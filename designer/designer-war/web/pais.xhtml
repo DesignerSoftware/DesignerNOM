@@ -87,7 +87,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4"  id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4"  id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPaises.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosPaises').unselectAllRows();PF('datosPaises').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlPaises.modificarPaises(info)}"  update="codigo"/>
@@ -102,7 +102,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPaises.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosPaises').unselectAllRows();PF('datosPaises').selectRow(#{indice});"/> 
                                     <p:ajax event="change"  listener="#{controlPaises.modificarPaises(info)}" update="descripcion"/>
@@ -157,7 +157,7 @@
                         <p:ajax event="filter" listener="#{controlPaises.contarRegistrosFestivos()}" update=":form:aceptarF"/>
                         <f:facet name="header">  
                            <h:outputText value="Buscar Festivo :"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFestivos').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFestivos').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{festivo.dia}"  filterStyle="width: 80% !important" filterMatchMode="contains">
                            <f:facet name="header">
@@ -183,7 +183,7 @@
                         <p:ajax event="filter" listener="#{controlPaises.contarRegistrosCiudades()}"/>
                         <f:facet name="header">  
                            <h:outputText value="Buscar Ciudad :"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{ciudad.codigo}" width="60" filterStyle="width: 80% !important" filterMatchMode="contains">
                            <f:facet name="header">
@@ -213,7 +213,7 @@
                         <p:ajax event="rowSelect" listener="#{controlPaises.seleccionarDepartamento()}"/>
                         <f:facet name="header">  
                            <h:outputText value="Buscar Departamento :"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDepartamentos').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovDepartamentos').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{depto.codigo}" width="60" filterStyle="width: 80% !important" filterMatchMode="contains">
                            <f:facet name="header">
@@ -345,13 +345,13 @@
                   <center><strong><h:outputText id="informacion" value="Nuevo Pais" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevoPais" style="border: none;">
                      <strong><h:outputText value="*#{msg['cod']}: "  style="left: 10px; position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlPaises.nuevoPaises.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlPaises.nuevoPaises.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoCodigo" value="#{msg['cod']}"/>
 
                      <strong><h:outputText value="*Nombre: "  style="left: 10px; position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlPaises.nuevoPaises.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="30" value="#{controlPaises.nuevoPaises.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoNombre" value="Nombre"/>
@@ -366,13 +366,13 @@
                   <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Pais" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarTE" style="border: none;">
                      <strong><h:outputText value="*#{msg['cod']}: "  style=" position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlPaises.duplicarPaises.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlPaises.duplicarPaises.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigo" value="#{msg['cod']}"/>
 
                      <strong><h:outputText value="*Nombre:"  style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlPaises.duplicarPaises.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarNombre" maxlength="30" value="#{controlPaises.duplicarPaises.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombre" value="Nombre"/>

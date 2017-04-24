@@ -85,7 +85,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(indice, 0)}" process="@this"
                                                         onstart="PF('datosTipoAuxilio').unselectAllRows();PF('datosTipoAuxilio').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlTiposAuxilios.modificandoTipoAuxilio(indice, 'N', info.codigo)}"  update="codigo"/>
@@ -97,7 +97,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" id="editarNombre" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.descripcion}" id="editarNombre" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(indice, 1)}" process="@this"
                                                         onstart="PF('datosTipoAuxilio').unselectAllRows();PF('datosTipoAuxilio').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposAuxilios.modificandoTipoAuxilio(indice, 'N', info.descripcion)}" update="descripcion"/>
@@ -209,13 +209,13 @@
                         <p:panel id="nuevaTipoReemplazo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 75px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCodigo" value="#{controlTiposAuxilios.nuevoTipoAuxilios.codigo}" style="width: 135px; position: absolute; left: 160px; top: 70px;">
+                            <p:inputText autocomplete="off"  id="nuevoCodigo" value="#{controlTiposAuxilios.nuevoTipoAuxilios.codigo}" style="width: 135px; position: absolute; left: 160px; top: 70px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigo']}"/>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 105px;"/></strong>
-                            <p:inputText  autocomplete="off"    id="nuevoNombre" value="#{controlTiposAuxilios.nuevoTipoAuxilios.descripcion}" style="width: 135px; position: absolute; left: 160px; top: 100px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"   id="nuevoNombre" value="#{controlTiposAuxilios.nuevoTipoAuxilios.descripcion}" style="width: 135px; position: absolute; left: 160px; top: 100px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcion']}"/>
@@ -231,13 +231,13 @@
 
                         <p:panel id="duplicarTTR" style="border: none;">
                             <strong><h:outputText value="#{msg['codigoN']}"  style="position: absolute; top: 75px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCodigo" value="#{controlTiposAuxilios.duplicarTipoAuxilio.codigo}" style="width: 135px; position: absolute; left: 160px; top: 70px;">
+                            <p:inputText autocomplete="off"  id="duplicarCodigo" value="#{controlTiposAuxilios.duplicarTipoAuxilio.codigo}" style="width: 135px; position: absolute; left: 160px; top: 70px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigo']}"/>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 105px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombre" value="#{controlTiposAuxilios.duplicarTipoAuxilio.descripcion}"  style="width: 135px; position: absolute; left: 160px; top: 100px;">
+                            <p:inputText autocomplete="off"  id="duplicarNombre" value="#{controlTiposAuxilios.duplicarTipoAuxilio.descripcion}"  style="width: 135px; position: absolute; left: 160px; top: 100px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcion']}"/>

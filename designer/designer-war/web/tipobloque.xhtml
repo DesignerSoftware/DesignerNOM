@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-   >
+>
 
    <h:head>
       <title>Facelet Title</title>
@@ -113,7 +113,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechainicial)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechainicial)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(tc, 0)}" process="@this"
@@ -134,7 +134,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechafinal)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechafinal)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(tc, 1)}" process="@this"
@@ -176,7 +176,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tc.bloqueplsql}" id="editarPLSQL"> 
+                                 <p:inputText autocomplete="off" value="#{tc.bloqueplsql}" id="editarPLSQL"> 
                                     <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(tc, 3)}" process="@this"
                                             onstart="PF('datosTiposBloques').unselectAllRows();PF('datosTiposBloques').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.bloqueplsql)}" update="@this"/>
@@ -252,7 +252,7 @@
 
                      <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;"/></strong>
                      <div style=" position: absolute; top: 60px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoBloque.nuevoTipoBloque.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoBloque.nuevoTipoBloque.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -260,7 +260,7 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoBloque.nuevoTipoBloque.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoBloque.nuevoTipoBloque.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -275,7 +275,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 185px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCodigoPLSQL" value="#{controlTipoBloque.nuevoTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 180px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoCodigoPLSQL" value="#{controlTipoBloque.nuevoTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 180px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -296,7 +296,7 @@
                      <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;"/></strong>
 
                      <div style=" position: absolute; top: 60px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -304,7 +304,7 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -319,7 +319,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 185px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCodigoPLSQL" value="#{controlTipoBloque.duplicarTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 180px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarCodigoPLSQL" value="#{controlTipoBloque.duplicarTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 180px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 

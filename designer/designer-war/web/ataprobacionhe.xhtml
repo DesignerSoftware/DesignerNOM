@@ -81,10 +81,10 @@
 
                             <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/logoArrobaDesigner.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                            <strong><h:outputText style="position: absolute; top: 20px; left: 80px;text-transform: uppercase;" value="#{msg['usuarioConectado']}:"/></strong>
-                            <strong><h:outputText style="position: absolute; top: 20px; left: 250px;text-transform: uppercase; color: #00F" value="#{controlATAprobacionHE.actualUsuario.alias}"/></strong>
+                            <strong><h:outputText style="position: absolute; top: 20px; left: 80px; text-transform: uppercase;" value="#{msg['usuarioConectado']}:"/></strong>
+                            <strong><h:outputText style="position: absolute; top: 20px; left: 250px; text-transform: uppercase; color: #00F" value="#{controlATAprobacionHE.actualUsuario.alias}"/></strong>
 
-                            <strong><h:outputText style="position: absolute; top: 60px; left: 80px;text-transform: uppercase;" value="#{msg['infoUsuario']}"/></strong>
+                            <strong><h:outputText style="position: absolute; top: 60px; left: 80px; text-transform: uppercase;" value="#{msg['infoUsuario']}"/></strong>
 
 
                             <p:commandButton style="position: absolute; left: 683px; top: 10px; " id="BUSCAR" value="#{msg['buscarEmpleados']}" actionListener="#{controlATAprobacionHE.dispararDialogoBuscarEmpleados()}" disabled="#{controlATAprobacionHE.activarBuscar}" process="@this"/>
@@ -131,7 +131,7 @@
                                 <p:dataTable id="tablaSuperiorIzquierda" var="infoCab"  rowKey="#{infoCab.secuencia}" style=" width: 350px; position: relative; top: 18px;" value="#{controlATAprobacionHE.listaEersCabeceras}"
                                              widgetVar="tablaSuperiorIzquierda" styleClass="hide-row-names" filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}"
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
-                                         >
+                                 >
                                     <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}"/>   
                                     <p:ajax event="filter" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
                                     <!-- NO SE OLVIDE !!! 
@@ -154,14 +154,14 @@
                                              filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}" emptyMessage="#{msg['vacio']}"
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
                                              rows="#{controlATAprobacionHE.rowsCabecera}"
-                                         >
+                                 >
 
-                                    <p:column  sortBy="#{infoCab.aprobado}"  filterBy="#{infoCab.aprobado}" 
+                                    <p:column sortBy="#{infoCab.aprobado}"  filterBy="#{infoCab.aprobado}" 
                                                filterMatchMode="contains" width="69" id="cabeceraAprobado" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.aprobado}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"    value="#{infoCab.aprobado}" maxlength="1" id="editarAprobadoCabecera" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                                <p:inputText autocomplete="off"   value="#{infoCab.aprobado}" maxlength="1" id="editarAprobadoCabecera" style="border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
                                                     <p:ajax event="change" listener="#{controlATAprobacionHE.modificarCabecera(indiceCab)}"/>
                                                     <p:ajax event="select" listener="#{controlATAprobacionHE.cambiarIndiceCabecera(indiceCab, 0)}"/>
                                                 </p:inputText>
@@ -169,12 +169,12 @@
                                         </p:cellEditor>
                                     </p:column>
 
-                                    <p:column  sortBy="#{infoCab.estructuraaprueba.nombre}" filterBy="#{estructuraaprueba.nombre}" 
+                                    <p:column sortBy="#{infoCab.estructuraaprueba.nombre}" filterBy="#{estructuraaprueba.nombre}" 
                                                filterMatchMode="contains" id="cabeceraEstructura" width="96" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.estructuraaprueba.nombre}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.estructuraaprueba.nombre}" readonly="true" id="editarEstructuraCabecera" style="border-radius: 0px; width: 98.5%;">    
+                                                <p:inputText autocomplete="off"  value="#{infoCab.estructuraaprueba.nombre}" readonly="true" id="editarEstructuraCabecera" style="border-radius: 0px; width: 98.5%;">    
                                                     <p:ajax event="change" listener="#{controlATAprobacionHE.modificarCabecera(indiceCab, 'ESTRUCTURA', infoCab.estructuraaprueba.nombre)}"/>
                                                     <p:ajax event="select" listener="#{controlATAprobacionHE.cambiarIndiceCabecera(indiceCab, 1)}"/>
                                                     <p:ajax event="dblclick" listener="#{controlATAprobacionHE.asignarIndex(indiceCab, 0)}"/>        
@@ -197,7 +197,7 @@
                                              widgetVar="tablaSuperiorDerecha" styleClass="hide-row-names" rowKey="#{infoCab.secuencia}" 
                                              filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}"
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
-                                         >
+                                 >
 
                                     <p:ajax event="filter" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
                                     <p:ajax event="sort" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" listener="#{controlATAprobacionHE.organizarTablas()}"/>   
@@ -235,14 +235,14 @@
                                              filteredValue="#{controlATAprobacionHE.filtrarListaEersCabeceras}" emptyMessage="..."
                                              selection="#{controlATAprobacionHE.cabeceraSeleccionada}" selectionMode="single"
                                              rows="#{controlATAprobacionHE.rowsCabecera}"
-                                         >
+                                 >
 
                                     <p:column   style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.persona.strNumeroDocumento}" 
                                                 filterMatchMode="contains" id="cabeceraNumDocumento" width="91" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.strNumeroDocumento}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.empleado.persona.strNumeroDocumento}" readonly="true" id="editarNumDocumentoCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.empleado.persona.strNumeroDocumento}" readonly="true" id="editarNumDocumentoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '2'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -254,7 +254,7 @@
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.nombreCompleto}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.empleado.persona.nombreCompleto}" readonly="true" id="editarNombreEmpleadoCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.empleado.persona.nombreCompleto}" readonly="true" id="editarNombreEmpleadoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '3'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -266,7 +266,7 @@
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.horas}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.horas}" readonly="true" id="editarHorasCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.horas}" readonly="true" id="editarHorasCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '4'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -278,7 +278,7 @@
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.minutos}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.minutos}" readonly="true" id="editarMinutosCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.minutos}" readonly="true" id="editarMinutosCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '5'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -290,7 +290,7 @@
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.tipoeer}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.tipoeer}" readonly="true" id="editarNovedadCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.tipoeer}" readonly="true" id="editarNovedadCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '6'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -302,7 +302,7 @@
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.estado}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.estado}" readonly="true" id="editarEstadoCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.estado}" readonly="true" id="editarEstadoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '7'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -314,7 +314,7 @@
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.eerestado.descripcion}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.eerestado.descripcion}" readonly="true" id="editarPasoCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.eerestado.descripcion}" readonly="true" id="editarPasoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '8'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -322,7 +322,7 @@
                                     </p:column>  
 
 
-                                    <p:column  sortBy="#{infoCab.fechapago}" filterBy="#{infoCab.fechapago}" 
+                                    <p:column sortBy="#{infoCab.fechapago}" filterBy="#{infoCab.fechapago}" 
                                                filterMatchMode="contains" width="85" id="cabeceraFechaPago" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
                                             <f:facet name="output">
@@ -331,7 +331,7 @@
                                                 </h:outputText>
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.fechapago}" readonly="true" id="editarFechaPagoCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.fechapago}" readonly="true" id="editarFechaPagoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '9'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>   
@@ -343,7 +343,7 @@
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.comentario}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{infoCab.comentario}" readonly="true" id="editarObservacionCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.comentario}" readonly="true" id="editarObservacionCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '10'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -367,11 +367,11 @@
                                          filteredValue="#{controlATAprobacionHE.filtrarListaFlujos}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
                                          selection="#{controlATAprobacionHE.flujoSeleccionado}" selectionMode="single"
-                                     >
+                             >
                                 <p:ajax event="filter" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
 
 
-                                <p:column headerText="#{msg['procesoAutorizados2']}"  sortBy="#{infoF.eerestado.descripcion}" filterBy="#{infoF.eerestado.descripcion}" 
+                                <p:column headerText="#{msg['procesoAutorizados2']}" sortBy="#{infoF.eerestado.descripcion}" filterBy="#{infoF.eerestado.descripcion}" 
                                           filterMatchMode="contains" id="flujoProceso" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="procesoAutorizados" value="#{msg['procesoAutorizados2']}"/>
@@ -380,13 +380,13 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoF.eerestado.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoF.eerestado.descripcion}" readonly="true" id="editarProcesoFlujo" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText autocomplete="off"  value="#{infoF.eerestado.descripcion}" readonly="true" id="editarProcesoFlujo" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionFlujo([{name: 'n', value: '0'}, {name: 't', value: '#{indiceF}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['fecha']}"   sortBy="#{infoF.fecha}" filterBy="#{infoF.fecha}" 
+                                <p:column headerText="#{msg['fecha']}"  sortBy="#{infoF.fecha}" filterBy="#{infoF.fecha}" 
                                           filterMatchMode="contains" width="40" id="flujoFecha" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -395,7 +395,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoF.fecha}" readonly="true" id="editarFechaFlujo" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText autocomplete="off"  value="#{infoF.fecha}" readonly="true" id="editarFechaFlujo" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionFlujo([{name: 'n', value: '1'}, {name: 't', value: '#{indiceF}'}]);"
                                                          /> 
                                         </f:facet>   
@@ -414,22 +414,22 @@
                                          filteredValue="#{controlATAprobacionHE.filtrarListaDetalles}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
                                          selection="#{controlATAprobacionHE.detalleSeleccionado}" selectionMode="single"
-                                     >
+                             >
                                 <p:ajax event="filter" listener="#{controlATAprobacionHE.eventoFiltrar()}"/>
 
 
-                                <p:column headerText="#{msg['concepto']}"  sortBy="#{infoD.concepto.descripcion}" filterBy="#{infoD.concepto.descripcion}" 
+                                <p:column headerText="#{msg['concepto']}" sortBy="#{infoD.concepto.descripcion}" filterBy="#{infoD.concepto.descripcion}" 
                                           filterMatchMode="contains" id="detalleConcepto" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoD.concepto.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoD.concepto.descripcion}" readonly="true" id="editarConceptoDetalle" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText autocomplete="off"  value="#{infoD.concepto.descripcion}" readonly="true" id="editarConceptoDetalle" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionDetalle([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['fecha']}"   sortBy="#{infoD.fecha}" filterBy="#{infoD.fecha}" 
+                                <p:column headerText="#{msg['fecha']}"  sortBy="#{infoD.fecha}" filterBy="#{infoD.fecha}" 
                                           filterMatchMode="contains" width="40" id="detalleFecha" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -438,19 +438,19 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoD.fecha}" readonly="true" id="editarFechaDetalle" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText autocomplete="off"  value="#{infoD.fecha}" readonly="true" id="editarFechaDetalle" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionDetalle([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);"
                                                          /> 
                                         </f:facet>   
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="#{msg['observaciones']}"  sortBy="#{infoD.observaciones}" filterBy="#{infoD.observaciones}" 
+                                <p:column headerText="#{msg['observaciones']}" sortBy="#{infoD.observaciones}" filterBy="#{infoD.observaciones}" 
                                           filterMatchMode="contains" id="detalleObservaciones" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoD.observaciones}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoD.observaciones}" readonly="true" id="editarObservacionDetalle" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText autocomplete="off"  value="#{infoD.observaciones}" readonly="true" id="editarObservacionDetalle" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionDetalle([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -557,7 +557,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEA']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEstructura').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovEstructura').filter();" style="width:150px; position: relative; left: 30px;"/>  
                             </f:facet>
                             <p:column filterBy="#{estructuraA.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -594,7 +594,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;"/>  
                             </f:facet>
                             <p:column filterBy="#{empleados.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

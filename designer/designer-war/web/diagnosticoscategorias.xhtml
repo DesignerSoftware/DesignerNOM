@@ -85,7 +85,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{capitulo.codigo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{capitulo.codigo}" maxlength="10"  id="editarCodigoCategoria" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{capitulo.codigo}" maxlength="10"  id="editarCodigoCategoria" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 0)}" process="@this"
                                                         onstart="PF('datosCapitulos').unselectAllRows();PF('datosCapitulos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarCapitulo(capitulo, 'N', info.codigo)}"  update="codigoCapitulo"/>
@@ -101,7 +101,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{capitulo.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{capitulo.descripcion}" maxlength="200" id="editarDescripcionCategoria" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{capitulo.descripcion}" maxlength="200" id="editarDescripcionCategoria" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 1)}"
                                                         onstart="PF('datosCapitulos').unselectAllRows();PF('datosCapitulos').selectRow(#{indice});" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarCapitulo(capitulo, 'N', info.descripcion)}" update="descripcionCapitulo"/>
@@ -127,7 +127,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{seccion.codigo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{seccion.codigo}" maxlength="10"  id="editarCodigoSeccion" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{seccion.codigo}" maxlength="10"  id="editarCodigoSeccion" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 0)}"
                                                         onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDS});" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarSeccion(seccion, 'N', info.codigo)}"  update="codigoSeccion"/>
@@ -142,7 +142,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{seccion.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{seccion.descripcion}" maxlength="200" id="editarDescripcionSeccion" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{seccion.descripcion}" maxlength="200" id="editarDescripcionSeccion" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 1)}" process="@this"
                                                         onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDS});"/> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarSeccion(seccion, 'N', info.descripcion)}" update="descripcionSeccion"/>
@@ -170,7 +170,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="10"  id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="10"  id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});"/> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarCategoria(info, 'N', info.codigo)}"  update="codigo"/>
@@ -185,7 +185,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="200" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="200" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 1)}" process="@this"
                                                          onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});"/> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarCategoria(info, 'N', info.descripcion)}" update="descripcion"/>
@@ -208,14 +208,14 @@
                         <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Capítulos" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevoCapitulo" style="border: none;">
                             <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigoCapitulo" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCapitulo.codigo}" 
+                            <p:inputText autocomplete="off" id="nuevoCodigoCapitulo" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCapitulo.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="nuevoCodigoCapitulo"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoCapitulo" value="Código"/>
 
                             <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaDescripcionCapitulo" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCapitulo.descripcion}"
+                            <p:inputText autocomplete="off" id="nuevaDescripcionCapitulo" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCapitulo.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="nuevoCodigoCapitulo"/>
                             </p:inputText>
@@ -232,14 +232,14 @@
                         <p:panel id="duplicarCapitulo" style="border: none;">
 
                             <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigoCapitulo" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCapitulo.codigo}" 
+                            <p:inputText autocomplete="off" id="duplicarCodigoCapitulo" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCapitulo.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="duplicarCodigoCapitulo"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCapitulo" value="Código"/>
 
                             <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarDescripcionCapitulo" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCapitulo.descripcion}"
+                            <p:inputText autocomplete="off" id="duplicarDescripcionCapitulo" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCapitulo.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="duplicarCodigoCapitulo"/>
                             </p:inputText>
@@ -255,14 +255,14 @@
                         <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Sección" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevaSeccion" style="border: none;">
                             <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigoSeccion" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoSeccion.codigo}" 
+                            <p:inputText autocomplete="off" id="nuevoCodigoSeccion" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoSeccion.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="nuevoCodigoSeccion"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoSeccion" value="Código"/>
 
                             <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaDescripcionSeccion" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoSeccion.descripcion}"
+                            <p:inputText autocomplete="off" id="nuevaDescripcionSeccion" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoSeccion.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="nuevoCodigoSeccion"/>
                             </p:inputText>
@@ -279,14 +279,14 @@
                         <p:panel id="duplicarSeccion" style="border: none;">
 
                             <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigoSeccion" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoSeccion.codigo}" 
+                            <p:inputText autocomplete="off" id="duplicarCodigoSeccion" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoSeccion.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="duplicarCodigoSeccion"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoSeccion" value="Código"/>
 
                             <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarDescripcionSeccion" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoSeccion.descripcion}"
+                            <p:inputText autocomplete="off" id="duplicarDescripcionSeccion" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoSeccion.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="duplicarCodigoSeccion"/> 
                             </p:inputText>
@@ -303,14 +303,14 @@
                         <center><strong><h:outputText value="Ingresar nuevo Diagnóstico Categoría" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="nuevaCategoria" style="border: none;">
                             <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigoCategoria" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCategoria.codigo}" 
+                            <p:inputText autocomplete="off" id="nuevoCodigoCategoria" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCategoria.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="nuevoCodigoCategoria"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoCategoria" value="Código"/>
 
                             <strong><h:outputText value="*Descripción" style="position: absolute; top: 145px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaDescripcionCategoria" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCategoria.descripcion}"
+                            <p:inputText autocomplete="off" id="nuevaDescripcionCategoria" value="#{controlDiagnosticosCategorias.nuevoDiagnosticoCategoria.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="nuevaDescripcionCategoria"/>
                             </p:inputText>
@@ -327,14 +327,14 @@
                         <p:panel id="duplicarCategoria" style="border: none;">
 
                             <strong><h:outputText value="*Código" style="position: absolute; top: 115px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigoCategoria" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria.codigo}" 
+                            <p:inputText autocomplete="off" id="duplicarCodigoCategoria" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria.codigo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="duplicarCodigoCategoria"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCategoria" value="Código"/>
 
                             <strong><h:outputText value="*Descripción " style="position: absolute; top: 145px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarDescripcionCategoria" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria.descripcion}"
+                            <p:inputText autocomplete="off" id="duplicarDescripcionCategoria" value="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:ajax event="change" update="duplicarDescripcionCategoria"/> 
                             </p:inputText>

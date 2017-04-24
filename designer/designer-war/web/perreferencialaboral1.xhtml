@@ -94,7 +94,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombrepersona}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.nombrepersona}" maxlength="100" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombrepersona}" maxlength="100" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlHvReferencias1.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosHvReferencia').unselectAllRows();PF('datosHvReferencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change"  listener="#{controlHvReferencias1.modificarHvrReferencia1(info)}" update="nombre"/>
@@ -110,7 +110,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.cargo}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.cargo}" maxlength="50" id="editarCargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.cargo}" maxlength="50" id="editarCargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlHvReferencias1.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosHvReferencia').unselectAllRows();PF('datosHvReferencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change"  listener="#{controlHvReferencias1.modificarHvrReferencia1(info)}" update="cargo"/>
@@ -126,7 +126,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.telefono}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.telefono}" maxlength="12" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.telefono}" maxlength="12" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlHvReferencias1.cambiarIndice(info, 2)}" process="@this"
                                             onstart="PF('datosHvReferencia').unselectAllRows();PF('datosHvReferencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change"  listener="#{controlHvReferencias1.modificarHvrReferencia1(info)}" update="numTelefono"/>
@@ -141,7 +141,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.celular}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.celular}" maxlength="12" id="editarPuntaje" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.celular}" maxlength="12" id="editarPuntaje" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlHvReferencias1.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosHvReferencia').unselectAllRows();PF('datosHvReferencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change"  listener="#{controlHvReferencias1.modificarHvrReferencia1(info)}" update="numCelular"/>
@@ -157,7 +157,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.parentesco.tipo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.parentesco.tipo}" maxlength="50" id="editarparentesco" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.parentesco.tipo}" maxlength="50" id="editarparentesco" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlHvReferencias1.cambiarIndice(info, 4)}" process="@this"
                                             onstart="PF('datosHvReferencia').unselectAllRows();PF('datosHvReferencia').selectRow(#{indice});"/> 
                                     <p:ajax event="dblclick" listener="#{controlHvReferencias1.asignarIndex(info, 0,4)}" process="@this"/>
@@ -184,7 +184,7 @@
                         <p:ajax event="rowDblselect" listener="#{controlHvReferencias1.actualizarTipoFamiliar()}" process="@this"/>
                         <f:facet name="header">  
                            <h:outputText value="Buscar Parentesco"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{tipofamiliar.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                            <f:facet name="header">
@@ -319,29 +319,29 @@
                   <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Referencia Familiar" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevooHvReferenciaLab" style="border: none;">
                      <strong><h:outputText value="*#{msg['nombre']} :"  style=" position: absolute; top: 60px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="100" value="#{controlHvReferencias1.nuevoHvReferencia1.nombrepersona}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="100" value="#{controlHvReferencias1.nuevoHvReferencia1.nombrepersona}" style=" width: 140px; position: absolute; left: 175px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoNombre" value="#{msg['nombre']}"/>
                      <strong><h:outputText value="#{msg['cargo']} :"  style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoCargo" maxlength="50" value="#{controlHvReferencias1.nuevoHvReferencia1.cargo}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="nuevoCargo" maxlength="50" value="#{controlHvReferencias1.nuevoHvReferencia1.cargo}" style=" width: 140px; position: absolute; left: 175px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoCargo" value="#{msg['cargo']}"/>
                      <strong><h:outputText value="#{msg['telefono']} :"  style=" position: absolute; top: 120px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="newTelefono" maxlength="12" value="#{controlHvReferencias1.nuevoHvReferencia1.telefono}" style=" width: 140px; position: absolute; left: 175px; top: 115px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="newTelefono" maxlength="12" value="#{controlHvReferencias1.nuevoHvReferencia1.telefono}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="newTelefono" value="#{msg['telefono']}"/>
 
                      <strong><h:outputText value="#{msg['celular']} :"  style=" position: absolute; top: 150px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="newCelular" maxlength="12" value="#{controlHvReferencias1.nuevoHvReferencia1.celular}" style="width: 140px;position: absolute; left: 175px; top: 145px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="newCelular" maxlength="12" value="#{controlHvReferencias1.nuevoHvReferencia1.celular}" style="width: 140px;position: absolute; left: 175px; top: 145px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="newCelular" value="#{msg['celular']}"/>
 
                      <strong><h:outputText value="#{msg['parentesco']} : " style=" position: absolute; top: 180px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoParentesco" value="#{controlHvReferencias1.nuevoHvReferencia1.parentesco.tipo}" style=" width: 140px; position: absolute; left: 175px; top: 175px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoParentesco" value="#{controlHvReferencias1.nuevoHvReferencia1.parentesco.tipo}" style=" width: 140px; position: absolute; left: 175px; top: 175px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlHvReferencias1.valoresBackupAutocompletar(1, 'TIPOSFAMILIARES')}"/>
                         <p:ajax event="change" listener="#{controlHvReferencias1.autocompletarNuevoyDuplicado('TIPOSFAMILIARES', controlHvReferencias1.nuevoHvReferencia1.parentesco.tipo, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlHvReferencias1.asignarVariableTiposFamiliaresNuevo(0)}"/>
@@ -360,29 +360,29 @@
                   <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Referencia Familiar" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarRRL" style="border: none;">
                      <strong><h:outputText value="*#{msg['nombre']} :"  style=" position: absolute; top: 60px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="100" value="#{controlHvReferencias1.duplicarHvReferencia1.nombrepersona}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="duplicarNombre" maxlength="100" value="#{controlHvReferencias1.duplicarHvReferencia1.nombrepersona}" style=" width: 140px; position: absolute; left: 175px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombre" value="#{msg['nombre']}"/>
                      <strong><h:outputText value="#{msg['cargo']} :"  style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarCargo" maxlength="50" value="#{controlHvReferencias1.duplicarHvReferencia1.cargo}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="duplicarCargo" maxlength="50" value="#{controlHvReferencias1.duplicarHvReferencia1.cargo}" style=" width: 140px; position: absolute; left: 175px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCargo" value="#{msg['cargo']}"/>
                      <strong><h:outputText value="#{msg['telefono']} :"  style=" position: absolute; top: 120px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="12" value="#{controlHvReferencias1.duplicarHvReferencia1.telefono}" style=" width: 140px; position: absolute; left: 175px; top: 115px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="duplicarTelefono" maxlength="12" value="#{controlHvReferencias1.duplicarHvReferencia1.telefono}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarTelefono" value="#{msg['telefono']}"/>
 
                      <strong><h:outputText value="#{msg['celular']} :"  style=" position: absolute; top: 150px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarCelular" maxlength="12" value="#{controlHvReferencias1.duplicarHvReferencia1.celular}" style="width: 140px;position: absolute; left: 175px; top: 145px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="duplicarCelular" maxlength="12" value="#{controlHvReferencias1.duplicarHvReferencia1.celular}" style="width: 140px;position: absolute; left: 175px; top: 145px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCelular" value="#{msg['celular']}"/>
 
                      <strong><h:outputText value="#{msg['parentesco']} : " style=" position: absolute; top: 180px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarParentesco" value="#{controlHvReferencias1.duplicarHvReferencia1.parentesco.tipo}" style=" width: 140px; position: absolute; left: 175px; top: 175px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarParentesco" value="#{controlHvReferencias1.duplicarHvReferencia1.parentesco.tipo}" style=" width: 140px; position: absolute; left: 175px; top: 175px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlHvReferencias1.valoresBackupAutocompletar(2, 'TIPOSFAMILIARES')}"/>
                         <p:ajax event="change" listener="#{controlHvReferencias1.autocompletarDuplicado('TIPOSFAMILIARES', controlHvReferencias1.duplicarHvReferencia1.parentesco.tipo, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlHvReferencias1.asignarVariableTiposFamiliaresNuevo(1)}"/>

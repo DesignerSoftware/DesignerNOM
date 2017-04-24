@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-   >
+>
 
    <h:head>
       <title></title>
@@ -114,7 +114,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tf.fechainicial}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tf.fechainicial}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechainicial)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechainicial)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoFuncion.cambiarIndice(tf, 0)}" process="@this"
@@ -135,7 +135,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tf.fechafinal}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tf.fechafinal}">
                                     <p:ajax event="dateSelect" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechainicial)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.fechafinal)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoFuncion.cambiarIndice(tf, 1)}" process="@this"
@@ -155,7 +155,7 @@
                                  </h:outputText>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tf.nombreobjeto}" id="editarObjetos"> 
+                                 <p:inputText autocomplete="off" value="#{tf.nombreobjeto}" id="editarObjetos"> 
                                     <p:ajax event="select" listener="#{controlTipoFuncion.cambiarIndice(tf, 2)}"
                                             onstart="PF('datosTiposFunciones').unselectAllRows();PF('datosTiposFunciones').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTipoFuncion.modificarTiposFunciones(tf, 'N', tf.nombreobjeto)}" update="@this"/>
@@ -219,7 +219,7 @@
 
                      <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;"/></strong>
                      <div style=" position: absolute; top: 60px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoFuncion.nuevoTipoFuncion.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoFuncion.nuevoTipoFuncion.fechainicial}">
                                      <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -227,14 +227,14 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoFuncion.nuevoTipoFuncion.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoFuncion.nuevoTipoFuncion.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
                      </div>                            
 
                      <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 145px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoObjeto" value="#{controlTipoFuncion.nuevoTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoObjeto" value="#{controlTipoFuncion.nuevoTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -255,7 +255,7 @@
                      <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 65px;"/></strong>
 
                      <div style=" position: absolute; top: 60px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoFuncion.duplicarTipoFuncion.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoFuncion.duplicarTipoFuncion.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -263,14 +263,14 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoFuncion.duplicarTipoFuncion.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoFuncion.duplicarTipoFuncion.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['objetoN']}" style=" position: absolute; top: 145px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarObjeto" value="#{controlTipoFuncion.duplicarTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarObjeto" value="#{controlTipoFuncion.duplicarTipoFuncion.nombreobjeto}" style=" width: 122px; position: absolute; left: 150px; top: 140px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 

@@ -7,7 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       
-   >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -89,7 +89,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.usuario.alias}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{usuario.usuario.alias}" id="editarPersona" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{usuario.usuario.alias}" id="editarPersona" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlUsuariosEstructuras.modificarUsuarios(usuario)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlUsuariosEstructuras.cambiarIndice(usuario, 0)}" process="@this"
                                                         onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
@@ -107,7 +107,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.empresa.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{usuario.empresa.nombre}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{usuario.empresa.nombre}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosEstructuras.cambiarIndice(usuario, 1)}"  process="@this"
                                                         onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlUsuariosEstructuras.modificarUsuarios(usuario)}" process="@this"/>
@@ -127,7 +127,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{usuario.estructura.nombre}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{usuario.estructura.nombre}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosEstructuras.cambiarIndice(usuario, 2)}" 
                                                         onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlUsuariosEstructuras.modificarUsuarios(usuario)}" update="@this"/>
@@ -161,7 +161,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuariov.usuariovista.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{usuariov.usuariovista.descripcion}" id="editarPersona" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{usuariov.usuariovista.descripcion}" id="editarPersona" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlUsuariosEstructuras.modificarUsuariosVistas(usuariov)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlUsuariosEstructuras.cambiarIndiceVista(usuariov, 0)}" process="@this"
                                                         onstart="PF('datosUsuariosVistas').unselectAllRows();PF('datosUsuariosVistas').selectRow(#{indice});"/>
@@ -179,7 +179,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuariov.usuariovista.objetodb.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{usuariov.usuariovista.objetodb.nombre}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{usuariov.usuariovista.objetodb.nombre}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosEstructuras.cambiarIndiceVista(usuariov, 1)}"  process="@this"
                                                         onstart="PF('datosUsuariosVistas').unselectAllRows();PF('datosUsuariosVistas').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlUsuariosEstructuras.modificarUsuariosVistas(usuariov)}" process="@this"/>
@@ -242,19 +242,19 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
                         <p:panel id="nuevaUsuario" style="border: none;">                           
                             <strong><h:outputText value="*Usuario" style=" position: absolute; top: 65px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoUsuario" value="#{controlUsuariosEstructuras.nuevoUsuarioEstructura.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoUsuario" value="#{controlUsuariosEstructuras.nuevoUsuarioEstructura.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndex(usuario, 0, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 60px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuario, 0, 1)}"/>
 
                             <strong><h:outputText value="Empresa" style=" position: absolute; top: 95px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaEmpresa" value="#{controlUsuariosEstructuras.nuevoUsuarioEstructura.empresa.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevaEmpresa" value="#{controlUsuariosEstructuras.nuevoUsuarioEstructura.empresa.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndex(usuario, 1, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 90px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuario, 1, 1)}"/>
 
                             <strong><h:outputText value="*Estructura" style=" position: absolute; top: 125px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaEstructura" value="#{controlUsuariosEstructuras.nuevoUsuarioEstructura.estructura.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevaEstructura" value="#{controlUsuariosEstructuras.nuevoUsuarioEstructura.estructura.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndex(usuario, 2, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 120px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuario, 2, 1)}"/>
@@ -270,19 +270,19 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarUsuario" style="border: none;">
                             <strong><h:outputText value="*Usuario" style=" position: absolute; top: 65px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  id="dupliUsuario" value="#{controlUsuariosEstructuras.duplicarUsuarioEstructura.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="dupliUsuario" value="#{controlUsuariosEstructuras.duplicarUsuarioEstructura.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndex(usuario, 0, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 60px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuario, 0, 2)}"/>
 
                             <strong><h:outputText value="Empresa" style=" position: absolute; top: 95px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="dupliEmpresa" value="#{controlUsuariosEstructuras.duplicarUsuarioEstructura.empresa.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="dupliEmpresa" value="#{controlUsuariosEstructuras.duplicarUsuarioEstructura.empresa.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndex(usuario, 1, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 90px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuario, 1, 2)}"/>
 
                             <strong><h:outputText value="*Estructura" style=" position: absolute; top: 125px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="dupliEstructura" value="#{controlUsuariosEstructuras.duplicarUsuarioEstructura.estructura.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="dupliEstructura" value="#{controlUsuariosEstructuras.duplicarUsuarioEstructura.estructura.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndex(usuario, 2, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 120px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuario, 2, 2)}"/>
@@ -298,13 +298,13 @@
                         <center><strong><h:outputText value="Ingresar nueva Vista" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
                         <p:panel id="nuevoUsuarioFiltro" style="border: none;">                           
                             <strong><h:outputText value="*Vista" style=" position: absolute; top: 65px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  value="#{controlUsuariosEstructuras.nuevoUsuarioFiltro.usuariovista.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" value="#{controlUsuariosEstructuras.nuevoUsuarioFiltro.usuariovista.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndexVistas(usuariov, 0, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 60px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuario, 0, 1)}"/>
 
                             <strong><h:outputText value="Tabla Base" style=" position: absolute; top: 95px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off" disabled="true" value="#{controlUsuariosEstructuras.nuevoUsuarioFiltro.usuariovista.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();"/>
+                            <p:inputText autocomplete="off" disabled="true" value="#{controlUsuariosEstructuras.nuevoUsuarioFiltro.usuariovista.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();"/>
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 175px;" actionListener="#{controlUsuariosEstructuras.limpiarNuevoUsuarioFiltro()}" update="nuevoUsuarioFiltro" process="@this"/>
                             <p:commandButton id="agregarU" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 175px;"  actionListener="#{controlUsuariosEstructuras.agregarNuevoUsuarioFiltro()}" process="@this"/>
@@ -316,13 +316,13 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarUsuarioFiltro" style="border: none;">
                             <strong><h:outputText value="*Vista" style=" position: absolute; top: 65px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  value="#{controlUsuariosEstructuras.duplicarUsuarioFiltro.usuariovista.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" value="#{controlUsuariosEstructuras.duplicarUsuarioFiltro.usuariovista.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlUsuariosEstructuras.asignarIndex(usuariov, 0, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 317px; top: 60px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosEstructuras.asignarIndex(usuariov, 0, 2)}"/>
 
                             <strong><h:outputText value="Tabla Base" style=" position: absolute; top: 95px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off" disabled="true" value="#{controlUsuariosEstructuras.duplicarUsuarioFiltro.usuariovista.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();"/>
+                            <p:inputText autocomplete="off" disabled="true" value="#{controlUsuariosEstructuras.duplicarUsuarioFiltro.usuariovista.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();"/>
 
                             <p:commandButton id="limpiarDuplicadoUsuarioV" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 175px;" actionListener="#{controlUsuariosEstructuras.limpiarDuplicarUsuarioFiltro()}" update="duplicarUsuarioFiltro" process="@this"/>
                             <p:commandButton id="agregarDuplicadoUsuarioV" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 175px;"  process="@this" actionListener="#{controlUsuariosEstructuras.confirmarDuplicarVista()}"  />
@@ -340,7 +340,7 @@
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosUsuarios()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Usuario"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVUsuarios').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVUsuarios').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{usu.alias}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -368,7 +368,7 @@
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosEmpresas()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empresa"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpresas').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpresas').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{emp.nombre}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -396,7 +396,7 @@
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosEstructuras()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Estructura"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEstructura').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEstructura').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{estru.nombre}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -423,7 +423,7 @@
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosLovVistas()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Vista"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVVistas').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVVistas').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{usuv.descripcion}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">

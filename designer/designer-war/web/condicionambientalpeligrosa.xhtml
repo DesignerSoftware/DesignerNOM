@@ -26,14 +26,14 @@
                                          selectionMode="single"
                                          editable="true" editMode="cell" scrollable="true" liveScroll="true"
                                          scrollRows="50"  scrollWidth="830"
-                                     >
+                             >
                                 <p:ajax event="filter" listener="#{controlSoCondicionesAmbientalesP.eventoFiltrar()}"/>
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="5" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="5" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlSoCondicionesAmbientalesP.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlSoCondicionesAmbientalesP.modificandoSoCondicionAmbientalP(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -44,7 +44,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="2000" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="2000" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlSoCondicionesAmbientalesP.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlSoCondicionesAmbientalesP.modificandoSoCondicionAmbientalP(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -219,13 +219,13 @@
                         <p:panel id="nuevaaSoCondicionesAmbientalP" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoN']}"  style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="5" value="#{controlSoCondicionesAmbientalesP.nuevaSoCondicionAmbientalP.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="5" value="#{controlSoCondicionesAmbientalesP.nuevaSoCondicionAmbientalP.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigoWM']}"/>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="2000" value="#{controlSoCondicionesAmbientalesP.nuevaSoCondicionAmbientalP.descripcion}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="2000" value="#{controlSoCondicionesAmbientalesP.nuevaSoCondicionAmbientalP.descripcion}" style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcionWM']}"/>
@@ -241,14 +241,14 @@
                         <center><strong><h:outputText id="informacionDuplicar" value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarRCAP" style="border: none;">
-                            <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;text-transform: uppercase;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="5" value="#{controlSoCondicionesAmbientalesP.duplicarSoCondicionAmbientalP.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px; text-transform: uppercase;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="5" value="#{controlSoCondicionesAmbientalesP.duplicarSoCondicionAmbientalP.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigoWM']}"/>
 
-                            <strong><h:outputText value="*#{msg['descripcionN']}"  style=" position: absolute; top: 90px;text-transform: uppercase;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="2000" value="#{controlSoCondicionesAmbientalesP.duplicarSoCondicionAmbientalP.descripcion}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <strong><h:outputText value="*#{msg['descripcionN']}"  style=" position: absolute; top: 90px; text-transform: uppercase;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="2000" value="#{controlSoCondicionesAmbientalesP.duplicarSoCondicionAmbientalP.descripcion}"  style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcionWM']}"/>

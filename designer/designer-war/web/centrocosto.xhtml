@@ -129,7 +129,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="15" id="editarCodigoCC" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.codigo}" maxlength="15" id="editarCodigoCC" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase;"> 
                                     <p:ajax  event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'N', info.codigo)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info,0)}"
                                             onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/> 
@@ -146,7 +146,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   id="editarNombreCentroCoso" maxlength="30" value="#{info.nombre}" 
+                                 <p:inputText autocomplete="off"  id="editarNombreCentroCoso" maxlength="30" value="#{info.nombre}" 
                                                style=" border-radius: 0px; width: 93.5%;height: 12px; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'N', info.nombre)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 1)}"
@@ -164,7 +164,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipocentrocosto.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{info.tipocentrocosto.nombre}" id="editarTipoCentroCosto" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.tipocentrocosto.nombre}" id="editarTipoCentroCosto" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'TIPOCENTROCOSTO', info.tipocentrocosto.nombre)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 2)}"
                                             onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/>
@@ -243,7 +243,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigoctt}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.codigoctt}" maxlength="20" id="editarCodigoCTT" style="height: 20px; border-radius: 0px; width: 94%; text-transform: uppercase; padding: 0px;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.codigoctt}" maxlength="20" id="editarCodigoCTT" style="height: 20px; border-radius: 0px; width: 94%; text-transform: uppercase; padding: 0px;"> 
                                     <p:ajax event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'N', info.codigoctt )}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 6)}"
                                             onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/>
@@ -308,7 +308,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarTCC']}"/>  
-                           <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{tipocentrocostos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
@@ -348,7 +348,7 @@
                         <p:ajax event="rowDblselect" listener="#{controlBetaCentrosCostos.seleccionCentrosCostosPorEmpresa()}" process="@this"/>
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarC']}"/>  
-                           <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{centroscostosporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
@@ -389,7 +389,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}"/>  
-                           <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -532,19 +532,19 @@
 
                      <!--0-->
                      <strong><h:outputText value="*#{msg['codigoccN']}" style=" position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevaCodigoCC" maxlength="15" value="#{controlBetaCentrosCostos.nuevoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 190px; top: 55px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="nuevaCodigoCC" maxlength="15" value="#{controlBetaCentrosCostos.nuevoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 190px; top: 55px; text-transform: uppercase;">  
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaCodigoCC" value="#{msg['codigoccWM']}"/>
                      <!--1-->
                      <strong><h:outputText value="*#{msg['nombrecentrocostoN']}" style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevaNombreCentroCostos" maxlength="30" value="#{controlBetaCentrosCostos.nuevoCentroCosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 85px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="nuevaNombreCentroCostos" maxlength="30" value="#{controlBetaCentrosCostos.nuevoCentroCosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaNombreCentroCostos" value="#{msg['nombrecentrocostoWM']}"/>
                      <!--2-->
                      <strong><h:outputText value="*#{msg['tipocentrocostoN']}" style=" position: absolute; top: 120px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevaTipoCentroCostos" value="#{controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 115px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="nuevaTipoCentroCostos" value="#{controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 115px; text-transform: uppercase;">  
                         <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}"/>
                         <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(0)}"/>
@@ -556,7 +556,7 @@
                      <!--3-->
                      <strong><h:outputText value="#{msg['manodeobraN']}" style=" position: absolute; top: 150px;"/></strong>
                      <p:selectOneMenu id="nuevaManodeObra" value="#{controlBetaCentrosCostos.nuevoCentroCosto.manoobra}" 
-                                      style=" width: 150px; position: absolute;left: 190px; top: 145px;text-transform: uppercase;">  
+                                      style=" width: 150px; position: absolute;left: 190px; top: 145px; text-transform: uppercase;">  
                         <f:selectItem itemLabel=" " itemValue=""/>  
                         <f:selectItem itemLabel="#{msg['directa']}" itemValue="D"/>  
                         <f:selectItem itemLabel="#{msg['indirecta']}" itemValue="I"/>  
@@ -565,8 +565,8 @@
                      <p:watermark for="nuevaManodeObra" value="#{msg['manodeobraWM']}"/>
                      <!--4-->
                      <strong><h:outputText value="#{msg['codigoatN']}" style=" position: absolute; top: 180px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevaCodigoAT" maxlength="30" value="#{controlBetaCentrosCostos.nuevoCentroCosto.codigoalternativo}" 
-                                   style=" width: 140px; position: absolute; left: 190px; top: 175px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="nuevaCodigoAT" maxlength="30" value="#{controlBetaCentrosCostos.nuevoCentroCosto.codigoalternativo}" 
+                                   style=" width: 140px; position: absolute; left: 190px; top: 175px; text-transform: uppercase;">  
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaCodigoAT" value="#{msg['codigoatWM']}"/>
@@ -582,8 +582,8 @@
                      <p:watermark for="nuevaObsoleto" value="#{msg['obsoletoWM']}"/>
                      <!--6-->
                      <strong><h:outputText value="#{msg['codigocttN']}" style=" position: absolute; top: 240px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevaCodigoCTT" maxlength="20" value="#{controlBetaCentrosCostos.nuevoCentroCosto.codigoctt}" 
-                                   style=" width: 140px; position: absolute; left: 190px; top: 235px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="nuevaCodigoCTT" maxlength="20" value="#{controlBetaCentrosCostos.nuevoCentroCosto.codigoctt}" 
+                                   style=" width: 140px; position: absolute; left: 190px; top: 235px; text-transform: uppercase;">  
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaCodigoCTT" value="#{msg['codigocttWM']}"/>
@@ -618,19 +618,19 @@
                   <p:panel id="duplicarCentroCostos" style="border: none;">
                      <!--0-->
                      <strong><h:outputText value="*#{msg['codigoccN']}" style=" position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarCodigoCC" maxlength="15" value="#{controlBetaCentrosCostos.duplicarCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 190px; top: 55px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="duplicarCodigoCC" maxlength="15" value="#{controlBetaCentrosCostos.duplicarCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 190px; top: 55px; text-transform: uppercase;">  
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigoCC" value="#{msg['codigoccWM']}"/>
                      <!--1-->
                      <strong><h:outputText value="*#{msg['nombrecentrocostoN']}" style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarNombreCentroCostos" maxlength="30" value="#{controlBetaCentrosCostos.duplicarCentroCosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 85px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="duplicarNombreCentroCostos" maxlength="30" value="#{controlBetaCentrosCostos.duplicarCentroCosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 85px; text-transform: uppercase;">  
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombreCentroCostos" value="#{msg['nombrecentrocostoWM']}"/>
                      <!--2-->
                      <strong><h:outputText value="*#{msg['tipocentrocostoN']}" style=" position: absolute; top: 120px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarTipoCentroCostos" value="#{controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 115px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  id="duplicarTipoCentroCostos" value="#{controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 115px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(2, 'TIPOSCENTROSCOSTOS')}"/>
                         <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarDuplicado('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre , 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(1)}"/>
@@ -649,7 +649,7 @@
                      <p:watermark for="duplicarManodeObra" value="#{msg['manodeobraWM']}"/>
                      <!--4-->
                      <strong><h:outputText value="#{msg['codigoatN']}" style=" position: absolute; top: 180px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarCodigoAT" maxlength="30" value="#{controlBetaCentrosCostos.duplicarCentroCosto.codigoalternativo}" style=" width: 140px; position: absolute; left: 190px; top: 175px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="duplicarCodigoAT" maxlength="30" value="#{controlBetaCentrosCostos.duplicarCentroCosto.codigoalternativo}" style=" width: 140px; position: absolute; left: 190px; top: 175px; text-transform: uppercase;">  
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigoAT" value="#{msg['codigoatWM']}"/>
@@ -664,7 +664,7 @@
                      <p:watermark for="duplicarObsoleto" value="#{msg['obsoletoWM']}"/>
                      <!--6-->
                      <strong><h:outputText value="#{msg['codigocttN']}" style=" position: absolute; top: 240px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarCodigoCTT" maxlength="20" value="#{controlBetaCentrosCostos.duplicarCentroCosto.codigoctt}" style=" width: 140px; position: absolute; left: 190px; top: 235px;text-transform: uppercase;">  
+                     <p:inputText autocomplete="off"  id="duplicarCodigoCTT" maxlength="20" value="#{controlBetaCentrosCostos.duplicarCentroCosto.codigoctt}" style=" width: 140px; position: absolute; left: 190px; top: 235px; text-transform: uppercase;">  
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigoCTT" value="#{msg['codigocttWM']}"/>

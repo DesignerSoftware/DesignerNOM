@@ -103,7 +103,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlAficiones.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosAficion').unselectAllRows();PF('datosAficion').selectRow(#{indice});"/> 
                                     <p:ajax event="change"  listener="#{controlAficiones.modificarAficion(info)}" update="descripcion"/>
@@ -227,13 +227,13 @@
                   <p:panel id="nuevaAficion" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;"/></strong>
-                     <p:inputText id="nuevoCodigo" value="#{controlAficiones.nuevaAficion.codigo}"  style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                     <p:inputText id="nuevoCodigo" value="#{controlAficiones.nuevaAficion.codigo}"  style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoCodigo" value="#{msg['codigoWM']}"/>
 
                      <strong><h:outputText value="*#{msg['nombreN']}"  style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"    id="nuevoNombre" maxlength="30" value="#{controlAficiones.nuevaAficion.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlAficiones.nuevaAficion.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoNombre" value="#{msg['nombreWM']}"/>
@@ -248,13 +248,13 @@
 
                   <p:panel id="duplicarAf" style="border: none;">
                      <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarCodigo" maxlength="4" value="#{controlAficiones.duplicarAficion.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlAficiones.duplicarAficion.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigo" value="#{msg['codigoWM']}"/>
 
                      <strong><h:outputText value="*#{msg['nombreN']}"  style=" position: absolute; top: 90px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="30" value="#{controlAficiones.duplicarAficion.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlAficiones.duplicarAficion.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombre" value="*#{msg['nombreWM']}"/>

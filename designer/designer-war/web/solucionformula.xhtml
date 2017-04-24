@@ -103,8 +103,8 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.solucionnodo.fechahasta}" onselect="posicionTabla([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"
-                                               readonly="true" id="editFechaHasta" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.solucionnodo.fechahasta}" onselect="posicionTabla([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"
+                                               readonly="true" id="editFechaHasta" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     <p:ajax event="select" onstart="PF('datosSolucionFormula').unselectAllRows();PF('datosSolucionFormula').selectRow(#{indice});"/>
                                  </p:inputText>
@@ -116,13 +116,13 @@
                         </p:column>
 
 
-                        <p:column headerText="#{msg['concepto']}"  sortBy="#{info.novedad.concepto.descripcion}" filterBy="#{infonovedad.concepto.descripcion}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['concepto']}" sortBy="#{info.novedad.concepto.descripcion}" filterBy="#{infonovedad.concepto.descripcion}" filterMatchMode="contains"
                                   id="concepto" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.novedad.concepto.descripcion}">
                                  </h:outputText></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.novedad.concepto.descripcion}" onselect="posicionTabla([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.novedad.concepto.descripcion}" onselect="posicionTabla([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editConcepto" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" onstart="PF('datosSolucionFormula').unselectAllRows();PF('datosSolucionFormula').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
@@ -132,14 +132,14 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['valor']}"  sortBy="#{info.solucionnodo.valor}" filterBy="#{info.solucionnodo.valor}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['valor']}" sortBy="#{info.solucionnodo.valor}" filterBy="#{info.solucionnodo.valor}" filterMatchMode="contains"
                                   id="valor" width="90" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.solucionnodo.valor}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                  </h:outputText></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.solucionnodo.valor}" readonly="true" onselect="posicionTabla([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editValor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.solucionnodo.valor}" readonly="true" onselect="posicionTabla([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editValor" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                     <p:ajax event="select" onstart="PF('datosSolucionFormula').unselectAllRows();PF('datosSolucionFormula').selectRow(#{indice});"/>
                                  </p:inputText>
@@ -150,14 +150,14 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['saldo']}"  sortBy="#{info.solucionnodo.saldo}" filterBy="#{info.solucionnodo.saldo}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['saldo']}" sortBy="#{info.solucionnodo.saldo}" filterBy="#{info.solucionnodo.saldo}" filterMatchMode="contains"
                                   id="saldo" width="90" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.solucionnodo.saldo}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                  </h:outputText></f:facet> 
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.solucionnodo.saldo}" id="editSaldo" onselect="posicionTabla([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"  readonly="true" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.solucionnodo.saldo}" id="editSaldo" onselect="posicionTabla([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"  readonly="true" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                     <p:ajax event="select" onstart="PF('datosSolucionFormula').unselectAllRows();PF('datosSolucionFormula').selectRow(#{indice});"/>
                                  </p:inputText>
@@ -169,14 +169,14 @@
                         </p:column>
 
 
-                        <p:column headerText="#{msg['fPago']}"  sortBy="#{info.solucionnodo.fechapago}" filterBy="#{info.solucionnodo.fechapago}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['fPago']}" sortBy="#{info.solucionnodo.fechapago}" filterBy="#{info.solucionnodo.fechapago}" filterMatchMode="contains"
                                   id="fechaPago" width="70" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.solucionnodo.fechapago}">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.solucionnodo.fechapago}" readonly="true" onselect="posicionTabla([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editFechaPago" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.solucionnodo.fechapago}" readonly="true" onselect="posicionTabla([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editFechaPago" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     <p:ajax event="select" onstart="PF('datosSolucionFormula').unselectAllRows();PF('datosSolucionFormula').selectRow(#{indice});"/>
                                  </p:inputText>
@@ -188,12 +188,12 @@
                         </p:column>
 
 
-                        <p:column headerText="#{msg['proceso']}"  sortBy="#{info.solucionnodo.nombreproceso}" filterBy="#{info.solucionnodo.nombreproceso}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['proceso']}" sortBy="#{info.solucionnodo.nombreproceso}" filterBy="#{info.solucionnodo.nombreproceso}" filterMatchMode="contains" 
                                   id="proceso" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.solucionnodo.nombreproceso}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.solucionnodo.nombreproceso}" readonly="true" onselect="posicionTabla([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);" id="editProceso" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.solucionnodo.nombreproceso}" readonly="true" onselect="posicionTabla([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);" id="editProceso" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" onstart="PF('datosSolucionFormula').unselectAllRows();PF('datosSolucionFormula').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
@@ -203,13 +203,13 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['formula']}"  sortBy="#{info.novedad.formula.nombrelargo}" filterBy="#{info.novedad.formula.nombrelargo}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['formula']}" sortBy="#{info.novedad.formula.nombrelargo}" filterBy="#{info.novedad.formula.nombrelargo}" filterMatchMode="contains"
                                   id="formula" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.novedad.formula.nombrelargo}">
                                  </h:outputText></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.novedad.formula.nombrelargo}" readonly="true" onselect="posicionTabla([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);" id="editFormula" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.novedad.formula.nombrelargo}" readonly="true" onselect="posicionTabla([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);" id="editFormula" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" onstart="PF('datosSolucionFormula').unselectAllRows();PF('datosSolucionFormula').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  

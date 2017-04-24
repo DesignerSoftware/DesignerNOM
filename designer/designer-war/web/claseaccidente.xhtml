@@ -81,7 +81,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="5" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 100%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.codigo}" maxlength="5" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 100%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlClasesAccidentes.cambiarIndice(indice, 0)}" process="@this"
                                                         onstart="PF('datosClasesAccidentes').unselectAllRows();PF('datosClasesAccidentes').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlClasesAccidentes.modificandoClaseAccidente(indice, 'N', info.codigo)}"  update="codigo"/>
@@ -94,7 +94,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.nombre}" maxlength="200" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.nombre}" maxlength="200" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlClasesAccidentes.cambiarIndice(indice, 1)}" process="@this" 
                                                         onstart="PF('datosClasesAccidentes').unselectAllRows();PF('datosClasesAccidentes').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlClasesAccidentes.modificandoClaseAccidente(indice, 'N', info.nombre)}" update="descripcion"/>
@@ -220,13 +220,13 @@
                         <p:panel id="nuevaaClasesAccidentes" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoN']}"  style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCodigo" maxlength="5" value="#{controlClasesAccidentes.nuevaClaseAccidente.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoCodigo" maxlength="5" value="#{controlClasesAccidentes.nuevaClaseAccidente.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigoWM']}"/>
 
                             <strong><h:outputText value="*#{msg['nombreN']}"  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"    id="nuevoNombre" maxlength="200" value="#{controlClasesAccidentes.nuevaClaseAccidente.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"   id="nuevoNombre" maxlength="200" value="#{controlClasesAccidentes.nuevaClaseAccidente.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['nombreWM']}"/>
@@ -243,13 +243,13 @@
 
                         <p:panel id="duplicarCA" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCodigo" maxlength="5" value="#{controlClasesAccidentes.duplicarClaseAccidente.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarCodigo" maxlength="5" value="#{controlClasesAccidentes.duplicarClaseAccidente.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigoWM']}"/>
 
                             <strong><h:outputText value="*#{msg['nombreN']}"  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="200" value="#{controlClasesAccidentes.duplicarClaseAccidente.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarNombre" maxlength="200" value="#{controlClasesAccidentes.duplicarClaseAccidente.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['nombreWM']}"/>

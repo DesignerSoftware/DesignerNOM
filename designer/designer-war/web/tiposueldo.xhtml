@@ -94,7 +94,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.codigo}" onclick="select();" id="editarCodigoTipoSueldo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.codigo}" onclick="select();" id="editarCodigoTipoSueldo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.procesoModificacionTipoSueldo(info)}" update="editarCodigoTipoSueldo" process="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndice(info, 0)}"  process="@this"/>
                                  </p:inputText>
@@ -110,7 +110,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="30" onclick="select();" id="editarDescripcionTipoSueldo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="30" onclick="select();" id="editarDescripcionTipoSueldo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.procesoModificacionTipoSueldo(info)}" update="editarDescripcionTipoSueldo" process="@this"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndice(info, 1)}" process="@this"/>
                                  </p:inputText>
@@ -132,7 +132,7 @@
                                  <h:outputText value="#{info.strCapacidad}" style="text-transform: uppercase;"/>   
                               </f:facet> 
                               <f:facet name="input">
-                                 <p:selectOneMenu value="#{info.capacidadendeudamiento}"  style="width:50px; font-weight: bold;text-transform: uppercase;">  
+                                 <p:selectOneMenu value="#{info.capacidadendeudamiento}"  style="width:50px; font-weight: bold; text-transform: uppercase;">  
                                     <f:selectItem itemLabel="#{msg['si']}" itemValue="S"/>  
                                     <f:selectItem itemLabel="#{msg['no']}" itemValue="N"/>  
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTipoSueldo(info)}" process="@this"/>
@@ -155,7 +155,7 @@
                                  <h:outputText value="#{info.strBasico}" style="text-transform: uppercase;"/>   
                               </f:facet>    
                               <f:facet name="input">
-                                 <p:selectOneMenu value="#{info.basico}"  style="width:48px; font-weight: bold;text-transform: uppercase;">  
+                                 <p:selectOneMenu value="#{info.basico}"  style="width:48px; font-weight: bold; text-transform: uppercase;">  
                                     <f:selectItem itemLabel="#{msg['si']}" itemValue="S"/>  
                                     <f:selectItem itemLabel="#{msg['no']}" itemValue="N"/>  
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTipoSueldo(info)}" process="@this"/>
@@ -178,7 +178,7 @@
                                  <h:outputText value="#{info.strAdicional}" style="text-transform: uppercase;"/>   
                               </f:facet>    
                               <f:facet name="input">
-                                 <p:selectOneMenu value="#{info.adicionalbasico}" style="width:48px; font-weight: bold;text-transform: uppercase;">  
+                                 <p:selectOneMenu value="#{info.adicionalbasico}" style="width:48px; font-weight: bold; text-transform: uppercase;">  
                                     <f:selectItem itemLabel="#{msg['si']}" itemValue="S"/>  
                                     <f:selectItem itemLabel="#{msg['no']}" itemValue="N"/>  
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTipoSueldo(info)}" process="@this"/>
@@ -214,7 +214,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoTSF.formula.nombrelargo}" onclick="select();"  id="editarFormulaTSFormula" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoTSF.formula.nombrelargo}" onclick="select();"  id="editarFormulaTSFormula" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTSFormula(infoTSF, 'FORMULA', infoTSF.formula.nombrelargo)}" process="@this" update="editarFormulaTSFormula"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndiceTSFormula(infoTSF,0)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,0)}" process="@this" update="editarFormulaTSFormula"/>
@@ -234,7 +234,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoTSF.concepto.descripcion}" onclick="select();"  id="editarFormulaTSConcepto" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoTSF.concepto.descripcion}" onclick="select();"  id="editarFormulaTSConcepto" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTSFormula(infoTSF, 'CONCEPTO', infoTSF.concepto.descripcion)}" process="@this" update="editarFormulaTSConcepto"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndiceTSFormula(infoTSF,1)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,0)}" process="@this" update="editarFormulaTSConcepto"/>
@@ -254,7 +254,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  readonly="true"  value="#{infoTSF.concepto.empresa.nombre}"  id="editarFormulaTSEmpresa" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"
+                                 <p:inputText autocomplete="off" readonly="true"  value="#{infoTSF.concepto.empresa.nombre}"  id="editarFormulaTSEmpresa" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"
                                                onclick="select();" onselect="posicionTSFormula([{name: 'n', value: '2'}, {name: 't', value: '#{indiceTSF}'}]);">
                                  </p:inputText>
                               </f:facet>   
@@ -309,7 +309,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoTSG.grupotipoentidad.nombre}" onclick="select();"  id="editarGrupoTSGrupo" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoTSG.grupotipoentidad.nombre}" onclick="select();"  id="editarGrupoTSGrupo" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTSGrupo(infoTSG, 'GRUPO', indiceTSG.grupotipoentidad.nombre)}" process="@this" update="editarGrupoTSGrupo"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndiceTSGrupo(infoTSG,0)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSG,0,0)}" process="@this" update="editarGrupoTSGrupo"/>
@@ -346,7 +346,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoTEF.tipoentidad.nombre}" onclick="select();"  id="editarFormulaTETipoEntidad" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoTEF.tipoentidad.nombre}" onclick="select();"  id="editarFormulaTETipoEntidad" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTEFormula(infoTEF, 'TIPOENTIDAD', infoTEF.tipoentidad.nombre)}" process="@this" update="editarFormulaTETipoEntidad"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndiceTEFormula(infoTEF,0)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,0)}" process="@this" update="editarFormulaTETipoEntidad"/>
@@ -366,7 +366,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoTEF.formula.nombrelargo}" onclick="select();"  id="editarFormulaTEFormula" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoTEF.formula.nombrelargo}" onclick="select();"  id="editarFormulaTEFormula" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTEFormula(infoTEF, 'FORMULATE', infoTEF.formula.nombrelargo)}" process="@this" update="editarFormulaTEFormula"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndiceTEFormula(infoTEF,1)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,0)}" process="@this" update="editarFormulaTEFormula"/>
@@ -386,7 +386,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoTEF.concepto.descripcion}" onclick="select();"  id="editarFormulaTEConcepto" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoTEF.concepto.descripcion}" onclick="select();"  id="editarFormulaTEConcepto" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlTipoSueldo.modificarTEFormula(infoTEF, 'CONCEPTOTE', infoTEF.concepto.descripcion)}" process="@this" update="editarFormulaTEConcepto"/>
                                     <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndiceTEFormula(infoTEF,2)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,0)}" process="@this" update="editarFormulaTEConcepto"/>
@@ -406,7 +406,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  readonly="true" onclick="select();" onselect="posicionTEFormula([{name: 'n', value: '3'}, {name: 't', value: '#{indiceTEF}'}]);" value="#{infoTEF.concepto.empresa.nombre}"  id="editarFormulaTEEmpresa" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;"/> 
+                                 <p:inputText autocomplete="off" readonly="true" onclick="select();" onselect="posicionTEFormula([{name: 'n', value: '3'}, {name: 't', value: '#{indiceTEF}'}]);" value="#{infoTEF.concepto.empresa.nombre}"  id="editarFormulaTEEmpresa" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"/> 
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -516,7 +516,7 @@
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulas()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -543,7 +543,7 @@
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulasConceptos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovConcepto').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovConcepto').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{concept.codigo}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
@@ -582,7 +582,7 @@
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovGrupos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarG']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovGrupo').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGrupo').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{grupo.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -615,7 +615,7 @@
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovTipoEntidad()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTE']}"  />  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tipoE.codigo}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
@@ -648,7 +648,7 @@
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulasTE()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{formulaTE.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -675,7 +675,7 @@
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovTEConceptos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovConceptoTE').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovConceptoTE').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{conceptTE.codigo}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
@@ -731,33 +731,33 @@
                   <p:panel id="nuevoTipoSueldo" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNTS']}" style=" position: absolute; top: 75px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTipoSueldoCodigo" onclick="select();" value="#{controlTipoSueldo.nuevoTipoSueldo.codigo}" style="width: 122px; position: absolute; left: 250px; top: 70px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTipoSueldoCodigo" onclick="select();" value="#{controlTipoSueldo.nuevoTipoSueldo.codigo}" style="width: 122px; position: absolute; left: 250px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoTipoSueldoCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="nuevoTipoSueldoCodigo"/>
 
                      <strong><h:outputText value="*#{msg['descripcionNTS']}" style="position: absolute; top: 105px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTipoSueldoDescripcion" maxlength="30" onclick="select();" value="#{controlTipoSueldo.nuevoTipoSueldo.descripcion}" style=" width: 122px; position: absolute; left: 250px; top: 100px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTipoSueldoDescripcion" maxlength="30" onclick="select();" value="#{controlTipoSueldo.nuevoTipoSueldo.descripcion}" style=" width: 122px; position: absolute; left: 250px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoTipoSueldoDescripcion"/>
                      </p:inputText>
                      <p:watermark value="#{msg['descripcion']}" for="nuevoTipoSueldoDescripcion"/>
 
                      <strong><h:outputText value="*#{msg['capacidadNTS']}" style="position: absolute; top: 135px; left: 40px;"/></strong>
-                     <p:selectOneMenu id="nuevoTipoSueldoCapacidad" value="#{controlTipoSueldo.nuevoTipoSueldo.capacidadendeudamiento}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 130px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="nuevoTipoSueldoCapacidad" value="#{controlTipoSueldo.nuevoTipoSueldo.capacidadendeudamiento}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 130px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
                         <p:ajax event="change" update="nuevoTipoSueldoCapacidad"/>
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="*#{msg['basicoNTS']}" style="position: absolute; top: 165px; left: 40px;"/></strong>
-                     <p:selectOneMenu id="nuevoTipoSueldoBasico" value="#{controlTipoSueldo.nuevoTipoSueldo.basico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 160px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="nuevoTipoSueldoBasico" value="#{controlTipoSueldo.nuevoTipoSueldo.basico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 160px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
                         <p:ajax event="change" update="nuevoTipoSueldoBasico"/>
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="*#{msg['adiNTS']}" style="position: absolute; top: 195px; left: 40px;"/></strong>                            
-                     <p:selectOneMenu id="nuevoTipoSueldoADI" value="#{controlTipoSueldo.nuevoTipoSueldo.adicionalbasico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 190px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="nuevoTipoSueldoADI" value="#{controlTipoSueldo.nuevoTipoSueldo.adicionalbasico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 190px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
                         <p:ajax event="change" update="nuevoTipoSueldoADI"/>
@@ -776,33 +776,33 @@
                   <p:panel id="duplicarTipoSueldo" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNTS']}" style="position: absolute; top: 75px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTipoSueldoCodigo" onclick="select();" value="#{controlTipoSueldo.duplicarTipoSueldo.codigo}" style="width: 122px; position: absolute; left: 250px; top: 70px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTipoSueldoCodigo" onclick="select();" value="#{controlTipoSueldo.duplicarTipoSueldo.codigo}" style="width: 122px; position: absolute; left: 250px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarTipoSueldoCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="duplicarTipoSueldoCodigo"/>
 
                      <strong><h:outputText value="*#{msg['descripcionNTS']}" style="position: absolute; top: 105px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTipoSueldoDescripcion" maxlength="30" onclick="select();" value="#{controlTipoSueldo.duplicarTipoSueldo.descripcion}" style="width: 122px; position: absolute; left: 250px; top: 100px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTipoSueldoDescripcion" maxlength="30" onclick="select();" value="#{controlTipoSueldo.duplicarTipoSueldo.descripcion}" style="width: 122px; position: absolute; left: 250px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarTipoSueldoDescripcion"/>
                      </p:inputText>
                      <p:watermark value="#{msg['descripcion']}" for="duplicarTipoSueldoDescripcion"/>
 
                      <strong><h:outputText value="*#{msg['capacidadNTS']}" style="position: absolute; top: 135px; left: 40px;"/></strong>
-                     <p:selectOneMenu id="duplicarTipoSueldoCapacidad" value="#{controlTipoSueldo.duplicarTipoSueldo.capacidadendeudamiento}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 130px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="duplicarTipoSueldoCapacidad" value="#{controlTipoSueldo.duplicarTipoSueldo.capacidadendeudamiento}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 130px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="#{msg['si']}" itemValue="S"/>  
                         <f:selectItem itemLabel="#{msg['no']}" itemValue="N"/>  
                         <p:ajax event="change" update="duplicarTipoSueldoCapacidad"/>
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="*#{msg['basicoNTS']}" style="position: absolute; top: 165px; left: 40px;"/></strong>
-                     <p:selectOneMenu id="duplicarTipoSueldoBasico" value="#{controlTipoSueldo.duplicarTipoSueldo.basico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 160px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="duplicarTipoSueldoBasico" value="#{controlTipoSueldo.duplicarTipoSueldo.basico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 160px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="#{msg['si']}" itemValue="S"/>  
                         <f:selectItem itemLabel="#{msg['no']}" itemValue="N"/>  
                         <p:ajax event="change" update="duplicarTipoSueldoBasico"/>
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="*#{msg['adiNTS']}" style="position: absolute; top: 195px; left: 40px;"/></strong>                            
-                     <p:selectOneMenu id="duplicarTipoSueldoADI" value="#{controlTipoSueldo.duplicarTipoSueldo.adicionalbasico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 190px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="duplicarTipoSueldoADI" value="#{controlTipoSueldo.duplicarTipoSueldo.adicionalbasico}"  style="width: 50px; font-weight: bold;position: absolute; left: 250px; top: 190px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="#{msg['si']}" itemValue="S"/>  
                         <f:selectItem itemLabel="#{msg['no']}" itemValue="N"/>  
                         <p:ajax event="change" update="duplicarTipoSueldoADI"/>
@@ -819,7 +819,7 @@
                   <p:panel id="nuevoTSFormulaConcepto" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNTSF']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTSFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTSFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,1)}" process="@this" update="nuevoTSFormulaFormula"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('FORMULA', controlTipoSueldo.nuevoTSFormulaConcepto.formula.nombrelargo, 1)}"/>
                      </p:inputText>
@@ -827,7 +827,7 @@
                      <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos"  id="btnNuevoTSFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['conceptoNTSF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTSFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTSFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,1)}" process="@this" update="nuevoTSFormulaCConcepto"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('CONCEPTO', controlTipoSueldo.nuevoTSFormulaConcepto.concepto.descripcion, 1)}"/>
                      </p:inputText>
@@ -835,11 +835,11 @@
                      <p:commandButton style="left: 308px; top: 103px;" class="cssBotonLovDialogos" id="btnNuevoTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTSF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="nuevoTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="nuevoTSFormulaEmpresa"/>
 
                      <strong><h:outputText value="*#{msg['origenNTSF']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:selectOneMenu id="nuevoTSFormulaOrigen" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.origen}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 160px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="nuevoTSFormulaOrigen" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.origen}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 160px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="#{msg['sueldo']}" itemValue="SUELDO"/>  
                         <f:selectItem itemLabel="#{msg['reemplazo']}" itemValue="REEMPLAZO"/>  
                         <p:ajax event="change" update="nuevoTSFormulaOrigen"/>
@@ -856,7 +856,7 @@
                   <p:panel id="duplicarTSFormulaConcepto" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNTSF']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTSFormulaFormula" onclick="select();" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTSFormulaFormula" onclick="select();" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,2)}" process="@this" update="duplicarTSFormulaFormula"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('FORMULA', controlTipoSueldo.duplicarTSFormulaConcepto.formula.nombrelargo, 2)}"/>
                      </p:inputText>
@@ -864,7 +864,7 @@
                      <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos" id="btnDuplicarTSFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['conceptoNTSF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTSFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTSFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,2)}" process="@this" update="duplicarTSFormulaConcepto"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('CONCEPTO', controlTipoSueldo.duplicarTSFormulaConcepto.concepto.descripcion, 2)}"/>
                      </p:inputText>
@@ -872,11 +872,11 @@
                      <p:commandButton style="position: absolute; left: 334px; top: 103px;" class="cssBotonLovDialogos" id="btnDuplicarTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTSF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="duplicarTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="duplicarTSFormulaEmpresa"/>
 
                      <strong><h:outputText value="*#{msg['origenNTSF']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:selectOneMenu id="duplicarTSFormulaOrigen" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.origen}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 160px;text-transform: uppercase;">  
+                     <p:selectOneMenu id="duplicarTSFormulaOrigen" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.origen}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 160px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="#{msg['sueldo']}" itemValue="SUELDO"/>  
                         <f:selectItem itemLabel="#{msg['reemplazo']}" itemValue="REEMPLAZO"/>  
                         <p:ajax event="change" update="duplicarTSFormulaOrigen"/>
@@ -894,7 +894,7 @@
                   <p:panel id="nuevoTSGrupoTipoEntidad" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['grupoNTSG']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.nuevoTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.nuevoTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,1)}" process="@this" update="nuevoTSGrupoGrupo"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSGrupo('GRUPO', controlTipoSueldo.nuevoTSGrupoTipoEntidad.grupotipoentidad.nombre, 1)}"/>
                      </p:inputText>
@@ -912,7 +912,7 @@
                   <p:panel id="duplicarTSGrupoTipoEntidad" style="border: none;">
 
                      <strong><h:outputText value="#{msg['grupoNTSG']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.duplicarTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.duplicarTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,2)}" process="@this" update="nuevoTSGrupoGrupo"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSGrupo('GRUPO', controlTipoSueldo.duplicarTSGrupoTipoEntidad.grupotipoentidad.nombre, 2)}"/>
                      </p:inputText>
@@ -931,7 +931,7 @@
                   <p:panel id="nuevoTEFormulaConcepto" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['tipoEntidadNTEF']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTEFormulaTipoEntidad" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.tipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTEFormulaTipoEntidad" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.tipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,1)}" process="@this" update="nuevoTEFormulaTipoEntidad"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('TIPOENTIDAD', controlTipoSueldo.nuevoTEFormulaConcepto.tipoentidad.nombre, 1)}"/>
                      </p:inputText>
@@ -939,7 +939,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 70px; " class="cssBotonLovDialogos" id="btnNuevoTEFormulaTipoEntidad" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['formulaNTEF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTEFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTEFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,1)}" process="@this" update="nuevoTEFormulaFormula"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('FORMULATE', controlTipoSueldo.nuevoTEFormulaConcepto.formula.nombrelargo, 1)}"/>
                      </p:inputText>
@@ -947,7 +947,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 100px;" class="cssBotonLovDialogos" id="btnNuevoTEFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['conceptoNTEF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTEFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoTEFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,1)}" process="@this" update="nuevoTEFormulaCConcepto"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('CONCEPTOTE', controlTipoSueldo.nuevoTEFormulaConcepto.concepto.descripcion, 1)}"/>
                      </p:inputText>
@@ -955,7 +955,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 130px;" class="cssBotonLovDialogos" id="btnNuevoTEFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTEF']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="nuevoTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="nuevoTEFormulaEmpresa"/>
 
 
@@ -970,7 +970,7 @@
                   <p:panel id="duplicarTEFormulaConcepto" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['tipoEntidadNTEF']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTEFormulaTipoEntidad" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.tipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTEFormulaTipoEntidad" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.tipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,2)}" process="@this" update="duplicarTEFormulaTipoEntidad"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('TIPOENTIDAD', controlTipoSueldo.duplicarTEFormulaConcepto.tipoentidad.nombre, 2)}"/>
                      </p:inputText>
@@ -978,7 +978,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnDuplicadoTEFormulaTipoEntidad" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['formulaNTEF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTEFormulaFormula" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTEFormulaFormula" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,2)}" process="@this" update="duplicarTEFormulaFormula"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('FORMULATE', controlTipoSueldo.duplicarTEFormulaConcepto.formula.nombrelargo, 2)}"/>
                      </p:inputText>
@@ -986,7 +986,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 100px;" class="cssBotonLovDialogos" id="btnDuplicadoTEFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['conceptoNTEF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTEFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTEFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,2)}" process="@this" update="duplicarTEFormulaCConcepto"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('CONCEPTOTE', controlTipoSueldo.duplicarTEFormulaConcepto.concepto.descripcion, 2)}"/>
                      </p:inputText>
@@ -994,7 +994,7 @@
                      <p:commandButton style=" position: absolute; left: 331px; top: 130px;" id="btnDuplicadoTEFormulaConcepto" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTEF']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="duplicarTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="duplicarTEFormulaEmpresa"/>
 
 

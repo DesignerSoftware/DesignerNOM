@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-   >
+>
 
    <h:head>
    </h:head>
@@ -99,7 +99,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{vigenciasProyectos.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{vigenciasProyectos.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,0)}"   update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,0)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 0)}" process="@this"
@@ -122,7 +122,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{vigenciasProyectos.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{vigenciasProyectos.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,1)}"  update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,1)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 1)}" process="@this"
@@ -140,7 +140,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{vigenciasProyectos.proyecto.nombreproyecto}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.proyecto.nombreproyecto}" id="editarProyecto" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{vigenciasProyectos.proyecto.nombreproyecto}" id="editarProyecto" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'PROYECTO', vigenciasProyectos.proyecto.nombreproyecto)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 2)}" process="@this"
                                             onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});"/>
@@ -160,7 +160,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{vigenciasProyectos.pryRol.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.pryRol.descripcion}" id="editarPryRol" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{vigenciasProyectos.pryRol.descripcion}" id="editarPryRol" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'PRYROL', vigenciasProyectos.pryRol.descripcion)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 3)}" process="@this"
                                             onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});"/>
@@ -181,7 +181,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{vigenciasProyectos.pryCargoproyecto.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.pryCargoproyecto.nombre}" id="editarCargo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{vigenciasProyectos.pryCargoproyecto.nombre}" id="editarCargo" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'CARGO' , vigenciasProyectos.pryCargoproyecto.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 4)}" process="@this"
                                             onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});"/>
@@ -198,7 +198,7 @@
                            </f:facet>
                         </p:column> 
 
-                        <p:column  sortBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterMatchMode="contains" id="vPCantidadPersonas" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column sortBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterMatchMode="contains" id="vPCantidadPersonas" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerpc" value="#{msg['pc']}"/>    
                               <p:tooltip  for="headerpc" value="Personas a Cargo"/>
@@ -207,7 +207,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{vigenciasProyectos.cantidadpersonaacargo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.cantidadpersonaacargo}" id="editarCantidadPersonas" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{vigenciasProyectos.cantidadpersonaacargo}" id="editarCantidadPersonas" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 5)}" process="@this"
                                             onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'N', vigenciasProyectos.cantidadpersonaacargo)}"/>
@@ -335,7 +335,7 @@
                      <p:ajax event="filter" listener="#{controlVigenciasProyectos.contarRegistroProyecto()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVProyectos').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVProyectos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{proyectos.nombreproyecto}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -368,7 +368,7 @@
                      <p:ajax event="filter" listener="#{controlVigenciasProyectos.contarRegistroRol()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarR']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPryRoles').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPryRoles').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{pryroles.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -401,7 +401,7 @@
                      <p:ajax event="filter" listener="#{controlVigenciasProyectos.contarRegistroCargo()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{cargos.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -455,7 +455,7 @@
                   <p:panel id="nuevaVigenciaProyecto" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style=" position: absolute; top:70px; left: 18px;"/></strong>
                      <div style=" position: absolute; top: 65px; left: 160px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -463,14 +463,14 @@
 
                      <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 110px;"/></strong>
                      <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 105px; left: 160px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechafinal}">
                            <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['proyectoN']}" style=" position: absolute; top: 150px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoProyecto" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoProyecto" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'PROYECTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 1)}"/>
@@ -479,7 +479,7 @@
 
 
                      <strong><h:outputText value="*#{msg['rolN']}" style=" position: absolute; top: 190px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoPryRol" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoPryRol" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'PRYROL')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PRYROL', controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 1)}"/>
@@ -488,7 +488,7 @@
 
 
                      <strong><h:outputText value="*#{msg['cargoN']}" style=" position: absolute; top: 230px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCargo" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevoCargo" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'CARGO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('CARGO', controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 1)}"/>
@@ -496,7 +496,7 @@
                      <p:commandButton class="cssBotonLovDialogos" style=" position: absolute; left: 292px; top: 227px; " id="btnNuevoCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 1)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['personasN']}" style=" position: absolute; top: 270px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaCantidadPersonas" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevaCantidadPersonas" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -517,7 +517,7 @@
 
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style=" position: absolute; top:70px; left: 18px;"/></strong>
                      <div style=" position: absolute; top: 65px; left: 160px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechainicial}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -525,14 +525,14 @@
 
                      <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 110px;"/></strong>
                      <div id="posicionFormulaFechaIniDuplicarReg" style=" position: absolute; top: 105px; left: 160px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechafinal}">
                            <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['proyectoN']}" style=" position: absolute; top: 150px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarProyecto" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarProyecto" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'PROYECTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 2)}"/>
@@ -541,7 +541,7 @@
 
 
                      <strong><h:outputText value="*#{msg['rolN']}" style=" position: absolute; top: 190px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarPryRol" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarPryRol" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'PRYROL')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PRYROL', controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 2)}"/>
@@ -550,7 +550,7 @@
 
 
                      <strong><h:outputText value="*#{msg['cargoN']}" style=" position: absolute; top: 230px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarCargo" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'CARGO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('CARGO', controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 2)}"/>
@@ -558,7 +558,7 @@
                      <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 292px; top: 227px; " id="btnDuplicarCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 2)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['personasN']}" style=" position: absolute; top: 270px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCantidadPersonas" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarCantidadPersonas" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 

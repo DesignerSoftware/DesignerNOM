@@ -92,7 +92,7 @@
 
                         <p:ajax event="filter" listener="#{controlDeclarantes.eventoFiltrar()}"/>
 
-                        <p:column headerText="#{msg['fechainicial']}"  sortBy="#{dec.fechainicial}" filterBy="#{dec.fechainicial}" filterMatchMode="contains"  width="72" id="declarantesFechaInicial" filterStyle="display: none; visibility: hidden;">  
+                        <p:column headerText="#{msg['fechainicial']}" sortBy="#{dec.fechainicial}" filterBy="#{dec.fechainicial}" filterMatchMode="contains"  width="72" id="declarantesFechaInicial" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{dec.fechainicial}">
@@ -100,7 +100,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{dec.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{dec.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(dec,0)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(dec,0)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec,0)}" process="@this"/> 
@@ -114,7 +114,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['fechafinal']}"  sortBy="#{dec.fechafinal}" filterBy="#{dec.fechafinal}" filterMatchMode="contains"  width="72" id="declarantesFechaFinal" filterStyle="display: none; visibility: hidden;">  
+                        <p:column headerText="#{msg['fechafinal']}" sortBy="#{dec.fechafinal}" filterBy="#{dec.fechafinal}" filterMatchMode="contains"  width="72" id="declarantesFechaFinal" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{dec.fechafinal}">
@@ -122,7 +122,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{dec.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{dec.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlDeclarantes.modificarFechas(dec,1)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="change" listener="#{controlDeclarantes.modificarFechas(dec,1)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec,1)}" process="@this"/> 
@@ -147,11 +147,11 @@
 
                         </p:column>
 
-                        <p:column headerText="#{msg['deseado']}"   sortBy="#{dec.retenciondeseada}" filterBy="#{dec.retenciondeseada}" filterMatchMode="contains" id="declarantesPromedio" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column headerText="#{msg['deseado']}"  sortBy="#{dec.retenciondeseada}" filterBy="#{dec.retenciondeseada}" filterMatchMode="contains" id="declarantesPromedio" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{dec.retenciondeseada}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{dec.retenciondeseada}" id="editarRetencionDeseada" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{dec.retenciondeseada}" id="editarRetencionDeseada" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec, 2)}"/>
                                     <p:ajax event="change" listener="#{controlDeclarantes.modificarDeclarantes(dec, 'N', dec.retenciondeseada)}" update="@this"/>
                                  </p:inputText> 
@@ -167,7 +167,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{dec.retencionminima.retencion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{dec.retencionminima.retencion}" id="editarTarifaDeseo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{dec.retencionminima.retencion}" id="editarTarifaDeseo" style="border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlDeclarantes.cambiarIndice(dec, 3)}"/>
                                     <p:ajax event="change" update="editarTarifaDeseo" listener="#{controlDeclarantes.modificarDeclarantes(dec,'MINIMA',dec.retencionminima.retencion)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec,0,0)}" process="@this"/>
@@ -233,13 +233,13 @@
                   <p:panel id="nuevoDeclarante" style="border: none;">
 
                      <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 50px; left: 19px"/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" style="; position: absolute; top: 50px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}">
+                     <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" style="; position: absolute; top: 50px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechainicial}">
                         <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                         <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 80px; left: 19px;"/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" style=" position: absolute; top: 80px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}">
+                     <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" style=" position: absolute; top: 80px; left: 152px" value="#{controlDeclarantes.nuevoDeclarante.fechafinal}">
                         <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                         <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                      </p:calendar>
@@ -250,12 +250,12 @@
                      </p:selectBooleanCheckbox>
 
                      <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 140px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoDeseado" value="#{controlDeclarantes.nuevoDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoDeseado" value="#{controlDeclarantes.nuevoDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoDeseado"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 175px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTarifaDeseo" value="#{controlDeclarantes.nuevoDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoTarifaDeseo" value="#{controlDeclarantes.nuevoDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
                         <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.nuevoDeclarante.retencionminima.retencion, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec, 0, 1)}"/>
                      </p:inputText>
@@ -277,13 +277,13 @@
 
 
                      <strong><h:outputText value="#{msg['fechainicioN']}"  style=" position: absolute; top: 50px; left: 19px"/></strong>
-                     <p:calendar  autocomplete="off" style=" position: absolute; top: 50px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}">
+                     <p:calendar autocomplete="off" style=" position: absolute; top: 50px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlDeclarantes.duplicarDeclarante.fechainicial}">
                         <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                         <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="#{msg['fechafinalN']}"  style=" position: absolute; top: 80px; left: 19px"/></strong>
-                     <p:calendar  autocomplete="off" style=" position: absolute; top: 80px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}">
+                     <p:calendar autocomplete="off" style=" position: absolute; top: 80px; left: 152px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlDeclarantes.duplicarDeclarante.fechafinal}">
                         <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                         <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                      </p:calendar>
@@ -294,12 +294,12 @@
                      </p:selectBooleanCheckbox>
 
                      <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 140px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarDeseado" value="#{controlDeclarantes.duplicarDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarDeseado" value="#{controlDeclarantes.duplicarDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 140px; left: 152px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarDeseado"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 175px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTarifaDeseo" value="#{controlDeclarantes.duplicarDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarTarifaDeseo" value="#{controlDeclarantes.duplicarDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
                         <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.duplicarDeclarante.retencionminima.retencion, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(dec, 0, 2)}"/>
                      </p:inputText>
@@ -396,7 +396,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlDeclarantes.actualizarRetenciones()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarR']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVMinimas').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVMinimas').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column sortBy="#{m.retencion}" filterBy="#{m.retencion}" width="70" filterStyle="width: 80% !important" filterMatchMode="contains"> 

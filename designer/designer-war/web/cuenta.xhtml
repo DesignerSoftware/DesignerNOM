@@ -132,8 +132,8 @@
                                  <h:outputText value="#{infoC.codigo}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoC.codigo}" maxlength="20"  id="editarCuentaCodigo" 
-                                               style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.codigo}" maxlength="20"  id="editarCuentaCodigo" 
+                                               style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 1)}" process="@this"
                                             onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
@@ -157,7 +157,7 @@
                                  <h:outputText value="#{infoC.descripcion}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoC.descripcion}" maxlength="100" id="editarCuentaDescripcion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.descripcion}" maxlength="100" id="editarCuentaDescripcion" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 2)}" process="@this"
                                             onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
@@ -170,7 +170,7 @@
                         </p:column>
 
                         <p:column headerText="#{msg['naturaleza']}" id="cuentaNaturaleza" filterStyle="display: none; visibility: hidden;" 
-                                  sortBy="#{infoC.naturaleza}" filterBy="#{infoC.naturaleza}" filterMatchMode="contains" style="padding-left: 0px; padding-right: 0px; width: 90px;">
+                                 sortBy="#{infoC.naturaleza}" filterBy="#{infoC.naturaleza}" filterMatchMode="contains" style="padding-left: 0px; padding-right: 0px; width: 90px;">
                            <f:facet name="header">
                               <h:outputText id="headNaturaleza" value="#{msg['naturaleza']}"/>
                               <p:tooltip  for="headNaturaleza" value="#{msg['naturalezaTtip']}"/> 
@@ -181,7 +181,7 @@
                                  <!--<h:outputText value="#{(infoC.naturaleza == null)||(infoC.naturaleza == '') ? ' ': infoC.naturaleza}"/>-->
                               </f:facet> 
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold;text-transform: uppercase;"
+                                 <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold; text-transform: uppercase;"
                                                   onblur="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"
                                                   onfocus="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});">  
                                     <f:selectItem itemLabel=" " itemValue="NULL"/> 
@@ -237,7 +237,7 @@
                                  <h:outputText value="#{infoC.contracuentatesoreria.codigo}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoC.contracuentatesoreria.codigo}"  id="editarCuentaContracuenta" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.contracuentatesoreria.codigo}"  id="editarCuentaContracuenta" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 5)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'CONTRACUENTA', infoC.contracuentatesoreria.codigo)}" process="@this" update="editarCuentaContracuenta"/>
                                     <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,0)}" process="@this" update="editarCuentaContracuenta"/>
@@ -261,7 +261,7 @@
                                  <h:outputText value="#{infoC.rubropresupuestal.descripcion}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoC.rubropresupuestal.descripcion}"  id="editarCuentaRubro" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.rubropresupuestal.descripcion}"  id="editarCuentaRubro" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 6)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'RUBRO', infoC.rubropresupuestal.descripcion)}" process="@this" update="editarCuentaRubro"/>
                                     <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,1,0)}" process="@this" update="editarCuentaRubro"/>
@@ -273,7 +273,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  sortBy="#{infoC.manejanit}" filterBy="#{infoC.manejanit}" filterMatchMode="contains" 
+                        <p:column sortBy="#{infoC.manejanit}" filterBy="#{infoC.manejanit}" filterMatchMode="contains" 
                                    id="cuentaManejaNit" filterStyle="display: none; visibility: hidden" 
                                    style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">                                  
                            <f:facet name="header">
@@ -329,7 +329,7 @@
                                  <h:outputText value="#{infoC.manejacentrocosto == 'S' ? 'SI' : 'NO'}"/>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarCuentaCC" value="#{infoC.manejacentrocosto}" style="width: 99%; font-weight: bold;text-transform: uppercase;">  
+                                 <p:selectOneMenu id="editarCuentaCC" value="#{infoC.manejacentrocosto}" style="width: 99%; font-weight: bold; text-transform: uppercase;">  
                                     <f:selectItem itemLabel="" itemValue="null"/> 
                                     <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                                     <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -341,7 +341,7 @@
                               <h:outputText value=""/>
                            </f:facet>
                         </p:column>
-                        <p:column id="cuentaICC"  sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}"
+                        <p:column id="cuentaICC" sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}"
                                   filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" 
                                   style="padding-left: 0px; padding-right: 0px; width: 50px; text-align: center;">                                  
                            <f:facet name="header">
@@ -353,7 +353,7 @@
                                  <h:outputText value="#{infoC.manejacentrocosto == 'S' ? 'SI':'NO'}"/>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarCuentaICC" value="#{infoC.incluyecentrocostocodigocuenta}" style="width: 99%; font-weight: bold;text-transform: uppercase;">  
+                                 <p:selectOneMenu id="editarCuentaICC" value="#{infoC.incluyecentrocostocodigocuenta}" style="width: 99%; font-weight: bold; text-transform: uppercase;">  
                                     <f:selectItem itemLabel="" itemValue="null"/> 
                                     <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                                     <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -378,7 +378,7 @@
                                  <h:outputText value="#{infoC.codigoalternativo}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoC.codigoalternativo}" maxlength="30" id="editarCuentaCodigoA" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.codigoalternativo}" maxlength="30" id="editarCuentaCodigoA" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 12)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                  </p:inputText>
@@ -476,7 +476,7 @@
                      <p:ajax event="filter" listener="#{controlCuenta.contarRegistroContraCuenta()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCT']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovContracuenta').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovContracuenta').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{cuenta.codigo}" width="60" filterStyle="width: 80% !important;" filterMatchMode="contains">
                         <f:facet name="header">
@@ -516,7 +516,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarRP']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovRubros').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovRubros').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{rubro.codigo}" width="60" filterStyle="width: 80% !important;" filterMatchMode="contains">
                         <f:facet name="header">
@@ -550,7 +550,7 @@
                      <p:ajax event="filter" listener="#{controlCuenta.contarRegistroLov()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCuentas').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCuentas').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{buscarC.codigo}" width="60" filterStyle="width: 80% !important;"  filterMatchMode="contains">
                         <f:facet name="header">
@@ -655,19 +655,19 @@
                   <p:panel id="nuevaC" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 70px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaCodigoC" maxlength="20" value="#{controlCuenta.nuevoCuentas.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevaCodigoC" maxlength="20" value="#{controlCuenta.nuevoCuentas.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevaCodigoC"/>
                      </p:inputText>
                      <p:watermark for="nuevaCodigoC" value="#{msg['codigo']}"/>
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 100px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaDescripcionC" maxlength="100" value="#{controlCuenta.nuevoCuentas.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevaDescripcionC" maxlength="100" value="#{controlCuenta.nuevoCuentas.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevaDescripcionC"/>
                      </p:inputText>
                      <p:watermark for="nuevaDescripcionC" value="#{msg['descripcion']}"/>
 
                      <strong><h:outputText value="#{msg['naturalezaN']}" style="position: absolute; top: 130px; left: 50px;"/></strong>
-                     <p:selectOneMenu id="nuevaNaturalezaC" value="#{controlCuenta.nuevoCuentas.naturaleza}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
+                     <p:selectOneMenu id="nuevaNaturalezaC" value="#{controlCuenta.nuevoCuentas.naturaleza}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['debito']}" itemValue="DEBITO"/>  
                         <f:selectItem itemLabel="#{msg['credito']}" itemValue="CREDITO"/> 
@@ -675,7 +675,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['ctatesoreriaN']}" style="position: absolute; top: 160px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaCtaTesoreriaC" value="#{controlCuenta.nuevoCuentas.contracuentatesoreria.codigo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevaCtaTesoreriaC" value="#{controlCuenta.nuevoCuentas.contracuentatesoreria.codigo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,1)}"/>
                         <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'CONTRACUENTA')}"/>
                         <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('CONTRACUENTA', controlCuenta.nuevoCuentas.contracuentatesoreria.codigo, 1)}"/>
@@ -685,7 +685,7 @@
                      <p:watermark for="nuevaCtaTesoreriaC" value="#{msg['contracuentatesoreria']}"/>
 
                      <strong><h:outputText value="#{msg['tipoN']}" style="position: absolute; top: 190px; left: 50px;"/></strong>
-                     <p:selectOneMenu id="nuevaTipoC" value="#{controlCuenta.nuevoCuentas.tipo}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
+                     <p:selectOneMenu id="nuevaTipoC" value="#{controlCuenta.nuevoCuentas.tipo}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['ctaxpagar']}" itemValue="CXP"/>  
                         <f:selectItem itemLabel="#{msg['ctaxcobrar']}" itemValue="CXC"/>  
@@ -695,7 +695,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['rubroN']}" style="position: absolute; top: 220px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaRubroC"  value="#{controlCuenta.nuevoCuentas.rubropresupuestal.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevaRubroC"  value="#{controlCuenta.nuevoCuentas.rubropresupuestal.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,1)}"/>
                         <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'RUBRO')}"/>
                         <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('RUBRO', controlCuenta.nuevoCuentas.rubropresupuestal.descripcion, 1)}"/>
@@ -721,7 +721,7 @@
 
 
                      <strong><h:outputText value="#{msg['centrocostoN']}:" style="position: absolute; top: 100px; left: 400px;"/></strong>
-                     <p:selectOneMenu id="nuevaCCC" value="#{controlCuenta.nuevoCuentas.manejacentrocosto}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
+                     <p:selectOneMenu id="nuevaCCC" value="#{controlCuenta.nuevoCuentas.manejacentrocosto}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                         <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -730,7 +730,7 @@
 
 
                      <strong><h:outputText value="#{msg['incorporacentrocostoN']}" style="position: absolute; top: 130px; left: 400px;"/></strong>
-                     <p:selectOneMenu id="nuevaICCC" value="#{controlCuenta.nuevoCuentas.incluyecentrocostocodigocuenta}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
+                     <p:selectOneMenu id="nuevaICCC" value="#{controlCuenta.nuevoCuentas.incluyecentrocostocodigocuenta}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                         <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -739,7 +739,7 @@
 
 
                      <strong><h:outputText value="#{msg['codigoalternativoN']}" style="position: absolute; top: 160px; left: 400px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaCodigoAC" maxlength="30" value="#{controlCuenta.nuevoCuentas.codigoalternativo}" style="width: 122px; position: absolute; left: 570px; top: 160px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="nuevaCodigoAC" maxlength="30" value="#{controlCuenta.nuevoCuentas.codigoalternativo}" style="width: 122px; position: absolute; left: 570px; top: 160px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevaCodigoAC"/>
                      </p:inputText>
                      <p:watermark for="nuevaCodigoAC" value="#{msg['codigoalternativo']}"/>
@@ -777,19 +777,19 @@
                   <p:panel id="duplicaC" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 70px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicaCodigoC" maxlength="20" value="#{controlCuenta.duplicarCuentas.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicaCodigoC" maxlength="20" value="#{controlCuenta.duplicarCuentas.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicaCodigoC"/>
                      </p:inputText>
                      <p:watermark for="duplicaCodigoC" value="#{msg['codigo']}"/>
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 100px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicaDescripcionC" maxlength="100" value="#{controlCuenta.duplicarCuentas.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicaDescripcionC" maxlength="100" value="#{controlCuenta.duplicarCuentas.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicaDescripcionC"/>
                      </p:inputText>
                      <p:watermark for="duplicaDescripcionC" value="#{msg['descripcion']}"/>
 
                      <strong><h:outputText value="#{msg['naturalezaN']}" style="position: absolute; top: 130px; left: 50px;"/></strong>
-                     <p:selectOneMenu id="duplicaNaturalezaC" value="#{controlCuenta.duplicarCuentas.naturaleza}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
+                     <p:selectOneMenu id="duplicaNaturalezaC" value="#{controlCuenta.duplicarCuentas.naturaleza}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['debito']}" itemValue="DEBITO"/>  
                         <f:selectItem itemLabel="#{msg['credito']}" itemValue="CREDITO"/> 
@@ -797,7 +797,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['ctatesoreriaN']}" style="position: absolute; top: 160px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicaCtaTesoreriaC" value="#{controlCuenta.duplicarCuentas.contracuentatesoreria.codigo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicaCtaTesoreriaC" value="#{controlCuenta.duplicarCuentas.contracuentatesoreria.codigo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,2)}"/>
                         <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'CONTRACUENTA')}"/>
                         <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('CONTRACUENTA', controlCuenta.duplicarCuentas.contracuentatesoreria.codigo, 1)}"/>
@@ -807,7 +807,7 @@
                      <p:watermark for="duplicaCtaTesoreriaC" value="#{msg['contracuentatesoreria']}"/>
 
                      <strong><h:outputText value="#{msg['tipoN']}" style="position: absolute; top: 190px; left: 50px;"/></strong>
-                     <p:selectOneMenu id="duplicaTipoC" value="#{controlCuenta.duplicarCuentas.tipo}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
+                     <p:selectOneMenu id="duplicaTipoC" value="#{controlCuenta.duplicarCuentas.tipo}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['ctaxpagar']}" itemValue="CXP"/>  
                         <f:selectItem itemLabel="#{msg['ctaxcobrar']}" itemValue="CXC"/>  
@@ -817,7 +817,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['rubroN']}" style="position: absolute; top: 220px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicaRubroC" value="#{controlCuenta.duplicarCuentas.rubropresupuestal.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicaRubroC" value="#{controlCuenta.duplicarCuentas.rubropresupuestal.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,1,2)}"/>
                         <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'RUBRO')}"/>
                         <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('RUBRO', controlCuenta.duplicarCuentas.rubropresupuestal.descripcion, 1)}"/>
@@ -842,7 +842,7 @@
                      </p:selectBooleanCheckbox> 
 
                      <strong><h:outputText value="#{msg['centrocostoN']}:" style="position: absolute; top: 100px; left: 400px;"/></strong>
-                     <p:selectOneMenu id="duplicaCCC" value="#{controlCuenta.duplicarCuentas.manejacentrocosto}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
+                     <p:selectOneMenu id="duplicaCCC" value="#{controlCuenta.duplicarCuentas.manejacentrocosto}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                         <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -850,7 +850,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['incorporacentrocostoN']}" style="position: absolute; top: 130px; left: 400px;"/></strong>
-                     <p:selectOneMenu id="duplicaICCC" value="#{controlCuenta.duplicarCuentas.incluyecentrocostocodigocuenta}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
+                     <p:selectOneMenu id="duplicaICCC" value="#{controlCuenta.duplicarCuentas.incluyecentrocostocodigocuenta}" style="width: 105px; font-weight: bold; text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
                         <f:selectItem itemLabel="" itemValue="null"/> 
                         <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                         <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -858,7 +858,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['codigoalternativoN']}" style="position: absolute; top: 160px; left: 400px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicaCodigoAC" maxlength="30" value="#{controlCuenta.duplicarCuentas.codigoalternativo}" style="width: 122px; position: absolute; left: 570px; top: 160px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicaCodigoAC" maxlength="30" value="#{controlCuenta.duplicarCuentas.codigoalternativo}" style="width: 122px; position: absolute; left: 570px; top: 160px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicaCodigoAC"/>
                      </p:inputText>
                      <p:watermark for="duplicaCodigoAC" value="#{msg['codigoalternativo']}"/>
@@ -899,7 +899,7 @@
                      <p:ajax event="filter" listener="#{controlCuenta.contarRegistroLov()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEM']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{empresa.nit}" filterMatchMode="contains" width="60" filterStyle="width: 80% !important;">
                         <f:facet name="header">

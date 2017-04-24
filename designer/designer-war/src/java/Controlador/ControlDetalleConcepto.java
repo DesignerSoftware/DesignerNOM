@@ -444,7 +444,7 @@ public class ControlDetalleConcepto implements Serializable {
       } else if (pag.equals("formula")) {
          Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          mapParaEnviar.put("paginaAnterior", pagActual);
-         mapParaEnviar.put("secFormula", actualFormulaConcepto.getFormula());
+         mapParaEnviar.put("secFormula", vigFormulaConceptoSeleccionada.getFormula());
          mapParaEnviar.put("cargarFormula", (String) "SI");
          ControlFormula controlFormula = (ControlFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlFormula}", ControlFormula.class);
          controlFormula.recibirParametros(mapParaEnviar);
@@ -459,7 +459,16 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovCentrosCostos = null;
+      lovCuentas = null;
+      lovFormulas = null;
+      lovFormulasConceptos = null;
+      lovGruposConceptos = null;
+      lovProcesos = null;
+      lovReformasLaborales = null;
+      lovTiposCentrosCostos = null;
+      lovTiposContratos = null;
+      lovTiposTrabajadores = null;
    }
 
    @PostConstruct

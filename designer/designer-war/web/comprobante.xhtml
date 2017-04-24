@@ -88,9 +88,9 @@
                            <h:outputText value="#{msg['codigo']}" style="color: #14388B; font-weight: bold; position: relative; top: -8px; left: 0px; display: inline-block"/>
                            <h:outputText value="#{msg['nombrecompleto']}" style="color: #14388B; font-weight: bold; position: relative; left: 35px; top: -8px; display: inline-block"/>
                            <h:outputText value="#{msg['correo']}" style="color: #14388B; font-weight: bold; position: relative; left: 290px; top: -8px; display: inline-block"/>
-                           <p:inputText  autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.codigoempleado}" readonly="true" style="position: relative; top: -6px; height: 12px; width: 70px; left: -10px; display: block;"/>
-                           <p:inputText  autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.persona.nombreCompleto}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 75px; width: 350px; display: inline-block;"/>
-                           <p:inputText  autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.persona.email}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 80px; width: 240px; display: inline-block;"/>
+                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.codigoempleado}" readonly="true" style="position: relative; top: -6px; height: 12px; width: 70px; left: -10px; display: block;"/>
+                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.persona.nombreCompleto}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 75px; width: 350px; display: inline-block;"/>
+                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.persona.email}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 80px; width: 240px; display: inline-block;"/>
                         </div>
 
                         <div>
@@ -152,7 +152,7 @@
                            <h:outputText value="#{solucionNodoEmpleado.nombreconcepto}"/>
                         </p:column>
 
-                        <p:column id="unidadSNE"  sortBy="#{solucionNodoEmpleado.unidades}" width="25" filterBy="#{solucionNodoEmpleado.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                        <p:column id="unidadSNE" sortBy="#{solucionNodoEmpleado.unidades}" width="25" filterBy="#{solucionNodoEmpleado.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                            <f:facet name="header">
                               <h:outputText id="tunidadSNE" value="#{msg['u']}"/>
                               <p:tooltip for="tunidadSNE" value="#{msg['uconcepto']}"/>
@@ -360,7 +360,7 @@
                            <h:outputText value="#{solucionNodoEmpleador.nombretercero}"/>
                         </p:column>
 
-                        <p:column id="fechaHastaSNER"  sortBy="#{solucionNodoEmpleador.fechahasta}" width="70"
+                        <p:column id="fechaHastaSNER" sortBy="#{solucionNodoEmpleador.fechahasta}" width="70"
                                   filterBy="#{solucionNodoEmpleador.fechahasta}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                            <f:facet name="header">
                               <h:outputText id="tfechaHastaSNER" value="#{msg['hasta']}"/>
@@ -540,15 +540,15 @@
                                    rowKey="#{detalleFormula.id}">
 
                         <p:column  headerText="#{msg['valor']}" width="80" style="padding: 0px">  
-                           <p:inputText  autocomplete="off"   value="#{detalleFormula.valor}" style="border-radius: 0px; width: 87%"/>  
+                           <p:inputText autocomplete="off"  value="#{detalleFormula.valor}" style="border-radius: 0px; width: 87%"/>  
                         </p:column>  
 
                         <p:column headerText="#{msg['formula']}" style="padding: 0px">  
-                           <p:inputText  autocomplete="off"   value="#{detalleFormula.nombreNodo}" style="border-radius: 0px; width: 94.5%"/>  
+                           <p:inputText autocomplete="off"  value="#{detalleFormula.nombreNodo}" style="border-radius: 0px; width: 94.5%"/>  
                         </p:column>  
 
                         <p:column headerText="#{msg['descripcion']}" style="padding: 0px">  
-                           <p:inputText  autocomplete="off"   value="#{detalleFormula.descripcion}" style="border-radius: 0px; width: 94.5%"/>  
+                           <p:inputText autocomplete="off"  value="#{detalleFormula.descripcion}" style="border-radius: 0px; width: 94.5%"/>  
                         </p:column> 
                      </p:dataTable>
                   </fieldset>

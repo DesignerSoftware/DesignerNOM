@@ -131,7 +131,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{g.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{g.descripcion}" id="editarDescripcion" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{g.descripcion}" id="editarDescripcion" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndice(g, 1)}"
                                             onstart="PF('datosGruposConceptos').unselectAllRows(); PF('datosGruposConceptos').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarGruposConceptos(g, 'N', g.descripcion)}"/>
@@ -184,7 +184,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{v.concepto.codigoSTR}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{v.concepto.codigoSTR}" id="editarCodigoVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{v.concepto.codigoSTR}" id="editarCodigoVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(v, 'CONCEPTO', v.concepto.codigoSTR)}"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(v, 0)}"
                                             onstart="PF('datosVigenciasGruposConceptos').unselectAllRows(); PF('datosVigenciasGruposConceptos').selectRow(#{indiceD});"/>
@@ -204,7 +204,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{v.concepto.descripcion}" style="text-transform: uppercase "/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{v.concepto.descripcion}" id="editarDescripcionVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{v.concepto.descripcion}" id="editarDescripcionVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(v, 1)}"
                                             onstart="PF('datosVigenciasGruposConceptos').unselectAllRows(); PF('datosVigenciasGruposConceptos').selectRow(#{indiceD});"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(v, 'N', v.concepto.descripcion)}"/>
@@ -225,7 +225,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{v.concepto.naturalezaConcepto}" style="text-transform: uppercase "/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{v.concepto.naturalezaConcepto}" id="editarNaturalezaVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{v.concepto.naturalezaConcepto}" id="editarNaturalezaVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(v, 2)}"
                                             onstart="PF('datosVigenciasGruposConceptos').unselectAllRows(); PF('datosVigenciasGruposConceptos').selectRow(#{indiceD});"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(v, 'N', v.concepto.naturalezaConcepto)}"/>
@@ -286,7 +286,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{v.concepto.empresa.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{v.concepto.empresa.nombre}" id="editarEmpresaVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{v.concepto.empresa.nombre}" id="editarEmpresaVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(v, 'EMPRESA', v.concepto.empresa.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(v,5)}"
                                             onstart="PF('datosVigenciasGruposConceptos').unselectAllRows(); PF('datosVigenciasGruposConceptos').selectRow(#{indiceD});"/>

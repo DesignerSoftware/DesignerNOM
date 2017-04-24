@@ -29,7 +29,7 @@
                                 <legend style=" color: blue;text-align: left; font-size: 14px; font-family: inherit;"><strong>#{msg['envio']}</strong></legend>
 
                                 <strong><h:outputText value="#{msg['de']}" style="position: absolute; left: 10px; top: 25px; font-size: 14px; font-family: inherit;"/></strong>
-                                <p:inputText  autocomplete="off" value="#{controlEnvioCorreos.remitente}" disabled="#{controlEnvioCorreos.activarRemitente()}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-family: inherit; font-size: 13px;">
+                                <p:inputText autocomplete="off" value="#{controlEnvioCorreos.remitente}" disabled="#{controlEnvioCorreos.activarRemitente()}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-family: inherit; font-size: 13px;">
                                 </p:inputText>
 
                                 <strong><h:outputText id="para" value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px; font-family: inherit; font-size: 14px;"/></strong>
@@ -39,17 +39,17 @@
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;font-size: 14px; font-family: inherit;"/></strong>
-                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 90px; width: 300px; font-family: inherit; font-size: 13px;"
+                                <p:inputText autocomplete="off" style="position: absolute; left: 80px; top: 90px; width: 300px; font-family: inherit; font-size: 13px;"
                                               value="#{controlEnvioCorreos.cc}">
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cco']}" style="position: absolute; left: 10px; top: 130px;font-size: 14px; font-family: inherit;"/></strong>
-                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 125px; width: 300px; font-family: inherit; font-size: 13px;" 
+                                <p:inputText autocomplete="off" style="position: absolute; left: 80px; top: 125px; width: 300px; font-family: inherit; font-size: 13px;" 
                                               value="#{controlEnvioCorreos.cco}">
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 165px;font-size: 14px"/></strong>
-                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 160px; width: 300px; font-size: 13px; font-family: inherit;"
+                                <p:inputText autocomplete="off" style="position: absolute; left: 80px; top: 160px; width: 300px; font-size: 13px; font-family: inherit;"
                                               value="#{controlEnvioCorreos.asunto}"/>
                             </fieldset>
 

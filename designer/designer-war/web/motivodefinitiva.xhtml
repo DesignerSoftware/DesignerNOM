@@ -26,7 +26,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlMotivosDefinitivas.cambiarIndice(indice, 0)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlMotivosDefinitivas.modificandoMotivoDefinitivas(indice, 'N', info.codigo)}"  update="codigo"/>
                                  </p:inputText>
@@ -41,7 +41,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlMotivosDefinitivas.cambiarIndice(indice, 1)}" process="@this"/> 
                                     <p:ajax event="change"  listener="#{controlMotivosDefinitivas.modificandoMotivoDefinitivas(indice, 'N', info.nombre)}" update="descripcion"/>
                                  </p:inputText>
@@ -244,13 +244,13 @@
 
 
 
-               <p:dialog id="editCodigo" header="Editar Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase;">  
+               <p:dialog id="editCodigo" header="Editar Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; text-transform: uppercase;">  
                   <p:inputTextarea value="#{controlMotivosDefinitivas.editarMotivoDefinitiva.codigo}" style="overflow: auto;" readonly="true"/>
                   <p:commandButton id="cancelarCodigo" value="Atras" onclick="PF('editCodigo').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
 
-               <p:dialog id="editDescripcion" header="Editar Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase;">  
+               <p:dialog id="editDescripcion" header="Editar Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; text-transform: uppercase;">  
                   <p:inputTextarea value="#{controlMotivosDefinitivas.editarMotivoDefinitiva.nombre}" style="overflow: auto;" readonly="true"/>
                   <p:commandButton id="cancelarNombre" value="Atras" onclick="PF('editDescripcion').hide();" style="position: absolute; top: 60px; left: 170px; font-size: 11px;" process="@this"/>
                </p:dialog>
@@ -262,27 +262,27 @@
 
                   <p:panel id="nuevaTipoReemplazo" style="border: none;">
 
-                     <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                     <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px; text-transform: uppercase;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoCodigo" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoCodigo" value="Código"/>
 
-                     <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoNombre" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase;">
+                     <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 110px; text-transform: uppercase;"/></strong>
+                     <p:inputText autocomplete="off"  id="nuevoNombre" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoNombre" value="Descripción"/>
 
                      <strong><h:outputText value="Retiro:" style="font-size: 12px; position: absolute; top: 160px; text-transform:  uppercase"  /></strong>
-                     <p:selectOneMenu  id="nuevaManodeObra" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.retiro}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 155px;text-transform: uppercase;">  
+                     <p:selectOneMenu  id="nuevaManodeObra" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.retiro}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 155px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
                         <p:ajax update="@this"/>
                      </p:selectOneMenu> 
 
                      <strong><h:outputText value="Cambio Regimen:" style="font-size: 12px; position: absolute; top: 210px; text-transform:  uppercase"  /></strong>
-                     <p:selectOneMenu  id="nuevaCambioRegimen" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.cambioregimen}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 205px;text-transform: uppercase;">  
+                     <p:selectOneMenu  id="nuevaCambioRegimen" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.cambioregimen}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 205px; text-transform: uppercase;">  
                         <f:selectItem itemLabel=" " itemValue=" "/>  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
@@ -290,7 +290,7 @@
                      </p:selectOneMenu> 
 
                      <strong><h:outputText value="Catedratico:" style="font-size: 12px; position: absolute; top: 260px; text-transform:  uppercase"  /></strong>
-                     <p:selectOneMenu  id="nuevaCatedratico" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.catedraticosemestral}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 255px;text-transform: uppercase;">  
+                     <p:selectOneMenu  id="nuevaCatedratico" value="#{controlMotivosDefinitivas.nuevoMotivoDefinitiva.catedraticosemestral}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 255px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
                         <p:ajax update="@this"/>
@@ -308,27 +308,27 @@
                   <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Definitiva" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="duplicarTTR" style="border: none;">
-                     <strong><h:outputText value="código "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                     <strong><h:outputText value="código "  style="font-size: 12px; position: absolute; top: 60px; text-transform: uppercase;"/></strong>
+                     <p:inputText autocomplete="off" id="duplicarCodigo" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigo" value="Código"/>
 
-                     <strong><h:outputText value="Descripción:"  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;">
+                     <strong><h:outputText value="Descripción:"  style="font-size: 12px; position: absolute; top: 110px; text-transform: uppercase;"/></strong>
+                     <p:inputText autocomplete="off" id="duplicarNombre" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombre" value="Descripción"/>
 
                      <strong><h:outputText value="Retiro:" style="font-size: 12px; position: absolute; top: 160px; text-transform:  uppercase"  /></strong>
-                     <p:selectOneMenu  id="duplicarManodeObra" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.retiro}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 155px;text-transform: uppercase;">  
+                     <p:selectOneMenu  id="duplicarManodeObra" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.retiro}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 155px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
                         <p:ajax update="@this"/>
                      </p:selectOneMenu> 
 
                      <strong><h:outputText value="Cambio Regimen:" style="font-size: 12px; position: absolute; top: 210px; text-transform:  uppercase"  /></strong>
-                     <p:selectOneMenu  id="duplicarCambioRegimen" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.cambioregimen}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 205px;text-transform: uppercase;">  
+                     <p:selectOneMenu  id="duplicarCambioRegimen" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.cambioregimen}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 205px; text-transform: uppercase;">  
                         <f:selectItem itemLabel=" " itemValue=" "/>  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
@@ -336,7 +336,7 @@
                      </p:selectOneMenu> 
 
                      <strong><h:outputText value="Catedratico:" style="font-size: 12px; position: absolute; top: 260px; text-transform:  uppercase"  /></strong>
-                     <p:selectOneMenu  id="duplicarCatedratico" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.catedraticosemestral}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 255px;text-transform: uppercase;">  
+                     <p:selectOneMenu  id="duplicarCatedratico" value="#{controlMotivosDefinitivas.duplicarMotivoDefinitiva.catedraticosemestral}" style="font-size: 12px; width: 145px; position: absolute;left: 160px; top: 255px; text-transform: uppercase;">  
                         <f:selectItem itemLabel="SI" itemValue="S"/>  
                         <f:selectItem itemLabel="NO" itemValue="N"/>  
                         <p:ajax update="@this"/>

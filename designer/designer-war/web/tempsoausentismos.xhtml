@@ -87,7 +87,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 75px; width: 290px; height: 90px; border-radius: 10px;">
                             <center><h:outputText value="#{msg['cap']}" style="color: #009; font-weight: bold;"/></center>
                             <br></br>
-                            <p:inputText  autocomplete="off" id="nombreArchivo" value="#{controlTempSoAusentismos.nombreArchivoPlano}" readonly="true"
+                            <p:inputText autocomplete="off" id="nombreArchivo" value="#{controlTempSoAusentismos.nombreArchivoPlano}" readonly="true"
                                           style="position: absolute; top: 30px; left: 8px; width: 158px; z-index: 1; height: 12px;"/>
                             <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}"/>
 
@@ -161,7 +161,7 @@
                                             <h:outputText value="#{tNovedades.empleado}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.empleado}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.empleado}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);"/>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -193,7 +193,7 @@
                                             <h:outputText value="#{tNovedades.clase}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.clase}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.clase}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);"/>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -209,7 +209,7 @@
                                             <h:outputText value="#{tNovedades.causa}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.causa}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.causa}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);"/>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -225,7 +225,7 @@
                                             <h:outputText value="#{tNovedades.dias}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.dias}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
+                                            <p:inputText autocomplete="off" value="#{tNovedades.dias}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);"/>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -243,7 +243,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.fecha}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.fecha}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
@@ -263,7 +263,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.fechafinaus}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.fechafinaus}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
@@ -284,9 +284,9 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.fechaexpedicion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.fechaexpedicion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '7'}, {name: 't', value: '#{pos}'}]);"
-                                                       >
+                                               >
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
                                         </f:facet>   
@@ -305,9 +305,9 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.fechainipago}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.fechainipago}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '8'}, {name: 't', value: '#{pos}'}]);"
-                                                       >
+                                               >
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
                                         </f:facet>   
@@ -326,9 +326,9 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.fechafinpago}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.fechafinpago}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '9'}, {name: 't', value: '#{pos}'}]);"
-                                                       >
+                                               >
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </p:inputText>
                                         </f:facet>   
@@ -345,7 +345,7 @@
                                             <h:outputText value="#{tNovedades.porcentajeindividual}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.porcentajeindividual}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
+                                            <p:inputText autocomplete="off" value="#{tNovedades.porcentajeindividual}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '10'}, {name: 't', value: '#{pos}'}]);"
                                                           />
                                         </f:facet>   
@@ -363,7 +363,7 @@
                                             <h:outputText value="#{tNovedades.baseliquidacion}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tNovedades.baseliquidacion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
+                                            <p:inputText autocomplete="off" value="#{tNovedades.baseliquidacion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '11'}, {name: 't', value: '#{pos}'}]);"
                                                           />
                                         </f:facet>   
@@ -380,7 +380,7 @@
                                             <h:outputText value="#{tNovedades.formaliquidacion}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off" value="#{tNovedades.formaliquidacion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"  
+                                            <p:inputText autocomplete="off" value="#{tNovedades.formaliquidacion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"  
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '12'}, {name: 't', value: '#{pos}'}]);"/>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -396,7 +396,7 @@
                                             <h:outputText value="#{tNovedades.documentosoporte}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off" value="#{tNovedades.documentosoporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText autocomplete="off" value="#{tNovedades.documentosoporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                           onselect="posicionTablaNovedad([{name: 'n', value: '13'}, {name: 't', value: '#{pos}'}]);"
                                                           />
                                         </f:facet>   
@@ -407,7 +407,7 @@
 
                             <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlTempSoAusentismos.infoRegistro}" style="position: relative; left: 10px; top: 2px; font-weight: bold;"/>
                             <h:outputText value="#{msg['subtotal']}" style="font-weight: bold; position: relative; top: 2px; left: 550px"/>
-                            <p:inputText  autocomplete="off" id="subtotal" value="#{controlTempSoAusentismos.subTotal}" style="position: relative; top: 2px; left: 570px; font-weight: bold; width: 80px; border-radius: 2px; text-align: right; height: 16px !important; padding: 1px;" readonly="true" onclick="select();">
+                            <p:inputText autocomplete="off" id="subtotal" value="#{controlTempSoAusentismos.subTotal}" style="position: relative; top: 2px; left: 570px; font-weight: bold; width: 80px; border-radius: 2px; text-align: right; height: 16px !important; padding: 1px;" readonly="true" onclick="select();">
                                 <f:convertNumber currencyCode="COP"/>
                             </p:inputText> 
 
@@ -468,7 +468,7 @@
                             <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px; ">
                                 <legend style="color: blue"><strong>Reversar Cargue Novedades</strong></legend>
                                 <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;"/></strong>
-                                <p:inputText  autocomplete="off"  id="documentoR" value="#{controlTempSoAusentismos.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
+                                <p:inputText autocomplete="off" id="documentoR" value="#{controlTempSoAusentismos.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
                                     <p:ajax event="dblclick" listener="#{controlTempSoAusentismos.llamarDialogoDocumentoSoporte()}"/>
                                     <p:ajax event="change" listener="#{controlTempSoAusentismos.autocompletarDocumentoSoporte}" update="@this"/>
                                 </p:inputText>
@@ -527,7 +527,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarDS']}"/>
-                                <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column filterBy="#{documentoSoporte}" width="300" filterMatchMode="contains" filterStyle="width: 85% !important;">
@@ -619,31 +619,31 @@
                         <p:panel id="nuevaNovedad" style="border: none;">
 
                             <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoEmpl" widgetVar="nuevoEmpl" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.empleado}"
+                            <p:inputText autocomplete="off" id="nuevoEmpl" widgetVar="nuevoEmpl" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.empleado}"
                                           style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
                                 <p:keyFilter for="nuevoEmpl" mask="9999999999"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo:" style=" position: absolute; top: 85px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.tipo}" 
+                            <p:inputText autocomplete="off" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.tipo}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevoTipo" mask="9999999999"/>-->
                             </p:inputText>
 
                             <strong><h:outputText value="Clase:" style=" position: absolute; top: 115px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.clase}" 
+                            <p:inputText autocomplete="off" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.clase}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevaClase" mask="9999999999"/>-->
                             </p:inputText>
 
                             <strong><h:outputText value="Causa:" style=" position: absolute; top: 145px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"   value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.causa}" 
+                            <p:inputText autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.causa}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevaCausa" mask="9999999999"/>-->
                             </p:inputText>
 
                             <strong><h:outputText value="Días" style=" position: absolute; top: 175px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.dias}" 
+                            <p:inputText autocomplete="off" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.dias}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevoDia" mask="9999999999"/>-->
                             </p:inputText>
@@ -676,11 +676,11 @@
                                            style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
 
                             <strong><h:outputText value="Base Liq. :" style=" position: absolute; top: 175px; left: 410px;"/></strong>
-                            <p:inputNumber autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.baseliquidacion}" decimalPlaces="0"
+                            <p:inputNumber autocomplete="off" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.baseliquidacion}" decimalPlaces="0"
                                            style=" width: 122px; position: absolute; left: 550px; top: 170px; text-transform: uppercase;"/>
 
                             <strong><h:outputText value="Forma Liq. :" style=" position: absolute; top: 205px; left: 410px;"/></strong>
-                            <p:inputText autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.formaliquidacion}"
+                            <p:inputText autocomplete="off" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.formaliquidacion}"
                                          style=" width: 122px; position: absolute; left: 550px; top: 200px; text-transform: uppercase;"/>
 
 
@@ -703,31 +703,31 @@
                         <p:panel id="duplicaNovedad" style="border: none;">
 
                             <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplEmpleado" widgetVar="duplEmpleado" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.empleado}"
+                            <p:inputText autocomplete="off" id="duplEmpleado" widgetVar="duplEmpleado" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.empleado}"
                                           style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
                                 <p:keyFilter for="duplEmpleado" mask="9999999999"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo:" style=" position: absolute; top: 85px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoTipo" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.tipo}" 
+                            <p:inputText autocomplete="off" id="nuevoTipo" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.tipo}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevoTipo" mask="9999999999"/>-->
                             </p:inputText>
 
                             <strong><h:outputText value="Clase:" style=" position: absolute; top: 115px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaClase" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.clase}" 
+                            <p:inputText autocomplete="off" id="nuevaClase" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.clase}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevaClase" mask="9999999999"/>-->
                             </p:inputText>
 
                             <strong><h:outputText value="Causa:" style=" position: absolute; top: 145px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaCausa" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.causa}" 
+                            <p:inputText autocomplete="off" id="nuevaCausa" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.causa}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevaCausa" mask="9999999999"/>-->
                             </p:inputText>
 
                             <strong><h:outputText value="Días" style=" position: absolute; top: 175px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoDia" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.dias}" 
+                            <p:inputText autocomplete="off" id="nuevoDia" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.dias}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase;">
                                 <!--<p:keyFilter for="nuevoDia" mask="9999999999"/>-->
                             </p:inputText>
@@ -760,11 +760,11 @@
                                            style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
 
                             <strong><h:outputText value="Base Liq. :" style=" position: absolute; top: 175px; left: 410px;"/></strong>
-                            <p:inputNumber autocomplete="off"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.baseliquidacion}" decimalPlaces="0"
+                            <p:inputNumber autocomplete="off" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.baseliquidacion}" decimalPlaces="0"
                                            style=" width: 122px; position: absolute; left: 550px; top: 170px; text-transform: uppercase;"/>
 
                             <strong><h:outputText value="Forma Liq. :" style=" position: absolute; top: 205px; left: 410px;"/></strong>
-                            <p:inputText autocomplete="off"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.formaliquidacion}"
+                            <p:inputText autocomplete="off" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.formaliquidacion}"
                                          style=" width: 122px; position: absolute; left: 550px; top: 200px; text-transform: uppercase;"/>
 
                             <strong><h:outputText value="#{msg['documentosoporteN']}:" style=" position: absolute; top: 235px; left: 410px;"/></strong>

@@ -36,7 +36,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.clave}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clave}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.clave}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlClavesSap.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlClavesSap.modificarClaveSap(indice, 'N', info.clave)}" update="@this"/>
                                             </p:inputText>
@@ -49,7 +49,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.claveAjuste.clave}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.claveAjuste.clave}" maxlength="2" id="editarparentesco" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off"  value="#{info.claveAjuste.clave}" maxlength="2" id="editarparentesco" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlClavesSap.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="click" listener="#{controlClavesSap.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlClavesSap.asignarIndex(indice, 0,1)}" process="@this"/>
@@ -174,7 +174,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlClavesSap.actualizarClaveAjuste()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Clave Ajuste :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;"/>  
+                                    <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovClavesSap').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tpoindice.clave}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -305,12 +305,12 @@
                         <p:panel id="nuevooHvReferenciaLab" style="border: none;">
 
                             <strong><h:outputText value="Clave: "  style="position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCodigo" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoCodigo" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Clave"/>
                             <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombreSucursal" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.claveAjuste.clave}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off"  id="nuevoNombreSucursal" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.claveAjuste.clave}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(1, 'CLAVESAJUSTES')}"/>
                                 <p:ajax event="change" listener="#{controlClavesSap.autocompletarNuevoyDuplicado('CLAVESAJUSTES', controlClavesSap.nuevoClavesSap.claveAjuste.clave, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(0)}"/>
@@ -350,13 +350,13 @@
                         <p:panel id="duplicarRRL" style="border: none;">
 
                             <strong><h:outputText value="Código: "  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarCodigo" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarCodigo" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.clave}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código"/>
 
                             <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarNombreSucursal" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.claveAjuste.clave}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off"  id="duplicarNombreSucursal" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.claveAjuste.clave}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(2, 'CLAVESAJUSTES')}"/>
                                 <p:ajax event="change" listener="#{controlClavesSap.autocompletarDuplicado('CLAVESAJUSTES', controlClavesSap.duplicarClavesSap.claveAjuste.clave, 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(1)}"/>

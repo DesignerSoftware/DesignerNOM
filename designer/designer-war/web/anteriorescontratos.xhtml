@@ -108,7 +108,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
                                     <p:ajax event="dateSelect" update="dateFechaInicial" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
                                     <p:ajax event="change" update="dateFechaInicial" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,0)}" process="@this"
@@ -131,7 +131,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
                                     <p:ajax event="dateSelect"  update="dateFechaFinal" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
                                     <p:ajax event="change"  update="dateFechaFinal" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,1)}" process="@this" 
@@ -150,7 +150,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.empresa}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.empresa}" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.empresa}" id="editarEmpresa" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}"/>
                                     <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info, 2)}" 
                                             onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});"/>
@@ -171,7 +171,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.jefe}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.jefe}" id="editarJefe" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.jefe}" id="editarJefe" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarJefe" mask="num"/>
                                     <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,3)}" process="@this"
                                             onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});"/> 
@@ -192,7 +192,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.telefono}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.telefono}" id="editarTel" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.telefono}" id="editarTel" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,4)}" process="@this"
                                             onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this" update="editarTel"/>                                   
@@ -212,7 +212,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.diasant}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.diasant}" id="editarDiasAnt" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.diasant}" id="editarDiasAnt" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,5)}" process="@this"
                                             onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this" update="editarDiasAnt"/>                                   
@@ -232,7 +232,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.cargo.nombre}" style="width: 100px;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.cargo.nombre}" id="editarCargo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.cargo.nombre}" id="editarCargo" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,6)}" process="@this"
                                             onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this" update="editarCargo"/>    
@@ -347,47 +347,47 @@
                   <p:panel id="nuevoAC" style="border: none;">
 
                      <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;"/></strong>
-                     <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlAnterioresContratos.nuevoAnteriorContrato.fechainicial}">
+                     <p:calendar autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlAnterioresContratos.nuevoAnteriorContrato.fechainicial}">
                         <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                         <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="*Fecha Final" style="position: absolute; top: 85px; left: 18px; "/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" style="position: absolute; top: 80px; left: 220px" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlAnterioresContratos.nuevoAnteriorContrato.fechafinal}">
+                     <p:calendar autocomplete="off" mask="true" style="position: absolute; top: 80px; left: 220px" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlAnterioresContratos.nuevoAnteriorContrato.fechafinal}">
                         <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                         <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="Empresa" style="position: absolute; top: 115px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaEmpresa" value="#{controlAnterioresContratos.nuevoAnteriorContrato.empresa}"
+                     <p:inputText autocomplete="off" id="nuevaEmpresa" value="#{controlAnterioresContratos.nuevoAnteriorContrato.empresa}"
                                    style="width: 122px; position: absolute; left: 220px; top: 110px;">
                         <p:ajax event="change" update="nuevaEmpresa"/>
                      </p:inputText>
                      <p:watermark for="nuevaEmpresa" value="Empresa"/>
 
                      <strong><h:outputText value="Jefe" style="position: absolute; top: 145px; "/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoJefe" value="#{controlAnterioresContratos.nuevoAnteriorContrato.jefe}" 
+                     <p:inputText autocomplete="off" id="nuevoJefe" value="#{controlAnterioresContratos.nuevoAnteriorContrato.jefe}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 140px;">
                         <p:ajax event="change" update="nuevoJefe"/>
                      </p:inputText>
                      <p:watermark for="nuevoJefe" value="Jefe"/>
 
                      <strong><h:outputText value="Teléfono" style="position: absolute; top: 175px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTelefono" value="#{controlAnterioresContratos.nuevoAnteriorContrato.telefono}"
+                     <p:inputText autocomplete="off" id="nuevoTelefono" value="#{controlAnterioresContratos.nuevoAnteriorContrato.telefono}"
                                    style="width: 122px; position: absolute; left: 220px; top: 170px;">
                         <p:ajax event="change" update="nuevoTelefono"/>
                      </p:inputText>
                      <p:watermark for="nuevoTelefono" value="Teléfono"/>
 
                      <strong><h:outputText value="Días" style="position: absolute; top: 205px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoDia" value="#{controlAnterioresContratos.nuevoAnteriorContrato.diasant}" 
+                     <p:inputText autocomplete="off" id="nuevoDia" value="#{controlAnterioresContratos.nuevoAnteriorContrato.diasant}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 200px;">
                         <p:ajax event="change" update="nuevoDia"/>
                      </p:inputText>
                      <p:watermark for="nuevoDia" value="Días"/>
 
                      <strong><h:outputText value="*Cargo" style="position: absolute; top: 235px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCargo" value="#{controlAnterioresContratos.nuevoAnteriorContrato.cargo.nombre}" 
+                     <p:inputText autocomplete="off" id="nuevoCargo" value="#{controlAnterioresContratos.nuevoAnteriorContrato.cargo.nombre}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 230px;">
                         <p:ajax event="change" update="nuevoCargo"/>
                         <p:ajax event="dblclick" listener="#{controlAnterioresContratos.asignarIndex(info,0,1)}"/>
@@ -411,46 +411,46 @@
                   <p:panel id="duplicarAC" style="border: none;">
 
                      <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;"/></strong>
-                     <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlAnterioresContratos.duplicarAnteriorContrato.fechainicial}">
+                     <p:calendar autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlAnterioresContratos.duplicarAnteriorContrato.fechainicial}">
                         <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                         <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="*Fecha Final" style="position: absolute; top: 85px; left: 18px; "/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" style="position: absolute; top: 80px; left: 220px" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlAnterioresContratos.duplicarAnteriorContrato.fechafinal}">
+                     <p:calendar autocomplete="off" mask="true" style="position: absolute; top: 80px; left: 220px" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlAnterioresContratos.duplicarAnteriorContrato.fechafinal}">
                         <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                         <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="Empresa" style="position: absolute; top: 115px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarEmpresa" value="#{controlAnterioresContratos.duplicarAnteriorContrato.empresa}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresa" value="#{controlAnterioresContratos.duplicarAnteriorContrato.empresa}"
                                    style="width: 122px; position: absolute; left: 220px; top: 110px;">
                         <p:ajax event="change" update="duplicarEmpresa"/>
                      </p:inputText>
                      <p:watermark for="duplicarEmpresa" value="Empresa"/>
                      <strong><h:outputText value="Jefe" style="position: absolute; top: 145px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarJefe" value="#{controlAnterioresContratos.duplicarAnteriorContrato.jefe}" 
+                     <p:inputText autocomplete="off" id="duplicarJefe" value="#{controlAnterioresContratos.duplicarAnteriorContrato.jefe}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 140px;">
                         <p:ajax event="change" update="duplicarJefe"/>
                      </p:inputText>
                      <p:watermark for="duplicarJefe" value="Jefe"/>
 
                      <strong><h:outputText value="Teléfono" style="position: absolute; top: 175px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTelefono" value="#{controlAnterioresContratos.duplicarAnteriorContrato.telefono}"
+                     <p:inputText autocomplete="off" id="duplicarTelefono" value="#{controlAnterioresContratos.duplicarAnteriorContrato.telefono}"
                                    style="width: 122px; position: absolute; left: 220px; top: 170px;">
                         <p:ajax event="change" update="duplicarTelefono"/>
                      </p:inputText>
                      <p:watermark for="duplicarTelefono" value="Teléfono"/>
 
                      <strong><h:outputText value="Días" style="position: absolute; top: 205px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarDia" value="#{controlAnterioresContratos.duplicarAnteriorContrato.diasant}" 
+                     <p:inputText autocomplete="off" id="duplicarDia" value="#{controlAnterioresContratos.duplicarAnteriorContrato.diasant}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 200px;">
                         <p:ajax event="change" update="duplicarDia"/>
                      </p:inputText>
                      <p:watermark for="duplicarDia" value="Días"/>
 
                      <strong><h:outputText value="*Cargo" style="position: absolute; top: 235px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlAnterioresContratos.duplicarAnteriorContrato.cargo.nombre}" 
+                     <p:inputText autocomplete="off" id="duplicarCargo" value="#{controlAnterioresContratos.duplicarAnteriorContrato.cargo.nombre}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 230px;">
                         <p:ajax event="change" update="duplicarCargo"/>
                         <p:ajax event="dblclick" listener="#{controlAnterioresContratos.asignarIndex(info,0,2)}"/>
@@ -481,7 +481,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlAnterioresContratos.actualizarCargos()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="Buscar Cargo:"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{cargo.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 

@@ -115,7 +115,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{infoVJ.fechavigencia}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{infoVJ.fechavigencia}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciaJornada.modificarFechasVJ(infoVJ,0)}" update="dateFechaVigencia" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarFechasVJ(infoVJ,0)}" update="dateFechaVigencia" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndice(infoVJ,0)}" process="@this"
@@ -132,7 +132,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoVJ.jornadatrabajo.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  maxlength="30" value="#{infoVJ.jornadatrabajo.descripcion}" id="editarNombreJornada"> 
+                                 <p:inputText autocomplete="off" maxlength="30" value="#{infoVJ.jornadatrabajo.descripcion}" id="editarNombreJornada"> 
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVJ(infoVJ, 'NOMBREJORNADA', infoVJ.jornadatrabajo.descripcion)}" update="editarNombreJornada"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(0,0,0)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndice(infoVJ,1)}" process="@this"
@@ -149,7 +149,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoVJ.tipodescanso.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{infoVJ.tipodescanso.descripcion}"  id="editarTipoDescanso"> 
+                                 <p:inputText autocomplete="off" value="#{infoVJ.tipodescanso.descripcion}"  id="editarTipoDescanso"> 
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVJ(infoVJ, 'TIPODESCANSO', infoVJ.tipodescanso.descripcion)}"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(1,0,0)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndice(infoVJ,2)}" process="@this"
@@ -187,7 +187,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialVCT" value="#{info.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialVCT" value="#{info.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciaJornada.modificarFechasVCT(info,0)}" update="dateFechaInicialVCT" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarFechasVCT(info,0)}" update="dateFechaInicialVCT" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCT(info,0)}" update=":form:datosVigenciaCD" process="@this"
@@ -209,7 +209,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalVCT" value="#{info.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalVCT" value="#{info.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciaJornada.modificarFechasVCT(info,1)}" update="dateFechaFinalVCT" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarFechasVCT(info,1)}" update="dateFechaFinalVCT" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCT(info,1)}" update=":form:datosVigenciaCD" process="@this"
@@ -227,7 +227,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.comentario}" style="width: 100px; text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.comentario}" id="editarComentarioVCT" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{info.comentario}" id="editarComentarioVCT" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCT(info,2)}" update=":form:datosVigenciaCD" process="@this"
                                             onstart="PF('datosVigenciaCT').unselectAllRows();PF('datosVigenciaCT').selectRow(#{indiceVCT});"/>
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVCT(info)}" process="@this" update="editarComentarioVCT"/>
@@ -262,7 +262,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialVCD" value="#{info2.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialVCD" value="#{info2.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciaJornada.modificarFechasVCD(info2,0)}" update="dateFechaInicialVCD" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarFechasVCD(info2,0)}" update="dateFechaInicialVCD" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCD(info2,0)}" update=":form:datosVigenciaCT" process="@this"
@@ -284,7 +284,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalVCD" value="#{info2.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalVCD" value="#{info2.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlVigenciaJornada.modificarFechasVCD(info2,1)}" update="dateFechaFinalVCD" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarFechasVCD(info2,1)}" update="dateFechaFinalVCD" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCD(info2,1)}" update=":form:datosVigenciaCT" process="@this"
@@ -304,7 +304,7 @@
                                  <h:outputText value="#{info2.comentario}" style="text-transform: uppercase;"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info2.comentario}" id="editarComentarioVCD" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{info2.comentario}" id="editarComentarioVCD" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndiceVCD(info2,2)}" update=":form:datosVigenciaCT" process="@this"
                                             onstart="PF('datosVigenciaCD').unselectAllRows();PF('datosVigenciaCD').selectRow(#{indiceVCD});"/>
                                     <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVCD(info2)}" process="@this" update="editarComentarioVCD"/>
@@ -372,7 +372,7 @@
                                 oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this"  />
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarD']}:"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoDescanso').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoDescanso').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{tDescanso.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
@@ -528,14 +528,14 @@
 
                      <strong><h:outputText value="*#{msg['fechavigenciavj']}" style=" position: absolute; top: 60px; left: 40px;"/></strong>
                      <div id="posicionFormulaFechaVigNuevoReg" style=" position: absolute; top: 55px; left: 180px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciaJornada.nuevaVigencia.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciaJornada.nuevaVigencia.fechavigencia}">
                            <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['nombrejornadavj']}" style=" position: absolute; top: 100px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  maxlength="30" id="nuevaJornadaLaboral" value="#{controlVigenciaJornada.nuevaVigencia.jornadatrabajo.descripcion}" 
+                     <p:inputText autocomplete="off" maxlength="30" id="nuevaJornadaLaboral" value="#{controlVigenciaJornada.nuevaVigencia.jornadatrabajo.descripcion}" 
                                    style=" width: 110px; position: absolute; left: 180px; top: 95px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(0,1,0)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaJornada.valoresBackupAutocompletar(1, 'NOMBREJORNADA')}"/>
@@ -546,7 +546,7 @@
                      <p:watermark for="nuevaJornadaLaboral" value="#{msg['jornadaJ']}"/>
 
                      <strong><h:outputText value="#{msg['tipodescansovj']}" style=" position: absolute; top: 140px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaTipoDescanso" value="#{controlVigenciaJornada.nuevaVigencia.tipodescanso.descripcion}" style=" width: 110px; position: absolute; left: 180px; top: 135px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaTipoDescanso" value="#{controlVigenciaJornada.nuevaVigencia.tipodescanso.descripcion}" style=" width: 110px; position: absolute; left: 180px; top: 135px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(1,1,0)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaJornada.valoresBackupAutocompletar(1, 'TIPODESCANSO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaJornada.autocompletarNuevoyDuplicado('TIPODESCANSO', controlVigenciaJornada.nuevaVigencia.tipodescanso.descripcion, 1)}" update="nuevaTipoDescanso"/>
@@ -569,13 +569,13 @@
 
                      <strong><h:outputText value="*#{msg['fechavigenciavj']}" style=" position: absolute; top: 60px; left: 40px;"/></strong>
                      <div id="posicionFormulaFechaVigDupliReg" style=" position: absolute; top: 55px; left: 180px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciaJornada.duplicarVJ.fechavigencia}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciaJornada.duplicarVJ.fechavigencia}">
                            <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
                         </p:calendar>
                      </div>
                      <strong><h:outputText value="*#{msg['nombrejornadavj']}" style=" position: absolute; top: 100px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  maxlength="30" id="duplicarJornadaLaboral" value="#{controlVigenciaJornada.duplicarVJ.jornadatrabajo.descripcion}" 
+                     <p:inputText autocomplete="off" maxlength="30" id="duplicarJornadaLaboral" value="#{controlVigenciaJornada.duplicarVJ.jornadatrabajo.descripcion}" 
                                    style=" width: 110px; position: absolute; left: 180px; top: 95px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(0,2,0)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaJornada.valoresBackupAutocompletar(2, 'NOMBREJORNADA')}"/>
@@ -586,7 +586,7 @@
                      <p:watermark for="duplicarJornadaLaboral" value="#{msg['jornadaJ']}"/>
 
                      <strong><h:outputText value="#{msg['tipodescansovj']}" style=" position: absolute; top: 140px; left: 40px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTipoDescanso" value="#{controlVigenciaJornada.duplicarVJ.tipodescanso.descripcion}" style=" width: 110px; position: absolute; left: 180px; top: 135px; text-transform: uppercase;">
+                     <p:inputText autocomplete="off" id="duplicarTipoDescanso" value="#{controlVigenciaJornada.duplicarVJ.tipodescanso.descripcion}" style=" width: 110px; position: absolute; left: 180px; top: 135px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(1,2,0)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaJornada.valoresBackupAutocompletar(2, 'TIPODESCANSO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaJornada.autocompletarNuevoyDuplicado('TIPODESCANSO', controlVigenciaJornada.duplicarVJ.tipodescanso.descripcion, 2)}"/>
@@ -610,7 +610,7 @@
 
                      <strong><h:outputText value="*#{msg['fechainicialtt']}" style=" position: absolute; top: 75px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaIniNuevoRegVCT" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVCT" value="#{controlVigenciaJornada.nuevaVigenciaCT.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVCT" value="#{controlVigenciaJornada.nuevaVigenciaCT.fechainicial}">
                            <p:ajax event="dateSelect" update="nuevaFechaInicialVCT" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaInicialVCT" process="@this"/>
                         </p:calendar>
@@ -618,7 +618,7 @@
 
                      <strong><h:outputText value="*#{msg['fechafinaltt']}" style=" position: absolute; top: 105px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaFinNuevoRegVCT" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVCT" value="#{controlVigenciaJornada.nuevaVigenciaCT.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVCT" value="#{controlVigenciaJornada.nuevaVigenciaCT.fechafinal}">
                            <p:ajax event="dateSelect" update="nuevaFechaFinalVCT" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaFinalVCT" process="@this"/>
                         </p:calendar>
@@ -626,7 +626,7 @@
 
 
                      <strong><h:outputText value="#{msg['comentariott']}" style=" position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputTextarea id="nuevaComentarioVCT" value="#{controlVigenciaJornada.nuevaVigenciaCT.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px;;text-transform: uppercase;">
+                     <p:inputTextarea id="nuevaComentarioVCT" value="#{controlVigenciaJornada.nuevaVigenciaCT.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px;; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevaComentarioVCT"  />
                      </p:inputTextarea>
                      <p:watermark for="nuevaComentarioVCT" value="#{msg['comentario']}"/>
@@ -645,21 +645,21 @@
 
                      <strong><h:outputText value="#{msg['fechainicialtt']}*" style=" position: absolute; top: 75px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaIniDupliRegVCT" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialVCT" value="#{controlVigenciaJornada.duplicarVCT.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialVCT" value="#{controlVigenciaJornada.duplicarVCT.fechainicial}">
                            <p:ajax event="dateSelect" update="duplicarFechaInicialVCT" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaInicialVCT" process="@this"/>
                         </p:calendar>
                      </div>
                      <strong><h:outputText value="#{msg['fechafinaltt']}*" style=" position: absolute; top: 105px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaFinDupliRegVCT" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalVCT" value="#{controlVigenciaJornada.duplicarVCT.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalVCT" value="#{controlVigenciaJornada.duplicarVCT.fechafinal}">
                            <p:ajax event="dateSelect" update="duplicarFechaFinalVCT" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaFinalVCT" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['comentariott']}" style=" position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputTextarea id="duplicadoComentarioVCT" value="#{controlVigenciaJornada.duplicarVCT.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px;text-transform: uppercase;">
+                     <p:inputTextarea id="duplicadoComentarioVCT" value="#{controlVigenciaJornada.duplicarVCT.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicadoComentarioVCT"/>
                      </p:inputTextarea>
                      <p:watermark for="duplicadoComentarioVCT" value="#{msg['comentario']}"/>
@@ -676,7 +676,7 @@
                   <p:panel id="nuevaVCD" style="border: none;">
                      <strong><h:outputText value="#{msg['fechainicialtd']}*" style=" position: absolute; top: 75px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaIniNuevoRegVCD" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVCD" value="#{controlVigenciaJornada.nuevaVigenciaCD.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVCD" value="#{controlVigenciaJornada.nuevaVigenciaCD.fechainicial}">
                            <p:ajax event="dateSelect" update="nuevaFechaInicialVCD" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaInicialVCD" process="@this"/>
                         </p:calendar>
@@ -684,7 +684,7 @@
 
                      <strong><h:outputText value="#{msg['fechafinaltd']}*" style=" position: absolute; top: 105px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaFinNuevoRegVCD" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVCD" value="#{controlVigenciaJornada.nuevaVigenciaCD.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVCD" value="#{controlVigenciaJornada.nuevaVigenciaCD.fechafinal}">
                            <p:ajax event="dateSelect" update="nuevaFechaFinalVCD" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaFinalVCD" process="@this"/>
                         </p:calendar>
@@ -709,21 +709,21 @@
                   <p:panel id="duplicarVCD" style="border: none;">
                      <strong><h:outputText value="#{msg['fechainicialtd']}*" style=" position: absolute; top: 75px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaIniDupliRegVCD" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialVCD" value="#{controlVigenciaJornada.duplicarVCD.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialVCD" value="#{controlVigenciaJornada.duplicarVCD.fechainicial}">
                            <p:ajax event="dateSelect" update="duplicarFechaInicialVCD" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaInicialVCD" process="@this"/>
                         </p:calendar>
                      </div>
                      <strong><h:outputText value="#{msg['fechafinaltd']}*" style=" position: absolute; top: 105px; left: 50px;"/></strong>
                      <div id="posicionFormulaFechaFinDupliRegVCD" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalVCD" value="#{controlVigenciaJornada.duplicarVCD.fechafinal}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalVCD" value="#{controlVigenciaJornada.duplicarVCD.fechafinal}">
                            <p:ajax event="dateSelect" update="duplicarFechaFinalVCD" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaFinalVCD" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['comentariotd']}"  style=" position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarComentarioVCD" value="#{controlVigenciaJornada.duplicarVCD.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarComentarioVCD" value="#{controlVigenciaJornada.duplicarVCD.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px; text-transform: uppercase;" onclick="select();">
                      </p:inputText>
                      <p:watermark for="duplicarComentarioVCD" value="#{msg['comentario']}"/>
 

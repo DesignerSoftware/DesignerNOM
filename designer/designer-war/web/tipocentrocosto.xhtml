@@ -85,7 +85,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 290px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 290px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info)}" update="codigo"/>
@@ -98,7 +98,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 295px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 295px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info)}" update="nombre"/>
@@ -111,7 +111,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.grupotipocc.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.grupotipocc.descripcion}" id="editarGrupoTipoCC" style="height: 12px; border-radius: 0px; width: 290px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.grupotipocc.descripcion}" id="editarGrupoTipoCC" style="height: 12px; border-radius: 0px; width: 290px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 2)}" process="@this"
                                                         onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info)}" update="grupoTipoCC"/>                                         
@@ -157,7 +157,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Grupo Tipo CC : "/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovGruposTiposCC').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGruposTiposCC').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{grupos.codigo}" width="60" filterStyle="width: 80% !important;" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -280,19 +280,19 @@
                         <p:panel id="nuevoTipoCentroCosto" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código"/>
 
                             <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="30" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre"/>
 
                             <strong><h:outputText value="*Grupo Tipo CC: " style=" position: absolute; top: 120px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoGrupoTipoCC" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoGrupoTipoCC" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposCentrosCostos.valoresBackupAutocompletar(1, 'GRUPOSTIPOSCC')}"/>
                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.autocompletarNuevoyDuplicado('GRUPOSTIPOSCC', controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarIndex(info, 1, 2)}"/>
@@ -314,20 +314,20 @@
 
                         <p:panel id="duplicarTiposCentrosCostos" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigo']}: "   style=" position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Codigo"/>
 
                             <strong><h:outputText value="*Nombre:"   style=" position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="30" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre"/>
 
 
                             <strong><h:outputText value="*Grupo Tipo CC:" style=" position: absolute; top: 120px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarGrupoTipoCentroCosto" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarGrupoTipoCentroCosto" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposCentrosCostos.valoresBackupAutocompletar(2, 'GRUPOSTIPOSCC')}"/>
                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.autocompletarNuevoyDuplicado('GRUPOSTIPOSCC',controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion, 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarIndex(info, 2, 2)}"/>

@@ -83,7 +83,7 @@
                             <!--                            <p:inputText autocomplete="off" id="fechaeval" style="height: 12px; border-radius: 0px; width: 100px; text-transform: uppercase; position: absolute; top: 5px; left: 620px;">
                                                             
                                                         </p:inputText>-->
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateEval" style="position: absolute; top: 5px; left: 620px;" value="#{controlEmplVigConvocatorias.evalVigParametros.fechavigencia}"> 
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateEval" style="position: absolute; top: 5px; left: 620px;" value="#{controlEmplVigConvocatorias.evalVigParametros.fechavigencia}"> 
                                 <p:ajax event="dateSelect"  update="dateEval" process="@this"/>
                                 <p:ajax event="change"  update="dateEval" process="@this"/>
                             </p:calendar>
@@ -105,7 +105,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.enfoque}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.enfoque}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"
+                                            <p:inputText autocomplete="off" value="#{info.enfoque}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"
                                                           onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 0)}" process="@this"
                                                         onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
@@ -122,7 +122,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.evalvigconvocatoria.codigo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.evalvigconvocatoria.codigo}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
+                                            <p:inputText autocomplete="off" value="#{info.evalvigconvocatoria.codigo}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 1)}" process="@this"
                                                         onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
@@ -139,7 +139,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.fechainicio}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.fechainicio}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
+                                            <p:inputText autocomplete="off" value="#{info.fechainicio}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 2)}" process="@this"
                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
@@ -156,7 +156,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.fechalimite}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.fechalimite}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
+                                            <p:inputText autocomplete="off" value="#{info.fechalimite}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 3)}" process="@this"
                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
@@ -172,7 +172,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.objetivos}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.objetivos}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
+                                            <p:inputText autocomplete="off" value="#{info.objetivos}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;" 
                                                           onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 4)}" process="@this"
                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});"/> 
@@ -200,7 +200,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info2.nombreprueba}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info2.nombreprueba}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info2.nombreprueba}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 0)}" process="@this"
                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});"/> 
                                             </p:inputText>
@@ -216,7 +216,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info2.puntajeobtenido}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info2.puntajeobtenido}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info2.puntajeobtenido}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 1)}" process="@this"
                                                         onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});"/> 
                                             </p:inputText>
@@ -232,10 +232,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info2.fechaperiododesde}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-<!--                                            <p:inputText  autocomplete="off"  value="#{info2.fechaperiododesde}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+<!--                                            <p:inputText autocomplete="off" value="#{info2.fechaperiododesde}"  style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 2)}" process="@this"/> 
                                             </p:inputText>-->
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info2.fechaperiododesde}"> 
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info2.fechaperiododesde}"> 
                                                 <p:ajax event="dateSelect"  update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigConvocatorias.modificarFechas(info2,2)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 2)}" process="@this"
@@ -253,10 +253,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info2.fechaperiodohasta}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-<!--                                            <p:inputText  autocomplete="off"  value="#{info2.fechaperiodohasta}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+<!--                                            <p:inputText autocomplete="off" value="#{info2.fechaperiodohasta}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 3)}" process="@this"/> 
                                             </p:inputText>-->
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info2.fechaperiododesde}"> 
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info2.fechaperiododesde}"> 
                                                 <p:ajax event="dateSelect" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigConvocatorias.modificarFechas(info2,3)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 3)}" process="@this"
@@ -368,14 +368,14 @@
 
 
                             <strong><h:outputText value="Nombre Prueba" style="position: absolute; top: 55px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevonomp" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.nombreprueba}" 
+                            <p:inputText autocomplete="off" id="nuevonomp" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.nombreprueba}" 
                                           style="width: 122px; position: absolute; left: 220px; top: 50px;">
                                 <p:ajax event="change" update="nuevonomp"/>
                             </p:inputText>
                             <p:watermark for="nuevonomp" value="Nombre Prueba"/>
 
                             <strong><h:outputText value="Puntaje Obtenido:" style="position: absolute; top: 85px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoPuntaje" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.puntajeobtenido}"
+                            <p:inputText autocomplete="off" id="nuevoPuntaje" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.puntajeobtenido}"
                                           style="width: 122px; position: absolute; left: 220px; top: 80px;">
                                 <p:keyFilter for="nuevoPuntaje" mask="num"/>
                                 <p:ajax event="change" update="nuevoPuntaje"/>
@@ -384,7 +384,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 110px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 115px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiododesde}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiododesde}">
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -392,7 +392,7 @@
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 140px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiodohasta}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigConvocatorias.nuevoEvalResultadosConv.fechaperiodohasta}">
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                                 </p:calendar>
@@ -411,14 +411,14 @@
                         <p:panel id="duplicarResultados" style="border: none;">
 
                             <strong><h:outputText value="Nombre Prueba" style="position: absolute; top: 55px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarnomp" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.nombreprueba}" 
+                            <p:inputText autocomplete="off" id="duplicarnomp" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.nombreprueba}" 
                                           style="width: 122px; position: absolute; left: 220px; top: 50px;">
                                 <p:ajax event="change" update="duplicarnomp"/>
                             </p:inputText>
                             <p:watermark for="duplicarnomp" value="Nombre Prueba"/>
 
                             <strong><h:outputText value="Puntaje Obtenido:" style="position: absolute; top: 85px; left: 50px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPuntaje" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.puntajeobtenido}"
+                            <p:inputText autocomplete="off" id="duplicarPuntaje" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.puntajeobtenido}"
                                           style="width: 122px; position: absolute; left: 220px; top: 80px;">
                                 <p:keyFilter for="duplicarPuntaje" mask="num"/>
                                 <p:ajax event="change" update="duplicarPuntaje"/>
@@ -427,7 +427,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 110px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaIniDupReg" style="position: absolute; top: 115px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiododesde}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiododesde}">
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -435,7 +435,7 @@
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 145px; left: 50px;"/></strong>
                             <div id="posicionFormulaFechaFinDupReg" style="position: absolute; top: 140px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiodohasta}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigConvocatorias.duplicarEvalResultadosConv.fechaperiodohasta}">
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                                 </p:calendar>

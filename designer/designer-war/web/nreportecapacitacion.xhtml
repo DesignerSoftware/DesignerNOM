@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -231,7 +231,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteCapacitacion.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" immediate="true"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"/>   
-                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
+                                <p:inputText autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
                             </f:facet>
                             <p:column style="text-align: center;" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 94%" width="50px;" sortBy="#{reportes.codigo}">
                                 <f:facet name="header">
@@ -270,7 +270,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteCapacitacion.actualizarEmplDesde()}" update=":formDialogos:EmpleadoDesdeDialogo" process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMP']}"/>  
-                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
+                                <p:inputText autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">

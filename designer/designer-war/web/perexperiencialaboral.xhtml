@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -102,7 +102,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.empresa}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.empresa}" maxlength="50" id="editarEmpresaE" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.empresa}" maxlength="50" id="editarEmpresaE" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,0)}" process="@this"
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlPerExperienciaLaboral.modificarExperiencia(info)}" process="@this" update="editarEmpresaE"/>
@@ -123,7 +123,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaDesde" value="#{info.fechadesde}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaDesde" value="#{info.fechadesde}">
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,1)}" process="@this"
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlPerExperienciaLaboral.modificacionesFechas(info,1)}" process="@this" update="dateFechaDesde"/>
@@ -145,7 +145,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaHasta" value="#{info.fechahasta}">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaHasta" value="#{info.fechahasta}">
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,2)}" process="@this" 
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlPerExperienciaLaboral.modificacionesFechas(info,2)}" process="@this" update="dateFechaHasta"/>
@@ -164,7 +164,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.cargo}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.cargo}" maxlength="50" id="editarCargoDesE" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.cargo}" maxlength="50" id="editarCargoDesE" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,3)}" process="@this"
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlPerExperienciaLaboral.modificarExperiencia(info)}" process="@this" update="editarCargoDesE"/>                                   
@@ -181,7 +181,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.jefeinmediato}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.jefeinmediato}" maxlength="100" id="editarJefeE" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.jefeinmediato}" maxlength="100" id="editarJefeE" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,4)}" process="@this"
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlPerExperienciaLaboral.modificarExperiencia(info)}" process="@this" update="expJefe"/>                                   
@@ -199,7 +199,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.telefono}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{info.telefono}" id="editarTelefonoE" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{info.telefono}" id="editarTelefonoE" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,5)}" process="@this"
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlPerExperienciaLaboral.modificarExperiencia(info)}" process="@this" update="editarTelefonoE"/>                                   
@@ -218,7 +218,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.sectoreconomico.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.sectoreconomico.descripcion}" id="editarSectorE" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.sectoreconomico.descripcion}" id="editarSectorE" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,6)}" process="@this"
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/> 
                                     <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,1,0)}" process="@this"/>
@@ -236,7 +236,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.motivoretiro.nombre}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.motivoretiro.nombre}" id="editarMotivosE" style="border-radius: 0px; width: 99.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.motivoretiro.nombre}" id="editarMotivosE" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlPerExperienciaLaboral.cambiarIndice(info,7)}" process="@this"
                                             onstart="PF('datosExperiencia').unselectAllRows();PF('datosExperiencia').selectRow(#{indice});"/> 
                                     <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,2,0)}" process="@this"/>
@@ -271,7 +271,7 @@
                         <p:ajax event="filter" listener="#{controlPerExperienciaLaboral.contarRegistroSector()}"/>
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarS']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovSector').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSector').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{sector.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
@@ -302,7 +302,7 @@
                         <p:ajax event="filter" listener="#{controlPerExperienciaLaboral.contarRegistroMotivo()}"/>
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarM']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovMotivos').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivos').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{motivo.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
@@ -410,7 +410,7 @@
                   <p:panel id="nuevaEP" style="border: none;">
 
                      <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.empresa}" style="width: 140px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.empresa}" style="width: 140px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="nuevaEmpresaEP"/>
                      </p:inputText>
                      <p:watermark for="nuevaEmpresaEP" value="#{msg['empresa']}"/>
@@ -418,7 +418,7 @@
 
                      <strong><h:outputText value="*#{msg['fechaIngresoN']}" style="position: absolute; top: 105px; left: 18px;"/></strong>
                      <div style="position: absolute;  top: 100px; left: 200px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaDesde" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.fechadesde}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaDesde" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.fechadesde}">
                            <p:ajax event="dateSelect" update="nuevaDateFechaDesde" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaDesde" process="@this"/>
                         </p:calendar>
@@ -426,32 +426,32 @@
 
                      <strong><h:outputText value="#{msg['fechaRetiroN']}" style="position: absolute; top: 135px;"/></strong>
                      <div  style="position: absolute;  top: 130px; left: 200px;">
-                        <p:calendar  autocomplete="off"  mask="true"  pattern="dd/MM/yyyy" id="nuevaDateFechaHasta" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.fechahasta}">
+                        <p:calendar autocomplete="off" mask="true"  pattern="dd/MM/yyyy" id="nuevaDateFechaHasta" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.fechahasta}">
                            <p:ajax event="dateSelect" update="nuevaDateFechaHasta" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaHasta" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['cargoDesempenadoN']}" style="position: absolute; top: 165px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.cargo}" style="width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.cargo}" style="width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="nuevaCargoEP"/>
                      </p:inputText>
                      <p:watermark for="nuevaCargoEP" value="#{msg['cargoDesempenado']}"/>
 
                      <strong><h:outputText value="#{msg['jefeInmediatoN']}" style="position: absolute; top: 195px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.jefeinmediato}" style="width: 140px; position: absolute; left: 200px; top: 190px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.jefeinmediato}" style="width: 140px; position: absolute; left: 200px; top: 190px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="nuevaJefeEP"/>
                      </p:inputText>
                      <p:watermark for="nuevaJefeEP" value="#{msg['jefeInmediato']}"/>
 
                      <strong><h:outputText value="#{msg['telefonoN']}" style="position: absolute; top: 225px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaTelefonoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.telefono}" style="width: 140px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaTelefonoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.telefono}" style="width: 140px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="nuevaTelefonoEP"/>
                      </p:inputText>
                      <p:watermark for="nuevaTelefonoEP" value="#{msg['telefono']}"/>
 
                      <strong><h:outputText value="#{msg['sectorEconomicoN']}" style="position: absolute; top: 255px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaSectorEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.sectoreconomico.descripcion}" style="width: 140px; position: absolute; left: 200px; top: 250px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaSectorEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.sectoreconomico.descripcion}" style="width: 140px; position: absolute; left: 200px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,1,1)}"/>
                         <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(1, 'SECTORES')}"/>
                         <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('SECTORES', controlPerExperienciaLaboral.nuevaExperienciaLaboral.sectoreconomico.descripcion,1)}" process="@this" update="nuevaSectorEP"/>
@@ -460,7 +460,7 @@
                      <p:watermark for="nuevaSectorEP" value="#{msg['sectorEconomico']}"/>
 
                      <strong><h:outputText value="*#{msg['motivoRetiroN']}" style="position: absolute; top: 285px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaMotivoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.motivoretiro.nombre}" style="width: 140px; position: absolute; left: 200px; top: 280px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevaMotivoEP" value="#{controlPerExperienciaLaboral.nuevaExperienciaLaboral.motivoretiro.nombre}" style="width: 140px; position: absolute; left: 200px; top: 280px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,2,1)}"/>
                         <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(1, 'MOTIVOS')}"/>
                         <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('MOTIVOS', controlPerExperienciaLaboral.nuevaExperienciaLaboral.motivoretiro.nombre,1)}" process="@this" update="nuevaMotivoEP"/>
@@ -487,13 +487,13 @@
                   <p:panel id="duplicarEP" style="border: none;">
 
                      <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.empresa}" style="width: 140px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarEmpresaEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.empresa}" style="width: 140px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="duplicarEmpresaEP"/>
                      </p:inputText>
                      <p:watermark for="duplicarEmpresaEP" value="#{msg['empresa']}"/>
 
                      <strong><h:outputText value="*#{msg['fechaIngresoN']}" style="position: absolute; top: 105px; left: 18px;"/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicioEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.fechadesde}"
+                     <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicioEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.fechadesde}"
                                   style="position: absolute;  top: 100px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true" locale="es">
                         <p:ajax event="dateSelect" update="duplicarFechaInicioEP"/>
@@ -501,7 +501,7 @@
                      </p:calendar>
 
                      <strong><h:outputText value="#{msg['fechaRetiroN']}" style="position: absolute; top: 135px;"/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.fechahasta}" 
+                     <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.fechahasta}" 
                                   style="position: absolute;  top: 130px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true" locale="es">
                         <p:ajax event="dateSelect" update="duplicarFechaFinalEP"/>
@@ -509,25 +509,25 @@
                      </p:calendar>
 
                      <strong><h:outputText value="#{msg['cargoDesempenadoN']}" style="position: absolute; top: 165px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.cargo}" style="width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarCargoEP" maxlength="50" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.cargo}" style="width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="duplicarCargoEP"/>
                      </p:inputText>
                      <p:watermark for="duplicarCargoEP" value="#{msg['cargoDesempenado']}"/>
 
                      <strong><h:outputText value="#{msg['jefeInmediatoN']}" style="position: absolute; top: 195px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.jefeinmediato}" style="width: 140px; position: absolute; left: 200px; top: 190px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarJefeEP" maxlength="100" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.jefeinmediato}" style="width: 140px; position: absolute; left: 200px; top: 190px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="duplicarJefeEP"/>
                      </p:inputText>
                      <p:watermark for="duplicarJefeEP" value="#{msg['jefeInmediato']}"/>
 
                      <strong><h:outputText value="#{msg['telefonoN']}" style="position: absolute; top: 225px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarTelefonoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.telefono}" style="width: 140px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarTelefonoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.telefono}" style="width: 140px; position: absolute; left: 200px; top: 220px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" process="@this" update="duplicarTelefonoEP"/>
                      </p:inputText>
                      <p:watermark for="duplicarTelefonoEP" value="#{msg['telefono']}"/>
 
                      <strong><h:outputText value="#{msg['sectorEconomicoN']}" style="position: absolute; top: 255px;"/></strong>
-                     <p:inputText autocomplete="off"  id="duplicarSectorEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.sectoreconomico.descripcion}" style="width: 140px; position: absolute; left: 200px; top: 250px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarSectorEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.sectoreconomico.descripcion}" style="width: 140px; position: absolute; left: 200px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,1,2)}"/>
                         <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(2, 'SECTORES')}"/>
                         <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('SECTORES', controlPerExperienciaLaboral.duplicarExperienciaLaboral.sectoreconomico.descripcion,2)}" process="@this" update="duplicarSectorEP"/>
@@ -536,7 +536,7 @@
                      <p:watermark for="duplicarSectorEP" value="#{msg['sectorEconomico']}"/>
 
                      <strong><h:outputText value="*#{msg['motivoRetiroN']}" style=" position: absolute; top: 285px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarMotivoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.motivoretiro.nombre}" style="width: 140px; position: absolute; left: 200px; top: 280px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarMotivoEP" value="#{controlPerExperienciaLaboral.duplicarExperienciaLaboral.motivoretiro.nombre}" style="width: 140px; position: absolute; left: 200px; top: 280px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlPerExperienciaLaboral.asignarIndex(info,2,2)}"/>
                         <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(2, 'MOTIVOS')}"/>
                         <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('MOTIVOS', controlPerExperienciaLaboral.duplicarExperienciaLaboral.motivoretiro.nombre,2)}" process="@this" update="duplicarMotivoEP"/>
@@ -561,7 +561,7 @@
                </p:dialog>
 
                <p:dialog id="editarFechaInicialD" header="#{msg['editarFechaInicialD']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlPerExperienciaLaboral.editarExperienciaLaboral.strFechaDesde}" style="overflow: auto; width: 200px; height: 40px;text-transform: uppercase;" readonly="true"/>
+                  <p:inputTextarea value="#{controlPerExperienciaLaboral.editarExperienciaLaboral.strFechaDesde}" style="overflow: auto; width: 200px; height: 40px; text-transform: uppercase;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarFechaFinalD" header="#{msg['editarFechaFinalD']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  

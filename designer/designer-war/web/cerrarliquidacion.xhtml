@@ -80,31 +80,31 @@
 
                             <p:panel id="panelInf" style="border: none;">
                                 <h:outputText value="#{msg['totaltrabajadores']}" style="font-weight: bold; position: absolute; top: 25px; left: 180px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.totalEmpleadosParaLiquidar}" style="position: absolute; left: 310px; top: 20px; width: 80px;" readonly="true"/>
+                                <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.totalEmpleadosParaLiquidar}" style="position: absolute; left: 310px; top: 20px; width: 80px;" readonly="true"/>
 
                                 <h:outputText value="#{msg['fechainicial']}" style="font-weight: bold; position: absolute; top: 65px; left: 180px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechadesdecausado}" style="position: absolute; left: 310px; width: 80px; top: 60px;" readonly="true">
+                                <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.parametroEstructura.fechadesdecausado}" style="position: absolute; left: 310px; width: 80px; top: 60px;" readonly="true">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['fechafinal']}" style="font-weight: bold; position: absolute; left: 180px; top: 105px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechahastacausado}" style="position: absolute; left: 310px; width: 80px; top: 100px;" readonly="true">
+                                <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.parametroEstructura.fechahastacausado}" style="position: absolute; left: 310px; width: 80px; top: 100px;" readonly="true">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['fechapago']}" style="font-weight: bold; position: absolute; top: 145px; left: 180px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechasistema}" style="position: absolute; left: 310px; width: 80px; top: 140px;" readonly="true">
+                                <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.parametroEstructura.fechasistema}" style="position: absolute; left: 310px; width: 80px; top: 140px;" readonly="true">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['estructura']}" style="font-weight: bold; position: absolute; top: 25px; left: 450px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.estructura.nombre}" style="position: absolute; left: 570px; width: 250px; top: 20px;" readonly="true"/>
+                                <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.parametroEstructura.estructura.nombre}" style="position: absolute; left: 570px; width: 250px; top: 20px;" readonly="true"/>
 
                                 <h:outputText value="#{msg['proceso']}" style="font-weight: bold; position: absolute; top: 65px; left: 450px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 570px; width: 250px; top: 60px;" readonly="true"/> 
+                                <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 570px; width: 250px; top: 60px;" readonly="true"/> 
 
                                 <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; position: absolute; top: 105px; left: 450px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 570px; width: 250px; top: 100px;" readonly="true"/> 
+                                <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 570px; width: 250px; top: 100px;" readonly="true"/> 
                             </p:panel>
 
                             <fieldset style="position: absolute; left: 10px; top: 165px; width: 800px; height: 215px; border-radius: 10px; ">
@@ -122,7 +122,7 @@
                                                 <h:outputText value="#{empleadoParametro.empleado.codigoempleado}"/>
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.codigoempleado}" style="width: 99%; text-transform: uppercase;" readonly="true">
+                                                <p:inputText autocomplete="off"  value="#{empleadoParametro.empleado.codigoempleado}" style="width: 99%; text-transform: uppercase;" readonly="true">
                                                     <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});"/>
                                                 </p:inputText>
                                             </f:facet>
@@ -135,7 +135,7 @@
                                                 <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.persona.nombreCompleto}" style="width: 99%; text-transform: uppercase;" readonly="true">
+                                                <p:inputText autocomplete="off"  value="#{empleadoParametro.empleado.persona.nombreCompleto}" style="width: 99%; text-transform: uppercase;" readonly="true">
                                                     <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});"/>
                                                 </p:inputText>
                                             </f:facet>

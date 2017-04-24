@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
     <h:head>
     </h:head>
     <h:body>
@@ -96,7 +96,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}"> 
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}"> 
                                                 <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});"/>  
                                                 <p:ajax event="change" listener="#{controlHvEntrevistas.mostrarInfo(info,0)}" process="@this"/> 
@@ -113,7 +113,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style="  border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.nombre}" id="editarNombre" style="  border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 1)}" process="@this"
                                                        onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info)}" update="nombre"/>
@@ -147,7 +147,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.puntaje}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.puntaje}" id="editarPuntaje" style=" border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.puntaje}" id="editarPuntaje" style=" border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 3)}" process="@this"
                                                         onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info)}" update="puntaje"/>
@@ -274,7 +274,7 @@
 
                             <strong><h:outputText value="*#{msg['fecha']}: "  style=" position: absolute; top: 60px; left: 18px;"/></strong>
                             <div  id="nuevaFechaa" style="width: 150px; position: absolute; top: 55px; left: 160px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlHvEntrevistas.nuevoHvEntrevista.fecha}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlHvEntrevistas.nuevoHvEntrevista.fecha}">
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
                                     <p:ajax event="change" update="nuevaFecha"/>
                                 </p:calendar>
@@ -282,7 +282,7 @@
                             <p:watermark for="nuevaFecha" value="#{msg['fecha']}"/>
                             
                             <strong><h:outputText value="*#{msg['nombre']}: "  style=" position: absolute; top: 90px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="200" value="#{controlHvEntrevistas.nuevoHvEntrevista.nombre}" style=" width: 140px; position: absolute; left: 160px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="200" value="#{controlHvEntrevistas.nuevoHvEntrevista.nombre}" style=" width: 140px; position: absolute; left: 160px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['nombre']}"/>
@@ -296,7 +296,7 @@
                             <p:watermark for="nuevoTipoEntrevista" value="#{msg['tipo']} "/>
 
                             <strong><h:outputText value="#{msg['puntaje']}: "  style=" position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoPuntaje" value="#{controlHvEntrevistas.nuevoHvEntrevista.puntaje}" style="width: 140px;position: absolute; left: 160px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoPuntaje" value="#{controlHvEntrevistas.nuevoHvEntrevista.puntaje}" style="width: 140px;position: absolute; left: 160px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoPuntaje" value="#{msg['puntaje']}"/>
@@ -312,14 +312,14 @@
                         <p:panel id="duplicarEvC" style="border: none;">
                             <strong><h:outputText value="*#{msg['fecha']}:"  style=" position: absolute; top: 60px; left: 18px;"/></strong>
                             <div  id="duplicarFechaa" style="width: 150px; position: absolute; top: 55px; left: 160px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlHvEntrevistas.duplicarHvEntrevista.fecha}">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlHvEntrevistas.duplicarHvEntrevista.fecha}">
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
                                     <p:ajax event="change" update="duplicarFecha"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['nombre']}:"  style=" position: absolute; top: 90px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="200" value="#{controlHvEntrevistas.duplicarHvEntrevista.nombre}"  style=" width: 140px; position: absolute; left: 160px; top: 85px;">
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="200" value="#{controlHvEntrevistas.duplicarHvEntrevista.nombre}"  style=" width: 140px; position: absolute; left: 160px; top: 85px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['nombre']}"/>
@@ -333,7 +333,7 @@
                             <p:watermark for="duplicarTipoEntrevista" value="#{msg['tipo']}"/>
 
                             <strong><h:outputText value="#{msg['puntaje']}:"  style=" position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarPuntaje" value="#{controlHvEntrevistas.duplicarHvEntrevista.puntaje}" style="width: 140px;position: absolute; left: 160px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarPuntaje" value="#{controlHvEntrevistas.duplicarHvEntrevista.puntaje}" style="width: 140px;position: absolute; left: 160px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarPuntaje" value="#{msg['puntaje']}"/>

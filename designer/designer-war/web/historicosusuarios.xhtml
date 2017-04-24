@@ -88,7 +88,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{usuario.fechainicial}"> 
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{usuario.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario,0)}" process="@this"
@@ -109,7 +109,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{usuario.fechafinal}"> 
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{usuario.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlHistoricosUsuarios.modificarHistoricosUsuarios(usuario)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario,1)}" process="@this"
@@ -133,7 +133,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true" value="#{usuario.usuario.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"
+                                            <p:inputText autocomplete="off" readonly="true" value="#{usuario.usuario.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"
                                                            onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario, 2)}" 
                                                         onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/>
@@ -154,7 +154,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.perfil.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off" readonly="true"  value="#{usuario.perfil.descripcion}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"
+                                            <p:inputText autocomplete="off" readonly="true"  value="#{usuario.perfil.descripcion}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"
                                                          onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario,3 )}"  process="@this"
                                                         onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/>
@@ -171,7 +171,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.persona.nombreCompleto}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{usuario.persona.nombreCompleto}" id="editarPersona" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{usuario.persona.nombreCompleto}" id="editarPersona" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario, 4)}" 
                                                         onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/>
                                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 0)}"/>
@@ -243,31 +243,31 @@
                         <p:panel id="nuevaUsuario" style="border: none;">   
 
                             <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;"/></strong>
-                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechainicial}">
+                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechainicial}">
                                 <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                                 <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                             </p:calendar>
 
                             <strong><h:outputText value="Fecha Final" style="position: absolute; top: 80px;"/></strong>
-                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechafinal}">
+                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.fechafinal}">
                                 <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                                 <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                             </p:calendar>
 
                             <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoAlias" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoAlias" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 113px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoPerfil" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 143px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoPersona" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 318px; top: 173px; " class="cssBotonLovDialogos" id="btnNuevoPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}"/>
@@ -292,31 +292,31 @@
                         <p:panel id="duplicarUsuario" style="border: none;">
 
                             <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;"/></strong>
-                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechainicial}">
+                            <p:calendar  style="position: absolute; top: 50px; left: 180px" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechainicial}">
                                 <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                 <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                             </p:calendar>
 
                             <strong><h:outputText value="Fecha Final" style="position: absolute; top: 80px;"/></strong>
-                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechafinal}">
+                            <p:calendar  style="position: absolute; top: 80px; left: 180px" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.fechafinal}">
                                 <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                 <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                             </p:calendar>
 
                             <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarAlias" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarAlias" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 113px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPerfil" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarPerfil" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
                             <p:commandButton style="position: absolute; left: 318px; top: 143px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"  /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarPersona" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 318px; top: 173px; " class="cssBotonLovDialogos" id="btnDuplicarPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}"/>
@@ -347,7 +347,7 @@
                             <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPersonas()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Persona"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPersonas').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPersonas').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{personas.nombreCompleto}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -374,7 +374,7 @@
                             <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosAlias()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Alias"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVUsuariosAlias').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVUsuariosAlias').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{aliasU.alias}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -401,7 +401,7 @@
                             <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPerfiles()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Perfil"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPerfiles').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPerfiles').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
                             <p:column filterBy="#{perfiles.descripcion}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                                 <f:facet name="header">

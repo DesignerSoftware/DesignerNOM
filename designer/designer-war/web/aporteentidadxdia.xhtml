@@ -105,7 +105,7 @@
                                   editable="true" editMode="cell" liveScroll="true" scrollHeight="#{controlAportesEntidadesXDia.altoTabla}" scrollRows="30">
                         <p:ajax event="filter" listener="#{controlAportesEntidadesXDia.contarRegistrosAporte()}"/>
 
-                        <p:column  id="dia"  sortBy="#{infoAE.dia}" width="60" filterBy="#{infoAEempleado.dia}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">     
+                        <p:column  id="dia" sortBy="#{infoAE.dia}" width="60" filterBy="#{infoAEempleado.dia}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">     
                            <f:facet name="header"> 
                               <h:outputText id="hcodempl" value="Día"/>
                            </f:facet>
@@ -116,7 +116,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  value="#{infoAE.dia}" style="border-radius: 0px; width: 98.5%;"> 
+                                 <p:calendar autocomplete="off" value="#{infoAE.dia}" style="border-radius: 0px; width: 98.5%;"> 
                                       <!--onselect="posicionAporteEntidad([{name: 'n', value: '0'}, {name: 't', value: '#{indiceAE}'}]);"-->
                                     <p:ajax event="dateSelect" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
@@ -129,14 +129,14 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="novedad"  sortBy="#{infoAE.novedad}" filterBy="#{infoAE.novedad}" filterMatchMode="contains" width="40"   filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column  id="novedad" sortBy="#{infoAE.novedad}" filterBy="#{infoAE.novedad}" filterMatchMode="contains" width="40"   filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="anio" value="Novedad"/> 
                            </f:facet>
                            <p:cellEditor> 
                               <f:facet name="output"><h:outputText value="#{infoAE.novedad}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoAE.novedad}" id="editarAnoAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                 <p:inputText autocomplete="off" value="#{infoAE.novedad}" id="editarAnoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                     <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" 
                                             listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 1)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
@@ -148,7 +148,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="tarifa"  sortBy="#{infoAE.tarifaaux}" filterBy="#{infoAE.tarifaaux}"  filterMatchMode="contains" width="60"   filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column  id="tarifa" sortBy="#{infoAE.tarifaaux}" filterBy="#{infoAE.tarifaaux}"  filterMatchMode="contains" width="60"   filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="hmes" value="Tarifa"/>
                            </f:facet>
@@ -158,7 +158,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoAE.tarifaaux}" id="editarMesAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                 <p:inputText autocomplete="off" value="#{infoAE.tarifaaux}" id="editarMesAporte" style="border-radius: 0px; width: 98.5%;"> 
                                     <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"  process="@this" 
                                             listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 2)}"/>
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this" process="@this"/>
@@ -170,7 +170,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="ibcdiario"  sortBy="#{infoAE.ibcaux}" width="80" filterBy="#{infoAE.ibcaux}" 
+                        <p:column  id="ibcdiario" sortBy="#{infoAE.ibcaux}" width="80" filterBy="#{infoAE.ibcaux}" 
                                    filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="nomempl" value="IBC Diario"/> 
@@ -181,7 +181,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{infoAE.ibcaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{infoAE.ibcaux}" style="border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});">
                                        <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3"/>-->
@@ -205,7 +205,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{infoAE.aporteaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{infoAE.aporteaux}" style="border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 4)}"
                                             onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
@@ -227,7 +227,7 @@
                                  </h:outputText>  
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{infoAE.tarifa2aux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{infoAE.tarifa2aux}" style="border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 5)}"
                                             onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
@@ -239,7 +239,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column id="ibcespecial"  sortBy="#{infoAE.ibcespaux}" filterBy="#{infoAE.ibcespaux}"  width="80" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column id="ibcespecial" sortBy="#{infoAE.ibcespaux}" filterBy="#{infoAE.ibcespaux}"  width="80" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText value="IBC Especial"/> 
                            </f:facet>
@@ -249,7 +249,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{infoAE.ibcespaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{infoAE.ibcespaux}" style="border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE,6)}"
                                             onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
@@ -261,7 +261,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column id="aporteentidad"  sortBy="#{infoAE.aporteentaux}" filterBy="#{infoAE.aporteentaux}" width="65"  filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column id="aporteentidad" sortBy="#{infoAE.aporteentaux}" filterBy="#{infoAE.aporteentaux}" width="65"  filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText value="Aporte Entidad"/> 
                            </f:facet>
@@ -271,7 +271,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{infoAE.aporteentaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off"  value="#{infoAE.aporteentaux}" style="border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE,7)}"
                                             onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
@@ -285,19 +285,19 @@
                      </p:dataTable>
                      <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlAportesEntidadesXDia.infoRegistroAporte}" style="position: relative; left: 5px; top: 292px; font-weight: bold;"/>
 
-                     <p:inputText  autocomplete="off"  id="ibcmensual" value="#{controlAportesEntidadesXDia.ibcmensual}" readonly="true" style="position: relative; top: 285px; left: 210px; width: 115px; height: 10px; text-align: left; border-color: transparent">
+                     <p:inputText autocomplete="off" id="ibcmensual" value="#{controlAportesEntidadesXDia.ibcmensual}" readonly="true" style="position: relative; top: 285px; left: 210px; width: 115px; height: 10px; text-align: left; border-color: transparent">
                         <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                      </p:inputText>
 
-                     <p:inputText  autocomplete="off"  id="aportemensual" value="#{controlAportesEntidadesXDia.aportemensual}" readonly="true" style="position: relative; top: 285px; left: 215px; width: 82px; height: 10px; text-align: left; border-color: transparent">
+                     <p:inputText autocomplete="off" id="aportemensual" value="#{controlAportesEntidadesXDia.aportemensual}" readonly="true" style="position: relative; top: 285px; left: 215px; width: 82px; height: 10px; text-align: left; border-color: transparent">
                         <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                      </p:inputText>
 
-                     <p:inputText  autocomplete="off"  id="ibcespecialmensual" value="#{controlAportesEntidadesXDia.ibcespecialmensual}" readonly="true" style="position: relative; top: 285px; left: 305px; width:100px; height: 10px; text-align: left; border-color: transparent">
+                     <p:inputText autocomplete="off" id="ibcespecialmensual" value="#{controlAportesEntidadesXDia.ibcespecialmensual}" readonly="true" style="position: relative; top: 285px; left: 305px; width:100px; height: 10px; text-align: left; border-color: transparent">
                         <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                      </p:inputText>
 
-                     <p:inputText  autocomplete="off"  id="aporteentidadmensual" value="#{controlAportesEntidadesXDia.aporteentidadmensual}" readonly="true" style="position: relative; top: 285px; left: 315px; width: 80px; height: 10px; text-align: left; border-color: transparent">
+                     <p:inputText autocomplete="off" id="aporteentidadmensual" value="#{controlAportesEntidadesXDia.aporteentidadmensual}" readonly="true" style="position: relative; top: 285px; left: 315px; width: 80px; height: 10px; text-align: left; border-color: transparent">
                         <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                      </p:inputText>
                   </fieldset>

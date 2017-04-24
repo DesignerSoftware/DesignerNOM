@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -229,7 +229,7 @@
                                     </h:outputText>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.parametroestructura.fechahastacausado}" readonly="true" id="editFD" widgetVar="editFD"
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.parametroestructura.fechahastacausado}" readonly="true" id="editFD" widgetVar="editFD"
                                                   onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'HASTA'}, {name: 'INDICE', value: '#{indice}'}]));"
                                                   onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});">
                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -247,7 +247,7 @@
                               <p:cellEditor>  
                                  <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.codigoempleado}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
                                                   style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                                   onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#{indice}'}]));"
                                                   onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"/> 
@@ -263,7 +263,7 @@
                               <p:cellEditor>  
                                  <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.primerapellido}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.primerapellido}" readonly="true"
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.persona.primerapellido}" readonly="true"
                                                   onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'PAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
                                                   onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
                                                   style =" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
@@ -279,7 +279,7 @@
                               <p:cellEditor>  
                                  <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.segundoapellido}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.segundoapellido}" readonly="true" 
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.persona.segundoapellido}" readonly="true" 
                                                   onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'SAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
                                                   onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
                                                   style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
@@ -295,7 +295,7 @@
                               <p:cellEditor>  
                                  <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.nombre}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.nombre}" readonly="true" 
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.persona.nombre}" readonly="true" 
                                                   onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'NOMBRE'}, {name: 'INDICE', value: '#{indice}'}]));"
                                                   onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
                                                   style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
@@ -312,7 +312,7 @@
                               <p:cellEditor>  
                                  <f:facet name="output"><h:outputText value="#{empleadoParametro.estadoParametro}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.estadoParametro}" readonly="true"  
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.estadoParametro}" readonly="true"  
                                                   onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'ESTADO'}, {name: 'INDICE', value: '#{indice}'}]));"
                                                   onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
                                                   style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
@@ -410,7 +410,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTT']}"/>
-                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" class="cssFiltroLOV"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" class="cssFiltroLOV"/>
                      </f:facet>
 
                      <p:column filterBy="#{tipoTrabajador.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
@@ -446,7 +446,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"/>
-                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV"/>
                      </f:facet>
                      <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">

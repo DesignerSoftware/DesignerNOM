@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core" 
 
-   >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -90,7 +90,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodTipo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodTipo" style=" border-radius: 0px; width: 95.5%; text-transform: uppercase ;height: 12px;"> 
                                     <p:keyFilter for="editarCodTipo" mask="num"/>
                                     <p:ajax event="select" listener="#{controlSoTiposAntecedentes.cambiarIndice(info, 0)}"/>
                                     <p:ajax event="change" listener="#{controlSoTiposAntecedentes.modificarTiposAntecedentes(info)}"/>
@@ -107,7 +107,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}" style=" text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarDescTipo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{info.descripcion}" id="editarDescTipo" style=" border-radius: 0px; width: 95.5%; text-transform: uppercase ;height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlSoTiposAntecedentes.modificarTiposAntecedentes(info)}"/>
                                     <p:ajax event="select" listener="#{controlSoTiposAntecedentes.cambiarIndice(info, 1)}"/>
                                  </p:inputText>
@@ -137,13 +137,13 @@
                   <p:panel id="nuevoTipoAntecedente" style="border: none;">
 
                      <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoCodigo" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
                         <p:keyFilter for="nuevoCodigo" mask="num"/>
                         <p:ajax event="change" update="nuevoCodigo"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;"/></strong>
-                     <p:inputText  autocomplete="off"  maxlength="50" id="nuevaDesc" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" maxlength="50" id="nuevaDesc" value="#{controlSoTiposAntecedentes.nuevoTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevaDesc"/>
                      </p:inputText>
 
@@ -160,13 +160,13 @@
                   <p:panel id="duplicarTipoAntecedente" style="border: none;">
 
                      <strong><h:outputText value="* #{msg['cod']}" style=" position: absolute; top: 55px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarCodigo" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.codigo}" style=" width: 122px; position: absolute; left: 150px; top: 50px; text-transform: uppercase;" onclick="select();">
                         <p:keyFilter for="duplicarCodigo" mask="num"/>
                         <p:ajax event="change" update="duplicarCodigo"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['desc']}"  style=" position: absolute; top: 85px; left: 29px;"/></strong>
-                     <p:inputText  autocomplete="off"  maxlength="50" id="duplicarDesc" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" maxlength="50" id="duplicarDesc" value="#{controlSoTiposAntecedentes.duplicarTipoAntecedente.descripcion}" style=" width: 122px; position: absolute; left: 150px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarDesc"/>
                      </p:inputText>
 

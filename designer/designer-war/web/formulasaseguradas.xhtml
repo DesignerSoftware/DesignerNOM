@@ -447,8 +447,8 @@
 
                   <p:panel id="nuevaTipoempresa" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['formulaN']}"  style=" position: absolute; top: 60px;text-transform: uppercase;"/></strong>
-                     <p:inputText autocomplete="off"  id="nuevoPersona" value="#{controlFormulasAseguradas.nuevoFormulaAsegurada.formula.nombrelargo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                     <strong><h:outputText value="#{msg['formulaN']}"  style=" position: absolute; top: 60px; text-transform: uppercase;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlFormulasAseguradas.nuevoFormulaAsegurada.formula.nombrelargo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlFormulasAseguradas.valoresBackupAutocompletar(1,'FORMULA')}"/>
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarNuevo('FORMULA',controlFormulasAseguradas.nuevoFormulaAsegurada.formula.nombrelargo, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlFormulasAseguradas.asignarVariableFormulas(0)}"/>
@@ -457,8 +457,8 @@
                                       actionListener="#{controlFormulasAseguradas.asignarVariableFormulas(0)}" class="cssBotonLovDialogos"/>   
                      <p:watermark for="nuevoPersona" value="#{msg['formulaNN']}"/>
 
-                     <strong><h:outputText value="#{msg['procesoN']}"  style=" position: absolute; top: 90px;text-transform: uppercase;"/></strong>
-                     <p:inputText autocomplete="off"  id="nuevoProceso" value="#{controlFormulasAseguradas.nuevoFormulaAsegurada.proceso.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                     <strong><h:outputText value="#{msg['procesoN']}"  style=" position: absolute; top: 90px; text-transform: uppercase;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoProceso" value="#{controlFormulasAseguradas.nuevoFormulaAsegurada.proceso.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlFormulasAseguradas.valoresBackupAutocompletar(1,'PROCESO')}"/>
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarNuevo('PROCESO',controlFormulasAseguradas.nuevoFormulaAsegurada.proceso.descripcion, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlFormulasAseguradas.asignarVariableProcesos(0)}"/>
@@ -467,8 +467,8 @@
                                       actionListener="#{controlFormulasAseguradas.asignarVariableProcesos(0)}" class="cssBotonLovDialogos"/>   
                      <p:watermark for="nuevoProceso" value="#{msg['procesoNN']}"/>
 
-                     <strong><h:outputText value="#{msg['periodicidadN']}"  style=" position: absolute; top: 120px;text-transform: uppercase;"/></strong>
-                     <p:inputText autocomplete="off"  id="nuevoPeriodicidad" value="#{controlFormulasAseguradas.nuevoFormulaAsegurada.periodicidad.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase;">
+                     <strong><h:outputText value="#{msg['periodicidadN']}"  style=" position: absolute; top: 120px; text-transform: uppercase;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoPeriodicidad" value="#{controlFormulasAseguradas.nuevoFormulaAsegurada.periodicidad.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlFormulasAseguradas.valoresBackupAutocompletar(1,'PERIODICIDAD')}"/>
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarNuevo('PERIODICIDAD',controlFormulasAseguradas.nuevoFormulaAsegurada.periodicidad.nombre, 1)}"/>
                         <p:ajax event="dblclick" listener="#{controlFormulasAseguradas.asignarVariablePeriodicidades(0)}"/>
@@ -493,7 +493,7 @@
 
                   <p:panel id="duplicarTE" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['formulaN']}"  style=" position: absolute; top: 60px;text-transform: uppercase;"/></strong>
+                     <strong><h:outputText value="#{msg['formulaN']}"  style=" position: absolute; top: 60px; text-transform: uppercase;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarPersona" value="#{controlFormulasAseguradas.duplicarFormulaAsegurada.formula.nombrelargo}"  style=" width: 150px; position: absolute; left: 150px; top: 55px;">
                         <p:ajax event="click" listener="#{controlFormulasAseguradas.valoresBackupAutocompletar(2,'FORMULA')}"/>
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarDuplicado('FORMULA', controlFormulasAseguradas.duplicarFormulaAsegurada.formula.nombrelargo , 2)}"/>
@@ -503,7 +503,7 @@
                                       actionListener="#{controlFormulasAseguradas.asignarVariableFormulas(1)}" class="cssBotonLovDialogos"/>   
                      <p:watermark for="duplicarPersona" value="#{msg['formulaNN']}"/>
 
-                     <strong><h:outputText value="#{msg['procesoN']}"  style=" position: absolute; top: 90px;text-transform: uppercase;"/></strong>
+                     <strong><h:outputText value="#{msg['procesoN']}"  style=" position: absolute; top: 90px; text-transform: uppercase;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarProceso" value="#{controlFormulasAseguradas.duplicarFormulaAsegurada.proceso.descripcion}"  style=" width: 150px; position: absolute; left: 150px; top: 85px;">
                         <p:ajax event="click" listener="#{controlFormulasAseguradas.valoresBackupAutocompletar(2,'PROCESO')}"/>
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarDuplicado('PROCESO', controlFormulasAseguradas.duplicarFormulaAsegurada.proceso.descripcion , 2)}"/>
@@ -513,7 +513,7 @@
                                       actionListener="#{controlFormulasAseguradas.asignarVariableProcesos(1)}" class="cssBotonLovDialogos"/>   
                      <p:watermark for="duplicarProceso" value="#{msg['procesoNN']}"/>
 
-                     <strong><h:outputText value="#{msg['periodicidadN']}" style=" position: absolute; top: 120px;text-transform: uppercase;"/></strong>
+                     <strong><h:outputText value="#{msg['periodicidadN']}" style=" position: absolute; top: 120px; text-transform: uppercase;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarPeriodicidad" value="#{controlFormulasAseguradas.duplicarFormulaAsegurada.periodicidad.nombre}"  style=" width: 150px; position: absolute; left: 150px; top: 115px;">
                         <p:ajax event="click" listener="#{controlFormulasAseguradas.valoresBackupAutocompletar(2,'PERIODICIDAD')}"/>
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarDuplicado('PERIODICIDAD', controlFormulasAseguradas.duplicarFormulaAsegurada.periodicidad.nombre , 2)}"/>

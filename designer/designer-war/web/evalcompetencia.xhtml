@@ -77,14 +77,14 @@
                                          editable="true" editMode="cell" paginator="false" 
                                          selection="#{controlEvalCompetencias.evalCompetenciaSeleccionada}"
                                          selectionMode="single"
-                                     >
+                             >
                                 <p:ajax event="filter" listener="#{controlEvalCompetencias.eventoFiltrar()}"/>
 
                                 <p:column headerText="#{msg['cod']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEvalCompetencias.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEvalCompetencias.modificarEvalCompetencia(info)}"  update="codigo"/>
                                             </p:inputText>
@@ -98,7 +98,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarNombre" style=" height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="50" id="editarNombre" style=" height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEvalCompetencias.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlEvalCompetencias.modificarEvalCompetencia(info)}" update="descripcion"/>
                                             </p:inputText>
@@ -113,7 +113,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.desCompetencia}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.desCompetencia}" maxlength="1000" id="editarDescripcionCompetencia" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.desCompetencia}" maxlength="1000" id="editarDescripcionCompetencia" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEvalCompetencias.cambiarIndice(info, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlEvalCompetencias.modificarEvalCompetencia(info)}" update="descripcionCompetencia"/>
                                             </p:inputText>
@@ -233,19 +233,19 @@
                         <p:panel id="nuevaaEvalEmpresa" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['cod']} : "  style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlEvalCompetencias.nuevoEvalCompetencia.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoCodigo" value="#{controlEvalCompetencias.nuevoEvalCompetencia.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['cod']}"/>
 
                             <strong><h:outputText value="*#{msg['desc']} :"  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="50" value="#{controlEvalCompetencias.nuevoEvalCompetencia.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="50" value="#{controlEvalCompetencias.nuevoEvalCompetencia.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['desc']}"/>
 
                             <strong><h:outputText value="#{msg['descom']} :"  style="left: 15px; position: absolute; top: 120px;"/></strong>
-                            <p:inputTextarea  id="nuevoDC" maxlength="1000" value="#{controlEvalCompetencias.nuevoEvalCompetencia.desCompetencia}" style="height: 60px ;width: 275px; position: absolute; left: 15px; top: 140px;text-transform: uppercase;">
+                            <p:inputTextarea  id="nuevoDC" maxlength="1000" value="#{controlEvalCompetencias.nuevoEvalCompetencia.desCompetencia}" style="height: 60px ;width: 275px; position: absolute; left: 15px; top: 140px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevoDC" value="#{msg['descom']}"/>
@@ -262,19 +262,19 @@
 
                         <p:panel id="duplicarEvC" style="border: none;">
                             <strong><h:outputText value="*#{msg['cod']} :"  style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlEvalCompetencias.duplicarEvalCompetencia.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarCodigo" value="#{controlEvalCompetencias.duplicarEvalCompetencia.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['cod']}"/>
 
                             <strong><h:outputText value="*#{msg['desc']} :"  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="50" value="#{controlEvalCompetencias.duplicarEvalCompetencia.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="50" value="#{controlEvalCompetencias.duplicarEvalCompetencia.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['desc']}"/>
 
                             <strong><h:outputText value="#{msg['descom']} :"  style="left: 15px; position: absolute; top: 120px;"/></strong>
-                            <p:inputTextarea  id="duplicarDC" maxlength="1000" value="#{controlEvalCompetencias.duplicarEvalCompetencia.desCompetencia}" style="height: 60px ;width: 275px; position: absolute; left: 15px; top: 140px;text-transform: uppercase;">
+                            <p:inputTextarea  id="duplicarDC" maxlength="1000" value="#{controlEvalCompetencias.duplicarEvalCompetencia.desCompetencia}" style="height: 60px ;width: 275px; position: absolute; left: 15px; top: 140px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputTextarea> 
                             <p:watermark for="duplicarDC" value="#{msg['descom']}"/>

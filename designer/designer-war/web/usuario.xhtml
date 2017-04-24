@@ -102,7 +102,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.persona.nombreCompleto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{usuario.persona.nombreCompleto}" id="editarPersona" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{usuario.persona.nombreCompleto}" id="editarPersona" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(usuario)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(usuario, 0)}" process="@this"
                                             onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
@@ -124,7 +124,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.perfil.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{usuario.perfil.descripcion}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{usuario.perfil.descripcion}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(usuario, 1)}"  process="@this"
                                             onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(usuario)}" process="@this"/>
@@ -148,7 +148,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{usuario.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{usuario.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(usuario, 2)}" 
                                             onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(usuario)}" update="@this"/>
@@ -168,7 +168,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.pantallainicio.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{usuario.pantallainicio.nombre}" id="editarPantalla" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{usuario.pantallainicio.nombre}" id="editarPantalla" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(usuario, 3)}" 
                                             onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 2, 0)}"/>
@@ -219,7 +219,7 @@
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlUsuarios.infoRegistro}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
                      <strong><h:outputText value="#{msg['clonarde']}" style=" position: relative; top: 5px; left: 510px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="aliasNombreClon" value="#{controlUsuarios.auxClon.alias}" style="position: relative; top: 5px; left: 515px;">
+                     <p:inputText autocomplete="off" id="aliasNombreClon" value="#{controlUsuarios.auxClon.alias}" style="position: relative; top: 5px; left: 515px;">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.lovUsuarios()}"/>
                      </p:inputText>
                   </fieldset>
@@ -329,24 +329,24 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
                   <p:panel id="nuevaUsuario" style="border: none;">                           
                      <strong><h:outputText value="#{msg['personaN']}" style=" position: absolute; top: 65px; left: 18px;"  /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoPersona" value="#{controlUsuarios.nuevaUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlUsuarios.nuevaUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 0, 1)}"/>
                      </p:inputText>
                      <p:commandButton style="position: absolute; left: 317px; top: 60px; " class="cssBotonLovDialogos" id="btnNuevoPersona" value="" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 0, 1)}"/>
 
                      <strong><h:outputText value="#{msg['perfilN']}" style=" position: absolute; top: 95px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoPerfil" value="#{controlUsuarios.nuevaUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlUsuarios.nuevaUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 1, 1)}"/>
                      </p:inputText>
                      <p:commandButton style="position: absolute; left: 317px; top: 90px; " class="cssBotonLovDialogos" id="btnNuevoPerfil" value="" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 1, 1)}"/>
 
                      <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 125px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoAlias" value="#{controlUsuarios.nuevaUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoAlias" value="#{controlUsuarios.nuevaUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText> 
 
                      <strong><h:outputText value="#{msg['pantallaN']}" style=" position: absolute; top: 155px; left: 18px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoPantalla" value="#{controlUsuarios.nuevaUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoPantalla" value="#{controlUsuarios.nuevaUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 2, 1)}"/>
                      </p:inputText>
                      <p:commandButton style="position: absolute; left: 317px; top: 150px; " id="btnNuevoPantalla" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 2, 1)}"/>
@@ -367,24 +367,24 @@
                   <p:panel id="duplicarUsuario" style="border: none;">
 
                      <strong><h:outputText value="#{msg['personaN']}" style=" position: absolute; top: 65px; left: 18px"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoPersona" value="#{controlUsuarios.duplicarUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicadoPersona" value="#{controlUsuarios.duplicarUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 0, 2)}"/>
                      </p:inputText>
                      <p:commandButton style="position: absolute; left: 317px; top: 60px; " id="btnDuplicarPersona" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 0, 2)}"/>
 
                      <strong><h:outputText value="#{msg['perfilN']}" style=" position: absolute; top: 95px; left: 18px"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoPerfil" value="#{controlUsuarios.duplicarUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicadoPerfil" value="#{controlUsuarios.duplicarUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 1, 2)}"/>
                      </p:inputText>
                      <p:commandButton style="position: absolute; left: 317px; top: 90px; " id="btnDuplicarPerfil" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 1, 2)}"/>
 
                      <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 125px; left: 18px"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoAlias" value="#{controlUsuarios.duplicarUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicadoAlias" value="#{controlUsuarios.duplicarUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText> 
 
                      <strong><h:outputText value="#{msg['pantallaN']}" style=" position: absolute; top: 155px; left: 18px"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoPantalla" value="#{controlUsuarios.duplicarUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicadoPantalla" value="#{controlUsuarios.duplicarUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 2, 2)}"/>
                      </p:inputText>
                      <p:commandButton style="position: absolute; left: 317px; top: 150px; " id="btnDuplicarClaseAusentismo" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 2, 2)}"/>
@@ -410,7 +410,7 @@
                      <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosAlias()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarAU']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVUsuariosAlias').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVUsuariosAlias').filter();" class="cssFiltroLOV"/>  
                      </f:facet>                            
                      <p:column filterBy="#{aliasU.alias}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
                         <f:facet name="header">
@@ -437,7 +437,7 @@
                      <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosPersonas()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarPS']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPersonas').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPersonas').filter();" class="cssFiltroLOV"/>  
                      </f:facet>                            
                      <p:column filterBy="#{personas.nombreCompleto}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                         <f:facet name="header">
@@ -464,7 +464,7 @@
                      <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosPerfiles()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarPF']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPerfiles').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPerfiles').filter();" class="cssFiltroLOV"/>  
                      </f:facet>                            
                      <p:column filterBy="#{perfiles.descripcion}" filterStyle="width: 80% !important"  filterMatchMode="contains">
                         <f:facet name="header">
@@ -491,7 +491,7 @@
                      <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosPantallas()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarPT']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPantallas').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPantallas').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{pantallas.codigo}" width="30" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
@@ -517,21 +517,21 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevoFamiliarP" style="border: none;">
                      <strong><h:outputText value="* #{msg['papellido']}" style="position: absolute; top: 55px; left: 38px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoApellido" value="#{controlUsuarios.nuevaPersona.primerapellido}" 
+                     <p:inputText autocomplete="off" id="nuevoApellido" value="#{controlUsuarios.nuevaPersona.primerapellido}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 50px;">
                         <p:ajax event="change" update="nuevoApellido"/>
                      </p:inputText>
                      <p:watermark for="nuevoApellido" value="#{msg['papellido']}"/>
 
                      <strong><h:outputText value="#{msg['sapellido']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoSegundoApellido" value="#{controlUsuarios.nuevaPersona.segundoapellido}" 
+                     <p:inputText autocomplete="off" id="nuevoSegundoApellido" value="#{controlUsuarios.nuevaPersona.segundoapellido}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 80px;">
                         <p:ajax event="change" update="nuevoSegundoApellido"/>
                      </p:inputText>
                      <p:watermark for="nuevoSegundoApellido" value="#{msg['sapellido']}"/>
 
                      <strong><h:outputText value="* #{msg['pnombre']}" style="position: absolute; top: 115px; left: 38px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoNombreD" value="#{controlUsuarios.nuevaPersona.nombre}" 
+                     <p:inputText autocomplete="off" id="nuevoNombreD" value="#{controlUsuarios.nuevaPersona.nombre}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 110px;">
                         <p:ajax event="change" update="nuevoNombreD"/>
                      </p:inputText>
@@ -547,7 +547,7 @@
                      <p:watermark for="nuevoSexo" value="Sexo"/>
 
                      <strong><h:outputText value="* #{msg['tipoDoc']}:" style="position: absolute; top: 175px; left: 38px"/> </strong>
-                     <p:inputText  autocomplete="off"  onclick="select();" value="#{controlUsuarios.nuevaPersona.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
+                     <p:inputText autocomplete="off" onclick="select();" value="#{controlUsuarios.nuevaPersona.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
                                    style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(familiar, 3, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -556,14 +556,14 @@
                      </p:inputText>
 
                      <h:outputText  value="* #{msg['numdoc']}:" style="position: absolute; top: 205px; left: 38px; font-weight: bold;"/>
-                     <p:inputText  autocomplete="off"  onclick="select();" value="#{controlUsuarios.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
+                     <p:inputText autocomplete="off" onclick="select();" value="#{controlUsuarios.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
                                    style="position: absolute; top: 200px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="change" update="numeroDocumentoModPersonal" process="@this"/>
                         <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
                      </p:inputText>
 
                      <h:outputText  value="* #{msg['ciudoc']}:" style="position: absolute; top: 235px; left: 38px; font-weight: bold;"/>
-                     <p:inputText  autocomplete="off"  widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
+                     <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
                                    style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(familiar, 4, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -573,14 +573,14 @@
 
                      <h:outputText  value="* #{msg['fechaNacimiento']}:" style="position: absolute; top: 265px; left: 38px; font-weight: bold;"/>
                      <div style="position: absolute; top: 260px; left: 220px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlUsuarios.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlUsuarios.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal">
                            <p:ajax event="dateSelect"  update="@this"/>
                            <p:ajax event="change"  update="@this"/>
                         </p:calendar>
                      </div>
 
                      <h:outputText value="* #{msg['ciunac']}:" style="position: absolute; top: 295px; left: 38px; font-weight: bold;"/>
-                     <p:inputText  autocomplete="off"  widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
+                     <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
                                    style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(familiar, 5, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -609,14 +609,14 @@
 
                      <strong><h:outputText value="#{msg['fechaf']}" style="position: absolute; top: 385px; left: 50px;"/></strong>
                      <div style="position: absolute; top: 380px; left: 220px;">
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlUsuarios.nuevaPersona.fechafallecimiento}" id="nuevaFechaF">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlUsuarios.nuevaPersona.fechafallecimiento}" id="nuevaFechaF">
                            <p:ajax event="dateSelect"  update="@this"/>
                            <p:ajax event="change"  update="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['obs']}" style="position: absolute; top: 415px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaObs" value="#{controlUsuarios.nuevaPersona.observacion}" 
+                     <p:inputText autocomplete="off" id="nuevaObs" value="#{controlUsuarios.nuevaPersona.observacion}" 
                                    style="width: 122px; position: absolute; left: 220px; top: 410px;">
                         <p:ajax event="change" update="nuevaObs"/>
                      </p:inputText>
@@ -644,7 +644,7 @@
 
                      <f:facet name="header"> 
                         <h:outputText value="Buscar Ciudad de Nacimiento"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -680,7 +680,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="Buscar Ciudad de Nacimiento"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadNacimiento').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadNacimiento').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -711,7 +711,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="Buscar Tipo Documento"  />  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tipoDIP.nombrelargo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">

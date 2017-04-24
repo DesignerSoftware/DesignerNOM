@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -238,7 +238,7 @@
 
                            <div style="display: block;">
                               <h:outputText value="#{msg['empresa']}:" style="top: 25px; position: relative; left: 20px;"/>
-                              <p:inputText  autocomplete="off"  id="empresaParametro" value="#{controlNReporteEvalCompetencia.parametroDeInforme.empresa.nombre}"  
+                              <p:inputText autocomplete="off" id="empresaParametro" value="#{controlNReporteEvalCompetencia.parametroDeInforme.empresa.nombre}"  
                                             style="position: absolute; left: 85px; width: 100px; top: 70px;" onclick="select();">
                                  <p:ajax event="click" listener="#{controlNReporteEvalCompetencia.posicionCelda(8)}" process="@this"/> 
                                  <p:ajax event="change" listener="#{controlNReporteEvalCompetencia.autocompletarGeneral('EMPRESA', controlNReporteEvalCompetencia.parametroDeInforme.empresa.nombre)}" 
@@ -253,7 +253,7 @@
                      <div id="marcoderecho" style="display: inline-block; width: 43%; background-color: white; position: absolute; height: 90%; margin-left: 55%">
                         <div style="display: block;">
                            <h:outputText value="#{msg['estructura']}:" style="top: 2px; position: relative; left: 30px;"/>
-                           <p:inputText  autocomplete="off" id="estructuraParametro" value="#{controlNReporteEvalCompetencia.parametroDeInforme.localizacion.nombre}" 
+                           <p:inputText autocomplete="off" id="estructuraParametro" value="#{controlNReporteEvalCompetencia.parametroDeInforme.localizacion.nombre}" 
                                          onclick="select();" maxlength="50" style="position: absolute; width: 200px; left: 135px; top: 2px;">
                               <p:ajax event="click" listener="#{controlNReporteEvalCompetencia.posicionCelda(5)}" process="@this"/> 
                               <p:ajax listener="#{controlNReporteEvalCompetencia.autocompletarGeneral('ESTRUCTURA', controlNReporteEvalCompetencia.parametroDeInforme.localizacion.nombre)}" 
@@ -347,7 +347,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlNReporteEvalCompetencia.actualizarEmplDesde()}" update=":formDialogos:EmpleadoDesdeDialogo" process="@this"  />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEMP']}"/>  
-                        <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
+                        <p:inputText autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
                      </f:facet>
                      <p:column filterBy="#{empleadoDesde.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">

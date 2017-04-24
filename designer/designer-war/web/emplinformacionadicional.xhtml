@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-  >
+>
    <h:head>
    </h:head>
    <h:body>
@@ -110,7 +110,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplInformacionAdicional.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplInformacionAdicional.cambiarIndice(info,0)}" process="@this"
@@ -132,7 +132,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplInformacionAdicional.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplInformacionAdicional.cambiarIndice(info,1)}" process="@this" 
@@ -150,7 +150,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.grupo.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.grupo.descripcion}" id="editarGrupo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.grupo.descripcion}" id="editarGrupo" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info, 'GRUPO', info.grupo.descripcion)}"/>
                                     <p:ajax event="select" listener="#{controlEmplInformacionAdicional.cambiarIndice(info, 2)}" 
                                             onstart="PF('datosInfoAdEmpleado').unselectAllRows();PF('datosInfoAdEmpleado').selectRow(#{indice});"/>
@@ -168,7 +168,7 @@
                            <p:cellEditor>
                               <f:facet name="output"><h:outputText value="#{info.tipodatoTr}"/></f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarTipoDato" value="#{info.tipodatoTr}" style="width: 70%; font-weight: bold;text-transform: uppercase;"
+                                 <p:selectOneMenu id="editarTipoDato" value="#{info.tipodatoTr}" style="width: 70%; font-weight: bold; text-transform: uppercase;"
                                                   onblur="PF('datosInfoAdEmpleado').unselectAllRows();PF('datosInfoAdEmpleado').selectRow(#{indice});"
                                                   onfocus="PF('datosInfoAdEmpleado').unselectAllRows();PF('datosInfoAdEmpleado').selectRow(#{indice});">  
                                     <f:selectItem itemLabel="#{msg['c']}" itemValue="#{msg['c']}"/>  
@@ -189,7 +189,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.resultadocaracter}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  disabled="#{controlEmplInformacionAdicional.activarCaracter}"  value="#{info.resultadocaracter}" id="editarCaracter" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" disabled="#{controlEmplInformacionAdicional.activarCaracter}"  value="#{info.resultadocaracter}" id="editarCaracter" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info)}" update="editarCaracter"/>
                                     <p:ajax event="select" listener="#{controlEmplInformacionAdicional.cambiarIndice(info,3)}"
                                             onstart="PF('datosInfoAdEmpleado').unselectAllRows();PF('datosInfoAdEmpleado').selectRow(#{indice});"/>
@@ -206,7 +206,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.resultadonumerico}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" disabled="#{controlEmplInformacionAdicional.activarNumero}"  value="#{info.resultadonumerico}" id="editarNumerico" style="border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" disabled="#{controlEmplInformacionAdicional.activarNumero}"  value="#{info.resultadonumerico}" id="editarNumerico" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info)}" update="editarNumerico"/>
                                     <p:ajax event="select" listener="#{controlEmplInformacionAdicional.cambiarIndice(info,4)}"
                                             onstart="PF('datosInfoAdEmpleado').unselectAllRows();PF('datosInfoAdEmpleado').selectRow(#{indice});"/>
@@ -227,7 +227,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" disabled="#{controlEmplInformacionAdicional.activarFecha}"  value="#{info.resultadofecha}" id="editFecha"   styleClass="ui-datepicker, myClass"  
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" disabled="#{controlEmplInformacionAdicional.activarFecha}"  value="#{info.resultadofecha}" id="editFecha"   styleClass="ui-datepicker, myClass"  
                                               navigator="true" showButtonPanel="true" locale="es">                                         
                                     <p:ajax event="dateSelect" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info)}" update="editFecha"/>
                                     <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info)}"/>
@@ -247,7 +247,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" maxlength="50" value="#{info.descripcion}" id="editarObservacion" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" maxlength="50" value="#{info.descripcion}" id="editarObservacion" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info)}" update="editarObservacion"/>
                                     <p:ajax event="select" listener="#{controlEmplInformacionAdicional.cambiarIndice(info,6)}" 
                                             onstart="PF('datosInfoAdEmpleado').unselectAllRows();PF('datosInfoAdEmpleado').selectRow(#{indice});"/>
@@ -274,7 +274,7 @@
                         <p:ajax event="rowDblselect" listener="#{controlEmplInformacionAdicional.actualizarGrupo()}" process="@this" onstart="PF('lovGrupo').clearFilters()"/>
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarG']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovGrupo').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGrupo').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{grupo.descripcion}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                            <f:facet name="header">
@@ -378,19 +378,19 @@
                   <p:panel id="nuevaInfoAd" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 18px;"/></strong>
-                     <p:calendar  autocomplete="off"  style="position: absolute; top: 70px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.fechainicial}">
+                     <p:calendar autocomplete="off" style="position: absolute; top: 70px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.fechainicial}">
                         <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                         <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="*#{msg['finalN']}" style="position: absolute; top: 105px; left: 18px;"/></strong>
-                     <p:calendar  autocomplete="off" style="position: absolute; top: 100px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.fechafinal}">
+                     <p:calendar autocomplete="off" style="position: absolute; top: 100px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.fechafinal}">
                         <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                         <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="#{msg['grupoN']}" style="position: absolute; top: 135px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaGrupo" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.grupo.descripcion}" style="width: 122px; position: absolute; left: 160px; top: 130px;">
+                     <p:inputText autocomplete="off" id="nuevaGrupo" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.grupo.descripcion}" style="width: 122px; position: absolute; left: 160px; top: 130px;">
                         <p:ajax event="dblclick" listener="#{controlEmplInformacionAdicional.asignarIndex(info,0,1)}"/>
                         <p:ajax event="click" listener="#{controlEmplInformacionAdicional.valoresBackupAutocompletar(1, 'GRUPO')}"/>
                         <p:ajax event="change" listener="#{controlEmplInformacionAdicional.autocompletarNuevoyDuplicado('GRUPO', controlEmplInformacionAdicional.nuevaInfoAdicional.grupo.descripcion, 1)}"/>
@@ -399,7 +399,7 @@
                      <p:watermark for="nuevaGrupo" value="#{msg['grupo']}"/>
 
                      <strong><h:outputText value="*#{msg['tipodatoN']}" style="position: absolute; top: 165px; left: 18px;"/></strong>
-                     <p:selectOneMenu id="nuevaTipoDato" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.tipodato}" style="position: absolute;width: 100px; font-weight: bold;left: 160px; top: 160px;text-transform: uppercase;">
+                     <p:selectOneMenu id="nuevaTipoDato" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.tipodato}" style="position: absolute;width: 100px; font-weight: bold;left: 160px; top: 160px; text-transform: uppercase;">
                         <f:selectItem itemLabel="" itemValue="null"/>  
                         <f:selectItem itemLabel="#{msg['c']}" itemValue="C"/>  
                         <f:selectItem itemLabel="#{msg['f']}" itemValue="F"/> 
@@ -408,19 +408,19 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['caracterN']}" style="position: absolute; top: 195px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoCaracter" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.resultadocaracter}" style="width: 122px; position: absolute; left: 160px; top: 190px;">
+                     <p:inputText autocomplete="off" id="nuevoCaracter" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.resultadocaracter}" style="width: 122px; position: absolute; left: 160px; top: 190px;">
                         <p:ajax event="change" update="nuevoCaracter"/>
                      </p:inputText>
                      <p:watermark for="nuevoCaracter" value="#{msg['caracter']}"/>
 
                      <strong><h:outputText value="#{msg['numericoN']}" style="position: absolute; top: 225px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoNumerico" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.resultadonumerico}" style="width: 122px; position: absolute; left: 160px; top: 220px;">
+                     <p:inputText autocomplete="off" id="nuevoNumerico" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.resultadonumerico}" style="width: 122px; position: absolute; left: 160px; top: 220px;">
                         <p:ajax event="change" update="nuevoNumerico"/>
                      </p:inputText>
                      <p:watermark for="nuevoNumerico" value="#{msg['numerico']}"/>
 
                      <strong><h:outputText value="#{msg['fechaN']}" style="position: absolute; top: 255px;"/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFecha" style="position: absolute; left: 160px; top: 250px;" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.resultadofecha}"  styleClass="ui-datepicker, myClass2"  
+                     <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="nuevaFecha" style="position: absolute; left: 160px; top: 250px;" value="#{controlEmplInformacionAdicional.nuevaInfoAdicional.resultadofecha}"  styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true" locale="es">
                         <p:ajax event="dateSelect" update="nuevaFecha"/>
                         <p:ajax event="change" update="nuevaFecha"/>
@@ -442,19 +442,19 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarInfoAd" style="border: none;">
                      <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 18px;"/></strong>
-                     <p:calendar  autocomplete="off" style="position: absolute; top: 70px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.fechainicial}">
+                     <p:calendar autocomplete="off" style="position: absolute; top: 70px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.fechainicial}">
                         <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                         <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="*#{msg['finalN']}" style="position: absolute; top: 105px; left: 18px;"/></strong>
-                     <p:calendar  autocomplete="off" style=" position: absolute; top: 100px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.fechafinal}">
+                     <p:calendar autocomplete="off" style=" position: absolute; top: 100px; left: 160px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.fechafinal}">
                         <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                         <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                      </p:calendar>
 
                      <strong><h:outputText value="#{msg['grupoN']}" style="position: absolute; top: 135px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarGrupo" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.grupo.descripcion}" style="width: 122px; position: absolute; left: 160px; top: 130px;">
+                     <p:inputText autocomplete="off" id="duplicarGrupo" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.grupo.descripcion}" style="width: 122px; position: absolute; left: 160px; top: 130px;">
                         <p:ajax event="dblclick" listener="#{controlEmplInformacionAdicional.asignarIndex(info,0,2)}"/>
                         <p:ajax event="click" listener="#{controlEmplInformacionAdicional.valoresBackupAutocompletar(2, 'GRUPO')}"/>
                         <p:ajax event="change" listener="#{controlEmplInformacionAdicional.autocompletarNuevoyDuplicado('GRUPO', controlEmplInformacionAdicional.duplicarInfoAdicional.grupo.descripcion, 2)}"/>
@@ -463,7 +463,7 @@
                      <p:watermark for="duplicarGrupo" value="#{msg['grupo']}"/>
 
                      <strong><h:outputText value="*#{msg['tipodatoN']}" style="position: absolute; top: 165px; left: 18px;"/></strong>
-                     <p:selectOneMenu id="duplicarTipoDato" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.tipodato}" style="position: absolute;width: 100px; font-weight: bold;left: 160px; top: 160px;text-transform: uppercase;">
+                     <p:selectOneMenu id="duplicarTipoDato" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.tipodato}" style="position: absolute;width: 100px; font-weight: bold;left: 160px; top: 160px; text-transform: uppercase;">
                         <f:selectItem itemLabel="" itemValue="null"/>  
                         <f:selectItem itemLabel="#{msg['c']}" itemValue="C"/>
                         <f:selectItem itemLabel="#{msg['f']}" itemValue="F"/> 
@@ -472,19 +472,19 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['caracterN']}" style="position: absolute; top: 195px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarCaracter" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.resultadocaracter}" style="width: 122px; position: absolute; left: 160px; top: 190px;">
+                     <p:inputText autocomplete="off" id="duplicarCaracter" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.resultadocaracter}" style="width: 122px; position: absolute; left: 160px; top: 190px;">
                         <p:ajax event="change" update="duplicarCaracter"/>
                      </p:inputText>
                      <p:watermark for="duplicarCaracter" value="#{msg['caracter']}"/>
 
                      <strong><h:outputText value="#{msg['numericoN']}" style="position: absolute; top: 225px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarNumerico" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.resultadonumerico}" style="width: 122px; position: absolute; left: 160px; top: 220px;">
+                     <p:inputText autocomplete="off" id="duplicarNumerico" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.resultadonumerico}" style="width: 122px; position: absolute; left: 160px; top: 220px;">
                         <p:ajax event="change" update="duplicarNumerico"/>
                      </p:inputText>
                      <p:watermark for="duplicarNumerico" value="#{msg['numerico']}"/>
 
                      <strong><h:outputText value="#{msg['fechaN']}" style="position: absolute; top: 255px;"/></strong>
-                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFecha" style="position: absolute; left: 160px; top: 250px;" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.resultadofecha}"  styleClass="ui-datepicker, myClass2"  
+                     <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFecha" style="position: absolute; left: 160px; top: 250px;" value="#{controlEmplInformacionAdicional.duplicarInfoAdicional.resultadofecha}"  styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true" locale="es">
                         <p:ajax event="dateSelect" update="duplicarFecha"/>
                         <p:ajax event="change" update="duplicarFecha"/>

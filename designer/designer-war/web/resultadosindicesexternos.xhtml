@@ -86,7 +86,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.indiceexterno.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.indiceexterno.descripcion}" maxlength="50" id="eIndice" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.indiceexterno.descripcion}" maxlength="50" id="eIndice" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlResultadosIndicesExternos.modificarResultado(info, 'N', info.indiceexterno.descripcion)}" update="eIndice"/>
                                                 <p:ajax event="dblclick" listener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 0)}"/>
@@ -103,7 +103,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ano}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.ano}" maxlength="4" id="eAnio" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.ano}" maxlength="4" id="eAnio" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlResultadosIndicesExternos.modificarResultado(info)}"  update="eAnio"/>
                                             </p:inputText>
@@ -146,7 +146,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valor}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.valor}" id="eValor" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.valor}" id="eValor" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 3)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlResultadosIndicesExternos.modificarResultado(info)}"  update="eValor"/>
                                             </p:inputText>
@@ -162,7 +162,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.referencia}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.referencia}" maxlength="100" id="eRef" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.referencia}" maxlength="100" id="eRef" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 4)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlResultadosIndicesExternos.modificarResultado(info)}"  update="eRef"/>
                                             </p:inputText>
@@ -276,7 +276,7 @@
                         <p:panel id="nuevoResultadoIE" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['indice']}: "  style="position: absolute; top: 60px;"/></strong>
-                            <p:inputText autocomplete="off"  id="nuevoIndice" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.indiceexterno.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoIndice" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.indiceexterno.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                                 <p:ajax event="dblclick" listener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 1)}"/>
                             </p:inputText>
@@ -284,7 +284,7 @@
                             <p:commandButton style="position: absolute; left: 331px; top: 55px;" class="cssBotonLovDialogos"  id="btnAgregarIndiceE" value="" process="@this"  actionListener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 1)}"/>
 
                             <strong><h:outputText value="*#{msg['ano']}:"  style="position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoAnio" maxlength="4" value="#{controlResultadosIndicesExternos.nuevoResultado.ano}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="nuevoAnio" maxlength="4" value="#{controlResultadosIndicesExternos.nuevoResultado.ano}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoAnio" value="#{msg['ano']}"/>
@@ -307,13 +307,13 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="*#{msg['valor']}: "  style="position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoValor" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.mes}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoValor" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.mes}" style=" width: 140px; position: absolute; left: 150px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoValor" value="#{msg['valor']}"/>
 
                             <strong><h:outputText value="#{msg['ref']}: "  style="position: absolute; top: 180px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevaRef" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.referencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevaRef" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.referencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaRef" value="#{msg['ref']}"/>
@@ -329,7 +329,7 @@
 
                         <p:panel id="duplicarResultado" style="border: none;">
                             <strong><h:outputText value="*#{msg['indice']}: "  style="position: absolute; top: 60px;"/></strong>
-                            <p:inputText autocomplete="off"  id="duplicarIndice" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.indiceexterno.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarIndice" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.indiceexterno.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                                 <p:ajax event="dblclick" listener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 2)}"/>
                             </p:inputText>
@@ -337,7 +337,7 @@
                             <p:commandButton style="position: absolute; left: 331px; top: 55px;" class="cssBotonLovDialogos"  id="btnDuplicarIndiceE" value="" process="@this"  actionListener="#{btnAgregarIndiceEcontrolResultadosIndicesExternos.asignarIndex(info, 1, 1)}"/>
 
                             <strong><h:outputText value="*#{msg['ano']}:"  style="position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarAnio" maxlength="4" value="#{controlResultadosIndicesExternos.duplicarResultado.ano}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarAnio" maxlength="4" value="#{controlResultadosIndicesExternos.duplicarResultado.ano}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarAnio" value="#{msg['ano']}"/>
@@ -360,13 +360,13 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="*#{msg['valor']}: "  style="position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarValor" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.mes}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarValor" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.mes}" style=" width: 140px; position: absolute; left: 150px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarValor" value="#{msg['valor']}"/>
 
                             <strong><h:outputText value="#{msg['ref']}: "  style="position: absolute; top: 180px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="duplicarRef" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.referencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarRef" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.referencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarRef" value="#{msg['ref']}"/>
@@ -387,7 +387,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlResultadosIndicesExternos.actualizarIndiceExterno()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Índice Externo"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovIndicesExternos').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovIndicesExternos').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column filterBy="#{indiceex.codigo}" filterMatchMode="contains" filterStyle="width:80%">

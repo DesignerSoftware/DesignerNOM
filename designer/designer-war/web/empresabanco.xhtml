@@ -22,14 +22,14 @@
                                          editable="true" editMode="cell" paginator="false" 
                                          selection="#{controlEmpresasBancos.empresasBancoSeleccionado}"
                                          selectionMode="single"
-                                     >
+                             >
                                 <p:ajax event="filter" listener="#{controlEmpresasBancos.eventoFiltrar()}"/>
 
                                 <p:column headerText="Empresa" sortBy="#{info.empresa.nombre}" filterBy="#{info.empresa.nombre}" filterMatchMode="contains" id="pais" width="140" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.empresa.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.empresa.nombre}" id="editarPais" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.empresa.nombre}" id="editarPais" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmpresasBancos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarIndex(indice, 0,0)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlEmpresasBancos.modificarEmpresasBancos(indice, 'PAISES', info.empresa.nombre)}" update="pais"/>
@@ -44,7 +44,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.banco.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.banco.nombre}" id="editarPersonaFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.banco.nombre}" id="editarPersonaFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmpresasBancos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarIndex(indice, 0,1)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlEmpresasBancos.modificarEmpresasBancos(indice, 'PERSONAS', info.banco.nombre)}" update="personafir"/>
@@ -59,7 +59,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.ciudad.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" id="editarCCcargo" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.ciudad.nombre}" id="editarCCcargo" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmpresasBancos.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarIndex(indice, 0,2)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlEmpresasBancos.modificarEmpresasBancos(indice, 'CARGOS', info.ciudad.nombre)}" update="personafir"/>
@@ -74,7 +74,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.numerocuenta}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.numerocuenta}" maxlength="20" id="editarSubTituloFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                            <p:inputText autocomplete="off" value="#{info.numerocuenta}" maxlength="20" id="editarSubTituloFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlEmpresasBancos.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlEmpresasBancos.modificarEmpresasBancos(indice, 'N', info.numerocuenta)}" update="subTituloFirma"/>
                                             </p:inputText>
@@ -161,7 +161,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmpresasBancos.actualizarPais()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:150px; position: relative; left: 50px;"/>  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tipofamiliar.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -194,7 +194,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmpresasBancos.actualizarBancos()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Bancos"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBancos').filter();" style="width:150px; position: relative; left: 50px;"/>  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovBancos').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -229,7 +229,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmpresasBancos.actualizarCiudades()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Ciudad"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" style="width:150px; position: relative; left: 50px;"/>  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudades').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaCiudades.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -373,7 +373,7 @@
 
 
                             <strong><h:outputText value="*Empresa :"  style="left: 15px; position: absolute; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoPais" value="#{controlEmpresasBancos.nuevoEmpresasBancos.empresa.nombre}" style=" width: 135px; position: absolute; left: 140px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoPais" value="#{controlEmpresasBancos.nuevoEmpresasBancos.empresa.nombre}" style=" width: 135px; position: absolute; left: 140px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="click" listener="#{controlEmpresasBancos.valoresBackupAutocompletar(1,'EMPRESAS')}"/>
                                 <p:ajax event="change" listener="#{controlEmpresasBancos.autocompletarNuevo('EMPRESAS',controlEmpresasBancos.nuevoEmpresasBancos.empresa.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarVariableEmpresas(0)}"/>
@@ -384,7 +384,7 @@
 
 
                             <strong><h:outputText value="*Banco : "  style="left: 15px; position: absolute; top: 90px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlEmpresasBancos.nuevoEmpresasBancos.banco.nombre}" style=" width: 135px; position: absolute; left: 140px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoPersona" value="#{controlEmpresasBancos.nuevoEmpresasBancos.banco.nombre}" style=" width: 135px; position: absolute; left: 140px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="click" listener="#{controlEmpresasBancos.valoresBackupAutocompletar(1,'PERSONA')}"/>
                                 <p:ajax event="change" listener="#{controlEmpresasBancos.autocompletarNuevo('PERSONA',controlEmpresasBancos.nuevoEmpresasBancos.banco.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarVariableBancos(0)}"/>
@@ -393,7 +393,7 @@
                             <p:watermark for="nuevoPersona" value="Banco"/>
 
                             <strong><h:outputText value="*Ciudad : "  style="left: 15px; position: absolute; top: 120px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoCargo" value="#{controlEmpresasBancos.nuevoEmpresasBancos.ciudad.nombre}" style=" width: 135px; position: absolute; left: 140px; top: 115px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoCargo" value="#{controlEmpresasBancos.nuevoEmpresasBancos.ciudad.nombre}" style=" width: 135px; position: absolute; left: 140px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="click" listener="#{controlEmpresasBancos.valoresBackupAutocompletar(1,'CARGO')}"/>
                                 <p:ajax event="change" listener="#{controlEmpresasBancos.autocompletarNuevo('CARGO',controlEmpresasBancos.nuevoEmpresasBancos.ciudad.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarVariableCiudades(0)}"/>
@@ -402,7 +402,7 @@
                             <p:watermark for="nuevoCargo" value="Ciudad"/>
 
                             <strong><h:outputText value="*Numero Cuenta:"  style="left: 15px; position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoSubtituloFirma" maxlength="20" value="#{controlEmpresasBancos.nuevoEmpresasBancos.numerocuenta}" style=" width: 135px; position: absolute; left: 140px; top: 145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevoSubtituloFirma" maxlength="20" value="#{controlEmpresasBancos.nuevoEmpresasBancos.numerocuenta}" style=" width: 135px; position: absolute; left: 140px; top: 145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoSubtituloFirma" value="Numero Cuenta"/>
@@ -429,7 +429,7 @@
                         <p:panel id="duplicarTE" style="border: none;">
 
                             <strong><h:outputText value="*Empresa"  style=" position: absolute; top: 60px; left: 15px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPais" value="#{controlEmpresasBancos.duplicarEmpresasBancos.empresa.nombre}"  style=" width: 135px; position: absolute; left: 140px; top: 55px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarPais" value="#{controlEmpresasBancos.duplicarEmpresasBancos.empresa.nombre}"  style=" width: 135px; position: absolute; left: 140px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="click" listener="#{controlEmpresasBancos.valoresBackupAutocompletar(2,'EMPRESAS')}"/>
                                 <p:ajax event="change" listener="#{controlEmpresasBancos.autocompletarDuplicado('EMPRESAS', controlEmpresasBancos.duplicarEmpresasBancos.empresa.nombre , 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarVariableEmpresas(1)}"/>
@@ -438,7 +438,7 @@
                             <p:watermark for="duplicarPais" value="Empresa"/>
 
                             <strong><h:outputText value="*Banco"  style=" position: absolute; top: 90px; left: 15px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlEmpresasBancos.duplicarEmpresasBancos.banco.nombre}"  style=" width: 135px; position: absolute; left: 140px; top: 85px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarPersona" value="#{controlEmpresasBancos.duplicarEmpresasBancos.banco.nombre}"  style=" width: 135px; position: absolute; left: 140px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="click" listener="#{controlEmpresasBancos.valoresBackupAutocompletar(2,'PERSONA')}"/>
                                 <p:ajax event="change" listener="#{controlEmpresasBancos.autocompletarDuplicado('PERSONA', controlEmpresasBancos.duplicarEmpresasBancos.banco.nombre , 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarVariableBancos(1)}"/>
@@ -447,7 +447,7 @@
                             <p:watermark for="duplicarPersona" value="Banco"/>
 
                             <strong><h:outputText value="*Ciudad"  style=" position: absolute; top: 120px; left: 15px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlEmpresasBancos.duplicarEmpresasBancos.ciudad.nombre}"  style=" width: 135px; position: absolute; left: 140px; top: 115px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarCargo" value="#{controlEmpresasBancos.duplicarEmpresasBancos.ciudad.nombre}"  style=" width: 135px; position: absolute; left: 140px; top: 115px; text-transform: uppercase;">
                                 <p:ajax event="click" listener="#{controlEmpresasBancos.valoresBackupAutocompletar(2,'CARGO')}"/>
                                 <p:ajax event="change" listener="#{controlEmpresasBancos.autocompletarDuplicado('CARGO', controlEmpresasBancos.duplicarEmpresasBancos.ciudad.nombre , 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlEmpresasBancos.asignarVariableCiudades(1)}"/>
@@ -456,7 +456,7 @@
                             <p:watermark for="duplicarCargo" value="Ciudad"/>
 
                             <strong><h:outputText value="*Numero Cuenta"  style="left: 15px; position: absolute; top: 150px;"/></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarSubtituloFirma" maxlength="20" value="#{controlEmpresasBancos.duplicarEmpresasBancos.numerocuenta}"  style=" width: 135px; position: absolute; left: 140px; top:145px;text-transform: uppercase;">
+                            <p:inputText autocomplete="off" id="duplicarSubtituloFirma" maxlength="20" value="#{controlEmpresasBancos.duplicarEmpresasBancos.numerocuenta}"  style=" width: 135px; position: absolute; left: 140px; top:145px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarSubtituloFirma" value="Numero Cuenta"/>

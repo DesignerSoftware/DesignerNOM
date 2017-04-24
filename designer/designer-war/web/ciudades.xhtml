@@ -190,17 +190,17 @@
 
                   <p:panel id="nuevaCiudad" style="border: none;">
                      <strong><h:outputText value="*#{msg['codigoN']}" style=" position: absolute; top: 65px;"/></strong>
-                     <p:inputText  autocomplete="off"   maxlength="4" id="nuevoCodigo" value="#{controlCiudades.nuevaCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  maxlength="4" id="nuevoCodigo" value="#{controlCiudades.nuevaCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 105px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoNombreCiudad" value="#{controlCiudades.nuevaCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  id="nuevoNombreCiudad" value="#{controlCiudades.nuevaCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText> 
 
                      <strong><h:outputText value="#{msg['departamentooN']}" style=" position: absolute; top: 145px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoDepartamento" value="#{controlCiudades.nuevaCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  id="nuevoDepartamento" value="#{controlCiudades.nuevaCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlCiudades.valoresBackupAutocompletar(1)}"/>
                         <p:ajax event="change" listener="#{controlCiudades.autocompletarNuevoyDuplicado(controlCiudades.nuevaCiudad.departamento.nombre,1)}"/>
                         <p:ajax event="dblclick" listener="#{controlCiudades.llamarLovDepartamento(1)}"/>
@@ -209,7 +209,7 @@
                                       id="btnNuevoDepartamento" value="" process="@this" actionListener="#{controlCiudades.llamarLovDepartamento(1)}"/>
 
                      <strong><h:outputText value="#{msg['codigoalternativoN']}" style=" position: absolute; top: 185px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoCodigoAlternativo" value="#{controlCiudades.nuevaCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  id="nuevoCodigoAlternativo" value="#{controlCiudades.nuevaCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoCodigoAlternativo" value="#{msg['codigoalternativo']}"/>
@@ -229,17 +229,17 @@
                   <p:panel id="duplicarCiudad" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigo']}" style=" position: absolute; top: 65px;"/></strong>
-                     <p:inputText  autocomplete="off"   maxlength="4" id="duplicarCodigo" value="#{controlCiudades.duplicarCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  maxlength="4" id="duplicarCodigo" value="#{controlCiudades.duplicarCiudad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarCodigo"/>
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['nombre']}" style=" position: absolute; top: 105px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarNombre" value="#{controlCiudades.duplicarCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  id="duplicarNombre" value="#{controlCiudades.duplicarCiudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarNombre"/>
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['departamento']}" style=" position: absolute; top: 145px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarDepartamento" value="#{controlCiudades.duplicarCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  id="duplicarDepartamento" value="#{controlCiudades.duplicarCiudad.departamento.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlCiudades.valoresBackupAutocompletar(2)}"/>
                         <p:ajax event="change" listener="#{controlCiudades.autocompletarNuevoyDuplicado(controlCiudades.duplicarCiudad.departamento.nombre, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlCiudades.llamarLovDepartamento(2)}"/>
@@ -248,7 +248,7 @@
                                       id="btnDuplicarDepartamento" process="@this" value="" actionListener="#{controlCiudades.llamarLovDepartamento(2)}"/>
 
                      <strong><h:outputText value="#{msg['codigoalternativo']}"  style=" position: absolute; top: 185px;"/></strong>
-                     <p:inputText  autocomplete="off"   id="duplicarCodigoAlternativo" value="#{controlCiudades.duplicarCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off"  id="duplicarCodigoAlternativo" value="#{controlCiudades.duplicarCiudad.codigoalternativo}" style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarCodigoAlternativo"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigoAlternativo" value="#{msg['codigoalternativo']}"/>
@@ -301,7 +301,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarD']}"/>  
-                        <p:inputText  autocomplete="off" id="globalFilter" widgetVar="globalFilter" onkeyup="PF('LOVDepartamentos').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" widgetVar="globalFilter" onkeyup="PF('LOVDepartamentos').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{departamentos.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 85% !important;">

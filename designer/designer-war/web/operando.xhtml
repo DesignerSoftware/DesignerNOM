@@ -116,7 +116,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{op.nombre}" id="editarNombres"> 
+                                 <p:inputText autocomplete="off" value="#{op.nombre}" id="editarNombres"> 
                                     <p:ajax event="select" listener="#{controlOperando.cambiarIndice(op, 1)}"
                                             onstart="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlOperando.modificarOperandos(op, 'N', op.nombre)}" update="@this"/>
@@ -162,7 +162,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  readonly="true" value="#{op.valor}" id="editarValores"
+                                 <p:inputText autocomplete="off" readonly="true" value="#{op.valor}" id="editarValores"
                                               onfocus="ubicacionRegistro(([{name: 'CAMPO', value: '3'}, {name: 'INDICE', value: '#{indice}'}]));"> 
                                     <p:ajax event="select" listener="#{controlOperando.cambiarIndice(op, 3)}"
                                             onstart="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});"/>
@@ -182,7 +182,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{op.descripcion}" id="editarDescripcion"> 
+                                 <p:inputText autocomplete="off" value="#{op.descripcion}" id="editarDescripcion"> 
                                     <p:ajax event="select" listener="#{controlOperando.cambiarIndice(op, 4)}"
                                             onstart="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlOperando.modificarOperandos(op, 'N', op.descripcion)}" update="@this"/>
@@ -227,7 +227,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  readonly="true" value="#{op.codigo}" id="editarCodigos"
+                                 <p:inputText autocomplete="off" readonly="true" value="#{op.codigo}" id="editarCodigos"
                                                onfocus="ubicacionRegistro(([{name: 'CAMPO', value: '7'}, {name: 'INDICE', value: '#{indice}'}]));">
                                     <p:ajax event="select" listener="#{controlOperando.cambiarIndice(op, 7)}"
                                             onstart="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});"/>
@@ -367,7 +367,7 @@
                   <p:panel id="nuevoOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 85px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoNombre" value="#{controlOperando.nuevoOperando.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoNombre" value="#{controlOperando.nuevoOperando.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -382,7 +382,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 165px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoDescripcion" value="#{controlOperando.nuevoOperando.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="nuevoDescripcion" value="#{controlOperando.nuevoOperando.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -411,7 +411,7 @@
                   <p:panel id="duplicarOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 85px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlOperando.duplicarOperando.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarNombre" value="#{controlOperando.duplicarOperando.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -426,7 +426,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 165px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarDescripcion" value="#{controlOperando.duplicarOperando.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" id="duplicarDescripcion" value="#{controlOperando.duplicarOperando.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -520,7 +520,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarO']}"/>
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVOperandos').filter();" class="cssFiltroLOV"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVOperandos').filter();" class="cssFiltroLOV"/>
                      </f:facet>
                      <p:column filterBy="#{o.nombre}" sortBy="#{o.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
