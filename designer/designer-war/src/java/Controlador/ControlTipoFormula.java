@@ -510,7 +510,7 @@ String pagActual = "tipoformula";
          }
          if (!listaTiposFormulasModificar.isEmpty()) {
             for (int i = 0; i < listaTiposFormulasModificar.size(); i++) {
-               administrarTiposFormulas.modificarTiposFormulas(listaTiposFormulasCrear.get(i));
+               administrarTiposFormulas.modificarTiposFormulas(listaTiposFormulasModificar.get(i));
             }
             listaTiposFormulasModificar.clear();
          }

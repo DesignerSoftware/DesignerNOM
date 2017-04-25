@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
->
+      >
 
    <h:head>
       <title>Facelet Title</title>
@@ -208,11 +208,29 @@
                <!-- DIALOGOS EDITAR -->
 
                <p:dialog id="editarSQL" header="#{msg['editarSQL']}" widgetVar="editarSQL" resizable="false" draggable="true" modal="true" height="300" width="680">  
-                  <p:scrollPanel style="overflow: auto; width: 650px; height: 240px;" mode="native">
-                     <p:inputTextarea value="#{controlTipoBloque.editarTiposBloques.bloqueplsql}" style="position: relative; width: 640px;">
-                        <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(editarTiposBloques, 'N', controlTipoBloque.editarTiposBloques.bloqueplsql)}" update="@this"/>
-                     </p:inputTextarea>
-                  </p:scrollPanel>
+                  <!--<p:scrollPanel style="overflow: auto; width: 650px; height: 240px;" mode="native">-->
+
+                  <!--<h: value="#/{controlTipoBloque.editarTiposBloques.bloqueplsql}" style="margin-bottom: 10px; width: 600px;"/>-->
+
+                  <!--<p: value="#/{controlTipoBloque.editarTiposBloques.bloqueplsql}" style="position: relative; width: 640px;">
+                                                               <p:ajax event="change" listener="#/{controlTipoBloque.modificarTiposBloques(editarTiposBloques, 'N', controlTipoBloque.editarTiposBloques.bloqueplsql)}" update="@this"/>
+                                                            </p:textEditor>
+                  
+                                                            <p:textEditor widgetVar="editor2" value="#/{editorView.text2}" height="300" style="margin-bottom:10px" placeholder="Enter your content">
+                                       <f:facet name="toolbar">
+                                       <span class="ql-formats">
+                                       <button class="ql-bold"></button>
+                                       <button class="ql-italic"></button>
+                                       <button class="ql-underline"></button>
+                                       <button class="ql-strike"></button>
+                                       </span>
+                                       <span class="ql-formats">
+                                       <select class="ql-font"></select>
+                                       <select class="ql-size"></select>
+                                       </span>
+                                       </f:facet>
+                                       </p:textEditor>-->
+                  <!--</p:scrollPanel>-->
                   <p:commandButton id="aceptarSQL" value="#{msg['aceptar']}" actionListener="#{controlTipoBloque.cambiarEditor()}" onclick="PF('editarSQL').hide();" icon="ui-icon-check"
                                    style="position: absolute; top: 270px; left: 470px;" process="@this"/>
                   <p:commandButton id="cancelarSQL" value="#{msg['atras']}" onclick="PF('editarSQL').hide();" icon="ui-icon-close"

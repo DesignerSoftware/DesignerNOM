@@ -121,9 +121,8 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
    public List<DetallesEmpresas> buscarDetallesEmpresas(EntityManager em) {
       try {
          em.clear();
-         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-         cq.select(cq.from(DetallesEmpresas.class));
-         List<DetallesEmpresas> listaResultado = em.createQuery(cq).getResultList();
+         Query cq = em.createNativeQuery("SELECT D.* FROM DETALLESEMPRESAS D, EMPRESAS E WHERE E.SECUENCIA = D.EMPRESA", DetallesEmpresas.class);
+         List<DetallesEmpresas> listaResultado = cq.getResultList();
          if (listaResultado != null) {
             System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaResultado : " + listaResultado);
             if (!listaResultado.isEmpty()) {
@@ -139,7 +138,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
                        + " FROM DETALLESEMPRESAS D, PERSONAS P, EMPRESAS E, EMPLEADOS E2, PERSONAS P2, EMPLEADOS E3, PERSONAS P3,\n"
                        + " EMPLEADOS E4, PERSONAS P4, EMPLEADOS E5, PERSONAS P5, CIUDADES C, CIUDADES C2, CARGOS CA\n"
                        + " WHERE P.SECUENCIA(+) = D.PERSONAFIRMACONSTANCIA\n"
-                       + " AND E.SECUENCIA(+) = D.EMPRESA\n"
+                       + " AND E.SECUENCIA = D.EMPRESA\n"
                        + " AND E2.SECUENCIA(+) = D.REPRESENTANTECIR\n"
                        + " AND P2.SECUENCIA(+) = E2.PERSONA\n"
                        + " AND E3.SECUENCIA(+) = D.SUBGERENTE\n"
