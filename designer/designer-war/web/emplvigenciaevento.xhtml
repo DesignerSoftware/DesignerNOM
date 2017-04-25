@@ -203,7 +203,7 @@
                                  <p:inputText autocomplete="off"  value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarCIndividual" mask="num"/>
                                     <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"
-                                            onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});"  /> 
+                                            onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCIndividual"/>                                   
                                  </p:inputText>
                               </f:facet>  
@@ -270,7 +270,7 @@
                         <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaEvento.actualizarEvento()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.contarRegistroEventos()}"/>
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarEV']}"  />  
+                           <h:outputText value="#{msg['buscarEV']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEventos').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
@@ -293,7 +293,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.guardarCambios()}"
                                    onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','emplIndv')}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
@@ -303,7 +303,7 @@
                </p:dialog>    
 
                <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" 
                                    style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" process="@this"/>
@@ -311,7 +311,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEventos', 'vigenciasERastros')}"
                                    style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" process="@this"/>
@@ -319,17 +319,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 14px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 14px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}"
                                    style="position: absolute; top: 68px; left: 175px;" onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" icon="ui-icon-check" process="@this"/>
@@ -337,27 +337,27 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText   value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -420,7 +420,7 @@
                      <p:watermark for="nuevaCGrupal" value="#{msg['pcgNN']}"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarV" value="#{msg['limpiar']}" style="position: absolute; left: 23px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarV" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.agregarNuevaVigenciaEvento()}"  />
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarV" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.agregarNuevaVigenciaEvento()}"/>
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarV" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" onclick="PF('NuevoRegistroVigencias').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -479,7 +479,7 @@
                      <p:watermark for="duplicarCGrupal" value="#{msg['pcgNN']}"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDuplicadoE" value="#{msg['limpiar']}" style="position: absolute; left: 23px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarDuplicadoE" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.confirmarDuplicar()}"  />
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarDuplicadoE" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.confirmarDuplicar()}"/>
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicadoE" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" onclick="PF('DuplicarRegistroVigencias').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>

@@ -421,7 +421,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"
                                    actionListener="#{controlTipoSueldo.guardarYSalir()}"/>
@@ -431,78 +431,78 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlTipoSueldo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlTipoSueldo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'tiposueldo')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 70px; left: 230px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullTipoSueldo" header="#{msg['error']}" widgetVar="errorDatosNullTipoSueldo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullTipoSueldo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullTSFormula" header="#{msg['error']}" widgetVar="errorDatosNullTSFormula"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullTSFormula']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullTSGrupo" header="#{msg['error']}" widgetVar="errorDatosNullTSGrupo"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullTSGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorGrupoRepetido" header="#{msg['error']}" widgetVar="errorGrupoRepetido"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorGrupoRepetido']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullTEFormula" header="#{msg['error']}" widgetVar="errorDatosNullTEFormula"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullTEFormula']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorNuevoRegistroTEFormula" header="#{msg['error']}" widgetVar="errorNuevoRegistroTEFormula"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorNuevoRegistroTEFormula']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -512,7 +512,7 @@
                                selection="#{controlTipoSueldo.formulaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarF"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarFormula()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarFormula()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulas()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"/>  
@@ -539,7 +539,7 @@
                                selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="515" selectionMode="single" widgetVar="lovConcepto" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovConceptos}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarC"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarConcepto()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarConcepto()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulasConceptos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
@@ -578,7 +578,7 @@
                                selection="#{controlTipoSueldo.grupoTipoEntidadSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovGrupo" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovGruposTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarG"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarGrupo()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarGrupo()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovGrupos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarG']}"/>  
@@ -614,7 +614,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarTipoEntidad()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovTipoEntidad()}"/>
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarTE']}"  />  
+                        <h:outputText value="#{msg['buscarTE']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tipoE.codigo}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains">
@@ -671,7 +671,7 @@
                                selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="515" selectionMode="single" widgetVar="lovConceptoTE" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovConceptos}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarCTE"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarConceptoTE()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarConceptoTE()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovTEConceptos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
@@ -709,12 +709,12 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorBorrarRegistroTSGrupo" header="#{msg['atencion']}" widgetVar="errorBorrarRegistroTSGrupo"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorrarRegistroTSGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -764,7 +764,7 @@
                      </p:selectOneMenu>
 
                      <p:commandButton id="limpiarNTS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarNuevaTipoSueldo()}" update="nuevoTipoSueldo" process="@this"/>
-                     <p:commandButton id="aceptarNTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 225px;"  actionListener="#{controlTipoSueldo.agregarNuevoTipoSueldo()}" process="@this"  />
+                     <p:commandButton id="aceptarNTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 225px;"  actionListener="#{controlTipoSueldo.agregarNuevoTipoSueldo()}" process="@this"/>
                      <p:commandButton id="cancelarNTS" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarNuevaTipoSueldo()}" update="nuevoTipoSueldo" onclick="PF('NuevoRegistroTipoSueldo').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -809,7 +809,7 @@
                      </p:selectOneMenu>
 
                      <p:commandButton id="limpiarDTS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTipoSueldo()}" update="duplicarTipoSueldo" process="@this"/>
-                     <p:commandButton id="agregarDTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 225px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTipoSueldo()}" process="@this"  />
+                     <p:commandButton id="agregarDTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 225px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTipoSueldo()}" process="@this"/>
                      <p:commandButton id="cancelarDTS" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTipoSueldo()}" update="duplicarTipoSueldo" onclick="PF('DuplicarRegistroTipoSueldo').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -846,7 +846,7 @@
                      </p:selectOneMenu>
 
                      <p:commandButton id="limpiarNTSF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSFormula()}" update="nuevoTSFormulaConcepto" process="@this"/>
-                     <p:commandButton id="aceptarNTSF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;"  actionListener="#{controlTipoSueldo.agregarNuevoTSFormula()}" process="@this"  />
+                     <p:commandButton id="aceptarNTSF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;"  actionListener="#{controlTipoSueldo.agregarNuevoTSFormula()}" process="@this"/>
                      <p:commandButton id="cancelarNTSF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSFormula()}" update="nuevoTSFormulaConcepto" onclick="PF('NuevoRegistroTSFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -902,7 +902,7 @@
                      <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos" id="btnNuevoTSGrupoGrupo" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,1)}"/>   
 
                      <p:commandButton id="limpiarNTSG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 105px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSGrupo()}" update="nuevoTSGrupoTipoEntidad" process="@this"/>
-                     <p:commandButton id="aceptarNTSG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 105px;"  actionListener="#{controlTipoSueldo.agregarNuevoTSGrupo()}" process="@this"  />
+                     <p:commandButton id="aceptarNTSG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 105px;"  actionListener="#{controlTipoSueldo.agregarNuevoTSGrupo()}" process="@this"/>
                      <p:commandButton id="cancelarNTSG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 105px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSGrupo()}" update="nuevoTSGrupoTipoEntidad" onclick="PF('NuevoRegistroTSGrupo').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -936,7 +936,7 @@
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('TIPOENTIDAD', controlTipoSueldo.nuevoTEFormulaConcepto.tipoentidad.nombre, 1)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['tipoEntidad']}" for="nuevoTEFormulaTipoEntidad"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 70px; " class="cssBotonLovDialogos" id="btnNuevoTEFormulaTipoEntidad" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,1)}"/>   
+                     <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnNuevoTEFormulaTipoEntidad" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['formulaNTEF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTEFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
@@ -960,7 +960,7 @@
 
 
                      <p:commandButton id="limpiarNTEF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTEFormula()}" update="nuevoTEFormulaConcepto" process="@this"/>
-                     <p:commandButton id="aceptarNTEF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;"  actionListener="#{controlTipoSueldo.agregarNuevoTEFormula()}" process="@this"  />
+                     <p:commandButton id="aceptarNTEF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;"  actionListener="#{controlTipoSueldo.agregarNuevoTEFormula()}" process="@this"/>
                      <p:commandButton id="cancelarNTEF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTEFormula()}" update="nuevoTEFormulaConcepto" onclick="PF('NuevoRegistroTEFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>

@@ -198,35 +198,35 @@
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="Necesita : #{controlJuzgados.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"/>
                         <h:outputText value=" #{controlJuzgados.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"/>
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"/>
                         <h:outputText value="Se han borrado #{controlJuzgados.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="Para agregar es necesario adicionar: #{controlJuzgados.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
 
 
                     <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlJuzgados.guardarCambiosJuzgados()}" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlJuzgados.cancelarModificacion()}" style="position: absolute; top: 60px; left: 255px;" process="@this"/>
@@ -235,7 +235,7 @@
 
 
                     <p:dialog id="confirmarCambioEmpresa" header="ATENCIÓN...!" widgetVar="confirmarCambioEmpresa"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="¿Desea guardar los cambios realizados en Centros Costos de la empresa?" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="Aceptar" onclick="PF('confirmarCambioEmpresa').hide();" actionListener="#{controlJuzgados.guardarCambiosJuzgados()}" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
                         <p:commandButton value="Cancelar" onclick="PF('confirmarCambioEmpresa').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
@@ -246,48 +246,48 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'TIPOSCERTIFICADOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlJuzgados.secRegistro,'Juzgados','juzgado')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla ENCARGATURAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Juzgados','juzgado')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlJuzgados.secRegistro,'Juzgados','juzgado')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'ENCARGATURAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog> 
 
@@ -331,11 +331,11 @@
                                 <p:ajax event="change" listener="#{controlJuzgados.autocompletarNuevo('CIUDADES', controlJuzgados.nuevoJuzgado.ciudad.nombre , 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlJuzgados.asignarVariableCiudad(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 305px; top: 278px; " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlJuzgados.cargarCiudadesNuevoYDuplicar(0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 305px; top: 278px;" id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlJuzgados.cargarCiudadesNuevoYDuplicar(0)}"/>   
                             <p:watermark for="nuevaTipoCentroCostos" value="Ciudad"/>
 
                             <p:commandButton id="limpiar" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 25px; top: 390px;" actionListener="#{controlJuzgados.limpiarNuevoJuzgado()}" update="nuevoCentroCostos" process="@this"/>
-                            <p:commandButton id="agregarCC" value="Agregar" style="font-size: 11px; position: absolute; left: 185px; top: 390px;"  process="@this" actionListener="#{controlJuzgados.agregarNuevoJuzgado()}"  />
+                            <p:commandButton id="agregarCC" value="Agregar" style="font-size: 11px; position: absolute; left: 185px; top: 390px;"  process="@this" actionListener="#{controlJuzgados.agregarNuevoJuzgado()}"/>
                             <p:commandButton id="cancelarCC" value="Cancelar" style="font-size: 11px; position: absolute; left: 255px; top: 390px;" actionListener="#{controlJuzgados.limpiarNuevoJuzgado()}" update="nuevoCentroCostos" onclick="PF('NuevoRegistroCentroCostos').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -378,7 +378,7 @@
                                 <p:ajax event="change" listener="#{controlJuzgados.autocompletarDuplicado('CIUDADES', controlJuzgados.duplicarJuzgado.ciudad.nombre , 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlJuzgados.asignarVariableCiudad(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 305px; top: 278px; " id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlJuzgados.cargarCiudadesNuevoYDuplicar(1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 305px; top: 278px;" id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlJuzgados.cargarCiudadesNuevoYDuplicar(1)}"/>   
                             <p:watermark for="duplicarTipoCentroCostos" value="Ciudad"/>
 
 

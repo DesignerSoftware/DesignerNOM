@@ -258,24 +258,24 @@
                   </fieldset> 
 
                   <p:commandButton style="position: absolute; left: 683px; top: 495px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show()" process="@this" disabled="#{controlEmplVacaPendiente.guardado}"  />
+                                   background-size: 100% 100%; background-repeat: no-repeat; border: none; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show()" process="@this" disabled="#{controlEmplVacaPendiente.guardado}"/>
                   <p:commandButton style="position: absolute; left: 775px; top: 495px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none; border: none;" id="ATRAS" value="" actionListener="#{controlEmplVacaPendiente.salir()}" process="@this"/>
 
                </p:panel>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistroP" header="#{msg['error']}" widgetVar="seleccionarRegistroP"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistroP']}" style="position: absolute; left: 70px; top: 17px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVacaPendiente.guardarYSalir()}"
                                    style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
@@ -286,27 +286,27 @@
                </p:dialog>
 
                <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="80" width="380"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 300px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechaContratacion" header="#{msg['error']}" widgetVar="errorFechaContratacion"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechaContratacion']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechaContratacionMargenAnio" header="#{msg['error']}" widgetVar="errorFechaContratacionMargenAnio"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechaContratacionMargenAnio']}" style="position: absolute; left: 70px; top: 7px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechaContratacionTras" header="#{msg['error']}" widgetVar="errorFechaContratacionTras"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechaContratacionTras']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 

@@ -87,7 +87,7 @@
                         <h:outputText value="Fecha" style="position: absolute; top: 10px"/>
                         <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaDomiciliaria" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.fecha}" style="width: 300px; position: absolute; top: 30px;"> 
                            <p:ajax event="dateSelect" update="@this"/>
-                           <p:ajax event="change" update="@this"  /> 
+                           <p:ajax event="change" update="@this"/> 
                         </p:calendar>
                         <h:outputText value="Profesional" style="position: absolute; top: 10px; left: 340px"/>
                         <p:inputText id="editarProfesional" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.profesional}" style="width: 300px; position: absolute; top: 30px; left: 340px">
@@ -634,7 +634,7 @@
                                                PF('datosTelefonosPersona').unselectAllRows(); PF('datosDireccionesPersona').unselectAllRows();
                                                PF('datosEstadoCivil').unselectAllRows(); PF('datosFamiliares').unselectAllRows();
                                                PF('datosVigenciasFormalesPersona').unselectAllRows(); PF('datosExperiencia').unselectAllRows(); "/>   
-                                       <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarAntecedenteM(antecedente,'N',antecedente.tipoantecedente.descripcion)}" process="@this" update="editarOcu"  />
+                                       <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarAntecedenteM(antecedente,'N',antecedente.tipoantecedente.descripcion)}" process="@this" update="editarOcu"/>
                                        <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente,2,0)}" 
                                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                     </p:inputText>
@@ -909,7 +909,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <h:outputText value=""  />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -1017,7 +1017,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <h:outputText value=""  />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column> 
 
@@ -1037,7 +1037,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <h:outputText value=""  />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column> 
 
@@ -1064,7 +1064,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <h:outputText value=""  />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -1089,7 +1089,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <h:outputText value=""  />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -1108,7 +1108,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <h:outputText value=""  />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>
 
@@ -1711,7 +1711,7 @@
 
                <!--dialogos direcciones-->
                <p:dialog id="pregunta" header="#{msg['atencion']}" widgetVar="pregunta"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos//alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos//alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="¿Desea copiar la direccion principal?" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="Si" onclick="PF('pregunta').hide();" actionListener="#{controlPerVigenciaDomiciliaria.copiarDireccion(1)}" style="position: absolute; top: 60px; left: 150px;" icon="ui-icon-circle-check"  process="@this"/>
                   <p:commandButton value="No" onclick="PF('pregunta').hide();" style="position: absolute; top: 60px; left: 220px;" process="@this" icon="ui-icon-circle-close"/>
@@ -1779,7 +1779,7 @@
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
                      <p:watermark for="nuevaCiudad" value="Ciudad"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 290px; " id="btnNuevaCiudad" process="@this"  actionListener="#{controlPerVigenciaDomiciliaria.llamarLovCiudad(1)}" value=" "
+                     <p:commandButton style="position: absolute; left: 331px; top: 290px;" id="btnNuevaCiudad" process="@this"  actionListener="#{controlPerVigenciaDomiciliaria.llamarLovCiudad(1)}" value=" "
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLovDialogos"/>
 
                      <strong><h:outputText value="Tipo Vivienda: "  style=" position: absolute; top: 330px;"/></strong>
@@ -1876,7 +1876,7 @@
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
                      <p:watermark for="duplicarCiudad" value="Ciudad"/>
-                     <p:commandButton style=" position: absolute; left: 331px; top: 290px; " class="cssBotonLovDialogos" id="btnDuplicarCiudad" process="@this"  actionListener="#{controlPerVigenciaDomiciliaria.llamarLovCiudad(1)}" value=" "
+                     <p:commandButton style=" position: absolute; left: 331px; top: 290px;" class="cssBotonLovDialogos" id="btnDuplicarCiudad" process="@this"  actionListener="#{controlPerVigenciaDomiciliaria.llamarLovCiudad(1)}" value=" "
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="Tipo Vivienda: "  style=" position: absolute; top: 330px;"/></strong>
@@ -1904,13 +1904,13 @@
                      <p:watermark for="duplicarDireccionAlternativa" value="Direccion Alternativa"/>
 
                      <p:commandButton id="limpiarDuplicarDireccion" value="Limpiar" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 435px;" actionListener="#{controlPerVigenciaDomiciliaria.limpiarDuplicarDireccion()}" update="duplicarDireccion" process="@this"/>
-                     <p:commandButton id="agregarDuplicarDireccion" value="Agregar" icon="ui-icon-circle-check" style=" position: absolute; left: 125px; top: 435px;"  process="@this" actionListener="#{controlPerVigenciaDomiciliaria.confirmarDuplicarVigenciaEstadoCivilDireccion()}" onclick="PF('DuplicarRegistroDireccion').hide();"  />
+                     <p:commandButton id="agregarDuplicarDireccion" value="Agregar" icon="ui-icon-circle-check" style=" position: absolute; left: 125px; top: 435px;"  process="@this" actionListener="#{controlPerVigenciaDomiciliaria.confirmarDuplicarVigenciaEstadoCivilDireccion()}" onclick="PF('DuplicarRegistroDireccion').hide();"/>
                      <p:commandButton id="cancelarDuplicarDireccion" value="Cancelar" icon="ui-icon-circle-close" style=" position: absolute; left: 230px; top: 435px;" actionListener="#{controlPerVigenciaDomiciliaria.limpiarDuplicarDireccion()}" update="duplicarDireccion" onclick="PF('DuplicarRegistroDireccion').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
                <p:dialog id="validacionNuevaDireccion" header="#{msg['atencion']}" widgetVar="validacionNuevaDireccion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{controlPerVigenciaDomiciliaria.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="Aceptar" onclick="PF('validacionNuevaDireccion').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
@@ -1946,14 +1946,14 @@
                </p:dialog>
 
                <p:dialog id="existeDireccion" header="#{msg['error']}" widgetVar="existeDireccion"  resizable="false" draggable="true" modal="true" height="85" width="425"  closable ="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['existeDireccion']}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeDireccion').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <!-- dialogos telefonos   -->
                <p:dialog id="existeTipoTelefono" header="#{msg['error']}" widgetVar="existeTipoTelefono"  resizable="false" draggable="true" modal="true" height="85" width="425"  closable ="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['existeTipoTelefono']}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeTipoTelefono').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this"/>
                </p:dialog>
@@ -2044,7 +2044,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, dlg, LND)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style=" position: absolute; left: 285px; top: 115px; " id="btnNuevoTipoTelefono" value=" " process="@this" class="cssBotonLovDialogos"  actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 0, 1)}"
+                     <p:commandButton style=" position: absolute; left: 285px; top: 115px;" id="btnNuevoTipoTelefono" value=" " process="@this" class="cssBotonLovDialogos"  actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 0, 1)}"
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>   
 
                      <strong><h:outputText value="* #{msg['numeroN']}"  style=" position: absolute; top: 155px;"/></strong>
@@ -2059,7 +2059,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 1, 1)}" 
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style=" position: absolute; left: 285px; top: 185px; " id="btnNuevaCiudadT" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style=" position: absolute; left: 285px; top: 185px;" id="btnNuevaCiudadT" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 1, 1)}" value=" " process="@this"/>
 
                      <p:commandButton id="limpiarT" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 250px;" actionListener="#{controlPerVigenciaDomiciliaria.limpiarNuevoTelefono()}" update="nuevoTelefono" process="@this"/>
@@ -2089,7 +2089,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 0, 2)}" 
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 285px; top: 115px; " id="btnDuplicarTipoTelefono" value=" " process="@this" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style="position: absolute; left: 285px; top: 115px;" id="btnDuplicarTipoTelefono" value=" " process="@this" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 0, 2)}"/>   
 
                      <strong><h:outputText value="* #{msg['numeroN']}" style=" position: absolute; top: 155px;"/></strong>
@@ -2105,7 +2105,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 1 , 2)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 285px; top: 185px; " id="btnDuplicarCiudadt" value=" " process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLovDialogos"
+                     <p:commandButton style="position: absolute; left: 285px; top: 185px;" id="btnDuplicarCiudadt" value=" " process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLovDialogos"
                                       actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexTelefono(telefono, 1, 2)}"/>   
 
 
@@ -2174,7 +2174,7 @@
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
 
-                     <p:commandButton style=" position: absolute; left: 272px; top: 80px; " class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style=" position: absolute; left: 272px; top: 80px;" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       id="btnnuevoNombreEstadoCivil" process="@this" value=" " actionListener="#{controlPerVigenciaDomiciliaria.mostrarDialogoEstadosCiviles(0)}"/>   
                      <p:watermark for="nuevoNombreEstadoCivil" value="Estado Civil"/>
 
@@ -2204,7 +2204,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.mostrarDialogoEstadosCiviles(1)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 272px; top: 80px; " class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style="position: absolute; left: 272px; top: 80px;" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       id="btnduplicarNombreSucursal" value=" " process="@this"  actionListener="#{controlPerVigenciaDomiciliaria.mostrarDialogoEstadosCiviles(1)}"/>   
                      <p:watermark for="duplicarEstadoCivil" value="Estado Civil"/>
 
@@ -2216,24 +2216,24 @@
 
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="sinVisitas" header="#{msg['informacion']}" widgetVar="sinVisitas"  resizable="false" draggable="true" modal="true" height="90" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="El empleado no cuenta con históricos de visitas domiciliarias" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                   <p:commandButton value="Aceptar" onclick="PF('sinVisitas').hide();" style="position: absolute; top: 65px; left: 150px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="validacionNuevoEstadoCivil" header="#{msg['atencion']}" widgetVar="validacionNuevoEstadoCivil"  resizable="false" draggable="true" modal="true" height="95" width="450"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{controlPerVigenciaDomiciliaria.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
                   <p:commandButton value="Aceptar" onclick="PF('validacionNuevoEstadoCivil').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"/>
                   <h:outputText value=" #{controlPerVigenciaDomiciliaria.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 200px; font-weight: bold"/>
                   <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
@@ -2298,7 +2298,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente, 2, 1)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 300px; top: 80px; " class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style="position: absolute; left: 300px; top: 80px;" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       id="btnnuevoTipoAntecedente" process="@this" value=" " actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente, 2, 1)}"/>   
                      <p:watermark for="nuevoTipoAntecedente" value="Tipo Antecedente"/>
 
@@ -2341,7 +2341,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente, 2, 2)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style=" position: absolute; left: 300px; top: 80px; " class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style=" position: absolute; left: 300px; top: 80px;" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       id="btnduplicarTipoAntecedente" process="@this" value=" " actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente, 2, 2)}"/>   
                      <p:watermark for="duplicarTipoAntecedente" value="Tipo Antecedente"/>
 
@@ -2438,7 +2438,7 @@
                      <p:ajax event="filter" listener="#{controlPerVigenciaDomiciliaria.contarRegistrosInstituciones()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarI']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVInstituciones').filter();" class="cssFiltroLOV"  />  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVInstituciones').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column filterBy="#{instituciones.descripcion}" width="100" filterMatchMode="contains"> 
@@ -2512,7 +2512,7 @@
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndex(vigenciasFormales, 0, 1)}" 
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 331px; top: 120px; " id="btnNuevoTipoEducacion" value="" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style="position: absolute; left: 331px; top: 120px;" id="btnNuevoTipoEducacion" value="" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       process="@this"  actionListener="#{controlPerVigenciaDomiciliaria.asignarIndex(vigenciasFormales, 0, 1)}"/>   
                      <p:watermark for="nuevoTipoEducacion" value="#{msg['educacionWM']}"/>
 
@@ -2535,7 +2535,7 @@
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
                      <p:watermark for="nuevaInstitucion" value="#{msg['institucionWM']}"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 200px; " class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style="position: absolute; left: 331px; top: 200px;" class="cssBotonLovDialogos" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       id="btnNuevaInstitucion" actionListener="#{controlPerVigenciaDomiciliaria.asignarIndex(vigenciasFormales, 2, 1)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['adiestramientoN']}" style=" position: absolute; top: 245px;"/></strong>
@@ -2613,7 +2613,7 @@
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
                      <p:watermark for="duplicarTipoEducacion" value="#{msg['educacionWM']}"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 120px; " onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                     <p:commandButton style="position: absolute; left: 331px; top: 120px;" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                       class="cssBotonLovDialogos" id="btnDuplicarTipoEducacion" value="" process="@this"  actionListener="#{controlPerVigenciaDomiciliaria.asignarIndex(vigenciasFormales, 0, 2)}"/>   
 
 
@@ -2685,7 +2685,7 @@
                      <p:watermark for="duplicarObservacion" value="#{msg['observacionWM']}"/>
 
                      <p:commandButton id="limpiarDuplicadoVigenciaFormal" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 470px;" actionListener="#{controlPerVigenciaDomiciliaria.limpiarduplicarVigenciaFormal()}" update="duplicarVigenciaFormal" process="@this"/>
-                     <p:commandButton id="agregarDuplicadoVigenciaFormal" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 180px; top: 470px;" process="@this" actionListener="#{controlPerVigenciaDomiciliaria.confirmarDuplicarEducacion()}" onclick="PF('DuplicarRegistroVigenciaFormal').hide();"  />
+                     <p:commandButton id="agregarDuplicadoVigenciaFormal" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 180px; top: 470px;" process="@this" actionListener="#{controlPerVigenciaDomiciliaria.confirmarDuplicarEducacion()}" onclick="PF('DuplicarRegistroVigenciaFormal').hide();"/>
                      <p:commandButton id="cancelarDuplicadoVigenciaFormal" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 280px; top: 470px;" actionListener="#{controlPerVigenciaDomiciliaria.limpiarduplicarVigenciaFormal()}" update="duplicarVigenciaFormal" onclick="PF('DuplicarRegistroVigenciaFormal').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -2756,7 +2756,7 @@
                         <p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarExperiencia(1, 'MOTIVOS')}"/>
                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.autocompletarNuevoyDuplicadoExperiencia('MOTIVOS', controlPerVigenciaDomiciliaria.nuevahvexp.motivoretiro.nombre,1)}" process="@this" update="nuevaMotivoEP"/>
                      </p:inputText>
-                     <p:commandButton style=" position: absolute; left: 330px; top: 280px; " class="cssBotonLovDialogos" id="btnNuevaMotivo" process="@this" value="" actionListener="#{controlPerVigenciaDomiciliaria.asignarIndex(info,2,1)}" update="nuevaMotivoEP"/>   
+                     <p:commandButton style=" position: absolute; left: 330px; top: 280px;" class="cssBotonLovDialogos" id="btnNuevaMotivo" process="@this" value="" actionListener="#{controlPerVigenciaDomiciliaria.asignarIndex(info,2,1)}" update="nuevaMotivoEP"/>   
                      <p:watermark for="nuevaMotivoEP" value="#{msg['motivoRetiro']}"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarN" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 385px;" actionListener="#{controlPerVigenciaDomiciliaria.limpiarNuevaExpL()}" update="nuevaEP" process="@this"/>
@@ -2979,7 +2979,7 @@
                      <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPerVigenciaDomiciliaria.activarAceptar()}" update=":formularioDialogos:aceptarTD"/>
 
                      <f:facet name="header">  
-                        <h:outputText value="Buscar Tipo Documento"  />  
+                        <h:outputText value="Buscar Tipo Documento"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tipoDIP.nombrelargo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -3355,7 +3355,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPerVigenciaDomiciliaria.guardarSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPerVigenciaDomiciliaria.cancelarSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
@@ -3631,17 +3631,17 @@
                   <p:commandButton value="Familiar" style="position: absolute; left: 90px; top: 235px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlPerVigenciaDomiciliaria.mostrarDialogoInsertarFamiliares()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
                   <p:commandButton value="Nivel Académico" style="position: absolute; left: 90px; top: 265px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlPerVigenciaDomiciliaria.mostrarDialogoInsertarEducacion()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
                   <p:commandButton value="Experiencia Laboral" style="position: absolute; left: 90px; top: 295px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlPerVigenciaDomiciliaria.mostrarDialogoInsertarExpLaboral()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
-                  <p:commandButton value="Cancelar" icon="ui-icon-closethick" style="position: absolute; top: 325px; left: 260px;" onclick="PF('seleccionarTablaNewReg').hide()"  />
+                  <p:commandButton value="Cancelar" icon="ui-icon-closethick" style="position: absolute; top: 325px; left: 260px;" onclick="PF('seleccionarTablaNewReg').hide()"/>
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
                <!--dialogos rastros-->
                <p:dialog id="confirmarRastroEstadosCiviles" header="#{msg['informacion']}" widgetVar="confirmarRastroEstadosCiviles"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroEstadosCiviles']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroEstadosCiviles').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaEstadoCivilSeleccionado.getSecuencia(),'VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 63px; left: 175px;"
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3649,24 +3649,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoEstadosCiviles" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoEstadosCiviles"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoEstadosCiviles']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoEstadosCiviles').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoEstadosCiviles').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoEstadosCiviles" header="#{msg['error']}" widgetVar="errorRastroHistoricoEstadosCiviles"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoEstadosCiviles']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroEstadosCiviles" header="#{msg['error']}" widgetVar="errorRegistroRastroEstadosCiviles"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroEstadosCiviles']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroEstadosCiviles" header="#{msg['informacion']}" widgetVar="errorTablaConRastroEstadosCiviles"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroEstadosCiviles']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroEstadosCiviles').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaEstadoCivilSeleccionado.getSecuencia(),'VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 65px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3674,12 +3674,12 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroEstadosCiviles" header="#{msg['error']}" widgetVar="errorTablaSinRastroEstadosCiviles"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroEstadosCiviles']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBEstadosCiviles" header="#{msg['error']}" widgetVar="errorObjetosDBEstadosCiviles"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBEstadosCiviles']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -3687,7 +3687,7 @@
 
 
                <p:dialog id="confirmarRastroDirecciones" header="#{msg['informacion']}" widgetVar="confirmarRastroDirecciones"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroDirecciones']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroDirecciones').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.direccionSeleccionada.getSecuencia(),'Direcciones', 'Direcciones')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}"
                                    process="@this" icon="ui-icon-check"/>
@@ -3695,24 +3695,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoDirecciones" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoDirecciones"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoDirecciones']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoDirecciones').hide();" actionListener="#{controlRastro.historicosTabla('Direcciones', 'Direcciones')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoDirecciones').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoDirecciones" header="#{msg['error']}" widgetVar="errorRastroHistoricoDirecciones"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoDirecciones']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroDirecciones" header="#{msg['error']}" widgetVar="errorRegistroRastroDirecciones"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroDirecciones']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroDirecciones" header="#{msg['informacion']}" widgetVar="errorTablaConRastroDirecciones"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroDirecciones']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroDirecciones').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.direccionSeleccionada.getSecuencia(),'Direcciones', 'Direcciones')}" style="position: absolute; top: 65px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3720,12 +3720,12 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroDirecciones" header="#{msg['error']}" widgetVar="errorTablaSinRastroDirecciones"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroDirecciones']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBDirecciones" header="#{msg['error']}" widgetVar="errorObjetosDBDirecciones"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBDirecciones']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -3733,7 +3733,7 @@
 
 
                <p:dialog id="confirmarRastroTelefonos" header="#{msg['informacion']}" widgetVar="confirmarRastroTelefonos"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroTelefonos']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroTelefonos').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.telefonoSeleccionado.getSecuencia(),'Telefonos', 'pertelefono')}" style="position: absolute; top: 63px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3741,24 +3741,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoTelefonos" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoTelefonos"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoTelefonos']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoTelefonos').hide();" actionListener="#{controlRastro.historicosTabla('Telefonos', 'pertelefono')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoTelefonos').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoTelefonos" header="#{msg['error']}" widgetVar="errorRastroHistoricoTelefonos"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoTelefonos']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroTelefonos" header="#{msg['error']}" widgetVar="errorRegistroRastroTelefonos"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroTelefonos']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroTelefonos" header="#{msg['informacion']}" widgetVar="errorTablaConRastroTelefonos"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroTelefonos']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroTelefonos').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.telefonoSeleccionado.getSecuencia(),'Telefonos', 'perTelefono')}" style="position: absolute; top: 65px; left: 175px;"
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3766,19 +3766,19 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroTelefonos" header="#{msg['error']}" widgetVar="errorTablaSinRastroTelefonos"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroTelefonos']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBTelefonos" header="#{msg['error']}" widgetVar="errorObjetosDBTelefonos"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBTelefonos']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
 
 
                <p:dialog id="confirmarRastroAntecedentes" header="#{msg['informacion']}" widgetVar="confirmarRastroAntecedentes"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroAntecedentes']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroAntecedentes').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.antecedentemSeleccionado.getSecuencia(),'AntecedentesMedicos', 'AntecedentesMedicos')}" style="position: absolute; top: 63px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3786,24 +3786,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoAntecedentes" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAntecedentes"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoAntecedentes']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoAntecedentes').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoAntecedentes').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoAntecedentes" header="#{msg['error']}" widgetVar="errorRastroHistoricoAntecedentes"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoAntecedentes']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroAntecedentes" header="#{msg['error']}" widgetVar="errorRegistroRastroAntecedentes"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroAntecedentes']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroAntecedentes" header="#{msg['informacion']}" widgetVar="errorTablaConRastroAntecedentes"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroAntecedentes']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroAntecedentes').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.antecedentemSeleccionado.getSecuencia(),'AntecedentesMedicos', 'AntecedentesMedicos')}" style="position: absolute; top: 65px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3811,12 +3811,12 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroAntecedentes" header="#{msg['error']}" widgetVar="errorTablaSinRastroAntecedentes"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroAntecedentes']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBAntecedentes" header="#{msg['error']}" widgetVar="errorObjetosDBAntecedentes"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBAntecedentes']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -3825,7 +3825,7 @@
 
 
                <p:dialog id="confirmarRastroFamiliares" header="#{msg['informacion']}" widgetVar="confirmarRastroFamiliares"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroFamiliares']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroFamiliares').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.familiarSeleccionado.getSecuencia(),'Familiares', 'emplFamiliares')}" style="position: absolute; top: 63px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3833,24 +3833,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoFamiliares" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoFamiliares"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoFamiliares']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoFamiliares').hide();" actionListener="#{controlRastro.historicosTabla('Familiares', 'emplFamiliares')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoFamiliares').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoFamiliares" header="#{msg['error']}" widgetVar="errorRastroHistoricoFamiliares"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoFamiliares']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroFamiliares" header="#{msg['error']}" widgetVar="errorRegistroRastroFamiliares"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroFamiliares']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroFamiliares" header="#{msg['informacion']}" widgetVar="errorTablaConRastroFamiliares"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroFamiliares']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroAntecedentes').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.familiarSeleccionado.getSecuencia(),'Familiares', 'emplFamiliares')}" style="position: absolute; top: 65px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3858,12 +3858,12 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroFamiliares" header="#{msg['error']}" widgetVar="errorTablaSinRastroFamiliares"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroFamiliares']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBFamiliares" header="#{msg['error']}" widgetVar="errorObjetosDBFamiliares"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBFamiliares']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -3873,7 +3873,7 @@
 
 
                <p:dialog id="confirmarRastroEducacion" header="#{msg['informacion']}" widgetVar="confirmarRastroEducacion"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroEducacion']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroEducacion').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaFormalSeleccionada.getSecuencia(),'VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 63px; left: 175px;"
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3881,24 +3881,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoEducacion" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoEducacion"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoEducacion']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoEducacion').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoEducacion').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoEducacion" header="#{msg['error']}" widgetVar="errorRastroHistoricoEducacion"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoEducacion']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroEducacion" header="#{msg['error']}" widgetVar="errorRegistroRastroEducacion"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroEducacion']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroEducacion" header="#{msg['informacion']}" widgetVar="errorTablaConRastroEducacion"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroEducacion']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroEducacion').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaFormalSeleccionada.getSecuencia(),'VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 65px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3906,12 +3906,12 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroEducacion" header="#{msg['error']}" widgetVar="errorTablaSinRastroEducacion"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroEducacion']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBEducacion" header="#{msg['error']}" widgetVar="errorObjetosDBEducacion"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBEducacion']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -3921,7 +3921,7 @@
 
 
                <p:dialog id="confirmarRastroExpLaboral" header="#{msg['informacion']}" widgetVar="confirmarRastroExpLaboral"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroExpLaboral']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroExpLaboral').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.hvexpSeleccionada.getSecuencia(),'HVEXPLABORALES', 'perexperiencialaboral')}" style="position: absolute; top: 63px; left: 175px;"
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3929,24 +3929,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoExpLaboral" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoExpLaboral"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoExpLaboral']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoExpLaboral').hide();" actionListener="#{controlRastro.historicosTabla('HVEXPLABORALES', 'perexperiencialaboral')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoExpLaboral').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoExpLaboral" header="#{msg['error']}" widgetVar="errorRastroHistoricoExpLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoExpLaboral']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroExpLaboral" header="#{msg['error']}" widgetVar="errorRegistroRastroExpLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroExpLaboral']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroExpLaboral" header="#{msg['informacion']}" widgetVar="errorTablaConRastroExpLaboral"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroExpLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroEducacion').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.hvexpSeleccionada.getSecuencia(),'HVEXPLABORALES', 'perexperiencialaboral')}" style="position: absolute; top: 65px; left: 175px;"
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3954,19 +3954,19 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroExpLaboral" header="#{msg['error']}" widgetVar="errorTablaSinRastroExpLaboral"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroExpLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBExpLaboral" header="#{msg['error']}" widgetVar="errorObjetosDBExpLaboral"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBExpLaboral']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
 
 
                <p:dialog id="confirmarRastroVisitaDomiciliaria" header="#{msg['informacion']}" widgetVar="confirmarRastroVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroVisitaDomiciliaria').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaDomiciliariaSeleccionada.getSecuencia(),'VigenciasDomiciliarias', 'pervigenciadomiciliaria')}" style="position: absolute; top: 63px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3974,24 +3974,24 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoVisitaDomiciliaria" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoVisitaDomiciliaria').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasDomiciliarias', 'pervigenciadomiciliaria')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoVisitaDomiciliaria').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoVisitaDomiciliaria" header="#{msg['error']}" widgetVar="errorRastroHistoricoVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroVisitaDomiciliaria" header="#{msg['error']}" widgetVar="errorRegistroRastroVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroVisitaDomiciliaria" header="#{msg['informacion']}" widgetVar="errorTablaConRastroVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroVisitaDomiciliarial').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaDomiciliariaSeleccionada.getSecuencia(),'VigenciasDomiciliarias', 'pervigenciadomiciliaria')}" style="position: absolute; top: 65px; left: 175px;" 
                                    onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -3999,12 +3999,12 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroVisitaDomiciliaria" header="#{msg['error']}" widgetVar="errorTablaSinRastroVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBVisitaDomiciliaria" header="#{msg['error']}" widgetVar="errorObjetosDBVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="60" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 

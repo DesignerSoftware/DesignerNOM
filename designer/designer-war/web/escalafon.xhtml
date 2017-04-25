@@ -145,7 +145,7 @@
                                          selection="#{controlEscalafon.categoriaSelecionada}" selectionMode="single" widgetVar="lovCategoria" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlEscalafon.filtrarLovCategorias}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlEscalafon.activarAceptar()}" update=":form:aceptarCat"/>
-                                <p:ajax event="rowDblselect" listener="#{controlEscalafon.actualizarCategoria()}" process="@this"  />
+                                <p:ajax event="rowDblselect" listener="#{controlEscalafon.actualizarCategoria()}" process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarCat']}" style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCategoria').filter();" style="width:150px; position: relative; left: 30px;"/>  
@@ -172,7 +172,7 @@
                                          selection="#{controlEscalafon.subCategoriaSelecionada}" selectionMode="single" widgetVar="lovSubCategoria" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlEscalafon.filtrarLovSubCategorias}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlEscalafon.activarAceptar()}" update=":form:aceptarSCat"/>
-                                <p:ajax event="rowDblselect" listener="#{controlEscalafon.actualizarSubCategoria()}"  process="@this"  />
+                                <p:ajax event="rowDblselect" listener="#{controlEscalafon.actualizarSubCategoria()}"  process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarSCat']}" style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSubCategoria').filter();" style="width:150px; position: relative; left: 30px;"/>  
@@ -194,13 +194,13 @@
                         </p:dialog> 
 
                         <h:outputText id="informacionRegistro" value="#{controlEscalafon.infoRegistro}" style="position: absolute; left: 15px; top: 480px; font-weight: bold;"/>
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px; " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" disabled="#{controlEscalafon.cambiosPagina}" update=":form:datosEscalafon" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" disabled="#{controlEscalafon.cambiosPagina}" update=":form:datosEscalafon" process="@this"/>
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafon.salir()}" action="nominaf" process="@this"/>
 
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafon.guardarYSalir()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafon.cancelarYSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -208,53 +208,53 @@
                     </p:dialog>
                     
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafon.backUpSecRegistro, 'Escalafones', 'escalafon')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Escalafones', 'escalafon')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafon.backUpSecRegistro, 'Escalafones', 'escalafon')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
@@ -279,7 +279,7 @@
                                 <p:ajax event="click" listener="#{controlEscalafon.valoresBackupAutocompletar(1, 'CATEGORIA')}"/>
                                 <p:ajax event="change" listener="#{controlEscalafon.autocompletarNuevoyDuplicado('CATEGORIA', controlEscalafon.nuevaEscalafon.categoria.descripcion, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 100px; " id="btnNuevaCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,1,0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 100px;" id="btnNuevaCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,1,0)}"/>   
                             <p:watermark for="nuevaCategoria" value="#{msg['categoria']}"/>
                             
                             <strong><h:outputText value="*#{msg['subCategoriaN']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
@@ -288,7 +288,7 @@
                                 <p:ajax event="click" listener="#{controlEscalafon.valoresBackupAutocompletar(1, 'SUBCATEGORIA')}"/>
                                 <p:ajax event="change" listener="#{controlEscalafon.autocompletarNuevoyDuplicado('SUBCATEGORIA', controlEscalafon.nuevaEscalafon.subcategoria.descripcion, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px; " id="btnNuevaSubCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,1,1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;" id="btnNuevaSubCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,1,1)}"/>   
                             <p:watermark for="nuevaSubCategoria" value="#{msg['subCategoria']}"/>
 
                             <p:commandButton icon="ui-icon-trash" id="limpiar" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafon.limpiarNuevaEscalafon()}" update="nuevaEsc" process="@this"/>
@@ -314,7 +314,7 @@
                                 <p:ajax event="click" listener="#{controlEscalafon.valoresBackupAutocompletar(2, 'CATEGORIA')}"/>
                                 <p:ajax event="change" listener="#{controlEscalafon.autocompletarNuevoyDuplicado('CATEGORIA', controlEscalafon.duplicarEscalafon.categoria.descripcion, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 100px; " id="btnDuplicaCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,2,0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 100px;" id="btnDuplicaCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,2,0)}"/>   
                             <p:watermark for="duplicarCategoria" value="#{msg['categoria']}"/>
                             
                             <strong><h:outputText value="*#{msg['subCategoriaN']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
@@ -323,7 +323,7 @@
                                 <p:ajax event="click" listener="#{controlEscalafon.valoresBackupAutocompletar(2, 'SUBCATEGORIA')}"/>
                                 <p:ajax event="change" listener="#{controlEscalafon.autocompletarNuevoyDuplicado('SUBCATEGORIA', controlEscalafon.duplicarEscalafon.subcategoria.descripcion, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px; " id="btnDuplicaSubCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,2,1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;" id="btnDuplicaSubCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafon.asignarIndex(indice,2,1)}"/>   
                             <p:watermark for="duplicarSubCategoria" value="#{msg['subCategoria']}"/>
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDuplicadoVRl" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafon.limpiarduplicarEscalafon()}" update="duplicarEsc" process="@this"/>

@@ -592,83 +592,83 @@
                </p:dialog>
 
                <p:dialog id="confirmarAdicionarEmpleados" header="#{msg['atencion']}" widgetVar="confirmarAdicionarEmpleados"  resizable="false" draggable="true" modal="true" height="149" width="430"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 20px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 20px;"/>
                   <h:outputText value="#{msg['confirmarAdicionarEmpleados1']} #{controlParametro.empleadosParametrizados} #{msg['confirmarAdicionarEmpleados2']}" style="position: absolute; left: 135px; top: 20px; width: 270px; font-weight: bold; text-align: justify"/>
                   <h:outputText value="#{msg['deseacontinuar']}" style="position: absolute; left: 100px; top: 95px; width: 300px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarAdicionarEmpleados').hide(); PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                    actionListener="#{controlParametro.adicionarEmpleados()}" 
-                                   style="position: absolute; top: 120px; left: 210px; " process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 120px; left: 210px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarAdicionarEmpleados').hide();" style="position: absolute; top: 120px; left: 310px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorDias" header="#{msg['atencion']}" widgetVar="errorDias"  resizable="false" draggable="true" modal="true" height="149" width="500"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 20px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 20px;"/>
                   <h:outputText value="#{msg['errorDias']}" style="position: absolute; left: 135px; top: 20px; width: 330px; text-align: justify; font-weight: bold;"/>
                   <h:outputText value="#{msg['deseacontinuar']}" style="position: absolute; left: 100px; top: 95px; width: 360px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorDias').hide();" actionListener="#{controlParametro.guardarCambios()}" 
-                                   style="position: absolute; top: 120px; left: 270px; " process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 120px; left: 270px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorDias').hide();" style="position: absolute; top: 120px; left: 370px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="109" width="450"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas1']}#{controlParametro.strFechaCorte}#{msg['errorFechas2']}#{controlParametro.strFechaInicial}  -  #{controlParametro.strFechaFinal}]" style="position: absolute; left: 145px; top: 15px; width: 270px; text-align: justify; font-weight: bold;"/>
                   <h:outputText value="#{msg['deseacontinuar']}" style="position: absolute; left: 130px; top: 65px; width: 300px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" actionListener="#{controlParametro.seguirErrorFechas()}" 
-                                   style="position: absolute; top: 85px; left: 220px; " process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 85px; left: 220px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 85px; left: 320px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorDiaFechaCorte" header="#{msg['atencion']}" widgetVar="errorDiaFechaCorte"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="Error en la fecha de corte, ésta debe ser el día: 1, 15, 16 ó ultimo día del mes." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorDiaFechaCorte').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorDiaFechaHasta" header="#{msg['atencion']}" widgetVar="errorDiaFechaHasta"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="Error en la fecha hasta, ésta debe ser el día: 15 ó ultimo día del mes." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorDiaFechaHasta').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorDiaFechaDesde" header="#{msg['atencion']}" widgetVar="errorDiaFechaDesde"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="Error en la fecha desde, ésta debe ser el día: 1 ó 16." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorDiaFechaDesde').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorFechaHasta_Desde" header="#{msg['atencion']}" widgetVar="errorFechaHasta_Desde"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="La fecha desde no puede ser mayor que la fecha hasta, por favor corregirla" style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechaHasta_Desde').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorProceso" header="#{msg['atencion']}" widgetVar="errorProceso"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="El proceso no puede estar vacío." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorProceso').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorFechaCorte" header="#{msg['atencion']}" widgetVar="errorFechaCorte"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="La fecha corte no puede estar vacia." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechaCorte').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorFechaHasta" header="#{msg['atencion']}" widgetVar="errorFechaHasta"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="La fecha hasta no puede estar vacia." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechaHasta').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorFechaDesde" header="#{msg['atencion']}" widgetVar="errorFechaDesde"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="La fecha desde no puede estar vacia." style="position: absolute; left: 145px; top: 15px; width: 220px; text-align: justify; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechaDesde').hide();" style="position: absolute; top: 65px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 137px;" 
                                    process="@this" icon="ui-icon-check">
@@ -681,12 +681,12 @@
                </p:dialog>
 
                <p:dialog id="lovVacia" header="#{msg['atencion']}" widgetVar="lovVacia"  resizable="false" draggable="true" modal="true" height="100" width="400"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="110" height="80" style="position: absolute; left: 5px; top: 20px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="110" height="80" style="position: absolute; left: 5px; top: 20px;"/>
                   <h:outputText value="#{msg['lovvacia']}" style="position: absolute; left: 110px; top: 20px; width: 270px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
             </h:form>

@@ -829,51 +829,51 @@
                   <h:outputText value="#{controlDetalleConcepto.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleConcepto.nombreTablaRastro , 'detalleconcepto')}"
                                    style="position: absolute; top: 65px; left: 210px;" onstart="#{controlDetalleConcepto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleconcepto','rastrotabla')}"/>
-                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleConcepto.limpiarMSNRastros()}" style="position: absolute; top: 65px; left: 270px;"  />
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleConcepto.limpiarMSNRastros()}" style="position: absolute; top: 65px; left: 270px;"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="100" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlDetalleConcepto.backUp, controlDetalleConcepto.nombreTablaRastro , 'detalleconcepto')}"
                                    style="position: absolute; top: 70px; left: 210px;" onstart="#{controlDetalleConcepto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleconcepto','rastrotabla')}"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
-                                   style="position: absolute; top: 70px; left: 270px;"  />
+                                   style="position: absolute; top: 70px; left: 270px;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorRegNuevo" header="#{msg['error']}" widgetVar="errorRegNuevo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegNuevo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechasVC" header="#{msg['error']}" widgetVar="errorFechasVC"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechasVC']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -888,7 +888,7 @@
                </p:dialog>
 
                <p:dialog id="errorEliminacionConcepto" header="#{msg['eliminacionError']}" widgetVar="errorEliminacionConcepto"  resizable="false" draggable="true" modal="true" height="100" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorEliminacionConcepto']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="OK" onclick="PF('errorEliminacionConcepto').hide();" style="position: absolute; top: 65px; left: 250px;" icon="ui-icon-check"/>
                </p:dialog>
@@ -900,14 +900,14 @@
                </p:dialog>
 
                <p:dialog id="paso2Eliminacion" header="#{msg['eliminacion24']}" widgetVar="paso2Eliminacion"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['paso2Eliminacion']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['continuar']}" onclick="PF('paso3Eliminacion').show(); PF('paso2Eliminacion').hide();" style="position: absolute; top: 60px; left: 100px;"  icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso2Eliminacion').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;"/>
                </p:dialog>
 
                <p:dialog id="paso3Eliminacion" header="#{msg['eliminacion34']}" widgetVar="paso3Eliminacion"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlDetalleConcepto.conceptoAEliminar()}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso3Eliminacion').hide();" icon="ui-icon-check" actionListener="#{controlDetalleConcepto.eliminarConcepto()}"
                                    style="position: absolute; top: 60px; left: 127px;"/>
@@ -925,7 +925,7 @@
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovTipoCentroCosto()}"/>
                      <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarTCC"/>
-                     <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarTipoCentroCosto()}"  />
+                     <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarTipoCentroCosto()}"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTCC']}"/>
@@ -1077,7 +1077,7 @@
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCentroCostoCredito()}"/>
                      <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCCC"/>
-                     <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarCentroCostoCredito()}"  />
+                     <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarCentroCostoCredito()}"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCCC']}"/>
@@ -1192,7 +1192,7 @@
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovTipoTrabajador()}"/>
                      <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarTTr"/>
-                     <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarTipoTrabajador()}"  />
+                     <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarTipoTrabajador()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTT']}"/>
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" class="cssFiltroLOV"/>
@@ -1382,12 +1382,12 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="operacionEnProcesoLovs" header="#{msg['informacion']}" widgetVar="operacionEnProcesoLovs"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionProcesoLovs']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 

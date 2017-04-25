@@ -83,13 +83,13 @@
 
                         <p:column width="10">
                            <p:commandButton id="estructura"  value=""  onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'usuarioestructura')}" actionListener="#{controlUsuariosEstructuras.recibirUsuario('usuario',controlUsuarios.usuariosSeleccionado)}" 
-                                            style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  />
+                                            style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                            <p:tooltip for="estructura" value="#{msg['estructuratt']}"/>
 
                         </p:column>
                         <p:column width="10">
                            <p:commandButton id="historico"  value="" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'historicosusuarios')}" actionListener="#{controlHistoricosUsuarios.recibirUsuario('usuario', controlUsuarios.usuariosSeleccionado)}"
-                                            style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  />
+                                            style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                            <p:tooltip for="historico" value="#{msg['historicott']}"/>
 
                         </p:column>
@@ -236,34 +236,34 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="validacionClon" header="#{msg['atencion']}" widgetVar="validacionClon"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionClonar']}" style="position: absolute; left: 85px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionClon').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this"
                                    icon="ui-icon-check"/>
                </p:dialog> 
 
                <p:dialog id="contrasenaNueva" header="#{msg['atencion']}" widgetVar="contrasenaNueva"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['contrasena']} #{controlUsuarios.mensajeContra}" style="position: absolute; left: 85px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('contrasenaNueva').hide();" style="position: absolute; top: 50px; left: 260px;"
                                    icon="ui-icon-check" process="@this"/>
                </p:dialog> 
 
                <p:dialog id="validacionNuevaUsuario" header="#{msg['atencion']}" widgetVar="validacionNuevaUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="#{controlUsuarios.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validacionPersona" header="#{msg['atencion']}" widgetVar="validacionPersona"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionPersona']}" style="position: absolute; left: 80px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionPersona').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"
                                    icon="ui-icon-check"/>
                </p:dialog>  
 
                <p:dialog id="validacionEliminar" header="#{msg['atencion']}" widgetVar="validacionEliminar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionEliminacion']} #{controlUsuarios.mensajeV} " style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-circle-check" onclick="PF('operacionEnProceso').show(); PF('validacionEliminar').hide();" actionListener="#{controlUsuarios.eliminarUsuarioBD()}"
                                    style="position: absolute; top: 50px; left: 140px;" process="@this"/>
@@ -271,74 +271,74 @@
                </p:dialog>
 
                <p:dialog id="usuarioCreado" header="#{msg['atencion']}" widgetVar="usuarioCreado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario ha sido creado exitosamente." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('usuarioCreado').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="usuarioDesbloqueado" header="#{msg['atencion']}" widgetVar="usuarioDesbloqueado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario ha sido desbloqueado exitosamente." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('usuarioDesbloqueado').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
 
                <p:dialog id="usuarioEliminado" header="#{msg['atencion']}" widgetVar="usuarioEliminado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario ha sido eliminado exitosamente." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('usuarioEliminado').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorCrearUsuario" header="#{msg['atencion']}" widgetVar="errorCrearUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario no se pudo crear. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorCrearUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
 
                <p:dialog id="errorEliminarUsuario" header="#{msg['atencion']}" widgetVar="errorEliminarUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario no ha sido eliminado. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorEliminarUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorDesbloquearUsuario" header="#{msg['atencion']}" widgetVar="errorDesbloquearUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario se ha podido desbloquear. Por favor llame a soporte" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorDesbloquearUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="usuarioClonado" header="#{msg['atencion']}" widgetVar="usuarioClonado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario ha sido clonado exitosamente." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('usuarioClonado').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorClonarUsuario" header="#{msg['atencion']}" widgetVar="errorClonarUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="El usuario no se pudo clonar. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorClonarUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="NuevoRegistroUsuario" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroUsuario" closable="false" resizable="false"  draggable="true" modal="true" height="235" width="380" style=" padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
                   <p:panel id="nuevaUsuario" style="border: none;">                           
-                     <strong><h:outputText value="#{msg['personaN']}" style=" position: absolute; top: 65px; left: 18px;"  /></strong>
+                     <strong><h:outputText value="#{msg['personaN']}" style=" position: absolute; top: 65px; left: 18px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlUsuarios.nuevaUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 0, 1)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 317px; top: 60px; " class="cssBotonLovDialogos" id="btnNuevoPersona" value="" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 0, 1)}"/>
+                     <p:commandButton style="position: absolute; left: 317px; top: 60px;" class="cssBotonLovDialogos" id="btnNuevoPersona" value="" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 0, 1)}"/>
 
                      <strong><h:outputText value="#{msg['perfilN']}" style=" position: absolute; top: 95px; left: 18px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlUsuarios.nuevaUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 1, 1)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 317px; top: 90px; " class="cssBotonLovDialogos" id="btnNuevoPerfil" value="" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 1, 1)}"/>
+                     <p:commandButton style="position: absolute; left: 317px; top: 90px;" class="cssBotonLovDialogos" id="btnNuevoPerfil" value="" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 1, 1)}"/>
 
                      <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 125px; left: 18px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoAlias" value="#{controlUsuarios.nuevaUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
@@ -349,7 +349,7 @@
                      <p:inputText autocomplete="off" id="nuevoPantalla" value="#{controlUsuarios.nuevaUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 2, 1)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 317px; top: 150px; " id="btnNuevoPantalla" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 2, 1)}"/>
+                     <p:commandButton style="position: absolute; left: 317px; top: 150px;" id="btnNuevoPantalla" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 2, 1)}"/>
 
                      <strong><h:outputText value="#{msg['activoN']}" style=" position: absolute; top: 180px;"/></strong>
                      <p:selectBooleanCheckbox value="#{controlUsuarios.nuevaUsuarios.estadoActivo}" style="position: absolute; left: 185px; top: 180px;">
@@ -370,13 +370,13 @@
                      <p:inputText autocomplete="off" id="duplicadoPersona" value="#{controlUsuarios.duplicarUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 0, 2)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 317px; top: 60px; " id="btnDuplicarPersona" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 0, 2)}"/>
+                     <p:commandButton style="position: absolute; left: 317px; top: 60px;" id="btnDuplicarPersona" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 0, 2)}"/>
 
                      <strong><h:outputText value="#{msg['perfilN']}" style=" position: absolute; top: 95px; left: 18px"/></strong>
                      <p:inputText autocomplete="off" id="duplicadoPerfil" value="#{controlUsuarios.duplicarUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 1, 2)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 317px; top: 90px; " id="btnDuplicarPerfil" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 1, 2)}"/>
+                     <p:commandButton style="position: absolute; left: 317px; top: 90px;" id="btnDuplicarPerfil" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 1, 2)}"/>
 
                      <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 125px; left: 18px"/></strong>
                      <p:inputText autocomplete="off" id="duplicadoAlias" value="#{controlUsuarios.duplicarUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
@@ -387,7 +387,7 @@
                      <p:inputText autocomplete="off" id="duplicadoPantalla" value="#{controlUsuarios.duplicarUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(usuario, 2, 2)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 317px; top: 150px; " id="btnDuplicarClaseAusentismo" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 2, 2)}"/>
+                     <p:commandButton style="position: absolute; left: 317px; top: 150px;" id="btnDuplicarClaseAusentismo" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuarios.asignarIndex(usuario, 2, 2)}"/>
 
                      <strong><h:outputText value="#{msg['activoN']}" style=" position: absolute; top: 180px;"/></strong>
                      <p:selectBooleanCheckbox value="#{controlUsuarios.duplicarUsuarios.estadoActivo}" style="position: absolute; left: 185px; top: 180px;">
@@ -395,7 +395,7 @@
                      </p:selectBooleanCheckbox>
 
                      <p:commandButton id="limpiarDuplicadoUsuario" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 205px;" actionListener="#{controlUsuarios.limpiarDuplicarUsuario()}" update="duplicarUsuario" process="@this"/>
-                     <p:commandButton id="agregarDuplicadoUsuario" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 205px;"  process="@this" actionListener="#{controlUsuarios.confirmarDuplicar()}"  />
+                     <p:commandButton id="agregarDuplicadoUsuario" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 205px;"  process="@this" actionListener="#{controlUsuarios.confirmarDuplicar()}"/>
                      <p:commandButton id="cancelarDuplicadoUsuario" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 205px;" actionListener="#{controlUsuarios.limpiarDuplicarUsuario()}" update="duplicarUsuario" onclick="PF('DuplicarRegistroUsuario').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>      
@@ -710,7 +710,7 @@
                      <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarTD"/>
 
                      <f:facet name="header">  
-                        <h:outputText value="Buscar Tipo Documento"  />  
+                        <h:outputText value="Buscar Tipo Documento"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tipoDIP.nombrelargo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -740,11 +740,11 @@
                   <h:outputText value="Seleccione la tabla en la que quiere insertar un nuevo registro " style="color: blue; position: absolute; left: 15px; top: 10px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Persona" style="position: absolute; left: 90px; top: 40px; font-weight: bold; width: 180px; height: 20px; text-align: center;" process="@this" actionListener="#{controlUsuarios.mostrarDialogoInsertarPersona()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
                   <p:commandButton value="Usuario" style="position: absolute; left: 90px; top: 70px; font-weight: bold; width: 180px; height: 20px ;text-align: center;" process="@this" actionListener="#{controlUsuarios.mostrarDialogoInsertarUsuario()}" onclick="PF('seleccionarTablaNewReg').hide()"/>
-                  <!--<p:commandButton value="Cancelar" icon="ui-icon-closethick" style="position: absolute; top: 325px; left: 260px;" onclick="PF('seleccionarTablaNewReg').hide()"  />-->
+                  <!--<p:commandButton value="Cancelar" icon="ui-icon-closethick" style="position: absolute; top: 325px; left: 260px;" onclick="PF('seleccionarTablaNewReg').hide()"/>-->
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"
                                    actionListener="#{controlUsuarios.guardarYSalir()}"/>
@@ -754,7 +754,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
                                    style="position: absolute; top: 63px; left: 175px;" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -762,7 +762,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" 
                                    style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -770,17 +770,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
                                    style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -788,17 +788,17 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>                    
 
@@ -828,7 +828,7 @@
                </p:dialog>
 
                <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true"  closable="true" height="85" width="350" style="font-size: 12px">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
                   <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                   <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlUsuarios.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                </p:dialog>

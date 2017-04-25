@@ -49,7 +49,7 @@
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
-                                         actionListener="#{controlFormulaContrato.verificarExportXLS()}" ajax="false"  />
+                                         actionListener="#{controlFormulaContrato.verificarExportXLS()}" ajax="false"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
@@ -225,7 +225,7 @@
                                    actionListener="#{controlFormulaContrato.salir()}" process="@this"/>
 
                   <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 210px;" onstart="#{controlFormulaContrato.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulacontrato', 'rastrotabla')}" process="@this"
                                       actionListener="#{controlRastro.recibirDatosTabla(controlFormulaContrato.formulaTablaSeleccionada.secuencia, controlFormulaContrato.nombreTablaRastro , 'formulacontrato')}"/>
@@ -233,7 +233,7 @@
                   </p:dialog>
 
                   <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();"
                                       actionListener="#{controlRastro.historicosTabla(controlFormulaContrato.nombreTablaRastro , 'formulacontrato')}"
@@ -242,17 +242,17 @@
                   </p:dialog>
 
                   <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                   </p:dialog>
 
                   <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                   </p:dialog>
 
                   <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 210px;" onstart="#{controlFormulaContrato.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulacontrato', 'rastrotabla')}" process="@this"
                                       actionListener="#{controlRastro.recibirDatosTabla(controlFormulaContrato.formulaTablaSeleccionada.secuencia, controlFormulaContrato.nombreTablaRastro , 'formulacontrato')}"/>
@@ -260,22 +260,22 @@
                   </p:dialog>
 
                   <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" closable="true">  
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                   </p:dialog>
 
                   <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
                   </p:dialog>
 
                   <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="65" width="285"  closable="true">  
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 200px; font-weight: bold;"/>
                   </p:dialog>
 
                   <p:dialog id="errorRegNuevo" header="#{msg['atencion']}" widgetVar="errorRegNuevo"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['infoFormula']}" style="position: absolute; left: 80px; top: 15px; width: 185px; font-weight: bold;"/>
                   </p:dialog>
 
@@ -290,7 +290,7 @@
                   </p:dialog>
 
                   <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                      <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                      <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormulaContrato.guardadoYSalir()}"
                                       style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
@@ -476,7 +476,7 @@
                      <p:commandButton icon="ui-icon-trash" id="limpiarNF" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 235px;"
                                       actionListener="#{controlFormulaContrato.limpiarNuevoFormula()}" update="nuevaF" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="agregarNF" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 235px;"
-                                      process="@this" actionListener="#{controlFormulaContrato.agregarNuevoFormula()}"  />
+                                      process="@this" actionListener="#{controlFormulaContrato.agregarNuevoFormula()}"/>
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarNF" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 235px;"
                                       actionListener="#{controlFormulaContrato.limpiarNuevoFormula()}" update="nuevaF" onclick="PF('NuevoRegistroFormula').hide();"  process="@this"/>
                   </p:panel>
@@ -538,7 +538,7 @@
                      <p:watermark for="duplicarTercero" value="#{msg['tercero']}"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDF" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 235px;" actionListener="#{controlFormulaContrato.limpiarDuplicarFormula()}" update="duplicarF" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarDF" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 235px;"  process="@this" actionListener="#{controlFormulaContrato.confirmarDuplicarFormula()}"  />
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarDF" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 235px;"  process="@this" actionListener="#{controlFormulaContrato.confirmarDuplicarFormula()}"/>
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarDF" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 235px;" actionListener="#{controlFormulaContrato.limpiarDuplicarFormula()}" update="duplicarF" onclick="PF('DuplicarRegistroFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>

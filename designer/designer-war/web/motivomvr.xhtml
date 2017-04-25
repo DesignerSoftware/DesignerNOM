@@ -103,7 +103,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""  />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -119,7 +119,7 @@
                                         </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""  />
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -130,7 +130,7 @@
                         <p:commandButton class="cssBotonCancelar" value="" id="ATRAS" actionListener="#{controlMotivosMvrs.salir()}"/>
 
                         <p:dialog id="confirmarGuardar" header="¡Precaución!" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="405" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 15px; top: 10px;"/>
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                             <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 127px;" process="@this" icon="ui-icon-check">
                                 <f:actionListener binding="#{controlMotivosMvrs.guardarMotivosMvrs()}"/>
@@ -145,25 +145,25 @@
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia" resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"/>
                         <h:outputText value="Necesita : #{controlMotivosMvrs.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
                         <p:commandButton icon="ui-icon-check" value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="¡Error!" widgetVar="validacionModificar" resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value=" #{controlMotivosMvrs.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold;"/>
                         <p:commandButton icon="ui-icon-check" value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 55px; left: 220px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar" resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
                         <p:commandButton icon="ui-icon-check" value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 55px; left: 290px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"/>
                         <h:outputText value="Para agregar es necesario adicionar: #{controlMotivosMvrs.mensajeValidacion}" style="position: absolute; left: 90px; top: 10px; width: 280px; font-weight: bold"/>
                         <p:commandButton icon="ui-icon-check" value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 70px; left: 290px;" process="@this"/>
                     </p:dialog>
@@ -173,7 +173,7 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro" resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'MOTIVOSMVRS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check"
                                          actionListener="#{controlRastro.recibirDatosTabla(controlMotivosMvrs.motivoMvrSeleccionada.secuencia, 'MotivosMvrs', 'motivosmvr')}"
@@ -182,7 +182,7 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico" resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla MOTIVOSMVRS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check"
                                          actionListener="#{controlRastro.historicosTabla('MotivosMvrs', 'motivosmvr')}"
@@ -191,17 +191,17 @@
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico" resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro" resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('errorTablaConRastro').hide();"
                                          actionListener="#{controlRastro.recibirDatosTabla(controlMotivosMvrs.motivoMvrSeleccionada.secuencia, 'MotivosMvrs', 'motivosmvr')}"
@@ -210,12 +210,12 @@
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 

@@ -171,7 +171,7 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 90px;" id="fooConcepto" actionListener="#{controlConcepto.recibirPaginaEntrante('novedadempleado')}" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'concepto')}" value=" "  />
+                              <p:commandButton style="width: 90px;" id="fooConcepto" actionListener="#{controlConcepto.recibirPaginaEntrante('novedadempleado')}" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'concepto')}" value=" "/>
                            </f:facet>
                         </p:column>
 
@@ -780,7 +780,7 @@
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 4, 1)}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; 
-                                      height: 23px; position: absolute; left: 711px; top: 130px; " id="btnNuevoTercero" actionListener="#{controlNovedadesEmpleados.asignarIndex( 4, 1)}" value="" process="@this"/>
+                                      height: 23px; position: absolute; left: 711px; top: 130px;" id="btnNuevoTercero" actionListener="#{controlNovedadesEmpleados.asignarIndex( 4, 1)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['nombredelterceroN']}" style=" position: absolute; top: 165px; left: 410px"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTerceroNombre" value="#{controlNovedadesEmpleados.nuevaNovedad.tercero.nombre}" 
@@ -837,7 +837,7 @@
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 1, 2)}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                      height: 23px; position: absolute; left: 331px; top: 70px; " id="btnDuplicarConcepto" actionListener="#{controlNovedadesEmpleados.asignarIndex( 1, 2)}" value="" process="@this"/>
+                                      height: 23px; position: absolute; left: 331px; top: 70px;" id="btnDuplicarConcepto" actionListener="#{controlNovedadesEmpleados.asignarIndex( 1, 2)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['descripcionconceptoN']}" style=" position: absolute; top: 105px; left: 40px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarConceptoDescripcion" value="#{controlNovedadesEmpleados.duplicarNovedad.concepto.descripcion}" 
@@ -885,7 +885,7 @@
                         <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex( 2, 2)}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; 
-                                      position: absolute; left: 331px; top: 250px; " id="btnDuplicarFormula" actionListener="#{controlNovedadesEmpleados.asignarIndex( 2, 2)}" value="" process="@this"/>
+                                      position: absolute; left: 331px; top: 250px;" id="btnDuplicarFormula" actionListener="#{controlNovedadesEmpleados.asignarIndex( 2, 2)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px; left: 410px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarPeriodicidadCodigo" value="#{controlNovedadesEmpleados.duplicarNovedad.periodicidad.codigo}"
@@ -955,13 +955,13 @@
                </p:dialog>
 
                <p:dialog id="validacionNuevaNovedadEmpleado" header="#{msg['atencion']}" widgetVar="validacionNuevaNovedadEmpleado" resizable="false" draggable="true" modal="true" height="100" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionNuevo']}" style="position: absolute; left: 90px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaNovedadEmpleado').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadesEmpleados.guardarCambiosNovedades()}" style="position: absolute; top: 50px; left: 125px;" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadesEmpleados.cancelarModificacion()}" style="position: absolute; top: 50px; left: 187px;" process="@this"/>
@@ -969,13 +969,13 @@
                </p:dialog>
 
                <p:dialog id="inconsistencia" header="#{msg['atencion']}" widgetVar="inconsistencia"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['inconsistencia']}" style="position: absolute; left: 90px; top: 15px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('inconsistencia').hide();" icon="ui-icon-check" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="fechas" header="#{msg['atencion']}" widgetVar="fechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['fecha']}" style="position: absolute; left: 100px; top: 15px; width: 290px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('fechas').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -1044,13 +1044,13 @@
 
                <!-- DIALOGO SOLUCIONES FORMULAS-->
                <p:dialog id="solucionesFormulas" header="#{msg['error']}" widgetVar="solucionesFormulas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['sFormulas']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <!-- DIALOGO CAMBIO DE EMPLEADO -->
                <p:dialog id="cambiar" header="#{msg['informacion']}" widgetVar="cambiar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" oncomplete="PF('cambiar').hide();" actionListener="#{controlNovedadesEmpleados.guardarCambiosNovedades()}" style="position: absolute; top: 63px; left: 175px;" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" oncomplete="PF('cambiar').hide();" actionListener="#{controlNovedadesEmpleados.limpiarListas()}" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
@@ -1058,53 +1058,53 @@
                <!-- DIALOGOS RASTROS -->
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.empleadoSeleccionado.id , 'Novedades', 'novedadempleado')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.empleadoSeleccionado.id, 'Novedades', 'novedadempleado')}" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 

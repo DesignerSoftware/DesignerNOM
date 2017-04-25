@@ -276,7 +276,7 @@
 
                         <p:column filterBy="#{sector.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
                            <f:facet name="header">
-                              <h:outputText value="#{msg['descripcionSector']}"  />
+                              <h:outputText value="#{msg['descripcionSector']}"/>
                            </f:facet>
                            <h:outputText value="#{sector.descripcion}" style="text-transform: uppercase;"/>
                         </p:column>
@@ -325,7 +325,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPerExperienciaLaboral.guardarYSalir()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPerExperienciaLaboral.salir()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
@@ -333,7 +333,7 @@
                </p:dialog>    
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}"
                                    style="position: absolute; top: 65px; left: 175px;" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
@@ -341,7 +341,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('HvExperienciasLaborales', 'experienciasLabRastro')}"
                                    style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
@@ -349,17 +349,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}" 
                                    style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
@@ -367,33 +367,33 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorBorradoReg" header="#{msg['error']}" widgetVar="errorBorradoReg"  resizable="false" draggable="true" modal="true" height="70" width="255"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorradoReg']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorIngresoReg"  header="#{msg['error']}" widgetVar="errorIngresoReg" resizable="false" draggable="true" modal="true" height="60" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorIngresoReg']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="OK" onclick="PF('errorIngresoReg').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorFechasIngresoReg"  header="#{msg['error']}" widgetVar="errorFechasIngresoReg" resizable="false" draggable="true" modal="true" height="60" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechasIngresoReg']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="OK" onclick="PF('errorFechasIngresoReg').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -465,7 +465,7 @@
                         <p:ajax event="click" listener="#{controlPerExperienciaLaboral.valoresBackupAutocompletarExperiencia(1, 'MOTIVOS')}"/>
                         <p:ajax event="change" listener="#{controlPerExperienciaLaboral.autocompletarNuevoyDuplicadoExperiencia('MOTIVOS', controlPerExperienciaLaboral.nuevaExperienciaLaboral.motivoretiro.nombre,1)}" process="@this" update="nuevaMotivoEP"/>
                      </p:inputText>
-                     <p:commandButton style=" position: absolute; left: 350px; top: 282px; " class="cssBotonLovDialogos" id="btnNuevaMotivo" process="@this" value="" actionListener="#{controlPerExperienciaLaboral.asignarIndex(info,2,1)}" update="nuevaMotivoEP"/>   
+                     <p:commandButton style=" position: absolute; left: 350px; top: 282px;" class="cssBotonLovDialogos" id="btnNuevaMotivo" process="@this" value="" actionListener="#{controlPerExperienciaLaboral.asignarIndex(info,2,1)}" update="nuevaMotivoEP"/>   
                      <p:watermark for="nuevaMotivoEP" value="#{msg['motivoRetiro']}"/>
 
                      <strong><h:outputText value="#{msg['logroAlcanzadoN']}" style="position: absolute; top: 315px;"/></strong>

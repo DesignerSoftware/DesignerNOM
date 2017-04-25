@@ -118,8 +118,8 @@
 
                             </p:dataTable>
 
-                            <p:commandButton style="position: absolute; left: 683px; top: 30px; " id="BUSCAR" value="#{msg['buscarEmpleados']}" actionListener="#{controlATHoraExtra.dispararDialogoBuscarEmpleados()}" disabled="#{controlATHoraExtra.activarBuscar}" process="@this"/>
-                            <p:commandButton style="position: absolute; left: 690px; top: 70px; " id="MOSTRARTODOS"  value="#{msg['mostrarTodos']}" actionListener="#{controlATHoraExtra.mostrarTodosEmpleados()}" disabled="#{controlATHoraExtra.activarMostrarTodos}" process="@this"/>
+                            <p:commandButton style="position: absolute; left: 683px; top: 30px;" id="BUSCAR" value="#{msg['buscarEmpleados']}" actionListener="#{controlATHoraExtra.dispararDialogoBuscarEmpleados()}" disabled="#{controlATHoraExtra.activarBuscar}" process="@this"/>
+                            <p:commandButton style="position: absolute; left: 690px; top: 70px;" id="MOSTRARTODOS"  value="#{msg['mostrarTodos']}" actionListener="#{controlATHoraExtra.mostrarTodosEmpleados()}" disabled="#{controlATHoraExtra.activarMostrarTodos}" process="@this"/>
                         </fieldset> 
 
                         <p:remoteCommand name="posicionEmpleado" actionListener="#{controlATHoraExtra.posicionEmpleado()}"/>
@@ -447,16 +447,16 @@
                         </fieldset> 
 
 
-                        <p:commandButton style="position: absolute; left: 10px; top: 480px; " id="CARGUEHEPLANO" value="#{msg['carguePlanoHE']}" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 290px; top: 480px; " id="INTERFASE" value="#{msg['interfase']}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 10px; top: 480px;" id="CARGUEHEPLANO" value="#{msg['carguePlanoHE']}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 290px; top: 480px;" id="INTERFASE" value="#{msg['interfase']}" process="@this"/>
                         
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px; " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();" update=":form:datosEmpleado" process="@this" disabled="#{controlATHoraExtra.guardado}"/>
-                        <p:commandButton style="position: absolute; left: 775px; top: 480px; " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATHoraExtra.salir()}" action="#{controlATHoraExtra.redirigir()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();" update=":form:datosEmpleado" process="@this" disabled="#{controlATHoraExtra.guardado}"/>
+                        <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATHoraExtra.salir()}" action="#{controlATHoraExtra.redirigir()}" process="@this"/>
 
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATHoraExtra.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATHoraExtra.cancelarModificacion()}"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -464,7 +464,7 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATHoraExtra.guardarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlATHoraExtra.cancelarSalir()}" action="#{controlATHoraExtra.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -478,26 +478,26 @@
 
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'athoraextra')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Empleados', 'athoraextra')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'Empleados', 'athoraextra')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
@@ -509,26 +509,26 @@
 
 
                     <p:dialog id="confirmarRastro_HE" header="#{msg['atencion']}" widgetVar="confirmarRastro_HE"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro_HE']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_HE').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'athoraextra')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro_HE').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico_HE" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico_HE"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico_HE']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_HE').hide();" actionListener="#{controlRastro.historicosTabla('TurnosEmpleados', 'athoraextra')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico_HE').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB_HE" header="#{msg['atencion']}" widgetVar="errorObjetosDB_HE"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB_HE']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro_HE" header="#{msg['atencion']}" widgetVar="errorTablaConRastro_HE"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro_HE']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_HE').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATHoraExtra.backUpSecRegistro, 'TurnosEmpleados', 'athoraextra')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro_HE').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
@@ -537,37 +537,37 @@
                     <!-- -->
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
                     
                     <p:dialog id="errorFechaTurno" header="#{msg['atencion']}" widgetVar="errorFechaTurno"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorFechaTurno']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
                     
                     <p:dialog id="errorNullTurno" header="#{msg['atencion']}" widgetVar="errorNullTurno"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorNullTurno']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
                     
                     <p:dialog id="infoDetalleHoraExtra" header="#{msg['atencion']}" widgetVar="infoDetalleHoraExtra"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/interrogacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/interrogacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['infoDetalleHoraExtra']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
@@ -715,7 +715,7 @@
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.nuevaTurno.motivoturno.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 160px; " id="btnNuevaMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 160px;" id="btnNuevaMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 1)}"/>   
                             <p:watermark for="nuevaMotivoTurnoHoraExtra" value="#{msg['motivoTurno']}"/>
 
 
@@ -742,7 +742,7 @@
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 280px; " id="btnNuevaEstructura" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 280px;" id="btnNuevaEstructura" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 1)}"/>   
                             <p:watermark for="nuevaEstructuraHoraExtra" value="#{msg['estructuraAprobacion']}"/>
                             
                             <strong><h:outputText value="#{msg['comentarioN']}" style=" position: absolute; top: 315px; left: 50px;"/></strong>
@@ -790,7 +790,7 @@
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.duplicarTurno.motivoturno.nombre, 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 160px; " id="btnDuplicarMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 2)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 160px;" id="btnDuplicarMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 2)}"/>   
                             <p:watermark for="duplicarMotivoTurnoHoraExtra" value="#{msg['motivoTurno']}"/>
 
 
@@ -817,7 +817,7 @@
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre, 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 280px; " id="btnDuplicarEstructura" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 2)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 280px;" id="btnDuplicarEstructura" icon="ui-icon-search" process="@this"  actionListener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 2)}"/>   
                             <p:watermark for="duplicarEstructuraHoraExtra" value="#{msg['estructuraAprobacion']}"/>
                             
                             <strong><h:outputText value="#{msg['comentarioN']}" style=" position: absolute; top: 315px; left: 50px;"/></strong>

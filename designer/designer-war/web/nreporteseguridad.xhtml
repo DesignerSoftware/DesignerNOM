@@ -62,7 +62,7 @@
                         <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"/> 
                         <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png);"  />  
+                        <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png);"/>  
                         <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
@@ -330,7 +330,7 @@
                      <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosEmpleadoD()}"/>    
 
                      <p:ajax event="rowSelect" listener="#{controlNReportesSeguridad.activarAceptar()}" update=":formDialogos:aceptarED"/>
-                     <p:ajax event="rowDblselect" listener="#{controlNReportesSeguridad.actualizarEmplDesde()}" update=":formDialogos:EmpleadoDesdeDialogo" process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlNReportesSeguridad.actualizarEmplDesde()}" update=":formDialogos:EmpleadoDesdeDialogo" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEMP']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
@@ -445,7 +445,7 @@
                      <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosTercero()}"/>    
 
                      <p:ajax event="rowSelect" listener="#{controlNReportesSeguridad.activarAceptar()}" update=":formDialogos:aceptarT"/>
-                     <p:ajax event="rowDblselect" listener="#{controlNReportesSeguridad.actualizarTercero()}" update=":formDialogos:TerceroDialogo" process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlNReportesSeguridad.actualizarTercero()}" update=":formDialogos:TerceroDialogo" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}"/>  
@@ -488,7 +488,7 @@
                      <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosSucursales()}"/>    
 
                      <p:ajax event="rowSelect" listener="#{controlNReportesSeguridad.activarAceptar()}" update=":formDialogos:aceptarSU"/>
-                     <p:ajax event="rowDblselect" listener="#{controlNReportesSeguridad.actualizarTercero()}" update=":formDialogos:sucursalDialogo" process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlNReportesSeguridad.actualizarTercero()}" update=":formDialogos:sucursalDialogo" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSucursal').filter();" value="#{filtrado}"/>  
@@ -519,7 +519,7 @@
 
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReportesSeguridad.guardarYSalir()}" style="position: absolute; top: 50px; left: 177px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReportesSeguridad.cancelarYSalir()}" style="position: absolute; top: 50px; left: 245px;" process="@this" icon="ui-icon-close"/>
@@ -527,7 +527,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReportesSeguridad.guardarCambios()}"  style="position: absolute; top: 50px; left: 177px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReportesSeguridad.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 245px;" process="@this" icon="ui-icon-close"/>
@@ -578,13 +578,13 @@
                </p:dialog>
 
                <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" closable="true" draggable="true" modal="true" height="90" width="355" style="font-size: 12px;">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
                   <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                   <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlNReportesSeguridad.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this"/>-->
                </p:dialog>
 
                <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                   <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlNReportesSeguridad.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
                   <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
@@ -601,12 +601,12 @@
                <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlNReportesSeguridad.reiniciarStreamedContent()}"/>
 
                <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="95" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 

@@ -207,7 +207,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlGrupoSalarial.guardarYSalir()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlGrupoSalarial.salir()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
@@ -215,7 +215,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlGrupoSalarial.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'GrupoSalarial')}"
                                    style="position: absolute; top: 63px; left: 170px;" onstart="#{controlGrupoSalarial.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
@@ -223,7 +223,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlGrupoSalarial.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlGrupoSalarial.nombreTablaRastro , 'GrupoSalarial')}"
                                    style="position: absolute; top: 60px; left: 170px;" onstart="#{controlGrupoSalarial.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
@@ -231,17 +231,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'GrupoSalarial')}"
                                    style="position: absolute; top: 60px; left: 170px;" onstart="#{controlGrupoSalarial.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
@@ -249,27 +249,27 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlGrupoSalarial.mensajeValidacion2}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorRegDescripcion" header="#{msg['atencion']}" widgetVar="errorRegDescripcion"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlGrupoSalarial.mensajeValidacion}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
@@ -278,7 +278,7 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -312,7 +312,7 @@
                      <p:watermark value="#{msg['salario']}" for="nuevoSalario"/>
 
                      <p:commandButton id="limpiarNG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupo" process="@this"/>
-                     <p:commandButton id="aceptarNG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 165px;"  process="@this" actionListener="#{controlGrupoSalarial.agregarNuevoGrupoSalarial()}"  />
+                     <p:commandButton id="aceptarNG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 165px;"  process="@this" actionListener="#{controlGrupoSalarial.agregarNuevoGrupoSalarial()}"/>
                      <p:commandButton id="cancelarNG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 165px;" actionListener="#{controlGrupoSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupo" onclick="PF('NuevoRegistroGrupoSalarial').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -367,7 +367,7 @@
                      <p:watermark value="#{msg['valor']}" for="nuevoValor"/>
 
                      <p:commandButton id="limpiarNVG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarNuevaVigenciaGrupoSalarial()}" update="nuevoVigenciaGrupo" process="@this"/>
-                     <p:commandButton id="aceptarNVG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 135px;"  process="@this" actionListener="#{controlGrupoSalarial.agregarNuevoVigenciaGrupoSalarial()}"  />
+                     <p:commandButton id="aceptarNVG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 135px;"  process="@this" actionListener="#{controlGrupoSalarial.agregarNuevoVigenciaGrupoSalarial()}"/>
                      <p:commandButton id="cancelarNVG" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 135px;" actionListener="#{controlGrupoSalarial.limpiarNuevaVigenciaGrupoSalarial()}" update="nuevoVigenciaGrupo" onclick="PF('NuevoRegistroVigenciaGrupoSalarial').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>

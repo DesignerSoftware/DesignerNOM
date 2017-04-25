@@ -108,7 +108,7 @@
                                   filterBy="#{info.codigo}" filterMatchMode="contains" width="55">
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText value="#{info.codigo}"  />  
+                                 <h:outputText value="#{info.codigo}"/>  
                               </f:facet>
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.codigo}" id="CodigoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
@@ -147,7 +147,7 @@
                                   filterBy="#{info.contacto}" filterMatchMode="contains">
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText value="#{info.contacto}"  />  
+                                 <h:outputText value="#{info.contacto}"/>  
                               </f:facet>
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.contacto}" id="ContactoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
@@ -188,7 +188,7 @@
 
             <h:form id="formularioDialogos">
                <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="El código ingresado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
                   <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 260px;" process="@this"/>
                </p:dialog>
@@ -260,13 +260,13 @@
                </p:dialog>
 
                <p:dialog id="validacionNuevaInstitucion" header="#{msg['atencion']}" widgetVar="validacionNuevaInstitucion"  resizable="false" draggable="true" modal="true" height="95" width="440" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="Para agregar una nueva institución es necesario adicionar: #{controlInstituciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 325px;"/>
                   <p:commandButton value="Aceptar" onclick="PF('validacionNuevaInstitucion').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInstituciones.guardarYSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInstituciones.salir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
@@ -274,15 +274,15 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 7px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInstituciones.institucionSeleccionada.secuencia, 'Instituciones', 'Instituciones')}"
                                    style="position: absolute; top: 65px; left: 175px;" onstart="#{controlInstituciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('instituciones', 'rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
-                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-circle-close"  />
+                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-circle-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Instituciones', 'tiposeducaciones')}"
                                    style="position: absolute; top: 60px; left: 175px;" onstart="#{controlInstituciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('instituciones', 'rastrotabla')}" process="@this"/>
@@ -290,17 +290,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInstituciones.institucionSeleccionada.secuencia, 'Instituciones', 'Instituciones')}"
                                    style="position: absolute; top: 70px; left: 175px;" onstart="#{controlInstituciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('instituciones', 'rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
@@ -308,17 +308,17 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 

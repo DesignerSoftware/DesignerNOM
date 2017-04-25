@@ -197,7 +197,7 @@
                                          selection="#{controlCategoriaEsca.tipoSueldoSelecionada}" selectionMode="single" widgetVar="lovTipoSueldo" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlCategoriaEsca.filtrarLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlCategoriaEsca.activarAceptar()}" update=":form:aceptarT"/>
-                                <p:ajax event="rowDblselect" listener="#{controlCategoriaEsca.actualizarTipoSueldo()}"  process="@this"  />
+                                <p:ajax event="rowDblselect" listener="#{controlCategoriaEsca.actualizarTipoSueldo()}"  process="@this"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarT']}" style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoSueldo').filter();" style="width:150px; position: relative; left: 30px;"/>  
@@ -245,68 +245,68 @@
                             
                         </p:dialog> 
 
-                        <p:commandButton style="position: absolute; left: 685px; top: 435px; " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" disabled="#{controlCategoriaEsca.cambiosPagina}" update=":form:datosCategoria" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 20px; top: 435px; " id="REFRESCAR" value="#{msg['refrescar']}" icon="ui-icon-refresh" actionListener="#{controlCategoriaEsca.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 685px; top: 435px;" id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" disabled="#{controlCategoriaEsca.cambiosPagina}" update=":form:datosCategoria" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 20px; top: 435px;" id="REFRESCAR" value="#{msg['refrescar']}" icon="ui-icon-refresh" actionListener="#{controlCategoriaEsca.cancelarModificacion()}" process="@this"/>
                         <p:commandButton style="position: absolute; left: 781px; top: 435px;" id="ATRAS" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlCategoriaEsca.salir()}" action="escalafon" process="@this"/>
 
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCategoriaEsca.guardarYSalir()}" action="escalafon" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCategoriaEsca.cancelarYSalir()}" action="escalafon" style="position: absolute; top: 60px; left: 255px;" process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCategoriaEsca.backUpSecRegistro, 'Escalafones', 'escalafon')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Escalafones', 'escalafon')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCategoriaEsca.backUpSecRegistro, 'Escalafones', 'escalafon')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
 
                     <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
@@ -337,7 +337,7 @@
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'CLASE')}"/>
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CLASE', controlCategoriaEsca.nuevaCategoria.clasecategoria.descripcion, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 127px; " id="btnNuevaClaseCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 127px;" id="btnNuevaClaseCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,0)}"/>   
                             <p:watermark for="nuevaClaseCategoria" value="#{msg['claseCategoria']}"/>
 
                             <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px;"/></strong>
@@ -346,7 +346,7 @@
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'TIPO')}"/>
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('TIPO', controlCategoriaEsca.nuevaCategoria.tiposueldo.descripcion, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 157px; " id="btnNuevaTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 157px;" id="btnNuevaTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,1)}"/>   
                             <p:watermark for="nuevaTipoSueldo" value="#{msg['tipoSueldo']}"/>
 
                             <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;"/></strong>
@@ -355,7 +355,7 @@
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'CONCEPTO')}"/>
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CONCEPTO', controlCategoriaEsca.nuevaCategoria.concepto.descripcion, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 187px; " id="btnNuevaConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,2)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 187px;" id="btnNuevaConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,1,2)}"/>   
                             <p:watermark for="nuevaConcepto" value="#{msg['concepto']}"/>
 
 
@@ -388,7 +388,7 @@
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'CLASE')}"/>
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CLASE', controlCategoriaEsca.duplicarCategoria.clasecategoria.descripcion, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 127px; " id="btnDuplicarClaseCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 127px;" id="btnDuplicarClaseCategoria" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,0)}"/>   
                             <p:watermark for="duplicarClaseCategoria" value="#{msg['claseCategoria']}"/>
 
                             <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px;"/></strong>
@@ -397,7 +397,7 @@
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'TIPO')}"/>
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('TIPO', controlCategoriaEsca.duplicarCategoria.tiposueldo.descripcion, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 157px; " id="btnDuplicarTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 157px;" id="btnDuplicarTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,1)}"/>   
                             <p:watermark for="duplicarTipoSueldo" value="#{msg['tipoSueldo']}"/>
 
                             <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;"/></strong>
@@ -406,7 +406,7 @@
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'CONCEPTO')}"/>
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CONCEPTO', controlCategoriaEsca.duplicarCategoria.concepto.descripcion, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 187px; " id="btnDuplicarConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,2)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 187px;" id="btnDuplicarConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlCategoriaEsca.asignarIndex(indice,2,2)}"/>   
                             <p:watermark for="duplicarConcepto" value="#{msg['concepto']}"/>
 
 

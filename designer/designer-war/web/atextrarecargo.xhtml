@@ -438,7 +438,7 @@
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATExtraRecargo.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATExtraRecargo.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -452,63 +452,63 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorDatosNullExtra" header="#{msg['atencion']}" widgetVar="errorDatosNullExtra"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorDatosNullExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorDescripcionExtra" header="#{msg['atencion']}" widgetVar="errorDescripcionExtra"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorDescripcionExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorDatosNullDetalle" header="#{msg['atencion']}" widgetVar="errorDatosNullDetalle"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorDatosNullDetalle']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
@@ -702,7 +702,7 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
@@ -763,7 +763,7 @@
                             </p:selectBooleanCheckbox>
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNER" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarNuevaExtraRecargo()}" update="nuevoExtra" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="aceptarNER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 290px;"  actionListener="#{controlATExtraRecargo.agregarNuevoExtraRecargo()}" process="@this"  />
+                            <p:commandButton icon="ui-icon-circle-check" id="aceptarNER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 290px;"  actionListener="#{controlATExtraRecargo.agregarNuevoExtraRecargo()}" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-close" id="cancelarNER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarNuevaExtraRecargo()}" update="nuevoExtra" onclick="PF('NuevoRegistroExtraRecargo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -821,7 +821,7 @@
                             </p:selectBooleanCheckbox>
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDER" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarExtraRecargo()}" update="duplicarExtra" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarDER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 290px;"  actionListener="#{controlATExtraRecargo.confirmarDuplicarExtraRecargo()}" process="@this"  />
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarDER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 290px;"  actionListener="#{controlATExtraRecargo.confirmarDuplicarExtraRecargo()}" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-close" id="cancelarDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 290px;" actionListener="#{controlATExtraRecargo.limpiarDuplicarExtraRecargo()}" update="duplicarExtra" onclick="PF('DuplicarRegistroExtraRecargo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -902,7 +902,7 @@
                             </p:selectBooleanCheckbox>
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNDER" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarNuevaDetalleExtraRecargo()}" update="nuevoDetalleExtra" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="aceptarNDER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 380px;"  actionListener="#{controlATExtraRecargo.agregarNuevoDetalleExtraRecargo()}" process="@this"  />
+                            <p:commandButton icon="ui-icon-circle-check" id="aceptarNDER" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 380px;"  actionListener="#{controlATExtraRecargo.agregarNuevoDetalleExtraRecargo()}" process="@this"/>
                             <p:commandButton icon="ui-icon-circle-close" id="cancelarNDER" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 380px;" actionListener="#{controlATExtraRecargo.limpiarNuevaDetalleExtraRecargo()}" update="nuevoDetalleExtra" onclick="PF('NuevoRegistroDetalleExtraRecargo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>

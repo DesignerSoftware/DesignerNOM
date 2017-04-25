@@ -37,7 +37,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlATParametroTiempo.exportXLS()}" ajax="false"  />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlATParametroTiempo.exportXLS()}" ajax="false"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
@@ -110,7 +110,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['tiempoFechaDesde']}" style="position: absolute; top: 115px; left: 70px;"/></strong>
-                            <p:inputMask id="editarTiempoFechaDesdeParametro"   onclick="select();" style="position: absolute; top: 110px; left: 230px; " mask="99:99" value="#{controlATParametroTiempo.fechaDesdeTiempo}">
+                            <p:inputMask id="editarTiempoFechaDesdeParametro"   onclick="select();" style="position: absolute; top: 110px; left: 230px;" mask="99:99" value="#{controlATParametroTiempo.fechaDesdeTiempo}">
                                 <p:ajax event="change"  listener="#{controlATParametroTiempo.pruebaMask(controlATParametroTiempo.fechaDesdeTiempo, 1)}" process="@this" update="@this"/>
                                 <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(6)}"/>
                             </p:inputMask>
@@ -127,7 +127,7 @@
                             </div>
                             
                             <strong><h:outputText value="#{msg['tiempoFechaHasta']}" style="position: absolute; top: 65px; left: 500px;"/></strong>
-                            <p:inputMask id="editarTiempoFechaHastaParametro"   onclick="select();" style="position: absolute; top: 60px; left: 670px; " mask="99:99" value="#{controlATParametroTiempo.fechaHastaTiempo}">
+                            <p:inputMask id="editarTiempoFechaHastaParametro"   onclick="select();" style="position: absolute; top: 60px; left: 670px;" mask="99:99" value="#{controlATParametroTiempo.fechaHastaTiempo}">
                                 <p:ajax event="change"  listener="#{controlATParametroTiempo.pruebaMask(controlATParametroTiempo.fechaHastaTiempo, 2)}" process="@this" update="@this"/>
                                 <p:ajax event="select" listener="#{controlATParametroTiempo.cambiarIndiceParametro(7)}"/>
                             </p:inputMask>		
@@ -165,16 +165,16 @@
                         <fieldset style="position: absolute; top: 385px; left: 10px; height: 70px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style=" color: blue;text-align:left;"><strong>#{msg['reportes']}</strong></legend>
 
-                            <p:commandButton id="turnosProgramados" style="position: absolute; left: 10px; width: 200px; top:30px; " value="#{msg['turnosProgramados']}"/>
+                            <p:commandButton id="turnosProgramados" style="position: absolute; left: 10px; width: 200px; top:30px;" value="#{msg['turnosProgramados']}"/>
                             <p:tooltip  for="turnosProgramados" value="#{msg['turnosProgramadosToolTip']}"/>
 
-                            <p:commandButton id="marcacionesRealizadas" style="position: absolute; left: 220px; width: 200px; top:30px; " value="#{msg['marcacionesRealizadas']}"/>
+                            <p:commandButton id="marcacionesRealizadas" style="position: absolute; left: 220px; width: 200px; top:30px;" value="#{msg['marcacionesRealizadas']}"/>
                             <p:tooltip  for="marcacionesRealizadas" value="#{msg['marcacionesRealizadasToolTip']}"/>
 
-                            <p:commandButton id="recargoGenerado" style="position: absolute; left: 430px; width: 200px; top:30px; " value="#{msg['heRecargoGenerado']}"/>
+                            <p:commandButton id="recargoGenerado" style="position: absolute; left: 430px; width: 200px; top:30px;" value="#{msg['heRecargoGenerado']}"/>
                             <p:tooltip  for="recargoGenerado" value="#{msg['recargoGeneradoToolTip']}"/>
 
-                            <p:commandButton id="recargoNoCuadrilla" style="position: absolute; left: 640px; width: 200px; top:30px; " value="#{msg['heRecargoNoCuadrado']}"/>
+                            <p:commandButton id="recargoNoCuadrilla" style="position: absolute; left: 640px; width: 200px; top:30px;" value="#{msg['heRecargoNoCuadrado']}"/>
                             <p:tooltip  for="recargoNoCuadrilla" value="#{msg['recargoNoCuadrillaToolTip']}"/>
 
                         </fieldset> 
@@ -186,7 +186,7 @@
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATParametroTiempo.guardarCambios()}" action="#{controlATParametroTiempo.redirigir()}" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATParametroTiempo.cancelarModificaciones()}" action="#{controlATParametroTiempo.redirigir()}" style="position: absolute; top: 60px; left: 255px;" process="@this"/>
@@ -194,68 +194,68 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATParametroTiempo.secRegistro, 'ParametrosTiempos', 'atparametrotiempo')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ParametrosTiempos', 'atparametrotiempo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATParametroTiempo.secRegistro, 'ParametrosTiempos', 'atparametrotiempo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechasPKG" header="#{msg['atencion']}" widgetVar="errorFechasPKG"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorFechasPKG']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechasParametro" header="#{msg['atencion']}" widgetVar="errorFechasParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorFechasParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorDesliquidar" header="#{msg['atencion']}" widgetVar="errorDesliquidar"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorDesliquidar']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
                     
                     <p:dialog id="errorHorasFechas" header="#{msg['atencion']}" widgetVar="errorHorasFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorHorasFechas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
@@ -263,35 +263,35 @@
                     <!-- -->
 
                     <p:dialog id="mensajeProgramarTurno" header="#{msg['atencion']}" widgetVar="mensajeProgramarTurno"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"/>
                         <h:outputText value="#{msg['mensajeProgramarTurno']}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeProgramarTurno').hide();" actionListener="#{controlATParametroTiempo.actionBtnProgramarTurno()}" style="position: absolute; top: 55px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeProgramarTurno').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mensajeDesprogramarTurno" header="#{msg['atencion']}" widgetVar="mensajeDesprogramarTurno"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"/>
                         <h:outputText value="#{msg['mensajeDesprogramarTurno']}" style="position: absolute; left: 100px; top: 10px; width: 280px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeDesprogramarTurno').hide();" actionListener="#{controlATParametroTiempo.actionBtnDesprogramarTurno()}" style="position: absolute; top: 55px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeDesprogramarTurno').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mensajeSimularMarcacion" header="#{msg['atencion']}" widgetVar="mensajeSimularMarcacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"/>
                         <h:outputText value="#{msg['mensajeSimularMarcacion']}" style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeSimularMarcacion').hide();" actionListener="#{controlATParametroTiempo.actionBtnSimularMarcacion()}" style="position: absolute; top: 55px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeSimularMarcacion').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mensajeEliminarSimulacion" header="#{msg['atencion']}" widgetVar="mensajeEliminarSimulacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"/>
                         <h:outputText value="#{msg['mensajeEliminarSimulacion']}" style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeEliminarSimulacion').hide();" actionListener="#{controlATParametroTiempo.actionBtnEliminarSimulacion()}" style="position: absolute; top: 55px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeEliminarSimulacion').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mensajeLiquidarTiempos" header="#{msg['atencion']}" widgetVar="mensajeLiquidarTiempos"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 25px; top: 10px;"/>
                         <h:outputText value="#{controlATParametroTiempo.mensajeBtnLiquidarTiempos}" style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('mensajeLiquidarTiempos').hide();" actionListener="#{controlATParametroTiempo.actionFinalizarLiquidarTiempos()}" style="position: absolute; top: 55px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('mensajeLiquidarTiempos').hide();" style="position: absolute; top: 55px; left: 300px;" process="@this"/>

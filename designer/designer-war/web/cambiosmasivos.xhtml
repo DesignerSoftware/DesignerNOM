@@ -1380,12 +1380,12 @@
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="validacionCamposVacios" header="#{msg['atencion']}" widgetVar="validacionCamposVacios"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionCamposVacios']}" style="position: absolute; left: 100px; top: 20px; width: 270px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionCamposVacios').hide();" style="position: absolute; top: 55px; left: 280px;" icon="ui-icon-check" process="@this"/>
                </p:dialog>

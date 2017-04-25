@@ -92,7 +92,7 @@
                             <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}"/>
 
                             <p:fileUpload id="FileUp" mode="advanced" disabled="#{controlTempSoAusentismos.botones}" label="#{msg['examinar']}" auto="true" skinSimple="true"
-                                          style="position: absolute; top: 28px; left: 177px; " fileUploadListener="#{controlTempSoAusentismos.cargarArchivo}"
+                                          style="position: absolute; top: 28px; left: 177px;" fileUploadListener="#{controlTempSoAusentismos.cargarArchivo}"
                                           invalidSizeMessage="#{msg['tamaño']}"/>
 
 
@@ -412,7 +412,7 @@
                             </p:inputText> 
 
                             <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad"  resizable="false" draggable="true" modal="true" height="100" width="400">  
-                                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                                <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                                 <h:outputText value="#{msg['errores']}" style="font-weight: bold; position: absolute; left: 80px; top: 10px; color: red;"/>
                                 <p:dataGrid var="error" value="#{controlTempSoAusentismos.erroresNovedad.mensajeError}" columns="1" styleClass="ui-dataGrid-CargueNovedad">
                                     <strong><h:outputText value="#{error}" style="width: 200px; text-align: center;"/></strong>
@@ -428,38 +428,38 @@
                         <p:remoteCommand name="posicionTablaNovedad" actionListener="#{controlTempSoAusentismos.posicionTablaNovedad()}"/>
 
                         <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295px">  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
 
                         <p:dialog id="novedadesCargadas" header="#{msg['informacion']}" widgetVar="novedadesCargadas"  resizable="false" draggable="true" modal="true" height="90" width="295px;">  
-                            <h:graphicImage value="Imagenes/Iconos/correcto.png" width="80" height="80" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/correcto.png" width="80" height="80" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['nce']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
                             <strong><h:outputText value="#{msg['registroscargados']} #{controlTempSoAusentismos.diferenciaRegistrosN})" style="position: absolute; left: 75px; top: 60px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
 
                         <p:dialog id="errorExtensionArchivo" header="#{msg['error']}" widgetVar="errorExtensionArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px">  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['errorExtensionArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
 
                         <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['errorNombreArchivo']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
 
                         <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['documentoNoExiste']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
 
                         <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['reversarFallo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
 
                         <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
-                            <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['nre']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
                             <strong><h:outputText value="#{msg['registrosreversados']} #{controlTempSoAusentismos.resultado})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
@@ -478,7 +478,7 @@
                         </p:dialog>
 
                         <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="true" modal="true" height="110" width="355px;">
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['confirmarReversar']} #{controlTempSoAusentismos.documentoSoporteReversar}, Desea continuar?" style="position: absolute; left: 75px; top: 20px; width: 250px; text-align: center;"/></strong>
                             <p:commandButton id="aceptarC" icon="ui-icon-check" value="#{msg['continuar']}" style="position: absolute; top: 70px; left: 145px;" actionListener="#{controlTempSoAusentismos.reversar()}"/>
                             <p:commandButton id="atrasC" icon="ui-icon-close" value="#{msg['atras']}" style="position: absolute; top: 70px; left: 258px;" onclick="PF('confirmarReversar').hide();"/>
@@ -496,13 +496,13 @@
                         </p:dialog>
 
                         <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
-                            <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                             <strong><h:outputText value="#{msg['novedadesborradasconexito']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
                             <strong><h:outputText value="#{msg['registrosborrados']} #{controlTempSoAusentismos.resultadoProceso.registrosBorrados})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;"/></strong>
                         </p:dialog>
 
                         <p:dialog id="erroresBorrarTodo" header="#{msg['erroresdelanovedad']}" widgetVar="erroresBorrarTodo"  resizable="false" draggable="true" modal="true" height="120" width="420">  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                             <h:outputText value="#{msg['erroresBorrarTodo']}" style="font-weight: bold;  position: absolute; left: 80px; top: 10px; color: red;"/>
                             <p:dataGrid var="documentoNoBorrado" value="#{controlTempSoAusentismos.resultadoProceso.documentosNoBorrados}" columns="1" styleClass="ui-dataGrid-CargueNovedad">
                                 <strong><h:outputText value="#{documentoNoBorrado}" style="position: absolute; width: 200px; text-align: center; top: 400px;"/></strong>

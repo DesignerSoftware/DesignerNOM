@@ -542,7 +542,7 @@
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlInterfaseContableSapBOPE.activarCtrlF11()}"/> 
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInterfaseContableSapBOPE.guardarSalir()}" action="#{controlInterfaseContableSapBOPE.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInterfaseContableSapBOPE.cancelarSalir()}" action="#{controlInterfaseContableSapBOPE.redirigir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -550,7 +550,7 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlInterfaseContableSapBOPE.guardadoGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlInterfaseContableSapBOPE.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -558,73 +558,73 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableSapBOPE.backUpSecRegistro, 'InterconSapBO', 'interfasecontablesapbope')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('InterconSapBO', 'interfasecontablesapbope')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableSapBOPE.backUpSecRegistro, 'InterconSapBO', 'interfasecontablesapbope')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechasParametro" header="#{msg['atencion']}" widgetVar="errorFechasParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorFechasParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorNewRegNull" header="#{msg['atencion']}" widgetVar="errorNewRegNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorNewRegNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechasNull" header="#{msg['atencion']}" widgetVar="errorFechasNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorFechasNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechasParametros" header="#{msg['atencion']}" widgetVar="errorFechasParametros"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorFechasParametros']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="procesoSinDatos" header="#{msg['atencion']}" widgetVar="procesoSinDatos"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['procesoSinDatos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
@@ -633,59 +633,59 @@
                     </p:dialog>
 
                     <p:dialog id="nuncaContabilizo" header="#{msg['atencion']}" widgetVar="nuncaContabilizo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['nuncaContabilizo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="anularComprobantesCerrados" header="#{msg['atencion']}" widgetVar="anularComprobantesCerrados"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['anularComprobantesCerrados']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('anularComprobantesCerrados').hide();" actionListener="#{controlInterfaseContableSapBOPE.anularComprobantesCerrados()}" style="position: absolute; top: 63px; left: 180px;"  process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('anularComprobantesCerrados').hide();" style="position: absolute; top: 63px; left: 255px;" process="@this"/>
                     </p:dialog>
    
                     <p:dialog id="paso1CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['paso1CerrarPeriodo']} #{controlInterfaseContableSapBOPE.msnPaso1()}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1CerrarPeriodo').hide();paso2CerrarPeriodo').show()" style="position: absolute; top: 63px; left: 180px;"  process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso1CerrarPeriodo').hide();" style="position: absolute; top: 63px; left: 255px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="paso2CerrarPeriodo" header="#{msg['atencion']}" widgetVar="paso2CerrarPeriodo"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['paso2CerrarPeriodo']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso2CerrarPeriodo').hide();" actionListener="#{controlInterfaseContableSapBOPE.finCerrarPeriodoContable()}" style="position: absolute; top: 63px; left: 180px;"  process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso2CerrarPeriodo').hide();" style="position: absolute; top: 63px; left: 255px;" process="@this"/>
                     </p:dialog>
                     
                     <p:dialog id="paso1Recon" header="#{msg['atencion']}" widgetVar="paso1Recon"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['paso1Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1Recon').hide();paso2Recon').show();"  style="position: absolute; top: 63px; left: 180px;"  process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso1Recon').hide();" style="position: absolute; top: 63px; left: 255px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="paso2Recon" header="#{msg['atencion']}" widgetVar="paso2Recon"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['paso2Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso2Recon').hide();" actionListener="#{controlInterfaseContableSapBOPE.ejecutarPaso3Recon()}" style="position: absolute; top: 63px; left: 180px;"  process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso2Recon').hide();" style="position: absolute; top: 63px; left: 255px;" process="@this"/>
                     </p:dialog>
                     
                     <p:dialog id="paso3Recon" header="#{msg['atencion']}" widgetVar="paso3Recon"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['paso3Recon1']}  #{controlInterfaseContableSapBOPE.fechaIniRecon} - #{controlInterfaseContableSapBOPE.fechaFinRecon}. #{msg['paso3Recon2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso3Recon').hide();" actionListener="#{controlInterfaseContableSapBOPE.finalizarProcesoRecontabilizacion()}" style="position: absolute; top: 63px; left: 180px;"  process="@this"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso3Recon').hide();" style="position: absolute; top: 63px; left: 255px;" process="@this"/>
                     </p:dialog>
                     
                     <p:dialog id="errorRecon" header="#{msg['atencion']}" widgetVar="errorRecon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRecon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
                     
                     <p:dialog id="procesoDeshacer" header="#{msg['atencion']}" widgetVar="procesoDeshacer"  resizable="false" draggable="true" modal="true" height="100" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['procesoDeshacer']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; "/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('procesoDeshacer').hide();
                                 operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlInterfaseContableSapBOVCA.actionBtnDeshacer()}" style="position: absolute; top: 63px; left: 180px;"  process="@this"/>
@@ -706,7 +706,7 @@
                                 <p:ajax event="click" listener="#{controlInterfaseContableSapBOPE.autocompletarNuevo('EMPRESA',controlInterfaseContableSapBOPE.nuevoParametroContable.empresaRegistro.nombre)}"/>
                                 <p:ajax event="change" listener="#{controlInterfaseContableSapBOPE.valoresBackupAutocompletar()}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 70px; " id="btnNuevaEmpresa" icon="ui-icon-search" process="@this"  actionListener="#{controlInterfaseContableSapBOPE.asignarIndex(-1,0,1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 70px;" id="btnNuevaEmpresa" icon="ui-icon-search" process="@this"  actionListener="#{controlInterfaseContableSapBOPE.asignarIndex(-1,0,1)}"/>   
                             <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}"/>
                             
                             <strong><h:outputText value="#{msg['docContableN']}" style=" position: absolute; top: 105px; left: 50px;"/></strong>
@@ -721,7 +721,7 @@
                                 <p:ajax event="click" listener="#{controlInterfaseContableSapBOPE.autocompletarNuevo('PROCESO', controlInterfaseContableSapBOPE.nuevoParametroContable.proceso.descripcion)}"/>
                                 <p:ajax event="change" listener="#{controlInterfaseContableSapBOPE.valoresBackupAutocompletar()}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px; " id="btnNuevaProceso" icon="ui-icon-search" process="@this"  actionListener="#{controlInterfaseContableSapBOPE.asignarIndex(-1,1,1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;" id="btnNuevaProceso" icon="ui-icon-search" process="@this"  actionListener="#{controlInterfaseContableSapBOPE.asignarIndex(-1,1,1)}"/>   
                             <p:watermark for="nuevaProcesoParametro" value="#{msg['proceso']}"/>
                             
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
@@ -854,14 +854,14 @@
                     </p:dialog>
                     
                     <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>
                     
                     <p:dialog id="planoGeneradoOK" header="#{msg['reporteExito']}" widgetVar="planoGeneradoOK"  resizable="false" draggable="true" modal="true" height="140" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight: bold;width: 250px;"  />
-                        <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 10px; top: 80px; font-weight: bold;width: 230px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight: bold;width: 250px;"/>
+                        <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 10px; top: 80px; font-weight: bold;width: 230px;"/>
                         <p:inputText autocomplete="off" value="#{controlInterfaseContableSapBOPE.rutaArchivo}" style="position: absolute; left: 70px; top: 50px; text-transform: uppercase;width: 230px;" readonly="true"/>
 
                         <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 80px; left: 240px;" onclick="PF('cerrarPaginaDescarga()" actionListener="#{controlInterfaseContableSapBOPE.descargarArchivoFTP()}">

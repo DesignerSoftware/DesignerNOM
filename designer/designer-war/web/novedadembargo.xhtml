@@ -27,8 +27,8 @@
 
                                 <p:commandButton style="position: absolute; left: 643px; top: 24px;  width: 20px; height: 20px; background-image: url(Imagenes/Iconos/arriba.png); background-size: 100% 100%; background-repeat: no-repeat; "  value="" actionListener="#{controlNovedadEmbargo.anteriorEmpleado()}" process="@this"/>
                                 <p:commandButton style="position: absolute; left: 643px; top: 45px;  width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.png); background-size: 100% 100%; background-repeat: no-repeat; " value=""  actionListener="#{controlNovedadEmbargo.siguienteEmpleado()}" process="@this"/>
-                                <p:commandButton style="position: absolute; left: 680px; top: 15px; width: 150px; " id="buscarEmpleado" value="#{msg['buscar']}"  oncomplete="PF('buscarEmpleadoDialogo').show();" update=":formularioDialogos:buscarEmpleadoDialogo" process="@this"/>
-                                <p:commandButton style="position: absolute; left: 680px; top: 45px; width: 150px; " disabled="#{controlNovedadEmbargo.mostrarTodos}" id="mostrarTodos" value="#{msg['mostrar']}" actionListener="#{controlNovedadEmbargo.mostarTodosEmpleados()}" process="@this"/>
+                                <p:commandButton style="position: absolute; left: 680px; top: 15px; width: 150px;" id="buscarEmpleado" value="#{msg['buscar']}"  oncomplete="PF('buscarEmpleadoDialogo').show();" update=":formularioDialogos:buscarEmpleadoDialogo" process="@this"/>
+                                <p:commandButton style="position: absolute; left: 680px; top: 45px; width: 150px;" disabled="#{controlNovedadEmbargo.mostrarTodos}" id="mostrarTodos" value="#{msg['mostrar']}" actionListener="#{controlNovedadEmbargo.mostarTodosEmpleados()}" process="@this"/>
                             </p:panel>
                         </fieldset>
 
@@ -360,14 +360,14 @@
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlNovedadEmbargo.limpiarNuevoEmbargo()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlNovedadEmbargo.tablaImprimir}" fileName="#{controlNovedadEmbargo.nombreArchivo}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"  />
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlNovedadEmbargo.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlNovedadEmbargo.chiste()}" process="@this"/>  
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"  /> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlNovedadEmbargo.borrarEmbargo()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
@@ -381,9 +381,9 @@
                             </p:toolbarGroup>
                         </p:toolbar>
 
-                        <p:commandButton style="position: absolute; left: 700px; top: 500px; " icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlNovedadEmbargo.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmbargos" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 15px; top: 500px; " icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}"  actionListener="#{controlNovedadEmbargo.cancelarModificacion()}" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 790px; top: 500px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlNovedadEmbargo.salir()}" action="empleadoindividual" process="@this"/> 
+                        <p:commandButton style="position: absolute; left: 700px; top: 500px;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlNovedadEmbargo.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmbargos" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 15px; top: 500px;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}"  actionListener="#{controlNovedadEmbargo.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 790px; top: 500px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}"  actionListener="#{controlNovedadEmbargo.salir()}" action="empleadoindividual" process="@this"/> 
 
 
                         <!-- Detalles -->    
@@ -714,7 +714,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('TIPOEMBARGO', controlNovedadEmbargo.nuevoEmbargo.tipoembargo.descripcion, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px; " id="btnNuevoTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;" id="btnNuevoTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px;"/></strong>
                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
@@ -739,7 +739,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('NIT', controlNovedadEmbargo.nuevoEmbargo.tercero.nit, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px; " id="btnNuevoNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;" id="btnNuevoNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;"/></strong>
                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
@@ -766,7 +766,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('MOTIVO', controlNovedadEmbargo.nuevoEmbargo.motivoembargo.nombre, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 15px; " id="btnNuevoMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 15px;" id="btnNuevoMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['numerooficioN']}"  style=" position: absolute; top: 57px; left:350px;"/></strong>
                                 <p:inputText autocomplete="off" id="nuevoNumero" value="#{controlNovedadEmbargo.nuevoEmbargo.documento}" style=" width: 122px; position: absolute; left: 500px; top: 55px; text-transform: uppercase;" onclick="select();">
@@ -779,7 +779,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('JUZGADO', controlNovedadEmbargo.nuevoEmbargo.juzgado.nombre, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px; " id="btnNuevoJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px;" id="btnNuevoJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['demandanteN']}" style=" position: absolute; top: 137px; left: 350px;"/></strong>
                                 <p:inputText autocomplete="off" id="nuevoDemandante" value="#{controlNovedadEmbargo.nuevoEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase;" onclick="select();">
@@ -787,7 +787,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('DEMANDANTE', controlNovedadEmbargo.nuevoEmbargo.demandante.nombre, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px; " id="btnNuevoDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px;" id="btnNuevoDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['descuentoN']}"  style=" position: absolute;  top: 177px; left: 350px;"/></strong>
                                 <p:inputText autocomplete="off" readonly="true" id="nuevoTercero" value="#{controlNovedadEmbargo.nuevoEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase;" onclick="select();">
@@ -800,7 +800,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('FORMA', controlNovedadEmbargo.nuevoEmbargo.formadto.descripcion, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px; " id="btnNuevaForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px;" id="btnNuevaForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['cancelaciondocumentoN']}"  style=" position: absolute;  top: 255px; left: 350px;"/></strong>
                                 <p:inputText autocomplete="off" id="nuevaCancelacion" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase;" onclick="select();">
@@ -819,7 +819,7 @@
 
                     <!-- DIALOGO CAMBIO -->
                     <p:dialog id="cambiar" header="#{msg['atencion']}" widgetVar="cambiar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('cambiar').hide();" actionListener="#{controlNovedadEmbargo.guardarCambiosEmbargos()}" style="position: absolute; top: 63px; left: 230px;" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('cambiar').hide();" actionListener="#{controlNovedadEmbargo.limpiarListas()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
@@ -840,7 +840,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('TIPOEMBARGO', controlNovedadEmbargo.duplicarEmbargo.tipoembargo.descripcion, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px; " id="btnDuplicarTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;" id="btnDuplicarTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px;"/></strong>
                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
@@ -865,7 +865,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('NIT', controlNovedadEmbargo.duplicarEmbargo.tercero.nit, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px; " id="btnDuplicarNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;" id="btnDuplicarNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;"/></strong>
                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
@@ -892,7 +892,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('MOTIVO', controlNovedadEmbargo.duplicarEmbargo.motivoembargo.nombre, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 15px; " id="btnDuplicarMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 15px;" id="btnDuplicarMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 2)}"/>   
 
 
                                 <strong><h:outputText value="#{msg['numerooficioN']}"  style=" position: absolute; top: 57px; left:350px;"/></strong>
@@ -906,7 +906,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('JUZGADO', controlNovedadEmbargo.duplicarEmbargo.juzgado.nombre, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px; " id="btnDuplicarJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px;" id="btnDuplicarJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['demandanteN']}" style=" position: absolute; top: 137px; left: 350px;"/></strong>
                                 <p:inputText autocomplete="off" id="duplicarDemandante" value="#{controlNovedadEmbargo.duplicarEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase;" onclick="select();">
@@ -914,7 +914,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('DEMANDANTE', controlNovedadEmbargo.duplicarEmbargo.demandante.nombre, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px; " id="btnDuplicarDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px;" id="btnDuplicarDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['descuentoN']}"  style=" position: absolute;  top: 177px; left: 350px;"/></strong>
                                 <p:inputText autocomplete="off" readonly="true" id="duplicarTercero" value="#{controlNovedadEmbargo.duplicarEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase;" onclick="select();">
@@ -927,7 +927,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('FORMA', controlNovedadEmbargo.duplicarEmbargo.formadto.descripcion, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px; " id="btnDuplicarForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px;" id="btnDuplicarForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['cancelaciondocumentoN']}"  style=" position: absolute;  top: 255px; left: 350px;"/></strong>
                                 <p:inputText autocomplete="off" id="duplicarCancelacion" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase;" onclick="select();">
@@ -955,7 +955,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PAGO', controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.descripcion, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px; " id="btnNuevoPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px;" id="btnNuevoPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['ikaN']}"  style=" position: absolute; top: 57px;"/></strong>
                                 <p:inputText autocomplete="off" readonly="true" id="nuevoIKA" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase;" onclick="select();">
@@ -984,7 +984,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PERIODICIDAD', controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.codigoStr, 1)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 1)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px; " id="btnNuevoCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 1)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px;" id="btnNuevoCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['nombreperiodicidadN']}"  style=" position: absolute; top: 257px;"/></strong>
                                 <p:inputText autocomplete="off" readonly="true" id="nuevoNombrePeriodicidad" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase;" onclick="select();">
@@ -1026,7 +1026,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PAGO', controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.descripcion, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px; " id="btnDuplicarPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px;" id="btnDuplicarPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['ikaN']}" style=" position: absolute; top: 57px;"/></strong>
                                 <p:inputText autocomplete="off" readonly="true" id="duplicarIKA" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase;" onclick="select();">
@@ -1054,7 +1054,7 @@
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PERIODICIDAD', controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.codigoStr, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 2)}"/>
                                 </p:inputText>
-                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px; " id="btnDuplicarCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 2)}"/>   
+                                <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px;" id="btnDuplicarCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['nombreperiodicidadN']}"  style=" position: absolute; top: 257px;"/></strong>
                                 <p:inputText autocomplete="off" readonly="true" id="duplicarNombrePeriodicidad" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase;" onclick="select();">
@@ -1082,25 +1082,25 @@
                     </p:dialog>
 
                     <p:dialog id="validacionNuevoEmbargo" header="#{msg['atencion']}" widgetVar="validacionNuevoEmbargo"  resizable="false" draggable="true" modal="true" height="105" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['validacionNuevo']} #{controlNovedadEmbargo.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoEmbargo').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="cancelacion" header="#{msg['atencion']}" widgetVar="cancelacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cancelacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('cancelacion').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="valorporcentaje" header="#{msg['atencion']}" widgetVar="valorporcentaje"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['valorporcentaje']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('valorporcentaje').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="valorporcentaje2" header="#{msg['atencion']}" widgetVar="valorporcentaje2"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['valorporcentaje2']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('valorporcentaje.hide2();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                     </p:dialog>
@@ -1131,7 +1131,7 @@
                         </p:dataTable>
 
                         <p:commandButton id="aceptarFD" value="#{msg['aceptar']}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 155px;" disabled="#{controlNovedadEmbargo.aceptar}"  actionListener="#{controlNovedadEmbargo.actualizarFormasDtos()}" process="@this"/>
-                        <p:commandButton id="atrasFD"  icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px; " value="#{msg['atras']}" actionListener="#{controlNovedadEmbargo.cancelarCambioFormasDtos()}"  process="@this"/>
+                        <p:commandButton id="atrasFD"  icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" value="#{msg['atras']}" actionListener="#{controlNovedadEmbargo.cancelarCambioFormasDtos()}"  process="@this"/>
 
                     </p:dialog>
 
@@ -1262,8 +1262,8 @@
 
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarDF" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 450px; " actionListener="#{controlNovedadEmbargo.actualizarDetallesFormasDtos()}" process="@this"/>
-                        <p:commandButton id="atrasDF" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 540px; " actionListener="#{controlNovedadEmbargo.cancelarCambioDetallesFormasDtos()}"  process="@this"/>
+                        <p:commandButton id="aceptarDF" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 450px;" actionListener="#{controlNovedadEmbargo.actualizarDetallesFormasDtos()}" process="@this"/>
+                        <p:commandButton id="atrasDF" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 540px;" actionListener="#{controlNovedadEmbargo.cancelarCambioDetallesFormasDtos()}"  process="@this"/>
 
                     </p:dialog>
 
@@ -1298,7 +1298,7 @@
 
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarPER" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 150px; " actionListener="#{controlNovedadEmbargo.actualizarPeriodicidades()}"  process="@this"/>
+                        <p:commandButton id="aceptarPER" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 150px;" actionListener="#{controlNovedadEmbargo.actualizarPeriodicidades()}"  process="@this"/>
                         <p:commandButton id="atrasPER" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" actionListener="#{controlNovedadEmbargo.cancelarCambioPeriodicidades()}"  process="@this"/>
                     </p:dialog>
 
@@ -1529,7 +1529,7 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadEmbargo.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadEmbargo.cancelarModificacion()}" style="position: absolute; top: 60px; left: 255px;" process="@this"/>
@@ -1539,7 +1539,7 @@
                     <!-- DIALOGOS RASTROS -->
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamos', 'novedadembargo')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
@@ -1548,41 +1548,41 @@
 
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('EersPrestamos', 'novedadembargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamos', 'novedadembargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
@@ -1591,7 +1591,7 @@
                 <!-- DIALOGOS RASTROS NO FORMALES -->
                 <h:form>
                     <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamosDtos', 'eersprestamosdtos')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
@@ -1600,47 +1600,47 @@
 
 
                     <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('EersPrestamosDtos', 'eersprestamosdtos')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastroNF" header="#{msg['atencion']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadEmbargo.secRegistro, 'EersPrestamosDtos', 'eersprestamosdtos')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistroNF" header="#{msg['atencion']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistroNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDBNF" header="#{msg['atencion']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <!-- Dialogo para ver en qué tabla se quiere insertar -->
                     <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['embargos']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlNovedadEmbargo.dialogoEmbargos()}" style="position: absolute; top: 60px; left: 20px;" process="@this"/>
                         <p:commandButton value="#{msg['detallesembargos']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlNovedadEmbargo.dialogoDetallesEmbargos()}" style="position: absolute; top: 50px; left: 220px;" process="@this"/>

@@ -38,7 +38,7 @@
                                 </p:column>
                                 <p:column headerText="Descripcion" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="120" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.descripcion}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="100"  id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 1)}" process="@this"/> 
@@ -50,7 +50,7 @@
                                 </p:column>
                                 <p:column headerText="Empresa" sortBy="#{info.empresa.nombre}" filterBy="#{info.empresa.nombre}" filterMatchMode="contains" id="pais" width="140" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.empresa.nombre}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.empresa.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{info.empresa.nombre}" id="editarPais" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 2)}" process="@this"/> 
@@ -65,7 +65,7 @@
                                 </p:column>
                                 <p:column headerText="SubTituloFirma" sortBy="#{info.subtitulofirma}" filterBy="#{info.subtitulofirma}" filterMatchMode="contains" id="subTituloFirma" width="100" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.subtitulofirma}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.subtitulofirma}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{info.subtitulofirma}" maxlength="50" id="editarSubTituloFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 3)}" process="@this"/> 
@@ -77,7 +77,7 @@
                                 </p:column>
                                 <p:column headerText="Persona" sortBy="#{info.personaFirma.nombre}" filterBy="#{info.personaFirma.nombre}" filterMatchMode="contains" id="personafir" width="100" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.personaFirma.nombre}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.personaFirma.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{info.personaFirma.nombre}" id="editarPersonaFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 4)}" process="@this"/> 
@@ -92,7 +92,7 @@
                                 </p:column>
                                 <p:column headerText="Cargo" sortBy="#{info.cargo.nombre}" filterBy="#{info.cargo.nombre}" filterMatchMode="contains" id="cargo" width="100" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.cargo.nombre}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.cargo.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{info.cargo.nombre}" id="editarCCcargo" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 5)}" process="@this"/> 
@@ -162,8 +162,8 @@
                         </p:toolbar>
 
                         <h:outputText id="informacionRegistro" value="#{controlFirmasReportes.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlFirmasReportes.revisarDialogoGuardar()}" disabled="#{controlFirmasReportes.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="empresa"  />
+                        <p:commandButton style=" position: absolute; left: 688px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlFirmasReportes.revisarDialogoGuardar()}" disabled="#{controlFirmasReportes.guardado}"    process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 785px; top: 470px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras" action="empresa"/>
 
 
                         <p:dialog header="Empresas" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
@@ -267,7 +267,7 @@
 
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                             <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="empresa" actionListener="#{controlFirmasReportes.guardarFirmasReportes()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                             <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="empresa" actionListener="#{controlFirmasReportes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -279,31 +279,31 @@
 
 
                     <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
                         <h:outputText value="Necesita : #{controlFirmasReportes.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value=" #{controlFirmasReportes.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="Se han borrado #{controlFirmasReportes.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
                         <h:outputText value="Para agregar es necesario adicionar: #{controlFirmasReportes.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                     </p:dialog>
@@ -314,48 +314,48 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'FIRMASREPORTES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFirmasReportes.secRegistro, 'FirmasReportes','firmareporte')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla FIRMASREPORTES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('FirmasReportes','firmareporte')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFirmasReportes.secRegistro, 'FirmasReportes','firmareporte')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'FIRMASREPORTES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
@@ -405,7 +405,7 @@
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarNuevo('EMPRESAS',controlFirmasReportes.nuevoFirmasReportes.empresa.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableEmpresas(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 115px; " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableEmpresas(0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 115px;" id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableEmpresas(0)}"/>   
                             <p:watermark for="nuevoPais" value="Empresa"/>
 
                             <strong><h:outputText value="*SubTituloFirma: "  style=" position: absolute; top: 150px;"/></strong>
@@ -420,7 +420,7 @@
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarNuevo('PERSONA',controlFirmasReportes.nuevoFirmasReportes.personaFirma.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariablePersonas(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 175px; " id="btnnuevoPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariablePersonas(0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 175px;" id="btnnuevoPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariablePersonas(0)}"/>   
                             <p:watermark for="nuevoPersona" value="Persona"/>
 
                             <strong><h:outputText value="*Cargo: "  style=" position: absolute; top: 210px;"/></strong>
@@ -429,7 +429,7 @@
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarNuevo('CARGO',controlFirmasReportes.nuevoFirmasReportes.cargo.nombre, 1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableCargos(0)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 205px; " id="btnnuevoCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableCargos(0)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 205px;" id="btnnuevoCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableCargos(0)}"/>   
                             <p:watermark for="nuevoCargo" value="Cargo"/>
 
 
@@ -463,7 +463,7 @@
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarDuplicado('EMPRESAS', controlFirmasReportes.duplicarFirmasReportes.empresa.nombre , 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableEmpresas(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 115px; " id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableEmpresas(1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 115px;" id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableEmpresas(1)}"/>   
                             <p:watermark for="duplicarPais" value="Empresa"/>
 
                             <strong><h:outputText value="SubtituloFirma"  style=" position: absolute; top: 150px;"/></strong>
@@ -478,7 +478,7 @@
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarDuplicado('PERSONA', controlFirmasReportes.duplicarFirmasReportes.personaFirma.nombre , 2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariablePersonas(1)}"/>
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 175px; " id="btnduplicarPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariablePersonas(1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 175px;" id="btnduplicarPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariablePersonas(1)}"/>   
                             <p:watermark for="duplicarPersona" value="Persona"/>
 
                             <strong><h:outputText value="Cargo"  style=" position: absolute; top: 210px;"/></strong>
@@ -488,7 +488,7 @@
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableCargos(1)}"/>
                             </p:inputText>
 
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 205px; " id="btnduplicarCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableCargos(1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 205px;" id="btnduplicarCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlFirmasReportes.asignarVariableCargos(1)}"/>   
                             <p:watermark for="duplicarCargo" value="Cargo"/>
 
 

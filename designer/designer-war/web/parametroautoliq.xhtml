@@ -1270,7 +1270,7 @@
                                  <p:selectOneMenu value="#{infoAE.subtipocotizante}" id="editarSubTipoCotizanteAporte" style="width: 215px; text-transform: uppercase;"
                                                   onblur="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"
                                                   onfocus="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});">
-                                    <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1"  />  
+                                    <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1"/>  
                                     <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2"/>  
                                     <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3"/>  
                                     <f:selectItem itemLabel="#{msg['subTipoCotizante4']}" itemValue="4"/>  
@@ -1684,7 +1684,7 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlParametroAutoliq.guardarYSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlParametroAutoliq.cancelarYSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
@@ -1692,7 +1692,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametroAutoliq.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametroAutoliq.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
@@ -1700,110 +1700,110 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroAporte').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroautoliq')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroAporte').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistoricoAporte').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroautoliq')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistoricoAporte').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBAporte']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorRegNullParametro" header="#{msg['error']}" widgetVar="errorRegNullParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegNullParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorrarParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: justify"/>
                </p:dialog>
 
                <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="true" modal="true" height="85" width="290"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarBorrarTodoAuto']}" style="position: absolute; left: 60px; top: 15px; width: 200px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarBorrarTodoAuto').hide(); PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.borrarAporteEntidadProcesoAutomatico()}" style="position: absolute; top: 50px; left: 70px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarBorrarTodoAuto').hide();" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorProcesoLiquidacionFechas" header="#{msg['atencion']}" widgetVar="errorProcesoLiquidacionFechas"  resizable="false" draggable="true" modal="true" height="105" width="435" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['errorProcesoLiquidacionFechas']}" style="position: absolute; left: 120px; top: 10px; width: 280px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorProcesoLiquidacionFechas').hide();" actionListener="#{controlParametroAutoliq.cambiarFechasParametros()}" style="position: absolute; top: 70px; left: 207px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorProcesoLiquidacionFechas').hide();" style="position: absolute; top: 70px; left: 307px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="procesoLiquidacionOK" header="#{msg['atencion']}" widgetVar="procesoLiquidacionOK"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['procesoLiquidacionOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('operacionEnProceso').show(); PF('procesoLiquidacionOK').hide()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.procesoLiquidacionOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('procesoLiquidacionOK').hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="acumularDiferenciaOK" header="#{msg['atencion']}" widgetVar="acumularDiferenciaOK"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['acumularDiferenciaOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('acumularDiferenciaOK').hide(); PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.acumularDiferenciaOK()}" style="position: absolute; top: 50px; left: 150px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('acumularDiferenciaOK').hide();" style="position: absolute; top: 50px; left: 250px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
 
                <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="true" modal="true" height="85" width="355"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 20px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 20px;"/>
                   <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight: bold;text-align: justify"/>
                </p:dialog>
 
@@ -1859,12 +1859,12 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPRESA')}"/>
                         <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.nuevoParametro.empresa.nombre, 1)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 333px; top: 142px; " class="cssBotonLovDialogos" id="btnNuevaEmpresa" value="" process="@this"
+                     <p:commandButton style="position: absolute; left: 333px; top: 142px;" class="cssBotonLovDialogos" id="btnNuevaEmpresa" value="" process="@this"
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,1,2)}"/>   
                      <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}"/>
 
                      <p:commandButton id="limpiarPA" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlParametroAutoliq.limpiarNuevaParametroAutoliq()}" update="nuevaParametro" process="@this"/>
-                     <p:commandButton id="agregarPA" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlParametroAutoliq.agregarNuevaParametroAutoliq()}"  />
+                     <p:commandButton id="agregarPA" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlParametroAutoliq.agregarNuevaParametroAutoliq()}"/>
                      <p:commandButton id="cancelarPA" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlParametroAutoliq.limpiarNuevaParametroAutoliq()}" update="nuevaParametro" onclick="PF('NuevoRegistroParametro').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -1906,7 +1906,7 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}"/>
                         <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('TIPOTRABAJADOR', controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre, 2)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 333px; top: 112px; " id="btnDuplicarTipoTrabajador" class="cssBotonLovDialogos"
+                     <p:commandButton style="position: absolute; left: 333px; top: 112px;" id="btnDuplicarTipoTrabajador" class="cssBotonLovDialogos"
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>   
                      <p:watermark for="duplicarTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}"/>
 
@@ -1917,7 +1917,7 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPRESA')}"/>
                         <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.duplicarParametro.empresa.nombre, 2)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 333px; top: 142px; " class="cssBotonLovDialogos" id="btnDuplicarEmpresa" value="" 
+                     <p:commandButton style="position: absolute; left: 333px; top: 142px;" class="cssBotonLovDialogos" id="btnDuplicarEmpresa" value="" 
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"  process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,2)}"/>   
                      <p:watermark for="duplicarEmpresaParametro" value="#{msg['empresa']}"/>
 
@@ -1954,7 +1954,7 @@
                          <!--<p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPLEADO')}"/>-->
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                      height: 23px; position: absolute; left: 331px; top: 80px; " id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this"
+                                      height: 23px; position: absolute; left: 331px; top: 80px;" id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this"
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
@@ -1965,7 +1965,7 @@
                          <!--<p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPLEADO')}"/>-->
                      </p:inputText>
                      <!--                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                                                  height: 23px; position: absolute; left: 331px; top: 110px; " id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this"/>-->
+                                                                  height: 23px; position: absolute; left: 331px; top: 110px;" id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this"/>-->
 
                      <strong><h:outputText value="NIT Tercero" style=" position: absolute; top: 145px; left: 40px"/></strong>
                      <p:inputText autocomplete="off" id="nuevoNitTercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.nittercero}" 
@@ -1976,7 +1976,7 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TERCERO')}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                      height: 23px; position: absolute; left: 331px; top: 140px; " id="btnNuevonit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}" value="" process="@this" 
+                                      height: 23px; position: absolute; left: 331px; top: 140px;" id="btnNuevonit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}" value="" process="@this" 
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
@@ -1993,7 +1993,7 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'APORTE')}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                      height: 23px; position: absolute; left: 331px; top: 200px; " id="btnNuevotipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}" value="" process="@this" 
+                                      height: 23px; position: absolute; left: 331px; top: 200px;" id="btnNuevotipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}" value="" process="@this" 
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
@@ -2338,7 +2338,7 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPLEADO')}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                      height: 23px; position: absolute; left: 331px; top: 80px; " id="btnDuplicaremp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}" value="" process="@this" 
+                                      height: 23px; position: absolute; left: 331px; top: 80px;" id="btnDuplicaremp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}" value="" process="@this" 
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
@@ -2355,7 +2355,7 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'TERCERO')}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                      height: 23px; position: absolute; left: 331px; top: 140px; " id="btnDuplicarnit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}" value="" process="@this" 
+                                      height: 23px; position: absolute; left: 331px; top: 140px;" id="btnDuplicarnit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}" value="" process="@this" 
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
@@ -2372,7 +2372,7 @@
                         <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'APORTE')}"/>
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                      height: 23px; position: absolute; left: 331px; top: 200px; " id="btnDuplicartipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}" value="" process="@this"
+                                      height: 23px; position: absolute; left: 331px; top: 200px;" id="btnDuplicartipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}" value="" process="@this"
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
@@ -2946,7 +2946,7 @@
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 

@@ -294,7 +294,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check">
                      <f:actionListener binding="#{controlPeriodicidades.guardarCambiosPeriodicidad()}"/>
@@ -308,13 +308,13 @@
                </p:dialog>
 
                <p:dialog id="validacionDuplicarPeriodicidad" header="#{msg['atencion']}" widgetVar="validacionDuplicarPeriodicidad"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
                   <h:outputText value="#{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
                   <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarPeriodicidad').hide();" style="position: absolute; top: 65px; left: 260px;" icon="ui-icon-check" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="90" width="400" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
                   <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 65px; left: 260px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
@@ -326,7 +326,7 @@
                </p:dialog>
 
                <p:dialog id="validacionNuevaPeriodicidad" header="#{msg['atencion']}" widgetVar="validacionNuevaPeriodicidad"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
                   <h:outputText value="#{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
                   <p:commandButton value="Aceptar" onclick="PF('validacionNuevaPeriodicidad').hide();" icon="ui-icon-check" style="position: absolute; top: 65px; left: 260px;" process="@this"/>
                </p:dialog>
@@ -336,48 +336,48 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 65px; left: 175px;" onstart="#{controlPeriodicidades.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('periodicidad', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPeriodicidades.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('periodicidad', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.periocidadSeleccionadaTabla, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlPeriodicidades.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('periodicidad', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog> 
 
@@ -420,7 +420,7 @@
                      <p:inputText autocomplete="off" id="nuevaCodigoBase" value="#{controlPeriodicidades.nuevaPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 1, 3)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 332px; top: 175px; " id="btnnuevoUnidadBaseCodigo" value=" "  class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 1, 3)}"/>   
+                     <p:commandButton style="position: absolute; left: 332px; top: 175px;" id="btnnuevoUnidadBaseCodigo" value=" "  class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 1, 3)}"/>   
                      <p:watermark for="nuevaCodigoBase" value="#{msg['codundb']}"/>
 
                      <strong><h:outputText value="*#{msg['descb']} :" style="left: 15px; position: absolute; top: 210px;"/></strong>
@@ -431,7 +431,7 @@
                      <p:watermark for="nuevaNombreBase" value="#{msg['descb']}"/>
 
                      <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" update="nuevaPeriodicidads" process="@this"/>
-                     <p:commandButton id="agregarCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 240px;"  process="@this" actionListener="#{controlPeriodicidades.agregarNuevoPeriodicidades()}"  />
+                     <p:commandButton id="agregarCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 240px;"  process="@this" actionListener="#{controlPeriodicidades.agregarNuevoPeriodicidades()}"/>
                      <p:commandButton id="cancelarCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" update="nuevaPeriodicidads" onclick="PF('nuevoRegistroPeriodicidades').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -478,7 +478,7 @@
                      <p:inputText autocomplete="off" id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 2, 3)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 332px; top: 205px; "  id="btnduplicarNombreBase" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 2, 3)}"/>   
+                     <p:commandButton style="position: absolute; left: 332px; top: 205px;"  id="btnduplicarNombreBase" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 2, 3)}"/>   
                      <p:watermark for="duplicarDescripcionUnidadesBase" value="#{msg['descb']}"/>
 
                      <p:commandButton id="limpiarDuplicadoCC" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarDuplicarPeriodicidades()}" update="duplicarUnidads" process="@this"/>

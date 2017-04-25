@@ -594,7 +594,7 @@
                      <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosTiposDocumentos()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTD']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposDocumentos').filter();" class="cssFiltroLOV"  />  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposDocumentos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{tipoDocumento.nombrecorto}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -740,7 +740,7 @@
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro" resizable="false" draggable="true" modal="true" height="95" width="350" closable="false" 
                          style="font-size: 12px;">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 255px; font-weight: bold; text-align: justify"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 60px; left: 235px;" process="@this"/>
                </p:dialog>
@@ -748,7 +748,7 @@
 <!--               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350px;" 
           style="font-size: 12px;" closable="false">  
    <div style="float: left;">
-      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"/>
    </div>
    <div style="text-align: center;">
       <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['confirmarRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight: bold;"/>
@@ -761,16 +761,16 @@
 <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
           style="font-size: 12px;" closable="true">  
    <div style="float: left;">
-      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"/>
    </div>
    <div style="text-align: center;">
       <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
    </div>
 </p:dialog>
 <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
-          style="font-size: 12px; " closable="true">  
+          style="font-size: 12px;" closable="true">  
    <div style="float: left;">
-      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"/>
    </div>
    <div style="text-align: center;">
       <h:outputText value="#{msg['errorRegistroRastro']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
@@ -780,7 +780,7 @@
 <p:dialog id="errorTablaConRastro" header="#{msg['error']}" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="95" width="350px;" 
           style="font-size: 12px;" closable="false">  
    <div style="float: left;">
-      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"/>
    </div>
    <div style="text-align: center;">
       <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaConRastro']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight: bold;"/>
@@ -793,7 +793,7 @@
 <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro" resizable="false" draggable="true" modal="true" height="60" width="285px;" 
           style="font-size: 12px;" closable="true">  
    <div style="float: left;">
-      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"/>
    </div>
    <div style="text-align: center;">
       <h:outputText value="#{msg['error']} '#{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaSinRastro']}" style="position: relative; left: 10px; top: 10px; width: 195px; font-weight: bold;"/>
@@ -803,7 +803,7 @@
 <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
           style="font-size: 12px;" closable="true">  
    <div style="float: left;">
-      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"/>
    </div>
    <div style="text-align: center;">
       <h:outputText value="#{msg['seleccionarRegistro']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
@@ -813,7 +813,7 @@
 <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275px;" 
           style="font-size: 12px;" closable="true">  
    <div style="float: left;">
-      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"  />
+      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: relative; left: 10px; top: 10px;"/>
    </div>
    <div style="text-align: center;">
       <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorObjetosDB']}" style="position: relative; left: 10px; top: 10px; width: 185px; font-weight: bold;"/>
@@ -847,7 +847,7 @@
                </p:dialog>
 
                <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
                   <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                   <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEmpleadoIndividual.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                </p:dialog>

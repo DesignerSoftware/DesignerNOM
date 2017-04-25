@@ -12,7 +12,7 @@
          <ui:define name="body">                  
             <h:form id="form"> 
                <p:panel  id="PanelTotal" header="Certificado de Aportes Obligatorios Para Salud" style=" font-size: 12px; position: absolute; width: 874px; height: 530px; left: 300px; top: 100px;text-align: left">  
-                  <p:commandButton style="background: url(Imagenes/Iconos/salvar2.gif); position: absolute; top: 38px ; width: 43px; height: 43px;"  value=" "  />
+                  <p:commandButton style="background: url(Imagenes/Iconos/salvar2.gif); position: absolute; top: 38px ; width: 43px; height: 43px;"  value=" "/>
                   <h:outputText value=" Esta pantalla permite calcular Retroactivos y Proyecciones de salariales individuales y colectivos
                                 (Por empleado(s) y por tipo de sueldo) en valor fijo arbitrario o a través de procentajes aprobados por la empresa" style="width:800px ; position: absolute; top: 45px; left: 65px ;"/>
                   <fieldset style="background:#dddddd ; position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 385px; border-radius: 10px; ">
@@ -64,14 +64,14 @@
                         <h:outputText style="position: absolute; top: 285px; left: 405px; width: 130px; height: 200px; font-size: 12px  " value="Elimina los resultados de la liquidación y los calculos de retroactivos"/>
                      </fieldset>
                   </fieldset>
-                  <p:commandButton style=" position: absolute; left: 800px; top: 500px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" actionListener="#{controlListaNavegacion.quitarPagina()}" value="Atras"/>
+                  <p:commandButton style=" position: absolute; left: 800px; top: 500px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" actionListener="#{controlListaNavegacion.quitarPagina()}" value="Atras"/>
 
                   <p:dialog header="Tipo Entidad" widgetVar="opciones" draggable="true" resizable="false" closable="false" id="opciones"  
                             showEffect="fade" hideEffect="fade" width="290" height="170" modal="true" style="font-size: 11px;">
                      <fieldset style="position: absolute; left: 10px; top: 10px; font-size: 10px; width: 250px; height: 140px; border-radius: 10px;">
                         <legend style="font-size: 14px; color: blue"><strong>Opciones</strong></legend>
 
-                        <h:graphicImage value="Imagenes/Iconos/ManoOtrasNovedades.gif" width="50" height="90" style="position: absolute; left: 10px; top: 20px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/ManoOtrasNovedades.gif" width="50" height="90" style="position: absolute; left: 10px; top: 20px;"/>
                         <legend value="Opciones" style="font-size: 14px;position: absolute; left: 20px; top: 20px; width: 30px; font-weight: bold"/>
                         <p:commandButton style="font-size: 12px; border-color:#045491; width:180px; border-width: 2px; position: absolute; top: 25px; left: 75px;" value="Borrar Liquidación"></p:commandButton>
                         <p:commandButton style="font-size: 12px;border-color:#045491; width:180px; border-width: 2px; position: absolute; top: 65px; left: 75px;" value="Cerrar Liquidación"></p:commandButton>

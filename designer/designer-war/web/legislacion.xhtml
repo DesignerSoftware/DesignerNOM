@@ -34,39 +34,39 @@
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
                                          actionListener="#{controlLegislacion.editarCelda()}" process="@this"/>
-                        <p:tooltip  for="editar" value="#{msg['editar']}"  />
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          disabled="#{controlLegislacion.activarLOV}" actionListener="#{controlLegislacion.listaValoresBoton()}" process="@this"/>
-                        <p:tooltip for="listaValores" value="#{msg['lista']}"  />
+                        <p:tooltip for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" 
                                          actionListener="#{controlLegislacion.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"  />
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          ajax="false" actionListener="#{controlLegislacion.exportXLS()}"/>
-                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"  />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" 
                                          actionListener="#{controlLegislacion.limpiarNuevoContrato()}" ajax="false">
                            <p:dataExporter type="xml" target=":formExportar:datosContratosExportar" fileName="ContratosXML" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"  />
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" 
                                          actionListener="#{controlLegislacion.exportPDF()}" ajax="false"/>
-                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"  />
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                          actionListener="#{controlLegislacion.dialogoIngresoNuevoRegistro()}" process="@this"/> 
-                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"  />
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
                                          actionListener="#{controlLegislacion.borrarContrato()}" process="@this"/>  
@@ -74,7 +74,7 @@
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" 
                                          actionListener="#{controlLegislacion.duplicarRegistro()}" process="@this"/>  
-                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"  />
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
@@ -287,13 +287,13 @@
 
                      <p:column filterBy="#{contratoLOV.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['codigoC']}"  /> 
+                           <h:outputText value="#{msg['codigoC']}"/> 
                         </f:facet>
                         <h:outputText  value="#{contratoLOV.codigo}"/>
                      </p:column>
                      <p:column filterBy="#{contratoLOV.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
-                           <h:outputText value="#{msg['descripcionC']}"  />
+                           <h:outputText value="#{msg['descripcionC']}"/>
                         </f:facet>
                         <h:outputText  value="#{contratoLOV.descripcion}"/>
                      </p:column>
@@ -392,19 +392,19 @@
                </p:dialog>
 
                <p:dialog id="validacioNuevoContrato" header="#{msg['atencion']}"  widgetVar="validacioNuevoContrato"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionNuevo']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacioNuevoContrato').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validacionCodigo" header="#{msg['atencion']}" widgetVar="validacionCodigo"  resizable="false" draggable="true" modal="true" height="95" width="450"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionCodigo']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight: bold"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionCodigo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" actionListener="#{controlLegislacion.guardarYSalir()}" 
                                    style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
@@ -415,13 +415,13 @@
                </p:dialog>
 
                <p:dialog id="validacionReproducirContratoClon" header="#{msg['atencion']}"  widgetVar="validacionReproducirContratoClon"  resizable="false" draggable="true" modal="true" height="95" width="300" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionReproducirContratoClon']} #{controlLegislacion.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 200px;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionReproducirContratoClon').hide();" style="position: absolute; top: 60px; left: 180px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="validacionReproducirContratOrigen" header="#{msg['atencion']}"  widgetVar="validacionReproducirContratOrigen"  resizable="false" draggable="true" modal="true" height="95" width="300" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionReproducirContratOrigen']} #{controlLegislacion.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 200px;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}"  onclick="PF('validacionReproducirContratOrigen').hide();" style="position: absolute; top: 60px; left: 180px;" process="@this"/>
                </p:dialog>
@@ -442,7 +442,7 @@
 
                <!-- RASTRO -->
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}"  widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}"  style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLegislacion.contratoSeleccionado.secuencia, 'Contratos', 'legislacion')}"
                                    style="position: absolute; top: 63px; left: 210px;" onstart="#{controlLegislacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
@@ -450,7 +450,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}"  widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['cofirmarRastroHistorico']}"  style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Contratos', 'legislacion')}"
                                    style="position: absolute; top: 60px; left: 210px;" onstart="#{controlLegislacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
@@ -458,17 +458,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}"  widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}"  style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}"  widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}"  style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}"  widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLegislacion.contratoSeleccionado.secuencia, 'Contratos', 'legislacion')}" 
                                    style="position: absolute; top: 65px; left: 210px;" onstart="#{controlLegislacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
@@ -476,17 +476,17 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}"  widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}"  style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}"  widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}"  style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}"  widgetVar="errorObjetosDB" resizable="false" draggable="true" modal="true" height="70" width="280"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}"  style="position: absolute; left: 70px; top: 8px; width: 195px; font-weight: bold;"/>
                </p:dialog>
             </h:form>
@@ -496,7 +496,7 @@
                             value="#{controlLegislacion.listaContratos}">
                   <p:column headerText="#{msg['codigoX']}">  
                      <f:facet name="header">
-                        <h:outputText value="#{msg['codigoX']}"  />
+                        <h:outputText value="#{msg['codigoX']}"/>
                      </f:facet>
                      <h:outputText value="#{infoExp.codigo}"/>
                   </p:column>
@@ -512,7 +512,7 @@
                   </p:column>
 
                   <p:column headerText="#{msg['estadoX']}">                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['estadoX']}"  /></f:facet>
+                     <f:facet name="header"> <h:outputText value="#{msg['estadoX']}"/></f:facet>
                      <h:outputText value="#{infoExp.estado}"/>
                   </p:column> 
                </p:dataTable>

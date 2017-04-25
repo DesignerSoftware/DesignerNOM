@@ -1071,7 +1071,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.guardadoGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -1079,7 +1079,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.guardarSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -1087,7 +1087,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'DetallesEmpresas', 'detalleempresa')}"
                                    style="position: absolute; top: 63px; left: 230px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
@@ -1095,7 +1095,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DetallesEmpresas', 'detalleempresa')}"
                                    style="position: absolute; top: 60px; left: 230px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
@@ -1103,17 +1103,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'Proyectos', 'detalleempresa')}"
                                    style="position: absolute; top: 60px; left: 230px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
@@ -1121,29 +1121,29 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                </p:dialog>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleEmpresa.activarCtrlF11()}"/> 
 
                <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNull" header="#{msg['atencion']}" widgetVar="errorDatosNull"  resizable="false" draggable="true" modal="true" height="110" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNull']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorDatosNull').hide();" style="position: absolute; top: 75px; left: 300px;" process="@this"/>
                </p:dialog>
@@ -1169,7 +1169,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'EMPRESA')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('EMPRESA', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_empresa,1)}" process="@this" update="nuevaEmpresaDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 10px; " id="btnNuevaEmpresa" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,0,1)}" update="nuevaEmpresaDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 10px;" id="btnNuevaEmpresa" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,0,1)}" update="nuevaEmpresaDetalle"/>   
                            <p:watermark for="nuevaEmpresaDetalle" value="#{msg['empresa']}"/>
 
                            <strong><h:outputText value="#{msg['tipoEmpresaN']}*" style="position: absolute; top: 45px; left: 25px; "/></strong>
@@ -1190,7 +1190,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CIUDAD')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDAD', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_ciudad,1)}" process="@this" update="nuevaCiudadDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 100px; " id="btnNuevaCiudad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(indice,1,1)}" update="nuevaCiudadDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 100px;" id="btnNuevaCiudad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(indice,1,1)}" update="nuevaCiudadDetalle"/>   
                            <p:watermark for="nuevaCiudadDetalle" value="#{msg['ciudad']}"/>
 
                            <strong><h:outputText value="#{msg['telefonoN']}*" style="position: absolute; top: 135px; left: 25px; "/></strong>
@@ -1309,7 +1309,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CIUDADDOCUMENTO')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDADDOCUMENTO', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_ciudaddocrepresentante,1)}" process="@this" update="nuevaCiudadDocumentoDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 70px; " id="btnNuevaCiudadDocumento" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,2,1)}" update="nuevaCiudadDocumentoDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 70px;" id="btnNuevaCiudadDocumento" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,2,1)}" update="nuevaCiudadDocumentoDetalle"/>   
                            <p:watermark for="nuevaCiudadDocumentoDetalle" value="#{msg['ciudadDoc']}"/>
 
                            <strong><h:outputText value="#{msg['arquitectoN']}" style="position: absolute; top: 105px; left: 25px;"/></strong>
@@ -1330,7 +1330,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'GERENTE')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('GERENTE', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_gerentegeneral,1)}" process="@this" update="nuevaGerenteDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 160px; " id="btnNuevaGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,3,1)}" update="nuevaGerenteDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 160px;" id="btnNuevaGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,3,1)}" update="nuevaGerenteDetalle"/>   
                            <p:watermark for="nuevaGerenteDetalle" value="#{msg['gerenteGeneral']}"/>
 
                            <strong><h:outputText value="#{msg['subGerenteN']}" style="position: absolute; top: 195px; left: 25px;"/></strong>
@@ -1339,7 +1339,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'SUBGERENTE')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_subgerente,1)}" process="@this" update="nuevaSubGerenteDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 190px; " id="btnNuevaSubGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,6,1)}" update="nuevaSubGerenteDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 190px;" id="btnNuevaSubGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,6,1)}" update="nuevaSubGerenteDetalle"/>   
                            <p:watermark for="nuevaSubGerenteDetalle" value="#{msg['subGerente']}"/>
 
                            <strong><h:outputText value="#{msg['representanteN']}" style="position: absolute; top: 225px; left: 25px;"/></strong>
@@ -1348,7 +1348,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'REPRESENTANTE')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_representantecir,1)}" process="@this" update="nuevaRepresentanteDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 220px; " id="btnNuevaRepresentante" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,7,1)}" update="nuevaRepresentanteDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 220px;" id="btnNuevaRepresentante" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,7,1)}" update="nuevaRepresentanteDetalle"/>   
                            <p:watermark for="nuevaRepresentanteDetalle" value="#{msg['representante']}"/>
 
                            <strong><h:outputText value="#{msg['personaFirmaN']}" style="position: absolute; top: 255px; left: 25px;"/></strong>
@@ -1357,7 +1357,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'PERSONA')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('PERSONA', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_personafirmaconstancia,1)}" process="@this" update="nuevaPersonaFirmaDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 250px; " id="btnNuevaPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,4,1)}" update="nuevaPersonaFirmaDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 250px;" id="btnNuevaPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,4,1)}" update="nuevaPersonaFirmaDetalle"/>   
                            <p:watermark for="nuevaPersonaFirmaDetalle" value="#{msg['personaFirma']}"/>
 
                            <strong><h:outputText value="#{msg['cargoFirmaN']}" style="position: absolute; top: 285px; left: 25px;"/></strong>
@@ -1366,7 +1366,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CARGO')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CARGO', controlDetalleEmpresa.nuevaDetalleEmpresa.nombre_cargofirmaconstancia,1)}" process="@this" update="nuevaCargoFirmaDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 280px; " id="btnNuevaCargoFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,5,1)}" update="nuevaCargoFirmaDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 280px;" id="btnNuevaCargoFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,5,1)}" update="nuevaCargoFirmaDetalle"/>   
                            <p:watermark for="nuevaCargoFirmaDetalle" value="#{msg['cargoFirma']}"/>
 
                         </div>
@@ -1376,7 +1376,7 @@
                         <div style="width: 470px; height: 190px">
 
                            <strong><h:outputText value="#{msg['emailN']}" style="position: absolute; top: 15px; left: 25px;"/></strong>
-                           <p:inputText autocomplete="off" id="nuevaEmailDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px; " onclick="select();">
+                           <p:inputText autocomplete="off" id="nuevaEmailDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px;" onclick="select();">
                               <p:ajax event="change" update="nuevaEmailDetalle"/>
                            </p:inputText>
                            <p:watermark for="nuevaEmailDetalle" value="#{msg['email']}"/>
@@ -1492,7 +1492,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'EMPRESA')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('EMPRESA', controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_empresa,2)}" process="@this" update="duplicarEmpresaDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 10px; " id="btnDuplicarEmpresa" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,0,2)}" update="duplicarEmpresaDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 10px;" id="btnDuplicarEmpresa" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,0,2)}" update="duplicarEmpresaDetalle"/>   
                            <p:watermark for="duplicarEmpresaDetalle" value="#{msg['empresa']}"/>
 
                            <strong><h:outputText value="#{msg['tipoEmpresaN']}*" style="position: absolute; top: 45px; left: 25px; "/></strong>
@@ -1513,7 +1513,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CIUDAD')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDAD', controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_ciudad,1)}" process="@this" update="duplicarCiudadDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 100px; " id="btnDuplicarCiudad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(indice,1,2)}" update="duplicarCiudadDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 100px;" id="btnDuplicarCiudad" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(indice,1,2)}" update="duplicarCiudadDetalle"/>   
                            <p:watermark for="duplicarCiudadDetalle" value="#{msg['ciudad']}"/>
 
                            <strong><h:outputText value="#{msg['telefonoN']}*" style="position: absolute; top: 135px; left: 25px; "/></strong>
@@ -1632,7 +1632,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CIUDADDOCUMENTO')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDADDOCUMENTO', controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_ciudaddocumentorepresentante,2)}" process="@this" update="duplicarCiudadDocumentoDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 70px; " id="btnDuplicarCiudadDocumento" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,2,2)}" update="duplicarCiudadDocumentoDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 70px;" id="btnDuplicarCiudadDocumento" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,2,2)}" update="duplicarCiudadDocumentoDetalle"/>   
                            <p:watermark for="duplicarCiudadDocumentoDetalle" value="#{msg['ciudadDoc']}"/>
 
                            <strong><h:outputText value="#{msg['arquitectoN']}" style="position: absolute; top: 105px; left: 25px;"/></strong>
@@ -1653,7 +1653,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'GERENTE')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('GERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_gerentegeneral,2)}" process="@this" update="duplicarGerenteDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 160px; " id="btnDuplicarGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,3,2)}" update="duplicarGerenteDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 160px;" id="btnDuplicarGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,3,2)}" update="duplicarGerenteDetalle"/>   
                            <p:watermark for="duplicarGerenteDetalle" value="#{msg['gerenteGeneral']}"/>
 
                            <strong><h:outputText value="#{msg['subGerenteN']}" style="position: absolute; top: 195px; left: 25px;"/></strong>
@@ -1662,7 +1662,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'SUBGERENTE')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto,2)}" process="@this" update="duplicarSubGerenteDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 190px; " id="btnDuplicarSubGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,6,2)}" update="duplicarSubGerenteDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 190px;" id="btnDuplicarSubGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,6,2)}" update="duplicarSubGerenteDetalle"/>   
                            <p:watermark for="duplicarSubGerenteDetalle" value="#{msg['subGerente']}"/>
 
                            <strong><h:outputText value="#{msg['representanteN']}" style="position: absolute; top: 225px; left: 25px;"/></strong>
@@ -1671,7 +1671,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'REPRESENTANTE')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto,2)}" process="@this" update="duplicarRepresentanteDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 220px; " id="btnDuplicarRepresentante" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,7,2)}" update="duplicarRepresentanteDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 220px;" id="btnDuplicarRepresentante" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,7,2)}" update="duplicarRepresentanteDetalle"/>   
                            <p:watermark for="duplicarRepresentanteDetalle" value="#{msg['representante']}"/>
 
                            <strong><h:outputText value="#{msg['personaFirmaN']}" style="position: absolute; top: 255px; left: 25px;"/></strong>
@@ -1680,7 +1680,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'PERSONA')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('PERSONA', controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_personafirmaconstancia,2)}" process="@this" update="duplicarPersonaFirmaDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 250px; " id="btnDuplicarPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,4,2)}" update="duplicarPersonaFirmaDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 250px;" id="btnDuplicarPersonaFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,4,2)}" update="duplicarPersonaFirmaDetalle"/>   
                            <p:watermark for="duplicarPersonaFirmaDetalle" value="#{msg['personaFirma']}"/>
 
                            <strong><h:outputText value="#{msg['cargoFirmaN']}" style="position: absolute; top: 285px; left: 25px;"/></strong>
@@ -1689,7 +1689,7 @@
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CARGO')}"/>
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CARGO', controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_cargofirmaconstancia,2)}" process="@this" update="duplicarCargoFirmaDetalle"/>
                            </p:inputText>
-                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 280px; " id="btnDuplicarCargoFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,5,2)}" update="duplicarCargoFirmaDetalle"/>   
+                           <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 280px;" id="btnDuplicarCargoFirma" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,5,2)}" update="duplicarCargoFirmaDetalle"/>   
                            <p:watermark for="duplicarCargoFirmaDetalle" value="#{msg['cargoFirma']}"/>
 
                         </div>

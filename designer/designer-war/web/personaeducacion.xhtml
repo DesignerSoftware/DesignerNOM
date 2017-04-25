@@ -21,40 +21,40 @@
                      <p:toolbarGroup align="left;"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPersonaEducacion.guardarTodo()}" process="@this"/>
-                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"  />
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPersonaEducacion.editarCelda()}" process="@this"/>
-                        <p:tooltip  for="editar" value="#{msg['editar']}"  />
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPersonaEducacion.listaValoresBoton()}" process="@this" disabled="#{controlPersonaEducacion.activarLov}"/>
-                        <p:tooltip  for="listaValores" value="#{msg['lista']}"  />
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPersonaEducacion.activarCtrlF11()}" process="@this"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"  />
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlPersonaEducacion.exportXLS()}"/>
-                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"  />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlPersonaEducacion.limpiarNuevaVigenciaFormal()}" ajax="false">
                            <p:dataExporter type="xml"  target="#{controlPersonaEducacion.tablaImprimir}" fileName="#{controlPersonaEducacion.nombreArchivo}" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"  />
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPersonaEducacion.exportPDF()}" ajax="false"/>
-                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"  />
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlPersonaEducacion.elegirTabla()}" process="@this"/>  
-                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"  /> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlPersonaEducacion.borrarVigenciaFormal()}" process="@this"/>  
-                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"  />
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlPersonaEducacion.duplicarVF()}"  process="@this"/>  
-                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"  />
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
@@ -110,7 +110,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -194,7 +194,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column> 
 
@@ -210,7 +210,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column> 
 
@@ -232,7 +232,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -253,7 +253,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -269,7 +269,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -307,7 +307,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -324,7 +324,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooCurso" value="" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'curso')}" onclick="#{controlCursos.recibirPaginaEntrante('personaeducacion')}"  />
+                              <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooCurso" value="" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'curso')}" onclick="#{controlCursos.recibirPaginaEntrante('personaeducacion')}"/>
                            </f:facet>
                         </p:column>
 
@@ -340,7 +340,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value="" />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
@@ -391,7 +391,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column> 
 
@@ -407,7 +407,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value=""  />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>                       
                      </p:dataTable>  
@@ -440,7 +440,7 @@
                                 <p:ajax event="change" listener="#{controlPersonaEducacion.autocompletarNuevoyDuplicado('TIPOEDUCACION', controlPersonaEducacion.nuevaVigenciaFormal.tipoeducacion.nombre, 1)}"/>-->
                         <p:ajax event="dblclick"  listener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 0, 1)}" process="@this"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 331px; top: 80px; " id="btnNuevoTipoEducacion" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 0, 1)}"/>   
+                     <p:commandButton style="position: absolute; left: 331px; top: 80px;" id="btnNuevoTipoEducacion" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 0, 1)}"/>   
                      <p:watermark for="nuevoTipoEducacion" value="#{msg['educacionWM']}"/>
 
                      <strong><h:outputText value="*#{msg['profesionN']}"  style=" position: absolute; top: 115px;"/></strong>
@@ -450,7 +450,7 @@
                         <p:ajax event="dblclick" listener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 1, 1)}" process="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaProfesion" value="#{msg['profesionWM']}"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 110px; " id="btnNuevaProfesion" actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 1, 1)}" value="" process="@this" class="cssBotonLovDialogos"  />
+                     <p:commandButton style="position: absolute; left: 331px; top: 110px;" id="btnNuevaProfesion" actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 1, 1)}" value="" process="@this" class="cssBotonLovDialogos"/>
 
                      <strong><h:outputText value="*#{msg['institucionN']}"  style=" position: absolute; top: 145px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaInstitucion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.institucion.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
@@ -459,7 +459,7 @@
                         <p:ajax event="dblclick" listener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 2, 1)}" process="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaInstitucion" value="#{msg['institucionWM']}"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 140px; " id="btnNuevaInstitucion" class="cssBotonLovDialogos" actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 2, 1)}" value="" process="@this"/>
+                     <p:commandButton style="position: absolute; left: 331px; top: 140px;" id="btnNuevaInstitucion" class="cssBotonLovDialogos" actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 2, 1)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['adiestramientoN']}" style=" position: absolute; top: 175px; left: 33px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoAdiestramientoF" value="#{controlPersonaEducacion.nuevaVigenciaFormal.adiestramientof.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase;">
@@ -468,7 +468,7 @@
                         <p:ajax event="dblclick" listener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 3, 1)}"/>
                      </p:inputText>
                      <p:watermark for="nuevoAdiestramientoF" value="#{msg['adiestramientoWM']}"/>
-                     <p:commandButton style=" position: absolute; left: 331px; top: 170px; " id="btnNuevoAdiestramientoF" class="cssBotonLovDialogos" actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 3, 1)}" value="" process="@this"/>
+                     <p:commandButton style=" position: absolute; left: 331px; top: 170px;" id="btnNuevoAdiestramientoF" class="cssBotonLovDialogos" actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 3, 1)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['valoracionN']}"  style=" position: absolute; top: 205px; left: 33px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaCalificacion" value="#{controlPersonaEducacion.nuevaVigenciaFormal.calificacionobtenida}" style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase;">
@@ -539,7 +539,7 @@
                         <p:ajax event="dblclick" listener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 1, 2)}"/>
                      </p:inputText>
                      <p:watermark for="duplicarProfesion" value="#{msg['profesionWM']}"/>
-                     <p:commandButton style=" position: absolute; left: 331px; top: 110px; " id="btnDuplicarProfesion" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 1, 2)}"/> 
+                     <p:commandButton style=" position: absolute; left: 331px; top: 110px;" id="btnDuplicarProfesion" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 1, 2)}"/> 
 
                      <strong><h:outputText value="*#{msg['institucionN']}" style=" position: absolute; top: 145px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarInstitucion" value="#{controlPersonaEducacion.duplicarVigenciaFormal.institucion.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
@@ -548,7 +548,7 @@
                         <p:ajax event="dblclick" listener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 2, 2)}"/>
                      </p:inputText>
                      <p:watermark for="duplicarInstitucion" value="#{msg['institucionWM']}"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 140px; " class="cssBotonLovDialogos" id="btnDuplicarInstitucion" value="" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 2, 2)}"/>
+                     <p:commandButton style="position: absolute; left: 331px; top: 140px;" class="cssBotonLovDialogos" id="btnDuplicarInstitucion" value="" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 2, 2)}"/>
 
                      <strong><h:outputText value="#{msg['adiestramientoN']}" style=" position: absolute; top: 175px; left: 33px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarAdiestramiento" value="#{controlPersonaEducacion.duplicarVigenciaFormal.adiestramientof.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase;">
@@ -557,7 +557,7 @@
                         <p:ajax event="dblclick" listener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 3, 2)}"/>
                      </p:inputText>
                      <p:watermark for="duplicarAdiestramiento" value="#{msg['adiestramientoWM']}"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 170px; " class="cssBotonLovDialogos" id="btnDuplicarAdiestramientoF" value="" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 3, 2)}"/>
+                     <p:commandButton style="position: absolute; left: 331px; top: 170px;" class="cssBotonLovDialogos" id="btnDuplicarAdiestramientoF" value="" process="@this"  actionListener="#{controlPersonaEducacion.asignarIndex(vigenciasFormales, 3, 2)}"/>
 
                      <strong><h:outputText value="#{msg['valoracionN']}" style=" position: absolute; top: 205px; left: 33px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarCalificacion" value="#{controlPersonaEducacion.duplicarVigenciaFormal.calificacionobtenida}" style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase;">
@@ -594,7 +594,7 @@
                      <p:watermark for="duplicarObservacion" value="#{msg['observacionWM']}"/>
 
                      <p:commandButton id="limpiarDuplicadoVigenciaFormal" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 370px;" actionListener="#{controlPersonaEducacion.limpiarduplicarVigenciaFormal()}" update="duplicarVigenciaFormal" process="@this"/>
-                     <p:commandButton id="agregarDuplicadoVigenciaFormal" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 180px; top: 370px;" process="@this" actionListener="#{controlPersonaEducacion.confirmarDuplicar()}" onclick="PF('DuplicarRegistroVigenciaFormal').hide();"  />
+                     <p:commandButton id="agregarDuplicadoVigenciaFormal" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 180px; top: 370px;" process="@this" actionListener="#{controlPersonaEducacion.confirmarDuplicar()}" onclick="PF('DuplicarRegistroVigenciaFormal').hide();"/>
                      <p:commandButton id="cancelarDuplicadoVigenciaFormal" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 280px; top: 370px;" actionListener="#{controlPersonaEducacion.limpiarduplicarVigenciaFormal()}" update="duplicarVigenciaFormal" onclick="PF('DuplicarRegistroVigenciaFormal').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -644,7 +644,7 @@
                         <p:ajax event="dblclick" listener="#{controlPersonaEducacion.asignarIndexNF(vigenciasNoFormales, 3, 1)}"/>
                      </p:inputText>
                      <p:watermark for="nuevoAdiestramientoNF" value="#{msg['adiestramientoWM']}"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 170px; " class="cssBotonLovDialogos" id="btnNuevoAdiestramientoNF" actionListener="#{controlPersonaEducacion.asignarIndexNF(vigenciasNoFormales, 3, 1)}" value="" process="@this"/>
+                     <p:commandButton style="position: absolute; left: 331px; top: 170px;" class="cssBotonLovDialogos" id="btnNuevoAdiestramientoNF" actionListener="#{controlPersonaEducacion.asignarIndexNF(vigenciasNoFormales, 3, 1)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['valoracionN']}"  style=" position: absolute; top: 205px; left: 33px"/></strong>
                      <p:inputText autocomplete="off" id="nuevaCalificacionNF" value="#{controlPersonaEducacion.nuevaVigenciaNoFormal.calificacionobtenida}" style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase;">
@@ -721,19 +721,19 @@
                      <p:watermark for="duplicarObservacionNF" value="#{msg['observacionWM']}"/>
 
                      <p:commandButton id="limpiarDuplicadoVigenciaNoFormal" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 280px;" actionListener="#{controlPersonaEducacion.limpiarduplicarVigenciaNoFormal()}" update="duplicarVigenciaNoFormal" process="@this"/>
-                     <p:commandButton id="agregarDuplicadoVigenciaNoFormal" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 180px; top: 280px;"  process="@this" actionListener="#{controlPersonaEducacion.confirmarDuplicarNF()}" onclick="PF('DuplicarRegistroVigenciaNoFormal').hide();"  />
+                     <p:commandButton id="agregarDuplicadoVigenciaNoFormal" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 180px; top: 280px;"  process="@this" actionListener="#{controlPersonaEducacion.confirmarDuplicarNF()}" onclick="PF('DuplicarRegistroVigenciaNoFormal').hide();"/>
                      <p:commandButton id="cancelarDuplicadoVigenciaNoFormal" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 280px; top: 280px;" actionListener="#{controlPersonaEducacion.limpiarduplicarVigenciaNoFormal()}" update="duplicarVigenciaNoFormal" onclick="PF('DuplicarRegistroVigenciaNoFormal').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
                <p:dialog id="validacionNuevaVigenciaFormal" header="#{msg['atencion']}" widgetVar="validacionNuevaVigenciaFormal"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionNuevoVF']} #{controlPersonaEducacion.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevaVigenciaFormal').hide();" style="position: absolute; top: 70px; left: 260px;" process="@this" icon="ui-icon-circle-check"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPersonaEducacion.guardarTodo()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-circle-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPersonaEducacion.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-circle-close"/>
@@ -741,7 +741,7 @@
                </p:dialog>
 
                <p:dialog id="validacionNuevaVigenciaNoFormal" header="#{msg['atencion']}" widgetVar="validacionNuevaVigenciaNoFormal"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionNuevoVNF']} #{controlPersonaEducacion.mensajeValidacionNF}" style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevaVigenciaNoFormal').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-circle-check"/>
                </p:dialog>
@@ -821,7 +821,7 @@
                   
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarI']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVInstituciones').filter();" class="cssFiltroLOV"  />  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVInstituciones').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{instituciones.descripcion}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains"> 
                         <f:facet name="header">
@@ -1053,53 +1053,53 @@
                <!-- DIALOGOS RASTROS -->
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPersonaEducacion.vigenciaFormalSeleccionada.secuencia, 'VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPersonaEducacion.vigenciaFormalSeleccionada.secuencia, 'VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 70px; left: 175px;" icon="ui-icon-check" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 8px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 3px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="elegirTabla" header="#{msg['informacion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['formales']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlPersonaEducacion.dialogoVigenciasFormales()}" style="position: absolute; top: 65px; left: 20px; height: 30px;" process="@this"/>
                   <p:commandButton value="#{msg['noformales']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlPersonaEducacion.dialogoVigenciasNoFormales()}" style="position: absolute; top: 65px; left: 180px; height: 30px;" process="@this"/>
@@ -1111,7 +1111,7 @@
             <!-- DIALOGOS RASTROS NO FORMALES -->
             <h:form id="formDialogosNF">
                <p:dialog id="confirmarRastroNF" header="#{msg['informacion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPersonaEducacion.secRegistro, 'VigenciasNoFormales', 'personaeducacion')}"
                                    style="position: absolute; top: 70px; left: 175px;" icon="ui-icon-check" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'rastrotabla')}" process="@this"/>
@@ -1119,7 +1119,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasNoFormales', 'personaeducacion')}"
                                    style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'rastrotabla')}" process="@this"/>
@@ -1127,17 +1127,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistoricoNF" header="#{msg['error']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastroNF" header="#{msg['error']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastroNF" header="#{msg['informacion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPersonaEducacion.secRegistro, 'VigenciasNoFormales', 'personaeducacion')}"
                                    style="position: absolute; top: 70px; left: 175px;" icon="ui-icon-check" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'rastrotabla')}" process="@this"/>
@@ -1145,12 +1145,12 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastroNF" header="#{msg['error']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDBNF" header="#{msg['error']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 3px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 

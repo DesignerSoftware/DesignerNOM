@@ -277,20 +277,20 @@
 
 
                         <h:outputText id="informacionRegistro" value="#{controlProyecciones.infoRegistro}" style="position: absolute; left: 15px; top: 455px; font-weight: bold;"/>
-                        <p:commandButton style="position: absolute; left: 10px; top: 475px; "  icon="ui-icon-search" id="BUSCARCENTROCOSTO" disabled="#{controlProyecciones.buscarCentrocosto}" value="Buscar Empleado" actionListener="#{controlProyecciones.lovEmpleados()}" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 180px; top: 475px; " icon="ui-icon-search" id="MOSTRARTODOS" disabled="#{controlProyecciones.mostrartodos}" value="Mostrar Todos" actionListener="#{controlProyecciones.cancelarModificacion()}" process="@this"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 475px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlProyecciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosProyecciones" process="@this"/>
-                        <p:commandButton style=" position: absolute; left: 785px; top: 475px; " icon="ui-icon-closethick" id="ATRAS" value="Atras" actionListener="#{controlProyecciones.salir()}" action="#{controlProyecciones.redirigirPaginaAnterior()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 10px; top: 475px;"  icon="ui-icon-search" id="BUSCARCENTROCOSTO" disabled="#{controlProyecciones.buscarCentrocosto}" value="Buscar Empleado" actionListener="#{controlProyecciones.lovEmpleados()}" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 180px; top: 475px;" icon="ui-icon-search" id="MOSTRARTODOS" disabled="#{controlProyecciones.mostrartodos}" value="Mostrar Todos" actionListener="#{controlProyecciones.cancelarModificacion()}" process="@this"/>
+                        <p:commandButton style=" position: absolute; left: 688px; top: 475px;" icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlProyecciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosProyecciones" process="@this"/>
+                        <p:commandButton style=" position: absolute; left: 785px; top: 475px;" icon="ui-icon-closethick" id="ATRAS" value="Atras" actionListener="#{controlProyecciones.salir()}" action="#{controlProyecciones.redirigirPaginaAnterior()}" process="@this"/>
 
                     </p:panel>
 
                     <p:dialog id="mostrarBorrados" header="ATENCIÓN...!!!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="100" width="320" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="65" height="70" style="position: absolute; left: 20px; top: 15px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="65" height="70" style="position: absolute; left: 20px; top: 15px;"/>
                         <h:outputText value="Se han Borrado #{controlProyecciones.registrosBorrados} Registros" style="position: absolute; left: 100px; top: 20px; width: 200px; font-weight: bold"/>
                         <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  action="#{controlProyecciones.redireccionarAtras()}"  actionListener="#{controlProyecciones.guardarCambiosProyecciones()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"  action="#{controlProyecciones.redireccionarAtras()}"  actionListener="#{controlProyecciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
@@ -303,48 +303,48 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'PROYECCIONES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecciones.secRegistro, 'Proyecciones', 'proyeccion')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla PROYECCIONES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Proyecciones', 'proyeccion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecciones.secRegistro, 'Proyecciones', 'proyeccion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'PROYECCIONES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 

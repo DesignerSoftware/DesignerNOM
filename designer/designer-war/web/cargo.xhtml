@@ -573,7 +573,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCargo.guardarGeneral()}" 
                                    style="position: absolute; top: 50px; left: 125px;" process="@this"/>
@@ -584,7 +584,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCargo.guardarYSalir()}"
                                    style="position: absolute; top: 50px; left: 125px;" process="@this"/>
@@ -620,7 +620,7 @@
 
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlCargo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCargo.backUp, controlCargo.nombreTablaRastro , 'rastroCargo')}" 
                                    style="position: absolute; top: 63px; left: 190px;" onstart="#{controlCargo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cargo','rastrotabla')}" process="@this"/>
@@ -629,7 +629,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlCargo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlCargo.nombreTablaRastro , 'rastroCargo')}" 
                                    style="position: absolute; top: 60px; left: 190px;" onstart="#{controlCargo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cargo','rastrotabla')}" process="@this"/>
@@ -638,74 +638,74 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="105" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCargo.backUp, controlCargo.nombreTablaRastro , 'rastroCargo')}" style="position: absolute; top: 70px; left: 210px;" onstart="#{controlCargo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cargo','rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullCargo" header="#{msg['error']}" widgetVar="errorDatosNullCargo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullCargo']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDescripcionCargo" header="#{msg['error']}" widgetVar="errorDescripcionCargo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDescripcionCargo']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorCodigoCargoRepetido" header="#{msg['error']}" widgetVar="errorCodigoCargoRepetido"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorCodigoCargoRepetido']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullSueldoMercado" header="#{msg['error']}" widgetVar="errorDatosNullSueldoMercado"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullSueldoMercado']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullCompetencia" header="#{msg['error']}" widgetVar="errorDatosNullCompetencia"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullCompetencia']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNullTipoDetalle" header="#{msg['error']}" widgetVar="errorDatosNullTipoDetalle"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullTipoDetalle']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDescripcionTipoDetalle" header="#{msg['error']}" widgetVar="errorDescripcionTipoDetalle"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDescripcionTipoDetalle']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="ingresoNuevoDetalleCargo" header="#{msg['informacion']}" widgetVar="ingresoNuevoDetalleCargo"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['ingresoNuevoDetalleCargo']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: left"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('ingresoNuevoDetalleCargo').hide();" actionListener="#{controlCargo.crearDetalleCargo()}" style="position: absolute; top: 55px; left: 120px;" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('ingresoNuevoDetalleCargo').hide();" style="position: absolute; top: 55px; left: 220px;" process="@this"/>
@@ -719,7 +719,7 @@
 
                      <p:ajax event="filter" listener="#{controlCargo.contarRegistrosCargos()}"/>
                      <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarBC"/>
-                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarCargo()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarCargo()}"  process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarBC']}"/>  
@@ -793,7 +793,7 @@
 
                      <p:ajax event="filter" listener="#{controlCargo.contarRegistrosGrupoVia()}"/>
                      <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarGV"/>
-                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarGrupoViatico()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarGrupoViatico()}"  process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarGV']}"/>  
@@ -828,7 +828,7 @@
 
                      <p:ajax event="filter" listener="#{controlCargo.contarRegistrosProceProdu()}"/>
                      <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarPP"/>
-                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarProcesoProductivo()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarProcesoProductivo()}"  process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarPP']}"/>  
@@ -863,7 +863,7 @@
 
                      <p:ajax event="filter" listener="#{controlCargo.contarRegistrosTiposEmp()}"/>
                      <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarTE"/>
-                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarTipoEmpresa()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarTipoEmpresa()}"  process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTE']}"/>  
@@ -897,7 +897,7 @@
 
                      <p:ajax event="filter" listener="#{controlCargo.contarRegistrosEvalComp()}"/>
                      <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarEC"/>
-                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEvalCompetencia()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEvalCompetencia()}"  process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarEC']}"/>  
@@ -931,7 +931,7 @@
 
                      <p:ajax event="filter" listener="#{controlCargo.contarRegistrosEnfo()}"/>
                      <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarE"/>
-                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEnfoque()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEnfoque()}"  process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarE']}"/>  
@@ -996,12 +996,12 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorBorradoCargo" header="#{msg['atencion']}" widgetVar="errorBorradoCargo"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorradoCargo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -1040,7 +1040,7 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoCargo('GRUPOSALARIAL', controlCargo.nuevoCargo.gruposalarial.descripcion, 1)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['grupoSalarial']}" for="nuevoCargoGrupoSalarial"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 131px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 131px;" 
                                       value="" id="btnNuevoGrupoSalarialCargo" process="@this"  actionListener="#{controlCargo.asignarIndexCargos(null,0,1)}"/>   
 
                      <strong><h:outputText value="#{msg['salarioNC']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
@@ -1090,7 +1090,7 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoCargo('PROCESOPRODUCTIVO', controlCargo.nuevoCargo.procesoproductivo.descripcion, 1)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['procesoProductivo']}" for="nuevoCargoProcesoProductivo"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 341px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 341px;" 
                                       value="" id="btnNuevoProcesoProductivoCargo" process="@this" actionListener="#{controlCargo.asignarIndexCargos(null,2,1)}"/>   
 
                      <strong><h:outputText value="#{msg['codigoAlternativoNC']}" style="position: absolute; top: 375px; left: 50px;"/></strong>
@@ -1100,7 +1100,7 @@
                      <p:watermark value="#{msg['codigoAlternativo']}" for="nuevoCargoCodigoAlternativo"/>
 
                      <p:commandButton id="limpiarNC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 430px;" actionListener="#{controlCargo.limpiarNuevaCargo()}" update="nuevoCargo" process="@this"/>
-                     <p:commandButton id="aceptarNC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 430px;"  actionListener="#{controlCargo.agregarNuevoCargo()}" process="@this"  />
+                     <p:commandButton id="aceptarNC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 430px;"  actionListener="#{controlCargo.agregarNuevoCargo()}" process="@this"/>
                      <p:commandButton id="cancelarNC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style=" position: absolute; left: 290px; top: 430px;" actionListener="#{controlCargo.limpiarNuevaCargo()}" update="nuevoCargo" onclick="PF('NuevoRegistroCargo').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -1160,7 +1160,7 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoCargo('GRUPOVIATICO', controlCargo.duplicarCargo.grupoviatico.descripcion, 2)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['grupoViatico']}" for="duplicarCargoGrupoViatico"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 251px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 251px;" 
                                       id="btnDuplicarGrupoViaticoCargo" value="" process="@this"  actionListener="#{controlCargo.asignarIndexCargos(null,1,2)}"/>   
 
                      <strong><h:outputText value="#{msg['cargoRotativoNC']}" style="position: absolute; top: 285px; left: 50px;"/></strong>
@@ -1180,7 +1180,7 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoCargo('PROCESOPRODUCTIVO', controlCargo.duplicarCargo.procesoproductivo.descripcion, 2)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['procesoProductivo']}" for="duplicarCargoProcesoProductivo"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 341px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 341px;" 
                                       id="btnDuplicarProcesoProductivoCargo" value="" process="@this"  actionListener="#{controlCargo.asignarIndexCargos(null,2,2)}"/>   
 
                      <strong><h:outputText value="#{msg['codigoAlternativoNC']}" style="position: absolute; top: 375px; left: 50px;"/></strong>
@@ -1192,7 +1192,7 @@
                      <p:commandButton id="limpiarDC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 430px;"
                                       actionListener="#{controlCargo.limpiarDuplicarCargo()}" update="duplicarCargo" process="@this"/>
                      <p:commandButton id="agregarDC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 430px;"
-                                      actionListener="#{controlCargo.confirmarDuplicarCargo()}" process="@this"  />
+                                      actionListener="#{controlCargo.confirmarDuplicarCargo()}" process="@this"/>
                      <p:commandButton id="cancelarDC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 430px;"
                                       actionListener="#{controlCargo.limpiarDuplicarCargo()}" update="duplicarCargo" onclick="PF('DuplicarRegistroCargo').hide();"  process="@this"/>
                   </p:panel>
@@ -1231,7 +1231,7 @@
                      <p:commandButton id="limpiarNSM" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 165px;" 
                                       actionListener="#{controlCargo.limpiarNuevaSueldoMercado()}" update="nuevoSueldoMercado" process="@this"/>
                      <p:commandButton id="aceptarNSM" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 165px;"  
-                                      actionListener="#{controlCargo.agregarNuevoSueldoMercado()}" process="@this"  />
+                                      actionListener="#{controlCargo.agregarNuevoSueldoMercado()}" process="@this"/>
                      <p:commandButton id="cancelarNSM" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 165px;" 
                                       actionListener="#{controlCargo.limpiarNuevaSueldoMercado()}" update="nuevoSueldoMercado" onclick="PF('NuevoRegistroSueldoMercado').hide();"  process="@this"/>
                   </p:panel>
@@ -1286,11 +1286,11 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoCompetenciaCargo('EVALCOMPETENCIA', controlCargo.nuevoCompetenciaCargo.evalcompetencia.descripcion, 1)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['decripNuevoCC']}" for="nuevoCompetenciaCargoEval"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 61px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 61px;" 
                                       id="btnNuevoEvalCompetenciaCompetenciaCargo" value="" process="@this"  actionListener="#{controlCargo.asignarIndexCompetenciaC(null,0,1)}"/>   
 
                      <p:commandButton id="limpiarNCC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 115px;" actionListener="#{controlCargo.limpiarNuevaCompetenciaCargo()}" update="nuevoCompetenciaCargo" process="@this"/>
-                     <p:commandButton id="aceptarNCC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 115px;"  actionListener="#{controlCargo.agregarNuevoCompetenciaCargo()}" process="@this"  />
+                     <p:commandButton id="aceptarNCC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 115px;"  actionListener="#{controlCargo.agregarNuevoCompetenciaCargo()}" process="@this"/>
                      <p:commandButton id="cancelarNCC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 115px;" 
                                       actionListener="#{controlCargo.limpiarNuevaCompetenciaCargo()}" update="nuevoCompetenciaCargo" onclick="PF('NuevoRegistroCompetenciaCargo').hide();"  process="@this"/>
                   </p:panel>
@@ -1308,7 +1308,7 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoCompetenciaCargo('EVALCOMPETENCIA', controlCargo.duplicarCompetenciaCargo.evalcompetencia.descripcion, 2)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['decripNuevoCC']}" for="duplicarCompetenciaCargoEval"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 61px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 61px;" 
                                       id="btnDuplicarEvalCompetenciaCompetenciaCargo" value="" process="@this" actionListener="#{controlCargo.asignarIndexCompetenciaC(null,0,2)}"/>   
 
 
@@ -1345,11 +1345,11 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoTipoDetalle('ENFOQUE', controlCargo.nuevoTipoDetalle.enfoque.descripcion, 1)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['enfoque']}" for="nuevoTipoDetalleEnfoque"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 120px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 120px;" 
                                       id="btnNuevoEnfoqueTipoDetalle" value="" process="@this"  actionListener="#{controlCargo.asignarIndexTipoDetalle(null,0,1)}"/>   
 
                      <p:commandButton id="limpiarNTD" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 180px;" actionListener="#{controlCargo.limpiarNuevaTipoDetalle()}" update="nuevoTipoDetalle" process="@this"/>
-                     <p:commandButton id="aceptarNTD" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 180px;"  actionListener="#{controlCargo.agregarNuevoTipoDetalle()}" process="@this"  />
+                     <p:commandButton id="aceptarNTD" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 180px;"  actionListener="#{controlCargo.agregarNuevoTipoDetalle()}" process="@this"/>
                      <p:commandButton id="cancelarNTD" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 180px;" actionListener="#{controlCargo.limpiarNuevaTipoDetalle()}" update="nuevoTipoDetalle" onclick="PF('NuevoRegistroTipoDetalle').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -1380,7 +1380,7 @@
                         <p:ajax event="change" listener="#{controlCargo.autocompletarNuevoyDuplicadoTipoDetalle('ENFOQUE', controlCargo.duplicarTipoDetalle.enfoque.descripcion, 2)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['enfoque']}" for="duplicarTipoDetalleEnfoque"/>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 120px; " 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 120px;" 
                                       id="btnDuplicarEnfoqueTipoDetalle" value="" process="@this"  actionListener="#{controlCargo.asignarIndexTipoDetalle(null,0,1)}"/>   
 
                      <p:commandButton id="limpiarDTD" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 180px;" actionListener="#{controlCargo.limpiarDuplicarTipoDetalle()}" update="duplicarTipoDetalle" process="@this"/>

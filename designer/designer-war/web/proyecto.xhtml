@@ -282,7 +282,7 @@
                         <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarEmpresa()}" process="@this"/>
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"  />  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width:80% !important">
                            <f:facet name="header">
@@ -403,7 +403,7 @@
                         <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarM"/>
                         <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarMoneda()}" process="@this"/>
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarM']}"  />  
+                           <h:outputText value="#{msg['buscarM']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMoneda').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{moneda.codigo}" width="100"  filterMatchMode="contains" filterStyle="width:80% !important">
@@ -467,7 +467,7 @@
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProyecto.guardarYSalir()}"
                                    style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
@@ -477,13 +477,13 @@
                </p:dialog>
 
                <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 45px; left: 280px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.proyectoTablaSeleccionado.secuencia, 'Proyectos', 'proyectoRastro')}" 
                                    style="position: absolute; top: 63px; left: 175px;" onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -491,7 +491,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Proyectos', 'proyectoRastro')}"
                                    style="position: absolute; top: 60px; left: 175px;" onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -499,17 +499,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.proyectoTablaSeleccionado.secuencia, 'Proyectos', 'proyectoRastro')}" 
                                    style="position: absolute; top: 70px; left: 175px;" onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -517,27 +517,27 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 2px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorDatosNull" header="#{msg['error']}" widgetVar="errorDatosNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 85px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"  icon="ui-icon-check"/>
                </p:dialog>
@@ -558,7 +558,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'EMPRESAS')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.nuevaProyectos.empresa.nombre,1)}" process="@this" update="nuevaEmpresaP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 70px; " id="btnNuevaEmpresa" value=" "  actionListener="#{controlProyecto.asignarIndex(info,0,1)}" update="nuevaEmpresaP"/>   
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 70px;" id="btnNuevaEmpresa" value=" "  actionListener="#{controlProyecto.asignarIndex(info,0,1)}" update="nuevaEmpresaP"/>   
                      <p:watermark for="nuevaEmpresaP" value="#{msg['empresa']}"/>
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px; left: 18px;"/></strong>
@@ -579,7 +579,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'CLIENTES')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.nuevaProyectos.pryCliente.nombre,1)}" process="@this" update="nuevaClienteP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 160px; " id="btnNuevaCliente" value=" "  actionListener="#{controlProyecto.asignarIndex(info,1,1)}" update="nuevaClienteP"/>   
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 160px;" id="btnNuevaCliente" value=" "  actionListener="#{controlProyecto.asignarIndex(info,1,1)}" update="nuevaClienteP"/>   
                      <p:watermark for="nuevaClienteP" value="#{msg['cliente']}"/>
 
                      <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px;"/></strong>
@@ -588,7 +588,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'PLATAFORMAS')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.nuevaProyectos.pryPlataforma.descripcion,1)}" process="@this" update="nuevaPlataformaP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 190px; " id="btnNuevaPlataforma" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,2,1)}" update="nuevaPlataformaP"/>   
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 190px;" id="btnNuevaPlataforma" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,2,1)}" update="nuevaPlataformaP"/>   
                      <p:watermark for="nuevaPlataformaP" value="#{msg['plataforma']}"/>
 
                      <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px;"/></strong>
@@ -603,7 +603,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'MONEDAS')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.nuevaProyectos.tipomoneda.nombre,1)}" process="@this" update="nuevaMonedaP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px; " id="btnNuevaMoneda" 
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px;" id="btnNuevaMoneda" 
                                       value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,1)}" update="nuevaMonedaP"/>   
                      <p:watermark for="nuevaMonedaP" value="#{msg['tipomoneda']}"/>
 
@@ -651,7 +651,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'EMPRESAS')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.duplicarProyecto.empresa.nombre,2)}" process="@this" update="duplicarEmpresaP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 70px; " id="btnDuplicaEmpresa" value=" "  process="@this"  actionListener="#{controlProyecto.asignarIndex(info,0,2)}" update="duplicarEmpresaP"/>   
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 70px;" id="btnDuplicaEmpresa" value=" "  process="@this"  actionListener="#{controlProyecto.asignarIndex(info,0,2)}" update="duplicarEmpresaP"/>   
                      <p:watermark for="duplicarEmpresaP" value="#{msg['empresa']}"/>
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style=" position: absolute; top: 105px; left: 18px;"/></strong>
@@ -672,7 +672,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'CLIENTES')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.duplicarProyecto.pryCliente.nombre,2)}" process="@this" update="duplicarClienteP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 160px; " id="btnDuplicaCliente" value=" " process="@this"  actionListener="#{controlProyecto.asignarIndex(info,1,2)}" update="duplicarClienteP"/>   
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 160px;" id="btnDuplicaCliente" value=" " process="@this"  actionListener="#{controlProyecto.asignarIndex(info,1,2)}" update="duplicarClienteP"/>   
                      <p:watermark for="duplicarClienteP" value="#{msg['cliente']}"/>
 
                      <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px;"/></strong>
@@ -681,7 +681,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'PLATAFORMAS')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.duplicarProyecto.pryPlataforma.descripcion,2)}" process="@this" update="duplicarPlataformaP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 190px; " id="btnDuplicaPlataforma" value=""  process="@this" actionListener="#{controlProyecto.asignarIndex(info,2,2)}" update="duplicarPlataformaP"/>   
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 190px;" id="btnDuplicaPlataforma" value=""  process="@this" actionListener="#{controlProyecto.asignarIndex(info,2,2)}" update="duplicarPlataformaP"/>   
                      <p:watermark for="duplicarPlataformaP" value="#{msg['plataforma']}"/>
 
                      <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px;"/></strong>
@@ -696,7 +696,7 @@
                         <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'MONEDAS')}"/>
                         <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.duplicarProyecto.tipomoneda.nombre,2)}" process="@this" update="duplicarMonedaP"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px; " id="btnDuplicaMoneda" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,2)}" update="duplicarMonedaP"/>   
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px;" id="btnDuplicaMoneda" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,2)}" update="duplicarMonedaP"/>   
                      <p:watermark for="duplicarMonedaP" value="#{msg['tipomoneda']}"/>
 
                      <strong><h:outputText value="#{msg['cantidadpersonas']}" style="position: absolute; top: 285px;"/></strong>

@@ -115,7 +115,7 @@
 
                         <p:column headerText="Moneda" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"  /></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombre}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlMonedas.cambiarIndice(info, 1)}" process="@this"
@@ -135,7 +135,7 @@
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlMonedas.salir()}" value=""/>
 
                   <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
-                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                      <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                      <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlMonedas.guardarYSalir()}"
                                       style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check"/>
@@ -173,7 +173,7 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro" resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="La tabla 'MONEDAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMonedas.monedaSeleccionada.secuencia, 'Monedas', 'moneda')}"
                                    icon="ui-icon-check" style="position: absolute; top: 63px; left: 210px;" onstart="#{controlMonedas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
@@ -182,7 +182,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="La tabla MONEDAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Monedas', 'moneda')}"
                                    icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" onstart="#{controlMonedas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>

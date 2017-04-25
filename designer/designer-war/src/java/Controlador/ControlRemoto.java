@@ -995,6 +995,7 @@ public class ControlRemoto implements Serializable {
             tablaExportar = "data1";
             nombreArchivo = "modulos";
             filterListTablas = null;
+            RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
             RequestContext.getCurrentInstance().update("form:tabmenu:infoRegistroTablas");
         }
     }

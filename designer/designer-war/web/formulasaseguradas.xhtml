@@ -103,7 +103,7 @@
 
                         <p:column headerText="#{msg['formula']}" sortBy="#{info.formula.nombrelargo}" filterBy="#{info.formula.nombrelargo}" filterMatchMode="contains" id="personafir" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.formula.nombrelargo}"  /></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.formula.nombrelargo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.formula.nombrelargo}" id="editarPersonaFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlFormulasAseguradas.cambiarIndice(info, 0)}" process="@this"
@@ -120,7 +120,7 @@
 
                         <p:column headerText="#{msg['proceso']}" sortBy="#{info.proceso.descripcion}" filterBy="#{info.proceso.descripcion}" filterMatchMode="contains" id="proceso" width="200" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.proceso.descripcion}"  /></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.proceso.descripcion}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.proceso.descripcion}" id="editarProceso" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlFormulasAseguradas.cambiarIndice(info, 1)}" process="@this"
@@ -137,7 +137,7 @@
 
                         <p:column headerText="#{msg['periodicidad']}" sortBy="#{info.periodicidad.nombre}" filterBy="#{info.periodicidad.nombre}" filterMatchMode="contains" id="periodicidad" width="170" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.periodicidad.nombre}"  /></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.periodicidad.nombre}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.periodicidad.nombre}" id="editarPeriodicidad" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlFormulasAseguradas.cambiarIndice(info, 2)}" process="@this"
@@ -398,17 +398,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencionRastros']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['atencionRastros']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['atencionRastros']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlFormulasAseguradas.secRegistro, 'FormulasAseguradas','formulasaseguradas')}"
                                    style="position: absolute; top: 70px; left: 210px;" onstart="#{controlFormulasAseguradas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulasaseguradas', 'rastrotabla')}" process="@this"/>
@@ -417,17 +417,17 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencionRastros']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['atencionRastros']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="300" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 220px; font-weight: bold;"/>
                </p:dialog>
 
@@ -499,7 +499,7 @@
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarDuplicado('FORMULA', controlFormulasAseguradas.duplicarFormulaAsegurada.formula.nombrelargo , 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlFormulasAseguradas.asignarVariableFormulas(1)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 310px; top: 57px; " id="btnduplicarPersona" value="" process="@this"
+                     <p:commandButton style="position: absolute; left: 310px; top: 57px;" id="btnduplicarPersona" value="" process="@this"
                                       actionListener="#{controlFormulasAseguradas.asignarVariableFormulas(1)}" class="cssBotonLovDialogos"/>   
                      <p:watermark for="duplicarPersona" value="#{msg['formulaNN']}"/>
 
@@ -509,7 +509,7 @@
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarDuplicado('PROCESO', controlFormulasAseguradas.duplicarFormulaAsegurada.proceso.descripcion , 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlFormulasAseguradas.asignarVariableProcesos(1)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 310px; top: 87px; " id="btnduplicarPRoceso" value="" process="@this"
+                     <p:commandButton style="position: absolute; left: 310px; top: 87px;" id="btnduplicarPRoceso" value="" process="@this"
                                       actionListener="#{controlFormulasAseguradas.asignarVariableProcesos(1)}" class="cssBotonLovDialogos"/>   
                      <p:watermark for="duplicarProceso" value="#{msg['procesoNN']}"/>
 
@@ -519,7 +519,7 @@
                         <p:ajax event="change" listener="#{controlFormulasAseguradas.autocompletarDuplicado('PERIODICIDAD', controlFormulasAseguradas.duplicarFormulaAsegurada.periodicidad.nombre , 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlFormulasAseguradas.asignarVariablePeriodicidades(1)}"/>
                      </p:inputText>
-                     <p:commandButton style="position: absolute; left: 310px; top: 117px; " id="btnduplicarPeriodicidad" value="" process="@this"
+                     <p:commandButton style="position: absolute; left: 310px; top: 117px;" id="btnduplicarPeriodicidad" value="" process="@this"
                                       actionListener="#{controlFormulasAseguradas.asignarVariablePeriodicidades(1)}" class="cssBotonLovDialogos"/>   
                      <p:watermark for="duplicarPeriodicidad" value="#{msg['periodicidadNN']}"/>
 

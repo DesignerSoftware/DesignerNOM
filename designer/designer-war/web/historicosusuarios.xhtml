@@ -221,20 +221,20 @@
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="validacionNuevaUsuario" header="#{msg['atencion']}" widgetVar="validacionNuevaUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                         <h:outputText value="#{controlHistoricosUsuarios.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="validacionPersona" header="#{msg['atencion']}" widgetVar="validacionPersona"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                         <h:outputText value="#{msg['validacionPersona']}" style="position: absolute; left: 80px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionPersona').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"
                                          icon="ui-icon-check"/>
                     </p:dialog>  
 
                     <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>
 
@@ -257,20 +257,20 @@
                             <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
                             <p:inputText autocomplete="off" id="nuevoAlias" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 113px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
+                            <p:commandButton style="position: absolute; left: 318px; top: 113px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 143px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
+                            <p:commandButton style="position: absolute; left: 318px; top: 143px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"  /></strong>
+                            <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 318px; top: 173px; " class="cssBotonLovDialogos" id="btnNuevoPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}"/>
+                            <p:commandButton style="position: absolute; left: 318px; top: 173px;" class="cssBotonLovDialogos" id="btnNuevoPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 1)}"/>
 
                             <strong><h:outputText value="Manipulación" style=" position: absolute; top: 200px;"/></strong>
                             <p:selectOneMenu id="nuevaDescripcion" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.estadoDescripcion}"  style=" width: 130px; position: absolute; left: 180px; top: 200px; text-transform: uppercase;">
@@ -306,20 +306,20 @@
                             <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
                             <p:inputText autocomplete="off" id="duplicarAlias" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 113px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
+                            <p:commandButton style="position: absolute; left: 318px; top: 113px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="duplicarPerfil" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 143px; " class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
+                            <p:commandButton style="position: absolute; left: 318px; top: 143px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"  /></strong>
+                            <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="duplicarPersona" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.persona.nombreCompleto}" style=" width: 125px; position: absolute; left: 180px; top: 170px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 318px; top: 173px; " class="cssBotonLovDialogos" id="btnDuplicarPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}"/>
+                            <p:commandButton style="position: absolute; left: 318px; top: 173px;" class="cssBotonLovDialogos" id="btnDuplicarPersona" value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 0, 2)}"/>
 
                             <strong><h:outputText value="Manipulación" style=" position: absolute; top: 200px;"/></strong>
                             <p:selectOneMenu id="duplicarDescripcion" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.estadoDescripcion}"  style=" width: 130px; position: absolute; left: 180px; top: 200px; text-transform: uppercase;">
@@ -331,7 +331,7 @@
                             </p:selectOneMenu>
 
                             <p:commandButton id="limpiarDuplicadoUsuario" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 250px;" actionListener="#{controlHistoricosUsuarios.limpiarDuplicarHistoricosUsuarios()}" update="duplicarUsuario" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoUsuario" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 250px;"  process="@this" actionListener="#{controlHistoricosUsuarios.confirmarDuplicar()}"  />
+                            <p:commandButton id="agregarDuplicadoUsuario" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 250px;"  process="@this" actionListener="#{controlHistoricosUsuarios.confirmarDuplicar()}"/>
                             <p:commandButton id="cancelarDuplicadoUsuario" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 250px;" actionListener="#{controlHistoricosUsuarios.limpiarDuplicarHistoricosUsuarios()}" update="duplicarUsuario" onclick="PF('DuplicarRegistroUsuario').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>      
@@ -420,7 +420,7 @@
                     
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check">
                             <f:actionListener binding="#{controlHistoricosUsuarios.guardarCambiosUsuario()}"/>
@@ -434,7 +434,7 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoricosUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
                                          style="position: absolute; top: 63px; left: 175px;" onstart="#{controlHistoricosUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('historicosusuarios', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -442,7 +442,7 @@
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" 
                                          style="position: absolute; top: 60px; left: 175px;" onstart="#{controlHistoricosUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('historicosusuarios', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -450,17 +450,17 @@
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoricosUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
                                          style="position: absolute; top: 60px; left: 175px;" onstart="#{controlHistoricosUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('historicosusuarios', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
@@ -468,17 +468,17 @@
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>                    
 
@@ -516,7 +516,7 @@
                     </p:dialog>
 
                     <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
-                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
                         <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                         <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlHistoricosUsuarios.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                     </p:dialog>

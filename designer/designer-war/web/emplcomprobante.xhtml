@@ -896,7 +896,7 @@
                <!-- DIALOGOS RASTRO-->
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['tiene']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
                                    style="position: absolute; top: 60px; left: 210px;" onstart="#{controlEmplComprobantes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
@@ -906,7 +906,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['historicos']} " style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('confirmarRastroHistorico').hide();" onstart="#{controlEmplComprobantes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
                                    actionListener="#{controlRastro.historicosTabla(controlEmplComprobantes.nombreTabla, 'emplcomprobante')}" style="position: absolute; top: 60px; left: 210px"/>
@@ -914,17 +914,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['nohistoricos']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="105" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['rastrostablas']} " style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 65px; left: 210px;" onstart="#{controlEmplComprobantes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
@@ -934,17 +934,17 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['rastrostablasno']}"   style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['porfavor']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['objetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
@@ -962,13 +962,13 @@
                </p:dialog>
 
                <p:dialog id="errorFechaEntregaNull" header="#{msg['error']}" widgetVar="errorFechaEntregaNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechaEntregaNull']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <!-- GUARDAR CAMBIOS CORTES PROCESOS -->
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplComprobantes.guardarYsalir}"
                                    style="position: absolute; top: 50px; left: 167px;" process="@this" icon="ui-icon-check"/>
@@ -1188,7 +1188,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCentroCostoCredito()}" process="@this"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCCC']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCentroCostoCredito').filter();" class="cssFiltroLOV"  />  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCentroCostoCredito').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{centroCostoCredito.codigo}" width="70" sortBy="#{centroCostoCredito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
@@ -1221,7 +1221,7 @@
                </p:dialog>
 
                <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido" resizable="false" draggable="true" modal="true" height="100" width="410" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"/>
                   <h:outputText value="#{msg['formatoextendido']}" style="position: absolute; left: 80px; top: 10px; width: 300px; font-weight: bold;"/>
                   <h:outputText value="#{msg['aclaracion']}" style="position: absolute; left: 80px; top: 25px; width: 300px; font-weight: bold; text-align: justify"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" style="position: absolute; top: 75px; left: 240px;" 

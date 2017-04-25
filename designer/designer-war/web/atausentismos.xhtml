@@ -126,7 +126,7 @@
                   </fieldset>
 
                   <p:commandButton id="btnBuscarEmpleados" style="position: absolute; left: 670px; top: 120px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "
-                                   actionListener="#{controlAusentismos.asignarIndex(ausentismos, 0, 0)}" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"  />
+                                   actionListener="#{controlAusentismos.asignarIndex(ausentismos, 0, 0)}" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                   <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 670px; top: 160px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "  actionListener="#{controlAusentismos.mostrarTodos()}" process="@this"/>
 
                   <fieldset style="position: absolute; left: 10px; top: 242px; width: 834px; height: 242px; border-radius: 10px; padding-top: 0px;">
@@ -635,7 +635,7 @@
 
                         <p:column>                            
                            <p:cellEditor>
-                              <f:facet name="output"><h:outputText value="#{ausentismos.relacion}"  /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{ausentismos.relacion}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off"  readonly="true" value="#{ausentismos.relacion}" id="editarRelacion" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;" onselect="periodoAusentismo();"> 
                                     <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 18)}" process="@this"
@@ -1326,7 +1326,7 @@
 
                      <strong><h:outputText value="#{msg['iausenciaN']}" style=" position: absolute; top: 285px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 280px; left: 110px" id="nuevaFecha" value="#{controlAusentismos.nuevoAusentismo.fecha}">
-                        <p:ajax event="dateSelect" update="nuevaFecha" process="@this" listener="#{controlAusentismos.autocompletarFechas(controlAusentismos.nuevoAusentismo.fecha, controlAusentismos.nuevoAusentismo.dias, 1)}"  />
+                        <p:ajax event="dateSelect" update="nuevaFecha" process="@this" listener="#{controlAusentismos.autocompletarFechas(controlAusentismos.nuevoAusentismo.fecha, controlAusentismos.nuevoAusentismo.dias, 1)}"/>
                         <p:ajax event="change" update="nuevaFecha" listener="#{controlAusentismos.autocompletarFechas(controlAusentismos.nuevoAusentismo.fecha, controlAusentismos.nuevoAusentismo.dias, 1)}" process="@this"/>
                      </p:calendar>
 
@@ -1342,7 +1342,7 @@
                         <p:ajax event="change"  update="nuevaFechaExpedicion" process="@this"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="*#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
+                     <strong><h:outputText value="*#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"/></strong>
                      <p:calendar autocomplete="off" style=" position: absolute; top: 120px; left: 400px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicioPago" value="#{controlAusentismos.nuevoAusentismo.fechainipago}">
                         <p:ajax event="dateSelect"  update="nuevaFechaInicioPago" process="@this" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.nuevoAusentismo.fechainipago, controlAusentismos.nuevoAusentismo.dias, 1)}"/>
                         <p:ajax event="change"  update="nuevaFechaInicioPago" process="@this" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.nuevoAusentismo.fechainipago, controlAusentismos.nuevoAusentismo.dias, 1)}"/>
@@ -1450,13 +1450,13 @@
                </p:dialog>
 
                <p:dialog id="validacionNuevoAusentismo" header="#{msg['atencion']}" widgetVar="validacionNuevoAusentismo"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['validacionNuevo']} #{controlAusentismos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevoAusentismo').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAusentismos.guardarYSalir()}" style="position: absolute; top: 60px; left: 125px;" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAusentismos.cancelarYSalir()}"  style="position: absolute; top: 60px; left: 190px;" process="@this"/>
@@ -1526,7 +1526,7 @@
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="*#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
+                     <strong><h:outputText value="*#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" style=" position: absolute; top: 120px; left: 400px" pattern="dd/MM/yyyy" id="duplicarFechaInicioPago" value="#{controlAusentismos.duplicarAusentismo.fechainipago}">
                         <p:ajax event="dateSelect"  update="duplicarFechaInicioPago" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.duplicarAusentismo.fechainipago, controlAusentismos.duplicarAusentismo.dias, 2)}" process="@this"/>
                         <p:ajax event="change"  update="duplicarFechaInicioPago" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.duplicarAusentismo.fechainipago, controlAusentismos.duplicarAusentismo.dias, 2)}" process="@this"/>
@@ -1634,7 +1634,7 @@
                <!-- DIALOGOS RASTROS -->
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAusentismos.ausentismoSeleccionado.getSecuencia(), 'Soausentismos', 'ausentismos')}"
                                    style="position: absolute; top: 63px; left: 175px;" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
@@ -1643,7 +1643,7 @@
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Soausentismos', 'ausentismos')}"
                                    style="position: absolute; top: 60px; left: 175px;" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
@@ -1651,17 +1651,17 @@
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAusentismos.ausentismoSeleccionado.getSecuencia(), 'Soausentismos', 'soausentismos')}"
                                    style="position: absolute; top: 70px; left: 175px;" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
@@ -1669,22 +1669,22 @@
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
@@ -1693,7 +1693,7 @@
 
                <!-- DIALOGO CAMBIO DE EMPLEADO -->
                <p:dialog id="cambiar" header="#{msg['informacion']}" widgetVar="cambiar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('cambiar').hide();" icon="ui-icon-check" actionListener="#{controlAusentismos.guardarCambiosAusentismos()}" style="position: absolute; top: 63px; left: 170px;" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('cambiar').hide();" icon="ui-icon-close" actionListener="#{controlAusentismos.limpiarListas()}" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
