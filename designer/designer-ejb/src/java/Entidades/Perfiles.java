@@ -23,7 +23,7 @@ public class Perfiles implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CODIGO")
-    private short codigo;
+    private BigInteger codigo;
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @Size(max = 50)
@@ -37,7 +37,7 @@ public class Perfiles implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public Perfiles(BigInteger secuencia, short codigo, String descripcion) {
+    public Perfiles(BigInteger secuencia, BigInteger codigo, String descripcion) {
         this.secuencia = secuencia;
         this.codigo = codigo;
         this.descripcion = descripcion;
@@ -51,11 +51,11 @@ public class Perfiles implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public short getCodigo() {
+    public BigInteger getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(short codigo) {
+    public void setCodigo(BigInteger codigo) {
         this.codigo = codigo;
     }
 

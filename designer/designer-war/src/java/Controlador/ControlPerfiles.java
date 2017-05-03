@@ -912,8 +912,8 @@ public class ControlPerfiles implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('editarModulo').show()");
                     cualCelda = -1;
                 } else if (cualCeldaObjetos == 3) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarClasifiacion");
-                    RequestContext.getCurrentInstance().execute("PF('editarClasifiacion').show()");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarClasificacion");
+                    RequestContext.getCurrentInstance().execute("PF('editarClasificacion').show()");
                     cualCelda = -1;
                 }
             }
@@ -961,7 +961,7 @@ public class ControlPerfiles implements Serializable {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
-        if (nuevoPerfil.getCodigo() == 0) {
+        if (nuevoPerfil.getCodigo() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
@@ -1219,7 +1219,7 @@ public class ControlPerfiles implements Serializable {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
-        if (duplicarPerfil.getCodigo() == 0) {
+        if (duplicarPerfil.getCodigo() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
@@ -1572,39 +1572,39 @@ public class ControlPerfiles implements Serializable {
             if (permisosPantallaSeleccionado != null) {
                 int resultado = administrarRastros.obtenerTabla(permisosPantallaSeleccionado.getSecuencia(), "PERMISOSPANTALLAS");
                 if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBPerPantallas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBPantallas').show()");
                 } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroPerPantallas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroPantallas').show()");
                 } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroPerPantallas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroPerPantallas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroPerPantallas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else if (administrarRastros.verificarHistoricosTabla("PERMISOSPANTALLAS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoPerPantallas').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoPantallas').show()");
             } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoPerPantallas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         } else if (cualTabla == 3) {
             if (permisosObjetosDBSeleccionado != null) {
                 int resultado = administrarRastros.obtenerTabla(permisosObjetosDBSeleccionado.getSecuencia(), "PERMISOSOBJETOSDB");
                 if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBPerObjetos').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBObjetos').show()");
                 } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroPerObjetos').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroObjetos').show()");
                 } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroPerObjetos').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroPerObjetos').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroPerObjetos').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else if (administrarRastros.verificarHistoricosTabla("PERMISOSOBJETOSDB")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoPerObjetos').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoObjetos').show()");
             } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoPerObjetos').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
     }
@@ -1750,12 +1750,12 @@ public class ControlPerfiles implements Serializable {
         permisoPantallaLovSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
-        RequestContext.getCurrentInstance().update("formularioDialogos:permisosObjetosDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:lovObjetosP");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarO");
-        RequestContext.getCurrentInstance().reset("formularioDialogos:lovObjetosP:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovObjetosP').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('permisosObjetosDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:permisosPantallasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovPermisosP");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarD");
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovPermisosP:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovPermisosP').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('permisosPantallasDialogo').hide()");
     }
 
     public void cancelarCambioObjeto() {
@@ -2017,182 +2017,181 @@ public class ControlPerfiles implements Serializable {
     }
 
     /// métodos para generar reporte////////
-       public AsynchronousFilllListener listener() {
-      System.out.println(this.getClass().getName() + ".listener()");
-      return new AsynchronousFilllListener() {
-         //RequestContext context = c;
+    public AsynchronousFilllListener listener() {
+        System.out.println(this.getClass().getName() + ".listener()");
+        return new AsynchronousFilllListener() {
+            //RequestContext context = c;
 
-         @Override
-         public void reportFinished(JasperPrint jp) {
-            System.out.println(this.getClass().getName() + ".listener().reportFinished()");
-            try {
-               estadoReporte = true;
-               resultadoReporte = "Exito";
-               //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
+            @Override
+            public void reportFinished(JasperPrint jp) {
+                System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+                try {
+                    estadoReporte = true;
+                    resultadoReporte = "Exito";
+                    //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
 //                    generarArchivoReporte(jp);
-            } catch (Exception e) {
-               System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+                } catch (Exception e) {
+                    System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+                }
             }
-         }
 
-         @Override
-         public void reportCancelled() {
-            System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
-            estadoReporte = true;
-            resultadoReporte = "Cancelación";
-         }
+            @Override
+            public void reportCancelled() {
+                System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+                estadoReporte = true;
+                resultadoReporte = "Cancelación";
+            }
 
-         @Override
-         public void reportFillError(Throwable e) {
-            System.out.println(this.getClass().getName() + ".listener().reportFillError()");
-            if (e.getCause() != null) {
-               pathReporteGenerado = "ControlInterfaseContableTotal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
+            @Override
+            public void reportFillError(Throwable e) {
+                System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+                if (e.getCause() != null) {
+                    pathReporteGenerado = "ControlInterfaseContableTotal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
+                } else {
+                    pathReporteGenerado = "ControlInterfaseContableTotal reportFillError Error: " + e.toString();
+                }
+                estadoReporte = true;
+                resultadoReporte = "Se estallo";
+            }
+        };
+    }
+
+    public void validarDescargaReportePantallas() {
+        try {
+            System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+            RequestContext context = RequestContext.getCurrentInstance();
+            nombreReporte = "segpantallas";
+            tipoReporte = "PDF";
+            System.out.println("nombre reporte : " + nombreReporte);
+            System.out.println("tipo reporte: " + tipoReporte);
+
+            pathReporteGenerado = administarReportes.generarReportePantallas(nombreReporte, tipoReporte);
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                System.out.println("validar descarga reporte - ingreso al if 1");
+                if (tipoReporte.equals("PDF")) {
+                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    FileInputStream fis;
+                    try {
+                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        fis = new FileInputStream(new File(pathReporteGenerado));
+                        System.out.println("fis : " + fis);
+                        reporte = new DefaultStreamedContent(fis, "application/pdf");
+                        System.out.println("reporte despues de esto : " + reporte);
+                        cabezeraVisor = "Reporte - " + nombreReporte;
+                        RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                        RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                        pathReporteGenerado = null;
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("validar descarga reporte - ingreso al catch 1");
+                        System.out.println(ex);
+                        reporte = null;
+                    }
+                }
             } else {
-               pathReporteGenerado = "ControlInterfaseContableTotal reportFillError Error: " + e.toString();
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-            estadoReporte = true;
-            resultadoReporte = "Se estallo";
-         }
-      };
-   }
+        } catch (Exception e) {
+            System.out.println("Error en validar descargar Reporte " + e.toString());
+        }
+    }
 
-   public void validarDescargaReportePantallas() {
-      try {
-         System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
-         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
-         RequestContext context = RequestContext.getCurrentInstance();
-         nombreReporte = "segpantallas";
-         tipoReporte = "PDF";
-         System.out.println("nombre reporte : " + nombreReporte);
-         System.out.println("tipo reporte: " + tipoReporte);
+    public void validarDescargaReporteObjetos() {
+        try {
+            System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+            RequestContext context = RequestContext.getCurrentInstance();
+            nombreReporte = "segobjetos";
+            tipoReporte = "PDF";
+            System.out.println("nombre reporte : " + nombreReporte);
+            System.out.println("tipo reporte: " + tipoReporte);
 
-         pathReporteGenerado = administarReportes.generarReportePantallas(nombreReporte, tipoReporte);
-         RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
-         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
-            if (tipoReporte.equals("PDF")) {
-               System.out.println("validar descarga reporte - ingreso al if 2 else");
-               FileInputStream fis;
-               try {
-                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
-                  fis = new FileInputStream(new File(pathReporteGenerado));
-                  System.out.println("fis : " + fis);
-                  reporte = new DefaultStreamedContent(fis, "application/pdf");
-                  System.out.println("reporte despues de esto : " + reporte);
-                  cabezeraVisor = "Reporte - " + nombreReporte;
-                  RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
-                  RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                  pathReporteGenerado = null;
-               } catch (FileNotFoundException ex) {
-                  System.out.println("validar descarga reporte - ingreso al catch 1");
-                  System.out.println(ex);
-                  reporte = null;
-               }
+            pathReporteGenerado = administarReportes.generarReporteObjetos(nombreReporte, tipoReporte);
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                System.out.println("validar descarga reporte - ingreso al if 1");
+                if (tipoReporte.equals("PDF")) {
+                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    FileInputStream fis;
+                    try {
+                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        fis = new FileInputStream(new File(pathReporteGenerado));
+                        System.out.println("fis : " + fis);
+                        reporte = new DefaultStreamedContent(fis, "application/pdf");
+                        System.out.println("reporte despues de esto : " + reporte);
+                        cabezeraVisor = "Reporte - " + nombreReporte;
+                        RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                        RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                        pathReporteGenerado = null;
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("validar descarga reporte - ingreso al catch 1");
+                        System.out.println(ex);
+                        reporte = null;
+                    }
+                }
+            } else {
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-         } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
-            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-         }
-      } catch (Exception e) {
-         System.out.println("Error en validar descargar Reporte " + e.toString());
-      }
-   }
+        } catch (Exception e) {
+            System.out.println("Error en validar descargar Reporte " + e.toString());
+        }
+    }
 
-      public void validarDescargaReporteObjetos() {
-      try {
-         System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
-         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
-         RequestContext context = RequestContext.getCurrentInstance();
-         nombreReporte = "segobjetos";
-         tipoReporte = "PDF";
-         System.out.println("nombre reporte : " + nombreReporte);
-         System.out.println("tipo reporte: " + tipoReporte);
+    public void reiniciarStreamedContent() {
+        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+        reporte = null;
+    }
 
-         pathReporteGenerado = administarReportes.generarReporteObjetos(nombreReporte, tipoReporte);
-         RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
-         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
-            if (tipoReporte.equals("PDF")) {
-               System.out.println("validar descarga reporte - ingreso al if 2 else");
-               FileInputStream fis;
-               try {
-                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
-                  fis = new FileInputStream(new File(pathReporteGenerado));
-                  System.out.println("fis : " + fis);
-                  reporte = new DefaultStreamedContent(fis, "application/pdf");
-                  System.out.println("reporte despues de esto : " + reporte);
-                  cabezeraVisor = "Reporte - " + nombreReporte;
-                  RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
-                  RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                  pathReporteGenerado = null;
-               } catch (FileNotFoundException ex) {
-                  System.out.println("validar descarga reporte - ingreso al catch 1");
-                  System.out.println(ex);
-                  reporte = null;
-               }
+    public void cancelarReporte() {
+        System.out.println(this.getClass().getName() + ".cancelarReporte()");
+        administarReportes.cancelarReporte();
+    }
+
+    public void exportarReporte() throws IOException {
+        System.out.println(this.getClass().getName() + ".exportarReporte()");
+        if (pathReporteGenerado != null) {
+
+            File reporteF = new File(pathReporteGenerado);
+            System.out.println("reporteF:  " + reporteF);
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            System.out.println("ctx:  " + ctx);
+            FileInputStream fis = new FileInputStream(reporteF);
+            System.out.println("fis:   " + fis);
+            byte[] bytes = new byte[1024];
+            int read;
+            if (!ctx.getResponseComplete()) {
+                String fileName = reporteF.getName();
+                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                ServletOutputStream out = response.getOutputStream();
+
+                while ((read = fis.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                out.flush();
+                out.close();
+                ctx.responseComplete();
             }
-         } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
-            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-         }
-      } catch (Exception e) {
-         System.out.println("Error en validar descargar Reporte " + e.toString());
-      }
-   }
-   
-   public void reiniciarStreamedContent() {
-      System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
-      reporte = null;
-   }
+        }
+    }
 
-   public void cancelarReporte() {
-      System.out.println(this.getClass().getName() + ".cancelarReporte()");
-      administarReportes.cancelarReporte();
-   }
+    public void limpiarExportar() {
+        if (cualTabla == 1) {
+            limpiarNuevoPerfil();
+        } else if (cualTabla == 2) {
+            limpiarNuevoPermisoPantalla();
+        } else if (cualTabla == 3) {
+            limpiarNuevoPermisoObjetos();
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
 
-   public void exportarReporte() throws IOException {
-      System.out.println(this.getClass().getName() + ".exportarReporte()");
-      if (pathReporteGenerado != null) {
-
-         File reporteF = new File(pathReporteGenerado);
-         System.out.println("reporteF:  " + reporteF);
-         FacesContext ctx = FacesContext.getCurrentInstance();
-         System.out.println("ctx:  " + ctx);
-         FileInputStream fis = new FileInputStream(reporteF);
-         System.out.println("fis:   " + fis);
-         byte[] bytes = new byte[1024];
-         int read;
-         if (!ctx.getResponseComplete()) {
-            String fileName = reporteF.getName();
-            HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-            ServletOutputStream out = response.getOutputStream();
-
-            while ((read = fis.read(bytes)) != -1) {
-               out.write(bytes, 0, read);
-            }
-            out.flush();
-            out.close();
-            ctx.responseComplete();
-         }
-      }
-   }
-    
-   public void limpiarExportar() {
-      if (cualTabla == 1) {
-         limpiarNuevoPerfil();
-      } else if (cualTabla == 2) {
-         limpiarNuevoPermisoPantalla();
-      } else if (cualTabla == 3) {
-         limpiarNuevoPermisoObjetos();
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      }
-   }
-   
-    
     ///////////////////sets y gets/////////////////
     public List<Perfiles> getListaPerfiles() {
         if (listaPerfiles == null) {
@@ -2678,6 +2677,4 @@ public class ControlPerfiles implements Serializable {
         this.cabezeraVisor = cabezeraVisor;
     }
 
-    
-    
 }
