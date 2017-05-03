@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
->
+      >
    <h:head>
    </h:head>
    <h:body>
@@ -13,10 +13,10 @@
          <ui:define name="body">
             <script type="text/javascript">
                $(window).load(function () {
-                  foco('form:guardarRapido');
+               foco('form:guardarRapido');
                });
                function foco(idElemento) {
-                  document.getElementById(idElemento).focus();
+               document.getElementById(idElemento).focus();
                }
                ;
             </script>
@@ -116,7 +116,7 @@
                               </f:facet>   
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{comprobante.numero}" readonly="#{comprobante.readOnlyNumero}" id="editarNumero" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;"
-                                               onselect="posicionComprobante([{name: 'n', value: '0'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
+                                              onselect="posicionComprobante([{name: 'n', value: '0'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 0)}" process="@this"
                                             onstart="PF('datosComprobantes').unselectAllRows();PF('datosComprobantes').selectRow(#{indiceComprobante});"/>
@@ -138,7 +138,7 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFecha" readonly="#{comprobante.readOnlyFecha}" value="#{comprobante.fecha}"
-                                              onselect="posicionComprobante([{name: 'n', value: '1'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
+                                             onselect="posicionComprobante([{name: 'n', value: '1'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 1)}" process="@this"
@@ -173,7 +173,7 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaEntregado" readonly="#{comprobante.readOnlyFechaEntregado}" value="#{comprobante.fechaentregado}"
-                                              onselect="posicionComprobante([{name: 'n', value: '2'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
+                                             onselect="posicionComprobante([{name: 'n', value: '2'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
 
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantesFechaEntregado(comprobante,2)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantesFechaEntregado(comprobante,2)}" process="@this"/>
@@ -457,17 +457,17 @@
 
                            <h:outputText value="#{msg['neto']}" style="color: #14388B; font-weight: bold; position: relative; left: 310px; top: 0px; display: inline-block;"/>
                            <p:inputText autocomplete="off" id="neto" value="#{controlEmplComprobantes.neto}" readonly="true"
-                                         style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 323px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                        style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 323px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
 
                            <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: relative; left: 357px; top: 0px; display: inline-block;"/>
                            <p:inputText autocomplete="off" id="subTotalPago" value="#{controlEmplComprobantes.subtotalPago}" readonly="true"
-                                         style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 370px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                        style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 370px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
                            <p:inputText autocomplete="off" id="subTotalDescuento" value="#{controlEmplComprobantes.subtotalDescuento}" readonly="true"
-                                         style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 371px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                        style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 371px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
                         </div>
@@ -671,11 +671,11 @@
 
                            <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: relative; left: 467px; top: 0px; display: inline-block;"/>
                            <p:inputText autocomplete="off" id="subTotalPasivo" value="#{controlEmplComprobantes.subtotalPasivo}" readonly="true"
-                                         style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 479px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                        style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 479px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
                            <p:inputText autocomplete="off" id="subTotalGasto" value="#{controlEmplComprobantes.subtotalGasto}" readonly="true"
-                                         style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 480px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                        style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 480px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
                         </div>
@@ -952,8 +952,28 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarReversar']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarReversar').hide();" style="position: absolute; top: 60px; left: 210px;" process="@this"
-                                   actionListener="#{controlEmplComprobantes.eliminarComprobantegeneral}"/>
+                                   onstart="PF('confirmarReversar2').show();" update=":formularioDialogos:confirmarReversar3"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarReversar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarReversar2" header="#{msg['informacion']}" widgetVar="confirmarReversar2" resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['confirmarReversar2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarReversar2').hide();" style="position: absolute; top: 60px; left: 210px;" process="@this"
+                                   onstart="PF('confirmarReversar3').show();"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarReversar2').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarReversar3" header="#{msg['informacion']}" widgetVar="confirmarReversar3" resizable="false" draggable="true" modal="true" height="125" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['confirmarReversar3']} #{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: absolute; left: 70px; top: 10px; width: 260px; font-weight: bold; text-align: left;"/>
+                  <h:outputText value="Proceso: #{controlEmplComprobantes.cortesProcesosSeleccionado.proceso.descripcion}" style="position: absolute; left: 70px; top: 45px; width: 260px; font-weight: bold; text-align: left;"/>
+                  <h:outputText value="#{controlEmplComprobantes.cortesProcesosSeleccionado.corte}" style="position: absolute; left: 70px; top: 70px; width: 250px; font-weight: bold; text-align: left;">
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </h:outputText>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarReversar3').hide();" style="position: absolute; top: 100px; left: 210px;" process="@this"
+                                   actionListener="#{controlEmplComprobantes.eliminarComprobantegeneral}"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarReversar3').hide();" style="position: absolute; top: 100px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorEliminando" header="#{msg['error']}" widgetVar="errorEliminando" resizable="false" draggable="true" modal="true" height="70" width="280" closable="true">  

@@ -151,25 +151,15 @@ public class ControlParametro implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "parametro";
-         
-         
-         
+       */
+      String pagActual = "parametro";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -1076,6 +1066,7 @@ String pagActual = "parametro";
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       guardado = true;
       limpiarListasValor();
+      navegar("atras");
    }
 
    private void cerrarFiltrado() {
@@ -1258,6 +1249,7 @@ String pagActual = "parametro";
 
    //GETS & SETS DE LovProcesos
    public List<Procesos> getLovProcesos() {
+      cargarLovProcesos();
       return lovProcesos;
    }
 

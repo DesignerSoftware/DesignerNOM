@@ -20,7 +20,6 @@
                }
                ;
             </script>
-            <!--<div class="loader"></div>-->
             <h:form id="form">
                <f:loadBundle basename="Recursos.parametro" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
@@ -347,10 +346,8 @@
                      <p:tooltip  for="adicionarEmpleado" value="#{msg['adicionarempleado']}"/>
                   </fieldset>
 
-                  <p:commandButton style="position: absolute; left: 683px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png);
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlParametro.guardado}"/>
-                  <p:commandButton style="position: absolute; left: 775px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" process="@this">
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlParametro.guardado}"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" process="@this">
                      <f:actionListener binding="#{controlParametro.salir()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
@@ -675,7 +672,7 @@
                      <f:actionListener binding="#{controlParametro.guardarYSalir()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametro.salir()}"
+                  <p:commandButton value="#{msg['no']}" actionListener="#{controlParametro.salir()}"
                                    style="position: absolute; top: 50px; left: 198px;" process="@this" icon="ui-icon-close"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 264px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
