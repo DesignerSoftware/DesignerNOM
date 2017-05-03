@@ -61,4 +61,8 @@ public interface AdministarReportesInterface {
    public String generarReporteSegUsuarios(String nombreReporte,String tipoReporte);  
    
    public String generarReporteHistoricosUsuarios(String nombreReporte,String tipoReporte,Map parametros);
+   
+   public String generarReportePantallas(String nombreReporte,String tipoReporte);
+   
+   public String generarReporteObjetos(String nombreReporte,String tipoReporte);
 }

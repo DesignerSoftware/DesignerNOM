@@ -79,37 +79,27 @@ public class ControlTemplate implements Serializable {
             controlListaNavegacion.quitarPagina(pagActual);
          
         } else {
-            */
-String pagActual = "template";
-            
-            
-            
+         */
+        String pagActual = "template";
 
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
         }
         limpiarListasValor();
     }
@@ -237,7 +227,11 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public String getFechaDesde() {
         parametrosEstructuras = administrarTemplate.consultarParametrosUsuario();
-        fechaDesde = formato.format(parametrosEstructuras.getFechadesdecausado());
+        if (parametrosEstructuras != null) {
+            fechaDesde = formato.format(parametrosEstructuras.getFechadesdecausado());
+        } else {
+            fechaDesde = " ";
+        }
         return fechaDesde;
     }
 
@@ -246,7 +240,11 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String getFechaHasta() {
-        fechaHasta = formato.format(parametrosEstructuras.getFechahastacausado());
+        if (parametrosEstructuras != null) {
+            fechaHasta = formato.format(parametrosEstructuras.getFechahastacausado());
+        } else {
+            fechaHasta = " ";
+        }
         return fechaHasta;
     }
 
@@ -255,7 +253,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String getFechaCorte() {
-        fechaCorte = formato.format(parametrosEstructuras.getFechasistema());
+        if (parametrosEstructuras != null) {
+            fechaCorte = formato.format(parametrosEstructuras.getFechasistema());
+        } else {
+            fechaCorte = "";
+        }
+
         return fechaCorte;
     }
 

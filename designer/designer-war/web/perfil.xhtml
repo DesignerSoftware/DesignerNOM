@@ -1,0 +1,1251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.tipotelefono" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="Perfiles" styleClass="panelTotal">  
+                        <p:toolbar styleClass="cssToolbar">
+                            <p:toolbarGroup align="left;">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPerfiles.guardadoGeneral()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPerfiles.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" disabled="#{controlPerfiles.activarLov}"
+                                                 actionListener="#{controlPerfiles.listaValoresBoton()}"  process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPerfiles.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlPerfiles.exportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlPerfiles.limpiarExportar()}" ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlPerfiles.tablaImprimir}" fileName="#{controlPerfiles.nombreArchivo}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPerfiles.exportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlPerfiles.mostrarDialogoElegirTabla()}" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlPerfiles.elegirBorrar()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlPerfiles.elegirDuplicar()}"  process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlPerfiles.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 oncomplete="window.location.reload()" actionListener="#{controlPerfiles.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlPerfiles.salir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute; top: 70px; left: 518px; height: 110px; width: 320px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 14px; color: blue"><strong>Perfiles</strong></legend>
+                            <p:dataTable id="datosPerfiles" widgetVar="datosPerfiles" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"                           
+                                         value="#{controlPerfiles.listaPerfiles}" 
+                                         filteredValue="#{controlPerfiles.listaPerfilesFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="320" 
+                                         scrollHeight="#{controlPerfiles.altoTabla}" style="border: 1px; width: 320px"
+                                         selection="#{controlPerfiles.perfilSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlPerfiles.contarRegistrosPerfiles()}"/>
+
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  width="60" id="codigo" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.codigo}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodigo" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:keyFilter for="editarCodigo" mask="num"/>
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndice(info,0)}" onstart="PF('datosPerfiles').unselectAllRows();PF('datosPerfiles').selectRow(#{indice}); PF('operacionEnProceso').show()"
+                                                        oncomplete="PF('operacionEnProceso').hide()"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarPerfil(info)}" update="@this"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.descripcion}"  style="text-transform: uppercase;">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.descripcion}" id="editarDesc" maxlength="20" style=" border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndice(info,1)}" onstart="PF('datosPerfiles').unselectAllRows();PF('datosPerfiles').selectRow(#{indice}); PF('operacionEnProceso').show()"
+                                                        oncomplete="PF('operacionEnProceso').hide()"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarPerfil(info)}" update="@this"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Contraseña" sortBy="#{info.pwd}" filterBy="#{info.pwd}" filterMatchMode="contains" id="password" filterStyle="display: none; visibility: hidden;"
+                                          style="padding-left: 0px !important" >  
+                                    <!--<f:facet name="input">-->
+                                    <p:inputText autocomplete="off" value="#{info.pwd}" id="editarpwd" maxlength="20" style="margin-left: 0px !important;"
+                                                 type="password" onfocus="PF('datosPerfiles').unselectAllRows();PF('datosPerfiles').selectRow(#{indice});" onblur="PF('datosPerfiles').unselectAllRows();PF('datosPerfiles').selectRow(#{indice});" > 
+                                        <p:ajax event="select" listener="#{controlPerfiles.cambiarIndice(info,1)}" onstart="PF('datosPerfiles').unselectAllRows();PF('datosPerfiles').selectRow(#{indice}); PF('operacionEnProceso').show()"
+                                                oncomplete="PF('operacionEnProceso').hide()"/>
+                                        <p:ajax event="change" listener="#{controlPerfiles.modificarPerfil(info)}" update="@this"/>
+                                    </p:inputText> 
+                                    <!--</f:facet>-->   
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="columnaRecrearPerfil" 
+                                          style="padding-left: 0px; padding-right: 0px; width: 19px; text-align: center;">                                                              
+                                    <f:facet name="header">
+                                        <h:outputText id="DetalleC" value="..."/>
+                                        <p:tooltip for="DetalleC" value="Recrear Perfil"/>
+                                    </f:facet>
+                                    <p:commandButton style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                                     value=""  actionListener="#{controlPerfiles.recrearPerfil()}" onclick="PF('operacionEnProceso').show()"
+                                                     id="btnrecrearPerfil">
+                                        <p:tooltip for="btnrecrearPerfil" value="Recrear Perfil"/>
+                                    </p:commandButton>   
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroPerfil" value="#{msg['infoRegistros']} #{controlPerfiles.infoRegistroPerfil}" style="position: relative; left: 0px; top: 0px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; top: 190px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 14px; color: blue"><strong>Objetos de las Pantallas</strong></legend>
+                            <p:dataTable id="datosPantallas" widgetVar="datosPantallas" var="pantalla" rowKey="#{pantalla.secuencia}" rowIndexVar="indicePP"                           
+                                         value="#{controlPerfiles.listaPermisosPantallas}" 
+                                         filteredValue="#{controlPerfiles.listaPermisosPantallasFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
+                                         scrollHeight="#{controlPerfiles.altoTablaPantalla}" style="border: 1px; width: 830px"
+                                         selection="#{controlPerfiles.permisosPantallaSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlPerfiles.contarRegistrosPermisosPantallas()}"/>
+
+                                <p:column headerText="Nombre Pantalla" sortBy="#{pantalla.objetofrm.bloque.pantalla.nombre}" filterBy="#{pantalla.objetofrm.bloque.pantalla.nombre}" filterMatchMode="contains"  id="nompantalla" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{pantalla.objetofrm.bloque.pantalla.nombre}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{pantalla.objetofrm.bloque.pantalla.nombre}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndicePantalla(pantalla, 0)}" onstart="PF('datosPantallas').unselectAllRows();PF('datosPantallas').selectRow(#{indicePP});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarPantalla(pantalla)}" update="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 0)}" process="@this"
+                                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Nombre Bloque" sortBy="#{pantalla.objetofrm.bloque.nombre}" filterBy="#{pantalla.objetofrm.bloque.nombre}" filterMatchMode="contains"  id="nombloque" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{pantalla.objetofrm.bloque.nombre}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{pantalla.objetofrm.bloque.nombre}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndicePantalla(pantalla, 1)}" onstart="PF('datosPantallas').unselectAllRows();PF('datosPantallas').selectRow(#{indicePP});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarPantalla(pantalla)}" update="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 0)}" process="@this"
+                                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Nombre Objeto" sortBy="#{pantalla.objetofrm.nombre}" filterBy="#{pantalla.objetofrm.nombre}" filterMatchMode="contains" id="nomobjeto" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{pantalla.objetofrm.nombre}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{pantalla.objetofrm.nombre}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndicePantalla(pantalla, 2)}" onstart="PF('datosPantallas').unselectAllRows();PF('datosPantallas').selectRow(#{indicePP});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarPantalla(pantalla)}" update="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 0)}" process="@this"
+                                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Tipo" sortBy="#{pantalla.tipo}" filterBy="#{pantalla.tipo}" filterMatchMode="contains" id="tipo" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{pantalla.tipo}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="editarTipo" value="#{pantalla.tipo}" style="width: 82%; height: 20px"
+                                                             onblur="PF('datosPantallas').unselectAllRows();PF('datosPantallas').selectRow(#{indicePP});" 
+                                                             onfocus="PF('datosPantallas').unselectAllRows();PF('datosPantallas').selectRow(#{indicePP});">
+                                                <f:selectItem itemLabel="BOTON" itemValue="BOTON"/>  
+                                                <f:selectItem itemLabel="CASILLA" itemValue="CASILLA"/> 
+                                                <f:selectItem itemLabel="LISTA" itemValue="LISTA"/>  
+                                                <f:selectItem itemLabel="TEXTO" itemValue="TEXTO"/>  
+                                                <f:selectItem itemLabel="ELEMENTO MOSTRADO" itemValue="ELEMENTO MOSTRADO"/>  
+                                                <p:ajax event="change" listener="#{controlPerfiles.seleccionarTipo(pantalla.tipo, pantalla)}" update="@this"/>
+                                            </p:selectOneMenu>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Comentario" sortBy="#{pantalla.objetofrm.comentario}" filterBy="#{pantalla.objetofrm.comentario}" filterMatchMode="contains" id="comentario" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{pantalla.objetofrm.comentario}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{pantalla.objetofrm.comentario}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndicePantalla(pantalla, 4)}" onstart="PF('datosPantallas').unselectAllRows();PF('datosPantallas').selectRow(#{indicePP});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarPantalla(pantalla)}" update="@this"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="enablePantallas" sortBy="#{pantalla.e}" filterBy="#{pantalla.e}" width="15"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="inte" value="E"/>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox value="#{pantalla.be}" style="border-radius: 4px; width: 15px; margin: 0;"> 
+                                        <p:ajax event="change" listener="#{controlPerfiles.modificarPantalla(pantalla)}" update="@this"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroPerPantallas" value="#{msg['infoRegistros']} #{controlPerfiles.infoRegistroPantallas}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
+                            <p:commandButton style="position: absolute; left: 140px; top: 102px;" class="cssBotonBuscar" id="btnBuscarEmpleados"  value="" process="@this" 
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"  actionListener="#{controlPerfiles.abrirLista(0)}" />
+                            <p:commandButton style="position: absolute; left: 240px; top: 102px;" class="cssBotonMostrarTodos" id="btnMostrarTodos" value="" process="@this" disabled="#{controlPerfiles.activarMtodos}"
+                                             actionListener="#{controlPerfiles.mostrarTodasPantallas()}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            <p:commandButton style="position: absolute; left: 340px; top: 103px;" class="cssBotonLargo" id="btnReportePantallas" value="Reporte Pantallas" process="@this" 
+                                             actionListener="#{controlPerfiles.mostrarTodasPantallas()}" icon="ui-icon-extlink"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                        </fieldset>
+                        <p:commandButton id="clonar" style="position: absolute; left: 10px; top: 495px;" icon="ui-icon-extlink" value="Clonar Pantallas"   process="@this" actionListener="#{controlPerfiles.clonarPermisosPantallas()}"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLargo" />
+
+                        <fieldset style="position: absolute; top: 325px; left: 10px; height: 145px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 14px; color: blue"><strong>Objetos de la Base de Datos</strong></legend>
+                            <p:dataTable id="datosObjetos" widgetVar="datosObjetos" var="objeto" rowKey="#{objeto.secuencia}" rowIndexVar="indiceObj"                           
+                                         value="#{controlPerfiles.listaPermisosObjetosDB}" filteredValue="#{controlPerfiles.listaPermisosObjetosDBFiltrar}" 
+                                         emptyMessage="No se encontraron resultados para la búsqueda" editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
+                                         scrollHeight="#{controlPerfiles.altoTablaObjeto}" style="border: 1px; width: 830px" selection="#{controlPerfiles.permisosObjetosDBSeleccionado}" selectionMode="single"
+                                         rows="#{controlPerfiles.altoTablaObjeto}" paginator="true"  
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{totalPages}">
+
+
+                                <p:ajax event="filter" listener="#{controlPerfiles.contarRegistrosPermisosObjetos()}"/>
+
+                                <p:column headerText="Nombre del Objeto" sortBy="#{objeto.objetodb.nombre}" filterBy="#{objeto.objetodb.nombre}" filterMatchMode="contains"  id="nomobjetop" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{objeto.objetodb.nombre}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{objeto.objetodb.nombre}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndiceObjeto(objeto, 0)}" onstart="PF('datosObjetos').unselectAllRows();PF('datosObjetos').selectRow(#{indiceObj});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexObjetos(objeto, 0, 0)}" process="@this"
+                                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Tipo" sortBy="#{objeto.objetodb.tipo}" filterBy="#{objeto.objetodb.tipo}" filterMatchMode="contains"  id="tipop" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{objeto.objetodb.tipo}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{objeto.objetodb.tipo}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndiceObjeto(objeto, 1)}" onstart="PF('datosObjetos').unselectAllRows();PF('datosObjetos').selectRow(#{indiceObj});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Módulo" sortBy="#{objeto.objetodb.modulo.nombre}" filterBy="#{objeto.objetodb.modulo.nombre}" filterMatchMode="contains" id="modulo" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{objeto.objetodb.modulo.nombre}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{objeto.objetodb.modulo.nombre}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndiceObjeto(objeto, 2)}" onstart="PF('datosObjetos').unselectAllRows();PF('datosObjetos').selectRow(#{indiceObj});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Clasificación" sortBy="#{objeto.objetodb.clasificacion}" filterBy="#{objeto.objetodb.clasificacion}" filterMatchMode="contains" id="clasificacion" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{objeto.objetodb.clasificacion}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{objeto.objetodb.clasificacion}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlPerfiles.cambiarIndiceObjeto(objeto, 3)}" onstart="PF('datosObjetos').unselectAllRows();PF('datosObjetos').selectRow(#{indiceObj});"/>
+                                                <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                            </p:inputText> 
+
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column id="SObjeto" sortBy="#{objeto.s}" filterBy="#{objeto.s}" width="20"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="s" value="S"/>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox value="#{objeto.bs}" style="border-radius: 4px; width: 15px; margin: 0;"> 
+                                        <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column id="IObjeto" sortBy="#{objeto.i}" filterBy="#{objeto.i}" width="20"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="i" value="I"/>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox value="#{objeto.bi}" style="border-radius: 4px; width: 15px; margin: 0;"> 
+                                        <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column id="DObjeto" sortBy="#{objeto.d}" filterBy="#{objeto.d}" width="20"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="d" value="D"/>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox value="#{objeto.bd}" style="border-radius: 4px; width: 15px; margin: 0;"> 
+                                        <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column id="UObjeto" sortBy="#{objeto.u}" filterBy="#{objeto.u}" width="20"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="u" value="U"/>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox value="#{objeto.bu}" style="border-radius: 4px; width: 15px; margin: 0;"> 
+                                        <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column id="EObjeto" sortBy="#{objeto.e}" filterBy="#{objeto.e}" width="20"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="inte" value="E"/>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox value="#{objeto.be}" style="border-radius: 4px; width: 15px; margin: 0;"> 
+                                        <p:ajax event="change" listener="#{controlPerfiles.modificarObjetoDB(objeto)}" update="@this"/>
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroPerObjetos" value="#{msg['infoRegistros']} #{controlPerfiles.infoRegistroObjetos}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
+                            <p:commandButton style="position: absolute; left: 140px; top: 127px;" class="cssBotonBuscar" value="" process="@this" actionListener="#{controlPerfiles.abrirLista(1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            <p:commandButton style="position: absolute; left: 240px; top: 127px;" class="cssBotonMostrarTodos" value="" process="@this" disabled="#{controlPerfiles.activarMtodos2}" id="btnMostrarTodos2"
+                                             actionListener="#{controlPerfiles.mostrarTodosObjetos()}"  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            <p:commandButton style="position: absolute; left: 340px; top: 127px;" class="cssBotonLargo" value="Reporte Objetos" process="@this" id="btnReporteObjetos" icon="ui-icon-extlink"
+                                             actionListener="#{controlPerfiles.mostrarTodosObjetos()}"  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                        </fieldset>
+                        <p:commandButton id="clonarP" style="position: absolute; left: 185px; top: 495px;" icon="ui-icon-extlink" value="Clonar Permisos"   process="@this" actionListener="#{controlPerfiles.clonarPermisosObjetos()}"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLargo" />
+
+                        <strong><h:outputText value="Clonar de" style=" position: absolute; top: 500px; left: 370px;"/></strong>
+                        <p:inputText autocomplete="off" id="aliasNombreClon" value="#{controlPerfiles.auxclon.descripcion}" style="position: absolute; top: 495px; left: 435px;">
+                            <p:ajax event="dblclick" listener="#{controlPerfiles.lovPefiles()}"/>
+                        </p:inputText>
+                    </p:panel>
+
+                    <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  disabled="#{controlPerfiles.guardado}" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosPerfiles" process="@this"/>
+                    <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlPerfiles.cancelarYSalir()}" process="@this"/>
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="pantallasClonadas" header="#{msg['atencion']}" widgetVar="pantallasClonadas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="Los permisos pantallas han sido clonados exitosamente." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('pantallasClonadas').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="permisosClonados" header="#{msg['atencion']}" widgetVar="permisosClonados"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="Los Permisos Objetos han sido clonados exitosamente." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('permisosClonados').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="validacionClon" header="#{msg['atencion']}" widgetVar="validacionClon"  resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Para poder clonar necesita seleccionar un perfil de la Lista de Valores Clonar de:" style="position: absolute; left: 85px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionClon').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this"
+                                         icon="ui-icon-check"/>
+                    </p:dialog> 
+
+                    <p:dialog id="errorClonarPermisos" header="#{msg['atencion']}" widgetVar="errorClonarPermisos"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="Los Permisos Objetos no se pudieron clonar. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorClonarPermisos').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorClonarPantalla" header="#{msg['atencion']}" widgetVar="errorClonarPantalla"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="Los permisos pantallas no se pudieron clonar. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorClonarPantalla').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="Operación en proceso. Por favor espere..." style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El nombre digitado ya está en uso. Por favor ingrese otro nombre." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('existeNombre').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existePantalla" header="#{msg['error']}" widgetVar="existePantalla"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El permiso pantalla ingresado ya existe.Por favor ingrese uno válido" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('existePantalla').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeObjeto" header="#{msg['error']}" widgetVar="existeObjeto"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El permiso objeto ingresado ya existe.Por favor ingrese uno válido" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('existeObjeto').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="perfilRecreado" header="#{msg['informacion']}" widgetVar="perfilRecreado"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El perfil ha sido recreado exitosamente" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('perfilRecreado').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="sinPrivilegios" header="#{msg['error']}" widgetVar="sinPrivilegios"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Su usuario no tiene privilegios para recrear perfiles" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('sinPrivilegios').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroPerfil" header="Nuevo Registro" widgetVar="NuevoRegistroPerfil" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar un nuevo Perfil" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevoPerfil" style="border: none;">
+                            <strong><h:outputText value="*Código: " style=" position: absolute; top: 55px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoCodigo" value="#{controlPerfiles.nuevoPerfil.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 50px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Nombre: " style=" position: absolute; top: 85px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoNombrePerfil" value="#{controlPerfiles.nuevoPerfil.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 80px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="Contraseña: " style=" position: absolute; top: 115px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevaPw" value="#{controlPerfiles.nuevoPerfil.pwd}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <p:commandButton id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 155px;" icon="ui-icon-trash" actionListener="#{controlPerfiles.limpiarNuevoPerfil()}" update="nuevoPerfil" process="@this"/>
+                            <p:commandButton id="agregarTT" value="Agregar" style=" position: absolute; left: 110px; top: 155px;" icon="ui-icon-circle-check" actionListener="#{controlPerfiles.agregarNuevoPerfil()}" process="@this"/>
+                            <p:commandButton id="cancelarTT" value="Cancelar" style=" position: absolute; left: 210px; top: 155px;" icon="ui-icon-circle-close" actionListener="#{controlPerfiles.limpiarNuevoPerfil()}" update="nuevoPerfil" onclick="PF('NuevoRegistroPerfil').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroPerfil" header="Duplicar Registro" widgetVar="DuplicarRegistroPerfil" closable="false" resizable="false"  draggable="true" modal="true"  height="200" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar información del perfil " style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarPerfil" style="border: none;">
+
+                            <strong><h:outputText value="*Código: " style=" position: absolute; top: 55px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarCodigo" value="#{controlPerfiles.duplicarPerfil.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 50px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Nombre: " style=" position: absolute; top: 85px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarNombrePerfil" value="#{controlPerfiles.duplicarPerfil.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 80px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="Contraseña: " style=" position: absolute; top: 115px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarPw" value="#{controlPerfiles.duplicarPerfil.pwd}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <p:commandButton id="limpiarDuplicadoPefil" value="Limpiar" style=" position: absolute; left: 10px; top: 155px;" icon="ui-icon-trash" actionListener="#{controlPerfiles.limpiarDuplicarPerfiles()}" update="duplicarPerfil" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoPerfil" value="Agregar" style=" position: absolute; left: 110px; top: 155px;"  icon="ui-icon-circle-check" process="@this" actionListener="#{controlPerfiles.confirmarDuplicarPerfil()}"/>
+                            <p:commandButton id="cancelarDuplicadoPerfil" value="Cancelar" style=" position: absolute; left: 210px; top: 155px;" icon="ui-icon-circle-close" actionListener="#{controlPerfiles.limpiarDuplicarPerfiles()}" update="duplicarPerfil" onclick="PF('DuplicarRegistroPerfil').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroPerPantallas" header="Nuevo Registro" widgetVar="NuevoRegistroPerPantallas" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="390" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar un permiso pantalla" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevoPermisoPantalla" style="border: none;">
+                            <strong><h:outputText value="*Nombre Pantalla: " style=" position: absolute; top: 55px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosPantalla.objetofrm.bloque.pantalla.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 50px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 1)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 305px; top: 53px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 1)}"/>   
+
+                            <strong><h:outputText value="*Nombre Bloque: " style=" position: absolute; top: 85px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosPantalla.objetofrm.bloque.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 170px; top: 80px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 1)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText> 
+                            <p:commandButton style="position: absolute; left: 305px; top: 83px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 1)}"/>   
+
+                            <strong><h:outputText value="*Nombre Objeto: " style=" position: absolute; top: 115px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosPantalla.objetofrm.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 1)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText> 
+                            <p:commandButton style="position: absolute; left: 305px; top: 113px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 1)}"/>   
+
+                            <strong><h:outputText value="Tipo: " style=" position: absolute; top: 145px;"/></strong>
+                            <p:selectOneMenu id="nuevoTipo" value="#{controlPerfiles.nuevoPermisosPantalla.tipo}"  
+                                             style=" width: 122px; position: absolute; left: 170px; top: 140px; text-transform: uppercase;" >
+                                <f:selectItem itemLabel="BOTON" itemValue="BOTON"/>  
+                                <f:selectItem itemLabel="CASILLA" itemValue="CASILLA"/> 
+                                <f:selectItem itemLabel="LISTA" itemValue="LISTA"/>  
+                                <f:selectItem itemLabel="TEXTO" itemValue="TEXTO"/>  
+                                <f:selectItem itemLabel="ELEMENTO MOSTRADO" itemValue="ELEMENTO MOSTRADO"/>  
+                                <p:ajax event="change" listener="#{controlPerfiles.seleccionarTipoNuevo(controlPerfiles.nuevoPermisosPantalla.tipo, 1)}" update="@this"/>
+                            </p:selectOneMenu>
+
+                            <strong><h:outputText value="Comentario: " style=" position: absolute; top: 175px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosPantalla.objetofrm.comentario}" style=" width: 122px; position: absolute; left: 170px; top: 170px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="E: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.nuevoPermisosPantalla.e}" style=" width: 122px; position: absolute; left: 170px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <p:commandButton id="limpiarNT" value="Limpiar" style=" position: absolute; left: 15px; top: 240px;" icon="ui-icon-trash" actionListener="#{controlPerfiles.limpiarNuevoPermisoPantalla()}" update="nuevoPermisoPantalla" process="@this"/>
+                            <p:commandButton id="agregarNT" value="Agregar" style=" position: absolute; left: 150px; top: 240px;" icon="ui-icon-circle-check" actionListener="#{controlPerfiles.agregarPermisoPantalla()}" process="@this"/>
+                            <p:commandButton id="cancelarNT" value="Cancelar" style=" position: absolute; left: 250px; top: 240px;" icon="ui-icon-circle-close" actionListener="#{controlPerfiles.limpiarNuevoPermisoPantalla()}" update="nuevoPermisoPantalla" onclick="PF('NuevoRegistroPerPantallas').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroPerPantalla" header="Nuevo Registro" widgetVar="DuplicarRegistroPerPantalla" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="390" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar un permiso pantalla" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarPermisoPantalla" style="border: none;">
+                            <strong><h:outputText value="*Nombre Pantalla: " style=" position: absolute; top: 55px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosPantalla.objetofrm.bloque.pantalla.nombre}"  style=" width: 122px; position: absolute; left: 170px; top: 50px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 2)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 305px; top: 53px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 2)}"/>   
+
+                            <strong><h:outputText value="*Nombre Bloque: " style=" position: absolute; top: 85px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosPantalla.objetofrm.bloque.nombre}"  style=" width: 122px; position: absolute; left: 170px; top: 80px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 2)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText> 
+                            <p:commandButton style="position: absolute; left: 305px; top: 83px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 2)}"/>   
+
+                            <strong><h:outputText value="*Nombre Objeto: " style=" position: absolute; top: 115px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosPantalla.objetofrm.nombre}"  style=" width: 122px; position: absolute; left: 170px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 2)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText> 
+                            <p:commandButton style="position: absolute; left: 305px; top: 113px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexPantallas(pantalla, 0, 2)}"/>   
+
+                            <strong><h:outputText value="Tipo: " style=" position: absolute; top: 145px;"/></strong>
+                            <p:selectOneMenu id="duplicarTipo" value="#{controlPerfiles.duplicarPermisosPantalla.tipo}"  
+                                             style=" width: 122px; position: absolute; left: 170px; top: 140px; text-transform: uppercase;" >
+                                <f:selectItem itemLabel="BOTON" itemValue="BOTON"/>  
+                                <f:selectItem itemLabel="CASILLA" itemValue="CASILLA"/> 
+                                <f:selectItem itemLabel="LISTA" itemValue="LISTA"/>  
+                                <f:selectItem itemLabel="TEXTO" itemValue="TEXTO"/>  
+                                <f:selectItem itemLabel="ELEMENTO MOSTRADO" itemValue="ELEMENTO MOSTRADO"/>  
+                                <p:ajax event="change" listener="#{controlPerfiles.seleccionarTipoNuevo(controlPerfiles.nuevoPermisosPantalla.tipo, 2)}" update="@this"/>
+                            </p:selectOneMenu>
+
+                            <strong><h:outputText value="Comentario: " style=" position: absolute; top: 175px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosPantalla.objetofrm.comentario}" maxlength="20" style=" width: 122px; position: absolute; left: 170px; top: 170px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="E: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.duplicarPermisosPantalla.e}" style=" width: 122px; position: absolute; left: 170px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <p:commandButton id="limpiarDT" value="Limpiar" style=" position: absolute; left: 15px; top: 240px;" icon="ui-icon-trash" actionListener="#{controlPerfiles.limpiarDuplicarPermisosPantallas()}" update="duplicarPermisoPantalla" process="@this"/>
+                            <p:commandButton id="agregarDT" value="Agregar" style=" position: absolute; left: 150px; top: 240px;" icon="ui-icon-circle-check" actionListener="#{controlPerfiles.confirmarDuplicarPermisosPantallas()}" process="@this"/>
+                            <p:commandButton id="cancelarDT" value="Cancelar" style=" position: absolute; left: 250px; top: 240px;" icon="ui-icon-circle-close" actionListener="#{controlPerfiles.limpiarDuplicarPermisosPantallas()}" update="duplicarPermisoPantalla" onclick="PF('DuplicarRegistroPerPantalla').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="NuevoRegistroPerObjetos" header="Nuevo Registro" widgetVar="NuevoRegistroPerObjetos" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="390" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar un permiso pantalla" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevoPermisoObjeto" style="border: none;">
+                            <strong><h:outputText value="*Nombre Objeto: " style=" position: absolute; top: 55px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosObjetosDB.objetodb.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 50px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexObjetos(objeto, 0, 1)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 305px; top: 53px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexObjetos(objeto, 0, 1)}"/>   
+
+                            <strong><h:outputText value="*Tipo: " style=" position: absolute; top: 85px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosObjetosDB.objetodb.tipo}" maxlength="20" style=" width: 122px; position: absolute; left: 170px; top: 80px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="*Módulo: " style=" position: absolute; top: 115px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosObjetosDB.objetodb.modulo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="*Clasificación: " style=" position: absolute; top: 145px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.nuevoPermisosObjetosDB.objetodb.clasificacion}" style=" width: 122px; position: absolute; left: 170px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="S: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.nuevoPermisosObjetosDB.s}" style=" width: 122px; position: absolute; left: 170px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="I: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.nuevoPermisosObjetosDB.i}" style=" width: 122px; position: absolute; left: 200px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="D: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.nuevoPermisosObjetosDB.d}" style=" width: 122px; position: absolute; left: 230px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="U: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.nuevoPermisosObjetosDB.u}" style=" width: 122px; position: absolute; left: 260px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="E: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.nuevoPermisosObjetosDB.e}" style=" width: 122px; position: absolute; left: 290px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <p:commandButton id="limpiarObj" value="Limpiar" style=" position: absolute; left: 15px; top: 240px;" icon="ui-icon-trash" actionListener="#{controlPerfiles.limpiarNuevoPermisoObjetos()}" update="nuevoPermisoObjeto" process="@this"/>
+                            <p:commandButton id="agregarObj" value="Agregar" style=" position: absolute; left: 150px; top: 240px;" icon="ui-icon-circle-check" actionListener="#{controlPerfiles.agregarPermisoObjeto()}" process="@this"/>
+                            <p:commandButton id="cancelarObj" value="Cancelar" style=" position: absolute; left: 250px; top: 240px;" icon="ui-icon-circle-close" actionListener="#{controlPerfiles.limpiarNuevoPermisoObjetos()}" update="nuevoPermisoObjeto" onclick="PF('NuevoRegistroPerObjetos').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroPerObjeto" header="Nuevo Registro" widgetVar="DuplicarRegistroPerObjeto" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="390" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar un permiso pantalla" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarPermisoObjeto" style="border: none;">
+                            <strong><h:outputText value="*Nombre Objeto: " style=" position: absolute; top: 55px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosObjetosDB.objetodb.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 50px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlPerfiles.asignarIndexObjetos(objeto, 0, 2)}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 305px; top: 53px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlPerfiles.asignarIndexObjetos(objeto, 0, 2)}"/>   
+
+                            <strong><h:outputText value="*Tipo: " style=" position: absolute; top: 85px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosObjetosDB.objetodb.tipo}" maxlength="20" style=" width: 122px; position: absolute; left: 170px; top: 80px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="*Módulo: " style=" position: absolute; top: 115px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosObjetosDB.objetodb.modulo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="*Clasificación: " style=" position: absolute; top: 145px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlPerfiles.duplicarPermisosObjetosDB.objetodb.clasificacion}" style=" width: 122px; position: absolute; left: 170px; top: 110px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText> 
+
+                            <strong><h:outputText value="S: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.duplicarPermisosObjetosDB.s}" style=" width: 122px; position: absolute; left: 170px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="I: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.duplicarPermisosObjetosDB.i}" style=" width: 122px; position: absolute; left: 200px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="D: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.duplicarPermisosObjetosDB.d}" style=" width: 122px; position: absolute; left: 230px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="U: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.duplicarPermisosObjetosDB.u}" style=" width: 122px; position: absolute; left: 260px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <strong><h:outputText value="E: " style=" position: absolute; top: 205px;"/></strong>
+                            <p:selectBooleanCheckbox value="#{controlPerfiles.duplicarPermisosObjetosDB.e}" style=" width: 122px; position: absolute; left: 290px; top: 200px; ">  
+                                <p:ajax  update="@this"/>
+                            </p:selectBooleanCheckbox>
+
+                            <p:commandButton id="limpiarDobj" value="Limpiar" style=" position: absolute; left: 15px; top: 240px;" icon="ui-icon-trash" actionListener="#{controlPerfiles.limpiarDuplicarPermisosObjetos()}" update="duplicarPermisoObjeto" process="@this"/>
+                            <p:commandButton id="agregarDObj" value="Agregar" style=" position: absolute; left: 150px; top: 240px;" icon="ui-icon-circle-check" actionListener="#{controlPerfiles.confirmarDuplicarPermisosObjetos()}" process="@this"/>
+                            <p:commandButton id="cancelarDObj" value="Cancelar" style=" position: absolute; left: 250px; top: 240px;" icon="ui-icon-circle-close" actionListener="#{controlPerfiles.limpiarDuplicarPermisosObjetos()}" update="duplicarPermisoObjeto" onclick="PF('DuplicarRegistroPerObjeto').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog header="Objetos de las Pantallas" widgetVar="permisosPantallasDialogo" draggable="true" resizable="false" closable="false" id="permisosPantallasDialogo"  
+                              showEffect="fade" hideEffect="fade" width="580" height="350" modal="true">
+                        <p:dataTable id="lovPermisosP" style="width: 550px;" var="perp" value="#{controlPerfiles.lovPermisosPantallas}" rowKey="#{perp.secuencia}"
+                                     selection="#{controlPerfiles.permisoPantallaLovSeleccionado}" selectionMode="single" widgetVar="lovPermisosP" scrollable="true" scrollHeight="220" scrollWidth="550"
+                                     filteredValue="#{controlPerfiles.lovPermisosPantallasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlPerfiles.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPerfiles.actualizarPantalla()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlPerfiles.contarRegistroLovPantallas()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar : "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPermisosP').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{perp.objetofrm.bloque.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre Pantalla"/>
+                                </f:facet>
+                                <h:outputText value="#{perp.objetofrm.bloque.pantalla.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{perp.objetofrm.bloque.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre Bloque"/>
+                                </f:facet>
+                                <h:outputText value="#{perp.objetofrm.bloque.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{perp.objetofrm.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre Objeto"/>
+                                </f:facet>
+                                <h:outputText value="#{perp.objetofrm.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{perp.tipo}" width="70"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo"/>
+                                </f:facet>
+                                <h:outputText value="#{perp.tipo}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroPantallaLov" value="#{msg['infoRegistro']} #{controlPerfiles.infoRegistroPantallaLov}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarD" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlPerfiles.aceptar}" class="cssAceptarLOV" actionListener="#{controlPerfiles.actualizarPantalla()}"  process="@this"/>
+                            <p:commandButton id="cancelarD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlPerfiles.cancelarCambioPantalla()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog header="Objetos de las Pantallas" widgetVar="permisosPantallasLov" draggable="true" resizable="false" closable="false" id="permisosPantallasLov"  
+                              showEffect="fade" hideEffect="fade" width="580" height="350" modal="true">
+                        <p:dataTable id="lovPermisosDialogo" style="width: 550px;" var="aux" value="#{controlPerfiles.lovPermisosPantallas}" rowKey="#{aux.secuencia}"
+                                     selection="#{controlPerfiles.permisoPantallaLovSeleccionado}" selectionMode="single" widgetVar="lovPermisosDialogo" scrollable="true" scrollHeight="220" scrollWidth="550"
+                                     filteredValue="#{controlPerfiles.lovPermisosPantallasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlPerfiles.activarAceptar()}" update=":formularioDialogos:aceptarDL"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPerfiles.actualizarPantallaDialogo()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlPerfiles.contarRegistroPantallasDialogo()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar : "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPermisosDialogo').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{aux.objetofrm.bloque.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre Pantalla"/>
+                                </f:facet>
+                                <h:outputText value="#{aux.objetofrm.bloque.pantalla.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{aux.objetofrm.bloque.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre Bloque"/>
+                                </f:facet>
+                                <h:outputText value="#{aux.objetofrm.bloque.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{aux.objetofrm.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre Objeto"/>
+                                </f:facet>
+                                <h:outputText value="#{aux.objetofrm.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{aux.tipo}" width="70"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo"/>
+                                </f:facet>
+                                <h:outputText value="#{aux.tipo}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroPantallaDialogo" value="#{msg['infoRegistro']} #{controlPerfiles.infoRegistroPantallaDialogo}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarDL" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlPerfiles.aceptar}" class="cssAceptarLOV" actionListener="#{controlPerfiles.actualizarPantallaDialogo()}"  process="@this"/>
+                            <p:commandButton id="cancelarDL" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlPerfiles.cancelarCambioPantallaDialogo()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog header="Objetos de la Base de Datos" widgetVar="permisosObjetosDialogo" draggable="true" resizable="false" closable="false" id="permisosObjetosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="580" height="350" modal="true">
+                        <p:dataTable id="lovObjetosP" style="width: 550px;" var="perobj" value="#{controlPerfiles.lovPermisosObjetosDB}" rowKey="#{perobj.secuencia}"
+                                     selection="#{controlPerfiles.permisoLovObjetosDBSeleccionado}" selectionMode="single" widgetVar="lovPermisosP" scrollable="true" scrollHeight="220" scrollWidth="550"
+                                     filteredValue="#{controlPerfiles.lovPermisosPantallasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlPerfiles.activarAceptar()}" update=":formularioDialogos:aceptarO"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPerfiles.actualizarPantalla()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlPerfiles.contarRegistroLovObjetos()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar : "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovObjetosP').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{perobj.objetodb.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{perobj.objetodb.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{perobj.objetodb.tipo}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo"/>
+                                </f:facet>
+                                <h:outputText value="#{perobj.objetodb.tipo}"/>
+                            </p:column>
+                            <p:column filterBy="#{perobj.objetodb.modulo}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Módulo"/>
+                                </f:facet>
+                                <h:outputText value="#{perobj.objetodb.modulo}"/>
+                            </p:column>
+                            <p:column filterBy="#{perobj.objetodb.clasificacion}" width="70"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Clasificación"/>
+                                </f:facet>
+                                <h:outputText value="#{perobj.objetodb.clasificacion}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroObjetoLov" value="#{msg['infoRegistro']} #{controlPerfiles.infoRegistroObjetoLov}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarO" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlPerfiles.aceptar}" class="cssAceptarLOV" actionListener="#{controlPerfiles.actualizarPantalla()}"  process="@this"/>
+                            <p:commandButton id="cancelarO" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlPerfiles.cancelarCambioObjeto()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog header="Objetos de la Base de Datos" widgetVar="buscarPermisosObjetosDialogo" draggable="true" resizable="false" closable="false" id="buscarPermisosObjetosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="580" height="350" modal="true">
+                        <p:dataTable id="lovBuscarObjetosP" style="width: 550px;" var="perob" value="#{controlPerfiles.lovPermisosObjetosDB}" rowKey="#{perob.secuencia}"
+                                     selection="#{controlPerfiles.permisoLovObjetosDBSeleccionado}" selectionMode="single" widgetVar="lovBuscarObjetosP" scrollable="true" scrollHeight="220" scrollWidth="550"
+                                     filteredValue="#{controlPerfiles.lovPermisosObjetosDBFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlPerfiles.activarAceptar()}" update=":formularioDialogos:aceptarObd"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPerfiles.actualizarBuscarObjetoDialogo()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlPerfiles.contarRegistroLovBuscarObjetos()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar : "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovBuscarObjetosP').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{perob.objetodb.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{perob.objetodb.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{perob.objetodb.tipo}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo"/>
+                                </f:facet>
+                                <h:outputText value="#{perob.objetodb.tipo}"/>
+                            </p:column>
+                            <p:column filterBy="#{perob.objetodb.modulo.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Módulo"/>
+                                </f:facet>
+                                <h:outputText value="#{perob.objetodb.modulo.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{perob.objetodb.clasificacion}" width="70"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Clasificación"/>
+                                </f:facet>
+                                <h:outputText value="#{perob.objetodb.clasificacion}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroBuscarObjetoLov" value="#{msg['infoRegistro']} #{controlPerfiles.infoRegistroBuscarObjeto}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarObd" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlPerfiles.aceptar}" class="cssAceptarLOV" actionListener="#{controlPerfiles.actualizarBuscarObjetoDialogo()}"  process="@this"/>
+                            <p:commandButton id="cancelarObd" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlPerfiles.cancelarCambioBuscarObjetoDialogo()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog header="Perfiles" widgetVar="aliasDialogo" draggable="true" resizable="false" closable="false" id="aliasDialogo"  
+                              showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
+                        <p:dataTable id="LOVPerfilesAlias" style="width: 330px;" var="aliasU" value="#{controlPerfiles.lovPerfilAlias}" rowKey="#{aliasU.secuencia}"
+                                     selection="#{controlPerfiles.perfilAliasSeleccionado}" selectionMode="single" widgetVar="LOVPerfilesAlias" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlPerfiles.lovPerfilAliasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlPerfiles.activarAceptar()}" update=":formularioDialogos:aceptarAP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlPerfiles.asignarAliasClon()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlPerfiles.contarRegistrosAlias()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Perfil"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPerfilesAlias').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{aliasU.descripcion}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripción"/>
+                                </f:facet>
+                                <h:outputText value="#{aliasU.descripcion}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroAlias" value="#{msg['infoRegistro']} #{controlPerfiles.infoRegistroAlias}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarAP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlPerfiles.aceptar}" class="cssAceptarLOV" actionListener="#{controlPerfiles.asignarAliasClon()}"  process="@this"/>
+                            <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlPerfiles.cancelarCambioAlias()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevoPerfil" header="#{msg['atencion']}" widgetVar="validacionNuevoPerfil"  resizable="false" draggable="true" modal="true" height="95" width="440" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value=" #{controlPerfiles.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevoPerfil').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="validacionInsertarPerfil" header="#{msg['atencion']}" widgetVar="validacionInsertarPerfil"  resizable="false" draggable="true" modal="true" height="95" width="440" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="Por favor seleccione un perfil e intente de nuevo" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('validacionInsertarPerfil').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"
+                                         actionListener="#{controlPerfiles.guardarYSalir()}"/>
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"
+                                         actionListener="#{controlPerfiles.salir()}"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerfiles.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}"
+                                         style="position: absolute; top: 65px; left: 175px;" onstart="#{controlPerfiles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipotelefono', 'rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-circle-close"  />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposTelefonos', 'tipostelefonos')}"
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerfiles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipotelefono', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerfiles.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 70px; left: 170px;" onstart="#{controlPerfiles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipotelefono', 'rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 235px;" process="@this" icon="ui-icon-circle-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="elegirTabla" header="#{msg['informacion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Perfiles" onclick="PF('elegirTabla').hide();" actionListener="#{controlPerfiles.mostrarDialogoNuevoPerfil()}" style="position: absolute; top: 65px; left: 20px; height: 30px;" process="@this"/>
+                        <p:commandButton value="Permisos Pantallas" onclick="PF('elegirTabla').hide();" actionListener="#{controlPerfiles.mostrarDialogoNuevoPerPantalla()}" style="position: absolute; top: 65px; left: 85px; height: 30px;" process="@this"/>
+                        <p:commandButton value="Permisos Objetos" onclick="PF('elegirTabla').hide();" actionListener="#{controlPerfiles.mostrarDialogoNuevoPerObjeto()}"  style="position: absolute; top: 65px; left: 220px; height: 30px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlPerfiles.activarCtrlF11()}" process="@this"/>
+
+
+                    <p:dialog id="editarCodigo" header="Código" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPerfil.codigo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDesc" header="Descripción" widgetVar="editarDesc" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPerfil.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNomPantalla" header="Código" widgetVar="editarNomPantalla" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosPantallas.objetofrm.bloque.pantalla.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNomBloque" header="Descripción" widgetVar="editarNomBloque" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosPantallas.objetofrm.bloque.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarNomObjeto" header="Código" widgetVar="editarNomObjeto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosPantallas.objetofrm.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarComentario" header="Código" widgetVar="editarComentario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosPantallas.objetofrm.comentario}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNomObjetoP" header="Código" widgetVar="editarNomObjetoP" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosObjetosDB.objetodb.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTipoP" header="Descripción" widgetVar="editarTipoP" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosObjetosDB.objetodb.tipo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarModulo" header="Código" widgetVar="editarModulo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosObjetosDB.objetodb.modulo.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarClasifiacion" header="Código" widgetVar="editarClasifiacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlPerfiles.editarPermisosObjetosDB.objetodb.clasificacion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog  id="verReportePDF" header="#{controlPerfiles.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true">
+                        <p:media value="#{controlPerfiles.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlPerfiles.reporte != null}"/>
+                    </p:dialog>
+
+                    <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlPerfiles.reiniciarStreamedContent()}"/>
+
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlPerfiles.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
+                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlPerfiles.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
+                    </p:dialog>
+
+
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosPerfilesExportar" var="perfiles" style="visibility: hidden; display: none;"                           
+                                 value="#{controlPerfiles.listaPerfiles}"> 
+                        <p:column headerText="Codigo">                                  
+                            <f:facet name="header"><h:outputText value="Codigo"/> </f:facet> 
+                            <h:outputText value="#{perfiles.codigo}"/>
+                        </p:column>  
+
+
+                        <p:column headerText="Descripcion">                                  
+                            <f:facet name="header"><h:outputText value="Nombre"/> </f:facet> 
+                            <h:outputText value="#{perfiles.descripcion}"/>
+                        </p:column>  
+
+                    </p:dataTable>
+                    <p:dataTable id="datosPerPantallasExportar" var="pantalla" style="visibility: hidden; display: none;"                           
+                                 value="#{controlPerfiles.listaPermisosPantallas}"> 
+                        <p:column headerText="Nombre Pantalla">                                  
+                            <f:facet name="header"><h:outputText value="Nombre Pantalla"/> </f:facet> 
+                            <h:outputText value="#{pantalla.objetofrm.bloque.pantalla.nombre}"/>
+                        </p:column>  
+                        <p:column headerText="Nombre Bloque">                                  
+                            <f:facet name="header"><h:outputText value="Nombre Bloque"/> </f:facet> 
+                            <h:outputText value="#{pantalla.objetofrm.bloque.nombre}"/>
+                        </p:column>  
+                        <p:column headerText="Nombre Objeto">                                  
+                            <f:facet name="header"><h:outputText value="Nombre Objeto"/> </f:facet> 
+                            <h:outputText value="#{pantalla.objetofrm.bloque.nombre}"/>
+                        </p:column>  
+                        <p:column headerText="Tipo">                                  
+                            <f:facet name="header"><h:outputText value="Tipo"/> </f:facet> 
+                            <h:outputText value="#{pantalla.tipo}"/>
+                        </p:column>  
+                        <p:column headerText="Comentario">                                  
+                            <f:facet name="header"><h:outputText value="Comentario"/> </f:facet> 
+                            <h:outputText value="#{pantalla.objetofrm.comentario}"/>
+                        </p:column>  
+                        <p:column headerText="E">                                  
+                            <f:facet name="header"><h:outputText value="E"/> </f:facet> 
+                            <h:outputText value="#{pantalla.e}"/>
+                        </p:column>  
+                    </p:dataTable>
+                    
+                    <p:dataTable id="datosPerObjetosExportar" var="objetos" style="visibility: hidden; display: none;"                           
+                                 value="#{controlPerfiles.listaPermisosObjetosDB}"> 
+                        <p:column headerText="Nombre del Objeto">                                  
+                            <f:facet name="header"><h:outputText value="Nombre del Objeto"/> </f:facet> 
+                            <h:outputText value="#{objetos.objetodb.nombre}"/>
+                        </p:column>  
+                        <p:column headerText="Tipo">                                  
+                            <f:facet name="header"><h:outputText value="Tipo"/> </f:facet> 
+                            <h:outputText value="#{objetos.objetodb.tipo}"/>
+                        </p:column>  
+                        <p:column headerText="Modulo">                                  
+                            <f:facet name="header"><h:outputText value="Modulo"/> </f:facet> 
+                            <h:outputText value="#{objetos.objetodb.modulo.nombre}"/>
+                        </p:column>  
+                        <p:column headerText="Clasificacion">                                  
+                            <f:facet name="header"><h:outputText value="Clasificacion"/> </f:facet> 
+                            <h:outputText value="#{objetos.objetodb.clasificacion}"/>
+                        </p:column>  
+                        <p:column headerText="S">                                  
+                            <f:facet name="header"><h:outputText value="S"/> </f:facet> 
+                            <h:outputText value="#{objetos.s}"/>
+                        </p:column>  
+                        <p:column headerText="I">                                  
+                            <f:facet name="header"><h:outputText value="I"/> </f:facet> 
+                            <h:outputText value="#{objetos.i}"/>
+                        </p:column>  
+                        <p:column headerText="D">                                  
+                            <f:facet name="header"><h:outputText value="D"/> </f:facet> 
+                            <h:outputText value="#{objetos.d}"/>
+                        </p:column>  
+                        <p:column headerText="U">                                  
+                            <f:facet name="header"><h:outputText value="U"/> </f:facet> 
+                            <h:outputText value="#{objetos.u}"/>
+                        </p:column>  
+                        <p:column headerText="E">                                  
+                            <f:facet name="header"><h:outputText value="E"/> </f:facet> 
+                            <h:outputText value="#{objetos.e}"/>
+                        </p:column>  
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

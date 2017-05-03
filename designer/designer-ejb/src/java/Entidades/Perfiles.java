@@ -60,6 +60,9 @@ public class Perfiles implements Serializable {
     }
 
     public String getDescripcion() {
+        if (descripcion == null) {
+            descripcion = "";
+        }
         return descripcion;
     }
 
@@ -74,7 +77,6 @@ public class Perfiles implements Serializable {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
-    
 
     @Override
     public int hashCode() {

@@ -1133,7 +1133,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       } else if (cualTabla == 3) {
          limpiarDuplicarDiagnosticoCategoria();
       } else {
-         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 

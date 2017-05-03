@@ -16,5 +16,13 @@ public interface PersistenciaPerfilesInterface {
     public Perfiles consultarPerfil(EntityManager em, BigInteger secuencia);
     public List<Perfiles> consultarPerfiles(EntityManager em);
     public Perfiles consultarPerfilPorUsuario(EntityManager em);
+    public void crear(EntityManager em, Perfiles perfil);
+    public void editar(EntityManager em, Perfiles perfil);
+    public void borrar(EntityManager em, Perfiles perfil);
+    public List<Perfiles> consultarPerfilesAdmon(EntityManager em);
+    public void ejecutarPKGRecrearPerfil(EntityManager em, String descripcion,String pwd);
+    public void ejecutarPKGEliminarPerfil(EntityManager em, String descripcion);
+     public void clonarPantallas(EntityManager em, String nomPerfil);
+     public void clonarPermisosObjetos(EntityManager em, String nomPerfil);
     
 }

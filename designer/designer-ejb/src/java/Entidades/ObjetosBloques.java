@@ -41,7 +41,6 @@ public class ObjetosBloques implements Serializable {
     private BloquesPantallas bloque;
     @Size(max = 50)
     @Column(name = "COMENTARIO")
-    @Basic(optional = false)
     private String comentario;
 
     public ObjetosBloques() {

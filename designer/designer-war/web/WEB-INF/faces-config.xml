@@ -791,8 +791,13 @@
          <to-view-id>/valoresconceptos.xhtml</to-view-id>
          <redirect />
       </navigation-case>
+      
+      <navigation-case>
+         <from-outcome>perfil</from-outcome>
+         <to-view-id>/perfil.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
    </navigation-rule> 
-
    <!--NAVEGACION DESDE CONCEPTOS-->
    <navigation-rule>
       <from-view-id>/concepto.xhtml</from-view-id>
@@ -7817,6 +7822,14 @@
       </navigation-case>
    </navigation-rule>
    
+   <navigation-rule>
+      <from-view-id>/perfil.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
    
 </faces-config>
 
