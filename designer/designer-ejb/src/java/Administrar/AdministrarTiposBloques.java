@@ -42,6 +42,11 @@ public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface
    @Override
    public List<TiposBloques> buscarTiposBloques(BigInteger secuenciaOperando) {
       List<TiposBloques> listaTiposBloques = persistenciaTiposBloques.tiposBloques(em, secuenciaOperando);
+      if (listaTiposBloques != null) {
+         if (!listaTiposBloques.isEmpty()) {
+            System.out.println("AdministrarTiposBloques.buscarTiposBloques() pos(0) : " + listaTiposBloques.get(0).getBloqueplsql());
+         }
+      }
       return listaTiposBloques;
    }
 

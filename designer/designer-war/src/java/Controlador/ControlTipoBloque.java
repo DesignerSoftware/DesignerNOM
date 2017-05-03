@@ -161,31 +161,21 @@ public class ControlTipoBloque implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-         */
-String pagActual = "tipobloque";
-         
-         
-         
+       */
+      String pagActual = "tipobloque";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -207,16 +197,12 @@ String pagActual = "tipobloque";
    }
 
    public void cambiarEditor() {
-      System.out.println("Bloque Tipos Bloques : " + editarTiposBloques.getBloqueplsql());
-      System.out.println("Editar Tipo Bloque" + editarTiposBloques.getSecuencia());
       for (int i = 0; i < listaTiposBloques.size(); i++) {
          if (editarTiposBloques.getSecuencia().equals(listaTiposBloques.get(i).getSecuencia())) {
-            System.out.println("ENTRO");
             listaTiposBloques.get(i).setBloqueplsql(editarTiposBloques.getBloqueplsql());
             listaTiposBloquesModificar.add(listaTiposBloques.get(i));
          }
       }
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosTiposBloques");
       contarRegistros();
    }
@@ -235,6 +221,7 @@ String pagActual = "tipobloque";
             RequestContext.getCurrentInstance().execute("PF('editarFechasFinales').show()");
             cualCelda = -1;
          } else if (cualCelda == 3) {
+            System.out.println("ControlTipoBloque.editarCelda() editarTiposBloques.bloqueplsql : " + editarTiposBloques.getBloqueplsql());
             RequestContext.getCurrentInstance().update("formularioDialogos:editarSQL");
             RequestContext.getCurrentInstance().execute("PF('editarSQL').show()");
             cualCelda = -1;
@@ -638,6 +625,11 @@ String pagActual = "tipobloque";
    public List<TiposBloques> getListaTiposBloques() {
       if (listaTiposBloques == null && operando != null) {
          listaTiposBloques = administrarTiposBloques.buscarTiposBloques(operando.getSecuencia());
+         if (listaTiposBloques != null) {
+            if (listaTiposBloques.get(0) != null) {
+               System.out.println("ControlTipoBloque().getListaTiposBloques() pos(0) : " + listaTiposBloques.get(0).getBloqueplsql());
+            }
+         }
       }
       return listaTiposBloques;
    }

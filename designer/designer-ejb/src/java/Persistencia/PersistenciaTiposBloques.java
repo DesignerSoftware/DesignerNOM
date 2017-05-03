@@ -86,11 +86,6 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<TiposBloques> tiposBloquesResult = new ArrayList<TiposBloques>();
          tiposBloquesResult = query.getResultList();
-         if (tiposBloquesResult != null) {
-            if (tiposBloquesResult.get(0) != null) {
-               System.out.println("PersistenciaTiposBloques.tiposBloques() pos(0) : " + tiposBloquesResult.get(0).getBloqueplsql());
-            }
-         }
          return tiposBloquesResult;
       } catch (Exception e) {
          System.out.println("Persistencia.PersistenciaTiposBloques.tiposBloques()" + e.getMessage());
