@@ -72,13 +72,17 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; top: 70px; left: 518px; height: 110px; width: 320px; border-radius: 10px; text-align: left;">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 90px; width: 320px; border-radius: 10px; text-align: left;">
+                            <strong><h:outputText value="#{msg['enunciado']}" style="position: absolute; top: 12px; left: 15px; width: 305px; text-align: justify;"/></strong>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; top: 70px; left: 380px; height: 110px; width: 460px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Perfiles</strong></legend>
                             <p:dataTable id="datosPerfiles" widgetVar="datosPerfiles" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"                           
                                          value="#{controlPerfiles.listaPerfiles}" 
                                          filteredValue="#{controlPerfiles.listaPerfilesFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" scrollable="true" scrollWidth="320" 
-                                         scrollHeight="#{controlPerfiles.altoTabla}" style="border: 1px; width: 320px"
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="460" 
+                                         scrollHeight="#{controlPerfiles.altoTabla}" style="border: 1px; width: 460px"
                                          selection="#{controlPerfiles.perfilSeleccionado}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlPerfiles.contarRegistrosPerfiles()}"/>
@@ -123,7 +127,7 @@
                                         <h:outputText value=" "/>
                                     </f:facet>
                                 </p:column>
-                                <p:column headerText="Contraseña" sortBy="#{info.pwd}" filterBy="#{info.pwd}" filterMatchMode="contains" id="password" filterStyle="display: none; visibility: hidden;"
+                                <p:column headerText="Contraseña" sortBy="#{info.pwd}" filterBy="#{info.pwd}" filterMatchMode="contains" id="password" filterStyle="display: none; visibility: hidden;" width="128"
                                           style="padding-left: 0px !important" >  
                                     <!--<f:facet name="input">-->
                                     <p:inputText autocomplete="off" value="#{info.pwd}" id="editarpwd" maxlength="20" style="margin-left: 0px !important;"
@@ -139,13 +143,13 @@
                                 </p:column>
 
                                 <p:column id="columnaRecrearPerfil" 
-                                          style="padding-left: 0px; padding-right: 0px; width: 19px; text-align: center;">                                                              
+                                          style="padding-left: 0px; padding-right: 0px; text-align: center;">                                                              
                                     <f:facet name="header">
                                         <h:outputText id="DetalleC" value="..."/>
                                         <p:tooltip for="DetalleC" value="Recrear Perfil"/>
                                     </f:facet>
-                                    <p:commandButton style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                                     value=""  actionListener="#{controlPerfiles.recrearPerfil()}" onclick="PF('operacionEnProceso').show()"
+                                    <p:commandButton style="width: 122px; height: 25px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" 
+                                                     value="Recrear Perfil"  actionListener="#{controlPerfiles.recrearPerfil()}" onclick="PF('operacionEnProceso').show()" icon="ui-icon-extlink"
                                                      id="btnrecrearPerfil">
                                         <p:tooltip for="btnrecrearPerfil" value="Recrear Perfil"/>
                                     </p:commandButton>   
@@ -292,7 +296,8 @@
                                              actionListener="#{controlPerfiles.mostrarTodasPantallas()}"
                                              onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             <p:commandButton style="position: absolute; left: 340px; top: 103px;" class="cssBotonLargo" id="btnReportePantallas" value="Reporte Pantallas" process="@this" 
-                                             actionListener="#{controlPerfiles.validarDescargaReportePantallas()}" icon="ui-icon-extlink"/>
+                                             actionListener="#{controlPerfiles.validarDescargaReportePantallas()}" icon="ui-icon-extlink"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                         </fieldset>
                         <p:commandButton id="clonar" style="position: absolute; left: 10px; top: 495px;" icon="ui-icon-extlink" value="Clonar Pantallas"   process="@this" actionListener="#{controlPerfiles.clonarPermisosPantallas()}"
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLargo" />
@@ -453,7 +458,8 @@
                             <p:commandButton style="position: absolute; left: 240px; top: 127px;" class="cssBotonMostrarTodos" value="" process="@this" disabled="#{controlPerfiles.activarMtodos2}" id="btnMostrarTodos2"
                                              actionListener="#{controlPerfiles.mostrarTodosObjetos()}"  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             <p:commandButton style="position: absolute; left: 340px; top: 127px;" class="cssBotonLargo" value="Reporte Objetos" process="@this" id="btnReporteObjetos" icon="ui-icon-extlink"
-                                             actionListener="#{controlPerfiles.validarDescargaReporteObjetos()}"/>
+                                             actionListener="#{controlPerfiles.validarDescargaReporteObjetos()}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                         </fieldset>
                         <p:commandButton id="clonarP" style="position: absolute; left: 185px; top: 495px;" icon="ui-icon-extlink" value="Clonar Permisos"   process="@this" actionListener="#{controlPerfiles.clonarPermisosObjetos()}"
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLargo" />
@@ -1237,7 +1243,7 @@
                             <h:outputText value="#{pantalla.e}"/>
                         </p:column>  
                     </p:dataTable>
-                    
+
                     <p:dataTable id="datosPerObjetosExportar" var="objetos" style="visibility: hidden; display: none;"                           
                                  value="#{controlPerfiles.listaPermisosObjetosDB}"> 
                         <p:column headerText="Nombre del Objeto">                                  

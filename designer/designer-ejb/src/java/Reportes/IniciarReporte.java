@@ -520,7 +520,9 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
             System.out.println("INICIARREPORTE creo master ");
-            JasperPrint imprimir = JasperFillManager.fillReport(masterReport, null, cxn);
+            Map parametros = new HashMap();
+            parametros.put("RutaReportes", rutaReporte);
+            JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");
             String outFileName = rutaGenerado + nombreArchivo;
             System.out.println("INICIARREPORTE outFileName: " + outFileName);
@@ -557,7 +559,9 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
             System.out.println("INICIARREPORTE creo master ");
-            JasperPrint imprimir = JasperFillManager.fillReport(masterReport, null, cxn);
+            Map parametros = new HashMap();
+            parametros.put("RutaReportes", rutaReporte);
+            JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");
             String outFileName = rutaGenerado + nombreArchivo;
             System.out.println("INICIARREPORTE outFileName: " + outFileName);
