@@ -8,7 +8,7 @@
       >
 
    <h:head>
-      <title>Facelet Title</title>
+      <title></title>
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
@@ -95,7 +95,7 @@
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 107px; left: 10px; height: 370px; width: 830px; border-radius: 10px; text-align: left; padding-top: 10px;">
+                  <fieldset style="position: absolute; top: 107px; left: 10px; height: 368px; width: 830px; border-radius: 10px; text-align: left; padding-top: 10px;">
                      <legend style="color: #14388B;"><strong>#{msg['bloque']}</strong></legend>
 
                      <p:dataTable id="datosTiposBloques" var="tc" rowKey="#{tc.secuencia}" rowIndexVar="indice" style="width: 824px;"                         
@@ -147,7 +147,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['tipo']}" sortBy="#{tc.tipo}" filterBy="#{tc.tipo}" filterMatchMode="contains" id="tiposBloquesTipos" width="110" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column headerText="#{msg['tipo']}" sortBy="#{tc.tipo}" filterBy="#{tc.tipo}" filterMatchMode="contains" id="tiposBloquesTipos" width="90" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{tc.estadoTipo}">
@@ -169,7 +169,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="#{msg['codigoplsql']}" sortBy="#{tc.bloqueplsql}" filterBy="#{tc.bloqueplsql}"  filterMatchMode="contains" id="tiposBloquesSQL" filterStyle="display: none; visibility: hidden;">  
+                        <p:column headerText="#{msg['codigoplsql']}" sortBy="#{tc.bloqueplsql}" filterBy="#{tc.bloqueplsql}" filterMatchMode="contains" id="tiposBloquesSQL" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{tc.bloqueplsql}">
@@ -189,7 +189,8 @@
                         </p:column>
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlTipoBloque.infoRegistro}" style="display: table; position: relative; left: 5px; top: 0px; font-weight: bold;"/>
-                     <p:commandButton style="position: absolute; left: 700px; top: 334px;" class="cssBoton" icon="ui-icon-extlink" id="DEPENDENCIA" value="#{msg['dependencia']}" actionListener="#{controlTipoBloque.guardarVariables()}" process="@this"/>
+                     <p:commandButton style="position: absolute; left: 700px; top: 336px;" class="cssBoton" icon="ui-icon-extlink"
+                                      id="DEPENDENCIA" value="#{msg['dependencia']}" actionListener="#{controlTipoBloque.guardarVariables()}" process="@this"/>
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" disabled="#{controlTipoBloque.cambiosPagina}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposBloques" process="@this"/>
@@ -297,9 +298,12 @@
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
-                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 240px;" actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" process="@this"/>
-                     <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 240px;"  actionListener="#{controlTipoBloque.agregarNuevoTipoBloque()}" process="@this"/>
-                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;" actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" onclick="PF('NuevoTipoBloque').hide();" process="@this"/>
+                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 240px;"
+                                      actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" process="@this"/>
+                     <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 240px;"
+                                      actionListener="#{controlTipoBloque.agregarNuevoTipoBloque()}" process="@this"/>
+                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;"
+                                      actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" onclick="PF('NuevoTipoBloque').hide();" process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -322,7 +326,7 @@
 
                      <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <div style=" position: absolute; top: 100px; left: 150px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechafinal}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -359,6 +363,11 @@
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-check"/>
                </p:dialog>
 
+               <p:dialog id="errorFechasTraslapos" header="#{msg['atencion']}" widgetVar="errorFechasTraslapos"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechasTraslapos']}" style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorFechasTraslapos').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
+               </p:dialog>
                <!-- DIALOGOS RASTROS -->
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  

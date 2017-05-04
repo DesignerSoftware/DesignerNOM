@@ -4088,7 +4088,15 @@
       </navigation-case>
    </navigation-rule> 
     
-    
+       <navigation-rule>
+      <from-view-id>/operando.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule> 
+   
    <navigation-rule>
       <from-view-id>/emplviajero.xhtml</from-view-id>
       <navigation-case>
@@ -4097,6 +4105,7 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
    <navigation-rule>
       <from-view-id>/ubicaciongeografica.xhtml</from-view-id>
       <navigation-case>
@@ -4105,6 +4114,7 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
    <navigation-rule>
       <from-view-id>/sucursal_pila.xhtml</from-view-id>
       <navigation-case>

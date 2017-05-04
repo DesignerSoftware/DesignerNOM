@@ -150,55 +150,43 @@ public class ControlOperando implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "operando";
-         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         mapParaEnviar = new LinkedHashMap<String, Object>();
-         mapParaEnviar.put("paginaAnterior", pagActual);
-         mapParaEnviar.put("operandoActual", operandoSeleccionado);
+      String pagActual = "operando";
+      Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+      mapParaEnviar = new LinkedHashMap<String, Object>();
+      mapParaEnviar.put("paginaAnterior", pagActual);
+      mapParaEnviar.put("operandoActual", operandoSeleccionado);
 //         mas Parametros
-         //if (pag.equals("rastrotabla")) {
-         //ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         
-         
-         
-         
-         
-         
-         if (pag.equals("FORMULA")) {
-            pag = "tipoformula";
-            ControlTipoFormula controlTipoFormula = (ControlTipoFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoFormula}", ControlTipoFormula.class);
-            controlTipoFormula.recibirParametros(mapParaEnviar);
-         } else if (pag.equals("CONSTANTE")) {
-            pag = "tipoconstante";
-            ControlTipoConstante controlTipoConstante = (ControlTipoConstante) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoConstante}", ControlTipoConstante.class);
-            controlTipoConstante.recibirParametros(mapParaEnviar);
-         } else if (pag.equals("BLOQUE PL/SQL")) {
-            pag = "tipobloque";
-            ControlTipoBloque controlTipoBloque = (ControlTipoBloque) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoBloque}", ControlTipoBloque.class);
-            controlTipoBloque.recibirParametros(mapParaEnviar);
-         } else if (pag.equals("FUNCION")) {
-            pag = "tipofuncion";
-            ControlTipoFuncion controlTipoFuncion = (ControlTipoFuncion) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoFuncion}", ControlTipoFuncion.class);
-            controlTipoFuncion.recibirParametros(mapParaEnviar);
-         } else if (pag.equals("novedadoperando")) {
-            pag = "novedadoperando";
-            ControlNovedadOperando controlNovedadOperando = (ControlNovedadOperando) fc.getApplication().evaluateExpressionGet(fc, "#{controlNovedadOperando}", ControlNovedadOperando.class);
-            controlNovedadOperando.recibirParametros(mapParaEnviar);
-         }
-         if (pag.equals("atras")) {
+      //if (pag.equals("rastrotabla")) {
+      //ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+
+      if (pag.equals("FORMULA")) {
+         pag = "tipoformula";
+         ControlTipoFormula controlTipoFormula = (ControlTipoFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoFormula}", ControlTipoFormula.class);
+         controlTipoFormula.recibirParametros(mapParaEnviar);
+      } else if (pag.equals("CONSTANTE")) {
+         pag = "tipoconstante";
+         ControlTipoConstante controlTipoConstante = (ControlTipoConstante) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoConstante}", ControlTipoConstante.class);
+         controlTipoConstante.recibirParametros(mapParaEnviar);
+      } else if (pag.equals("BLOQUE PL/SQL")) {
+         pag = "tipobloque";
+         ControlTipoBloque controlTipoBloque = (ControlTipoBloque) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoBloque}", ControlTipoBloque.class);
+         controlTipoBloque.recibirParametros(mapParaEnviar);
+      } else if (pag.equals("FUNCION")) {
+         pag = "tipofuncion";
+         ControlTipoFuncion controlTipoFuncion = (ControlTipoFuncion) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoFuncion}", ControlTipoFuncion.class);
+         controlTipoFuncion.recibirParametros(mapParaEnviar);
+      } else if (pag.equals("novedadoperando")) {
+         pag = "novedadoperando";
+         ControlNovedadOperando controlNovedadOperando = (ControlNovedadOperando) fc.getApplication().evaluateExpressionGet(fc, "#{controlNovedadOperando}", ControlNovedadOperando.class);
+         controlNovedadOperando.recibirParametros(mapParaEnviar);
+      }
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -212,7 +200,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          //}
       }
       limpiarListasValor();
-      
+
    }
 
    public void seleccionarTipo(String estadoTipo, int indice, int celda) {

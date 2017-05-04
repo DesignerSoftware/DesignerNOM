@@ -244,7 +244,7 @@
                      
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"/>  
-                        <p:inputText autocomplete="off" id="gobalFilter" onkeyup="PF('LOVFormulas').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVFormulas').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column sortBy="#{formulas.estado}" filterBy="#{formulas.estado}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
@@ -284,21 +284,21 @@
 
                   <p:panel id="nuevoTipoFormula" style="border: none; padding-left: 40px;">
 
-                     <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 65px;"/></strong>
+                     <strong><h:outputText value="*#{msg['fechainicialN']}" style=" position: absolute; top: 65px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true">
                         <p:ajax event="dateSelect" update="nuevaFechaInicial"/>
                         <p:ajax event="change" update="nuevaFechaInicial"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 105px;"/></strong>
+                     <strong><h:outputText value="*#{msg['fechafinalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true">
                         <p:ajax event="dateSelect" update="nuevaFechaFinal"/>
                         <p:ajax event="change" update="nuevaFechaFinal"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;"/></strong>
+                     <strong><h:outputText value="*#{msg['formulaN']}" style=" position: absolute; top: 145px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrelargo}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(1, 'FORMULA')}"/>
                         <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.nuevoTipoFormula.formula.nombrelargo, 1)}"/>
@@ -325,21 +325,21 @@
 
                   <p:panel id="duplicarTipoFormula" style="border: none; padding-left: 40px;">
 
-                     <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 65px;"/></strong>
+                     <strong><h:outputText value="*#{msg['fechainicialN']}" style=" position: absolute; top: 65px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true">
                         <p:ajax event="dateSelect" update="duplicarFechaInicial"/>
                         <p:ajax event="change" update="duplicarFechaInicial"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 105px;"/></strong>
+                     <strong><h:outputText value="*#{msg['fechafinalN']}" style=" position: absolute; top: 105px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
                                   navigator="true" showButtonPanel="true">
                         <p:ajax event="dateSelect" update="duplicarFechaFinal"/>
                         <p:ajax event="change" update="duplicarFechaFinal"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;"/></strong>
+                     <strong><h:outputText value="*#{msg['formulaN']}" style=" position: absolute; top: 145px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrelargo}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(2, 'FORMULA')}"/>
                         <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.duplicarTipoFormula.formula.nombrelargo, 2)}"/>
@@ -368,6 +368,12 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="66" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 90px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" icon="ui-icon-check" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+               
+               <p:dialog id="errorFechasTraslapos" header="#{msg['atencion']}" widgetVar="errorFechasTraslapos"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechasTraslapos']}" style="position: absolute; left: 100px; top: 10px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorFechasTraslapos').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <!-- DIALOGOS RASTROS -->

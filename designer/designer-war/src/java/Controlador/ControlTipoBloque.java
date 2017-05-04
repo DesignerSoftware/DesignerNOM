@@ -53,7 +53,7 @@ public class ControlTipoBloque implements Serializable {
    private TiposBloques tipoBloqueSeleccionado;
    //L.O.V INFOREPORTES
    private List<TiposBloques> lovTiposBloques;
-   private List<TiposBloques> lovfiltradosTiposBloques;
+   private List<TiposBloques> filtradoLovTiposBloques;
    private TiposBloques tipoBloqueLovSeleccionada;
    //editar celda
    private TiposBloques editarTiposBloques;
@@ -77,7 +77,7 @@ public class ControlTipoBloque implements Serializable {
    //Borrar Novedades
    private List<TiposBloques> listaTiposBloquesBorrar;
    //AUTOCOMPLETAR
-   private String Formula;
+   private String formula;
    //Columnas Tabla Ciudades
    private Column tiposBloquesIniciales, tiposBloquesFinales, tiposBloquesTipos, tiposBloquesSQL;
    //ALTO SCROLL TABLA
@@ -97,9 +97,7 @@ public class ControlTipoBloque implements Serializable {
    private boolean cadenaBD;
    //String que guarda el editar
    private String editorE;
-   public BigInteger secuenciaOperando;
    public String tipoOperando;
-   public Operandos operandoRegistro;
    private String paginaAnterior = "nominaf";
    public String infoRegistro;
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
@@ -116,7 +114,7 @@ public class ControlTipoBloque implements Serializable {
       listaTiposBloquesBorrar = new ArrayList<TiposBloques>();
       listaTiposBloquesCrear = new ArrayList<TiposBloques>();
       listaTiposBloquesModificar = new ArrayList<TiposBloques>();
-      altoTabla = "270";
+      altoTabla = "280";
       duplicarTipoBloque = new TiposBloques();
       nuevoTipoBloque.setFechainicial(new Date());
       mapParametros.put("paginaAnterior", paginaAnterior);
@@ -221,7 +219,7 @@ public class ControlTipoBloque implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editarFechasFinales').show()");
             cualCelda = -1;
          } else if (cualCelda == 3) {
-            System.out.println("ControlTipoBloque.editarCelda() editarTiposBloques.bloqueplsql : " + editarTiposBloques.getBloqueplsql());
+//            System.out.println("ControlTipoBloque.editarCelda() editarTiposBloques.bloqueplsql : " + editarTiposBloques.getBloqueplsql());
             RequestContext.getCurrentInstance().update("formularioDialogos:editarSQL");
             RequestContext.getCurrentInstance().execute("PF('editarSQL').show()");
             cualCelda = -1;
@@ -270,7 +268,7 @@ public class ControlTipoBloque implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "250";
+         altoTabla = "260";
          tiposBloquesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesIniciales");
          tiposBloquesIniciales.setFilterStyle("width: 85% !important;");
          tiposBloquesFinales = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesFinales");
@@ -290,7 +288,7 @@ public class ControlTipoBloque implements Serializable {
 
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "270";
+      altoTabla = "280";
       System.out.println("Desactivar");
       System.out.println("TipoLista= " + tipoLista);
       tiposBloquesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesIniciales");
@@ -397,6 +395,12 @@ public class ControlTipoBloque implements Serializable {
    public void guardarCambiosTiposBloques() {
       if (guardado == false) {
          System.out.println("Realizando Operaciones Novedades");
+         if (!listaTiposBloquesModificar.isEmpty()) {
+            for (int i = 0; i < listaTiposBloquesModificar.size(); i++) {
+               administrarTiposBloques.modificarTiposBloques(listaTiposBloquesModificar.get(i));
+            }
+            listaTiposBloquesModificar.clear();
+         }
          if (!listaTiposBloquesBorrar.isEmpty()) {
             for (int i = 0; i < listaTiposBloquesBorrar.size(); i++) {
                System.out.println("Borrando..." + listaTiposBloquesBorrar.size());
@@ -412,12 +416,6 @@ public class ControlTipoBloque implements Serializable {
             }
             System.out.println("LimpiaLista");
             listaTiposBloquesCrear.clear();
-         }
-         if (!listaTiposBloquesModificar.isEmpty()) {
-            for (int i = 0; i < listaTiposBloquesModificar.size(); i++) {
-               administrarTiposBloques.modificarTiposBloques(listaTiposBloquesModificar.get(i));
-            }
-            listaTiposBloquesModificar.clear();
          }
          listaTiposBloques = null;
          cambiosPagina = true;
@@ -505,6 +503,32 @@ public class ControlTipoBloque implements Serializable {
       contarRegistros();
    }
 
+   public boolean hayTraslaposFechas(Date fecha1Ini, Date fecha1Fin, Date fecha2Ini, Date fecha2Fin) {
+      boolean hayTraslapos;
+      if ((fecha1Fin.after(fecha2Fin) && fecha1Ini.before(fecha2Fin))
+              || (fecha1Ini.before(fecha2Ini) && fecha1Fin.after(fecha2Ini))
+              || fecha1Fin.equals(fecha2Fin)
+              || fecha1Ini.equals(fecha2Ini)
+              || fecha1Ini.equals(fecha2Fin)
+              || fecha1Fin.equals(fecha2Ini)) {
+         hayTraslapos = true;
+      } else {
+         hayTraslapos = false;
+      }
+      return hayTraslapos;
+   }
+
+   public boolean validarNuevoTraslapes(TiposBloques tipoBloque) {
+      boolean continuar = true;
+      for (int i = 0; i < listaTiposBloques.size(); i++) {
+         if (hayTraslaposFechas(listaTiposBloques.get(i).getFechainicial(), listaTiposBloques.get(i).getFechafinal(),
+                 tipoBloque.getFechainicial(), tipoBloque.getFechafinal())) {
+            continuar = false;
+         }
+      }
+      return continuar;
+   }
+
    public void agregarNuevoTipoBloque() {
       int pasa = 0;
       int pasa2 = 0;
@@ -529,30 +553,34 @@ public class ControlTipoBloque implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoBloque').show()");
       }
       if (pasa == 0 && pasa2 == 0) {
-         if (bandera == 1) {
-            restaurarTabla();
-         }
-         //AGREGAR REGISTRO A LA LISTA NOVEDADES .
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoTipoBloque.setSecuencia(l);
-         System.out.println("Operando: " + operando);
-         nuevoTipoBloque.setOperando(operando);
+         if (validarNuevoTraslapes(nuevoTipoBloque)) {
+            if (bandera == 1) {
+               restaurarTabla();
+            }
+            //AGREGAR REGISTRO A LA LISTA NOVEDADES .
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoTipoBloque.setSecuencia(l);
+            System.out.println("Operando: " + operando);
+            nuevoTipoBloque.setOperando(operando);
 
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         listaTiposBloquesCrear.add(nuevoTipoBloque);
-         listaTiposBloques.add(nuevoTipoBloque);
-         tipoBloqueSeleccionado = listaTiposBloques.get(listaTiposBloques.indexOf(nuevoTipoBloque));
-         nuevoTipoBloque = new TiposBloques();
-         RequestContext.getCurrentInstance().update("form:datosTiposBloques");
-         contarRegistros();
-         if (guardado == true) {
-            guardado = false;
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            listaTiposBloquesCrear.add(nuevoTipoBloque);
+            listaTiposBloques.add(nuevoTipoBloque);
+            tipoBloqueSeleccionado = listaTiposBloques.get(listaTiposBloques.indexOf(nuevoTipoBloque));
+            nuevoTipoBloque = new TiposBloques();
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
+            contarRegistros();
+            if (guardado == true) {
+               guardado = false;
+               cambiosPagina = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            RequestContext.getCurrentInstance().execute("PF('NuevoTipoBloque').hide()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorFechasTraslapos').show()");
          }
-         RequestContext.getCurrentInstance().execute("PF('NuevoTipoBloque').hide()");
       }
    }
 
@@ -568,25 +596,29 @@ public class ControlTipoBloque implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoBloque').show()");
       }
       if (pasa == 0) {
-         if (bandera == 1) {
-            restaurarTabla();
-         }
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         duplicarTipoBloque.setOperando(operando);
-         listaTiposBloques.add(duplicarTipoBloque);
-         listaTiposBloquesCrear.add(duplicarTipoBloque);
-         tipoBloqueSeleccionado = listaTiposBloques.get(listaTiposBloques.indexOf(duplicarTipoBloque));
-
-         if (guardado == true) {
-            guardado = false;
+         if (validarNuevoTraslapes(duplicarTipoBloque)) {
+            if (bandera == 1) {
+               restaurarTabla();
+            }
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            duplicarTipoBloque.setOperando(operando);
+            listaTiposBloques.add(duplicarTipoBloque);
+            listaTiposBloquesCrear.add(duplicarTipoBloque);
+            tipoBloqueSeleccionado = listaTiposBloques.get(listaTiposBloques.indexOf(duplicarTipoBloque));
+
+            if (guardado == true) {
+               guardado = false;
+               cambiosPagina = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            RequestContext.getCurrentInstance().update("form:datosTiposBloques");
+            duplicarTipoBloque = new TiposBloques();
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoBloque");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoBloque').hide()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorFechasTraslapos').show()");
          }
-         RequestContext.getCurrentInstance().update("form:datosTiposBloques");
-         duplicarTipoBloque = new TiposBloques();
-         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoBloque");
-         RequestContext.getCurrentInstance().execute("PF('DuplicarTipoBloque').hide()");
       }
    }
 
@@ -797,23 +829,7 @@ public class ControlTipoBloque implements Serializable {
    public void setEditorE(String editorE) {
       this.editorE = editorE;
    }
-
-   public BigInteger getSecuenciaOperando() {
-      return secuenciaOperando;
-   }
-
-   public void setSecuenciaOperando(BigInteger secuenciaOperando) {
-      this.secuenciaOperando = secuenciaOperando;
-   }
-
-   public Operandos getOperandoSeleccionado() {
-      return operandoRegistro;
-   }
-
-   public void setOperandoSeleccionado(Operandos operandoRegistro) {
-      this.operandoRegistro = operandoRegistro;
-   }
-
+   
    public TiposBloques getTipoBloqueSeleccionado() {
       return tipoBloqueSeleccionado;
    }

@@ -21,6 +21,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import Entidades.TiposConstantes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -143,32 +144,25 @@ public class ControlTipoFormula implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "tipoformula";
-         if (pag.equals("formula")) {
-            Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-            mapParaEnviar.put("paginaAnterior", pagActual);
-            mapParaEnviar.put("cargarFormula", (String) "NO");
-            if (tipoFormulaSeleccionada != null) {
-               mapParaEnviar.put("formula", tipoFormulaSeleccionada.getFormula());
-            } else {
-               mapParaEnviar.put("formula", listaTiposFormulas.get(0));
-            }
-            ControlFormula controlFormula = (ControlFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlFormula}", ControlFormula.class);
-            controlFormula.recibirParametros(mapParaEnviar);
+      String pagActual = "tipoformula";
+      if (pag.equals("formula")) {
+         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         mapParaEnviar.put("paginaAnterior", pagActual);
+         mapParaEnviar.put("cargarFormula", (String) "NO");
+         if (tipoFormulaSeleccionada != null) {
+            mapParaEnviar.put("formula", tipoFormulaSeleccionada.getFormula());
+         } else {
+            mapParaEnviar.put("formula", listaTiposFormulas.get(0));
          }
-         if (pag.equals("atras")) {
+         ControlFormula controlFormula = (ControlFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlFormula}", ControlFormula.class);
+         controlFormula.recibirParametros(mapParaEnviar);
+      }
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -183,7 +177,6 @@ String pagActual = "tipoformula";
          //}
       }
       limpiarListasValor();
-
    }
    //UBICACION CELDA
 
@@ -351,24 +344,28 @@ String pagActual = "tipoformula";
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoFormula').show()");
       }
       if (pasa == 0) {
-         if (bandera == 1) {
-            restaurarTabla();
+         if (validarNuevoTraslapes(duplicarTipoFormula)) {
+            if (bandera == 1) {
+               restaurarTabla();
+            }
+            cambiosPagina = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            //Falta Ponerle el Operando al cual se agregará
+            duplicarTipoFormula.setOperando(operando);
+            listaTiposFormulas.add(duplicarTipoFormula);
+            listaTiposFormulasCrear.add(duplicarTipoFormula);
+            tipoFormulaSeleccionada = listaTiposFormulas.get(listaTiposFormulas.indexOf(duplicarTipoFormula));
+            if (guardado == true) {
+               guardado = false;
+            }
+            RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
+            contarRegistros();
+            duplicarTipoFormula = new TiposFormulas();
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoFormula");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoFormula').hide()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorFechasTraslapos').show()");
          }
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         //Falta Ponerle el Operando al cual se agregará
-         duplicarTipoFormula.setOperando(operando);
-         listaTiposFormulas.add(duplicarTipoFormula);
-         listaTiposFormulasCrear.add(duplicarTipoFormula);
-         tipoFormulaSeleccionada = listaTiposFormulas.get(listaTiposFormulas.indexOf(duplicarTipoFormula));
-         if (guardado == true) {
-            guardado = false;
-         }
-         RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
-         contarRegistros();
-         duplicarTipoFormula = new TiposFormulas();
-         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoFormula");
-         RequestContext.getCurrentInstance().execute("PF('DuplicarTipoFormula').hide()");
       }
    }
 
@@ -384,7 +381,7 @@ String pagActual = "tipoformula";
          tiposFormulasIniciales.setFilterStyle("width: 85% !important;");
          tiposFormulasFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasFinales");
          tiposFormulasFinales.setFilterStyle("width: 85% !important;");
-         tiposFormulasObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasObjetos");
+         tiposFormulasObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasFormula");
          tiposFormulasObjetos.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
          contarRegistros();
@@ -599,6 +596,33 @@ String pagActual = "tipoformula";
       RequestContext.getCurrentInstance().execute("PF('formulasDialogo').hide()");
    }
 
+   public boolean hayTraslaposFechas(Date fecha1Ini, Date fecha1Fin, Date fecha2Ini, Date fecha2Fin) {
+      System.out.println("ControlTipoFormula.hayTraslaposFechas() fecha1Ini: " + fecha1Ini + ", fecha1Fin: " + fecha1Fin +", fecha2Ini: " + fecha2Ini + ", fecha2Fin: " + fecha2Fin);
+      boolean hayTraslapos;
+      if ((fecha1Fin.after(fecha2Fin) && fecha1Ini.before(fecha2Fin))
+              || (fecha1Ini.before(fecha2Ini) && fecha1Fin.after(fecha2Ini))
+              || fecha1Fin.equals(fecha2Fin)
+              || fecha1Ini.equals(fecha2Ini)
+              || fecha1Ini.equals(fecha2Fin)
+              || fecha1Fin.equals(fecha2Ini)) {
+         hayTraslapos = true;
+      } else {
+         hayTraslapos = false;
+      }
+      return hayTraslapos;
+   }
+
+   public boolean validarNuevoTraslapes(TiposFormulas tipoFormula) {
+      boolean continuar = true;
+      for (int i = 0; i < listaTiposFormulas.size(); i++) {
+         if (hayTraslaposFechas(listaTiposFormulas.get(i).getFechainicial(), listaTiposFormulas.get(i).getFechafinal(),
+                 tipoFormula.getFechainicial(), tipoFormula.getFechafinal())) {
+            continuar = false;
+         }
+      }
+      return continuar;
+   }
+
    public void agregarNuevoTipoFormula() {
       int pasa = 0;
       int pasa2 = 0;
@@ -616,7 +640,6 @@ String pagActual = "tipoformula";
          mensajeValidacion = mensajeValidacion + " * Nombre Corto\n";
          pasa++;
       }
-
       if (nuevoTipoFormula.getFechainicial() != null && nuevoTipoFormula.getFechafinal() != null) {
          if (nuevoTipoFormula.getFechafinal().before(nuevoTipoFormula.getFechainicial())) {
             RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
@@ -624,36 +647,37 @@ String pagActual = "tipoformula";
             pasa2++;
          }
       }
-
       if (pasa != 0) {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoFormula");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoFormula').show()");
       }
-
       if (pasa == 0 && pasa2 == 0) {
-         if (bandera == 1) {
-            restaurarTabla();
-         }
-         //AGREGAR REGISTRO A LA LISTA NOVEDADES .
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoTipoFormula.setSecuencia(l);
-         System.out.println("Operando: " + operando);
-         nuevoTipoFormula.setOperando(operando);
-
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         listaTiposFormulasCrear.add(nuevoTipoFormula);
-         listaTiposFormulas.add(nuevoTipoFormula);
-         tipoFormulaSeleccionada = listaTiposFormulas.get(listaTiposFormulas.indexOf(nuevoTipoFormula));
-         nuevoTipoFormula = new TiposFormulas();
-         RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
-         contarRegistros();
-         if (guardado == true) {
-            guardado = false;
+         if (validarNuevoTraslapes(nuevoTipoFormula)) {
+            if (bandera == 1) {
+               restaurarTabla();
+            }
+            //AGREGAR REGISTRO A LA LISTA NOVEDADES .
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoTipoFormula.setSecuencia(l);
+            System.out.println("Operando: " + operando);
+            nuevoTipoFormula.setOperando(operando);
+            cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            listaTiposFormulasCrear.add(nuevoTipoFormula);
+            listaTiposFormulas.add(nuevoTipoFormula);
+            tipoFormulaSeleccionada = listaTiposFormulas.get(listaTiposFormulas.indexOf(nuevoTipoFormula));
+            nuevoTipoFormula = new TiposFormulas();
+            RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
+            contarRegistros();
+            if (guardado == true) {
+               guardado = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            RequestContext.getCurrentInstance().execute("PF('NuevoTipoFormula').hide()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorFechasTraslapos').show()");
          }
-         RequestContext.getCurrentInstance().execute("PF('NuevoTipoFormula').hide()");
       }
    }
 
@@ -667,7 +691,7 @@ String pagActual = "tipoformula";
       tiposFormulasIniciales.setFilterStyle("display: none; visibility: hidden;");
       tiposFormulasFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasFinales");
       tiposFormulasFinales.setFilterStyle("display: none; visibility: hidden;");
-      tiposFormulasObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasObjetos");
+      tiposFormulasObjetos = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasFormula");
       tiposFormulasObjetos.setFilterStyle("display: none; visibility: hidden;");
       RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
       contarRegistros();

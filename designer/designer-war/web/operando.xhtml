@@ -95,7 +95,7 @@
 
                         <p:ajax listener="#{controlOperando.eventoFiltrar()}" event="filter"/>
 
-                        <p:column id="columnaDetalle" width="18" style="padding: 0px !important; alignment-adjust: central; padding: 0;" class="cssColumnasCentradas">                                                              
+                        <p:column id="columnaDetalle" width="18" class="cssColumnasCentradas">                                                              
                            <f:facet name="header">
                               <h:outputText id="DetalleC" value="D"/>
                               <p:tooltip for="DetalleC" value="Detalle Operando"/>
@@ -135,9 +135,9 @@
                                  </h:outputText>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu  id="editarTipos" value="#{op.estadoTipo}"
-                                                   onfocus="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});"
-                                                   onblur="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});">  
+                                 <p:selectOneMenu id="editarTipos" value="#{op.estadoTipo}"
+                                                  onfocus="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});"
+                                                  onblur="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});">  
                                     <f:selectItem itemLabel="#{msg['formula']}" itemValue="FORMULA"/>  
                                     <f:selectItem itemLabel="#{msg['bloque']}" itemValue="BLOQUE PL/SQL"/>  
                                     <f:selectItem itemLabel="#{msg['constante']}" itemValue="CONSTANTE"/>  
