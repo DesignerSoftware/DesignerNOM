@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body"> 
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.registroEnvios" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="#{msg['registros']}" styleClass="panelTotal"> 
+
+                        <p:toolbar styleClass="cssToolbar" >  
+                            <p:toolbarGroup align="left"> 
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
+                                                 id="guardarRapido" value="" actionListener="#{controlRegistroEnvios.guardarCambios()}" process="@this" />
+                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/editar.png)" 
+                                                 id="editar" value="" process="@this" actionListener="#{controlRegistroEnvios.editarCelda()}"/>
+                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton disabled="true" style="background-image: url(Imagenes/Iconos/lupa.png)" id="listaValores" value="" process="@this" />
+                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png)" id="filtrar" value="" actionListener="#{controlRegistroEnvios.activarCtrlF11()}" 
+                                                 process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png)" />
+                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" disabled="true" value="" style="background-image: url(Imagenes/Iconos/xml.png)" >
+                                </p:commandButton> 
+                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xmle']}" />
+
+                                <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png)" />
+                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)" /> 
+                                <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
+                                                 actionListener="#{controlRegistroEnvios.borrarEC()}" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png);" />  
+                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);"  
+                                                 id="rastro" value="" process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="refrescar" style="background-image: url(Imagenes/Iconos/refrescar.png);" value="" 
+                                                 actionListener="#{controlRegistroEnvios.cancelarModificaciones()}" oncomplete="PF('window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:commandButton id="salir" style="background-image: url(Imagenes/Iconos/salir.png);" 
+                                                 value="" action="atrasregistroenvio" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+                        <fieldset style="position: absolute; top: 75px; left: 10px; height: 80px; width: 830px; border-radius: 10px; text-align: justify">
+                            <p:outputLabel>
+                                Aquí encontrará el registro de correos no enviados. Recuerde que la dirección de correo debe pertenecer al dominio de la Empresa. 
+                                Para el reenvío de uno o varios correos, verifique la información Chequee la Última opción indicando que desea reenviar el correo y Oprima Reenvío de Correo, 
+                                si el correo falla de nuevo el registro permanecerá, de lo contrario éste se borrará de la lista de envíos fallidos.
+                            </p:outputLabel>
+                            <div style="margin-top: 10px;">
+                                <h:outputText value="Reporte: " style="color: blue; font-weight: bolder;"/>
+                            </div>
+                            <div style="margin-top: 1px;">
+                                <h:outputText value="#{controlRegistroEnvios.nombreReporte}" style="font-weight: bolder;"/>
+                            </div>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; top: 180px; left: 10px; height: 280px; width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>#{msg['registros']}</strong></legend>
+                            <p:dataTable id="datosEC" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" value="#{controlRegistroEnvios.enviocorreos}" 
+                                         widgetVar="datosEC" filteredValue="#{controlRegistroEnvios.filterEC}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="830" scrollHeight="#{controlRegistroEnvios.altoTabla}" 
+                                         style="border: 1px;" selection="#{controlRegistroEnvios.envioSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlRegistroEnvios.eventoFiltrar()}" update=":form:informacionRegistro" process="@this"/>
+
+                                <p:column  id="ecFecha" headerText="#{msg['Fecha']}" sortBy="#{info.fecha}" filterBy="#{info.fecha}" filterMatchMode="contains" 
+                                           width="130" filterStyle="display: none; visibility: hidden;" >
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText  value="#{info.fecha}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editarFecha" autocomplete="off" value="#{info.fecha}" style="border-radius: 0px; width: 275px; text-transform: uppercase; height: 12px;" disabled="true"> 
+                                                <p:ajax event="select" listener="#{controlRegistroEnvios.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosEC').unselectAllRows();PF('datosEC').selectRow(#{indice});"/> 
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column id="ecEmpleado" headerText="Empleado" sortBy="#{info.codigoEmpleado.codigoempleado}" filterBy="#{info.codigoEmpleado.codigoempleado}" filterMatchMode="contains" 
+                                          width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header"><h:outputText value="#{msg['Empleado']}"/> </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigoEmpleado.codigoempleado}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editEmpleado" autocomplete="off" value="#{info.codigoEmpleado.codigoempleado}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
+                                                <p:ajax event="select" listener="#{controlRegistroEnvios.cambiarIndice(info, 1)}"
+                                                        onstart="PF('datosEC').unselectAllRows();PF('datosEC').selectRow(#{indice});"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column id="ecNombre" headerText="Nombre" sortBy="#{info.nombreEmpleado}" filterBy="#{info.nombreEmpleado}" filterMatchMode="contains" 
+                                          width="170" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header"><h:outputText value="#{msg['Nombre']}"/> </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.nombreEmpleado}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editNombre" autocomplete="off"  value="#{info.nombreEmpleado}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" disabled="true"> 
+                                                <p:ajax event="select" listener="#{controlRegistroEnvios.cambiarIndice(info, 2)}"
+                                                        onstart="PF('datosEC').unselectAllRows();PF('datosEC').selectRow(#{indice});"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column id="ecCorreo" headerText="Correo" sortBy="#{info.correo}" filterBy="#{info.correo}" filterMatchMode="contains" 
+                                          width="130" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header"><h:outputText value="#{msg['Correo']}"/> </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.correo}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editCorreo" autocomplete="off"  value="#{info.correo}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" disabled="true"> 
+                                                <p:ajax event="select" listener="#{controlRegistroEnvios.cambiarIndice(info, 3)}"
+                                                        onstart="PF('datosEC').unselectAllRows();PF('datosEC').selectRow(#{indice});"/>
+                                                <p:ajax event="change" listener="#{controlRegistroEnvios.modificarCorreo(info, info.correo)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column id="ecEstado" headerText="Estado" sortBy="#{info.estado}" filterBy="#{info.estado}" filterMatchMode="contains" 
+                                          width="85" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header"><h:outputText value="#{msg['Estado']}"/> </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.estado}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="editEstado" autocomplete="off"  value="#{info.estado}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" disabled="true"> 
+                                                <p:ajax event="select" listener="#{controlRegistroEnvios.cambiarIndice(info, 4)}"
+                                                        onstart="PF('datosEC').unselectAllRows();PF('datosEC').selectRow(#{indice});"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column id="check" headerText="  " sortBy="#{info.reenviar}" filterBy="#{info.reenviar}" filterMatchMode="contains" 
+                                          width="25" filterStyle="display: none; visibility: hidden;">
+                                    <p:selectBooleanCheckbox id="enviarCorreo" value="#{controlRegistroEnvios.reenviar}" >
+                                        <p:ajax update=":form:datosEC" />
+                                    </p:selectBooleanCheckbox>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlRegistroEnvios.infoRegistro}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
+
+                            <p:commandButton id="REENVIAR" style="position: absolute; left: 10px; top: 250px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/botonL.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="#{msg['reenviar']}" icon="ui-icon-extlink" process="@this" />
+                            <p:tooltip  for="REENVIAR" value="#{msg['reenviar']}" />
+
+                            <p:commandButton id="BORRARTODO" style="position: absolute; left: 190px; top: 250px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="#{msg['borrartodo']}" oncomplete="PF('confirmarBorrar').show()" process="@this"/>
+                            <p:tooltip  for="BORRARTODO" value="#{msg['borrartodo']}" />
+                        </fieldset>
+
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value=""  
+                                         actionListener="#{controlRegistroEnvios.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteNomina.cambiosReporte}" process="@this" />
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="atrasregistroenvio" 
+                                         actionListener="#{controlRegistroEnvios.cancelarYSalir()}" process="@this" />
+
+                    </p:panel>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlRegistroEnvios.activarCtrlF11()}"/> 
+                </h:form>
+                <h:form id="formularioDialogos">
+                    <p:dialog id="editarFecha" header="#{msg['fechaE']}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
+                        <p:inputTextarea value="#{controlRegistroEnvios.editarEC.fecha}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarEmpleado" header="#{msg['empleado']}" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
+                        <p:inputTextarea value="#{controlRegistroEnvios.editarEC.codigoEmpleado.codigoempleado}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarNombre" header="#{msg['nombre']}" widgetVar="editarNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
+                        <p:inputTextarea value="#{controlRegistroEnvios.editarEC.nombreEmpleado}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCorreo" header="#{msg['correo']}" widgetVar="editarCorreo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
+                        <p:inputTextarea value="#{controlRegistroEnvios.editarEC.correo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarEstado" header="#{msg['estado']}" widgetVar="editarEstado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
+                        <p:inputTextarea value="#{controlRegistroEnvios.editarEC.estado}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRegistroEnvios.guardarYSalir()}" action="nreportenomina" style="position: absolute; top: 50px; left: 184px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRegistroEnvios.cancelarYSalir()}" action="nreportenomina" style="position: absolute; top: 50px; left: 248px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarBorrar" header="#{msg['atencion']}" widgetVar="confirmarBorrar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarBorrar').hide();" icon="ui-icon-check" actionListener="#{controlRegistroEnvios.borrarTodos()}" style="position: absolute; top: 50px; left: 184px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarBorrar').hide();" style="position: absolute; top: 50px; left: 248px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarBorrar').hide();" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 50px; left: 315px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
