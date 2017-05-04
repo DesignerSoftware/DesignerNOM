@@ -7830,6 +7830,46 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/liquidarproyeccion1.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>parametro</from-outcome>
+         <to-view-id>/parametro.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/parametro.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>liquidarproyeccion1</from-outcome>
+         <to-view-id>/liquidarproyeccion1.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/liquidarproyeccion1.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>liquidarproyeccion</from-outcome>
+         <to-view-id>/liquidarproyeccion.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/liquidarproyeccion1.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>concepto</from-outcome>
+         <to-view-id>/concepto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/concepto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>liquidarproyeccion1</from-outcome>
+         <to-view-id>/liquidarproyeccion1.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
    
 </faces-config>
 
