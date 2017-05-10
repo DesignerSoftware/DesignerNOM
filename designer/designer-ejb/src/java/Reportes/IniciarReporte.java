@@ -380,7 +380,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
-            System.out.println("************************************");
             if (e.getCause() != null) {
                 return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {

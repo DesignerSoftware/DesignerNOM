@@ -64,4 +64,13 @@ public interface PersistenciaInterconSapBOInterface {
     public void ejeuctarPKGUbicarnuevointercon_SAPBO(EntityManager em, BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso);
 
     public void ejecutarPKGCrearArchivoPlanoSAPBO(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo);
+    
+    public void actualizarFlagInterconSapBoProcesoDeshacer(EntityManager em, Date fechaInicial, Date fechaFinal, BigInteger proceso);
+    
+    public void cerrarProcesoContabilizacion(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso);
+    
+    public void eliminarInterconSapBO(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso);
+    
+     public void actualizarFlagInterconSapBO(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa);
+    
 }

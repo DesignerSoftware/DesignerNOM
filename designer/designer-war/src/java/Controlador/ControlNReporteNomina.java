@@ -899,7 +899,7 @@ String pagActual = "nreportenomina";
             if (pathReporteGenerado != null) {
                validarDescargaReporte();
             } else {
-               RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
+               RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }

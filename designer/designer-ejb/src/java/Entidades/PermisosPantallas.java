@@ -77,6 +77,9 @@ public class PermisosPantallas implements Serializable {
     }
 
     public Perfiles getPerfil() {
+        if (perfil == null) {
+            perfil = new Perfiles();
+        }
         return perfil;
     }
 
@@ -96,6 +99,9 @@ public class PermisosPantallas implements Serializable {
     }
 
     public ObjetosBloques getObjetofrm() {
+        if(objetofrm == null){
+            objetofrm = new ObjetosBloques();
+        }
         return objetofrm;
     }
 

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Pantallas.findAll", query = "SELECT p FROM Pantallas p")})
 public class Pantallas implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -81,6 +81,9 @@ public class Pantallas implements Serializable {
     }
 
     public String getNombre() {
+        if (nombre == null) {
+            nombre = " ";
+        }
         return nombre;
     }
 
@@ -89,6 +92,9 @@ public class Pantallas implements Serializable {
     }
 
     public String getLista() {
+        if (lista == null) {
+            lista = " ";
+        }
         return lista;
     }
 

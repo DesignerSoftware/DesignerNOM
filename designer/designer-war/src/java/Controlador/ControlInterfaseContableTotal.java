@@ -152,6 +152,8 @@ public class ControlInterfaseContableTotal implements Serializable {
     private int cualCeldaParametroContable;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String userAgent;
+    private ExternalContext externalContext;
 
     public ControlInterfaseContableTotal() {
 //        ftpClient = new FTPClient();
@@ -233,37 +235,26 @@ public class ControlInterfaseContableTotal implements Serializable {
             controlListaNavegacion.quitarPagina(pagActual);
             
         } else {
-            */
-String pagActual = "interfasecontabletotal";
-            
-            
-            
-
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         */
+        String pagActual = "interfasecontabletotal";
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
         }
         limpiarListasValor();
     }
@@ -280,8 +271,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             administrarInterfaseContableTotal.obtenerConexion(ses.getId());
             administarReportes.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            externalContext = x.getExternalContext();
+            userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
         } catch (Exception e) {
-            System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
+            System.out.println("Error postconstruct ControlInterfaseContableTotal: " + e);
             System.out.println("Causa: " + e.getCause());
         }
     }
@@ -1193,7 +1186,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         }
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
         if (banderaGenerado == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             altoTablaGenerada = "65";
@@ -1894,7 +1888,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
                 System.out.println("validar descarga reporte - ingreso al if 1");
                 if (tipoReporte.equals("PDF")) {
-
                     System.out.println("validar descarga reporte - ingreso al if 2 else");
                     FileInputStream fis;
                     try {
@@ -1903,10 +1896,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                         System.out.println("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                         System.out.println("reporte despues de esto : " + reporte);
-                        cabezeraVisor = "Reporte - " + nombreReporte;
-                        RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
-                        RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                        pathReporteGenerado = null;
+                        if (reporte != null) {
+                            System.out.println("userAgent: " + userAgent);
+                            System.out.println("validar descarga reporte - ingreso al if 4");
+                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
+                                context.update("formularioDialogos:descargarReporte");
+                                context.execute("PF('descargarReporte').show();");
+                            } else {
+                                cabezeraVisor = "Reporte - " + nombreReporte;
+                                RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                                RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                            }
+                        }
                     } catch (FileNotFoundException ex) {
                         System.out.println("validar descarga reporte - ingreso al catch 1");
                         System.out.println(ex);
@@ -1923,7 +1924,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().execute("PF('errorCifraControl').show()");
         }
     }
-
+    
     public void reiniciarStreamedContent() {
         System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
         reporte = null;
@@ -1934,33 +1935,37 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         administarReportes.cancelarReporte();
     }
 
-    public void exportarReporte() throws IOException {
-        System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null) {
-
+    
+     public void exportarReporte() throws IOException {
+      try {
+          System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+         if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
-            System.out.println("reporteF:  " + reporteF);
             FacesContext ctx = FacesContext.getCurrentInstance();
-            System.out.println("ctx:  " + ctx);
             FileInputStream fis = new FileInputStream(reporteF);
-            System.out.println("fis:   " + fis);
             byte[] bytes = new byte[1024];
             int read;
             if (!ctx.getResponseComplete()) {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
+               String fileName = reporteF.getName();
+               HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+               response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+               ServletOutputStream out = response.getOutputStream();
 
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
+               while ((read = fis.read(bytes)) != -1) {
+                  out.write(bytes, 0, read);
+               }
+               out.flush();
+               out.close();
+               ctx.responseComplete();
             }
-        }
-    }
+         } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+         }
+      } catch (Exception e) {
+         System.out.println("error en exportarReporte :" + e.getMessage());
+      }
+   }
 
     public void cargarLovEmpresas() {
         if (lovEmpresas == null) {

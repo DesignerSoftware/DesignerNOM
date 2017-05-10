@@ -219,6 +219,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         
     }
 
+    public void limpiarListasValor(){
+        
+    }
+    
     @PostConstruct
     public void inicializarAdministrador() {
         try {
@@ -648,7 +652,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 if (pathReporteGenerado != null) {
                     validarDescargaReporte();
                 } else {
-                    RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
+                    RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                     RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                 }

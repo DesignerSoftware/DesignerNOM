@@ -99,6 +99,9 @@ public class HistoricosUsuarios implements Serializable {
     }
 
     public Usuarios getUsuario() {
+        if(usuario == null){
+            usuario = new Usuarios();
+        }
         return usuario;
     }
 
@@ -107,6 +110,9 @@ public class HistoricosUsuarios implements Serializable {
     }
 
     public Perfiles getPerfil() {
+        if(perfil == null){
+            perfil = new Perfiles();
+        }
         return perfil;
     }
 
@@ -115,6 +121,9 @@ public class HistoricosUsuarios implements Serializable {
     }
 
     public Personas getPersona() {
+        if(persona ==  null){
+            persona = new Personas();
+        }
         return persona;
     }
 

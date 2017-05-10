@@ -80,4 +80,16 @@ public interface AdministrarInterfaseContableSapBOInterface {
 
     public UsuariosInterfases obtenerUsuarioInterfaseContabilizacion();
 
+    public void actualizarFlagInterconSapBoProcesoDeshacer(Date fechaInicial, Date fechaFinal, BigInteger proceso);
+
+    public void cerrarProcesoContabilizacion(Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso);
+
+    public void eliminarInterconSapBO(Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso);
+
+    public void actualizarFlagInterconSapBO(Date fechaInicial, Date fechaFinal, Short empresa);
+
+    public void borrarRegistroGenerado(List<SolucionesNodos> listBorrar);
+
+    public void borrarRegistroIntercon(List<InterconSapBO> listBorrar);
+
 }

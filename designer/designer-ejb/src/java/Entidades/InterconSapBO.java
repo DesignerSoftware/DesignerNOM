@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;
@@ -16,6 +17,11 @@ import javax.validation.constraints.Size;
 public class InterconSapBO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SECUENCIA")
+    private BigInteger secuencia;
     @Size(max = 20)
     @Column(name = "CODIGOTERCERO")
     private String codigotercero;
@@ -35,14 +41,9 @@ public class InterconSapBO implements Serializable {
     @Column(name = "NATURALEZA")
     private String naturaleza;
     @Column(name = "VALORC")
-    private Long valorc;
+    private BigDecimal valorc;
     @Column(name = "VALORD")
-    private Long valord;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "SECUENCIA")
-    private BigInteger secuencia;
+    private BigDecimal valord;
     @Column(name = "EMPRESA_CODIGO")
     private Short empresaCodigo;
     @Column(name = "CONSECUTIVO")
@@ -58,9 +59,8 @@ public class InterconSapBO implements Serializable {
     @JoinColumn(name = "PROYECTO", referencedColumnName = "SECUENCIA")
     @ManyToOne
     private Proyectos proyecto;
-    @JoinColumn(name = "PROCESO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Procesos proceso;
+    @Column(name = "PROCESO")
+    private BigInteger proceso;
     @JoinColumn(name = "EMPLEADO", referencedColumnName = "SECUENCIA")
     @ManyToOne
     private Empleados empleado;
@@ -142,19 +142,19 @@ public class InterconSapBO implements Serializable {
         this.naturaleza = naturaleza;
     }
 
-    public Long getValorc() {
+    public BigDecimal getValorc() {
         return valorc;
     }
 
-    public void setValorc(Long valorc) {
+    public void setValorc(BigDecimal valorc) {
         this.valorc = valorc;
     }
 
-    public Long getValord() {
+    public BigDecimal getValord() {
         return valord;
     }
 
-    public void setValord(Long valord) {
+    public void setValord(BigDecimal valord) {
         this.valord = valord;
     }
 
@@ -214,11 +214,11 @@ public class InterconSapBO implements Serializable {
         this.proyecto = proyecto;
     }
 
-    public Procesos getProceso() {
+    public BigInteger getProceso() {
         return proceso;
     }
 
-    public void setProceso(Procesos proceso) {
+    public void setProceso(BigInteger proceso) {
         this.proceso = proceso;
     }
 

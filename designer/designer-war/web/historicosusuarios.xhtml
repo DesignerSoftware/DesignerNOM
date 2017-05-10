@@ -134,7 +134,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" readonly="true" value="#{usuario.usuario.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"
-                                                           onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
+                                                         onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="select" listener="#{controlHistoricosUsuarios.cambiarIndice(usuario, 2)}" 
                                                         onstart="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"/>
                                             </p:inputText> 
@@ -208,7 +208,7 @@
                             <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlHistoricosUsuarios.infoRegistroHistoricos}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
                         </fieldset>
                         <p:commandButton style="position: relative; left: 10px; top: 465px; height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" icon="ui-icon-arrowreturnthick-1-s"
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" icon="ui-icon-arrowreturnthick-1-s" onclick="PF('generandoReporte').show()"
                                          id="REPORTE" value="#{msg['reporte']}" update=":form:datosHistoricosUsuarios" process="@this" actionListener="#{controlHistoricosUsuarios.validarDescargaReporte()}"/>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlHistoricosUsuarios.guardado}" update=":form:datosHistoricosUsuarios" process="@this"/>
@@ -257,13 +257,13 @@
                             <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
                             <p:inputText autocomplete="off" id="nuevoAlias" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 113px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
+                                <p:commandButton style="position: absolute; left: 318px; top: 113px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 1)}"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlHistoricosUsuarios.nuevoHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 143px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
+                                <p:commandButton style="position: absolute; left: 318px; top: 143px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 1)}"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"/></strong>
@@ -306,13 +306,13 @@
                             <strong><h:outputText value="*Alias" style=" position: absolute; top: 110px; left: 18px"/></strong>
                             <p:inputText autocomplete="off" id="duplicarAlias" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.usuario.alias}" style=" width: 125px; position: absolute; left: 180px; top: 110px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 113px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
+                                <p:commandButton style="position: absolute; left: 318px; top: 113px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 1, 2)}"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="*Perfil" style=" position: absolute; top: 140px; left: 18px;"/></strong>
                             <p:inputText autocomplete="off" id="duplicarPerfil" value="#{controlHistoricosUsuarios.duplicarHistoricoUsuario.perfil.descripcion}" style=" width: 125px; position: absolute; left: 180px; top: 140px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
-                            <p:commandButton style="position: absolute; left: 318px; top: 143px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
+                                <p:commandButton style="position: absolute; left: 318px; top: 143px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlHistoricosUsuarios.asignarIndex(usuario, 2, 2)}"/>
                             </p:inputText>
 
                             <strong><h:outputText value="*Persona" style=" position: absolute; top: 170px; left: 18px;"/></strong>
@@ -363,7 +363,7 @@
                             <p:commandButton id="cancelarPS" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atrás" actionListener="#{controlHistoricosUsuarios.cancelarCambioPersona()}" process="@this"/>
                         </div>
                     </p:dialog>
-                    
+
                     <p:dialog header="Usuarios" widgetVar="aliasDialogo" draggable="true" resizable="false" closable="false" id="aliasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVUsuariosAlias" style="width: 330px;" var="aliasU" value="#{controlHistoricosUsuarios.lovUsuarios}" rowKey="#{aliasU.secuencia}"
@@ -390,7 +390,7 @@
                             <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atrás" actionListener="#{controlHistoricosUsuarios.cancelarCambioUsuario()}"  process="@this"/>
                         </div>
                     </p:dialog>
-                    
+
                     <p:dialog header="Perfiles" widgetVar="perfilesDialogo" draggable="true" resizable="false" closable="false" id="perfilesDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPerfiles" style="width: 330px;" var="perfiles" value="#{controlHistoricosUsuarios.lovPerfiles}" rowKey="#{perfiles.secuencia}"
@@ -417,7 +417,7 @@
                             <p:commandButton id="cancelarPF" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atrás" actionListener="#{controlHistoricosUsuarios.cancelarCambioPerfil()}" process="@this"/>
                         </div>
                     </p:dialog>
-                    
+
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
@@ -515,34 +515,40 @@
                         <p:inputTextarea value="#{controlHistoricosUsuarios.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="80" width="400" style="font-size: 12px">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
-                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
-                        <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlHistoricosUsuarios.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
+                        <h:outputText value="Generando reporte, esto puede tardar algunos minutos..." style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                     </p:dialog>
+
+                    <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                        <h:outputText value="Reporte Generado con éxito" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <p:commandButton value="Descargar" icon="ui-icon-download" actionListener="#{controlHistoricosUsuarios.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
+                    </p:dialog> 
                 </h:form>
 
                 <h:form id="formExportar">
                     <p:dataTable id="datosHistoricosUsuariosExportar" var="usu" style="visibility: hidden; display: none;"                           
                                  value="#{controlHistoricosUsuarios.listaHistoricosUsuarios}"> 
                         <p:column>  
-                     <f:facet name="header">
-                        <h:outputText value="Fecha Inicial"/>
-                     </f:facet>
-                     <h:outputText value="#{usu.fechainicial}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                     </h:outputText>
-                  </p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Inicial"/>
+                            </f:facet>
+                            <h:outputText value="#{usu.fechainicial}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
 
-                  <p:column>  
-                     <f:facet name="header">
-                        <h:outputText value="Fecha Final"/>
-                     </f:facet>
-                     <h:outputText value="#{usu.fechafinal}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                     </h:outputText>
-                  </p:column>
-                        
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Final"/>
+                            </f:facet>
+                            <h:outputText value="#{usu.fechafinal}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
                         <p:column headerText="Alias">                                  
                             <f:facet name="header"><h:outputText value="Alias"/> </f:facet> 
                             <h:outputText value="#{usu.usuario.alias}"/>

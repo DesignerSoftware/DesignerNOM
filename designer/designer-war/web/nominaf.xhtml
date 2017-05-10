@@ -101,10 +101,10 @@
                                                          disabled="#{controlRemoto.consultarPermisosPorId('busquedarapida')}"/>
                                         <p:tooltip  for="busquedarapida" value="#{msg['br']}"/>
 
-<!--                                        <p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/lupa.png); width: 30px; height: 30px; left: 72px; top: 60px; z-index: 1;" 
-                                                         id="listavalores" value="" process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"
-                                                         disabled="#{controlRemoto.consultarPermisosPorId('listavalores')}"/>
-                                        <p:tooltip  for="listavalores" value="#{msg['lista']}"/>-->
+                                        <!--                                        <p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/lupa.png); width: 30px; height: 30px; left: 72px; top: 60px; z-index: 1;" 
+                                                                                                 id="listavalores" value="" process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"
+                                                                                                 disabled="#{controlRemoto.consultarPermisosPorId('listavalores')}"/>
+                                                                                <p:tooltip  for="listavalores" value="#{msg['lista']}"/>-->
 
                                         <p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/excel.png); width: 30px; height: 30px; left: 102px; top: 60px; z-index: 1;" 
                                                          id="exportarxls" value="" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false">
@@ -671,6 +671,14 @@
                                                      action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'interfasecontabletotal')}" actionListener="#{controlInterfaseContableTotal.recibirPaginaEntrante('nominaf')}" style="position: absolute; top: 60px; left: 285px;" process="@this" icon="ui-icon-check"/>
                                     <p:commandButton value="#{msg['no']}" onclick="PF('confirmarprocesointerfacecontable').hide();" style="position: absolute; top: 60px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                                 </p:dialog>
+
+<!--                                <p:dialog id="confirmarprocesointerfacecontable" widgetVar="confirmarprocesointerfacecontable" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="100" width="420"  closable="false">  
+                                    <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"/>
+                                    <h:outputText value="#{msg['confirmarProcesoInterfaceContable']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight: bold;"/>
+                                    <p:commandButton value="#{msg['si']}" onclick="PF('confirmarprocesointerfacecontable').hide();"
+                                                     action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'interfasecontablesapbo')}" actionListener="#{controlInterfaseContableTotal.recibirPaginaEntrante('nominaf')}" style="position: absolute; top: 60px; left: 285px;" process="@this" icon="ui-icon-check"/>
+                                    <p:commandButton value="#{msg['no']}" onclick="PF('confirmarprocesointerfacecontable').hide();" style="position: absolute; top: 60px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                </p:dialog>-->
                             </p:tab> 
 
                             <p:tab id="gerencial" title="#{msg['gerencial']}"> 
@@ -915,7 +923,7 @@
                             <div class="cssBotonesLOV">
                                 <h:outputText id="inforegistrobuscarempleados" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarEmpleados}" class="cssinfoRegistroLOV"/>
                                 <p:commandButton id="buscarempl" value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlRemoto.buscarEmpleado()}" disabled="#{controlRemoto.buscar}" 
-                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();" class="cssAceptarLOV"/>
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();" class="cssAceptarLOV" process="@this"/>
                                 <p:commandButton value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('lvbe').hide()" class="cssAtrasLOV"/>
                             </div>
                         </p:dialog>

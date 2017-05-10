@@ -57,6 +57,9 @@ public class Usuarios implements Serializable {
     }
 
     public String getActivo() {
+        if (activo == null) {
+            activo = "";
+        }
         return activo;
     }
 
@@ -66,7 +69,7 @@ public class Usuarios implements Serializable {
 
     public String getAlias() {
         if (alias == null) {
-            alias = ("");
+            alias = (" ");
         }
         return alias.toUpperCase();
     }
@@ -76,6 +79,9 @@ public class Usuarios implements Serializable {
     }
 
     public String getPropietario() {
+        if (propietario == null) {
+            propietario = " ";
+        }
         return propietario;
     }
 
@@ -85,7 +91,7 @@ public class Usuarios implements Serializable {
 
     public Personas getPersona() {
         if (persona == null) {
-            this.persona = new Personas();
+            persona = new Personas();
         }
         return persona;
     }
@@ -96,7 +102,7 @@ public class Usuarios implements Serializable {
 
     public Perfiles getPerfil() {
         if (perfil == null) {
-            this.perfil = new Perfiles();
+            perfil = new Perfiles();
         }
         return perfil;
     }
@@ -107,7 +113,7 @@ public class Usuarios implements Serializable {
 
     public Pantallas getPantallainicio() {
         if (pantallainicio == null) {
-            this.pantallainicio = new Pantallas();
+            pantallainicio = new Pantallas();
         }
         return pantallainicio;
     }

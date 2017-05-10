@@ -46,7 +46,7 @@ public class TiposDocumentos implements Serializable {
 
     public String getNombrelargo() {
         if (nombrelargo == null) {
-            nombrelargo = "";
+            nombrelargo = " ";
         }
         return nombrelargo;
     }
@@ -56,6 +56,9 @@ public class TiposDocumentos implements Serializable {
     }
 
     public String getNombrecorto() {
+        if (nombrecorto == null) {
+            nombrecorto = " ";
+        }
         return nombrecorto;
     }
 

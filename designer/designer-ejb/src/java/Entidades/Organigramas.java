@@ -67,6 +67,9 @@ public class Organigramas implements Serializable {
     }
 
     public String getEstado() {
+        if(estado == null){
+            estado = "";
+        }
         return estado;
     }
 
@@ -83,6 +86,9 @@ public class Organigramas implements Serializable {
     }
 
     public Empresas getEmpresa() {
+        if(empresa == null){
+            empresa = new Empresas();
+        }
         return empresa;
     }
 

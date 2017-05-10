@@ -7880,6 +7880,38 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/interfasecontablesapbo.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/nominaf.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>interfasecontablesapbo</from-outcome>
+         <to-view-id>/interfasecontablesapbo.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/interfasecontablesapbo.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>interfasecontablehistorico</from-outcome>
+         <to-view-id>/interfasecontablehistorico.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/interfasecontablehistorico.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>interfasecontablesapbo</from-outcome>
+         <to-view-id>/interfasecontablesapbo.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
    
 </faces-config>
 

@@ -297,7 +297,7 @@
                                              onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             <p:commandButton style="position: absolute; left: 340px; top: 103px;" class="cssBotonLargo" id="btnReportePantallas" value="Reporte Pantallas" process="@this" 
                                              actionListener="#{controlPerfiles.validarDescargaReportePantallas()}" icon="ui-icon-extlink"
-                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
+                                             onclick="PF('generandoReporte').show()"/>
                         </fieldset>
                         <p:commandButton id="clonar" style="position: absolute; left: 10px; top: 495px;" icon="ui-icon-extlink" value="Clonar Pantallas"   process="@this" actionListener="#{controlPerfiles.clonarPermisosPantallas()}"
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLargo" />
@@ -459,7 +459,7 @@
                                              actionListener="#{controlPerfiles.mostrarTodosObjetos()}"  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             <p:commandButton style="position: absolute; left: 340px; top: 127px;" class="cssBotonLargo" value="Reporte Objetos" process="@this" id="btnReporteObjetos" icon="ui-icon-extlink"
                                              actionListener="#{controlPerfiles.validarDescargaReporteObjetos()}"
-                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
+                                             onclick="PF('generandoReporte').show()" />
                         </fieldset>
                         <p:commandButton id="clonarP" style="position: absolute; left: 185px; top: 495px;" icon="ui-icon-extlink" value="Clonar Permisos"   process="@this" actionListener="#{controlPerfiles.clonarPermisosObjetos()}"
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" class="cssBotonLargo" />
@@ -1191,12 +1191,18 @@
                         <p:inputTextarea value="#{controlPerfiles.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
+                     <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="80" width="400" style="font-size: 12px">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
-                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
-                        <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlPerfiles.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
+                        <h:outputText value="Generando reporte, esto puede tardar algunos minutos..." style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlInterfaseContableTotal.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                     </p:dialog>
 
+                     <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                        <h:outputText value="Reporte Generado con éxito" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <p:commandButton value="Descargar" icon="ui-icon-download" actionListener="#{controlPerfiles.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
+                    </p:dialog> 
 
 
                 </h:form>

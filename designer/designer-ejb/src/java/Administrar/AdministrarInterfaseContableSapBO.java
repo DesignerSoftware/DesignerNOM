@@ -367,4 +367,54 @@ public class AdministrarInterfaseContableSapBO implements AdministrarInterfaseCo
             return null;
         }
     }
+
+    @Override
+    public void actualizarFlagInterconSapBoProcesoDeshacer(Date fechaInicial, Date fechaFinal, BigInteger proceso) {
+       try {
+            persistenciaInterconSap.actualizarFlagInterconSapBoProcesoDeshacer(em, fechaInicial, fechaFinal, proceso);
+        } catch (Exception e) {
+            System.out.println("Error actualizarFlagInterconTotalProcesoDeshacer Admi : " + e.toString());
+        }
+    }
+
+    @Override
+    public void cerrarProcesoContabilizacion(Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso) {
+        try {
+            persistenciaInterconSap.cerrarProcesoContabilizacion(em, fechaInicial, fechaFinal, empresa, proceso);
+        } catch (Exception e) {
+            System.out.println("Error cerrarProcesoContabilizacion Admi : " + e.toString());
+        }
+    }
+
+    @Override
+    public void eliminarInterconSapBO(Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso) {
+        try {
+            persistenciaInterconSap.eliminarInterconSapBO(em, fechaInicial, fechaFinal, empresa, proceso);
+        } catch (Exception e) {
+            System.out.println("Error eliminarInterconSapBO Admi : " + e.toString());
+        }
+    }
+
+    @Override
+    public void actualizarFlagInterconSapBO(Date fechaInicial, Date fechaFinal, Short empresa) {
+        try {
+            persistenciaInterconSap.actualizarFlagInterconSapBO(em, fechaInicial, fechaFinal, empresa);
+        } catch (Exception e) {
+            System.out.println("Error actualizarFlagInterconSapBO Admi : " + e.toString());
+        }
+    }
+
+    @Override
+    public void borrarRegistroGenerado(List<SolucionesNodos> listBorrar) {
+       for (int i = 0; i < listBorrar.size(); i++) {
+            persistenciaSolucionesNodos.borrar(em, listBorrar.get(i));
+        }
+    }
+
+    @Override
+    public void borrarRegistroIntercon(List<InterconSapBO> listBorrar) {
+       for (int i = 0; i < listBorrar.size(); i++) {
+            persistenciaInterconSap.borrar(em, listBorrar.get(i));
+        }
+    }
 }

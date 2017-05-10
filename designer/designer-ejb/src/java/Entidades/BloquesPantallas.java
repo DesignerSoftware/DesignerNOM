@@ -69,6 +69,9 @@ public class BloquesPantallas implements Serializable {
     }
 
     public PantallasSeguras getPantalla() {
+        if(pantalla == null){
+            pantalla = new PantallasSeguras();
+        }
         return pantalla;
     }
 

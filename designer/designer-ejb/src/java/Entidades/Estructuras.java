@@ -97,6 +97,9 @@ public class Estructuras implements Serializable {
     }
 
     public Organigramas getOrganigrama() {
+        if (organigrama == null) {
+            organigrama = new Organigramas();
+        }
         return organigrama;
     }
 
@@ -105,6 +108,9 @@ public class Estructuras implements Serializable {
     }
 
     public Estructuras getEstructurapadre() {
+        if (estructurapadre == null) {
+            estructurapadre = new Estructuras();
+        }
         return estructurapadre;
     }
 
@@ -113,6 +119,9 @@ public class Estructuras implements Serializable {
     }
 
     public CentrosCostos getCentrocosto() {
+        if (centrocosto == null) {
+            centrocosto = new CentrosCostos();
+        }
         return centrocosto;
     }
 

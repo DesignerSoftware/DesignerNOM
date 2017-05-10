@@ -756,7 +756,7 @@ String pagActual = "nreporteevalcompetencias";
             validarDescargaReporte();
          } else {
             System.out.println("generando reporte - ingreso al 3 if else");
-            RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }

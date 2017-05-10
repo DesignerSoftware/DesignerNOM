@@ -227,7 +227,7 @@
                                       background-repeat: no-repeat; border: none; color: white;"/>
                      <p:tooltip  for="btnRiesgosProfesionales" value="#{msg['riesgosprofesionales']}"/>
                      <p:commandButton id="btnReportePlanta" value="Reporte Planta" icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlEstructura.validarDescargaReporte()}"/>
+                                      background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlEstructura.validarDescargaReporte()}" onclick="PF('generandoReporte').show()"/>
                      <p:tooltip  for="btnReportePlanta" value="#{msg['reporteplantapersonal']}"/>
                   </fieldset>
                </p:panel>
@@ -492,10 +492,16 @@
 
                <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="85" width="350" style="font-size: 12px">  
                   <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
-                  <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                  <h:outputText value="Generando reporte, esto puede tardar algunos minutos..." style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                   <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEstructura.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                </p:dialog>
-
+               
+                 <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                        <h:outputText value="Reporte Generado con éxito" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <p:commandButton value="Descargar" icon="ui-icon-download" actionListener="#{controlEstructura.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
+                    </p:dialog>
 
             </h:form>
             <h:form id="formExportar">

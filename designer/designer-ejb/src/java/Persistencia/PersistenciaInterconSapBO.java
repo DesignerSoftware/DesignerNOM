@@ -379,8 +379,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.setParameter(1, fechaIni);
             query.setParameter(2, fechaFin);
             query.setParameter(3, proceso);
-            query.setParameter(4, descripcionProceso);
-            query.setParameter(5, nombreArchivo);
+            query.setParameter(4, nombreArchivo);
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
@@ -524,6 +523,108 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
         } catch (Exception e) {
             System.out.println("Error PersistenciaInterconSapBO.contarProcesosContabilizadosInterconSAPBO. " + e.toString());
             return -1;
+        }
+    }
+
+    @Override
+    public void actualizarFlagInterconSapBoProcesoDeshacer(EntityManager em, Date fechaInicial, Date fechaFinal, BigInteger proceso) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sqlQuery = "UPDATE CONTABILIZACIONES SET FLAG='GENERADO' WHERE FLAG='CONTABILIZADO'\n"
+                    + " AND FECHAGENERACION BETWEEN ? AND ? \n"
+                    + " and exists (select 'x' from vwfempleados e, solucionesnodos sn where sn.empleado=e.secuencia and sn.secuencia=contabilizaciones.solucionnodo\n"
+                    + " and sn.proceso=nvl(?,sn.proceso))";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, fechaInicial);
+            query.setParameter(2, fechaFinal);
+            query.setParameter(3, proceso);
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBoProcesoDeshacer. " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void cerrarProcesoContabilizacion(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sql = "UPDATE INTERCON_SAPBO I SET I.FLAG='ENVIADO' WHERE  \n"
+                    + "     I.FECHACONTABILIZACION BETWEEN ? AND ?\n"
+                    + "     and nvl(i.proceso,0) = nvl(?,nvl(i.proceso,0))\n"
+                    + "     and i.empresa_codigo=?"
+                    + "   and exists (select 'x' from empleados e where e.secuencia=i.empleado)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, fechaInicial);
+            query.setParameter(2, fechaFinal);
+            query.setParameter(3, proceso);
+            query.setParameter(4, empresa);
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaInterconSapBO.cerrarProcesoContabilizacion. " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void eliminarInterconSapBO(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sqlQuery = "DELETE INTERCON_SAPBO \n"
+                    + " WHERE FECHACONTABILIZACION BETWEEN ? AND ?\n"
+                    + " AND FLAG='CONTABILIZADO'\n"
+                    + " and INTERCON_SAPBO.empresa_codigo=?\n"
+                    + " AND nvl(INTERCON_SAPBO.PROCESO,0) = NVL(?,nvl(INTERCON_SAPBO.PROCESO,0))\n"
+                    + " and exists (select 'x' from empleados e where e.secuencia=INTERCON_SAPBO.empleado)";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, fechaInicial);
+            query.setParameter(2, fechaFinal);
+            query.setParameter(3, empresa);
+            query.setParameter(4, proceso);
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaInterconSapBO.eliminarInterconSapBO. " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void actualizarFlagInterconSapBO(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa) {
+       em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sqlQuery = "UPDATE INTERCON_SAPBO SET FLAG = 'CONTABILIZADO' \n"
+                    + " WHERE FECHACONTABILIZACION BETWEEN ? AND ? \n"
+                    + " AND FLAG = 'ENVIADO' \n"
+                    + " AND INTERCON_SAPBO.empresa_codigo=? \n"
+                    + " AND EXISTS (SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA=INTERCON_SAPBO.EMPLEADO)";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, fechaInicial);
+            query.setParameter(2, fechaFinal);
+            query.setParameter(3, empresa);
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBO. " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 }

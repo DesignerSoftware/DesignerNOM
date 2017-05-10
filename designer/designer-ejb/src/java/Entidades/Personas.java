@@ -167,7 +167,7 @@ public class Personas implements Serializable {
 
     public String getGruposanguineo() {
         if (gruposanguineo == null) {
-            gruposanguineo = "";
+            gruposanguineo = " ";
         }
         return gruposanguineo;
     }
@@ -178,7 +178,7 @@ public class Personas implements Serializable {
 
     public String getNombre() {
         if (nombre == null) {
-            return "";
+            return " ";
         } else {
             return nombre;
         }
@@ -190,7 +190,7 @@ public class Personas implements Serializable {
 
     public String getPrimerapellido() {
         if (primerapellido == null) {
-            return "";
+            return " ";
         } else {
             return primerapellido;
         }
@@ -203,7 +203,7 @@ public class Personas implements Serializable {
 
     public String getSegundoapellido() {
         if (segundoapellido == null) {
-            return "";
+            return " ";
         } else {
             return segundoapellido;
         }
@@ -223,7 +223,7 @@ public class Personas implements Serializable {
 
     public String getViviendapropia() {
         if (viviendapropia == null) {
-            viviendapropia = "";
+            viviendapropia = " ";
         }
         return viviendapropia;
     }
@@ -336,6 +336,9 @@ public class Personas implements Serializable {
     }
 
     public String getSegundonombre() {
+        if (segundonombre == null) {
+            segundonombre = "";
+        }
         return segundonombre;
     }
 
@@ -344,6 +347,9 @@ public class Personas implements Serializable {
     }
 
     public TiposDocumentos getTipodocumento() {
+        if (tipodocumento == null) {
+            tipodocumento = new TiposDocumentos();
+        }
         return tipodocumento;
     }
 
@@ -352,6 +358,9 @@ public class Personas implements Serializable {
     }
 
     public Ciudades getCiudaddocumento() {
+        if (ciudaddocumento == null) {
+            ciudaddocumento = new Ciudades();
+        }
         return ciudaddocumento;
     }
 
@@ -360,6 +369,9 @@ public class Personas implements Serializable {
     }
 
     public Ciudades getCiudadnacimiento() {
+        if (ciudadnacimiento == null) {
+            ciudadnacimiento = new Ciudades();
+        }
         return ciudadnacimiento;
     }
 

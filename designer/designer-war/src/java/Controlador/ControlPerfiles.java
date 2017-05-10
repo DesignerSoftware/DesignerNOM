@@ -32,6 +32,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -120,6 +121,8 @@ public class ControlPerfiles implements Serializable {
     private String pathReporteGenerado = null;
     private String nombreReporte, tipoReporte;
     private String cabezeraVisor;
+    private String userAgent;
+    private ExternalContext externalContext;
 
     /**
      * Creates a new instance of ControlPerfiles
@@ -152,6 +155,8 @@ public class ControlPerfiles implements Serializable {
         nuevoPermisosPantalla.setObjetofrm(new ObjetosBloques());
         nuevoPermisosPantalla.setPerfil(new Perfiles());
         duplicarPermisosPantalla = new PermisosPantallas();
+        duplicarPermisosPantalla.setObjetofrm(new ObjetosBloques());
+        duplicarPermisosPantalla.setPerfil(new Perfiles());
         editarPermisosPantallas = new PermisosPantallas();
 
         lovPermisosPantallas = null;
@@ -188,6 +193,8 @@ public class ControlPerfiles implements Serializable {
             administrarPerfiles.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
             administarReportes.obtenerConexion(ses.getId());
+            externalContext = x.getExternalContext();
+            userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -2079,10 +2086,18 @@ public class ControlPerfiles implements Serializable {
                         System.out.println("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                         System.out.println("reporte despues de esto : " + reporte);
-                        cabezeraVisor = "Reporte - " + nombreReporte;
-                        RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
-                        RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                        pathReporteGenerado = null;
+                        if (reporte != null) {
+                            System.out.println("userAgent: " + userAgent);
+                            System.out.println("validar descarga reporte - ingreso al if 4");
+                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
+                                context.update("formularioDialogos:descargarReporte");
+                                context.execute("PF('descargarReporte').show();");
+                            } else {
+                                cabezeraVisor = "Reporte - " + nombreReporte;
+                                RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                                RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                            }
+                        }
                     } catch (FileNotFoundException ex) {
                         System.out.println("validar descarga reporte - ingreso al catch 1");
                         System.out.println(ex);
@@ -2098,8 +2113,8 @@ public class ControlPerfiles implements Serializable {
             System.out.println("Error en validar descargar Reporte " + e.toString());
         }
     }
-
-    public void validarDescargaReporteObjetos() {
+    
+       public void validarDescargaReporteObjetos() {
         try {
             System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
@@ -2122,10 +2137,18 @@ public class ControlPerfiles implements Serializable {
                         System.out.println("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                         System.out.println("reporte despues de esto : " + reporte);
-                        cabezeraVisor = "Reporte - " + nombreReporte;
-                        RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
-                        RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                        pathReporteGenerado = null;
+                        if (reporte != null) {
+                            System.out.println("userAgent: " + userAgent);
+                            System.out.println("validar descarga reporte - ingreso al if 4");
+                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
+                                context.update("formularioDialogos:descargarReporte");
+                                context.execute("PF('descargarReporte').show();");
+                            } else {
+                                cabezeraVisor = "Reporte - " + nombreReporte;
+                                RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                                RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                            }
+                        }
                     } catch (FileNotFoundException ex) {
                         System.out.println("validar descarga reporte - ingreso al catch 1");
                         System.out.println(ex);
@@ -2142,41 +2165,34 @@ public class ControlPerfiles implements Serializable {
         }
     }
 
-    public void reiniciarStreamedContent() {
-        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
-        reporte = null;
-    }
-
-    public void cancelarReporte() {
-        System.out.println(this.getClass().getName() + ".cancelarReporte()");
-        administarReportes.cancelarReporte();
-    }
-
     public void exportarReporte() throws IOException {
-        System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null) {
+        try {
+            System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
 
-            File reporteF = new File(pathReporteGenerado);
-            System.out.println("reporteF:  " + reporteF);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            System.out.println("ctx:  " + ctx);
-            FileInputStream fis = new FileInputStream(reporteF);
-            System.out.println("fis:   " + fis);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
-
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
                 }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte :" + e.getMessage());
         }
     }
 

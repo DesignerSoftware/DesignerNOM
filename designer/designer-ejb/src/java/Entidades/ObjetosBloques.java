@@ -70,6 +70,9 @@ public class ObjetosBloques implements Serializable {
     }
 
     public BloquesPantallas getBloque() {
+        if(bloque == null){
+            bloque = new BloquesPantallas();
+        }
         return bloque;
     }
 
