@@ -50,9 +50,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    @EJB
    AdministrarRastrosInterface administrarRastros;
    //Vigencias Tipos Trabajadores
-   private List<VigenciasTiposTrabajadores> vigenciasTiposTrabajadores;
+   private List<VigenciasTiposTrabajadores> listaVigenciasTT;
    private List<VigenciasTiposTrabajadores> filtrarVTT;
-   private VigenciasTiposTrabajadores vigenciaSeleccionada;
+   private VigenciasTiposTrabajadores vigenciaTTSeleccionada;
    //Tipos Trabajadores
    private List<TiposTrabajadores> listaTiposTrabajadores;
    private TiposTrabajadores tipoTrabajadorSeleccionado;
@@ -193,7 +193,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       motivosRetiros = null;
       motivoRetiroSeleccionado = new MotivosRetiros();
       //
-      vigenciasTiposTrabajadores = null;
+      listaVigenciasTT = null;
       //
       //listaTiposTrabajadores = new ArrayList<TiposTrabajadores>();
       listaTiposTrabajadores = null;
@@ -219,7 +219,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       nuevaVigencia = new VigenciasTiposTrabajadores();
       nuevaVigencia.setTipotrabajador(new TiposTrabajadores());
       nuevaVigencia.getTipotrabajador().setTipocotizante(new TiposCotizantes());
-      vigenciaSeleccionada = null;
+      vigenciaTTSeleccionada = null;
       indexPension = false;
       indexRetiro = false;
 
@@ -282,25 +282,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "emplvigenciatipotrabajador";
-         
-         
-         
+       */
+      String pagActual = "emplvigenciatipotrabajador";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -330,20 +320,20 @@ String pagActual = "emplvigenciatipotrabajador";
     */
    public void recibirEmpleado(Empleados empl, String pagina) {
       paginaAnterior = pagina;
-      vigenciasTiposTrabajadores = null;
+      listaVigenciasTT = null;
       empleado = empl;
-      getVigenciasTiposTrabajadores();
-      if (vigenciasTiposTrabajadores != null) {
-         if (!vigenciasTiposTrabajadores.isEmpty()) {
-            vigenciaSeleccionada = vigenciasTiposTrabajadores.get(0);
+      getListaVigenciasTT();
+      if (listaVigenciasTT != null) {
+         if (!listaVigenciasTT.isEmpty()) {
+            vigenciaTTSeleccionada = listaVigenciasTT.get(0);
             cargarPrimerosDatos();
          }
       }
    }
 
    public void cargarPrimerosDatos() {
-      if (vigenciaSeleccionada != null) {
-         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaSeleccionada;
+      if (vigenciaTTSeleccionada != null) {
+         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaTTSeleccionada;
          short n1 = 1;
          short n2 = 2;
          TiposTrabajadores tipoTrabajadorRetirado = administrarVigenciasTiposTrabajadores.tipoTrabajadorCodigo(n1);
@@ -383,11 +373,11 @@ String pagActual = "emplvigenciatipotrabajador";
    }
 
    public void modificarVTT(VigenciasTiposTrabajadores vtt) {
-      if (!listVTTCrear.contains(vigenciaSeleccionada)) {
+      if (!listVTTCrear.contains(vigenciaTTSeleccionada)) {
          if (listVTTModificar.isEmpty()) {
-            listVTTModificar.add(vigenciaSeleccionada);
-         } else if (!listVTTModificar.contains(vigenciaSeleccionada)) {
-            listVTTModificar.add(vigenciaSeleccionada);
+            listVTTModificar.add(vigenciaTTSeleccionada);
+         } else if (!listVTTModificar.contains(vigenciaTTSeleccionada)) {
+            listVTTModificar.add(vigenciaTTSeleccionada);
          }
          if (cambiosPagina) {
             cambiosPagina = false;
@@ -406,7 +396,7 @@ String pagActual = "emplvigenciatipotrabajador";
       boolean retorno = true;
       if (i == 0) {
          VigenciasTiposTrabajadores auxiliar = null;
-         auxiliar = vigenciaSeleccionada;
+         auxiliar = vigenciaTTSeleccionada;
          if (auxiliar.getFechavigencia().after(fechaParametro)) {
             retorno = true;
          } else {
@@ -433,22 +423,22 @@ String pagActual = "emplvigenciatipotrabajador";
    public void modificarFechasVTT(VigenciasTiposTrabajadores vtt, int c) {
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
-      vigenciaSeleccionada = vtt;
-      if (vigenciaSeleccionada.getFechavigencia() != null) {
+      vigenciaTTSeleccionada = vtt;
+      if (vigenciaTTSeleccionada.getFechavigencia() != null) {
          boolean retorno = false;
          retorno = validarFechasRegistroVTT(0);
          if (retorno == true) {
             cambiarIndice(vtt, c);
             modificarVTT(vtt);
          } else {
-            vigenciaSeleccionada.setFechavigencia(fechaVigenciaVTT);
+            vigenciaTTSeleccionada.setFechavigencia(fechaVigenciaVTT);
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
             RequestContext.getCurrentInstance().execute("PF('errorFechaVTT').show()");
          }
       } else {
-         vigenciaSeleccionada.setFechavigencia(fechaVigenciaVTT);
+         vigenciaTTSeleccionada.setFechavigencia(fechaVigenciaVTT);
 
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
@@ -463,14 +453,14 @@ String pagActual = "emplvigenciatipotrabajador";
     * @param indice Fila en la cual se realizo el cambio
     */
    public void modificarVTT(VigenciasTiposTrabajadores vtt, String confirmarCambio, String valorConfirmar) {
-      vigenciaSeleccionada = vtt;
+      vigenciaTTSeleccionada = vtt;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("TIPOTRABAJADOR")) {
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
-         vigenciaSeleccionada.getTipotrabajador().setNombre(tipoTrabajador);
+         vigenciaTTSeleccionada.getTipotrabajador().setNombre(tipoTrabajador);
 
          for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
             if (listaTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -479,7 +469,7 @@ String pagActual = "emplvigenciatipotrabajador";
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setTipotrabajador(listaTiposTrabajadores.get(indiceUnicoElemento));
+            vigenciaTTSeleccionada.setTipotrabajador(listaTiposTrabajadores.get(indiceUnicoElemento));
 
             listaTiposTrabajadores.clear();
             getListaTiposTrabajadores();
@@ -493,12 +483,12 @@ String pagActual = "emplvigenciatipotrabajador";
          }
       }
       if (coincidencias == 1) {
-         if (!listVTTCrear.contains(vigenciaSeleccionada)) {
+         if (!listVTTCrear.contains(vigenciaTTSeleccionada)) {
 
             if (listVTTModificar.isEmpty()) {
-               listVTTModificar.add(vigenciaSeleccionada);
-            } else if (!listVTTModificar.contains(vigenciaSeleccionada)) {
-               listVTTModificar.add(vigenciaSeleccionada);
+               listVTTModificar.add(vigenciaTTSeleccionada);
+            } else if (!listVTTModificar.contains(vigenciaTTSeleccionada)) {
+               listVTTModificar.add(vigenciaTTSeleccionada);
             }
             if (cambiosPagina) {
                cambiosPagina = false;
@@ -579,14 +569,14 @@ String pagActual = "emplvigenciatipotrabajador";
       String type = map.get("t"); // type attribute of node
       int indice = Integer.parseInt(type);
       int columna = Integer.parseInt(name);
-      vigenciaSeleccionada = vigenciasTiposTrabajadores.get(indice);
+      vigenciaTTSeleccionada = listaVigenciasTT.get(indice);
       cualCelda = columna;
       cambioVisibleRetiradosInput();
       cambioVisibleRetiradosMensaje();
       cambioVisiblePensionadoInput();
       cambioVisiblePensionadoMensaje();
       RequestContext.getCurrentInstance().execute("PF('datosVTTEmpleado').unselectAllRows(); PF('datosVTTEmpleado').selectRow(" + indice + ");");
-//      cambiarIndice(vigenciaSeleccionada, columna);
+//      cambiarIndice(vigenciaTTSeleccionada, columna);
    }
 
    //Ubicacion Celda.
@@ -604,9 +594,9 @@ String pagActual = "emplvigenciatipotrabajador";
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
          if (cambioRetiros == false && cambioPension == false) {
-            vigenciaSeleccionada = vtt;
+            vigenciaTTSeleccionada = vtt;
             cualCelda = celda;
-            fechaVigenciaVTT = vigenciaSeleccionada.getFechavigencia();
+            fechaVigenciaVTT = vigenciaTTSeleccionada.getFechavigencia();
             activarLOV = false;
             RequestContext.getCurrentInstance().update("form:listaValores");
             cambioVisibleRetiradosInput();
@@ -683,10 +673,10 @@ String pagActual = "emplvigenciatipotrabajador";
          k = 0;
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
-         vigenciasTiposTrabajadores = null;
-         getVigenciasTiposTrabajadores();
-         if (vigenciasTiposTrabajadores != null) {
-            vigenciaSeleccionada = vigenciasTiposTrabajadores.get(0);
+         listaVigenciasTT = null;
+         getListaVigenciasTT();
+         if (listaVigenciasTT != null) {
+            vigenciaTTSeleccionada = listaVigenciasTT.get(0);
          }
          contarRegistros();
          cambiosPagina = true;
@@ -711,11 +701,11 @@ String pagActual = "emplvigenciatipotrabajador";
       cambioPension = false;
       cambioRetiros = false;
       k = 0;
-      vigenciasTiposTrabajadores = null;
-      vigenciaSeleccionada = null;
+      listaVigenciasTT = null;
+      vigenciaTTSeleccionada = null;
       guardado = true;
       permitirIndex = true;
-      getVigenciasTiposTrabajadores();
+      getListaVigenciasTT();
       contarRegistros();
       cambiosPagina = true;
       almacenarRetirado = false;
@@ -759,10 +749,10 @@ String pagActual = "emplvigenciatipotrabajador";
     */
    public void editarCelda() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (vigenciaSeleccionada == null) {
+      if (vigenciaTTSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      } else if (vigenciaSeleccionada != null) {
-         editarVTT = vigenciaSeleccionada;
+      } else if (vigenciaTTSeleccionada != null) {
+         editarVTT = vigenciaTTSeleccionada;
 
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDialogo");
@@ -800,8 +790,8 @@ String pagActual = "emplvigenciatipotrabajador";
             nuevaVigencia.setEmpleado(empleado);
             listVTTCrear.add(nuevaVigencia);
             System.out.println("Secuencia VTT: " + nuevaVigencia.getSecuencia());
-            vigenciasTiposTrabajadores.add(nuevaVigencia);
-            vigenciaSeleccionada = vigenciasTiposTrabajadores.get(vigenciasTiposTrabajadores.indexOf(nuevaVigencia));
+            listaVigenciasTT.add(nuevaVigencia);
+            vigenciaTTSeleccionada = listaVigenciasTT.get(listaVigenciasTT.indexOf(nuevaVigencia));
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");
             nuevaVigencia = new VigenciasTiposTrabajadores();
@@ -856,16 +846,16 @@ String pagActual = "emplvigenciatipotrabajador";
     */
    public void duplicarVigenciaTT() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (vigenciaSeleccionada == null) {
+      if (vigenciaTTSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      } else if (vigenciaSeleccionada != null) {
+      } else if (vigenciaTTSeleccionada != null) {
          duplicarVTT = new VigenciasTiposTrabajadores();
          k++;
          l = BigInteger.valueOf(k);
 
-         duplicarVTT.setEmpleado(vigenciaSeleccionada.getEmpleado());
-         duplicarVTT.setFechavigencia(vigenciaSeleccionada.getFechavigencia());
-         duplicarVTT.setTipotrabajador(vigenciaSeleccionada.getTipotrabajador());
+         duplicarVTT.setEmpleado(vigenciaTTSeleccionada.getEmpleado());
+         duplicarVTT.setFechavigencia(vigenciaTTSeleccionada.getFechavigencia());
+         duplicarVTT.setTipotrabajador(vigenciaTTSeleccionada.getTipotrabajador());
 
          FacesContext c = FacesContext.getCurrentInstance();
 //         panelRetiradosInput = (Panel) c.getViewRoot().findComponent("form:panelRetiradosInput");
@@ -901,8 +891,8 @@ String pagActual = "emplvigenciatipotrabajador";
          mensajeValidacion = mensajeValidacion + "   * Fecha \n";
       } else {
 
-         for (int j = 0; j < vigenciasTiposTrabajadores.size(); j++) {
-            if (duplicarVTT.getFechavigencia().equals(vigenciasTiposTrabajadores.get(j).getFechavigencia())) {
+         for (int j = 0; j < listaVigenciasTT.size(); j++) {
+            if (duplicarVTT.getFechavigencia().equals(listaVigenciasTT.get(j).getFechavigencia())) {
                fechas++;
             }
          }
@@ -916,10 +906,10 @@ String pagActual = "emplvigenciatipotrabajador";
                k++;
                l = BigInteger.valueOf(k);
                duplicarVTT.setSecuencia(l);
-               vigenciasTiposTrabajadores.add(duplicarVTT);
+               listaVigenciasTT.add(duplicarVTT);
                listVTTCrear.add(duplicarVTT);
                contarRegistros();
-               vigenciaSeleccionada = vigenciasTiposTrabajadores.get(vigenciasTiposTrabajadores.indexOf(duplicarVTT));
+               vigenciaTTSeleccionada = listaVigenciasTT.get(listaVigenciasTT.indexOf(duplicarVTT));
 
                FacesContext c = FacesContext.getCurrentInstance();
                estiloRetiradosInput = "position: absolute; left: 440px; top: 310px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;";
@@ -974,24 +964,24 @@ String pagActual = "emplvigenciatipotrabajador";
     */
    public void borrarVTT() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (vigenciaSeleccionada == null) {
+      if (vigenciaTTSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else {
-         if (vigenciaSeleccionada != null) {
+         if (vigenciaTTSeleccionada != null) {
             if ((indexRetiro == false) && (indexPension == false)) {
-               if (!listVTTModificar.isEmpty() && listVTTModificar.contains(vigenciaSeleccionada)) {
-                  int modIndex = listVTTModificar.indexOf(vigenciaSeleccionada);
+               if (!listVTTModificar.isEmpty() && listVTTModificar.contains(vigenciaTTSeleccionada)) {
+                  int modIndex = listVTTModificar.indexOf(vigenciaTTSeleccionada);
                   listVTTModificar.remove(modIndex);
-                  listVTTBorrar.add(vigenciaSeleccionada);
-               } else if (!listVTTCrear.isEmpty() && listVTTCrear.contains(vigenciaSeleccionada)) {
-                  int crearIndex = listVTTCrear.indexOf(vigenciaSeleccionada);
+                  listVTTBorrar.add(vigenciaTTSeleccionada);
+               } else if (!listVTTCrear.isEmpty() && listVTTCrear.contains(vigenciaTTSeleccionada)) {
+                  int crearIndex = listVTTCrear.indexOf(vigenciaTTSeleccionada);
                   listVTTCrear.remove(crearIndex);
                } else {
-                  listVTTBorrar.add(vigenciaSeleccionada);
+                  listVTTBorrar.add(vigenciaTTSeleccionada);
                }
-               vigenciasTiposTrabajadores.remove(vigenciaSeleccionada);
+               listaVigenciasTT.remove(vigenciaTTSeleccionada);
                if (tipoLista == 1) {
-                  filtrarVTT.remove(vigenciaSeleccionada);
+                  filtrarVTT.remove(vigenciaTTSeleccionada);
                }
 
                RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
@@ -1010,19 +1000,19 @@ String pagActual = "emplvigenciatipotrabajador";
                         retiroVigencia.setMotivoretiro(null);
                      }
                      administrarVigenciasTiposTrabajadores.borrarRetirado(retiroVigencia);
-                     if (!listVTTModificar.isEmpty() && listVTTModificar.contains(vigenciaSeleccionada)) {
-                        int modIndex = listVTTModificar.indexOf(vigenciaSeleccionada);
+                     if (!listVTTModificar.isEmpty() && listVTTModificar.contains(vigenciaTTSeleccionada)) {
+                        int modIndex = listVTTModificar.indexOf(vigenciaTTSeleccionada);
                         listVTTModificar.remove(modIndex);
-                        listVTTBorrar.add(vigenciaSeleccionada);
-                     } else if (!listVTTCrear.isEmpty() && listVTTCrear.contains(vigenciaSeleccionada)) {
-                        int crearIndex = listVTTCrear.indexOf(vigenciaSeleccionada);
+                        listVTTBorrar.add(vigenciaTTSeleccionada);
+                     } else if (!listVTTCrear.isEmpty() && listVTTCrear.contains(vigenciaTTSeleccionada)) {
+                        int crearIndex = listVTTCrear.indexOf(vigenciaTTSeleccionada);
                         listVTTCrear.remove(crearIndex);
                      } else {
-                        listVTTBorrar.add(vigenciaSeleccionada);
+                        listVTTBorrar.add(vigenciaTTSeleccionada);
                      }
-                     vigenciasTiposTrabajadores.remove(vigenciaSeleccionada);
+                     listaVigenciasTT.remove(vigenciaTTSeleccionada);
                      if (tipoLista == 1) {
-                        filtrarVTT.remove(vigenciaSeleccionada);
+                        filtrarVTT.remove(vigenciaTTSeleccionada);
                      }
 
                      RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
@@ -1056,20 +1046,20 @@ String pagActual = "emplvigenciatipotrabajador";
                         pensionVigencia.setTutor(null);
                      }
                      administrarVigenciasTiposTrabajadores.borrarPensionado(pensionVigencia);
-                     if (!listVTTModificar.isEmpty() && listVTTModificar.contains(vigenciaSeleccionada)) {
-                        int modIndex = listVTTModificar.indexOf(vigenciaSeleccionada);
+                     if (!listVTTModificar.isEmpty() && listVTTModificar.contains(vigenciaTTSeleccionada)) {
+                        int modIndex = listVTTModificar.indexOf(vigenciaTTSeleccionada);
                         listVTTModificar.remove(modIndex);
-                        listVTTBorrar.add(vigenciaSeleccionada);
-                     } else if (!listVTTCrear.isEmpty() && listVTTCrear.contains(vigenciaSeleccionada)) {
-                        int crearIndex = listVTTCrear.indexOf(vigenciaSeleccionada);
+                        listVTTBorrar.add(vigenciaTTSeleccionada);
+                     } else if (!listVTTCrear.isEmpty() && listVTTCrear.contains(vigenciaTTSeleccionada)) {
+                        int crearIndex = listVTTCrear.indexOf(vigenciaTTSeleccionada);
                         listVTTCrear.remove(crearIndex);
                      } else {
 
-                        listVTTBorrar.add(vigenciaSeleccionada);
+                        listVTTBorrar.add(vigenciaTTSeleccionada);
                      }
-                     vigenciasTiposTrabajadores.remove(vigenciaSeleccionada);
+                     listaVigenciasTT.remove(vigenciaTTSeleccionada);
                      if (tipoLista == 1) {
-                        filtrarVTT.remove(vigenciaSeleccionada);
+                        filtrarVTT.remove(vigenciaTTSeleccionada);
                      }
                      contarRegistros();
                      RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
@@ -1098,7 +1088,7 @@ String pagActual = "emplvigenciatipotrabajador";
             RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
             RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
          }
-         vigenciaSeleccionada = null;
+         vigenciaTTSeleccionada = null;
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
          indexPension = false;
@@ -1142,9 +1132,9 @@ String pagActual = "emplvigenciatipotrabajador";
       listVTTBorrar.clear();
       listVTTCrear.clear();
       listVTTModificar.clear();
-      vigenciaSeleccionada = null;
+      vigenciaTTSeleccionada = null;
       k = 0;
-      vigenciasTiposTrabajadores = null;
+      listaVigenciasTT = null;
       guardado = false;
       cambiosPagina = true;
       cambioPension = false;
@@ -1189,7 +1179,7 @@ String pagActual = "emplvigenciatipotrabajador";
    public void asignarIndex(VigenciasTiposTrabajadores vtt, int campo, int tipoAct, int tt) {
       RequestContext context = RequestContext.getCurrentInstance();
       activarLOV = true;
-      vigenciaSeleccionada = vtt;
+      vigenciaTTSeleccionada = vtt;
       context.update("form:listaValores");
       System.out.println("VigenciasTiposTrabajadores: " + vtt.toString());
       if (tt == 0) {
@@ -1344,12 +1334,12 @@ String pagActual = "emplvigenciatipotrabajador";
    public void actualizarTipoTrabajador() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         vigenciaSeleccionada.setTipotrabajador(tipoTrabajadorSeleccionado);
-         if (!listVTTCrear.contains(vigenciaSeleccionada)) {
+         vigenciaTTSeleccionada.setTipotrabajador(tipoTrabajadorSeleccionado);
+         if (!listVTTCrear.contains(vigenciaTTSeleccionada)) {
             if (listVTTModificar.isEmpty()) {
-               listVTTModificar.add(vigenciaSeleccionada);
-            } else if (!listVTTModificar.contains(vigenciaSeleccionada)) {
-               listVTTModificar.add(vigenciaSeleccionada);
+               listVTTModificar.add(vigenciaTTSeleccionada);
+            } else if (!listVTTModificar.contains(vigenciaTTSeleccionada)) {
+               listVTTModificar.add(vigenciaTTSeleccionada);
             }
          }
 
@@ -1402,10 +1392,10 @@ String pagActual = "emplvigenciatipotrabajador";
    public void listaValoresBoton() {
       RequestContext context = RequestContext.getCurrentInstance();
       //Si no hay registro seleccionado
-      //if (vigenciaSeleccionada == null && indexPension < 0 && indexRetiro < 0) {
-      if (vigenciaSeleccionada == null) {
+      //if (vigenciaTTSeleccionada == null && indexPension < 0 && indexRetiro < 0) {
+      if (vigenciaTTSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      } else if (vigenciaSeleccionada != null) {
+      } else if (vigenciaTTSeleccionada != null) {
          if (cualCelda == 1) {
             //TiposTrabajadoresDialogo
             tipoTrabajadorSeleccionado = null;
@@ -1436,7 +1426,7 @@ String pagActual = "emplvigenciatipotrabajador";
       Exporter exporter = new ExportarPDF();
       exporter.export(context, tabla, "VigenciasTiposTrabajadoresPDF", false, false, "UTF-8", null, null);
       context.responseComplete();
-      vigenciaSeleccionada = null;
+      vigenciaTTSeleccionada = null;
    }
 
    /**
@@ -1450,7 +1440,7 @@ String pagActual = "emplvigenciatipotrabajador";
       Exporter exporter = new ExportarXLS();
       exporter.export(context, tabla, "VigenciasTiposTrabajadoresXLS", false, false, "UTF-8", null, null);
       context.responseComplete();
-      vigenciaSeleccionada = null;
+      vigenciaTTSeleccionada = null;
    }
 
    //VISIBILIDAD PANELES RETIRADOS - PENSIONADOS
@@ -1460,10 +1450,10 @@ String pagActual = "emplvigenciatipotrabajador";
     */
    public void cambioVisibleRetiradosMensaje() {
       TiposTrabajadores tipoTrabajadorRetirado;
-      if (vigenciaSeleccionada != null) {
+      if (vigenciaTTSeleccionada != null) {
          short n1 = 1;
          tipoTrabajadorRetirado = administrarVigenciasTiposTrabajadores.tipoTrabajadorCodigo(n1);
-         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaSeleccionada;
+         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaTTSeleccionada;
          if (tipoTrabajadorRetirado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
             estiloRetiradosMensaje = "position: absolute; left: 440px; top: 304px; width: 415px; height: 187px; border-radius: 10px; text-align: left; visibility: hidden; display: none;";
          } else {
@@ -1478,10 +1468,10 @@ String pagActual = "emplvigenciatipotrabajador";
     * registro sea Extrabajador, en caso verdadero carga los datos del retirado
     */
    public void cambioVisibleRetiradosInput() {
-      if (vigenciaSeleccionada != null) {
+      if (vigenciaTTSeleccionada != null) {
          short n1 = 1;
          TiposTrabajadores tipoTrabajadorRetirado = administrarVigenciasTiposTrabajadores.tipoTrabajadorCodigo(n1);
-         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaSeleccionada;
+         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaTTSeleccionada;
 //         panelRetiradosInput = (Panel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelRetiradosInput");
          if (tipoTrabajadorRetirado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
             indexRetiro = true;
@@ -1503,10 +1493,10 @@ String pagActual = "emplvigenciatipotrabajador";
     * registro sea Extrabajador
     */
    public void cambioVisiblePensionadoMensaje() {
-      if (vigenciaSeleccionada != null) {
+      if (vigenciaTTSeleccionada != null) {
          short n2 = 2;
          TiposTrabajadores tipoTrabajadorPensionado = administrarVigenciasTiposTrabajadores.tipoTrabajadorCodigo(n2);
-         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaSeleccionada;
+         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaTTSeleccionada;
          if (tipoTrabajadorPensionado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
             estiloPensionadosMensaje = "position: absolute; left: 12px; top: 304px; width: 415px; height: 187px; border-radius: 10px; text-align: left; display: none; visibility: hidden;";
          } else {
@@ -1522,10 +1512,10 @@ String pagActual = "emplvigenciatipotrabajador";
     * pensionado
     */
    public void cambioVisiblePensionadoInput() {
-      if (vigenciaSeleccionada != null) {
+      if (vigenciaTTSeleccionada != null) {
          short n2 = 2;
          TiposTrabajadores tipoTrabajadorPensionado = administrarVigenciasTiposTrabajadores.tipoTrabajadorCodigo(n2);
-         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaSeleccionada;
+         VigenciasTiposTrabajadores vigenciaTemporal = vigenciaTTSeleccionada;
          if (tipoTrabajadorPensionado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
             indexPension = true;
             cargarPension();
@@ -1547,7 +1537,7 @@ String pagActual = "emplvigenciatipotrabajador";
       k++;
       l = BigInteger.valueOf(k);
       getMotivosRetiros();
-      retiroVigencia = administrarVigenciasTiposTrabajadores.retiroPorSecuenciaVigencia(vigenciaSeleccionada.getSecuencia());
+      retiroVigencia = administrarVigenciasTiposTrabajadores.retiroPorSecuenciaVigencia(vigenciaTTSeleccionada.getSecuencia());
       if (retiroVigencia.getSecuencia() == null) {
          operacionRetiro = true;
          retiroVigencia = new Retirados();
@@ -1564,7 +1554,7 @@ String pagActual = "emplvigenciatipotrabajador";
    public void cargarPension() {
       k++;
       l = BigInteger.valueOf(k);
-      pensionVigencia = administrarVigenciasTiposTrabajadores.pensionPorSecuenciaVigencia(vigenciaSeleccionada.getSecuencia());
+      pensionVigencia = administrarVigenciasTiposTrabajadores.pensionPorSecuenciaVigencia(vigenciaTTSeleccionada.getSecuencia());
       if (pensionVigencia.getSecuencia() == null) {
          operacionPension = true;
          pensionVigencia = new Pensionados();
@@ -1587,7 +1577,7 @@ String pagActual = "emplvigenciatipotrabajador";
       if (retiroVigencia.getFecharetiro() != null) {
          System.out.println("ControlVigenciaTipoTrabajador.guardarDatosPensiones:");
          System.out.println("Secuencia: " + retiroVigencia.getSecuencia());
-         retiroVigencia.setVigenciatipotrabajador(vigenciaSeleccionada);
+         retiroVigencia.setVigenciatipotrabajador(vigenciaTTSeleccionada);
 
          k++;
          k = retiroVigencia.getSecuencia().intValue();
@@ -1685,7 +1675,7 @@ String pagActual = "emplvigenciatipotrabajador";
       if (pensionVigencia.getFechainiciopension() != null && pensionVigencia.getClase().getSecuencia() != null) {
          System.out.println("ControlVigenciaTipoTrabajador.guardarDatosPensiones:");
          System.out.println("Secuencia: " + pensionVigencia.getSecuencia());
-         pensionVigencia.setVigenciatipotrabajador(vigenciaSeleccionada);
+         pensionVigencia.setVigenciatipotrabajador(vigenciaTTSeleccionada);
 
          k++;
          k = pensionVigencia.getSecuencia().intValue();
@@ -1809,7 +1799,7 @@ String pagActual = "emplvigenciatipotrabajador";
       aceptar = true;
       filtradoMotivosRetiros = null;
       motivoRetiroSeleccionado = null;
-      vigenciaSeleccionada = null;
+      vigenciaTTSeleccionada = null;
       /*
          *
        */
@@ -1831,7 +1821,7 @@ String pagActual = "emplvigenciatipotrabajador";
       motivoRetiroSeleccionado = null;
       filtradoMotivosRetiros = null;
       aceptar = true;
-      vigenciaSeleccionada = null;
+      vigenciaTTSeleccionada = null;
       tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formLovs:lovMotivosRetiros:globalFilter");
@@ -2048,7 +2038,7 @@ String pagActual = "emplvigenciatipotrabajador";
       retiroVigencia = new Retirados();
       retiroVigencia.setMotivoretiro(new MotivosRetiros());
       retiroVigencia.setSecuencia(retiroCopia.getSecuencia());
-      retiroVigencia.setVigenciatipotrabajador(vigenciaSeleccionada);
+      retiroVigencia.setVigenciatipotrabajador(vigenciaTTSeleccionada);
       if (operacionRetiro == false) {
          if (banderaLimpiarRetiro == true) {
             administrarVigenciasTiposTrabajadores.borrarRetirado(retiroCopia);
@@ -2083,7 +2073,7 @@ String pagActual = "emplvigenciatipotrabajador";
       pensionVigencia.setTipopensionado(new TiposPensionados());
       pensionVigencia.setTutor(new Personas());
       pensionVigencia.setSecuencia(pensionCopia.getSecuencia());
-      pensionVigencia.setVigenciatipotrabajador(vigenciaSeleccionada);
+      pensionVigencia.setVigenciatipotrabajador(vigenciaTTSeleccionada);
       if (operacionPension == false) {
          if (banderaLimpiarPension == true) {
             administrarVigenciasTiposTrabajadores.borrarPensionado(pensionCopia);
@@ -2144,7 +2134,7 @@ String pagActual = "emplvigenciatipotrabajador";
       context.reset("form:observacion");
       boolean banderaValidacion = true;
       List<VigenciasTiposTrabajadores> listaVigenciaTiposTrabajadoresReal = administrarVigenciasTiposTrabajadores.vigenciasTiposTrabajadoresEmpleado(empleado.getSecuencia());
-      VigenciasTiposTrabajadores vigenciaSeleccionadaRetirados = vigenciaSeleccionada;
+      VigenciasTiposTrabajadores vigenciaSeleccionadaRetirados = vigenciaTTSeleccionada;
       int tamanoTabla = listaVigenciaTiposTrabajadoresReal.size();
       int i = 0;
       while (banderaValidacion && (i < tamanoTabla)) {
@@ -2184,7 +2174,7 @@ String pagActual = "emplvigenciatipotrabajador";
       boolean banderaValidacion = true;
       List<VigenciasTiposTrabajadores> listaVigenciaTiposTrabajadoresReal;
       listaVigenciaTiposTrabajadoresReal = administrarVigenciasTiposTrabajadores.vigenciasTiposTrabajadoresEmpleado(empleado.getSecuencia());
-      VigenciasTiposTrabajadores vigenciaSeleccionadaPension = vigenciaSeleccionada;
+      VigenciasTiposTrabajadores vigenciaSeleccionadaPension = vigenciaTTSeleccionada;
       int tamanoTabla = listaVigenciaTiposTrabajadoresReal.size();
       int i = 0;
       while (banderaValidacion && (i < tamanoTabla)) {
@@ -2227,6 +2217,7 @@ String pagActual = "emplvigenciatipotrabajador";
       guardarGeneral();
       salir();
    }
+
    /**
     * Guardado general de la pagina
     */
@@ -2253,8 +2244,8 @@ String pagActual = "emplvigenciatipotrabajador";
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
 
-      if (vigenciaSeleccionada != null) {
-         int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASTIPOSTRABAJADORES");
+      if (vigenciaTTSeleccionada != null) {
+         int resultado = administrarRastros.obtenerTabla(vigenciaTTSeleccionada.getSecuencia(), "VIGENCIASTIPOSTRABAJADORES");
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -2315,12 +2306,12 @@ String pagActual = "emplvigenciatipotrabajador";
    }
 
    public void recordarSeleccion() {
-      if (vigenciaSeleccionada != null) {
+      if (vigenciaTTSeleccionada != null) {
          FacesContext c = FacesContext.getCurrentInstance();
          tablaC = (DataTable) c.getViewRoot().findComponent("form:datosVTTEmpleado");
-         tablaC.setSelection(vigenciaSeleccionada);
+         tablaC.setSelection(vigenciaTTSeleccionada);
       }
-      //System.out.println("vigenciaSeleccionada: " + vigenciaSeleccionada);
+      //System.out.println("vigenciaTTSeleccionada: " + vigenciaTTSeleccionada);
    }
 
    public void anularLOV() {
@@ -2329,20 +2320,15 @@ String pagActual = "emplvigenciatipotrabajador";
    }
 
    //**************************GETTER & SETTER**********************************************************************************************************************************************//
-   public List<VigenciasTiposTrabajadores> getVigenciasTiposTrabajadores() {
-      try {
-         if (vigenciasTiposTrabajadores == null) {
-            vigenciasTiposTrabajadores = administrarVigenciasTiposTrabajadores.vigenciasTiposTrabajadoresEmpleado(empleado.getSecuencia());
-         }
-         return vigenciasTiposTrabajadores;
-      } catch (Exception e) {
-         //System.out.println("Error....................!!!!!!!!!!!! getVigenciasTiposTrabajadores ");
-         return null;
+   public List<VigenciasTiposTrabajadores> getListaVigenciasTT() {
+      if (listaVigenciasTT == null) {
+         listaVigenciasTT = administrarVigenciasTiposTrabajadores.vigenciasTiposTrabajadoresEmpleado(empleado.getSecuencia());
       }
+      return listaVigenciasTT;
    }
 
-   public void setVigenciasTiposTrabajadores(List<VigenciasTiposTrabajadores> vigenciasTiposTrabajadores) {
-      this.vigenciasTiposTrabajadores = vigenciasTiposTrabajadores;
+   public void setListaVigenciasTT(List<VigenciasTiposTrabajadores> listaVigenciasTT) {
+      this.listaVigenciasTT = listaVigenciasTT;
    }
 
    public Empleados getEmpleado() {
@@ -2555,12 +2541,12 @@ String pagActual = "emplvigenciatipotrabajador";
       this.personasFiltrado = personasFiltrado;
    }
 
-   public VigenciasTiposTrabajadores getVigenciaSeleccionada() {
-      return vigenciaSeleccionada;
+   public VigenciasTiposTrabajadores getVigenciaTTSeleccionada() {
+      return vigenciaTTSeleccionada;
    }
 
-   public void setVigenciaSeleccionada(VigenciasTiposTrabajadores vigenciaSeleccionada) {
-      this.vigenciaSeleccionada = vigenciaSeleccionada;
+   public void setVigenciaTTSeleccionada(VigenciasTiposTrabajadores vigenciaTTSeleccionada) {
+      this.vigenciaTTSeleccionada = vigenciaTTSeleccionada;
    }
 
    public String getAltoTabla() {

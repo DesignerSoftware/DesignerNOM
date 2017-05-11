@@ -86,10 +86,10 @@
                      <!-- TABLA EMPLVIGENCIATIPOTRABAJADOR -->
 
                      <p:dataTable id="datosVTTEmpleado" widgetVar="datosVTTEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left; width: 812px;"                           
-                                  value="#{controlVigenciaTipoTrabajador.emplvigenciatipotrabajador}" scrollable="true" scrollWidth="830" scrollHeight="#{controlVigenciaTipoTrabajador.altoTabla}"
+                                  value="#{controlVigenciaTipoTrabajador.listaVigenciasTT}" scrollable="true" scrollWidth="830" scrollHeight="#{controlVigenciaTipoTrabajador.altoTabla}"
                                   filteredValue="#{controlVigenciaTipoTrabajador.filtrarVTT}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" 
-                                  selection="#{controlVigenciaTipoTrabajador.vigenciaSeleccionada}" selectionMode="single">
+                                  selection="#{controlVigenciaTipoTrabajador.vigenciaTTSeleccionada}" selectionMode="single">
 
                         <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlVigenciaTipoTrabajador.recordarSeleccion()}"/>
@@ -159,7 +159,7 @@
                            </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton style="width: 270px;" id="fooTipoCotizante" onstart="#{controlVigenciaTipoTrabajador.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipotrabajador', 'tipoentidadv')}" value="" process="@this">
-                                 <f:actionListener binding="#{controlTipoCotizante.recibirPaginaEntrante(emplvigenciatipotrabajador)}"/>
+                                 <f:actionListener binding="#{controlTipoCotizante.recibirPaginaEntrante('emplvigenciatipotrabajador')}"/>
                                  <f:actionListener binding="#{controlVigenciaTipoTrabajador.limpiarListasValor()}"/>
                               </p:commandButton>
                            </f:facet>
@@ -291,7 +291,7 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="360"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 270px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'emplvigenciatipotrabajador')}" style="position: absolute; top: 70px; left: 200px;" onstart="#{controlVigenciaTipoTrabajador.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipotrabajador', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaTTSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'emplvigenciatipotrabajador')}" style="position: absolute; top: 70px; left: 200px;" onstart="#{controlVigenciaTipoTrabajador.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipotrabajador', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -315,7 +315,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="98" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'vigenciaTipoTrabajador')}" style="position: absolute; top: 65px; left: 200px;" onstart="#{controlVigenciaTipoTrabajador.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipotrabajador', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaTipoTrabajador.vigenciaTTSeleccionada.secuencia, 'VigenciasTiposTrabajadores', 'vigenciaTipoTrabajador')}" style="position: absolute; top: 65px; left: 200px;" onstart="#{controlVigenciaTipoTrabajador.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipotrabajador', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -735,7 +735,7 @@
 
             <h:form id="formExportar">
                <p:dataTable id="datosVTTEmpleadoExportar" var="info" style="visibility: hidden; display: none;"                           
-                            value="#{controlVigenciaTipoTrabajador.emplvigenciatipotrabajador}"> 
+                            value="#{controlVigenciaTipoTrabajador.listaVigenciasTT}"> 
                   <!--COLUMNAS TABLA DATOS VIGENCIAS REFORMAS LABORALES DE UN EMPLEADO --> 
                   <p:column>  
                      <f:facet name="header">
