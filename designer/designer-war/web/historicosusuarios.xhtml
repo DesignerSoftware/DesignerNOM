@@ -66,7 +66,8 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this"
+                                                 action="#{controlHistoricosUsuarios.redirigir()}" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -212,7 +213,7 @@
                                          id="REPORTE" value="#{msg['reporte']}" update=":form:datosHistoricosUsuarios" process="@this" actionListener="#{controlHistoricosUsuarios.validarDescargaReporte()}"/>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlHistoricosUsuarios.guardado}" update=":form:datosHistoricosUsuarios" process="@this"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this" action="#{controlHistoricosUsuarios.redirigir()}" />
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlHistoricosUsuarios.activarCrtlF11()}" process="@this"/> 
                     <p:remoteCommand name="posicionOtro" actionListener="#{controlHistoricosUsuarios.posicionOtro()}"/>

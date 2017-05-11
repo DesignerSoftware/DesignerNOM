@@ -123,8 +123,8 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 740px;" id="fooEstadoCivil"  onstart="#{controlVigenciasEstadosCiviles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'perestadocivil')}" value=" ">
-                                 <f:actionListener binding="#{controlEstadosCiviles.recibirPag('estadoCivil')}"/>
+                              <p:commandButton style="width: 740px;" id="fooEstadoCivil"  onstart="#{controlVigenciasEstadosCiviles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'estadocivil')}" value=" ">
+                                 <f:actionListener binding="#{controlEstadosCiviles.recibirPag('perestadocivil')}"/>
                                  <f:actionListener binding="#{controlVigenciasEstadosCiviles.limpiarListasValor()}"/>
                               </p:commandButton>
                            </f:facet>

@@ -3550,7 +3550,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigenciasEvents</from-outcome>
+         <from-outcome>emplvigenciaevento</from-outcome>
          <to-view-id>/emplvigenciaevento.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3558,7 +3558,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciaevento.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplIndv</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3622,7 +3622,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>infoAdicional</from-outcome>
+         <from-outcome>emplinformacionadicional</from-outcome>
          <to-view-id>/emplinformacionadicional.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3639,7 +3639,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>infoDeportesPersona</from-outcome>
+         <from-outcome>vigenciasdeportes</from-outcome>
          <to-view-id>/vigenciasdeportes.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3648,7 +3648,7 @@
    <navigation-rule>
       <from-view-id>/vigenciaaficion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigAfiEmplInd</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3860,7 +3860,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>perReferenciaLaboral</from-outcome>
+         <from-outcome>perreferencialaboral</from-outcome>
          <to-view-id>/perreferencialaboral.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6118,7 +6118,7 @@
    <navigation-rule>
       <from-view-id>/perestadocivil.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>estadoCivil</from-outcome>
+         <from-outcome>estadocivil</from-outcome>
          <to-view-id>/estadocivil.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6782,7 +6782,7 @@
    <navigation-rule>
       <from-view-id>/perdireccion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6790,7 +6790,7 @@
    <navigation-rule>
       <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>perdireccion</from-outcome>
          <to-view-id>/perdireccion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6996,7 +6996,7 @@
    <navigation-rule>
       <from-view-id>/emplfamiliares.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tiposfamiliar</from-outcome>
+         <from-outcome>tipofamiliar</from-outcome>
          <to-view-id>/tipofamiliar.xhtml</to-view-id>
          <redirect />
       </navigation-case>

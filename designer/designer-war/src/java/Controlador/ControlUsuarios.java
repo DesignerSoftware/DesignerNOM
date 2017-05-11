@@ -304,7 +304,7 @@ public class ControlUsuarios implements Serializable {
     public void cambiarIndice(Usuarios usuario, int celda) {
         usuariosSeleccionado = usuario;
         cualCelda = celda;
-        tablaImprimir = ":formExportar:datosUsuarioExportar";
+        tablaImprimir = ":formExportar:datosUsuariosExportar";
         nombreArchivo = "UsuariosXML";
         usuariosSeleccionado.getSecuencia();
         if (cualCelda == 0) {

@@ -71,7 +71,7 @@
                   </p:toolbar>
 
                   <p:commandButton class="cssBotonAceptar" disabled="#{controlHvReferencias1.guardado}"  id="ACEPTAR" value=" "  actionListener="#{controlHvReferencias1.revisarDialogoGuardar()}"   process="@this"   />
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlHvReferencias1.salir()}"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlHvReferencias1.salir()}" process="@this"/>
 
                   <fieldset style="position: absolute; top: 75px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>

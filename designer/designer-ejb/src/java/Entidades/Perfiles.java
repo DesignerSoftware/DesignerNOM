@@ -71,9 +71,6 @@ public class Perfiles implements Serializable {
     }
 
     public String getPwd() {
-        if (pwd == null) {
-            pwd = " ";
-        }
         return pwd;
     }
 

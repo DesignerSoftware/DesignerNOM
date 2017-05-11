@@ -64,7 +64,8 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUsuariosVistas.salir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUsuariosVistas.salir()}" process="@this"
+                                                 action="#{controlUsuariosVistas.redirigir()}" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -262,7 +263,7 @@
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlUsuariosVistas.guardado}" update=":form:datosUsuariosVistas" process="@this"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlUsuariosVistas.salir()}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlUsuariosVistas.salir()}" process="@this" action="#{controlUsuariosVistas.redirigir()}" />
 
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlUsuariosVistas.activarCtrlF11()}" process="@this"/> 

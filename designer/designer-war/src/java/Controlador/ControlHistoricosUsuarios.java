@@ -185,7 +185,7 @@ public class ControlHistoricosUsuarios implements Serializable {
 
       } else {
          */
-        String pagActual = "usuario";
+        String pagActual = "historicosusuarios";
 
         // mapParametros.put("paginaAnterior", pagActual);
         if (pag.equals("atras")) {
@@ -222,6 +222,10 @@ public class ControlHistoricosUsuarios implements Serializable {
         }
     }
 
+    public String redirigir() {
+        return paginaAnterior;
+    }
+    
     public void activarAceptar() {
         aceptar = false;
     }

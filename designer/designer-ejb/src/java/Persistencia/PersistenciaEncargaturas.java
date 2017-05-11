@@ -157,17 +157,15 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             String sql = " select t.nombre||' '||to_char(e.fechainicial,'dd-mm-yyyy')\n"
                     + "	 from encargaturas e, tiposreemplazos t\n"
                     + "	 where e.tiporeemplazo = t.secuencia\n"
-                    + "	 and e.empleado = (select secuencia from empleados where persona=?)\n"
+                    + "	 and e.empleado = (select secuencia from empleados where persona=?) \n"
                     + "   and e.fechainicial = (select max(ei.fechainicial) from encargaturas ei where ei.empleado = e.empleado) AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaEmpleado);
-            if (query.getSingleResult() == null || query.getSingleResult().equals("") || query.getSingleResult().equals(" ")) {
+            reemplazo = (String) query.getSingleResult();
+            if (reemplazo == null || reemplazo.isEmpty()) {
                 reemplazo = " ";
-            } else {
-                reemplazo = (String) query.getSingleResult();
             }
             return reemplazo;
-
         } catch (Exception e) {
             System.out.println("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e);
             e.printStackTrace();

@@ -65,6 +65,9 @@ public class ObjetosDB implements Serializable {
     }
 
     public String getTipo() {
+        if(tipo == null){
+            tipo = "";
+        }
         return tipo;
     }
 
@@ -84,6 +87,9 @@ public class ObjetosDB implements Serializable {
     }
 
     public String getDescripcion() {
+        if(descripcion ==  null){
+            descripcion = "";
+        }
         return descripcion;
     }
 
@@ -92,6 +98,9 @@ public class ObjetosDB implements Serializable {
     }
 
     public String getClasificacion() {
+        if(clasificacion == null){
+            clasificacion = "";
+        }
         return clasificacion;
     }
 

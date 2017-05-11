@@ -844,7 +844,7 @@
 
                 <h:form id="formExportar">
                     <p:dataTable id="datosUsuariosExportar" var="usu" style="visibility: hidden; display: none;"                           
-                                 value="#{controlUsuarios.listaUsuarios}"> 
+                                 value="#{controlUsuarios.listaUsuarios}" widgetVar="datosUsuariosExportar"> 
                         <p:column headerText="#{msg['personaXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['personaX']}"/> </f:facet> 
                             <h:outputText value="#{usu.persona.nombreCompleto}"/>

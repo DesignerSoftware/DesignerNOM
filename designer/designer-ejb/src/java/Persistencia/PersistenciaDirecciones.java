@@ -215,7 +215,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaPersona);
             direccion = (String) query.getSingleResult();
-            if (direccion == null || direccion.isEmpty()) {
+            if (direccion == null) {
                 direccion = " ";
             }
             return direccion;

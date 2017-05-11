@@ -89,6 +89,9 @@ public class PermisosObjetosDB implements Serializable {
     }
 
     public Perfiles getPerfil() {
+        if(perfil == null){
+            perfil = new Perfiles();
+        }
         return perfil;
     }
 
@@ -97,6 +100,9 @@ public class PermisosObjetosDB implements Serializable {
     }
 
     public ObjetosDB getObjetodb() {
+        if(objetodb == null){
+            objetodb = new ObjetosDB();
+        }
         return objetodb;
     }
 

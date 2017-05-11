@@ -149,7 +149,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" id="fooProyecto" value="" onstart="#{controlVigenciasProyectos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('vigenciasproyectos', 'vigenciasproyectos')}">
+                              <p:commandButton style="width: 120%;" id="fooProyecto" value="" onstart="#{controlVigenciasProyectos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('vigenciasproyectos', 'proyecto')}">
                                  <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('vigenciasproyectos')}"/>
                                  <f:actionListener binding="#{controlVigenciasProyectos.limpiarListasValor()}"/>
                               </p:commandButton>

@@ -198,39 +198,34 @@ public class ControlUsuariosEstructuras implements Serializable {
             controlListaNavegacion.quitarPagina(pagActual);
          
         } else {
-            */
-String pagActual = "usuario";
-            
-            // mapParametros.put("paginaAnterior", pagActual);
-            
+         */
+        String pagActual = "usuarioestructura";
 
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        // mapParametros.put("paginaAnterior", pagActual);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
         }
         limpiarListasValor();
+    }
+
+    public String redirigir() {
+        return paginaAnterior;
     }
 
     public void activarAceptar() {
@@ -279,14 +274,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         }
     }
 
-    public void cargarInfo(UsuariosEstructuras usuarioE){
+    public void cargarInfo(UsuariosEstructuras usuarioE) {
         usuarioEstructuraSeleccionado = usuarioE;
         listaUsuariosFiltros = null;
         getListaUsuariosFiltros();
         contarRegistrosVistas();
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
     }
-    
+
     public void eventofiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
@@ -792,37 +787,37 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         }
     }
 
-    public void verificarBorrado(){
+    public void verificarBorrado() {
         BigDecimal contarUsuariosEstructuras;
         BigDecimal contarUsuariosFiltros;
-          try {
+        try {
             contarUsuariosEstructuras = administrarUsuariosEstructuras.contarUsuariosEstructuras(usuarioEstructuraSeleccionado.getSecuencia());
             contarUsuariosFiltros = administrarUsuariosFiltros.contarUsuariosFiltros(usuarioEstructuraSeleccionado.getSecuencia());
-         if (contarUsuariosEstructuras.equals(new BigInteger("0")) && contarUsuariosFiltros.equals(new BigInteger("0"))) {
-            borrarUsuarioEstructura();
-         } else {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionBorrar");
-            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-            usuarioEstructuraSeleccionado = null;
-            contarUsuariosEstructuras = new BigDecimal("-1");
-            contarUsuariosFiltros = new BigDecimal("-1");
-         }
-      } catch (Exception e) {
-         System.err.println("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
-      }
-        
+            if (contarUsuariosEstructuras.equals(new BigInteger("0")) && contarUsuariosFiltros.equals(new BigInteger("0"))) {
+                borrarUsuarioEstructura();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionBorrar");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+                usuarioEstructuraSeleccionado = null;
+                contarUsuariosEstructuras = new BigDecimal("-1");
+                contarUsuariosFiltros = new BigDecimal("-1");
+            }
+        } catch (Exception e) {
+            System.err.println("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
+        }
+
     }
-    
-    public void borrarRegistro(){
-        if(cualtabla == 0){
-          verificarBorrado();
-        }else if(cualtabla == 1){
+
+    public void borrarRegistro() {
+        if (cualtabla == 0) {
+            verificarBorrado();
+        } else if (cualtabla == 1) {
             borrarUsuarioFiltro();
-        }else{
+        } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show");
         }
     }
-    
+
     public void borrarUsuarioEstructura() {
         if (usuarioEstructuraSeleccionado != null) {
             if (!listaUsuariosEstructurasModificar.isEmpty() && listaUsuariosEstructurasModificar.contains(usuarioEstructuraSeleccionado)) {
@@ -894,10 +889,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             if (listaUsuariosEstructuras.get(i).getEstructura().getSecuencia() == nuevoUsuarioEstructura.getEstructura().getSecuencia()) {
                 duplicados++;
             }
-            if(listaUsuariosEstructuras.get(i).getEmpresa().getSecuencia() == nuevoUsuarioEstructura.getEmpresa().getSecuencia()){
-                duplicados ++;
+            if (listaUsuariosEstructuras.get(i).getEmpresa().getSecuencia() == nuevoUsuarioEstructura.getEmpresa().getSecuencia()) {
+                duplicados++;
             }
-            
+
         }
         if (pasa == 0) {
             if (duplicados == 0) {
@@ -1029,8 +1024,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             if (listaUsuariosEstructuras.get(i).getEstructura().getSecuencia() == duplicarUsuarioEstructura.getEstructura().getSecuencia()) {
                 duplicados++;
             }
-            if(listaUsuariosEstructuras.get(i).getEmpresa().getSecuencia() == duplicarUsuarioEstructura.getEmpresa().getSecuencia()){
-                duplicados ++;
+            if (listaUsuariosEstructuras.get(i).getEmpresa().getSecuencia() == duplicarUsuarioEstructura.getEmpresa().getSecuencia()) {
+                duplicados++;
             }
         }
         if (pasa == 0) {
@@ -1231,7 +1226,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             usuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:usuario");
@@ -1271,26 +1267,26 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         navegar("atras");
     }
 
-    public void crearVistaUsuarioEstructura(){
-        try{
-          administrarUsuariosEstructuras.crearVistaUsuarioEstructura(usuarioEstructuraSeleccionado.getSecuencia(), usuarioEstructuraSeleccionado.getUsuario().getSecuencia());
+    public void crearVistaUsuarioEstructura() {
+        try {
+            administrarUsuariosEstructuras.crearVistaUsuarioEstructura(usuarioEstructuraSeleccionado.getSecuencia(), usuarioEstructuraSeleccionado.getUsuario().getSecuencia());
             RequestContext.getCurrentInstance().execute("PF('crearVistaUsuarioEstructura').show()");
-        }catch(Exception e){
-            System.out.println("error Controlador.ControlUsuariosEstructuras.crearVistaUsuarioEstructura()" + e.getMessage() );
+        } catch (Exception e) {
+            System.out.println("error Controlador.ControlUsuariosEstructuras.crearVistaUsuarioEstructura()" + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('errorCrearVistaUsuarioEstructura').show()");
         }
     }
-    
-    public void crearFiltroUsuario(){
-        try{
-           administrarUsuariosFiltros.crearFiltroUsuario(usuariosFiltroSeleccionado.getUsuariovista().getSecuencia());
+
+    public void crearFiltroUsuario() {
+        try {
+            administrarUsuariosFiltros.crearFiltroUsuario(usuariosFiltroSeleccionado.getUsuariovista().getSecuencia());
             RequestContext.getCurrentInstance().execute("PF('crearFiltroUsuario').show()");
-        }catch(Exception e){
-            System.out.println("error ControlUsuariosEstructuras.crearFiltroUsuario() : " + e.getMessage()); 
+        } catch (Exception e) {
+            System.out.println("error ControlUsuariosEstructuras.crearFiltroUsuario() : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('errorCrearFiltroUsuario').show()");
         }
     }
-    
+
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
@@ -1568,8 +1564,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public List<UsuariosFiltros> getListaUsuariosFiltros() {
         if (listaUsuariosFiltros == null) {
-            if(usuarioEstructuraSeleccionado != null){
-            listaUsuariosFiltros = administrarUsuariosFiltros.consultarUsuariosFiltros(usuarioEstructuraSeleccionado.getSecuencia());
+            if (usuarioEstructuraSeleccionado != null) {
+                listaUsuariosFiltros = administrarUsuariosFiltros.consultarUsuariosFiltros(usuarioEstructuraSeleccionado.getSecuencia());
             }
         }
         return listaUsuariosFiltros;

@@ -654,6 +654,9 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
     public String consultarPrimerReemplazo(BigInteger secPersona) {
         try {
             String reemplazo = persistenciaEncargaturas.primeraEncargatura(em, secPersona);
+            if(reemplazo == null){
+                reemplazo = " ";
+            }
             return reemplazo;
         } catch (Exception e) {
             System.out.println("error en consultarPrimerReemplazo : " + e.getMessage());

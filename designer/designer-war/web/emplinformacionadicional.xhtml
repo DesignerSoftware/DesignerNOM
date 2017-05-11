@@ -82,8 +82,8 @@
 
                      </p:toolbarGroup>  
                   </p:toolbar> 
-                  <p:commandButton style=" position: absolute; left: 675px; top: 495px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" disabled="#{controlEmplInformacionAdicional.guardado}" update=":form:datosInfoAdEmpleado" process="@this"/>
-                  <p:commandButton style=" position: absolute; left: 765px; top: 495px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlEmplInformacionAdicional.salir()}" process="@this"/>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" disabled="#{controlEmplInformacionAdicional.guardado}" update=":form:datosInfoAdEmpleado" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlEmplInformacionAdicional.salir()}" process="@this"/>
 
                   <fieldset style="position: absolute; top: 70px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
