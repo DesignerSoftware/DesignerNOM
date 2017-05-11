@@ -2789,7 +2789,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/ciudad.xhtml</to-view-id>
       </navigation-case>
    </navigation-rule>
@@ -3550,7 +3550,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplvigenciaevento</from-outcome>
+         <from-outcome>vigenciasEvents</from-outcome>
          <to-view-id>/emplvigenciaevento.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3558,7 +3558,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciaevento.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>empleadoindividual</from-outcome>
+         <from-outcome>emplIndv</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3622,7 +3622,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplinformacionadicional</from-outcome>
+         <from-outcome>infoAdicional</from-outcome>
          <to-view-id>/emplinformacionadicional.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3639,7 +3639,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigenciasdeportes</from-outcome>
+         <from-outcome>infoDeportesPersona</from-outcome>
          <to-view-id>/vigenciasdeportes.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3648,7 +3648,7 @@
    <navigation-rule>
       <from-view-id>/vigenciaaficion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>empleadoindividual</from-outcome>
+         <from-outcome>vigAfiEmplInd</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3673,7 +3673,7 @@
    <navigation-rule>
       <from-view-id>/emplibc.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ibcAuto</from-outcome>
+         <from-outcome>ibcautoliquid</from-outcome>
          <to-view-id>/ibcautoliquid.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3682,7 +3682,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ibcsRastro</from-outcome>
+         <from-outcome>ibcautoliquid</from-outcome>
          <to-view-id>/ibcautoliquid.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3699,7 +3699,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigenciaAfiRastro</from-outcome>
+         <from-outcome>vigenciaaficion</from-outcome>
          <to-view-id>/vigenciaaficion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3716,7 +3716,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigenciaIndRastro</from-outcome>
+         <from-outcome>emplvigenciaindicador</from-outcome>
          <to-view-id>/emplvigenciaindicador.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3751,7 +3751,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>demandaRastro</from-outcome>
+         <from-outcome>empldemanda</from-outcome>
          <to-view-id>/empldemanda.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3768,7 +3768,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>experienciasLabRastro</from-outcome>
+         <from-outcome>perexperiencialaboral</from-outcome>
          <to-view-id>/perexperiencialaboral.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3835,7 +3835,7 @@
    <navigation-rule>
       <from-view-id>/emplvigencianormalaboral.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>normaLaboral</from-outcome>
+         <from-outcome>normalaboral</from-outcome>
          <to-view-id>/normalaboral.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4109,7 +4109,7 @@
    <navigation-rule>
       <from-view-id>/ubicaciongeografica.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>cambioSucursalPila</from-outcome>
+         <from-outcome>sucursal_pila</from-outcome>
          <to-view-id>/sucursal_pila.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4118,7 +4118,7 @@
    <navigation-rule>
       <from-view-id>/sucursal_pila.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>cambioSucursalPila</from-outcome>
+         <from-outcome>ubicaciongeografica</from-outcome>
          <to-view-id>/ubicaciongeografica.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4127,7 +4127,7 @@
    <navigation-rule>
       <from-view-id>/tipobloque.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>dependencia</from-outcome>
+         <from-outcome>dependenciaoperando</from-outcome>
          <to-view-id>/dependenciaoperando.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4805,7 +4805,7 @@
    <navigation-rule>
       <from-view-id>/departamento.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5627,7 +5627,7 @@
    <navigation-rule>
       <from-view-id>/tercero.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplvigenciaafiliacion3.xhtml</from-outcome>
+         <from-outcome>emplvigenciaafiliacion3</from-outcome>
          <to-view-id>/emplvigenciaafiliacion3.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6118,7 +6118,7 @@
    <navigation-rule>
       <from-view-id>/perestadocivil.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>estadocivil</from-outcome>
+         <from-outcome>estadoCivil</from-outcome>
          <to-view-id>/estadocivil.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6292,7 +6292,7 @@
    <navigation-rule>
       <from-view-id>/emplubicaciongeografica.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6309,7 +6309,7 @@
    <navigation-rule>
       <from-view-id>/tercero.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6790,7 +6790,7 @@
    <navigation-rule>
       <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>perdireccion</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/perdireccion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6996,7 +6996,7 @@
    <navigation-rule>
       <from-view-id>/emplfamiliares.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tipofamiliar</from-outcome>
+         <from-outcome>tiposfamiliar</from-outcome>
          <to-view-id>/tipofamiliar.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -7235,7 +7235,7 @@
    <navigation-rule>
       <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -7543,7 +7543,7 @@
    <navigation-rule>
       <from-view-id>/ubicaciongeografica.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>ciudades</from-outcome>
+         <from-outcome>ciudad</from-outcome>
          <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
