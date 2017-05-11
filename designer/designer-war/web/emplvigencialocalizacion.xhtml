@@ -184,7 +184,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 115%;" onstart="#{controlVigenciaLocalizacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion','estructura')}" onstart="PF('datosVLEmpleado').unselectAllRows();PF('datosVLEmpleado').selectRow(#{indice});"
+                              <p:commandButton style="width: 115%;" onstart="#{controlVigenciaLocalizacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion','estructura')}"
                                                actionListener="#{controlEstructura.recibirPaginaEntrante('emplvigencialocalizacion')}" id="fooLocalizacion" value=""/>
                            </f:facet>
                         </p:column>
@@ -236,7 +236,7 @@
                            </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton style="width: 115%;" id="fooProyecto" value="" onstart="#{controlVigenciaLocalizacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion','proyecto')}">
-                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('emplvigencialocalizacion')}"/>
                                  <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
                               </p:commandButton>
                            </f:facet>
@@ -353,7 +353,7 @@
                         </p:column>
 
                         <p:column sortBy="#{info.proyecto.nombreproyecto}" filterBy="#{info.proyecto.nombreproyecto}" filterMatchMode="contains" 
-                                   id="vPProyecto" filterStyle="display: none; visibility: hidden;" width="150">                                  
+                                  id="vPProyecto" filterStyle="display: none; visibility: hidden;" width="150">                                  
                            <f:facet name="header">
                               <h:outputText id="headerProyectoVP" value="#{msg['proyecto']}"/>
                               <p:tooltip  for="headerProyectoVP" value="Proyecto."/>
@@ -362,7 +362,7 @@
                               <f:facet name="output"><h:outputText value="#{info.proyecto.nombreproyecto}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" maxlength="50" value="#{info.proyecto.nombreproyecto}"
-                                               id="editarProyectoVP" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
+                                              id="editarProyectoVP" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,4)}" update=":form:datosVPPVigencia" process="@this"
                                             onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(info,1,0)}" process="@this"/>
@@ -372,7 +372,7 @@
                            </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton style="width: 160px;" id="fooProyectoVP" value="" onstart="#{controlVigenciaLocalizacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion','proyecto')}">
-                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('emplvigencialocalizacion')}"/>
                                  <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
                               </p:commandButton>
                            </f:facet>
@@ -433,7 +433,7 @@
                            </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton style="width: 120%;" id="fooProyectosPP" value="" onstart="#{controlVigenciaLocalizacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion','proyecto')}">
-                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('emplvigencialocalizacion')}"/>
                                  <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
                               </p:commandButton>
                            </f:facet>
@@ -489,7 +489,7 @@
                         </p:column>
 
                         <p:column sortBy="#{info2.fechafinal}" filterBy="#{info2.fechafinal}" filterMatchMode="contains"
-                                   id="vPPFechaFinal" filterStyle="display: none; visibility: hidden;"  width="67"> 
+                                  id="vPPFechaFinal" filterStyle="display: none; visibility: hidden;"  width="67"> 
                            <f:facet name="header">
                               <h:outputText id="headerFechaFinalVPP" value="#{msg['final']}"/>
                               <p:tooltip  for="headerFechaFinalVPP" value="Ingrese la fecha final en formato(DD/MM/YYYY)."/>
@@ -836,7 +836,7 @@
 
                      <strong><h:outputText value="*#{msg['centrocostoVL']}" style=" position: absolute; top: 95px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaCentroCosto" value="#{controlVigenciaLocalizacion.nuevaVigencia.localizacion.centrocosto.codigoNombre}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 90px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 90px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,0,1)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(1, 'CENTROCOSTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('CENTROCOSTO', controlVigenciaLocalizacion.nuevaVigencia.localizacion.centrocosto.codigoNombre,1)}"/>
@@ -847,12 +847,12 @@
 
                      <strong><h:outputText value="*#{msg['localizacionVL']}" style=" position: absolute; top: 125px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaLocalizacion" readonly="true" value="#{controlVigenciaLocalizacion.nuevaVigencia.localizacion.nombre}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 120px;"/>
+                                  style=" width: 110px; position: absolute; left: 160px; top: 120px;"/>
                      <p:watermark for="nuevaLocalizacion" value="#{msg['localizacion']}"/>
 
                      <strong><h:outputText value="*#{msg['motivoVL']}" style=" position: absolute; top: 155px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaMotivo" value="#{controlVigenciaLocalizacion.nuevaVigencia.motivo.descripcion}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 150px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 150px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,1,1)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(1, 'MOTIVOLOCALIZACION')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('MOTIVOLOCALIZACION', controlVigenciaLocalizacion.nuevaVigencia.motivo.descripcion,1)}" update="nuevaMotivo"/>
@@ -863,7 +863,7 @@
 
                      <strong><h:outputText value="#{msg['proyectoVL']}" style=" position: absolute; top: 185px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" maxlength="50" id="nuevaProyecto" value="#{controlVigenciaLocalizacion.nuevaVigencia.proyecto.nombreproyecto}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 180px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 180px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,2,1)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(1, 'PROYECTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciaLocalizacion.nuevaVigencia.proyecto.nombreproyecto,1)}" update="nuevaProyecto"/>
@@ -894,7 +894,7 @@
 
                      <strong><h:outputText value="*#{msg['centrocostoVL']}" style=" position: absolute; top: 95px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarCentroCosto" value="#{controlVigenciaLocalizacion.duplicarVL.localizacion.centrocosto.codigoNombre}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 90px;">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 90px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,0,2)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(2, 'CENTROCOSTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('CENTROCOSTO', controlVigenciaLocalizacion.duplicarVL.localizacion.centrocosto.codigoNombre,2)}"/>
@@ -905,12 +905,12 @@
 
                      <strong><h:outputText value="*#{msg['localizacionVL']}" style=" position: absolute; top: 125px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarLocalizacion" readonly="true" value="#{controlVigenciaLocalizacion.duplicarVL.localizacion.nombre}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 120px;"/>
+                                  style=" width: 110px; position: absolute; left: 160px; top: 120px;"/>
                      <p:watermark for="duplicarLocalizacion" value="#{msg['localizacion']}"/>
 
                      <strong><h:outputText value="*#{msg['motivoVL']}" style=" position: absolute; top: 155px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarMotivo" value="#{controlVigenciaLocalizacion.duplicarVL.motivo.descripcion}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 150px;">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 150px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,1,2)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(2, 'MOTIVOLOCALIZACION')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('MOTIVOLOCALIZACION', controlVigenciaLocalizacion.duplicarVL.localizacion.nombre,2)}"/>
@@ -921,7 +921,7 @@
 
                      <strong><h:outputText value="#{msg['proyectoVL']}" style=" position: absolute; top: 185px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" maxlength="50" id="duplicarProyecto" value="#{controlVigenciaLocalizacion.duplicarVL.proyecto.nombreproyecto}"
-                                   style=" width: 110px; position: absolute; left: 160px; top: 180px;">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 180px;">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(null,2,2)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletar(2, 'PROYECTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciaLocalizacion.duplicarVL.proyecto.nombreproyecto, 2)}"/>
@@ -1100,7 +1100,7 @@
 
                      <strong><h:outputText value="*#{msg['proyectoVPP']}" style=" position: absolute; top: 75px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" maxlength="50" id="nuevaProyectoVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.proyecto.nombreproyecto}" 
-                                   style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVPP(null,0,1)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVPP(1, 'PROYECTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVPP('PROYECTO', controlVigenciaLocalizacion.duplicarVPP.proyecto.nombreproyecto,1)}" update="nuevaProyectoVPP"/>
@@ -1153,7 +1153,7 @@
 
                      <strong><h:outputText value="*#{msg['proyectoVPP']}" style=" position: absolute; top: 75px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" maxlength="50" id="duplicarProyectoVPP" value="#{controlVigenciaLocalizacion.duplicarVPP.proyecto.nombreproyecto}" 
-                                   style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 110px; position: absolute; left: 160px; top: 70px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVPP(null,0,2)}"/>
                         <p:ajax event="click" listener="#{controlVigenciaLocalizacion.valoresBackupAutocompletarVPP(2, 'PROYECTO')}"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.autocompletarNuevoyDuplicadoVPP('PROYECTO', controlVigenciaLocalizacion.duplicarVPP.proyecto.nombreproyecto,2)}" update="duplicarProyectoVPP"/>

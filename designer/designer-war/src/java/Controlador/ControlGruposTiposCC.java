@@ -227,7 +227,6 @@ String pagActual = "grupotipocc";
          tipoLista = 0;
          altoTabla = 270;
       }
-
       listGruposTiposCCBorrar.clear();
       listGruposTiposCCCrear.clear();
       listGruposTiposCCModificar.clear();

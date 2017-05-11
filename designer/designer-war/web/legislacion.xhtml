@@ -223,10 +223,8 @@
                                       background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" process="@this"/>
                   </fieldset>
 
-                  <p:commandButton style="position: absolute; left: 683px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
-                                   background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" actionListener="#{controlLegislacion.dispararDialogoConfirmarGuardar()}" disabled="#{controlLegislacion.guardado}" process="@this"/>
-                  <p:commandButton style="position: absolute; left: 775px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; 
-                                   background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlLegislacion.Salir()}" process="@this"/>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlLegislacion.dispararDialogoConfirmarGuardar()}" disabled="#{controlLegislacion.guardado}" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlLegislacion.salir()}" process="@this"/>
                </p:panel>
 
                <!-- LOV TIPOS COTIZANTES -->

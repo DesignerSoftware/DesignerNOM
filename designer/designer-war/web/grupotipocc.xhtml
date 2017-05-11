@@ -70,7 +70,7 @@
                         </p:toolbar>
 
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlGruposTiposCC.revisarDialogoGuardar()}" disabled="#{controlGruposTiposCC.guardado}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" onstart="#{controlGruposTiposCC.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'grupotipocc')}"  actionListener="#{controlGruposTiposCC.salir()}"  value=""/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" onstart="#{controlGruposTiposCC.salir()}" actionListener="#{controlGruposTiposCC.salir()}"  value=""/>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Tipos del Curso</strong></legend>

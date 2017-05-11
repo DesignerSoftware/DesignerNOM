@@ -3911,7 +3911,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tiposcotizantes</from-outcome>
+         <from-outcome>tipocotizante</from-outcome>
          <to-view-id>/tipocotizante.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3928,7 +3928,7 @@
    <navigation-rule>
       <from-view-id>/legislacion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tiposcotizantes</from-outcome>
+         <from-outcome>tipocotizante</from-outcome>
          <to-view-id>/tipocotizante.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5326,6 +5326,23 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+       
+   <navigation-rule>
+      <from-view-id>/grupotipocc.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tipocentrocosto</from-outcome>
+         <to-view-id>/tipocentrocosto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/tipocentrocosto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>grupotipocc</from-outcome>
+         <to-view-id>/grupotipocc.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
     
    <navigation-rule>
       <from-view-id>/emplmvrs.xhtml</from-view-id>
@@ -6136,7 +6153,7 @@
    <navigation-rule>
       <from-view-id>/proyecto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigencialocalizacion</from-outcome>
+         <from-outcome>emplvigencialocalizacion</from-outcome>
          <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
