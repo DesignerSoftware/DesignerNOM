@@ -22,6 +22,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import InterfaceAdministrar.AdministarReportesInterface;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -29,11 +34,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -45,6 +54,8 @@ public class ControlParametrosConjuntos implements Serializable {
 
    @EJB
    AdministrarParametrosConjuntosInterface administrarParametrosConjuntos;
+   @EJB
+   AdministarReportesInterface administarReportes;
 
    //Parametros Actuales segun el Usuario
    private ParametrosConjuntos parametrosActuales;
@@ -209,6 +220,13 @@ public class ControlParametrosConjuntos implements Serializable {
    VWDSolucionesNodosN diferencia;
    VWDSolucionesNodosN totalesLB;
    VWDSolucionesNodosN totales;
+   //
+   private StreamedContent reporte;
+   private String pathReporteGenerado = null;
+   private String nombreReporte, tipoReporte;
+   private boolean estadoReporte;
+   private String resultadoReporte;
+   private String cabezeraVisor;
 
    private boolean seleccionPorcentajes;
    private String paginaAnterior = "nominaf";
@@ -259,7 +277,7 @@ public class ControlParametrosConjuntos implements Serializable {
          i++;
          conjuntoC.put("" + i + "", "" + i + "");
       }
-      parametroConjunto = "";
+      parametroConjunto = "CONJUNTO1";
       porcentajesVariacion = new LinkedHashMap<String, BigDecimal>();
 
       tituloEditar = "";
@@ -273,10 +291,9 @@ public class ControlParametrosConjuntos implements Serializable {
       totalesLB = new VWDSolucionesNodosN();
       diferencia = new VWDSolucionesNodosN();
       mapParametros.put("paginaAnterior", paginaAnterior);
-   }
-
-   public void limpiarListasValor() {
-
+      nombreReporte = "Estadis_nom_global";
+      tipoReporte = "PDF";
+      estadoReporte = false;
    }
 
    @PostConstruct
@@ -285,6 +302,7 @@ public class ControlParametrosConjuntos implements Serializable {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarParametrosConjuntos.obtenerConexion(ses.getId());
+         administarReportes.obtenerConexion(ses.getId());
          cargarParametros();
          rellenarMapConjuntos();
       } catch (Exception e) {
@@ -308,31 +326,14 @@ public class ControlParametrosConjuntos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
+      String pagActual = "estadisticas";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "estadisticas";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
+         retornarPagina();
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -346,7 +347,6 @@ String pagActual = "estadisticas";
          //   pag = "rastrotabla";
          //}
       }
-      limpiarListasValor();
    }
 
    public void recibirPaginaAnterior(String pagina) {
@@ -354,7 +354,7 @@ String pagActual = "estadisticas";
       paginaAnterior = pagina;
    }
 
-   public String retornarPagina() {
+   public void retornarPagina() {
       parametrosActuales = null;
       //Tablas Principales:
       listaEstadisticas = new ArrayList<VWDSolucionesNodosN>();
@@ -387,7 +387,6 @@ String pagActual = "estadisticas";
       textoEditar = "";
       tituloEditar = "";
       seleccionPorcentajes = false;
-      return paginaAnterior;
    }
 
    public void cargarParametros() {
@@ -443,6 +442,214 @@ String pagActual = "estadisticas";
          conjuntoCSelect.put("Conjunto 42 Pasivo: " + parametrosActuales.getTituloConjunto42(), "CONJUNTO42");
          conjuntoCSelect.put("Conjunto 43 Pasivo: " + parametrosActuales.getTituloConjunto43(), "CONJUNTO43");
          conjuntoCSelect.put("Conjunto 44 Pasivo: " + parametrosActuales.getTituloConjunto44(), "CONJUNTO44");
+      }
+   }
+
+   public void reiniciarStreamedContent() {
+      System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+      reporte = null;
+   }
+
+   public void cancelarReporte() {
+      System.out.println(".cancelarReporte()");
+      administarReportes.cancelarReporte();
+   }
+
+   public AsynchronousFilllListener listener() {
+      System.out.println(".listener()");
+      return new AsynchronousFilllListener() {
+         //RequestContext context = c;
+
+         @Override
+         public void reportFinished(JasperPrint jp) {
+            System.out.println(".listener().reportFinished()");
+            try {
+               estadoReporte = true;
+               resultadoReporte = "Exito";
+               //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
+//                    generarArchivoReporte(jp);
+            } catch (Exception e) {
+               System.out.println(" reportFinished ERROR: " + e.toString());
+            }
+         }
+
+         @Override
+         public void reportCancelled() {
+            System.out.println(".listener().reportCancelled()");
+            estadoReporte = true;
+            resultadoReporte = "Cancelación";
+         }
+
+         @Override
+         public void reportFillError(Throwable e) {
+            System.out.println(".listener().reportFillError()");
+            if (e.getCause() != null) {
+               pathReporteGenerado = " reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
+            } else {
+               pathReporteGenerado = " reportFillError Error: " + e.toString();
+            }
+            estadoReporte = true;
+            resultadoReporte = "Se estallo";
+         }
+      };
+   }
+
+   public void validarDescargaReporteResumido() {
+      try {
+         System.out.println(this.getClass().getName() + ".validarDescargaReporteResumido()");
+         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+         nombreReporte = "Estadis_nom_dimension";
+         tipoReporte = "PDF";
+         System.out.println("nombre reporte : " + nombreReporte);
+         System.out.println("tipo reporte: " + tipoReporte);
+         String tabla = parametrosActuales.getDimension();
+         String tablaLB = parametrosActuales.getDimension() + "LB";
+
+         Map paramGlobal = new HashMap();
+         System.out.println("TABLA: " + tabla);
+         System.out.println("TABLALB: " + tablaLB);
+         System.out.println("CONJUNTO: " + parametroConjunto);
+         paramGlobal.put("TABLA", tabla);
+         paramGlobal.put("TABLALB", tablaLB);
+         paramGlobal.put("CONJUNTO", parametroConjunto);
+
+         pathReporteGenerado = administarReportes.generarReporteResumido(nombreReporte, tipoReporte, paramGlobal);
+         RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+            System.out.println("validar descarga reporte - ingreso al if 1");
+            if (tipoReporte.equals("PDF")) {
+
+               System.out.println("validar descarga reporte - ingreso al if 2 else");
+               FileInputStream fis;
+               try {
+                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                  fis = new FileInputStream(new File(pathReporteGenerado));
+                  System.out.println("fis : " + fis);
+                  reporte = new DefaultStreamedContent(fis, "application/pdf");
+                  System.out.println("reporte despues de esto : " + reporte);
+                  cabezeraVisor = "Reporte - " + nombreReporte;
+                  RequestContext.getCurrentInstance().update("form:verReportePDF");
+                  RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                  pathReporteGenerado = null;
+               } catch (FileNotFoundException ex) {
+                  System.out.println("validar descarga reporte - ingreso al catch 1");
+                  System.out.println(ex);
+                  reporte = null;
+               }
+            }
+         } else {
+            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            RequestContext.getCurrentInstance().update("form:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+         }
+      } catch (Exception e) {
+         System.out.println("Error en validar descargar Reporte");
+         RequestContext.getCurrentInstance().execute("PF('errorRutaEsp').show()");
+      }
+   }
+
+   public void validarDescargaReporteGlobal() {
+      try {
+         RequestContext context = RequestContext.getCurrentInstance();
+         System.out.println(this.getClass().getName() + ".validarDescargaReporteGlobal()");
+         nombreReporte = "Estadis_nom_global";
+         tipoReporte = "PDF";
+         System.out.println("nombre reporte : " + nombreReporte);
+         System.out.println("tipo reporte: " + tipoReporte);
+         String TABLA = parametrosActuales.getDimension();
+         String TABLALB = parametrosActuales.getDimension() + "LB";
+
+         Map paramGlobal = new HashMap();
+         System.out.println("TABLA: " + TABLA);
+         System.out.println("TABLALB: " + TABLALB);
+         paramGlobal.put("TABLA", TABLA);
+         paramGlobal.put("TABLALB", TABLALB);
+
+         pathReporteGenerado = administarReportes.generarReporteGlobal(nombreReporte, tipoReporte, paramGlobal);
+         context.execute("PF('generandoReporte').hide()");
+         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+            System.out.println("validar descarga reporte - ingreso al if 1");
+            if (tipoReporte.equals("PDF")) {
+               System.out.println("validar descarga reporte - ingreso al if 2 else");
+               FileInputStream fis;
+               try {
+                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                  fis = new FileInputStream(new File(pathReporteGenerado));
+                  System.out.println("fis : " + fis);
+                  reporte = new DefaultStreamedContent(fis, "application/pdf");
+                  System.out.println("reporte despues de esto : " + reporte);
+                  cabezeraVisor = "Reporte - " + nombreReporte;
+                  context.update("form:verReportePDF");
+                  context.execute("PF('verReportePDF').show()");
+                  pathReporteGenerado = null;
+               } catch (FileNotFoundException ex) {
+                  System.out.println("validar descarga reporte - ingreso al catch 1");
+                  System.out.println(ex);
+                  reporte = null;
+               }
+            }
+         } else {
+            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            RequestContext.getCurrentInstance().update("form:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+         }
+      } catch (Exception e) {
+         System.out.println("Error en validar descargar Reporte");
+         RequestContext.getCurrentInstance().execute("PF('errorRutaEsp').show()");
+      }
+   }
+
+   public void validarDescargaReporteDetalle() {
+      try {
+         System.out.println(this.getClass().getName() + ".validarDescargaReporteResumido()");
+         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+         nombreReporte = "Estadis_nom_dimension_detalle";
+         tipoReporte = "PDF";
+         System.out.println("nombre reporte : " + nombreReporte);
+         System.out.println("tipo reporte: " + tipoReporte);
+         String tabla = parametrosActuales.getDimension();
+         String tablaLB = parametrosActuales.getDimension() + "LB";
+
+         Map paramGlobal = new HashMap();
+         System.out.println("TABLA: " + tabla);
+         System.out.println("TABLALB: " + tablaLB);
+         System.out.println("CONJUNTO: " + parametroConjunto);
+         paramGlobal.put("TABLA", tabla);
+         paramGlobal.put("TABLALB", tablaLB);
+         paramGlobal.put("CONJUNTO", parametroConjunto);
+
+         pathReporteGenerado = administarReportes.generarReporteResumido(nombreReporte, tipoReporte, paramGlobal);
+         RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+            System.out.println("validar descarga reporte - ingreso al if 1");
+            if (tipoReporte.equals("PDF")) {
+
+               System.out.println("validar descarga reporte - ingreso al if 2 else");
+               FileInputStream fis;
+               try {
+                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                  fis = new FileInputStream(new File(pathReporteGenerado));
+                  System.out.println("fis : " + fis);
+                  reporte = new DefaultStreamedContent(fis, "application/pdf");
+                  System.out.println("reporte despues de esto : " + reporte);
+                  cabezeraVisor = "Reporte - " + nombreReporte;
+                  RequestContext.getCurrentInstance().update("form:verReportePDF");
+                  RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                  pathReporteGenerado = null;
+               } catch (FileNotFoundException ex) {
+                  System.out.println("validar descarga reporte - ingreso al catch 1");
+                  System.out.println(ex);
+                  reporte = null;
+               }
+            }
+         } else {
+            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            RequestContext.getCurrentInstance().update("form:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+         }
+      } catch (Exception e) {
+         System.out.println("Error en validar descargar Reporte");
+         RequestContext.getCurrentInstance().execute("PF('errorRutaEsp').show()");
       }
    }
 
@@ -2013,7 +2220,7 @@ String pagActual = "estadisticas";
       restablecerTablas();
       navegar("atras");
    }
-   
+
    public void restablecerTablas() {
       FacesContext c = FacesContext.getCurrentInstance();
       eDimension = (Column) c.getViewRoot().findComponent("form:tablaEstadisticas:eDimension");
@@ -2331,11 +2538,8 @@ String pagActual = "estadisticas";
    }
 
    public void editar() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (estadisticaSeleccionada != null || estadisticaLBSeleccionada != null) {
          VWDSolucionesNodosN estadistica;
-
          if (estadisticaSeleccionada != null) {
             estadistica = estadisticaSeleccionada;
          } else if (estadisticaLBSeleccionada != null) {
@@ -2343,7 +2547,6 @@ String pagActual = "estadisticas";
          } else {
             estadistica = new VWDSolucionesNodosN();
          }
-
          if (cualCelda == 1) {
             tituloEditar = parametrosActuales.getTituloConjunto1();
             textoEditar = (String) estadistica.getConjunto1().toString();
@@ -2676,11 +2879,6 @@ String pagActual = "estadisticas";
       }
    }
 
-   /**
-    * Metodo que exporta datos a XLS Vigencia Sueldos
-    *
-    * @return
-    */
    //GET'S  y  SET'S:
    public ParametrosConjuntos getParametrosActuales() {
       return parametrosActuales;
@@ -2977,6 +3175,46 @@ String pagActual = "estadisticas";
 
    public void setParametroConjunto(String parametroConjunto) {
       this.parametroConjunto = parametroConjunto;
+   }
+
+   public String getPathReporteGenerado() {
+      return pathReporteGenerado;
+   }
+
+   public void setPathReporteGenerado(String pathReporteGenerado) {
+      this.pathReporteGenerado = pathReporteGenerado;
+   }
+
+   public String getNombreReporte() {
+      return nombreReporte;
+   }
+
+   public void setNombreReporte(String nombreReporte) {
+      this.nombreReporte = nombreReporte;
+   }
+
+   public String getTipoReporte() {
+      return tipoReporte;
+   }
+
+   public void setTipoReporte(String tipoReporte) {
+      this.tipoReporte = tipoReporte;
+   }
+
+   public String getCabezeraVisor() {
+      return cabezeraVisor;
+   }
+
+   public void setCabezeraVisor(String cabezeraVisor) {
+      this.cabezeraVisor = cabezeraVisor;
+   }
+
+   public StreamedContent getReporte() {
+      return reporte;
+   }
+
+   public void setReporte(StreamedContent reporte) {
+      this.reporte = reporte;
    }
 
 }

@@ -197,7 +197,7 @@
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTipoBloque.salir()}" process="@this"/>
 
                   <p:remoteCommand name="dirigirDependencia" actionListener="#{controlDependenciaOperando.recibirDatosOperando(controlTipoBloque.tipoBloqueSeleccionado)}"
-                                   onstart="#{controlTipoBloque.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipobloque', 'dependencia')}" process="@this"/>
+                                   onstart="#{controlTipoBloque.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipobloque', 'dependenciaoperando')}" process="@this"/>
                </p:panel>
             </h:form>
 

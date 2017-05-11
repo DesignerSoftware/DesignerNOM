@@ -79,7 +79,6 @@
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" process="@this"
                                          actionListener="#{controlDepartamentos.salir()}"/>
-                        </p:commandButton>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -148,7 +147,6 @@
                   </fieldset>
                   <p:commandButton  class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlDepartamentos.revisarDialogoGuardar()}" disabled="#{controlDepartamentos.guardado}"    process="@this"   />
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlDepartamentos.salir()}"/>
-                  </p:commandButton>
 
                   <p:dialog header="Países" widgetVar="paisesDialogo" draggable="true" resizable="false" closable="false" id="paisesDialogo"  
                             showEffect="fade" hideEffect="fade" width="450" modal="true" style="">
@@ -189,7 +187,6 @@
                                       style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
                      <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDepartamentos.cancelarYSalir()}"
                                       style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
-                     </p:commandButton>
                      <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                   </p:dialog>
                </p:panel>
