@@ -387,7 +387,7 @@
      
       <navigation-case>
          <from-outcome>ciudad</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
      
@@ -964,7 +964,7 @@
    </navigation-rule>
    
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
@@ -2780,7 +2780,7 @@
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>rastrotabla</from-outcome>
          <to-view-id>/rastro.xhtml</to-view-id>
@@ -2790,7 +2790,7 @@
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
@@ -3249,12 +3249,12 @@
       <from-view-id>/pertelefono.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudad</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudad</from-outcome>
          <to-view-id>/pertelefono.xhtml</to-view-id>
@@ -4556,13 +4556,13 @@
       <from-view-id>/emplvigenciatipocontrato.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudad</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
     
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>emplvigenciatipocontrato</from-outcome>
          <to-view-id>/emplvigenciatipocontrato.xhtml</to-view-id>
@@ -4795,7 +4795,7 @@
    </navigation-rule>
     
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>departamento</from-outcome>
          <to-view-id>/departamento.xhtml</to-view-id>
@@ -4806,7 +4806,7 @@
       <from-view-id>/departamento.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
@@ -6293,12 +6293,12 @@
       <from-view-id>/emplubicaciongeografica.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>emplubicaciongeografica</from-outcome>
          <to-view-id>/emplubicaciongeografica.xhtml</to-view-id>
@@ -6310,12 +6310,12 @@
       <from-view-id>/tercero.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>tercero</from-outcome>
          <to-view-id>/tercero.xhtml</to-view-id>
@@ -6783,12 +6783,12 @@
       <from-view-id>/perdireccion.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
          <to-view-id>/perdireccion.xhtml</to-view-id>
@@ -7236,12 +7236,12 @@
       <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>pervigenciadomiciliaria</from-outcome>
          <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
@@ -7544,12 +7544,12 @@
       <from-view-id>/ubicaciongeografica.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudades</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ubicaciongeografica</from-outcome>
          <to-view-id>/ubicaciongeografica.xhtml</to-view-id>
@@ -7595,12 +7595,12 @@
       <from-view-id>/direccionesbancos.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudadbanco</from-outcome>
-         <to-view-id>/ciudades.xhtml</to-view-id>
+         <to-view-id>/ciudad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
    <navigation-rule>
-      <from-view-id>/ciudades.xhtml</from-view-id>
+      <from-view-id>/ciudad.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>ciudadbanco</from-outcome>
          <to-view-id>/direccionesbancos.xhtml</to-view-id>
