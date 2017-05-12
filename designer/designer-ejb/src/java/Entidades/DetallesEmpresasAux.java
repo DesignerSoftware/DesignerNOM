@@ -10,8 +10,6 @@ import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
@@ -47,6 +45,12 @@ public class DetallesEmpresasAux implements Serializable {
    private String ref_ciudaddocrepresentante;
    @Column(name = "NOMBRE_CARGOFIRMACONSTANCIA")
    private String nombre_cargofirmaconstancia;
+   @Column(name = "CONTROLEMPLEADOS")
+   private BigInteger controlempleados;
+   @Column(name = "NIT")
+   private BigInteger nit_Empresa;
+
+   ;
 
    public BigInteger getSecuencia() {
       return secuencia;
@@ -128,7 +132,22 @@ public class DetallesEmpresasAux implements Serializable {
       this.nombre_cargofirmaconstancia = nombre_cargofirmaconstancia;
    }
 
-   
+   public BigInteger getControlempleados() {
+      return controlempleados;
+   }
+
+   public void setControlempleados(BigInteger controlempleados) {
+      this.controlempleados = controlempleados;
+   }
+
+   public BigInteger getNit_Empresa() {
+      return nit_Empresa;
+   }
+
+   public void setNit_Empresa(BigInteger nit_Empresa) {
+      this.nit_Empresa = nit_Empresa;
+   }
+
    @Override
    public int hashCode() {
       int hash = 0;

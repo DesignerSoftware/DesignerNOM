@@ -133,33 +133,6 @@ public class DetallesEmpresas implements Serializable {
    private Date fechacamaracomercio;
    @Column(name = "ANOSINICIALESEXENTOPRF")
    private Short anosinicialesexentoprf;
-
-//    @ManyToOne
-//    private Personas personafirmaconstancia;
-//    @JoinColumn(name = "EMPRESA", referencedColumnName = "SECUENCIA")
-//    @OneToOne(optional = false)
-//    private Empresas empresa;
-//    @JoinColumn(name = "REPRESENTANTECIR", referencedColumnName = "SECUENCIA")
-//    @ManyToOne
-//    private Empleados representantecir;
-//    @JoinColumn(name = "SUBGERENTE", referencedColumnName = "SECUENCIA")
-//    @ManyToOne
-//    private Empleados subgerente;
-//    @JoinColumn(name = "ARQUITECTO", referencedColumnName = "SECUENCIA")
-//    @ManyToOne
-//    private Empleados arquitecto;
-//    @JoinColumn(name = "GERENTEGENERAL", referencedColumnName = "SECUENCIA")
-//    @ManyToOne
-//    private Empleados gerentegeneral;
-//    @JoinColumn(name = "CIUDAD", referencedColumnName = "SECUENCIA")
-//    @ManyToOne(optional = false)
-//    private Ciudades ciudad;
-//    @JoinColumn(name = "CIUDADDOCUMENTOREPRESENTANTE", referencedColumnName = "SECUENCIA")
-//    @ManyToOne
-//    private Ciudades ciudaddocumentorepresentante;
-//    @JoinColumn(name = "CARGOFIRMACONSTANCIA", referencedColumnName = "SECUENCIA")
-//    @ManyToOne
-//    private Cargos cargofirmaconstancia;
    @Column(name = "PERSONAFIRMACONSTANCIA")
    private BigInteger ref_personafirmaconstancia;
    @Column(name = "EMPRESA")
@@ -232,6 +205,10 @@ public class DetallesEmpresas implements Serializable {
    private boolean checkReportaLnsTarifaAfpEspecial;
    @Transient
    private String strReportaLnsTarifaAfpEspecial;
+   @Transient
+   private BigInteger controlempleados;
+   @Transient
+   private BigInteger nit_Empresa;
 
    public DetallesEmpresas() {
    }
@@ -845,32 +822,6 @@ public class DetallesEmpresas implements Serializable {
       this.nombre_cargofirmaconstancia = nombre_cargofirmaconstancia;
    }
 
-   
-   @Override
-   public int hashCode() {
-      int hash = 0;
-      hash += (secuencia != null ? secuencia.hashCode() : 0);
-      return hash;
-   }
-
-   @Override
-   public boolean equals(Object object) {
-      // TODO: Warning - this method won't work in the case the id fields are not set
-      if (!(object instanceof DetallesEmpresas)) {
-         return false;
-      }
-      DetallesEmpresas other = (DetallesEmpresas) object;
-      if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
-         return false;
-      }
-      return true;
-   }
-
-   @Override
-   public String toString() {
-      return "Entidades.Detallesempresas[ secuencia=" + secuencia + " ]";
-   }
-
    public String getReformaexoneraicbfsenasalud() {
       if (reformaexoneraicbfsenasalud == null) {
          reformaexoneraicbfsenasalud = "N";
@@ -1091,4 +1042,44 @@ public class DetallesEmpresas implements Serializable {
       this.strReportaLnsTarifaAfpEspecial = strReportaLnsTarifaAfpEspecial;
    }
 
+   public BigInteger getControlempleados() {
+      return controlempleados;
+   }
+
+   public void setControlempleados(BigInteger controlempleados) {
+      this.controlempleados = controlempleados;
+   }
+
+   public BigInteger getNit_Empresa() {
+      return nit_Empresa;
+   }
+
+   public void setNit_Empresa(BigInteger nit_Empresa) {
+      this.nit_Empresa = nit_Empresa;
+   }
+   
+   @Override
+   public int hashCode() {
+      int hash = 0;
+      hash += (secuencia != null ? secuencia.hashCode() : 0);
+      return hash;
+   }
+
+   @Override
+   public boolean equals(Object object) {
+      // TODO: Warning - this method won't work in the case the id fields are not set
+      if (!(object instanceof DetallesEmpresas)) {
+         return false;
+      }
+      DetallesEmpresas other = (DetallesEmpresas) object;
+      if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public String toString() {
+      return "Entidades.Detallesempresas[ secuencia=" + secuencia + " ]";
+   }
 }
