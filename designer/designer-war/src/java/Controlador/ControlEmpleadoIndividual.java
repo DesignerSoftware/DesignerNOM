@@ -1058,7 +1058,7 @@ public class ControlEmpleadoIndividual implements Serializable {
 
             Map param = new HashMap();
             param.put("secEmpleado", secPersona);
-
+            pathReporteGenerado = null;
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             pathReporteGenerado = administarReportes.generarReporteHojaVida(nombreReporte, tipoReporte, param);
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
@@ -1131,7 +1131,6 @@ public class ControlEmpleadoIndividual implements Serializable {
                     out.flush();
                     out.close();
                     ctx.responseComplete();
-                    pathReporteGenerado = null;
                 }
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
