@@ -9,40 +9,40 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
-            <h:form id="form"> 
+         <ui:define name="body">
+            <h:form id="form">
                <f:loadBundle basename="Recursos.indicadores" var="msg"/>
-               <p:growl id="growl" showDetail="true"/> 
+               <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="Indicadores" styleClass="panelTotal">    
-                  <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                  <p:toolbar styleClass="cssToolbar">
+                     <p:toolbarGroup align="left;">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlIndicadores.guardarIndicador()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
-                                         actionListener="#{controlIndicadores.editarCelda()}"  process="@this"/>
+                                         actionListener="#{controlIndicadores.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
-                                         disabled="#{controlIndicadores.activarLov}" actionListener="#{controlIndicadores.listaValorBoton()}"   process="@this"/>
+                                         disabled="#{controlIndicadores.activarLov}" actionListener="#{controlIndicadores.listaValorBoton()}" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
-                                         actionListener="#{controlIndicadores.activarCtrlF11()}"  process="@this"/>
+                                         actionListener="#{controlIndicadores.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
-                                         actionListener="#{controlIndicadores.exportXLS()}"  ajax="false"/>
+                                         actionListener="#{controlIndicadores.exportXLS()}" ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
-                                         actionListener="#{controlIndicadores.limpiarNuevoIndicador()}"  ajax="false">
+                                         actionListener="#{controlIndicadores.limpiarNuevoIndicador()}" ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosTiposCursosExportar" fileName="INDICADORES" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
@@ -150,7 +150,7 @@
                </p:panel>
 
                <p:commandButton id="btnResultadoEx" style="position: absolute; left: 13px; top: 465px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white; text-align: right;" value=" Res.Índice Ex. "
-                                actionListener="#{controlResultadosIndicesExternos.recibirPaginaEntrante('indicadores')}" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicadores', 'resultadosindicesexternos')}" process="@this"/>
+                                actionListener="#{controlResultadosIndicesExternos.recibirPaginaEntrante('indicador')}" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicador', 'resultadosindicesexternos')}" process="@this"/>
                <p:tooltip  for="btnResultadoEx" value="#{msg['resultadoIn']}"/>
             </h:form>
 
@@ -187,14 +187,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlIndicadores.indicadorSeleccionado.secuencia, 'TiposCursos', 'tipocurso')}" 
-                                   style="position: absolute; top: 65px; left: 175px;" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicadores', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 175px;" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicador', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Indicadores', 'indicadores')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicadores', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Indicadores', 'indicador')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicador', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -211,8 +211,8 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlIndicadores.indicadorSeleccionado.secuencia, 'Indicadores', 'indicadores')}" 
-                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicadores', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlIndicadores.indicadorSeleccionado.secuencia, 'Indicadores', 'indicador')}" 
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlIndicadores.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('indicador', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 

@@ -137,7 +137,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110%;" id="fooTipoTrabajador" onstart="#{controlVigenciaTipoTrabajador.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipotrabajador', 'tipostrabajadores')}" value="" process="@this">
+                              <p:commandButton style="width: 110%;" id="fooTipoTrabajador" onstart="#{controlVigenciaTipoTrabajador.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipotrabajador', 'tipotrabajador')}" value="" process="@this">
                                  <f:actionListener binding="#{controlTiposTrabajadores.recibirPaginaAnterior('emplvigenciatipotrabajador')}"/>
                                  <f:actionListener binding="#{controlVigenciaTipoTrabajador.limpiarListasValor()}"/>
                               </p:commandButton>

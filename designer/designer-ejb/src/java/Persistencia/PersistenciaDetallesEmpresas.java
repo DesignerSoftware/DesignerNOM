@@ -89,7 +89,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
       DetallesEmpresas detallesEmpresas;
       try {
          em.clear();
-         Query query = em.createNativeQuery("SELECT de.* FROM DetallesEmpresas de, empresas e WHERE de.empresa = e.secuencia and e.codigo = " + codigoEmpresa);
+         Query query = em.createNativeQuery("SELECT de.* FROM DetallesEmpresas de, empresas e WHERE de.empresa = e.secuencia and e.codigo = " + codigoEmpresa, DetallesEmpresas.class);
 //         query.setParameter("codigoEmpresa", codigoEmpresa);
 //         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          detallesEmpresas = (DetallesEmpresas) query.getSingleResult();

@@ -107,7 +107,7 @@ public class ControlMotivosReemplazos implements Serializable {
 
       } else {
          */
-String pagActual = "motivoreemplazo";
+String pagActual = "motivosreemplazos";
          
          
          

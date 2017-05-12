@@ -94,7 +94,7 @@
                   </fieldset>
 
 
-                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 375px; width: 830px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 370px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 14px; color: blue"><strong>#{msg['acumulados']}</strong></legend>
 
                      <p:dataTable id="datosEmplAcumulados" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
@@ -477,7 +477,7 @@
                      </p:dataTable>
                   </fieldset>
 
-                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplAcumulados.infoRegistro}" style="position: absolute; left: 20px; top: 480px; font-weight: bold;"/>
+                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplAcumulados.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold;"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplAcumulados.salir()}"/>
 
                </p:panel>
