@@ -756,7 +756,7 @@
                                                      scrollable="true" scrollHeight="#{controlRemoto.altoModulos}" scrollWidth="618"
                                                      filteredValue="#{controlRemoto.filtradolistModulos}" emptyMessage="#{msg['noseencontraroncoincidencias']}">   
 
-                                            <p:ajax event="rowSelect" update=":form:tabmenu:tablas"  listener="#{controlRemoto.cambiarTablas}"/>  
+                                           <p:ajax event="rowSelect" update=":form:tabmenu:tablas" listener="#{controlRemoto.cambiarTablas}" process="@this"/>  
 
                                             <p:column id="modulocodigo" width="50" sortBy="#{modulo.nombrecorto}"  filterBy="#{modulo.nombrecorto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
                                                 <f:facet name="header">  

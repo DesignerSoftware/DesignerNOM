@@ -1021,8 +1021,7 @@ String pagActual = "novedadconcepto";
                localMachine = java.net.InetAddress.getLocalHost();
 
             } catch (UnknownHostException ex) {
-               Logger.getLogger(ControlNovedadesConceptos.class
-                       .getName()).log(Level.SEVERE, null, ex);
+               Logger.getLogger(ControlNovedadesConceptos.class.getName()).log(Level.SEVERE, null, ex);
             }
             equipo = localMachine.getHostAddress();
          } else {
@@ -1032,8 +1031,7 @@ String pagActual = "novedadconcepto";
             localMachine = java.net.InetAddress.getByName(equipo);
 
          } catch (UnknownHostException ex) {
-            Logger.getLogger(ControlNovedadesConceptos.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlNovedadesConceptos.class.getName()).log(Level.SEVERE, null, ex);
          }
 
          getAlias();

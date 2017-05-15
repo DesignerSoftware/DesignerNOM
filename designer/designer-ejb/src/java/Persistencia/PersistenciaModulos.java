@@ -92,13 +92,9 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
     public List<Modulos> buscarModulos(EntityManager em) {
         try {
             em.clear();
-            System.out.println("buscarModulos 1");
             Query query = em.createQuery("SELECT m FROM Modulos m");
-            System.out.println("buscarModulos 2");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            System.out.println("buscarModulos 3");
             List<Modulos> lista = query.getResultList();
-            System.out.println("buscarModulos 4");
             return lista;
         } catch (Exception e) {
             System.out.println("Error buscarModulos PersistenciaModulos : " + e.toString());

@@ -23,7 +23,6 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Generales> listaGenerales = query.getResultList();
             if (listaGenerales != null && !listaGenerales.isEmpty()) {
-                //System.out.println("PersistenciaGenerales obtenerRutas Tamaño listaGenerales : " + listaGenerales.size());
                 System.out.println("PersistenciaGenerales obtenerRutas Tamaño listaGenerales.getPathreportes : " + listaGenerales.get(0).getPathreportes());
                 return listaGenerales.get(0);
             }

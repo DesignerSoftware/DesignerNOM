@@ -6150,7 +6150,7 @@
    <navigation-rule>
       <from-view-id>/novedad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>definitivas</from-outcome>
+         <from-outcome>novedaddefinitivas</from-outcome>
          <to-view-id>/novedaddefinitivas.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6177,7 +6177,7 @@
       <from-view-id>/emplvigenciascargos.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>estructura</from-outcome>
-         <to-view-id>/estructuraplanta.xhtml</to-view-id>
+         <to-view-id>/estructura.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
@@ -6382,7 +6382,7 @@
    <navigation-rule>
       <from-view-id>/atausentismos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atausentismos</from-outcome>
+         <from-outcome>tipoausentismo</from-outcome>
          <to-view-id>/tipoausentismo.xhtml</to-view-id>
          <redirect />
       </navigation-case>

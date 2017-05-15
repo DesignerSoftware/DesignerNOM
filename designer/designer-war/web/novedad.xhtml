@@ -86,10 +86,10 @@
                                     </div>
                                     <div style="height: 50px;">
                                         <p:commandButton id="novedadDefinitiva" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad07.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedadesDefinitivas.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'definitivas')}"
+                                                         value="" actionListener="#{controlNovedadesDefinitivas.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedaddefinitivas')}"
                                                          disabled="#{controlNovedad.consultarPermisosPorId('novedadDefinitiva')}">
                                         </p:commandButton>
-                                        <h:commandLink id="txtnovedadDefinitiva" style="font-weight: bold; color: #14388B;" value="Liquidacion Definitiva" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'definitivas')}"
+                                        <h:commandLink id="txtnovedadDefinitiva" style="font-weight: bold; color: #14388B;" value="Liquidacion Definitiva" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedaddefinitivas')}"
                                                        disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadDefinitiva')}"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Registro de retiros por empleado"/>

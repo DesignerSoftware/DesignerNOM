@@ -321,7 +321,7 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton  value=" " style="width: 115%;"  id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPaginaEntrante('atausentismos')}" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','atausentismos')}" process="@this"/>
+                              <p:commandButton  value=" " style="width: 115%;"  id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPaginaEntrante('atausentismos')}" onstart="#{controlAusentismos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','tipoausentismo')}" process="@this"/>
                            </f:facet>
                         </p:column>
                         <!--Clase Ausentismo -->
@@ -338,7 +338,7 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton value=" " style="width: 115%;"  id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPaginaEntrante('atausentismos')}" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','atausentismos')}"  process="@this"/>
+                              <p:commandButton value=" " style="width: 115%;"  id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPaginaEntrante('atausentismos')}" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','claseausentismo')}"  process="@this"/>
                            </f:facet>
                         </p:column>
                         <!--Causa Ausentismo-->
@@ -600,7 +600,7 @@
                         </p:column>
                         <!-- Diagnosticos Categoria -->
                         <p:column>                                  
-                           <p:cellEditor>  
+                           <p:cellEditor>
                               <f:facet name="output"><h:outputText value="#{ausentismos.diagnosticocategoria.descripcion}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off"  value="#{ausentismos.diagnosticocategoria.descripcion}" id="editarDiagnostico" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 

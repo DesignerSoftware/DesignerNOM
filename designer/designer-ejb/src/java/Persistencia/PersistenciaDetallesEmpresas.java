@@ -91,7 +91,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          Query q = em.createNativeQuery("SELECT de.* FROM DetallesEmpresas de, empresas e WHERE de.empresa = e.secuencia and e.codigo = " + codigoEmpresa, DetallesEmpresas.class);
          DetallesEmpresas detalleEmpresa = (DetallesEmpresas) q.getSingleResult();
          if (detalleEmpresa != null) {
-            System.out.println("PersistenciaDetallesEmpresas.buscarDetalleEmpresa() detallesEmpresas : " + detalleEmpresa);
+//            System.out.println("PersistenciaDetallesEmpresas.buscarDetalleEmpresa() detallesEmpresas : " + detalleEmpresa);
             em.clear();
             Query query = em.createNativeQuery("SELECT D.SECUENCIA,\n"
                     + " P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE_PERSONAFIRMACONSTANCIA,\n"
@@ -121,7 +121,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
                     + " AND CA.SECUENCIA(+) = D.CARGOFIRMACONSTANCIA", DetallesEmpresasAux.class);
             DetallesEmpresasAux detalleAux = (DetallesEmpresasAux) query.getSingleResult();
             if (detalleAux != null) {
-               System.out.println("PersistenciaDetallesEmpresas.buscarDetalleEmpresa() detalleAux : " + detalleAux);
+//               System.out.println("PersistenciaDetallesEmpresas.buscarDetalleEmpresa() detalleAux : " + detalleAux);
                if (detalleEmpresa.getSecuencia().equals(detalleAux.getSecuencia())) {
                   detalleEmpresa.setNombre_arquitecto(detalleAux.getNombre_arquitecto());
                   detalleEmpresa.setNombre_cargofirmaconstancia(detalleAux.getNombre_cargofirmaconstancia());
@@ -168,7 +168,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          Query cq = em.createNativeQuery("SELECT D.* FROM DETALLESEMPRESAS D, EMPRESAS E WHERE E.SECUENCIA = D.EMPRESA", DetallesEmpresas.class);
          List<DetallesEmpresas> listaResultado = cq.getResultList();
          if (listaResultado != null) {
-            System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaResultado : " + listaResultado);
+//            System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaResultado : " + listaResultado);
             if (!listaResultado.isEmpty()) {
                em.clear();
                Query query = em.createNativeQuery("SELECT D.SECUENCIA,\n"
@@ -198,7 +198,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
                        + " AND CA.SECUENCIA(+) = D.CARGOFIRMACONSTANCIA", DetallesEmpresasAux.class);
                List<DetallesEmpresasAux> listaAux = query.getResultList();
                if (listaAux != null) {
-                  System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaAux : " + listaAux);
+//                  System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaAux : " + listaAux);
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaResultado.size(); j++) {
                         for (int i = 0; i < listaAux.size(); i++) {
