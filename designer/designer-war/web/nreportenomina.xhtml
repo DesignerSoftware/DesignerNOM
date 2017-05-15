@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
->
+      >
     <h:head>
     </h:head>
     <h:body>
@@ -132,19 +132,17 @@
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistro}" style="position: relative; left: 0px; top: -10px; font-weight: bold;"/>
-
-                            <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
+                            <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 515px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" 
                                              actionListener="#{controlNReporteNomina.mostrarDialogoBuscarReporte()}" disabled="#{controlNReporteNomina.activoBuscarReporte}"/>
                             <p:tooltip  for="BUSCARREPORTE" value="#{msg['buscarReporte']}"/>
 
-                            <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
+                            <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 515px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""  process="@this" 
                                              actionListener="#{controlNReporteNomina.mostrarTodos()}" disabled="#{controlNReporteNomina.activoMostrarTodos}"/>
                             <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}"/>
                         </fieldset>
+                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistro}" style="position: absolute; left: 165px; top: 460px; font-weight: bold;"/>
 
                         <fieldset style="position: absolute; left: 10px; top: 253px; height: 213px; width: 115px; border-radius: 10px;">
                             <h:outputText id="btn" style="position: absolute; left: 10px; top: 10px; background-image: url(Imagenes/Iconos/reporte.png); width:115px; height:180px; background-repeat: no-repeat; border: none; background-size: 100% 100%"/>
@@ -744,7 +742,7 @@
                                         <div style="display: block;">
                                             <h:outputText value="#{msg['grupo']}:" style="top: 30px; position: relative; left: -240px"/>
                                             <p:inputText autocomplete="off" id="grupoParametro" value="#{controlNReporteNomina.parametroDeInforme.grupo.descripcion}"  
-                                                          style="position: absolute; width: 100px; top: 30px; left: -130px" onclick="select();">
+                                                         style="position: absolute; width: 100px; top: 30px; left: -130px" onclick="select();">
                                                 <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(4)}" process="@this"/> 
                                                 <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('GRUPO', controlNReporteNomina.parametroDeInforme.grupo.descripcion)}" 
                                                         event="change"  update="grupoParametro" process="@this"/>
@@ -755,7 +753,7 @@
                                         <div style="display: block;">
                                             <h:outputText value="#{msg['empresa']}:" style="top: 16px; position: relative; left: 20px;"/>
                                             <p:inputText autocomplete="off" id="empresaParametro" value="#{controlNReporteNomina.parametroDeInforme.empresa.nombre}"  
-                                                          style="position: absolute; left: 85px; width: 100px; top: 30px;" onclick="select();">
+                                                         style="position: absolute; left: 85px; width: 100px; top: 30px;" onclick="select();">
                                                 <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(10)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlNReporteNomina.autocompletarGeneral('EMPRESA', controlNReporteNomina.parametroDeInforme.empresa.nombre)}" 
                                                         update="empresaParametro" process="@this"/>
@@ -764,7 +762,7 @@
                                         </div>
                                     </div>
 
-                                   <div style="display: block;">
+                                    <div style="display: block;">
                                         <h:outputText value="#{msg['ubigeografica']}: " style="top: 55px; position: relative;"/>
                                         <p:inputText id="ubicacionGeograficaParametro" autocomplete="off" widgetVar="ubicacionGeograficaParametro" style="position: absolute; width: 250px; left: 110px; top: 100px;"
                                                      value="#{controlNReporteNomina.parametroDeInforme.ubicaciongeografica.descripcion}" onclick="select();">
@@ -793,7 +791,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['estructura']}:" style="top: 2px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="estructuraParametro" value="#{controlNReporteNomina.parametroDeInforme.localizacion.nombre}" 
-                                                  onclick="select();" maxlength="50" style="position: absolute; width: 200px; left: 135px; top: 2px;">
+                                                 onclick="select();" maxlength="50" style="position: absolute; width: 200px; left: 135px; top: 2px;">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(11)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('ESTRUCTURA', controlNReporteNomina.parametroDeInforme.localizacion.nombre)}" 
                                                 event="change" update="estructuraParametro" process="@this"/>
@@ -804,7 +802,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['tipotrabajador']}:" style="top: 9px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" value="#{controlNReporteNomina.parametroDeInforme.tipotrabajador.nombre}" id="tipoTrabajadorParametro" 
-                                                  style="position: absolute; width: 200px; left: 135px; top: 25px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 25px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(12)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TIPOTRABAJADOR', controlNReporteNomina.parametroDeInforme.tipotrabajador.nombre)}" 
                                                 event="change" update="tipoTrabajadorParametro" process="@this"/>
@@ -815,7 +813,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['tercero']}:" style="top: 18px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="terceroParametro" value="#{controlNReporteNomina.parametroDeInforme.tercero.nombre}"  
-                                                  style="position: absolute; width: 200px; left: 135px; top: 48px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 48px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(13)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TERCERO', controlNReporteNomina.parametroDeInforme.tercero.nombre)}" 
                                                 event="change" update="terceroParametro" process="@this"/>
@@ -826,7 +824,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['proceso']}:" style="top: 25px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="procesoParametro" maxlength="30" value="#{controlNReporteNomina.parametroDeInforme.proceso.descripcion}"  
-                                                  style="position: absolute; width: 200px; left: 135px; top: 70px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 70px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(14)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('PROCESO', controlNReporteNomina.parametroDeInforme.proceso.descripcion)}" 
                                                 event="change" update="procesoParametro" process="@this"/>
@@ -837,7 +835,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['notas']}:" style="top: 45px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="notasParametro" value="#{controlNReporteNomina.parametroDeInforme.mensajedesprendible}" onclick="select();"
-                                                  style="position: absolute; width: 200px; left: 135px; top: 105px; text-transform: uppercase;">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 105px; text-transform: uppercase;">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(15)}" process="@this"/> 
                                         <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this"/>
                                     </p:inputText>
@@ -846,7 +844,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['asociacion']}:" style="top: 52px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="asociacionParametro" maxlength="200" value="#{controlNReporteNomina.parametroDeInforme.asociacion.descripcion}"  
-                                                  style="position: absolute; width: 200px; left: 135px; top: 125px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 125px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(16)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('ASOCIACION', controlNReporteNomina.parametroDeInforme.asociacion.descripcion)}" 
                                                 event="change" update="asociacionParametro" process="@this"/>

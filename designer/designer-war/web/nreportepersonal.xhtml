@@ -127,14 +127,14 @@
 
                      </p:dataTable>
 
-                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReportePersonal.infoRegistro}" style="position: relative; left: 0px; top: -10px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReportePersonal.infoRegistro}" style="position: absolute; left: 10px; top: 190px; font-weight: bold;"/>
 
-                     <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 430px; top: 2px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
+                     <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 515px; top: 2px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" 
                                       actionListener="#{controlNReportePersonal.mostrarDialogoBuscarReporte()}" disabled="#{controlNReportePersonal.activoBuscarReporte}"/>
                      <p:tooltip  for="BUSCARREPORTE" value="#{msg['buscarReporte']}"/>
 
-                     <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 430px; top: 2px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
+                     <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 515px; top: 2px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""  process="@this" 
                                       actionListener="#{controlNReportePersonal.mostrarTodos()}" disabled="#{controlNReportePersonal.activoMostrarTodos}"/>
                      <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}"/>

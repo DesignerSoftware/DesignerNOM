@@ -132,14 +132,14 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>
-                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReporteLaboral.infoRegistro}" style="position: relative; left: 0px; top: -10px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReporteLaboral.infoRegistro}" style="position: absolute; left: 10px; top: 230px; font-weight: bold;"/>
 
-                     <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 430px; top: 8px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
+                     <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 515px; top: 8px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlNReporteLaboral.mostrarDialogoBuscarReporte()}" disabled="#{controlNReporteLaboral.activoBuscarReporte}"
                                       onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      <p:tooltip style="font-size: 12px;" for="BUSCARREPORTE" value="#{msg['buscarReporte']}"/>
 
-                     <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 430px; top: 8px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
+                     <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 515px; top: 8px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlNReporteLaboral.mostrarTodos()}"  disabled="#{controlNReporteLaboral.activoMostrarTodos}"/>
                      <p:tooltip style="font-size: 12px;" for="MOSTRARTODOS" value="#{msg['mostrarTodos']}"/>
                   </fieldset>
