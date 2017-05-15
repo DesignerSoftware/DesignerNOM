@@ -205,7 +205,7 @@
                                  </f:facet>  
                                  <f:facet name="input">
                                     <p:inputText autocomplete="off" value="#{empleadoParametro.parametroestructura.fechadesdecausado}" readonly="true"
-                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'DESDE'}, {name: 'INDICE', value: '#{indice}'}])); "
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'DESDE'}, {name: 'INDICE', value: '#{indice}'}]));"
                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});">
                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </p:inputText>

@@ -777,6 +777,24 @@ button .ui-widget-header{
    height: 30px !important; 
 }
 
+.cssBotonBuscarL {
+   background-image: url(../../Imagenes/Iconos/buscardbL.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   width: 150px !important;
+   height: 30px !important; 
+}
+
+.cssBotonMostrarTodosL {
+   background-image: url(../../Imagenes/Iconos/todosdbL.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   width: 150px !important;
+   height: 30px !important; 
+}
+
 .cssDialogosEditar textArea {
    height: 66px !important;
    width: 366px !important;

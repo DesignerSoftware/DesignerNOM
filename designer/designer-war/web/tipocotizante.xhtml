@@ -71,8 +71,8 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; left: 10px; top: 70px; width: 830px; height: 150px; border-radius: 10px; ">
-                     <legend style="font-size: 14px; color: #14388B"><strong>#{msg['tiposcotizantes']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 70px; width: 834px; height: 155px; border-radius: 10px; padding-top: 0px;">
+                     <legend style="color: #14388B"><strong>#{msg['tiposcotizantes']}</strong></legend>
 
                      <p:dataTable id="datosTiposCotizantes" var="tipos" value="#{controlTipoCotizante.listaTiposCotizantes}"
                                   rowKey="#{tipos.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 810px;"                         
@@ -107,9 +107,9 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{tipos.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{tipos.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"> 
+                                 <p:inputText autocomplete="off" value="#{tipos.descripcion}" id="editarDescripcion" style="border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(tipos, 1)}" 
-                                            onstart="PF('datosTiposCotizantes').unselectAllRows();PF('datosTiposCotizantes').selectRow(#{indice});"/>
+                                            onstart="PF('datosTiposCotizantes').unselectAllRows(); PF('datosTiposCotizantes').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -144,7 +144,6 @@
                               <h:outputText value=""/>
                            </f:facet>
                         </p:column>
-
 
                         <p:column width="20" style="padding: 0px;" filterBy="#{tipos.cotizariesgoBool}" filterMatchMode="contains" id="tcRiesgo" filterStyle="display: none; visibility: hidden;" sortBy="#{tipos.cotizariesgoBool}">
                            <f:facet name="header">
@@ -232,8 +231,6 @@
                                  </p:selectOneMenu>
                               </f:facet>
                            </p:cellEditor>    
-
-
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -259,8 +256,8 @@
                      <h:outputText id="infoRegistroTipoC" value="#{msg['infoRegistro']} #{controlTipoCotizante.infoRegistroTipoC}" style="position: relative; top: 1px; font-weight: bold;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 235px; width: 830px; height: 150px; border-radius: 10px; ">
-                     <legend style="font-size: 14px; color: #14388B"><strong>#{msg['detallestiposcotizantes']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 245px; width: 834px; height: 155px; border-radius: 10px; padding-top: 0px;">
+                     <legend style="color: #14388B"><strong>#{msg['detallestiposcotizantes']}</strong></legend>
 
                      <p:dataTable id="datosDetallesTiposCotizantes" var="detallesTipos" value="#{controlTipoCotizante.listaDetallesTiposCotizantes}"
                                   rowKey="#{detallesTipos.secuencia}" rowIndexVar="indiceNF" style=" border: 1px; width: 815px;"                          
@@ -327,8 +324,8 @@
                      <h:outputText id="infoRegistroDetallesTC" value="#{msg['infoRegistro']} #{controlTipoCotizante.infoRegistroDetalleTC}" style="position: relative; top: 1px; font-weight: bold;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 410px; width: 830px; height: 60px; border-radius: 10px; ">
-                     <legend style="font-size: 14px; color: #14388B"><strong>Tipos Cotizantes</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 418px; width: 834px; height: 65px; border-radius: 10px; padding-top: 0px;">
+                     <legend style="color: #14388B"><strong>Tipos Cotizantes</strong></legend>
                      <h:outputText value="#{msg['codigo']}" style=" top: 15px; position: absolute"/>
                      <p:inputText autocomplete="off" id="ClonarNuevoTipoCotizante" value="#{controlTipoCotizante.clonarCodigo}" style=" width: 122px; position: absolute; left: 5px; top: 31px; text-transform: uppercase; height:12px;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
@@ -346,7 +343,7 @@
                      <p:inputText autocomplete="off" readonly="true" id="ClonarTipoCotizanteDescripcion" value="#{controlTipoCotizante.clonarTipoCotizante.descripcion}" style=" width: 222px; position: absolute; left: 515px; top: 31px; text-transform: uppercase; height:12px;" onclick="select();">
                      </p:inputText>
 
-                     <p:commandButton style="position: absolute; left: 760px; top: 12px;" class="cssBotonClonar" id="btnClonar" value=""
+                     <p:commandButton style="position: absolute; left: 770px; top: 12px;" class="cssBotonClonar" id="btnClonar" value=""
                                       actionListener="#{controlTipoCotizante.clonarTipoCotizante()}" process="@this"/>
                      <p:tooltip for="btnClonar" value="#{msg['clonar']}"/>
                   </fieldset>

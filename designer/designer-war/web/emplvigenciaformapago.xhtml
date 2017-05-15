@@ -540,7 +540,7 @@
                                       value="" id="btnnuevaFormaPago" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(0)}"/>   
                      <p:watermark for="nuevaFormaPago" value="#{msg['formaPago']}"/>
 
-                     <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px ; "/></strong>
+                     <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px ;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTC" maxlength="1" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.tipocuenta}"  style=" width: 140px; position: absolute; left: 150px; top: 280px;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>

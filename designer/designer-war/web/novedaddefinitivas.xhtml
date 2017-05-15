@@ -30,7 +30,6 @@
                <f:loadBundle basename="Recursos.novedaddefinitivas" var="msg"/>
                <p:growl id="growl" showDetail="true"/> 
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-
                   <!-- TOOLBAR--> 
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left;"> 
@@ -94,14 +93,14 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 245px; width: 830px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 248px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 14px; color: #14388B"><strong>#{msg['empleados']}</strong></legend>
 
                      <p:dataTable id="datosEmpleados" var="empleado" value="#{controlNovedadesDefinitivas.listaEmpleados}"
                                   rowKey="#{empleado.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 810px;"                        
-                                  scrollable="true" scrollHeight="140" scrollWidth="830" filteredValue="#{controlNovedadesDefinitivas.filtradosListaEmpleadosNovedad}" 
+                                  scrollable="true" scrollWidth="830" filteredValue="#{controlNovedadesDefinitivas.filtradosListaEmpleadosNovedad}" 
                                   emptyMessage="#{msg['vacio']}" selection="#{controlNovedadesDefinitivas.empleadoSeleccionado}"
-                                  editable="true" editMode="cell" selectionMode="single" rows="20" paginator="true" 
+                                  editable="true" editMode="cell" selectionMode="single" rows="8" paginator="true" 
                                   paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
                                   currentPageReportTemplate="{totalPages}">
 
@@ -127,13 +126,13 @@
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNovedadesDefinitivas.infoRegistro}" style="position: relative; left: 10px; top: 3px; font-weight: bold; display: block;"/>
 
-                     <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative; left: 650px; top: -10px;" 
+                     <p:commandButton style="position: relative; left: 650px; top: -10px;" class="cssBotonBuscar"
                                       id="btnBuscarEmpleados" actionListener="#{controlNovedadesDefinitivas.asignarIndex(0, 0)}" value="" process="@this"/>
-                     <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative; left: 650px; top: -10px;" 
+                     <p:commandButton style="position: relative; left: 650px; top: -10px;" class="cssBotonMostrarTodos" 
                                       id="btnMostrarTodos" disabled="#{controlNovedadesDefinitivas.activarMostrarTodos}" actionListener="#{controlNovedadesDefinitivas.mostrarTodos()}" value="" update="@this :form:informacionRegistro" process="@this"/>
                   </fieldset>
 
-                  <p:panel id="formularioNovedades" style="position: absolute; left: 5px; top: 2px; background-color: transparent; border-color: transparent">
+                  <p:panel id="formularioNovedades" style="position: absolute; left: 5px; top: 4px; background-color: transparent; border-color: transparent">
                      <fieldset style="position: absolute; top: 330px; left: 5px; height: 142px; width: 830px; border-radius: 10px; text-align: left;">
                         <legend style="font-size: 14px; color: #14388B"><strong>#{msg['titulo']}</strong></legend>
 
@@ -209,8 +208,8 @@
                      </fieldset>
                   </p:panel>
 
-                  <p:commandButton style="position: absolute; left: 680px; top: 497px;" class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:formularioNovedades" process="@this"/>
-                  <p:commandButton style="position: absolute; left: 770px; top: 497px;" class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesDefinitivas.salir()}"/>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:formularioNovedades" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesDefinitivas.salir()}"/>
                </p:panel>
             </h:form>
 
