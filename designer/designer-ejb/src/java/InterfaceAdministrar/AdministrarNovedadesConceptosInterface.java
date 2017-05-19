@@ -14,6 +14,7 @@ import Entidades.Terceros;
 import Entidades.Usuarios;
 import Entidades.VWActualesTiposTrabajadores;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,5 +55,7 @@ public interface AdministrarNovedadesConceptosInterface {
     public Usuarios usuarioBD(String alias);
     
     public List<Novedades> todasNovedadesConcepto(BigInteger secuenciaConcepto);
+    
+    public Date obtenerFechaContratacionEmpleado(BigInteger secEmpleado);
   
 }

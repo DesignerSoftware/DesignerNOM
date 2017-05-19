@@ -555,7 +555,7 @@ String pagActual = "sucursal_pila";
          RequestContext.getCurrentInstance().update("form:growl");
          System.out.println("Se guardaron los datos con exito");
          listSucursalesPilaPorEmpresa = null;
-         RequestContext.getCurrentInstance().update(":form:datosSucursalesPila");
+         RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
          k = 0;
          guardado = true;
          aceptar = true;

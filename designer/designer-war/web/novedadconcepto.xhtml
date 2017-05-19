@@ -5,7 +5,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-
    <h:head>
    </h:head>
    <h:body>
@@ -228,9 +227,9 @@
                                <!--<f:facet name="output"><h:outputText value="#{novedades.valortotal}"/></f:facet>-->  
                            <!--<f:facet name="input">-->
                            <p:inputNumber autocomplete="off" value="#{novedades.valortotal}" id="editarValor" symbol="$" decimalPlaces="2"
-                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"
-                                           onblur="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"
-                                           onfocus="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"> 
+                                          style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"
+                                          onblur="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"
+                                          onfocus="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"> 
                               <p:ajax event="change" listener="#{controlNovedadesConceptos.modificarNovedades(novedades, 'N', novedades.valortotal)}"/>
                               <p:ajax event="select" listener="#{controlNovedadesConceptos.cambiarIndice(novedades, 4)}" process="@this"/>
                            </p:inputNumber>
@@ -247,9 +246,9 @@
                                                          <f:facet name="output"><h:outputText value="#{novedades.saldo}"/></f:facet>  
                                                          <f:facet name="input">-->
                            <p:inputNumber autocomplete="off" value="#{novedades.saldo}" id="editarSaldo" symbol="$" decimalPlaces="2"
-                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"
-                                           onblur="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"
-                                           onfocus="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"> 
+                                          style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"
+                                          onblur="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"
+                                          onfocus="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"> 
                               <p:ajax event="change" listener="#{controlNovedadesConceptos.modificarNovedades(novedades, 'N', novedades.saldo)}"/>
                               <p:ajax event="select" listener="#{controlNovedadesConceptos.cambiarIndice(novedades, 5)}" process="@this"
                                       onstart="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"/>
@@ -716,6 +715,11 @@
                   <h:outputText value="#{msg['solucionesformulas']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
+               <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+               </p:dialog>
+
                <!-- DIALOGO NUEVO REGISTRO -->
                <p:dialog id="NuevaNovedadConcepto" header="#{msg['nuevoregistro']}" widgetVar="NuevaNovedadConcepto" closable="false" resizable="false"  draggable="true" modal="true" height="400" width="800" style=" padding: 0px">  
 
@@ -727,9 +731,10 @@
                      <p:inputText autocomplete="off" id="nuevoEmpleadoCodigo" value="#{controlNovedadesConceptos.nuevaNovedad.empleado.codigoempleadoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlNovedadesConceptos.valoresBackupAutocompletar(1, 'EMPLEADO')}"/>
                         <p:ajax event="change" listener="#{controlNovedadesConceptos.autocompletarNuevoyDuplicado('EMPLEADO', controlNovedadesConceptos.nuevaNovedad.empleado.codigoempleadoSTR, 1)}"/>
-                        <p:ajax event="dblclick" listener="#{controlNovedadesConceptos.asignarIndex( 0, 1)}"/>
+                        <p:ajax event="dblclick" listener="#{controlNovedadesConceptos.asignarIndex( 0, 1)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; left: 331px; top: 82px;" id="btnNuevoEmpleado" actionListener="#{controlNovedadesConceptos.asignarIndex( 0, 1)}" process="@this"/>
+                     <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; left: 331px; top: 82px;" id="btnNuevoEmpleado" actionListener="#{controlNovedadesConceptos.asignarIndex( 0, 1)}" process="@this"
+                                      onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoEmpleadoNombre" value="#{controlNovedadesConceptos.nuevaNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();" readonly="true">
@@ -832,9 +837,11 @@
                      <p:inputText autocomplete="off" id="duplicarEmpleadoCodigo" value="#{controlNovedadesConceptos.duplicarNovedad.empleado.codigoempleadoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlNovedadesConceptos.valoresBackupAutocompletar(2, 'EMPLEADO')}"/>
                         <p:ajax event="change" listener="#{controlNovedadesConceptos.autocompletarNuevoyDuplicado('EMPLEADO', controlNovedadesConceptos.duplicarNovedad.concepto.codigoSTR, 2)}"/>
-                        <p:ajax event="dblclick" listener="#{controlNovedadesConceptos.asignarIndex( 0, 2)}"/>
+                        <p:ajax event="dblclick" listener="#{controlNovedadesConceptos.asignarIndex( 0, 2)}"
+                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; left: 331px; top: 82px;" id="btnDuplicarEmpleadoCodigo" actionListener="#{controlNovedadesConceptos.asignarIndex( 0, 2)}" process="@this"/>
+                     <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; left: 331px; top: 82px;" id="btnDuplicarEmpleadoCodigo" actionListener="#{controlNovedadesConceptos.asignarIndex( 0, 2)}" process="@this"
+                                      onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEmpleadoNombre" value="#{controlNovedadesConceptos.duplicarNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();" readonly="true">

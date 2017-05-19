@@ -39,6 +39,7 @@ public class ControlTemplate implements Serializable {
    private String nombreUsuario;
    private StreamedContent logoEmpresa;
    private StreamedContent fotoUsuario;
+   private String rutaFotoLogo, rutaFotoUs;
    private FileInputStream fis;
    private final String webSite;
    private final String linkSoporte;
@@ -52,7 +53,8 @@ public class ControlTemplate implements Serializable {
    private BigDecimal smlv, auxtrans, uvt, minibc, segsocial;
 
    public ControlTemplate() {
-      fotoUsuario = null;
+      rutaFotoLogo = null;
+      rutaFotoUs = null;
       webSite = "www.nomina.com.co";
       linkSoporte = "Teamviewer";
       formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -128,21 +130,28 @@ public class ControlTemplate implements Serializable {
 
    public void informacionUsuario() {
       if (actualUsuario != null) {
-         String rutaFoto = administrarTemplate.rutaFotoUsuario();
-         if (rutaFoto != null) {
-            String bckRuta = rutaFoto;
+         int n = 0;
+         if (rutaFotoUs == null) {
+            rutaFotoUs = administrarTemplate.rutaFotoUsuario();
+            n = 1;
+         }
+         if (rutaFotoUs != null) {
+            String bckRuta = rutaFotoUs;
             try {
-               rutaFoto = rutaFoto + actualUsuario.getAlias() + ".png";
-               fis = new FileInputStream(new File(rutaFoto));
+               rutaFotoUs = rutaFotoUs + actualUsuario.getAlias() + ".png";
+               fis = new FileInputStream(new File(rutaFotoUs));
                fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
             } catch (FileNotFoundException e) {
                try {
-                  System.out.println("El usuario no tiene una foto asignada: " + rutaFoto);
-                  rutaFoto = bckRuta + "sinFoto.jpg";
-                  fis = new FileInputStream(new File(rutaFoto));
+                  if (n == 1) {
+                     rutaFotoUs = bckRuta + "sinFoto.jpg";
+                  } else {
+                     rutaFotoUs = bckRuta;
+                  }
+                  fis = new FileInputStream(new File(rutaFotoUs));
                   fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
                } catch (FileNotFoundException ex) {
-                  System.out.println("No se encontro el siguiente archivo, verificar. \n" + rutaFoto);
+                  System.out.println("No se encontro el siguiente archivo, verificar. \n" + rutaFotoUs);
                }
             }
          }
@@ -178,33 +187,29 @@ public class ControlTemplate implements Serializable {
    }
 
    public StreamedContent getFotoUsuario() {
-      if (fotoUsuario == null) {
-         informacionUsuario();
-      }
+      informacionUsuario();
       return fotoUsuario;
    }
 
    public StreamedContent getLogoEmpresa() {
-      if (logoEmpresa == null) {
-         String rutaFoto = administrarTemplate.logoEmpresa();
-         if (rutaFoto != null) {
+      if (rutaFotoLogo == null) {
+         rutaFotoLogo = administrarTemplate.logoEmpresa();
+      }
+      if (rutaFotoLogo != null) {
+         try {
+            fis = new FileInputStream(new File(rutaFotoLogo));
+            logoEmpresa = new DefaultStreamedContent(fis, "image/png");
+         } catch (FileNotFoundException fnfe) {
             try {
-               fis = new FileInputStream(new File(rutaFoto));
+               logoEmpresa = null;
+               fis = null;
+               rutaFotoLogo = administrarTemplate.rutaFotoUsuario() + "sinLogo.png";
+//               System.out.println("ruta sin logo: " + rutaFotoLogo);
+               fis = new FileInputStream(new File(rutaFotoLogo));
                logoEmpresa = new DefaultStreamedContent(fis, "image/png");
-            } catch (FileNotFoundException fnfe) {
-               try {
-                  System.out.println("Logo de la empresa no encontrado para el template. \n" + fnfe);
-                  logoEmpresa = null;
-                  fis = null;
-                  rutaFoto = administrarTemplate.rutaFotoUsuario() + "sinLogo.png";
-                  System.out.println("ruta sin logo: " + rutaFoto);
-                  fis = new FileInputStream(new File(rutaFoto));
-                  logoEmpresa = new DefaultStreamedContent(fis, "image/png");
-               } catch (FileNotFoundException fnfei) {
-                  System.out.println("Logo de empresa por defecto no encontrado. \n" + fnfei);
-                  logoEmpresa = null;
-               }
-
+            } catch (FileNotFoundException fnfei) {
+               System.out.println("Logo de empresa por defecto no encontrado. \n" + fnfei);
+               logoEmpresa = null;
             }
          }
       }

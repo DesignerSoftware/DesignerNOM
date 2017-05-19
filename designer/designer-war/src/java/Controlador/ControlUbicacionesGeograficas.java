@@ -68,7 +68,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
    private List<UbicacionesGeograficas> borrarUbicacionesGeograficas;
    private UbicacionesGeograficas nuevaUbicacionGeografica;
    private UbicacionesGeograficas duplicarUbicacionGeografica;
-   private UbicacionesGeograficas editarCentroCosto;
+   private UbicacionesGeograficas editarUbicacionG;
    private UbicacionesGeograficas ubicacionGeograficaSeleccionada;
 
    private Column codigoUG, descripcionUG, ciudadUG, direccionUG, telefono, fax;
@@ -76,7 +76,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
    private String ciudadesAutocompletar;
    private List<Ciudades> listaCiudades;
    private List<Ciudades> filtradoCiudades;
-   private Ciudades ciudadSeleccionada;
+   private Ciudades ciudadesSeleccionada;
    private String sucursalPilaAutocompletar;
    private List<SucursalesPila> listaSucursalesPilas;
    private List<SucursalesPila> filtradoSucursalesPilas;
@@ -110,7 +110,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
       crearUbicacionesGeograficas = new ArrayList<UbicacionesGeograficas>();
       modificarUbicacionesGeograficas = new ArrayList<UbicacionesGeograficas>();
       borrarUbicacionesGeograficas = new ArrayList<UbicacionesGeograficas>();
-      editarCentroCosto = new UbicacionesGeograficas();
+      editarUbicacionG = new UbicacionesGeograficas();
       nuevaUbicacionGeografica = new UbicacionesGeograficas();
       nuevaUbicacionGeografica.setCiudad(new Ciudades());
       nuevaUbicacionGeografica.setSucursalPila(new SucursalesPila());
@@ -176,25 +176,15 @@ public class ControlUbicacionesGeograficas implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "ubicaciongeografica";
-         
-         
-         
+       */
+      String pagActual = "ubicaciongeografica";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -453,7 +443,7 @@ String pagActual = "ubicaciongeografica";
       banderaModificacionEmpresa = 1;
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         ubicacionGeograficaSeleccionada.setCiudad(ciudadSeleccionada);
+         ubicacionGeograficaSeleccionada.setCiudad(ciudadesSeleccionada);
          if (!crearUbicacionesGeograficas.contains(ubicacionGeograficaSeleccionada)) {
             if (modificarUbicacionesGeograficas.isEmpty()) {
                modificarUbicacionesGeograficas.add(ubicacionGeograficaSeleccionada);
@@ -467,14 +457,14 @@ String pagActual = "ubicaciongeografica";
          }
          RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
       } else if (tipoActualizacion == 1) {
-         nuevaUbicacionGeografica.setCiudad(ciudadSeleccionada);
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoCentroCostos");
+         nuevaUbicacionGeografica.setCiudad(ciudadesSeleccionada);
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionGeograficas");
       } else if (tipoActualizacion == 2) {
-         duplicarUbicacionGeografica.setCiudad(ciudadSeleccionada);
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
+         duplicarUbicacionGeografica.setCiudad(ciudadesSeleccionada);
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionGeograficas");
       }
       filtradoCiudades = null;
-      ciudadSeleccionada = null;
+      ciudadesSeleccionada = null;
       aceptar = true;
       tipoActualizacion = -1;
       permitirIndex = true;
@@ -489,7 +479,7 @@ String pagActual = "ubicaciongeografica";
 
    public void cancelarCambioCiudad() {
       filtradoCiudades = null;
-      ciudadSeleccionada = null;
+      ciudadesSeleccionada = null;
       aceptar = true;
       tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -525,10 +515,10 @@ String pagActual = "ubicaciongeografica";
 
       } else if (tipoActualizacion == 2) {
          duplicarUbicacionGeografica.setSucursalPila(sucursalesPilasSeleccionada);
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionGeograficas");
       }
       filtradoCiudades = null;
-      ciudadSeleccionada = null;
+      ciudadesSeleccionada = null;
       aceptar = true;
       tipoActualizacion = -1;
       permitirIndex = true;
@@ -557,42 +547,6 @@ String pagActual = "ubicaciongeografica";
       RequestContext.getCurrentInstance().update("form:aceptarSP");
    }
 
-//    public void seleccionUbicacionesGeograficasPorEmpresa() {
-//        try {
-//            RequestContext context = RequestContext.getCurrentInstance();
-//
-//            if (guardado == true) {
-//                listUbicacionesGeograficasPorEmpresa.clear();
-//                System.err.println("seleccionUbicacionesGeograficasPorEmpresa " + UbicacionesGeograficasPorEmpresaSeleccionado.getDescripcion());
-//                listUbicacionesGeograficasPorEmpresa.add(UbicacionesGeograficasPorEmpresaSeleccionado);
-//                System.err.println("listUbicacionesGeograficasPorEmpresa tamaño " + listUbicacionesGeograficasPorEmpresa.size());
-//                System.err.println("listUbicacionesGeograficasPorEmpresa nombre " + listUbicacionesGeograficasPorEmpresa.get(0).getDescripcion());
-//                UbicacionesGeograficasPorEmpresaSeleccionado = null;
-//                filterUbicacionesGeograficasPorEmpresa = null;
-//                aceptar = true;
-//                banderaModificacionEmpresa = 1;
-//                RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
-//                RequestContext.getCurrentInstance().execute("PF('buscarUbicacionesGeograficasDialogo').hide()");
-//                context.reset("formularioDialogos:lovUbicacionesGeograficas:globalFilter");
-//            }
-//        } catch (Exception e) {
-//            System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.seleccionaVigencia ERROR====" + e);
-//        }
-//    }
-//
-//    public void cancelarSeleccionCentroCostoPorEmpresa() {
-//        try {
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            UbicacionesGeograficasPorEmpresaSeleccionado = null;
-//            filterUbicacionesGeograficasPorEmpresa = null;
-//            aceptar = true;
-//            tipoActualizacion = -1;
-//            RequestContext.getCurrentInstance().update("form:aceptarNCC");
-//
-//        } catch (Exception e) {
-//            System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.cancelarSeleccionVigencia ERROR====" + e);
-//        }
-//    }
    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
       System.out.println("1...");
       if (Campo.equals("CIUDADES")) {
@@ -614,7 +568,6 @@ String pagActual = "ubicaciongeografica";
    }
 
    public void autocompletarNuevo(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -637,8 +590,7 @@ String pagActual = "ubicaciongeografica";
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
             tipoActualizacion = tipoNuevo;
          }
-
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoCentroCostos");
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionGeograficas");
       }
       if (confirmarCambio.equalsIgnoreCase("SUCURSALESPILA")) {
          nuevaUbicacionGeografica.getSucursalPila().setDescripcion(nuevoSucursalPilaAutocompletar);
@@ -707,7 +659,7 @@ String pagActual = "ubicaciongeografica";
             duplicarUbicacionGeografica.setCiudad(new Ciudades());
          }
 
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionGeograficas");
       }
       if (confirmarCambio.equalsIgnoreCase("SUCURSALESPILA")) {
          if (!duplicarUbicacionGeografica.getSucursalPila().getDescripcion().equals("")) {
@@ -751,20 +703,16 @@ String pagActual = "ubicaciongeografica";
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-
       banderaModificacionEmpresa = 1;
       if (nuevaUbicacionGeografica.getCodigo() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
          System.out.println("Mensaje validacion : " + mensajeValidacion);
-
       } else {
          for (int x = 0; x < listUbicacionesGeograficasPorEmpresa.size(); x++) {
             if (listUbicacionesGeograficasPorEmpresa.get(x).getCodigo().equals(nuevaUbicacionGeografica.getCodigo())) {
                duplicados++;
             }
          }
-
          if (duplicados > 0) {
             mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
             System.out.println("Mensaje validacion : " + mensajeValidacion);
@@ -775,7 +723,6 @@ String pagActual = "ubicaciongeografica";
       }
       if (nuevaUbicacionGeografica.getDescripcion() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-
       } else {
          contador++;
       }
@@ -794,9 +741,11 @@ String pagActual = "ubicaciongeografica";
          if (crearUbicacionesGeograficas.contains(nuevaUbicacionGeografica)) {
          } else {
             crearUbicacionesGeograficas.add(nuevaUbicacionGeografica);
-
          }
          listUbicacionesGeograficasPorEmpresa.add(nuevaUbicacionGeografica);
+         if (tipoLista == 1) {
+            filtrarUbicacionesGeograficas.add(nuevaUbicacionGeografica);
+         }
          RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
          contarRegistros();
          nuevaUbicacionGeografica = new UbicacionesGeograficas();
@@ -845,7 +794,6 @@ String pagActual = "ubicaciongeografica";
    }
 
    public void mostrarDialogoNuevoCiudades() {
-      RequestContext context = RequestContext.getCurrentInstance();
       nuevaUbicacionGeografica = new UbicacionesGeograficas();
       nuevaUbicacionGeografica.setCiudad(new Ciudades());
       RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionGeograficas");
@@ -853,17 +801,12 @@ String pagActual = "ubicaciongeografica";
    }
 
    public void mostrarDialogoListaEmpresas() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().execute("PF('buscarUbicacionesGeograficasDialogo').show()");
    }
 
-   public void duplicandoCentroCostos() {
-      //try {
+   public void duplicandoUbicacionG() {
       banderaModificacionEmpresa = 1;
-
       if (ubicacionGeograficaSeleccionada != null) {
-         System.out.println("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.duplicarUbicacionGeograficas TIPOLISTA===" + tipoLista);
-
          duplicarUbicacionGeografica = new UbicacionesGeograficas();
          duplicarUbicacionGeografica.setSucursalPila(new SucursalesPila());
          duplicarUbicacionGeografica.setCiudad(new Ciudades());
@@ -874,6 +817,7 @@ String pagActual = "ubicaciongeografica";
          duplicarUbicacionGeografica.setCodigo(ubicacionGeograficaSeleccionada.getCodigo());
          duplicarUbicacionGeografica.setDescripcion(ubicacionGeograficaSeleccionada.getDescripcion());
          duplicarUbicacionGeografica.getCiudad().setNombre(ubicacionGeograficaSeleccionada.getCiudad().getNombre());
+         System.out.println("0");
          duplicarUbicacionGeografica.setDireccion(ubicacionGeograficaSeleccionada.getDireccion());
          duplicarUbicacionGeografica.setTelefono(ubicacionGeograficaSeleccionada.getTelefono());
          duplicarUbicacionGeografica.setFax(ubicacionGeograficaSeleccionada.getFax());
@@ -882,32 +826,25 @@ String pagActual = "ubicaciongeografica";
          duplicarUbicacionGeografica.setActividadeconomica(ubicacionGeograficaSeleccionada.getActividadeconomica());
          duplicarUbicacionGeografica.getSucursalPila().setDescripcion(ubicacionGeograficaSeleccionada.getSucursalPila().getDescripcion());
          duplicarUbicacionGeografica.setCodigoalternativo(ubicacionGeograficaSeleccionada.getCodigoalternativo());
-
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionGeograficas");
-         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCentroCostos').show()");
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroUbicacionesGeograficas').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
-      /* } catch (Exception e) {
-         System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.DuplicarCentroCostos ERROR===============" + e);
-         }*/
    }
 
-   public void limpiarDuplicarCentroCostos() {
+   public void limpiarDuplicarUbicacionG() {
       duplicarUbicacionGeografica = new UbicacionesGeograficas();
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR CONTROLTIPOSCENTROSCOSTOS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       Short a = 0;
       a = null;
-
       if (duplicarUbicacionGeografica.getCodigo() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-
       } else {
          for (int x = 0; x < listUbicacionesGeograficasPorEmpresa.size(); x++) {
             if (listUbicacionesGeograficasPorEmpresa.get(x).getCodigo().equals(duplicarUbicacionGeografica.getCodigo())) {
@@ -921,7 +858,6 @@ String pagActual = "ubicaciongeografica";
             System.out.println("bandera");
             contador++;
          }
-
       }
       if (duplicarUbicacionGeografica.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "Los campos marcados con asterisco son obligatorios";
@@ -933,9 +869,7 @@ String pagActual = "ubicaciongeografica";
       }
       if (duplicarUbicacionGeografica.getCiudad().getSecuencia() == null) {
          duplicarUbicacionGeografica.setCiudad(new Ciudades());
-
       }
-
       if (contador == 2) {
          if (crearUbicacionesGeograficas.contains(duplicarUbicacionGeografica)) {
             System.out.println("Ya lo contengo.");
@@ -943,6 +877,9 @@ String pagActual = "ubicaciongeografica";
             listUbicacionesGeograficasPorEmpresa.add(duplicarUbicacionGeografica);
          }
          crearUbicacionesGeograficas.add(duplicarUbicacionGeografica);
+         if (tipoLista == 1) {
+            filtrarUbicacionesGeograficas.add(duplicarUbicacionGeografica);
+         }
          RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
          contarRegistros();
          ubicacionGeograficaSeleccionada = duplicarUbicacionGeografica;
@@ -982,7 +919,7 @@ String pagActual = "ubicaciongeografica";
          }
          duplicarUbicacionGeografica = new UbicacionesGeograficas();
          duplicarUbicacionGeografica.setCiudad(new Ciudades());
-         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCentroCostos').hide()");
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroUbicacionesGeograficas').hide()");
          mensajeValidacion = " ";
          banderaModificacionEmpresa = 1;
 
@@ -994,9 +931,7 @@ String pagActual = "ubicaciongeografica";
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
-      System.out.println("TIPOLISTA = " + tipoLista);
-      try {
+      if (ubicacionGeograficaSeleccionada != null) {
          contarAfiliacionesEntidadesUbicacionGeografica = administrarUbicacionesGeograficas.contarAfiliacionesEntidadesUbicacionGeografica(ubicacionGeograficaSeleccionada.getSecuencia());
          contarInspeccionesUbicacionGeografica = administrarUbicacionesGeograficas.contarInspeccionesUbicacionGeografica(ubicacionGeograficaSeleccionada.getSecuencia());
          contarParametrosInformesUbicacionGeografica = administrarUbicacionesGeograficas.contarParametrosInformesUbicacionGeografica(ubicacionGeograficaSeleccionada.getSecuencia());
@@ -1012,12 +947,9 @@ String pagActual = "ubicaciongeografica";
                  && contarParametrosInformesUbicacionGeografica.equals(new BigInteger("0"))
                  && contarRevisionesUbicacionGeografica.equals(new BigInteger("0"))
                  && contarVigenciasUbicacionesUbicacionGeografica.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
             borrandoUbicacionesGeograficas();
          } else {
 
-            System.out.println("Borrado>0");
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
             RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
             ubicacionGeograficaSeleccionada = null;
@@ -1027,37 +959,33 @@ String pagActual = "ubicaciongeografica";
             contarRevisionesUbicacionGeografica = new BigInteger("-1");
             contarVigenciasUbicacionesUbicacionGeografica = new BigInteger("-1");
          }
-      } catch (Exception e) {
-         System.err.println("ERROR CONTROLUBICACIONESGEOGRAFICAS VERIFICARBORRADO ERROR " + e);
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
    public void borrandoUbicacionesGeograficas() {
-      if (ubicacionGeograficaSeleccionada != null) {
-         if (!modificarUbicacionesGeograficas.isEmpty() && modificarUbicacionesGeograficas.contains(ubicacionGeograficaSeleccionada)) {
-            int modIndex = modificarUbicacionesGeograficas.indexOf(ubicacionGeograficaSeleccionada);
-            modificarUbicacionesGeograficas.remove(modIndex);
-            borrarUbicacionesGeograficas.add(ubicacionGeograficaSeleccionada);
-         } else if (!crearUbicacionesGeograficas.isEmpty() && crearUbicacionesGeograficas.contains(ubicacionGeograficaSeleccionada)) {
-            int crearIndex = crearUbicacionesGeograficas.indexOf(ubicacionGeograficaSeleccionada);
-            crearUbicacionesGeograficas.remove(crearIndex);
-         } else {
-
-            borrarUbicacionesGeograficas.add(ubicacionGeograficaSeleccionada);
-         }
-         listUbicacionesGeograficasPorEmpresa.remove(ubicacionGeograficaSeleccionada);
-         if (tipoLista == 1) {
-            filtrarUbicacionesGeograficas.remove(ubicacionGeograficaSeleccionada);
-         }
-
-         if (guardado == true) {
-            guardado = false;
-         }
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
+      if (!modificarUbicacionesGeograficas.isEmpty() && modificarUbicacionesGeograficas.contains(ubicacionGeograficaSeleccionada)) {
+         int modIndex = modificarUbicacionesGeograficas.indexOf(ubicacionGeograficaSeleccionada);
+         modificarUbicacionesGeograficas.remove(modIndex);
+         borrarUbicacionesGeograficas.add(ubicacionGeograficaSeleccionada);
+      } else if (!crearUbicacionesGeograficas.isEmpty() && crearUbicacionesGeograficas.contains(ubicacionGeograficaSeleccionada)) {
+         int crearIndex = crearUbicacionesGeograficas.indexOf(ubicacionGeograficaSeleccionada);
+         crearUbicacionesGeograficas.remove(crearIndex);
       } else {
-         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+
+         borrarUbicacionesGeograficas.add(ubicacionGeograficaSeleccionada);
       }
+      listUbicacionesGeograficasPorEmpresa.remove(ubicacionGeograficaSeleccionada);
+      if (tipoLista == 1) {
+         filtrarUbicacionesGeograficas.remove(ubicacionGeograficaSeleccionada);
+      }
+
+      if (guardado == true) {
+         guardado = false;
+      }
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
    }
 
    public void guardarYSalir() {
@@ -1190,7 +1118,7 @@ String pagActual = "ubicaciongeografica";
 
    public void editarCelda() {
       if (ubicacionGeograficaSeleccionada != null) {
-         editarCentroCosto = ubicacionGeograficaSeleccionada;
+         editarUbicacionG = ubicacionGeograficaSeleccionada;
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigo");
             RequestContext.getCurrentInstance().execute("PF('editarCodigo').show()");
@@ -1450,14 +1378,6 @@ String pagActual = "ubicaciongeografica";
       this.filtradoCiudades = filtradoCiudades;
    }
 
-   public Ciudades getTipoCentroCostoSeleccionado() {
-      return ciudadSeleccionada;
-   }
-
-   public void setTipoCentroCostoSeleccionado(Ciudades ciudadSeleccionada) {
-      this.ciudadSeleccionada = ciudadSeleccionada;
-   }
-
    public boolean isAceptar() {
       return aceptar;
    }
@@ -1482,12 +1402,12 @@ String pagActual = "ubicaciongeografica";
       this.UbicacionesGeograficasPorEmpresaSeleccionado = UbicacionesGeograficasPorEmpresaSeleccionado;
    }
 
-   public UbicacionesGeograficas getEditarCentroCosto() {
-      return editarCentroCosto;
+   public UbicacionesGeograficas getEditarUbicacionG() {
+      return editarUbicacionG;
    }
 
-   public void setEditarCentroCosto(UbicacionesGeograficas editarCentroCosto) {
-      this.editarCentroCosto = editarCentroCosto;
+   public void setEditarUbicacionG(UbicacionesGeograficas editarUbicacionG) {
+      this.editarUbicacionG = editarUbicacionG;
    }
 
    public boolean isGuardado() {
@@ -1527,12 +1447,12 @@ String pagActual = "ubicaciongeografica";
       this.sucursalesPilasSeleccionada = sucursalesPilasSeleccionada;
    }
 
-   public Ciudades getCiudadSeleccionada() {
-      return ciudadSeleccionada;
+   public Ciudades getCiudadesSeleccionada() {
+      return ciudadesSeleccionada;
    }
 
-   public void setCiudadSeleccionada(Ciudades ciudadSeleccionada) {
-      this.ciudadSeleccionada = ciudadSeleccionada;
+   public void setCiudadesSeleccionada(Ciudades ciudadesSeleccionada) {
+      this.ciudadesSeleccionada = ciudadesSeleccionada;
    }
 
    public int getTamano() {

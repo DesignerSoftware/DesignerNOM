@@ -423,15 +423,14 @@ public class NovedadesSistema implements Serializable {
         } else {
             indemnizaBool = false;
         }
-
         return indemnizaBool;
     }
 
     public void setIndemnizaBool(Boolean indemnizaBool) {
         if (indemnizaBool == true) {
-            indemniza = "S";
+            this.indemniza = "S";
         } else {
-            indemniza = "N";
+            this.indemniza = "N";
         }
         this.indemnizaBool = indemnizaBool;
     }

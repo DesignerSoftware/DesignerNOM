@@ -363,7 +363,6 @@ public class ControlNovedadesVacaciones implements Serializable {
    }
 
    public void duplicarNV() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (novedadSeleccionada != null) {
          duplicarNovedad = new NovedadesSistema();
          paraNuevaNovedad++;
@@ -395,11 +394,9 @@ public class ControlNovedadesVacaciones implements Serializable {
    }
 
    public void entrarNuevoRegistro() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (empleadoSeleccionado != null) {
-         System.out.println("empleado seleccionado al entrar a nueva novedad : " + empleadoSeleccionado.getSecuencia());
          fechaContratacionE = administrarNovedadesVacaciones.obtenerFechaContratacionEmpleado(empleadoSeleccionado.getSecuencia());
-         RequestContext.getCurrentInstance().update(":formularioDialogos:nuevaNovedad");
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
          RequestContext.getCurrentInstance().execute("PF('nuevanovedadVacaciones').show()");
       } else {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
@@ -407,40 +404,29 @@ public class ControlNovedadesVacaciones implements Serializable {
    }
 
    public void confirmarDuplicar() {
-
       int pasa = 0;
-
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (duplicarNovedad.getFechainicialdisfrute() == null) {
          System.out.println("Entro a Fecha Inicial");
          mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
          pasa++;
       }
-
       if (duplicarNovedad.getEmpleado() == null) {
          System.out.println("Entro a Empleado");
          mensajeValidacion = mensajeValidacion + " * Empleado\n";
          pasa++;
       }
-
       if (duplicarNovedad.getDias() == null) {
          System.out.println("Entro a Dias");
          mensajeValidacion = mensajeValidacion + " * Formula\n";
          pasa++;
       }
-
-      System.out.println("Valor Pasa: " + pasa);
       if (pasa != 0) {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
       }
-
       if (pasa == 0) {
-
          listaNovedades.add(duplicarNovedad);
          listaNovedadesCrear.add(duplicarNovedad);
-
          novedadSeleccionada = duplicarNovedad;
          if (guardado == true) {
             guardado = false;

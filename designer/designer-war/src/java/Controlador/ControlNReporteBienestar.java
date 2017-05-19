@@ -647,7 +647,7 @@ String pagActual = "nreportebienestar";
       context.reset("formDialogos:lovReportesDialogo:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
-      RequestContext.getCurrentInstance().update(":form:reportesBienestar");
+      RequestContext.getCurrentInstance().update("form:reportesBienestar");
    }
 
    public void cancelarSeleccionInforeporte() {

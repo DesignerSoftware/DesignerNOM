@@ -4885,7 +4885,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
          permitirIndexFormulasConceptos = true;
          cambiosFormulasConceptos = true;
-         RequestContext.getCurrentInstance().update(":form:editarNombreFC");
+         RequestContext.getCurrentInstance().update("form:editarNombreFC");
       } else if (tipoActualizacion == 1) {
          nuevaFormulasConceptos.setFormula(formulaSeleccionadoLOV.getSecuencia());
          nuevaFormulasConceptos.setNombreFormula(formulaSeleccionadoLOV.getNombrelargo());

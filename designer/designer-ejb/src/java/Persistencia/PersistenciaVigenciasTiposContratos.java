@@ -36,7 +36,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          tx.commit();
          return true;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.crear()"+ e.getMessage());
+         System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.crear()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +53,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          em.merge(vigenciasTiposContratos);
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.editar()" + e.getMessage());
+         System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.editar()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -69,7 +69,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          em.remove(em.merge(vigenciasTiposContratos));
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.borrar()" + e.getMessage());
+         System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.borrar()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -82,22 +82,22 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          em.clear();
          return em.find(VigenciasTiposContratos.class, secuencia);
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContrato()" + e.getMessage());
+         System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContrato()" + e.getMessage());
          return null;
       }
    }
 
    @Override
    public List<VigenciasTiposContratos> buscarVigenciasTiposContratos(EntityManager em) {
-       try{
-      em.clear();
-      CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-      cq.select(cq.from(VigenciasTiposContratos.class));
-      return em.createQuery(cq).getResultList();
-       }catch(Exception e){
-           System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciasTiposContratos()" + e.getMessage());
-           return null;
-       }
+      try {
+         em.clear();
+         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+         cq.select(cq.from(VigenciasTiposContratos.class));
+         return em.createQuery(cq).getResultList();
+      } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciasTiposContratos()" + e.getMessage());
+         return null;
+      }
    }
 
    @Override
@@ -110,7 +110,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          List<VigenciasTiposContratos> vigenciasTiposContratos = (List<VigenciasTiposContratos>) query.getResultList();
          return vigenciasTiposContratos;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContratoEmpleado()" + e.getMessage());
+         System.out.println("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContratoEmpleado()" + e.getMessage());
          return null;
       }
    }
@@ -140,7 +140,6 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          query2.setParameter("secuencia", secuencia);
          query2.setHint("javax.persistence.cache.storeMode", "REFRESH");
          fecha = (Date) query2.getSingleResult();
-         System.out.println("Persistencia fecha : " + fecha);
          return fecha;
       } catch (Exception e) {
          System.out.println("Error fechaFinalContratacionVacaciones PersistenciaTiposContratos : " + e.getMessage());

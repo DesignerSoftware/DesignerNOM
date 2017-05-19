@@ -1587,7 +1587,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
          cambiosFormulaContrato = true;
          permitirIndex = true;
-         RequestContext.getCurrentInstance().update(":form:datosFormulaContrato");
+         RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
       } else if (tipoActualizacion == 1) {
          nuevoFormulaContrato.setFormula(formulaSeleccionada);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreLargo");
@@ -1656,7 +1656,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          cambiosFormulaContrato = true;
          permitirIndex = true;
 
-         RequestContext.getCurrentInstance().update(":form:datosFormulaContrato");
+         RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
       } else if (tipoActualizacion == 1) {
          nuevoFormulaContrato.setTercero(terceroSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNit");
@@ -1719,7 +1719,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
          cambiosFormulaContrato = true;
          permitirIndex = true;
-         RequestContext.getCurrentInstance().update(":form:datosFormulaContrato");
+         RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
       } else if (tipoActualizacion == 1) {
          nuevoFormulaContrato.setPeriodicidad(periodicidadSeleccionada);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaPeriodicidad");

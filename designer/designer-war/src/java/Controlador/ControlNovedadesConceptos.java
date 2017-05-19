@@ -128,6 +128,7 @@ public class ControlNovedadesConceptos implements Serializable {
    private String infoRegistroLovEmpleados;
    private String infoRegistroLovPeriodicidades;
    private String infoRegistroLovTerceros;
+   private Date fechaContratacionE;
    private BigDecimal valor;
    private boolean activarLOV;
    private String paginaAnterior = "nominaf";
@@ -171,6 +172,7 @@ public class ControlNovedadesConceptos implements Serializable {
       activarLOV = true;
       paginaAnterior = "nominaf";
       mapParametros.put("paginaAnterior", paginaAnterior);
+      fechaContratacionE = new Date();
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -208,25 +210,15 @@ public class ControlNovedadesConceptos implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "novedadconcepto";
-         
-         
-         
+       */
+      String pagActual = "novedadconcepto";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -275,7 +267,7 @@ String pagActual = "novedadconcepto";
          System.out.println("Concepto Seleccionado : " + conceptoSeleccionado.getDescripcion());
          llenarTablaNovedades();
          RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
-         
+
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
          RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
@@ -943,51 +935,34 @@ String pagActual = "novedadconcepto";
       int pasa = 0;
       int pasa2 = 0;
       mensajeValidacion = new String();
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (nuevaNovedad.getFechainicial() == null) {
          mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
-         System.out.println("Fecha Inicial");
          pasa++;
       }
-
       if (nuevaNovedad.getEmpleado().getCodigoempleado().equals(BigInteger.valueOf(0))) {
          mensajeValidacion = mensajeValidacion + " * Empleado\n";
-         System.out.println("Empleado");
          pasa++;
       }
-
       if (nuevaNovedad.getFormula().getNombrelargo().equals("")) {
          mensajeValidacion = mensajeValidacion + " * Formula\n";
-         System.out.println("Formula");
          pasa++;
       }
-      if (nuevaNovedad.getValortotal() == null) {
-         mensajeValidacion = mensajeValidacion + " * Valor\n";
-         System.out.println("Valor");
-         pasa++;
-      }
-
       if (nuevaNovedad.getTipo() == null) {
          mensajeValidacion = mensajeValidacion + " * Tipo\n";
-         System.out.println("Tipo");
          pasa++;
       }
-
       if (nuevaNovedad.getEmpleado() != null && pasa == 0) {
-         for (int i = 0; i < lovEmpleados.size(); i++) {
-            if (nuevaNovedad.getEmpleado().getSecuencia().compareTo(lovEmpleados.get(i).getSecuencia()) == 0) {
-
-               if (nuevaNovedad.getFechainicial().compareTo(nuevaNovedad.getEmpleado().getFechacreacion()) < 0) {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
-                  RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
-                  System.out.println("Inconsistencia Empleado");
-                  pasa2++;
-               }
-            }
+         fechaContratacionE = administrarNovedadesConceptos.obtenerFechaContratacionEmpleado(nuevaNovedad.getEmpleado().getSecuencia());
+         if (fechaContratacionE == null) {
+            fechaContratacionE = new Date();
+         }
+         if (nuevaNovedad.getFechainicial().before(fechaContratacionE)) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
+            RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
+            System.out.println("Inconsistencia Empleado");
+            pasa2++;
          }
       }
-
       if (nuevaNovedad.getFechafinal() != null && nuevaNovedad.getFechainicial() != null) {
          if (nuevaNovedad.getFechainicial().compareTo(nuevaNovedad.getFechafinal()) > 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
@@ -996,12 +971,10 @@ String pagActual = "novedadconcepto";
             pasa2++;
          }
       }
-
       if (pasa != 0) {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadConcepto");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadConcepto').show()");
       }
-
       if (pasa == 0 && pasa2 == 0) {
          System.out.println("Todo esta Bien");
          if (bandera == 1) {
@@ -1011,7 +984,6 @@ String pagActual = "novedadconcepto";
          k++;
          l = BigInteger.valueOf(k);
          nuevaNovedad.setSecuencia(l);
-
          // OBTENER EL TERMINAL 
          HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().getExternalContext().getRequest());
          String equipo = null;
@@ -1061,9 +1033,87 @@ String pagActual = "novedadconcepto";
       }
    }
 
-   //MOSTRAR DATOS CELDA
+   public void confirmarDuplicar() throws UnknownHostException {
+      int pasa2 = 0;
+      int pasa = 0;
+      if (duplicarNovedad.getFechainicial() == null) {
+         mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
+         pasa++;
+      }
+      if (duplicarNovedad.getEmpleado().getPersona().getNombreCompleto().equals(" ")) {
+         mensajeValidacion = mensajeValidacion + " * Empleado\n";
+         pasa++;
+      }
+      if (duplicarNovedad.getFormula().getNombrelargo() == null) {
+         mensajeValidacion = mensajeValidacion + " * Formula\n";
+         pasa++;
+      }
+      if (duplicarNovedad.getTipo() == null) {
+         mensajeValidacion = mensajeValidacion + " * Tipo\n";
+         pasa++;
+      }
+      System.out.println("duplicarNovedad.getFechainicial() : " + duplicarNovedad.getFechainicial());
+      fechaContratacionE = administrarNovedadesConceptos.obtenerFechaContratacionEmpleado(duplicarNovedad.getEmpleado().getSecuencia());
+      System.out.println("duplicarNovedad fechaContratacionE : " + fechaContratacionE);
+      if (fechaContratacionE == null) {
+         fechaContratacionE = new Date();
+      }
+      if (duplicarNovedad.getFechainicial().before(fechaContratacionE)) {
+         RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
+         RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
+         pasa2++;
+      }
+      if (duplicarNovedad.getFechainicial()
+              .compareTo(duplicarNovedad.getFechafinal()) > 0) {
+         RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
+         RequestContext.getCurrentInstance().execute("PF('fechas').show()");
+         pasa2++;
+      }
+      if (pasa != 0) {
+         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadConcepto");
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadConcepto').show()");
+      }
+      if (pasa2 == 0) {
+         k++;
+         l = BigInteger.valueOf(k);
+         duplicarNovedad.setSecuencia(l);
+
+         listaNovedades.add(duplicarNovedad);
+         listaNovedadesCrear.add(duplicarNovedad);
+         novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
+         contarRegistrosNovedades();
+
+         RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
+         if (guardado) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+         if (bandera == 1) {
+            restaurarTabla();
+         }
+         // OBTENER EL TERMINAL 
+         HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().getExternalContext().getRequest());
+         String equipo = null;
+         java.net.InetAddress localMachine = null;
+         if (request.getRemoteAddr().startsWith("127.0.0.1")) {
+            localMachine = java.net.InetAddress.getLocalHost();
+            equipo = localMachine.getHostAddress();
+         } else {
+            equipo = request.getRemoteAddr();
+         }
+         localMachine = java.net.InetAddress.getByName(equipo);
+         getAlias();
+         getUsuarioBD();
+         duplicarNovedad.setTerminal(localMachine.getHostName());
+         duplicarNovedad.setConcepto(conceptoSeleccionado);
+         duplicarNovedad = new Novedades();
+         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroNovedad");
+         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroNovedad').hide()");
+      }
+   }
+
+//MOSTRAR DATOS CELDA
    public void editarCelda() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (novedadSeleccionada != null) {
          editarNovedades = novedadSeleccionada;
 
@@ -1304,96 +1354,6 @@ String pagActual = "novedadconcepto";
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroNovedad').show()");
       } else {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      }
-   }
-
-   public void confirmarDuplicar() throws UnknownHostException {
-
-      int pasa2 = 0;
-      int pasa = 0;
-      Empleados emp = new Empleados();
-      Empleados emp2 = new Empleados();
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      if (duplicarNovedad.getFechainicial() == null) {
-         mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
-         pasa++;
-      }
-      if (duplicarNovedad.getEmpleado().getPersona().getNombreCompleto().equals(" ")) {
-         mensajeValidacion = mensajeValidacion + " * Empleado\n";
-         pasa++;
-      }
-      if (duplicarNovedad.getFormula().getNombrelargo() == null) {
-         mensajeValidacion = mensajeValidacion + " * Formula\n";
-         pasa++;
-      }
-      if (duplicarNovedad.getValortotal() == null) {
-         mensajeValidacion = mensajeValidacion + " * Valor\n";
-         pasa++;
-      }
-
-      if (duplicarNovedad.getTipo() == null) {
-         mensajeValidacion = mensajeValidacion + " * Tipo\n";
-         pasa++;
-      }
-
-      for (int i = 0; i < lovEmpleados.size(); i++) {
-         if (duplicarNovedad.getEmpleado().getSecuencia().compareTo(lovEmpleados.get(i).getSecuencia()) == 0) {
-
-            if (duplicarNovedad.getFechainicial().compareTo(duplicarNovedad.getEmpleado().getFechacreacion()) < 0) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
-               RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
-               pasa2++;
-            }
-         }
-      }
-
-      if (duplicarNovedad.getFechainicial().compareTo(duplicarNovedad.getFechafinal()) > 0) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-         RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-         pasa2++;
-      }
-      if (pasa != 0) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadConcepto");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadConcepto').show()");
-      }
-      if (pasa2 == 0) {
-         k++;
-         l = BigInteger.valueOf(k);
-         duplicarNovedad.setSecuencia(l);
-
-         listaNovedades.add(duplicarNovedad);
-         listaNovedadesCrear.add(duplicarNovedad);
-         novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
-         contarRegistrosNovedades();
-
-         RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
-         if (guardado) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         if (bandera == 1) {
-            restaurarTabla();
-         }
-
-         // OBTENER EL TERMINAL 
-         HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().getExternalContext().getRequest());
-         String equipo = null;
-         java.net.InetAddress localMachine = null;
-         if (request.getRemoteAddr().startsWith("127.0.0.1")) {
-            localMachine = java.net.InetAddress.getLocalHost();
-            equipo = localMachine.getHostAddress();
-         } else {
-            equipo = request.getRemoteAddr();
-         }
-         localMachine = java.net.InetAddress.getByName(equipo);
-         getAlias();
-         getUsuarioBD();
-         duplicarNovedad.setTerminal(localMachine.getHostName());
-         duplicarNovedad.setConcepto(conceptoSeleccionado);
-         duplicarNovedad = new Novedades();
-         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroNovedad");
-         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroNovedad').hide()");
       }
    }
 

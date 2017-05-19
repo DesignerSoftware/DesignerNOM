@@ -170,25 +170,15 @@ public class ControlNovedadesDefinitivas implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "novedaddefinitivas";
-         
-         
-         
+       */
+      String pagActual = "novedaddefinitivas";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -310,8 +300,17 @@ String pagActual = "novedaddefinitivas";
       }
    }
 
+   public void autocompletarBool(String campoaCambiar, Boolean bool) {
+      if (campoaCambiar.equalsIgnoreCase("BOOL")) {
+         if (tipoActualizacion == 1) {
+            nuevaNovedad.setIndemnizaBool(bool);
+         } else if (tipoActualizacion == 2) {
+            duplicarNovedad.setIndemnizaBool(bool);
+         }
+      }
+   }
+
    public void autocompletar(String campoaCambiar, String valor) {
-      RequestContext context = RequestContext.getCurrentInstance();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
 
@@ -520,7 +519,7 @@ String pagActual = "novedaddefinitivas";
       RequestContext.getCurrentInstance().update("formularioDialogos:motivosDialogo");
    }
 
-   public void Bool() {
+   public void bool() {
       novedadMostrar.getIndemnizaBool();
    }
 
@@ -530,8 +529,6 @@ String pagActual = "novedaddefinitivas";
       int pasa = 0;
       int pasa2 = 0;
       mensajeValidacion = new String();
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (!listaNovedades.isEmpty()) {
          for (int i = 0; i < listaNovedades.size(); i++) {
             if (nuevaNovedad.getFechainicialdisfrute() != null && (nuevaNovedad.getFechainicialdisfrute().equals(listaNovedades.get(i).getFechainicialdisfrute()))) {
@@ -541,13 +538,11 @@ String pagActual = "novedaddefinitivas";
             }
          }
       }
-
       if (nuevaNovedad.getFechainicialdisfrute() == null) {
          System.out.println("Entro a Fecha ");
          mensajeValidacion = mensajeValidacion + " * Fecha Liquidacion Definitiva\n";
          pasa++;
       }
-
       if (nuevaNovedad.getMotivodefinitiva().getNombre() == null) {
          System.out.println("Entro a Motivo");
          mensajeValidacion = mensajeValidacion + " * Motivo Liquidacion Definitiva\n";
@@ -558,19 +553,15 @@ String pagActual = "novedaddefinitivas";
          mensajeValidacion = mensajeValidacion + " * Motivo Retiro\n";
          pasa++;
       }
-
       System.out.println("Valor Pasa: " + pasa);
-
       if (pasa != 0) {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedad");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedad').show()");
       }
-
       if (pasa == 0 && !listaNovedades.isEmpty()) {
          RequestContext.getCurrentInstance().update("formularioDialogos:existeRegistro");
          RequestContext.getCurrentInstance().execute("PF('existeRegistro').show()");
       }
-
       if (pasa == 0 && pasa2 == 0) {
          //AGREGAR REGISTRO A LA LISTA NOVEDADES .
          k++;
@@ -583,11 +574,9 @@ String pagActual = "novedaddefinitivas";
          listaNovedades.add(nuevaNovedad);
          novedadMostrar = listaNovedades.get(listaNovedades.indexOf(nuevaNovedad));
          listaCrear.add(nuevaNovedad);
-
          if (novedadMostrar != null) {
             activate = false;
          }
-
          nuevaNovedad = new NovedadesSistema();
          nuevaNovedad.setMotivodefinitiva(new MotivosDefinitivas());
          nuevaNovedad.setMotivoretiro(new MotivosRetiros());
@@ -595,7 +584,6 @@ String pagActual = "novedaddefinitivas";
          nuevaNovedad.setTipo("DEFINITIVA");
          nuevaNovedad.setSubtipo("DINERO");
          nuevaNovedad.setFechainicialdisfrute(new Date());
-
          if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");

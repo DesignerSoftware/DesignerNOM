@@ -1037,7 +1037,7 @@ String pagActual = "novedadcesantiasrc";
 
       if (empleadoSeleccionado != null) {
          System.out.println("empleadoSeleccionado : " + empleadoSeleccionado.getSecuencia());
-         RequestContext.getCurrentInstance().update(":formularioDialogos:nuevaNovedad");
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
          RequestContext.getCurrentInstance().execute("PF('nuevanovedadpagoparcialcesantias').show()");
       } else {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
