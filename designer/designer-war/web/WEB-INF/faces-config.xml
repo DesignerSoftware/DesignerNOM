@@ -7314,7 +7314,7 @@
    <navigation-rule>
       <from-view-id>/tempsoausentismos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tempsoausentismos</from-outcome>
+         <from-outcome>atausentismos</from-outcome>
          <to-view-id>/atausentismos.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -7935,7 +7935,7 @@
       </navigation-case>
    </navigation-rule>
    
-     <navigation-rule>
+   <navigation-rule>
       <from-view-id>/kioempresas.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>kioadmin</from-outcome>
@@ -7953,6 +7953,38 @@
       </navigation-case>
    </navigation-rule>
    
-   
+   <navigation-rule>
+      <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>archivoplanocentrocosto</from-outcome>
+         <to-view-id>/archivoplanocentrocosto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/archivoplanocentrocosto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplvigencialocalizacion</from-outcome>
+         <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+        
+   <navigation-rule>
+      <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>archivoplanoproyecto</from-outcome>
+         <to-view-id>/archivoplanoproyecto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/archivoplanoproyecto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplvigencialocalizacion</from-outcome>
+         <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
 </faces-config>
 
