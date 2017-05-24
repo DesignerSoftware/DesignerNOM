@@ -7881,5 +7881,78 @@
       </navigation-case>
    </navigation-rule>
    
+   <navigation-rule>
+      <from-view-id>/nominaf.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>kioadmin</from-outcome>
+         <to-view-id>/kioadmin.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+ 
+   <navigation-rule>
+      <from-view-id>/kioadmin.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/kiopreguntas.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>kioadmin</from-outcome>
+         <to-view-id>/kioadmin.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+ 
+   <navigation-rule>
+      <from-view-id>/kioadmin.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>kiopreguntas</from-outcome>
+         <to-view-id>/kiopreguntas.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/opckiosko.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>kioadmin</from-outcome>
+         <to-view-id>/kioadmin.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+ 
+   <navigation-rule>
+      <from-view-id>/kioadmin.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>opckiosko</from-outcome>
+         <to-view-id>/opckiosko.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+     <navigation-rule>
+      <from-view-id>/kioempresas.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>kioadmin</from-outcome>
+         <to-view-id>/kioadmin.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+ 
+   <navigation-rule>
+      <from-view-id>/kioadmin.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>kioempresas</from-outcome>
+         <to-view-id>/kioempresas.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   
 </faces-config>
 

@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.empresasok" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Opciones Kiosko Empresas" styleClass="panelTotal">    
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left;"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmpresasOpcionesKioskos.guardarCambios()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmpresasOpcionesKioskos.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlEmpresasOpcionesKioskos.activarLov}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmpresasOpcionesKioskos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmpresasOpcionesKioskos.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlEmpresasOpcionesKioskos.limpiarNuevaEmpresaOK()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosEmpresasOkExportar" fileName="PreguntasKioscos" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmpresasOpcionesKioskos.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroEmpresaOK').show()" update=":formularioDialogos:nuevaEmpresaOK" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlEmpresasOpcionesKioskos.borrarEmpresaOk()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEmpresasOpcionesKioskos.duplicandoEmpresaOk()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEmpresasOpcionesKioskos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmpresasOpcionesKioskos.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmpresasOpcionesKioskos.salir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlEmpresasOpcionesKioskos.revisarDialogoGuardar()}" disabled="#{controlEmpresasOpcionesKioskos.guardado}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  actionListener="#{controlEmpresasOpcionesKioskos.salir()}"  value=""/>
+
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 14px; color: blue"><strong>Opciones Empresa</strong></legend>
+
+                            <p:dataTable id="datosEmpresasOk" widgetVar="datosEmpresasOk" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         value="#{controlEmpresasOpcionesKioskos.listEmpresasOk}" scrollable="true" scrollHeight="#{controlEmpresasOpcionesKioskos.tamano}"
+                                         scrollWidth="830" filteredValue="#{controlEmpresasOpcionesKioskos.listEmpresasOkFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" selection="#{controlEmpresasOpcionesKioskos.empresaOkSeleccionada}"
+                                         selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlEmpresasOpcionesKioskos.eventoFiltrar()}"/>
+
+                                <p:column headerText="Empresa" sortBy="#{info.empresa.nombre}" filterBy="#{info.empresa.nombre}" filterMatchMode="contains" id="empresa"  filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.empresa.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.empresa.nombre}" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlEmpresasOpcionesKioskos.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosEmpresasOk').unselectAllRows();PF('datosEmpresasOk').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlEmpresasOpcionesKioskos.modificarEmpresaOk(info)}"  update="empresa"/>
+                                                <p:ajax event="dblclick" listener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 0, 1)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                                <p:column headerText="Opción Kiosko" sortBy="#{info.opcionkiosko.descripcion}" filterBy="#{info.opcionkiosko.descripcion}" filterMatchMode="contains" id="opcionkiosko" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.opcionkiosko.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.opcionkiosko.descripcion}" maxlength="50" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlEmpresasOpcionesKioskos.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosEmpresasOk').unselectAllRows();PF('datosEmpresasOk').selectRow(#{indice});"/> 
+                                                <p:ajax event="change"  listener="#{controlEmpresasOpcionesKioskos.modificarEmpresaOk(info)}" update="opcionkiosko"/>
+                                                <p:ajax event="dblclick" listener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 0, 2)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmpresasOpcionesKioskos.infoRegistro}" style="position: relative; left: 0px; top: 1px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check">
+                                <f:actionListener binding="#{controlEmpresasOpcionesKioskos.guardarCambios()}"/>
+                                <f:actionListener binding="#{controlEmpresasOpcionesKioskos.salir()}"/>
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close">
+                                <f:actionListener binding="#{controlEmpresasOpcionesKioskos.cancelarModificacion()}"/>
+                                <f:actionListener binding="#{controlEmpresasOpcionesKioskos.salir()}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </p:dialog>
+                    </p:panel>
+
+                    <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Se han borrado #{controlEmpresasOpcionesKioskos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 150px;" process="@this"/>
+                    </p:dialog>
+                    
+                    <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
+                            showEffect="fade" hideEffect="fade" width="445" modal="true">
+                        <p:dataTable id="lovEmpresas"  var="empresa" value="#{controlEmpresasOpcionesKioskos.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                                     selection="#{controlEmpresasOpcionesKioskos.empresaLovSeleccionda}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlEmpresasOpcionesKioskos.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlEmpresasOpcionesKioskos.contarRegistrosEmpresas()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlEmpresasOpcionesKioskos.activarAceptar()}" update=":form:aceptarD"/>
+                        <p:ajax event="rowDblselect" listener="#{controlEmpresasOpcionesKioskos.actualizarEmpresa()}" process="@this"/>
+                        <f:facet name="header">  
+                           <h:outputText value="Buscar Empresa"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
+                        </f:facet>
+
+                        <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width:80%">
+                           <f:facet name="header">
+                              <h:outputText style="text-align: center;" value="Nombre"/>
+                           </f:facet>
+                           <h:outputText  value="#{empresa.nombre}"/>
+                        </p:column>
+                     </p:dataTable>
+
+                     <div class="cssBotonesLOV"> 
+                         <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlEmpresasOpcionesKioskos.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpresasOpcionesKioskos.aceptar}" 
+                                         actionListener="#{controlEmpresasOpcionesKioskos.actualizarEmpresa()}"  process="@this"/>
+                        <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                         actionListener="#{controlEmpresasOpcionesKioskos.cancelarCambioEmpresa()}" process="@this"/>
+                     </div>
+                  </p:dialog> 
+                    
+                    <p:dialog header="Opciones Kioskos" widgetVar="OpcionesKioskosDialogo" draggable="true" resizable="false" closable="false" id="OpcionesKioskosDialogo"  
+                            showEffect="fade" hideEffect="fade" width="445" modal="true">
+                        <p:dataTable id="lovOK"  var="opcionk" value="#{controlEmpresasOpcionesKioskos.lovOpcionesKioskos}" rowKey="#{opcionk.secuencia}"
+                                     selection="#{controlEmpresasOpcionesKioskos.opcionKioskoLovSeleccionda}" selectionMode="single" widgetVar="lovOK" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                  filteredValue="#{controlEmpresasOpcionesKioskos.lovOpcionesKioskosFiltrar}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlEmpresasOpcionesKioskos.contarRegistrosOpcionesKioskos()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlEmpresasOpcionesKioskos.activarAceptar()}" update=":form:aceptarOK"/>
+                        <p:ajax event="rowDblselect" listener="#{controlEmpresasOpcionesKioskos.actualizarOpcionKiosko()}" process="@this"/>
+                        <f:facet name="header">  
+                           <h:outputText value="#{msg['buscarM']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovOK').filter();" class="cssFiltroLOV"/>  
+                        </f:facet>
+
+                        <p:column filterBy="#{opcionk.descripcion}" filterMatchMode="contains" filterStyle="width:80%">
+                           <f:facet name="header">
+                              <h:outputText style="text-align: center;" value="Descripción"/>
+                           </f:facet>
+                           <h:outputText  value="#{opcionk.descripcion}"/>
+                        </p:column>
+                     </p:dataTable>
+
+                     <div class="cssBotonesLOV"> 
+                         <h:outputText id="infoRegistroOK" value="#{msg['infoRegistro']} #{controlEmpresasOpcionesKioskos.infoRegistroOK}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarOK" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpresasOpcionesKioskos.aceptar}" 
+                                         actionListener="#{controlEmpresasOpcionesKioskos.actualizarOpcionKiosko()}"  process="@this"/>
+                        <p:commandButton id="atrasOK" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                         actionListener="#{controlEmpresasOpcionesKioskos.cancelarCambioOpcionKiosko()}" process="@this"/>
+                     </div>
+                  </p:dialog> 
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlEmpresasOpcionesKioskos.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="validacionNuevaPregunta" header="#{msg['atencion']}" widgetVar="validacionNuevaPregunta"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
+                        <h:outputText value="#{controlEmpresasOpcionesKioskos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaPregunta').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlEmpresasOpcionesKioskos.empresaOkSeleccionada.secuencia, 'EMPRESASOPCIONESKIOSKOS', 'kioempresas')}"
+                                         style="position: absolute; top: 65px; left: 175px;" onstart="#{controlEmpresasOpcionesKioskos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('kioempresas', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('EMPRESASOPCIONESKIOSKOS', 'kioempresas')}"
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlEmpresasOpcionesKioskos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('kioempresas', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpresasOpcionesKioskos.empresaOkSeleccionada.secuencia, 'EMPRESASOPCIONESKIOSKOS', 'kioempresas')}"
+                                         icon="ui-icon-close" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlEmpresasOpcionesKioskos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('kioempresas', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="75" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="80" width="380"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La opción kiosko seleccionada ya está relacionada con la empresa.Por favor cambie la opción kiosko" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 250px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="editEmpresa" header="Empresa" widgetVar="editEmpresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlEmpresasOpcionesKioskos.editarEmpresaOK.empresa.nombre}" style="overflow: auto; " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editOpcionKiosko" header="Opción Kiosko" widgetVar="editOpcionKiosko" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlEmpresasOpcionesKioskos.editarEmpresaOK.opcionkiosko.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroEmpresaOK" header="Nuevo Registro" widgetVar="nuevoRegistroEmpresaOK" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Nuevo Tipo Curso" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="nuevaEmpresaOK" style="border: none;">
+
+                            <strong><h:outputText value="*Empresa: "  style="position: absolute; top: 60px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlEmpresasOpcionesKioskos.nuevaEmpresaOk.empresa.nombre}" style=" width: 140px; position: absolute; left: 130px; top: 55px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 1, 1)}"  process="@this"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos" actionListener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 1, 1)}" process="@this" style="position: absolute; left: 282px; top: 55px" value="" />
+                            <p:watermark for="nuevoCodigo" value="Empresa"/>
+
+                            <strong><h:outputText value="*Opción Kiosko: "  style="position: absolute; top: 90px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="50" value="#{controlEmpresasOpcionesKioskos.nuevaEmpresaOk.opcionkiosko.descripcion}" style=" width: 140px; position: absolute; left: 130px; top: 85px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 1, 2)}"  process="@this"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos" actionListener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 1, 2)}" process="@this" style="position: absolute; left: 282px; top: 85px" value="" />
+                            <p:watermark for="nuevoNombre" value="Opción Kiosko"/>
+
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlEmpresasOpcionesKioskos.limpiarNuevaEmpresaOK()}" update="nuevaEmpresaOK" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlEmpresasOpcionesKioskos.agregarNuevaEmpresaOK()}" process="@this"/>
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="nuevaEmpresaOK" onclick="PF('nuevoRegistroEmpresaOK').hide();"  actionListener="#{controlEmpresasOpcionesKioskos.limpiarNuevaEmpresaOK()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+
+                    <p:dialog id="duplicarRegistroEmpresaOK" header="Duplicar Registro" widgetVar="duplicarRegistroEmpresaOK" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Tipo Curso" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="duplicarTE" style="border: none;">
+                            <strong><h:outputText value="*Empresa: "  style=" position: absolute; top: 60px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlEmpresasOpcionesKioskos.duplicarEmpresaOk.empresa.nombre}" style=" width: 140px; position: absolute; left: 130px; top: 55px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 2, 1)}"  process="@this"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos" actionListener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 2, 1)}" process="@this" style="position: absolute; left: 282px; top: 55px" value="" />
+                            <p:watermark for="duplicarCodigo" value="Empresa"/>
+
+                            <strong><h:outputText value="*Opción Kiosko:"  style=" position: absolute; top: 90px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarNombre" maxlength="50" value="#{controlEmpresasOpcionesKioskos.duplicarEmpresaOk.opcionkiosko.descripcion}"  style=" width: 140px; position: absolute; left: 130px; top: 85px; text-transform: uppercase;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 2, 2)}"  process="@this"/>
+                            </p:inputText>
+                            <p:commandButton class="cssBotonLovDialogos" actionListener="#{controlEmpresasOpcionesKioskos.asignarIndex(info, 2, 2)}" process="@this" style="position: absolute; left: 282px; top: 85px" value="" />
+                            <p:watermark for="duplicarNombre" value="Opción Kiosko"/>
+                            <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlEmpresasOpcionesKioskos.limpiparDuplicarEmpresaOk() }" update="duplicarTE"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlEmpresasOpcionesKioskos.confirmarDuplicar()}"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="duplicarTE" onclick="PF('duplicarRegistroEmpresaOK').hide();" actionListener="#{controlEmpresasOpcionesKioskos.limpiparDuplicarEmpresaOk()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosEmpresasOkExportar" var="info2" style="visibility: hidden; display: none;"                           
+                                 value="#{controlEmpresasOpcionesKioskos.listEmpresasOk}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Empresa"/></f:facet> 
+                            <h:outputText value="#{info2.empresa.nombre}"/>
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Opcion_Kiosko"/></f:facet>
+                            <h:outputText value="#{info2.opcionkiosko.descripcion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

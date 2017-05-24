@@ -102,7 +102,7 @@ public interface PersistenciaEmpleadoInterface {
      * parámetro.
      */
     public Empleados buscarEmpleadoCodigo(EntityManager em, BigInteger codigoEmpleado);
-    
+
     public List<Empleados> buscarEmpleadosPorCodigo(EntityManager em, List<BigInteger> codigosEmpleado);
 
     /**
@@ -210,7 +210,7 @@ public interface PersistenciaEmpleadoInterface {
     public List<Empleados> empleadosAusentismos(EntityManager em);
 
     public List<Empleados> empleadosDefinitiva(EntityManager em);
-    
+
     public List<Empleados> empleadosReemplazosHV(EntityManager em, BigInteger secuenciaEmpleado);
-    
+
 }

@@ -1,0 +1,450 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+
+                    <f:loadBundle basename="Recursos.kioadmin" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="Administrar Empleados" styleClass="panelTotal">  
+
+                        <p:toolbar styleClass="cssToolbar">
+                            <p:toolbarGroup align="left;">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
+                                                 actionListener="#{controlKioAdmin.guardarCambios()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton  id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
+                                                  actionListener="#{controlKioAdmin.editarCelda()}" process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" 
+                                                 disabled="true" process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                                 actionListener="#{controlKioAdmin.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" disabled="true"
+                                                 ajax="false" actionListener="#{controlKioAdmin.exportXLS()}"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" disabled="true"
+                                                 actionListener="#{controlKioAdmin.limpiarCk()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosKioAdminExportar" fileName="KioAdminXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"  disabled="true"
+                                                 actionListener="#{controlKioAdmin.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
+                                                 process="@this" disabled="true" /> 
+                                <p:tooltip style="" for="insertar" value="#{msg['insertar']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
+                                                 disabled="true" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                                 disabled="true"  process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                                 actionListener="#{controlKioAdmin.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 oncomplete="window.location.reload()" actionListener="#{controlKioAdmin.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlKioAdmin.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>    
+                        </p:toolbar>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  value="" disabled="#{controlKioAdmin.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosKioAdmin" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlKioAdmin.salir()}" process="@this"/>
+
+
+                        <fieldset style="position: absolute; left: 10px; top: 75px; width: 660px; height: 200px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align:left;"><strong>Administrar Empleados</strong></legend>
+
+                            <p:dataTable id="datosKioAdmin"  widgetVar="datosKioAdmin" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 660px;"                           
+                                         value="#{controlKioAdmin.listEmpleadosCK}" scrollable="true" scrollHeight="#{controlKioAdmin.altoTabla}" scrollWidth="660"
+                                         filteredValue="#{controlKioAdmin.listEmpleadosCKFiltrar}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="15"
+                                         selection="#{controlKioAdmin.empleadoCKSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlKioAdmin.eventoFiltrar()}"/>
+
+                                <p:column headerText="Cédula" sortBy="#{info.codigoempleado}" filterBy="#{info.codigoempleado}" filterMatchMode="contains"
+                                          id="cedula" filterStyle="display: none; visibility: hidden;" width="80" >  
+                                    <p:cellEditor>
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.codigoempleado}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlKioAdmin.cambiarIndice(info,0)}" process="@this"
+                                                        onstart="PF('datosKioAdmin').unselectAllRows();PF('datosKioAdmin').selectRow(#{indice});"/> 
+                                            </p:inputText>
+                                        </f:facet>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.codigoempleado}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Nombre Empleado" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" filterMatchMode="contains"  
+                                          id="nombreempleado" filterStyle="display: none; visibility: hidden;" width="270">  
+                                    <p:cellEditor>
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.persona.nombreCompleto}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
+                                                <p:ajax event="select" listener="#{controlKioAdmin.cambiarIndice(info,1)}" process="@this"
+                                                        onstart="PF('datosKioAdmin').unselectAllRows();PF('datosKioAdmin').selectRow(#{indice});"/> 
+                                            </p:inputText> 
+                                        </f:facet>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.persona.nombreCompleto}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Empresa" sortBy="#{info.empresa.nombre}" filterBy="#{info.empresa.nombre}"
+                                          filterMatchMode="contains" id="empresa" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.empresa.nombre}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
+                                                <p:ajax event="select" listener="#{controlKioAdmin.cambiarIndice(info,2)}" process="@this"
+                                                        onstart="PF('datosKioAdmin').unselectAllRows();PF('datosKioAdmin').selectRow(#{indice});"/> 
+                                            </p:inputText>
+                                        </f:facet>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.empresa.nombre}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>  
+                            </p:dataTable>  
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlKioAdmin.infoRegistro}" style="position: relative; top: 1px; font-weight: bold;"/>
+                            <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;
+                                             position: absolute; left: 695px; top: 45px;" id="btnBuscarEmpleados" value="" process="@this" 
+                                             actionListener="#{controlKioAdmin.abrirLista(0)}"  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                            <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
+                                             position: absolute;left: 695px; top: 80px;" id="btnMostrarTodos" widgetVar="btnMostrarTodos" value="" disabled="#{controlKioAdmin.activarMTodos}" process="@this"
+                                             actionListener="#{controlKioAdmin.mostrarTodos()}"  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                        </fieldset> 
+
+
+                        <fieldset style="position: absolute; left: 10px; top: 305px; width: 165px; height: 150px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align:left;"><strong>Estado del empleado</strong></legend>
+                            <p:inputText value="#{controlKioAdmin.ckSeleccionada.activoStr}" id="activo" readonly="true" style="position: relative; top: 15px; width: 65px; left: 20px "/>
+
+                            <p:commandButton class="cssBotonLargo" icon="ui-icon-extlink" value="Unlock Usuario" actionListener="#{controlKioAdmin.unlockUsuario()}" style="position: relative; top: 25px;" />
+                            <p:commandButton class="cssBotonLargo" icon="ui-icon-extlink" value="Reset Usuario" onclick="PF('paso1Reset').show()" style="position: relative; top: 35px;" />
+                        </fieldset>
+
+                        <fieldset style="position: absolute; left: 215px; top: 305px; width: 615px; height: 150px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align:left;"><strong>Modificación de respuestas</strong></legend>
+                            <p:inputText value="#{controlKioAdmin.ckSeleccionada.pregunta1.pregunta}" readonly="true" id="pregunta1" widgetVar="pregunta1" style="position: absolute; top: 30px; width: 285px; left: 10px "/>
+                            <p:inputText value="#{controlKioAdmin.respuesta1}" id="respuesta1" widgetVar="respuesta1" style="position: absolute; top: 30px; width: 150px; left: 330px ">
+                                <p:ajax  event="change" process="@this" listener="#{controlKioAdmin.modificarKioAdminRespuesta1(controlKioAdmin.respuesta1)}"  />       
+                            </p:inputText>
+                            <p:commandButton class="cssBoton" id="ModR1"  disabled="#{controlKioAdmin.activarR1}" icon="ui-icon-extlink" value="Modificar" style="position: absolute; top: 25px; left: 500px" actionListener="#{controlKioAdmin.guardarCambios()}"  process="@this" />
+                            <p:inputText value="#{controlKioAdmin.ckSeleccionada.pregunta2.pregunta}" id="pregunta2" readonly="true" widgetVar="pregunta2" style="position: absolute; top: 70px; width: 285px; left: 10px "/>
+                            <p:inputText value="#{controlKioAdmin.respuesta2}" id="respuesta2" widgetVar="respuesta2" style="position: absolute; top: 70px; width: 150px; left: 330px ">
+                                <p:ajax  event="change"  process="@this"  listener="#{controlKioAdmin.modificarKioAdminRespuesta2(controlKioAdmin.respuesta2)}" />       
+                            </p:inputText>
+                            <p:commandButton class="cssBoton" id="ModR2" disabled="#{controlKioAdmin.activarR2}" icon="ui-icon-extlink" value="Modificar" style="position: absolute; top: 65px; left: 500px"  actionListener="#{controlKioAdmin.guardarCambios()}" process="@this" />
+                        </fieldset>
+
+                        <p:commandButton style="position: absolute;left: 15px; top: 495px; width: 200px"  icon="ui-icon-extlink" value="Administrar Preguntas"  process="@this"
+                                         action="#{controlListaNavegacion.guardarNavegacion('kioadmin', 'kiopreguntas')}" class="cssBotonLargo"
+                                         actionListener="#{controlPreguntasKioscos.recibirPaginaEntrante('kioadmin')}" />
+                        
+                        <p:commandButton style="position: absolute;left: 225px; top: 495px; width: 200px" id="opckioskos" icon="ui-icon-extlink" value="Administrar Opc. Kioscos"  process="@this"
+                                         action="#{controlListaNavegacion.guardarNavegacion('kioadmin', 'opckiosko')}" class="cssBotonLargo"
+                                         actionListener="#{controlOpcionesKioscos.recibirPaginaEntrante('kioadmin')}" />
+                        
+                        <p:commandButton style="position: absolute;left: 435px; top: 495px;" icon="ui-icon-extlink" value="Ir a Empresas"  process="@this"
+                                         action="#{controlListaNavegacion.guardarNavegacion('kioadmin', 'kioempresas')}" class="cssBotonLargo"
+                                         actionListener="#{controlEmpresasOpcionesKioskos.recibirPaginaEntrante('kioadmin')}" />
+
+
+                        <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlKioAdmin.guardarSalir()}" 
+                                             style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlKioAdmin.cancelarSalir()}" 
+                                             style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
+                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this"
+                                             icon="ui-icon-arrowreturnthick-1-w"/>
+                        </p:dialog>
+
+                        <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlKioAdmin.ckSeleccionada.secuencia, 'conexioneskioskos', 'kioadmin')}" 
+                                             style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" onstart="#{controlKioAdmin.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('kioadmin', 'rastrotabla')}" process="@this"/>
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                        </p:dialog>
+
+                        <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('conexioneskioskos', 'kioadmin')}"
+                                             style="position: absolute; top: 60px; left: 175px;" onstart="#{controlKioAdmin.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('kioadmin', 'rastrotabla')}" icon="ui-icon-check"  process="@this"/>
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                        </p:dialog>
+
+                        <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                            <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlKioAdmin.ckSeleccionada.secuencia, 'conexioneskioskos', 'kioadmin')}" 
+                                             style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" onstart="#{controlKioAdmin.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('kioadmin', 'rastrotabla')}" process="@this"/>
+                            <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                        </p:dialog>
+
+                        <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight: bold;"/>
+                        </p:dialog>
+
+                        <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+                        </p:dialog>
+
+                        <p:dialog id="errorDuplicarVigenciaD" header="#{msg['error']}" widgetVar="errorDuplicarVigenciaD"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorDuplicarVigenciaD']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="usuarioInactivo" header="#{msg['error']}" widgetVar="usuarioInactivo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="Primero se debe hacer el reset al usuario" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="respuestaVacia" header="#{msg['error']}" widgetVar="respuestaVacia"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="No se ha ingresado la nueva respuesta. Intente de nuevo la modificacion." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="usuarioActivo" header="#{msg['error']}" widgetVar="usuarioActivo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="Este Usuario se encuentra activo. Modificación no permitida" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="usuarioUnlock" header="#{msg['error']}" widgetVar="usuarioUnlock"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="Se ha modificado el Estado del Usuario a ACTIVO. Por favor vuelva a ingresar al sistema Kiosco" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="usuarioReset" header="#{msg['error']}" widgetVar="usuarioReset"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="Se ha reiniciado la conexión del usuario en el módulo Kiosco" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        </p:dialog>
+
+                        <p:dialog id="paso1Reset" header="#{msg['informacion']}" widgetVar="paso1Reset"  resizable="false" draggable="true" modal="true" height="115" width="350"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="Va a reiniciar la cuenta de kiosco de un empleado" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                            <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1Reset').hide(); PF('paso2Reset').show()" style="position: absolute; top: 90px; left: 125px" icon="ui-icon-check"  process="@this"/>
+                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso1Reset').hide();" icon="ui-icon-close" style="position: absolute; top: 90px; left: 225px" process="@this"/>
+                        </p:dialog>
+
+                        <p:dialog id="paso2Reset" header="#{msg['informacion']}" widgetVar="paso2Reset"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="Para volver a ingresar deberá asignar la contraseña nuevamente" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                            <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso2Reset').hide();"  actionListener="#{controlKioAdmin.resetUsuario()}" style="position: absolute; top: 63px; left: 125px"  process="@this"/>
+                            <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="PF('paso2Reset').hide();" style="position: absolute; top: 63px; left: 225px" process="@this"/>
+                        </p:dialog>
+
+
+
+
+                        <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 2px; width: 185px; font-weight: bold;"/>
+                        </p:dialog>
+                        <p:hotkey bind="ctrl+f11" actionListener="#{controlKioAdmin.activarCtrlF11()}"/> 
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formLovEmpleados">
+                    <p:dialog header="Buscar Empleado" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="646" height="330">
+                        <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlKioAdmin.lovEmpleadosCK}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
+                                      filteredValue="#{controlKioAdmin.lovEmpleadosCKFiltrar}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{emp.secuencia}" selection="#{controlKioAdmin.lovCKSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlKioAdmin.activarAceptar()}" update=":formLovEmpleados:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlKioAdmin.actualizarEmpleadosNovedad()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlKioAdmin.contarRegistroEmpleadosLov()}"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Nombre: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column style="text-align: center;" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Codigo"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.codigoempleado}"/>  
+                            </p:column>
+
+                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlKioAdmin.infoRegistroEmpleadosLov} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlKioAdmin.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlKioAdmin.aceptar}"/>
+                            <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlKioAdmin.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog>    
+                </h:form>
+
+                <h:form id="formularioDialogos">
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="Operación en proceso, espere un momento..." style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCedula" header="Cédula" widgetVar="editarCedula" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlKioAdmin.editarEmpleadoCK.codigoempleado}" style="overflow: auto;" readonly="true"/>                        
+                    </p:dialog>
+
+                    <p:dialog id="editarNombreEmpleado" header="Nombre Empleado" widgetVar="editarNombreEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlKioAdmin.editarEmpleadoCK.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>                        
+                    </p:dialog>
+
+                    <p:dialog id="editarNombreEmpresa" header="Empresa" widgetVar="editarNombreEmpresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlKioAdmin.editarEmpleadoCK.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <!--             
+                    
+                                   <p:dialog id="editarIndividualD" header="#{msg['editarIndividualD']}" widgetVar="editarIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                                      <p:inputTextarea value="#{controlKioAdmin.editarVigenciaDeporte.valorcuantitativo}" style="overflow: auto;" readonly="true"/>
+                                   </p:dialog>
+                    
+                                   <p:dialog id="editarCIndividualD" header="#{msg['editarCIndividualD']}" widgetVar="editarCIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                                      <p:inputTextarea value="#{controlKioAdmin.editarVigenciaDeporte.valorcualitativo}" style="overflow: auto;" readonly="true"/>
+                                   </p:dialog>
+                    
+                                   <p:dialog id="editarGrupalD" header="#{msg['editarGrupalD']}" widgetVar="editarGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                                      <p:inputTextarea value="#{controlKioAdmin.editarVigenciaDeporte.valorcuantitativogrupo}" style="overflow: auto;" readonly="true"/>
+                                   </p:dialog>
+                    
+                                   <p:dialog id="editarCGrupalD" header="#{msg['editarCGrupalD']}" widgetVar="editarCGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                                      <p:inputTextarea value="#{controlKioAdmin.editarVigenciaDeporte.valorcualitativogrupo}" style="overflow: auto;" readonly="true"/>
+                                   </p:dialog>-->
+
+                </h:form>
+                <!--                <h:form id="formExportar">
+                                    <p:dataTable id="datosKioAdminExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                                 value="#{controlKioAdmin.ckSeleccionada}"> 
+                
+                                        <p:column>  
+                                            <f:facet name="header">
+                                                <h:outputText value="No. Documento"/>
+                                            </f:facet>
+                                            <h:outputText value="#{infoExp.fechainicial}">
+                                            </h:outputText>
+                                        </p:column>
+                
+                                        <p:column>  
+                                            <f:facet name="header">
+                                                <h:outputText value="#{msg['fechaFinalXX']}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{infoExp.fechafinal}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </p:column>
+                
+                                        <p:column headerText="#{msg['deporteX']}">                                  
+                                            <f:facet name="header"><h:outputText value="#{msg['deporteX']}"/> </f:facet> 
+                                            <h:outputText value="#{infoExp.deporte.nombre}"/>
+                                        </p:column>  
+                
+                                        <p:column headerText="#{msg['puntajeIXX']}">                                  
+                                            <f:facet name="header"><h:outputText value="#{msg['puntajeIX']}"/> </f:facet> 
+                                            <h:outputText value="#{infoExp.valorcuantitativo}"/>
+                                        </p:column>
+                
+                                        <p:column headerText="#{msg['puntajeCIXX']}">                                  
+                                            <f:facet name="header"><h:outputText value="#{msg['puntajeCIX']}"/> </f:facet> 
+                                            <h:outputText value="#{infoExp.valorcuantitativo}"/>
+                                        </p:column>
+                
+                                        <p:column headerText="#{msg['puntajeGXX']}">                                  
+                                            <f:facet name="header"><h:outputText value="#{msg['puntajeGX']}"/> </f:facet> 
+                                            <h:outputText value="#{infoExp.valorcuantitativo}"/>
+                                        </p:column>
+                
+                                        <p:column headerText="#{msg['puntajeCGXX']}">                                  
+                                            <f:facet name="header"><h:outputText value="#{msg['puntajeCGX']}"/> </f:facet> 
+                                            <h:outputText value="#{infoExp.valorcualitativogrupo}"/>
+                                        </p:column>
+                
+                                    </p:dataTable>
+                                </h:form>-->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

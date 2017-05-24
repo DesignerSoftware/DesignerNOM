@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
  *
  * @author user
  */
-@Local
 public interface PersistenciaTiposCursosInterface {
 
     public void crear(EntityManager em, TiposCursos tiposCursos);

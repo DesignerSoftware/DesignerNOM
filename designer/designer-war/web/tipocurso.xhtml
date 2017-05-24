@@ -59,7 +59,8 @@
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposCursos.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposCursos.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -240,7 +241,7 @@
                             <p:watermark for="nuevoNombre" value="Descripcion"/>
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlTiposCursos.limpiarNuevoTiposCursos()}" update="nuevaTipoempresa" process="@this"/>
-                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 120px;" actionListener="#{controlTiposCursos.agregarNuevoTiposCursos()}" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlTiposCursos.agregarNuevoTiposCursos()}" process="@this"/>
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="nuevaTipoempresa" onclick="PF('nuevoRegistroTiposCursos').hide();"  actionListener="#{controlTiposCursos.limpiarNuevoTiposCursos()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
