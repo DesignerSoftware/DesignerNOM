@@ -128,7 +128,7 @@ public class ConexionesKioskos implements Serializable {
 
     public String getActivo() {
         if (activo == null) {
-            activo = "S";
+            activo = "";
         }
         return activo;
     }
@@ -246,8 +246,10 @@ public class ConexionesKioskos implements Serializable {
         getActivo();
         if (activo.equalsIgnoreCase("S")) {
             activoStr = "ACTIVO";
-        } else {
+        } else if(activo.equalsIgnoreCase("N")) {
             activoStr = "INACTIVO";
+        } else if(activo.equalsIgnoreCase("")){
+            activoStr = "";
         }
         return activoStr;
     }
