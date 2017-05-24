@@ -17,7 +17,7 @@
 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlVigenciasViajeros.guardarVigenciasViajeros()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -25,7 +25,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlVigenciasViajeros.editarCelda()}"  process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" disabled="#{controlVigenciasViajeros.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasViajeros.listaValoresBoton()}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -33,7 +33,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlVigenciasViajeros.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlVigenciasViajeros.exportXLS()}"  ajax="false"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlVigenciasViajeros.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"  oncomplete="PF('nuevoRegistroEvalEmpresas').show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -55,16 +55,16 @@
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlVigenciasViajeros.duplicandoVigenciasViajeros()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlVigenciasViajeros.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasViajeros.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasViajeros.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -84,9 +84,9 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>#{msg['vigenciaViajeroT']}</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>#{msg['vigenciaViajeroT']}</strong></legend>
 
-                     <p:dataTable id="datosViajeros" widgetVar="datosViajeros" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                     <p:dataTable id="datosViajeros" widgetVar="datosViajeros" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                   value="#{controlVigenciasViajeros.listVigenciasViajerosPorEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasViajeros.altoTabla}" scrollWidth="830"
                                   filteredValue="#{controlVigenciasViajeros.filtrarVigenciasViajerosPorEmpleado}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" selectionMode="single" selection="#{controlVigenciasViajeros.vigenciaSeleccionada}">
@@ -249,7 +249,7 @@
                         <p:ajax event="dblclick" listener="#{controlVigenciasViajeros.asignarVariableTiposviajeros(0)}"/>
                      </p:inputText>
 
-                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 275px; top: 85px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none" id="btnnuevoNombreSucursal" value="" actionListener="#{controlVigenciasViajeros.asignarVariableTiposviajeros(0)}" process="@this"/>   
+                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 275px; top: 85px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="btnnuevoNombreSucursal" value="" actionListener="#{controlVigenciasViajeros.asignarVariableTiposviajeros(0)}" process="@this"/>   
                      <p:watermark for="nuevoNombreSucursal" value="#{msg['tipoViajero']}"/>
 
                      <p:commandButton id="limpiar" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 130px;"  actionListener="#{controlVigenciasViajeros.limpiarNuevoVigenciasViajeros()}" update="nuevaaEvalEmpresa" process="@this" icon="ui-icon-trash"/>

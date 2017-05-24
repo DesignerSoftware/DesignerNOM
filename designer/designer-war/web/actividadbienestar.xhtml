@@ -15,7 +15,7 @@
                     <f:loadBundle basename="Recursos.actividadesbienestar" var="msg"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlActividades.guardarActividades()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -23,7 +23,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlActividades.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlActividades.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -31,7 +31,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlActividades.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlActividades.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -44,7 +44,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlActividades.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroActividades').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
@@ -53,11 +53,11 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlActividades.duplicandoActividades()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlActividades.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlActividades.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
@@ -69,9 +69,9 @@
                         </p:toolbar>
                         
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['titulo']}</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
-                            <p:dataTable id="datosActividades" widgetVar="datosActividades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 800px ; border: 1px;"                           
+                            <p:dataTable id="datosActividades" widgetVar="datosActividades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 800px; border: 1px;"                           
                                          value="#{controlActividades.listActividades}" scrollHeight="#{controlActividades.tamano}"  
                                          filteredValue="#{controlActividades.filtrarActividades}" emptyMessage="#{msg['lovvacio']}"
                                          selection="#{controlActividades.actividadSeleccionada}" selectionMode="single"

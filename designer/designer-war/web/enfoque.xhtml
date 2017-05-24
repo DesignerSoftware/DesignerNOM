@@ -16,7 +16,7 @@
                     <p:panel  id="PanelTotal" header="Enfoques" styleClass="panelTotal">    
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                                  actionListener="#{controlEnfoques.guardarEnfoques()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -25,7 +25,7 @@
                                                  actionListener="#{controlEnfoques.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlEnfoques.activarLov}"  process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
@@ -33,7 +33,7 @@
                                                  actionListener="#{controlEnfoques.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                                  actionListener="#{controlEnfoques.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -48,7 +48,7 @@
                                                  actionListener="#{controlEnfoques.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"  
                                                  oncomplete="PF('nuevoRegistroEnfoque').show()" update=":formularioDialogos:nuevoEnfoques" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -61,17 +61,17 @@
                                                  actionListener="#{controlEnfoques.duplicarEnfoques()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                                  actionListener="#{controlEnfoques.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" process="@this" actionListener="#{controlEnfoques.cancelarModificacion()}"
                                                  oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
                                                  process="@this" actionListener="#{controlEnfoques.salir()}"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -80,10 +80,10 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong> Enfoques </strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong> Enfoques </strong></legend>
 
 
-                            <p:dataTable id="datosEnfoque" widgetVar="datosEnfoque" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosEnfoque" widgetVar="datosEnfoque" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlEnfoques.listEnfoques}" scrollable="true" scrollHeight="#{controlEnfoques.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlEnfoques.filtrarEnfoques}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false" 

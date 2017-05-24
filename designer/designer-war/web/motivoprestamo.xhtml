@@ -12,8 +12,8 @@
             <ui:define name="body">                  
                 <h:form id="form"> 
                     <p:panel  id="PanelTotal" header="Motivos de Préstamo" style=" font-size: 12px; position: absolute; width: 874px; height: 530px; left: 300px; top: 100px;text-align: left">  
-                        <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 375px; border-radius: 10px; ">
-                            <legend style="font-size: 14px; color: blue"><strong>Motivos Préstamos</strong></legend>
+                        <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 375px; border-radius: 10px;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Motivos Préstamos</strong></legend>
 
                             <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
                                          value="#{controlMotivosPrestamos.listMotivosPrestamos}" scrollable="true" scrollHeight="230"  scrollWidth="830"
@@ -58,7 +58,7 @@
                         </fieldset>
 
                         <p:toolbar style="font-size: 12px; position: absolute; top: 40px; left: 20px;">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlMotivosPrestamos.guardarMotivoPrestamo()}" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar"/>

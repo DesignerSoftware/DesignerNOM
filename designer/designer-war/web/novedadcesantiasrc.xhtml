@@ -28,7 +28,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          id="guardarRapido" value="" actionListener="#{controlNovedadCesantiasRC.guardarCambiosNovedades()}" process="@this"/>
@@ -80,13 +80,13 @@
                                          id="rastro" value="" actionListener="#{controlNovedadCesantiasRC.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
                                          id="refrescar" value="" oncomplete="PF('window.location.reload()" actionListener="#{controlNovedadCesantiasRC.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png)"
                                          id="salir" value="" actionListener="#{controlNovedadCesantiasRC.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -145,7 +145,7 @@
                                    onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                   <p:tooltip  for="NOLIQUIDADAS" value="#{msg['emplnoliq']}"/>
 
-                  <fieldset style="position: absolute; left: 10px; top: 250px; width: 830px; height: 205px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 10px; top: 250px; width: 830px; height: 205px; border-radius: 10px;">
                      <legend style="font-size: 14px; color: #14388B"><strong>Novedades de Cesantías</strong></legend>
                      <p:dataTable id="datosNovedadesEmpleado" var="novedades" value="#{controlNovedadCesantiasRC.listaNovedades}"
                                   rowKey="#{novedades.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 820px;"                             
@@ -189,7 +189,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  id="fechacorteintcesantias" style="text-align: center;" headerText="Fecha Corte Intereses Cesantías"  filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"
+                        <p:column id="fechacorteintcesantias" style="text-align: center;" headerText="Fecha Corte Intereses Cesantías"  filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"
                                    sortBy= "#{novedades.fechacortecesantia}" filterBy="#{novedades.fechacortecesantia}">     
                            <f:facet name="header">
                               <h:outputText id="headerfechacorteint" value="F.Corte Int"/>
@@ -319,11 +319,11 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 250px; margin: -1px; height: 26px;border: none; color: blue" id="fooMotivoCesantia" value=" " onstart="#{controlNovedadCesantiasRC.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadcesantiasrc', 'motivocesantia')}" actionListener="#{controlMotivosCesantias.recibirPaginaEntrante('novedadcesantiasrc')}"/>
+                              <p:commandButton style="width: 250px; margin: -1px; height: 26px;border: none; color: blue;" id="fooMotivoCesantia" value=" " onstart="#{controlNovedadCesantiasRC.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadcesantiasrc', 'motivocesantia')}" actionListener="#{controlMotivosCesantias.recibirPaginaEntrante('novedadcesantiasrc')}"/>
                            </f:facet>
                         </p:column>
 
-                        <p:column  id="observaciones" style="text-align: center;" headerText="Observaciones"  filterMatchMode="contains" width="86" filterStyle="display: none; visibility: hidden;" 
+                        <p:column id="observaciones" style="text-align: center;" headerText="Observaciones"  filterMatchMode="contains" width="86" filterStyle="display: none; visibility: hidden;" 
                                   sortBy="#{novedades.observaciones}" filterBy="#{novedades.observaciones}">                                  
                            <f:facet name="header">
                               <h:outputText id="headerobservaciones" value="Observaciones"/>

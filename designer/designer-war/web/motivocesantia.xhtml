@@ -16,7 +16,7 @@
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="Motivos Cesantías" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlMotivosCesantias.guardarMotivoCesantia()}" process="@this"/>
@@ -69,12 +69,12 @@
                                          actionListener="#{controlMotivosCesantias.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          oncomplete="window.location.reload()" actionListener="#{controlMotivosCesantias.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlMotivosCesantias.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -86,7 +86,7 @@
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlMotivosCesantias.salir()}"/>
 
                   <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 370px; border-radius: 10px;">
-                     <legend style="font-size: 14px; color: blue"><strong>Motivos de las Cesantías</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Motivos de las Cesantías</strong></legend>
 
                      <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
                                   value="#{controlMotivosCesantias.listMotivosCesantias}" scrollable="true" scrollHeight="280"  scrollWidth="830"

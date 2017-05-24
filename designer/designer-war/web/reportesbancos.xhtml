@@ -29,14 +29,14 @@
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 40px; left: 20px; height: 24px">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlReportesBancos.guardarCambios()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this" actionListener="#{controlReportesBancos.editarCelda()}"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" actionListener="#{controlReportesBancos.listaValoresBoton()}" 
                                                  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" disabled="#{controlReportesBancos.activarLov}"/>
@@ -45,7 +45,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlReportesBancos.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png);"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -57,7 +57,7 @@
                                 <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"   /> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -67,22 +67,22 @@
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlReportesBancos.cancelarModificaciones()}"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlReportesBancos.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute; left: 10px; top: 224px; width: 835px; height: 250px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 224px; width: 835px; height: 250px; border-radius: 10px;">
                             <legend style="color: blue;text-align:left;"><strong>#{msg['reportes']}</strong></legend>
 
                             <p:dataTable id="reportesBancos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 812px;"                           
@@ -98,7 +98,7 @@
                                     <h:outputText value="#{info.codigo}"/>
                                 </p:column>
 
-                                <p:column  id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">  
+                                <p:column id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">  
                                     <h:outputText value="#{info.nombre}"/>
                                 </p:column>
 

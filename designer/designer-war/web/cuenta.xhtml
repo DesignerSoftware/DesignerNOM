@@ -24,7 +24,7 @@
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 530px; text-align: left;" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlCuenta.guardadoGeneral()}" process="@this" styleClass="cssToobarButton"
                                          style="background-size: 100% 100%; background-image: url(Imagenes/Iconos/guardar.png); background-repeat: no-repeat; width: 25px; height: 25px; border: none;"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -32,7 +32,7 @@
                                          style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" actionListener="#{controlCuenta.listaValoresBoton()}" process="@this" styleClass="cssToobarButton"
                                          style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
@@ -41,7 +41,7 @@
                                          style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" actionListener="#{controlCuenta.verificarExportXLS()}" ajax="false" styleClass="cssToobarButton"
                                          style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
@@ -55,7 +55,7 @@
                                          style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" actionListener="#{controlCuenta.validarIngresoNuevoRegistro()}"  process="@this" styleClass="cssToobarButton"
                                          style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/> 
@@ -67,19 +67,19 @@
                                          style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; "/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" actionListener="#{controlCuenta.verificarRastroTabla()}" process="@this" styleClass="cssToobarButton"
                                          style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" actionListener="#{controlCuenta.cancelarModificacion()}" process="@this" styleClass="cssToobarButton"
                                          style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" actionListener="#{controlCuenta.salir()}" process="@this" styleClass="cssToobarButton"
                                          style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>  
@@ -96,7 +96,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; left: 5px; top: 110px; width: 835px; height: 360px; border-radius: 10px;">
-                     <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
                      <p:dataTable id="datosCuenta" widgetVar="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"   
                                   value="#{controlCuenta.listCuentas}" scrollable="true" scrollHeight="#{controlCuenta.altoTabla}" scrollWidth="830"
@@ -197,7 +197,7 @@
                         </p:column>
 
 
-                        <p:column  id="cuentaTipo"  filterStyle="display: none; visibility: hidden;" sortBy="#{infoC.tipo}" filterBy="#{infoC.tipo}" filterMatchMode="contains" 
+                        <p:column id="cuentaTipo"  filterStyle="display: none; visibility: hidden;" sortBy="#{infoC.tipo}" filterBy="#{infoC.tipo}" filterMatchMode="contains" 
                                    style="padding-left: 0px; padding-right: 0px; width: 100px;">
                            <f:facet name="header">
                               <h:outputText id="headTipo" value="#{msg['tipo']}"/>

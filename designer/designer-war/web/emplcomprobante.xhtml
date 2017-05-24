@@ -29,7 +29,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmplComprobantes.guardarCambios()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -1257,7 +1257,7 @@
                                    emptyMessage="#{msg['lovvacio']}"
                                    rowKey="#{detalleFormula.id}">
 
-                        <p:column  headerText="#{msg['valor']}" width="80" style="padding: 0px">  
+                        <p:column headerText="#{msg['valor']}" width="80" style="padding: 0px">  
                            <p:inputText autocomplete="off" value="#{detalleFormula.valor}" style="border-radius: 0px; width: 87%"/>  
                         </p:column>  
 

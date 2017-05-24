@@ -26,7 +26,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlFormulaProceso.guardarGeneral()}" process="@this"/>
@@ -103,7 +103,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 357px; border-radius: 10px; padding-top: 20px;">
-                     <legend style="color: blue"><strong>#{msg['infoFormula']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['infoFormula']}</strong></legend>
 
                      <p:dataTable id="datosFormulaProceso" widgetVar="datosFormulaProceso" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" scrollWidth="525"
                                   style="border: 1px; text-align: left; width: 500px; margin-left: 150px;" scrollable="true" liveScroll="true" scrollRows="25"                           
@@ -113,7 +113,7 @@
 
                         <p:ajax event="filter" listener="#{controlFormulaProceso.eventoFiltrar()}"/>
 
-                        <p:column  headerText="#{msg['proceso']}" sortBy="#{info.proceso.descripcion}" filterBy="#{info.proceso.descripcion}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['proceso']}" sortBy="#{info.proceso.descripcion}" filterBy="#{info.proceso.descripcion}" filterMatchMode="contains"
                                    id="formulaProceso" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.proceso.descripcion}"/></f:facet>  

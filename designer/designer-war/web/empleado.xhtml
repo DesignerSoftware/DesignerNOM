@@ -18,7 +18,7 @@
 
                <p:panel  id="PanelTotal" header="Empleados" styleClass="panelTotal">
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlEmpleado.guardarCambios()}" process="@this"/>
@@ -28,7 +28,7 @@
                                           actionListener="#{controlEmpleado.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          disabled="#{controlEmpleado.activarLov}"   process="@this"/>
@@ -38,7 +38,7 @@
                                          actionListener="#{controlEmpleado.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          ajax="false" actionListener="#{controlEmpleado.exportXLS()}"/>
@@ -54,7 +54,7 @@
                                          actionListener="#{controlEmpleado.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                          disabled="#{controlEmpleado.activarInsertar}" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['insertar']}"/>
@@ -67,18 +67,18 @@
                                          disabled="#{controlEmpleado.activarDuplicar}"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlEmpleado.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          oncomplete="window.location.reload()" actionListener="#{controlEmpleado.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlEmpleado.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
@@ -88,7 +88,7 @@
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlEmpleado.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmpleados" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmpleado.salir()}" process="@this"/>
 
-                  <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 375px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 375px; border-radius: 10px;">
                      <legend style="color: blue;text-align:left;"><strong>Empleados</strong></legend>
                      <p:dataTable id="datosEmpleados"  widgetVar="datosEmpleados" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
                                   value="#{controlEmpleado.listaEmpleados}" scrollable="true" scrollHeight="#{controlEmpleado.altoTabla}" scrollWidth="820"

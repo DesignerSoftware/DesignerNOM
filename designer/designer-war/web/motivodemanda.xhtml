@@ -17,7 +17,7 @@
 
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlMotivosDemandas.guardarMotivosDemandas()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -25,7 +25,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlMotivosDemandas.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlMotivosDemandas.activarLov}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -33,7 +33,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlMotivosDemandas.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlMotivosDemandas.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlMotivosDemandas.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroMotivoContratos').show()" update=":formularioDialogos:nuevoMotivoContrato" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
@@ -55,16 +55,16 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlMotivosDemandas.duplicarMotivosDemandas()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlMotivosDemandas.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlMotivosDemandas.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"  actionListener="#{controlMotivosDemandas.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -72,8 +72,8 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Motivos de las Demandas</strong></legend>
-                            <p:dataTable id="datosMotivoDemanda" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <legend style="font-size: 13px; color: blue;"><strong>Motivos de las Demandas</strong></legend>
+                            <p:dataTable id="datosMotivoDemanda" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlMotivosDemandas.listMotivosDemandas}" scrollable="true" scrollHeight="#{controlMotivosDemandas.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlMotivosDemandas.filtrarMotivosDemandas}" emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  

@@ -16,7 +16,7 @@
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;" actionListener="#{controlVigenciaTipoTrabajador.guardarGeneral()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -31,7 +31,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlVigenciaTipoTrabajador.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlVigenciaTipoTrabajador.exportXLS()}" process="@this" immediate="true"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -44,7 +44,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlVigenciaTipoTrabajador.exportPDF()}" ajax="false" process="@this" immediate="true"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " oncomplete="PF('NuevoRegistroVTT').show()" update=":formularioDialogos:nuevaVTT" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -53,16 +53,16 @@
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlVigenciaTipoTrabajador.duplicarVigenciaTT()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlVigenciaTipoTrabajador.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciaTipoTrabajador.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciaTipoTrabajador.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -82,7 +82,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 106px; left: 10px; height: 176px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['tipo']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['tipo']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIATIPOTRABAJADOR -->
 
                      <p:dataTable id="datosVTTEmpleado" widgetVar="datosVTTEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left; width: 812px;"                           

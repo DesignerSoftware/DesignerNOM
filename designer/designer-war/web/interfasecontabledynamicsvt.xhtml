@@ -20,7 +20,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlInterfaseContableDynamicsVT.guardadoGeneral()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -28,7 +28,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlInterfaseContableDynamicsVT.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlInterfaseContableDynamicsVT.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -36,7 +36,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlInterfaseContableDynamicsVT.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlInterfaseContableDynamicsVT.validarExportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -49,7 +49,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlInterfaseContableDynamicsVT.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" disabled="#{controlInterfaseContableDynamicsVT.activarAgregar}" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroPC').show()" update=":formularioDialogos:nuevaParametroContable" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -60,12 +60,12 @@
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"   process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlInterfaseContableDynamicsVT.validarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlInterfaseContableDynamicsVT.cancelarModificaciones()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -76,7 +76,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <p:panel style="position: absolute; top: 70px; left: 5px; width: 864px; height: 75px;border: none" id="panelParametro">
+                        <p:panel style="position: absolute; top: 70px; left: 5px; width: 864px; height: 75px;border: none;" id="panelParametro">
                             <fieldset style="position: absolute; top: -1px; left: 5px; height: 65px; width: 830px; border-radius: 10px; text-align: left;">
                                 <legend style=" color: blue;text-align:left;"><strong>#{msg['parametrosContables']}</strong></legend>
 
@@ -177,7 +177,7 @@
                                         </f:facet>   
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -193,7 +193,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>  
 
@@ -209,7 +209,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -225,7 +225,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -241,7 +241,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -278,7 +278,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -326,7 +326,7 @@
                                         </f:facet>   
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -342,7 +342,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>  
 
@@ -358,7 +358,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -414,7 +414,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -430,7 +430,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue" value=""/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
                                     </f:facet>
                                 </p:column>
                                 

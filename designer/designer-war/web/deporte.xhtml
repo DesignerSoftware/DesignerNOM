@@ -15,7 +15,7 @@
                <f:loadBundle basename="Recursos.deporte" var="msg"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlDeportes.guardarDeportes()}" process="@this"/>
@@ -25,7 +25,7 @@
                                          actionListener="#{controlDeportes.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          disabled="#{controlDeportes.activarLOV}"   process="@this"/>
@@ -35,7 +35,7 @@
                                          actionListener="#{controlDeportes.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlDeportes.exportXLS()}"  ajax="false"/>
@@ -51,7 +51,7 @@
                                          actionListener="#{controlDeportes.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('nuevoRegistroDeporte').show()" update=":formularioDialogos:nuevaDeporte" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -63,16 +63,16 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlDeportes.duplicarDeportes()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlDeportes.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          actionListener="#{controlDeportes.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="refrescar"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlDeportes.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
 
@@ -82,9 +82,9 @@
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " disabled="#{controlDeportes.guardado}" onclick="PF('confirmarGuardar').show();"   update="datosDeporte"  process="@this"   />
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlDeportes.salir()}" value=" "    />
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>#{msg['deportes']}</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>#{msg['deportes']}</strong></legend>
 
-                     <p:dataTable id="datosDeporte" widgetVar="datosDeporte"  var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosDeporte" widgetVar="datosDeporte"  var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                   value="#{controlDeportes.listDeportes}" scrollHeight="#{controlDeportes.tamano}"  
                                   filteredValue="#{controlDeportes.filtrarDeportes }" emptyMessage="#{msg['vacio']}"
                                   selection="#{controlDeportes.deporteSeleccionado}" selectionMode="single"

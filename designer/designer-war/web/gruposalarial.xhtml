@@ -21,7 +21,7 @@
 
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlGrupoSalarial.guardarGeneral()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -29,7 +29,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlGrupoSalarial.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"  process="@this" disabled="#{controlGrupoSalarial.activarLov}"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -37,7 +37,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlGrupoSalarial.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlGrupoSalarial.validarExportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -50,7 +50,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlGrupoSalarial.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlGrupoSalarial.dialogoNuevoRegistro()}" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -61,26 +61,26 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlGrupoSalarial.verificarRegistroDuplicar()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlGrupoSalarial.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlGrupoSalarial.cancelarModificacionGeneral()}" process="@this"
                                          oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlGrupoSalarial.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 200px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 200px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
                      <p:dataTable id="datosGrupoSalarial" widgetVar="datosGrupoSalarial" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;"                           
                                   value="#{controlGrupoSalarial.listGruposSalariales}" scrollable="true" scrollHeight="#{controlGrupoSalarial.altoTablaGrupo}"  selectionMode="single"
@@ -89,7 +89,7 @@
 
                         <p:ajax event="filter" listener="#{controlGrupoSalarial.eventoFiltrarGrupo()}"/>
 
-                        <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="gsCodigo"
+                        <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="gsCodigo"
                                    width="63" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
@@ -106,7 +106,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains"
                                    id="gsDescripcion" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}"/></f:facet>  
@@ -123,7 +123,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['salario']}" sortBy="#{info.salario}" filterBy="#{info.salario}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['salario']}" sortBy="#{info.salario}" filterBy="#{info.salario}" filterMatchMode="contains" 
                                    id="gsSalario" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.salario}">
@@ -145,8 +145,8 @@
                      <h:outputText id="infoRegistroGrupo" value="#{msg['infoRegistro']} #{controlGrupoSalarial.infoRegistroGrupo}" style="position: relative; top: 1px; font-weight: bold;"/>
                   </fieldset> 
 
-                  <fieldset style="position: absolute; left: 10px; top: 300px; width: 830px; height: 155px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['vigencia']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 300px; width: 830px; height: 155px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['vigencia']}</strong></legend>
 
                      <p:dataTable id="datosVigenciaGrupoSalarial" widgetVar="datosVigenciasGrupoSalarial" var="infoV" rowKey="#{infoV.secuencia}" rowIndexVar="indiceV" style="border: 1px; text-align: left;"                           
                                   value="#{controlGrupoSalarial.listVigenciasGruposSalariales}" scrollable="true" scrollHeight="#{controlGrupoSalarial.altoTablaVigencia}" 
@@ -155,7 +155,7 @@
 
                         <p:ajax event="filter" listener="#{controlGrupoSalarial.eventoFiltrarVigencia()}"/>
 
-                        <p:column  headerText="#{msg['fecha']}" sortBy="#{infoV.fechavigencia}" filterBy="#{infoV.fechavigencia}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['fecha']}" sortBy="#{infoV.fechavigencia}" filterBy="#{infoV.fechavigencia}" filterMatchMode="contains" 
                                    width="15" id="vgsFechaVigencia" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -178,7 +178,7 @@
                         </p:column>
 
 
-                        <p:column  headerText="#{msg['valor']}" sortBy="#{infoV.valor}" filterBy="#{infoV.valor}" filterMatchMode="contains" id="vgsValor" 
+                        <p:column headerText="#{msg['valor']}" sortBy="#{infoV.valor}" filterBy="#{infoV.valor}" filterMatchMode="contains" id="vgsValor" 
                                    width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoV.valor}">

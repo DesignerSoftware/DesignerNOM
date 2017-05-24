@@ -18,7 +18,7 @@
                         <h:outputText id="nombreContrato" value="#{controlDetalleLegislacion.contratoActual.descripcion}" style="font-weight: bold; color: #BF1A1A; position: absolute; left: 450px; top: 45px"/>
 
                         <p:toolbar styleClass="cssToolbar">
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this" actionListener="#{controlDetalleLegislacion.guardadoGeneral()}"/>
                                 <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
@@ -63,7 +63,7 @@
                         </p:toolbar> 
 
                         <fieldset style="position: absolute; left: 10px; top: 70px; font-size: 10px; width: 830px; height: 400px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 12px; color: blue"><strong>#{msg['formula']}</strong></legend>
+                            <legend style="font-size: 12px; color: blue;"><strong>#{msg['formula']}</strong></legend>
 
                             <p:dataTable id="datosFormulaContrato" var="infoC" rowKey="#{infoC.secuencia}" 
                                          rowIndexVar="indice" filteredValue="#{controlDetalleLegislacion.filtrarListFormulasContratosDetalle}"
@@ -141,7 +141,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooNombreLargo" process="@this"/> 
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooNombreLargo" process="@this"/> 
                                     </f:facet>
                                 </p:column>
 
@@ -163,7 +163,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooNombreCorto"/>
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooNombreCorto"/>
 
                                     </f:facet>
                                 </p:column>
@@ -186,7 +186,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooEstado" actionListener="#{controlDetalleLegislacion.listaValoresBoton()}" process="@this"/>/>
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooEstado" actionListener="#{controlDetalleLegislacion.listaValoresBoton()}" process="@this"/>/>
                                     </f:facet>
                                 </p:column>
 
@@ -207,7 +207,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooPeriodicidad"/>
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooPeriodicidad"/>
                                     </f:facet>
                                 </p:column>
 
@@ -225,7 +225,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooNit"/>
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooNit"/>
                                     </f:facet>
                                 </p:column>
 
@@ -242,7 +242,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooTercero"/>
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooTercero"/>
                                     </f:facet>
                                 </p:column>
 
@@ -271,7 +271,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooConceptos"/>
+                                        <p:commandButton value="" style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooConceptos"/>
                                     </f:facet>
                                 </p:column>
 

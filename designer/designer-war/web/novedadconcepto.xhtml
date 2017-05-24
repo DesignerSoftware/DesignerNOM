@@ -26,7 +26,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlNovedadesConceptos.guardarCambiosNovedades()}" process="@this"/>
@@ -36,7 +36,7 @@
                                          actionListener="#{controlNovedadesConceptos.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" widgetVar="listaValores"
                                          actionListener="#{controlNovedadesConceptos.listaValoresBoton()}" disabled="#{controlNovedadesConceptos.activarLOV}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -44,7 +44,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
                                          actionListener="#{controlNovedadesConceptos.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          ajax="false" actionListener="#{controlNovedadesConceptos.exportXLS()}"/>
@@ -60,7 +60,7 @@
                                          actionListener="#{controlNovedadesConceptos.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          actionListener="#{controlNovedadesConceptos.abrirDialogo()}" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
@@ -73,17 +73,17 @@
                                          actionListener="#{controlNovedadesConceptos.duplicarCN()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                          actionListener="#{controlNovedadesConceptos.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          actionListener="#{controlNovedadesConceptos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlNovedadesConceptos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -780,7 +780,7 @@
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 125px ; left: 400px;"/></strong>
+                     <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 125px; left: 400px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTerceroNit" value="#{controlNovedadesConceptos.nuevaNovedad.tercero.nitalternativo}" style=" width: 122px; position: absolute; left: 600px; top: 120px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlNovedadesConceptos.valoresBackupAutocompletar(1, 'NIT')}"/>
                         <p:ajax event="change" listener="#{controlNovedadesConceptos.autocompletarNuevoyDuplicado('NIT', controlNovedadesConceptos.nuevaNovedad.tercero.nitalternativo, 1)}"/>
@@ -887,7 +887,7 @@
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 125px ; left: 400px;"/></strong>
+                     <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 125px; left: 400px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarTerceroNit" value="#{controlNovedadesConceptos.duplicarNovedad.tercero.nitalternativo}" style=" width: 122px; position: absolute; left: 600px; top: 120px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlNovedadesConceptos.valoresBackupAutocompletar(2, 'NIT')}"/>
                         <p:ajax event="change" listener="#{controlNovedadesConceptos.autocompletarNuevoyDuplicado('NIT', controlNovedadesConceptos.duplicarNovedad.tercero.nitalternativo, 2)}"/>

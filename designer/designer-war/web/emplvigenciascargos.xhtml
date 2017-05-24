@@ -25,7 +25,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">   
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlVigenciasCargos.guardarCambiosVC()}" process="@this"/>
@@ -35,7 +35,7 @@
                                          actionListener="#{controlVigenciasCargos.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" widgetVar="listaValores" value="" disabled="#{controlVigenciasCargos.activarLOV}" 
                                          style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasCargos.listaValoresBoton()}"
@@ -46,7 +46,7 @@
                                          actionListener="#{controlVigenciasCargos.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          ajax="false" actionListener="#{controlVigenciasCargos.exportXLS()}"/>
@@ -62,7 +62,7 @@
                                          actionListener="#{controlVigenciasCargos.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                          oncomplete="PF('NuevoRegistroVC').show()" update=":formularioDialogos:nuevaVC" process="@this"> 
 
@@ -77,20 +77,20 @@
                                          actionListener="#{controlVigenciasCargos.duplicarVigenciaC()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                          actionListener="#{controlVigenciasCargos.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          actionListener="#{controlVigenciasCargos.cancelarModificacion()}" 
                                          oncomplete="window.location.reload()" update=":form:datosVCEmpleado" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
                                          actionListener="#{controlVigenciasCargos.salir()}" process="@this"/>  
@@ -110,7 +110,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>#{msg['cargos']}</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>#{msg['cargos']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIACARGO -->
                      <p:dataTable id="datosVCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" 
                                   value="#{controlVigenciasCargos.vigenciasCargosEmpleado}" widgetVar="datosVCEmpleado"
@@ -498,7 +498,7 @@
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}"/>
                         </f:facet>
 
-                        <p:column  headerText="#{msg['codigoM']}" width="100" filterBy="#{item.codigoEmpleado}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                        <p:column headerText="#{msg['codigoM']}" width="100" filterBy="#{item.codigoEmpleado}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                            <h:outputText value="#{item.codigoEmpleado}"/>  
                         </p:column>  
 
@@ -694,7 +694,7 @@
 
             <h:form id="formularioDialogos">
 
-               <p:dialog id="NuevoRegistroVC" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVC" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="328" style=" padding: 0px; ">  
+               <p:dialog id="NuevoRegistroVC" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVC" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="328" style=" padding: 0px;">  
                   <center><strong><h:outputText id="informacion" value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="nuevaVC" style="border: none; margin-left: 15px;">
@@ -833,7 +833,7 @@
                </p:dialog>  
 
 
-               <p:dialog id="adicionarPorcentaje" header="#{msg['nuevoregistro']}" widgetVar="adicionarPorcentaje" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="328" style=" padding: 0px; ">  
+               <p:dialog id="adicionarPorcentaje" header="#{msg['nuevoregistro']}" widgetVar="adicionarPorcentaje" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="328" style=" padding: 0px;">  
 
                   <p:panel id="nuevoRiesgo" style="border: none; margin-left: 15px;">
                      <center><strong><h:outputText value="Agregar Nuevo Riesgo" style="font-size: 14px; color: blue; position: relative; top: 110px; left: -55px;"/></strong></center> 

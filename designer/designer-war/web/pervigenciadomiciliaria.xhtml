@@ -25,7 +25,7 @@
                <p:panel id="PanelTotal" header="Vigencias Domiciliarias" styleClass="panelTotal">    
                   <f:loadBundle basename="Recursos.vigenciasdomiciliarias" var="msg"/>
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.guardarTodo()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -33,7 +33,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlPerVigenciaDomiciliaria.isActivarLov()}"  process="@this"/>
                         <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -41,7 +41,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.exportXLS()}"  ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -54,7 +54,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" onclick="PF('seleccionarTablaNewReg').show()"   process="@this"/> 
                         <!--update=":formularioDialogos:nuevaTipoempresa"-->
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -64,16 +64,16 @@
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.elegirDuplicar()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/><!--
-                        --><p:separator style="position: relative; top: -9px"/>
+                        --><p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.cancelarModificacionTodo()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlPerVigenciaDomiciliaria.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -83,7 +83,7 @@
 
                   <p:scrollPanel mode="native" style="position: absolute; top: 80px; left: 10px; height: 370px; width: 830px; border-radius: 10px; text-align: left;">
                      <fieldset style="position: absolute; top: 0px; left: 10px; height: 165px; width: 750px; border-radius: 10px; text-align: left">
-                        <legend style="font-size: 14px; color: blue"><strong>Datos Generales</strong></legend>
+                        <legend style="font-size: 13px; color: blue;"><strong>Datos Generales</strong></legend>
                         <h:outputText value="Fecha" style="position: absolute; top: 10px"/>
                         <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaDomiciliaria" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.fecha}" style="width: 300px; position: absolute; top: 30px;"> 
                            <p:ajax event="dateSelect" update="@this"/>
@@ -118,7 +118,7 @@
                      </fieldset>
 
                      <fieldset style="position: absolute; top: 185px; left: 10px; height: 100px; width: 750px; border-radius: 10px; text-align: left;">
-                        <legend style="font-size: 12px; color: blue"><strong>Direcciones</strong></legend>
+                        <legend style="font-size: 12px; color: blue;"><strong>Direcciones</strong></legend>
 
                         <p:dataTable id="datosDireccionesPersona" var="direccion" value="#{controlPerVigenciaDomiciliaria.listDirecciones}"
                                      rowKey="#{direccion.secuencia}" rowIndexVar="indice"                        
@@ -425,7 +425,7 @@
 
 
                      <fieldset style="position: absolute; top: 305px; left: 10px; height: 100px; width: 450px; border-radius: 10px; text-align: left;">
-                        <legend style="font-size: 14px; color: blue"><strong>#{msg['telefonos']}</strong></legend>
+                        <legend style="font-size: 13px; color: blue;"><strong>#{msg['telefonos']}</strong></legend>
 
                         <p:dataTable id="datosTelefonosPersona" var="telefono" value="#{controlPerVigenciaDomiciliaria.listTelefonos}"
                                      rowKey="#{telefono.secuencia}" rowIndexVar="indice"                           
@@ -531,7 +531,7 @@
                      </fieldset>
 
                      <fieldset style="position: absolute; top: 305px; left: 490px; height: 100px; width: 270px; border-radius: 10px; text-align: left;">
-                        <legend style="font-size: 14px; color: blue"><strong>Estado Civil</strong></legend>
+                        <legend style="font-size: 13px; color: blue;"><strong>Estado Civil</strong></legend>
 
                         <p:dataTable id="datosEstadoCivil" widgetVar="datosEstadoCivil" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 270px ;border: 1px;"                           
                                      value="#{controlPerVigenciaDomiciliaria.listVigenciaEstadoCivil}" scrollable="true" scrollHeight="45"  scrollWidth="270"
@@ -541,7 +541,7 @@
 
                            <p:column headerText="Fecha" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
                                      id="fecha" width="80"
-                                     filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                     filterStyle="display: none; visibility: hidden;"  style="width: 80px;">                                  
                               <p:cellEditor> 
                                  <f:facet name="output">
                                     <h:outputText value="#{info.fechavigencia}" style="width: 80px; text-transform: uppercase;">
@@ -589,7 +589,7 @@
                      </fieldset>
 
                      <!--fieldset antecedentes-->
-                     <fieldset style="position: absolute; left: 10px; top: 425px; width: 750px; height: 100px; border-radius: 10px; ">
+                     <fieldset style="position: absolute; left: 10px; top: 425px; width: 750px; height: 100px; border-radius: 10px;">
                         <legend style="color: blue;text-align:left;"><strong>Antecedentes</strong></legend>
                         <p:dataTable id="datosAntecedentes"  widgetVar="datosAntecedentes" var="antecedente" rowKey="#{antecedente.secuencia}" rowIndexVar="indice" style="border: 1px; width: 745px;"                           
                                      value="#{controlPerVigenciaDomiciliaria.listAntecedentesM}" scrollable="true" scrollHeight="45" scrollWidth="745"
@@ -712,7 +712,7 @@
                      </fieldset>   
 
 
-                     <fieldset style="position: absolute; left: 10px; top: 545px; width: 750px; height: 100px; border-radius: 10px; ">
+                     <fieldset style="position: absolute; left: 10px; top: 545px; width: 750px; height: 100px; border-radius: 10px;">
                         <legend style="color: blue;text-align:left;"><strong>#{msg['datosfamiliares']}</strong></legend>
                         <p:dataTable id="datosFamiliares"  widgetVar="datosFamiliares" var="familiar" rowKey="#{familiar.secuencia}" rowIndexVar="indice" style="border: 1px; width: 745px;"                           
                                      value="#{controlPerVigenciaDomiciliaria.listaFamiliares}" scrollable="true" scrollHeight="45" scrollWidth="745"
@@ -877,7 +877,7 @@
                      </fieldset>   
 
                      <fieldset style="position: absolute; top: 665px; left: 10px; height: 110px; width: 750px; border-radius: 10px; text-align: left;">
-                        <legend style="font-size: 12px; color: blue"><strong>#{msg['nivelac']}</strong></legend>
+                        <legend style="font-size: 12px; color: blue;"><strong>#{msg['nivelac']}</strong></legend>
 
                         <p:dataTable id="datosVigenciasFormalesPersona" widgetVar="datosVigenciasFormalesPersona" var="vigenciasFormales" value="#{controlPerVigenciaDomiciliaria.listVigenciasFormales}"
                                      rowKey="#{vigenciasFormales.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 750px;"                           
@@ -1117,7 +1117,7 @@
                      </fieldset> 
 
                      <fieldset style="position: absolute; top: 795px; left: 10px; height: 100px; width: 750px; border-radius: 10px; text-align: left;">
-                        <legend style="color: blue"><strong>Experiencia Laboral</strong></legend>
+                        <legend style="color: blue;"><strong>Experiencia Laboral</strong></legend>
                         <p:dataTable id="datosExperiencia" var="info" widgetVar="datosExperiencia" rowKey="#{info.secuencia}" rowIndexVar="indice" value="#{controlPerVigenciaDomiciliaria.listhvExpLaborales}" 
                                      filteredValue="#{controlPerVigenciaDomiciliaria.listhvExpLaboralesFiltrar}" editable="true" editMode="cell" 
                                      scrollable="true" scrollWidth="750" scrollHeight="45" emptyMessage="#{msg['vacio']}" style="border: 1px; width: 750px"
@@ -1274,7 +1274,7 @@
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooSector" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'sectoreseconomicos')}" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue;" id="fooSector" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'sectoreseconomicos')}" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
 
@@ -1296,7 +1296,7 @@
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooMotivo" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'motivoretiro')}" actionListener="#{controlMotivosRetiros.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue;" id="fooMotivo" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'motivoretiro')}" actionListener="#{controlMotivosRetiros.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
                         </p:dataTable>
@@ -1305,7 +1305,7 @@
 
 
                      <fieldset style="position: absolute; top: 915px; left: 10px; height: 60px; width: 750px; border-radius: 10px; text-align: left;">
-                        <legend style="color: blue"><strong>Relaciones Familiares</strong></legend>
+                        <legend style="color: blue;"><strong>Relaciones Familiares</strong></legend>
                         <h:outputText value="#{msg['calificacionF']}" style="position: relative; left: 10px;"/>
                         <p:selectOneMenu id="editarCalificacionF"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.calificacionfamiliar}" style="width: 160px; height: 20px; position: absolute; left: 10px; top :35px;">  
                            <f:selectItem itemLabel=" " itemValue="NULL"/>  
@@ -1326,7 +1326,7 @@
 
 
                      <fieldset style="position: absolute; top: 1000px; left: 10px; height: 320px; width: 750px; border-radius: 10px; text-align: left;">
-                        <legend style="color: blue"><strong>Tipos de Vivienda</strong></legend>
+                        <legend style="color: blue;"><strong>Tipos de Vivienda</strong></legend>
                         <h:outputText value="#{msg['condicioness']}"/>
                         <p:inputTextarea id="editarCondiciones" maxlength="4000" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.condicionesgenerales}"  style="text-transform: uppercase;width: 730px; height: 55px;" styleClass="textarea">
                            <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 3)}"/>
@@ -1358,56 +1358,56 @@
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 6)}"/>
                            </p:selectOneMenu>
 
-                           <legend style="color: blue"><strong>Servicios</strong></legend>
+                           <legend style="color: blue;"><strong>Servicios</strong></legend>
                            <h:outputText value="#{msg['servagua']}" style="position: absolute; left: 240px; top :20px;"/>
-                           <p:selectBooleanCheckbox id="servagua" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recagua}" style="border-radius: 4px; font-weight: bold; position: absolute; left: 280px; top :20px; ">  
+                           <p:selectBooleanCheckbox id="servagua" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recagua}" style="border-radius: 4px; font-weight: bold; position: absolute; left: 280px; top :20px;">  
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 7)}"/>
                            </p:selectBooleanCheckbox> 
 
                            <h:outputText  value="#{msg['servluz']}" style="position: absolute; left: 320px; top :20px;"/>
-                           <p:selectBooleanCheckbox id="servluz" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recluz}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 350px; top :20px; ">  
+                           <p:selectBooleanCheckbox id="servluz" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recluz}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 350px; top :20px;">  
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 8)}"/>
                            </p:selectBooleanCheckbox>   
 
 
                            <h:outputText value="#{msg['servtel']}" style="position: absolute; left: 390px; top :20px;"/>
-                           <p:selectBooleanCheckbox id="servtel" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.rectelefono}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 450px; top :20px; ">
+                           <p:selectBooleanCheckbox id="servtel" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.rectelefono}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 450px; top :20px;">
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 9)}"/>
                            </p:selectBooleanCheckbox>      
 
 
                            <h:outputText value="#{msg['servpara']}" style="position: absolute; left: 490px; top :20px;"/>
-                           <p:selectBooleanCheckbox id="servpara" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recparabolica}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 555px; top :20px; ">
+                           <p:selectBooleanCheckbox id="servpara" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recparabolica}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 555px; top :20px;">
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 10)}"/>
                            </p:selectBooleanCheckbox>      
 
 
                            <h:outputText value="#{msg['servtrans']}" style="position: absolute; left: 600px; top :20px;"/>
-                           <p:selectBooleanCheckbox id="servtrans" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.rectransporte}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 670px; top :20px; ">
+                           <p:selectBooleanCheckbox id="servtrans" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.rectransporte}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 670px; top :20px;">
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 11)}"/>
                            </p:selectBooleanCheckbox>      
 
 
                            <h:outputText value="#{msg['servalc']}" style="position: absolute; left: 10px; top :50px;"/>
-                           <p:selectBooleanCheckbox id="servalc" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recalcantarillado}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 100px; top :50px; ">
+                           <p:selectBooleanCheckbox id="servalc" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recalcantarillado}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 100px; top :50px;">
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 12)}"/>
                            </p:selectBooleanCheckbox>     
 
                            <h:outputText value="Aseo" style="position: absolute; left: 150px; top :50px;"/>
-                           <p:selectBooleanCheckbox id="servaseo" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recaseo}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 180px; top :50px; ">
+                           <p:selectBooleanCheckbox id="servaseo" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recaseo}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 180px; top :50px;">
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 48)}"/>
                            </p:selectBooleanCheckbox>      
 
 
                            <h:outputText value="#{msg['servotro']}" style="position: absolute; left: 240px; top :50px;"/>
-                           <p:selectBooleanCheckbox id="servotro" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recotro}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 280px; top :50px; ">
+                           <p:selectBooleanCheckbox id="servotro" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recotro}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 280px; top :50px;">
                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" oncomplete="#{controlPerVigenciaDomiciliaria.activarOtroServicio()}" update="@this"/>
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 13)}"/>
                            </p:selectBooleanCheckbox> 
@@ -1423,9 +1423,9 @@
                      </fieldset> 
 
                      <fieldset style="position: absolute; top: 1345px; left: 10px; height: 350px; width: 750px; border-radius: 10px; text-align: left;">
-                        <legend style="color: blue"><strong>Aspecto Económico</strong></legend>
+                        <legend style="color: blue;"><strong>Aspecto Económico</strong></legend>
                         <fieldset  style="position: absolute; top: 25px; left: 7px; height: 75px; width: 720px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>Origen de los Ingresos</strong></legend> 
+                           <legend style="color: blue;"><strong>Origen de los Ingresos</strong></legend> 
 
                            <h:outputText value="Ingresos" style="position: absolute; left: 10px; top :25px;"/>
                            <p:selectOneMenu id="editarIngresos" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.ingresos}" style="width: 160px; height: 20px; position: absolute; left: 70px; top :20px;">  
@@ -1479,7 +1479,7 @@
 
 
                         <fieldset style="position: absolute; top: 130px; left: 7px; height: 60px; width: 720px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>Aportantes del Hogar</strong></legend>
+                           <legend style="color: blue;"><strong>Aportantes del Hogar</strong></legend>
 
                            <h:outputText  value="Padre" style="position: absolute; left: 10px; top :25px;"/>
                            <p:selectBooleanCheckbox id="Padre" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.aportepadre}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 55px; top :25px;">
@@ -1529,7 +1529,7 @@
                         </fieldset>  
 
                         <fieldset style="position: absolute; top: 220px; left: 7px; height: 100px; width: 720px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>Egresos Mensuales</strong></legend>
+                           <legend style="color: blue;"><strong>Egresos Mensuales</strong></legend>
 
                            <h:outputText value="#{msg['educacion']}" style="position: absolute; left: 10px; top :25px;"/>
                            <p:selectBooleanCheckbox id="educacion" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.egresoEducacion}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 80px; top :25px;">
@@ -1583,7 +1583,7 @@
                      </fieldset>
 
                      <fieldset style="position: absolute; top: 1720px; left: 10px; height: 430px; width: 750px; border-radius: 10px; text-align: left;">
-                        <legend style="color: blue"><strong>Conclusiones</strong></legend>   
+                        <legend style="color: blue;"><strong>Conclusiones</strong></legend>   
                         <h:outputText value="Observaciones"/>
                         <p:inputTextarea id="editarObservaciones" maxlength="4000" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.observaciones}"  style="text-transform: uppercase;width: 730px; height: 55px;" styleClass="textarea">
                            <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 37)}"/>
@@ -1603,7 +1603,7 @@
                         </p:inputTextarea>
 
                         <fieldset style="position: absolute; top: 225px; left: 7px; height: 70px; width: 720px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>Indicadores</strong></legend>  
+                           <legend style="color: blue;"><strong>Indicadores</strong></legend>  
                            <h:outputText value="#{msg['condicionf']}" style="text-transform: uppercase; position: absolute; left: 10px; top :25px;"/>
                            <p:selectOneMenu id="editarCondicionesF" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.condicionfamiliar}" style="width: 100px; height: 20px; position: absolute; left: 10px; top :45px;">  
                               <f:selectItem itemLabel=" " itemValue="NULL"/>  
@@ -1651,7 +1651,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 325px; left: 7px; height: 80px; width: 710px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>Personas que atendieron la visita</strong></legend>  
+                           <legend style="color: blue;"><strong>Personas que atendieron la visita</strong></legend>  
                            <h:outputText value="Nombre de las Personas Presentes:" style="position: relative; top: -5px; left: 5px;"/>
                            <p:inputTextarea id="editarPersonas" maxlength="4000" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.personaspresentes}"  style="text-transform: uppercase;width: 710px; height: 55px; top: 50px;" styleClass="textarea">
                               <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 45)}"/>
@@ -1930,7 +1930,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVDireccionesCiudades').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;"> 
+                     <p:column filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;"> 
                         <f:facet name="header">
                            <h:outputText value="Nombre"/>
                         </f:facet>
@@ -1972,7 +1972,7 @@
                         <h:outputText value="#{msg['buscarT']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVTiposTelefonos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column  filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
+                     <p:column filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoT']}"/>
                         </f:facet>
@@ -2010,7 +2010,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCiudadesTelefono').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;"> 
+                     <p:column filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreC']}"/>
                         </f:facet>
@@ -3103,19 +3103,19 @@
                      <p:watermark for="nuevoTipoFamiliar" value="#{msg['tipof']}"/>
 
                      <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.sm}" style="position: absolute; top: 140px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.sm}" style="position: absolute; top: 140px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.sf}" style="position: absolute; top: 170px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.sf}" style="position: absolute; top: 170px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.be}" style="position: absolute; top: 200px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.be}" style="position: absolute; top: 200px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
@@ -3165,19 +3165,19 @@
                      <p:watermark for="duplicarTipoFamiliar" value="#{msg['tipof']}"/>
 
                      <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.sm}" style="position: absolute; top: 140px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.sm}" style="position: absolute; top: 140px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.sf}" style="position: absolute; top: 170px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.sf}" style="position: absolute; top: 170px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.be}" style="position: absolute; top: 200px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.be}" style="position: absolute; top: 200px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 

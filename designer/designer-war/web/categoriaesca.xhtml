@@ -17,7 +17,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 13px; position: absolute; width: 874px; height: 485px; text-align: left">  
 
                         <p:toolbar style="position: absolute; top: 37px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlCategoriaEsca.guardarCambios()}" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -61,7 +61,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 300px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 300px; border-radius: 10px;">
                             <legend style="font-size: 12px; color: blue;text-align:left;"><strong>#{msg['escalafones']}</strong></legend>
 
                             <p:dataTable id="datosCategoria" widgetVar="datosCategoria" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="font-size: 11px; border: 1px; text-align: left"                           
@@ -91,7 +91,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" 
                                            id="categoriaDescripcion" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase;"/></f:facet>  
@@ -124,7 +124,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 100%; height: 16px; border: none; color: blue" id="fooClaseCategoria" actionListener="#{controlClasesCategorias.recibirPaginaEntrante('categoriaesca')}" action="clasecategoria" value="#{msg['claseCategoria']}"/>
+                                        <p:commandButton style="width: 100%; height: 16px; border: none; color: blue;" id="fooClaseCategoria" actionListener="#{controlClasesCategorias.recibirPaginaEntrante('categoriaesca')}" action="clasecategoria" value="#{msg['claseCategoria']}"/>
                                     </f:facet>
                                 </p:column> 
 
@@ -143,7 +143,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 100%; height: 16px; border: none; color: blue" id="fooTipoSueldo" value="#{msg['tipoSueldo']}" action="tiposueldo" actionListener="#{controlTipoSueldo.inicializarPagina('categoriaesca')}"/>
+                                        <p:commandButton style="width: 100%; height: 16px; border: none; color: blue;" id="fooTipoSueldo" value="#{msg['tipoSueldo']}" action="tiposueldo" actionListener="#{controlTipoSueldo.inicializarPagina('categoriaesca')}"/>
                                     </f:facet>
                                 </p:column> 
 
@@ -162,7 +162,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 100%; height: 16px; border: none; color: blue" id="fooConcepto" value="#{msg['concepto']}"/>
+                                        <p:commandButton style="width: 100%; height: 16px; border: none; color: blue;" id="fooConcepto" value="#{msg['concepto']}"/>
                                     </f:facet>
                                 </p:column> 
                             </p:dataTable>  

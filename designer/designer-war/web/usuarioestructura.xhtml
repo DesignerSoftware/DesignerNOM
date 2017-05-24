@@ -19,14 +19,14 @@
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                         <p:toolbar styleClass="cssToolbar">   
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlUsuariosEstructuras.guardarCambiosUsuariosE()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlUsuariosEstructuras.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" widgetVar="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlUsuariosEstructuras.listaValoresBoton()}" process="@this"
                                                  disabled="#{controlUsuariosEstructuras.activarLov}"/>
@@ -35,7 +35,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlUsuariosEstructuras.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlUsuariosEstructuras.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -48,7 +48,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlUsuariosEstructuras.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" onclick="PF('seleccionarTablaNewReg').show()"  update=":formularioDialogos:nuevaUsuario" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -59,16 +59,16 @@
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlUsuariosEstructuras.duplicandoUsuarioEstructura()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlUsuariosEstructuras.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlUsuariosEstructuras.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUsuariosEstructuras.salir()}" process="@this"
                                                  action="#{controlUsuariosEstructuras.redirigir()}" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -76,7 +76,7 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Usuarios Estructuras</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Usuarios Estructuras</strong></legend>
 
                             <p:dataTable id="datosUsuarios" var="usuario" rowKey="#{usuario.secuencia}" rowIndexVar="indice"   value="#{controlUsuariosEstructuras.listaUsuariosEstructuras}" scrollable="true"
                                          filteredValue="#{controlUsuariosEstructuras.listaUsuariosEstructurasFiltrar}" scrollHeight="#{controlUsuariosEstructuras.altoTabla}" scrollWidth="830"
@@ -149,7 +149,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 220px; left: 10px; height: 250px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Usuarios Vistas</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Usuarios Vistas</strong></legend>
 
                             <p:dataTable id="datosUsuariosVistas" var="usuariov" rowKey="#{usuariov.secuencia}" rowIndexVar="indice"   value="#{controlUsuariosEstructuras.listaUsuariosFiltros}" scrollable="true"
                                          filteredValue="#{controlUsuariosEstructuras.listaUsuariosFiltrosFiltrar}" scrollHeight="#{controlUsuariosEstructuras.altoTabla2}" scrollWidth="830"

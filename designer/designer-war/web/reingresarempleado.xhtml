@@ -19,14 +19,14 @@
                     <p:panel  id="PanelTotal" header="Reingresar Empleado" styleClass="panelTotal">  
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" value="" disabled="true" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -34,7 +34,7 @@
                                 <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" disabled="true" style="background-image: url(Imagenes/Iconos/excel.png);"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                                 <p:commandButton id="exportarPDF" value="" disabled="true" style="background-image: url(Imagenes/Iconos/pdf.png)"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -56,11 +56,11 @@
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlReingresarEmpleado.cancelarModificaciones()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -72,7 +72,7 @@
                         </p:toolbar> 
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Reingresar un Empleado</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Reingresar un Empleado</strong></legend>
 
                             <h:outputText value="#{msg['nombredelempleado']}" style="position: absolute; left: 15px; top: 25px; font-weight: bold;"/>
                             <p:inputText autocomplete="off" id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}" style="position: absolute; left: 15px; top: 65px; height: 15px; width: 128px;" onclick="select();">
@@ -143,7 +143,7 @@
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width:100px; position: relative; left: 80px;"/>  
                             </f:facet>
 
-                            <p:column  filterBy="#{emp.codigoempleado}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
+                            <p:column filterBy="#{emp.codigoempleado}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoEM']}"/>
                                 </f:facet>
@@ -157,7 +157,7 @@
                                 <h:outputText value="#{emp.persona.nombreCompleto}"/>  
                             </p:column>
                         </p:dataTable>      
-                        <h:outputText id="infoRegistroEmpleados" value="#{controlReingresarEmpleado.infoRegistroEmpleados}" style="position: relative; left: 15px; top:25px ; font-weight: bold;"/>
+                        <h:outputText id="infoRegistroEmpleados" value="#{controlReingresarEmpleado.infoRegistroEmpleados}" style="position: relative; left: 15px; top:25px; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarE" value="#{msg['aceptar']}" disabled="#{controlReingresarEmpleado.aceptar}" style="position: absolute; top: 455px; left: 252px;" icon="ui-icon-check" actionListener="#{controlReingresarEmpleado.actualizarEmpleados()}" process="@this"/>
                         
@@ -178,7 +178,7 @@
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" style="width:100px; position: relative; left: 80px;"/>  
                             </f:facet>
 
-                            <p:column  filterBy="#{es.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
+                            <p:column filterBy="#{es.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoE']}"/>
                                 </f:facet>
@@ -213,7 +213,7 @@
                                 <h:outputText value="#{es.centrocosto.empresa.codigo}"/>  
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEstructuras" value="#{controlReingresarEmpleado.infoRegistroEstructuras}" style="position: relative; left: 15px; top:25px ; font-weight: bold;"/>
+                        <h:outputText id="infoRegistroEstructuras" value="#{controlReingresarEmpleado.infoRegistroEstructuras}" style="position: relative; left: 15px; top:25px; font-weight: bold;"/>
 
                         <p:commandButton id="aceptarES" value="#{msg['aceptar']}" disabled="#{controlReingresarEmpleado.aceptar}" style="position: absolute; top: 455px; left: 502px;" icon="ui-icon-check" actionListener="#{controlReingresarEmpleado.actualizarEstructuras()}" process="@this"/>
                         

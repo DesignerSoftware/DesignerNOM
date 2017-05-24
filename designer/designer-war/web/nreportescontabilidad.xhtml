@@ -29,7 +29,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          id="guardarRapido" value="" actionListener="#{controlNReporteContabilidad.guardarCambios()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -38,7 +38,7 @@
                                          id="editar" value="" process="@this" actionListener="#{controlNReporteContabilidad.editarCelda()}"/>
                         <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png)" 
                                          id="listaValores" value="" process="@this" actionListener="#{controlNReporteContabilidad.mostrarDialogosListas()}" disabled="#{controlNReporteContabilidad.activarLov}"/>
@@ -48,7 +48,7 @@
                                          id="filtrar" value="" actionListener="#{controlNReporteContabilidad.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png)"/>
                         <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}"/>
@@ -60,7 +60,7 @@
                         <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png)"/>
                         <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"/> 
                         <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"/>
@@ -71,17 +71,17 @@
                         <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                         <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" style="background-image: url(Imagenes/Iconos/rastro.png);" value="" disabled="true" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          id="refrescar" value="" actionListener="#{controlNReporteContabilidad.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
                                          id="salir" value="" actionListener="#{controlNReporteContabilidad.cancelarYSalir()}" process="@this"/>                                

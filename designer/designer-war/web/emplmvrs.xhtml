@@ -18,7 +18,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 37px; left: 12px; height: 24px">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this" oncomplete="window.location.reload()"/>
@@ -28,7 +28,7 @@
                                          actionListener="#{controlEmplMvr.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton disabled="#{controlEmplMvr.activarLOV}" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          actionListener="#{controlEmplMvr.listaValoresBoton()}" process="@this"/>
@@ -38,7 +38,7 @@
                                          actionListener="#{controlEmplMvr.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          ajax="false" actionListener="#{controlEmplMvr.verificarExportXLS()}"/>
@@ -54,7 +54,7 @@
                                          actionListener="#{controlEmplMvr.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                          oncomplete="PF('NuevoRegistroPagina').show()" update=":formularioDialogos:nuevoRegistroPanel" process="@this"/> 
@@ -68,19 +68,19 @@
                                          actionListener="#{controlEmplMvr.verificarDuplicarRegistro()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png)" 
                                          actionListener="#{controlEmplMvr.verificarRastroTabla()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png)" 
                                          actionListener="#{controlEmplMvr.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
                                          actionListener="#{controlEmplMvr.salir()}" process="@this"/>  
@@ -101,7 +101,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 105px; left: 10px; height: 178px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['menorvalor']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['menorvalor']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
                      <p:dataTable id="datosMvrEmpleado" widgetVar="datosMvrEmpleado" var="infoMvr" rowKey="#{infoMvr.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 830px;"   
@@ -114,7 +114,7 @@
                         <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarMVRS()}"/>
                         <f:event type="preRenderView" listener="#{controlEmplMvr.recordarSeleccionMVR()}"/>
 
-                        <p:column  headerText="#{msg['inicial']}" sortBy="#{infoMvr.fechainicial}" filterBy="#{infoMvr.fechainicial}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['inicial']}" sortBy="#{infoMvr.fechainicial}" filterBy="#{infoMvr.fechainicial}" filterMatchMode="contains" 
                                    width="70" id="mvrFechaInicial" filterStyle="display: none; visibility: hidden;" style="text-align: center;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -137,7 +137,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['final']}" sortBy="#{infoMvr.fechafinal}" filterBy="#{infoMvr.fechafinal}" style="text-align: center;"
+                        <p:column headerText="#{msg['final']}" sortBy="#{infoMvr.fechafinal}" filterBy="#{infoMvr.fechafinal}" style="text-align: center;"
                                    filterMatchMode="contains" width="70" id="mvrFechaFinal" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -160,7 +160,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['valormensual']}" sortBy="#{infoMvr.valor}" filterBy="#{infoMvr.valor}" style="text-align: right;"
+                        <p:column headerText="#{msg['valormensual']}" sortBy="#{infoMvr.valor}" filterBy="#{infoMvr.valor}" style="text-align: right;"
                                    filterMatchMode="contains" id="mvrValor" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -181,7 +181,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['motivo']}" sortBy="#{infoMvr.motivo.nombre}" filterBy="#{infoMvr.motivo.nombre}"
+                        <p:column headerText="#{msg['motivo']}" sortBy="#{infoMvr.motivo.nombre}" filterBy="#{infoMvr.motivo.nombre}"
                                    filterMatchMode="contains" id="mvrMotivo" filterStyle="display: none; visibility: hidden">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoMvr.motivo.nombre}"/></f:facet>  
@@ -202,7 +202,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['valoranual']}" sortBy="#{infoMvr.valoranualoriginal}" filterBy="#{infoMvr.valoranualoriginal}" 
+                        <p:column headerText="#{msg['valoranual']}" sortBy="#{infoMvr.valoranualoriginal}" filterBy="#{infoMvr.valoranualoriginal}" 
                                    filterMatchMode="contains" id="mvrValorAnual" filterStyle="display: none; visibility: hidden;" style="text-align: right;">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -228,7 +228,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 300px; left: 10px; height: 178px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['otros']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['otros']}</strong></legend>
                      <p:dataTable id="datosOCEmpleado" widgetVar="datosOCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceOC" value="#{controlEmplMvr.listOCertificados}" 
                                   filteredValue="#{controlEmplMvr.filtrarListOtrosCertificados}" editable="true" editMode="cell" 
                                   scrollable="true" scrollHeight="#{controlEmplMvr.altoTabla2}" scrollWidth="830" emptyMessage="#{msg['vacio']}" style=" border: 1px; width: 830px"
@@ -345,7 +345,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['dias']}" sortBy="#{info.diascontratados}" filterBy="#{info.diascontratados}" style="text-align: center;"
+                        <p:column headerText="#{msg['dias']}" sortBy="#{info.diascontratados}" filterBy="#{info.diascontratados}" style="text-align: center;"
                                    filterMatchMode="contains" id="ocDias" width="40" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.diascontratados}"/></f:facet>  

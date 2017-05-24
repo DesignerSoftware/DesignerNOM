@@ -19,7 +19,7 @@
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 12px; position: absolute; width: 874px; height: 510px; text-align: left">  
 
-                        <fieldset style="position: absolute; left: 220px; top: 75px; font-size: 11px; width: 430px; height: 168px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 220px; top: 75px; font-size: 11px; width: 430px; height: 168px; border-radius: 10px;">
                             <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['procesos']}</legend>
 
                             <p:dataTable id="datosProcesos" var="p" style="font-size: 11px; width: 407px;" value="#{controlOperandoGrupoConcepto.listaProcesos}"
@@ -37,7 +37,7 @@
                         </fieldset>
 
                         <!-- Operandos -->    
-                        <fieldset style="position: absolute; top: 270px; font-size: 11px; width: 835px; height: 158px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; top: 270px; font-size: 11px; width: 835px; height: 158px; border-radius: 10px;">
                             <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['operandos']}</legend>
 
                             <p:dataTable id="datosOperandosGruposConceptos" var="o" style="font-size: 11px; width: 810px;" value="#{controlOperandoGrupoConcepto.listaOperandosGruposConceptos}"
@@ -58,7 +58,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 100%; height: 16px; font-size: 9px; border: none; color: blue" id="fooOperando" value="#{msg['operando']}"/>
+                                        <p:commandButton style="width: 100%; height: 16px; font-size: 9px; border: none; color: blue;" id="fooOperando" value="#{msg['operando']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -75,7 +75,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 100%; height: 16px; font-size: 9px; border: none; color: blue" id="fooGrupo" value="#{msg['grupoconcepto']}"/>
+                                        <p:commandButton style="width: 100%; height: 16px; font-size: 9px; border: none; color: blue;" id="fooGrupo" value="#{msg['grupoconcepto']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -83,7 +83,7 @@
                         </fieldset>
 
                         <p:toolbar style="font-size: 12px; position: absolute; top: 35px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlOperandoGrupoConcepto.guardarTodo()}" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -142,7 +142,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoOperandoGrupoConcepto" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="nuevoOperando" value="#{controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase;" onclick="select();">
@@ -177,7 +177,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarOperandoGrupoConcepto" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="duplicarOperando" value="#{controlOperandoGrupoConcepto.duplicarOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase;" onclick="select();">

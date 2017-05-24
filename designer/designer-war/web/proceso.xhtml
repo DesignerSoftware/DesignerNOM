@@ -26,7 +26,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlProceso.guardarGeneral()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -35,7 +35,7 @@
                                          actionListener="#{controlProceso.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlProceso.listaValoresBoton()}"  process="@this"/>
@@ -45,7 +45,7 @@
                                          actionListener="#{controlProceso.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          ajax="false" actionListener="#{controlProceso.validarExportXLS()}"/>
@@ -61,7 +61,7 @@
                                          actionListener="#{controlProceso.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          onstart="PF('verificarNuevo').show()" process="@this"/> 
@@ -75,19 +75,19 @@
                                          actionListener="#{controlProceso.verificarRegistroDuplicar()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlProceso.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          oncomplete="window.location.reload()" actionListener="#{controlProceso.cancelarModificacionGeneral()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlProceso.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -96,7 +96,7 @@
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; left: 10px; top: 70px; width: 830px; height: 168px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['proceso']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['proceso']}</strong></legend>
 
                      <p:dataTable id="datosProceso" widgetVar="datosProceso" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="position: relative; border: 1px; text-align: left;width: 810px;"                           
                                   value="#{controlProceso.listaProcesos}" scrollable="true" scrollHeight="#{controlProceso.altoTablaProcesos}" scrollWidth="825"
@@ -283,7 +283,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 10px; top: 250px; width: 315px; height: 151px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['formulaProceso']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['formulaProceso']}</strong></legend>
 
                      <p:dataTable id="datosFormulaProceso" widgetVar="datosFormulaProceso" var="infoFP" rowKey="#{infoFP.secuencia}" rowIndexVar="indiceFP" style="width: 310px;"
                                   value="#{controlProceso.listaFormulasProcesos}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="310"
@@ -331,7 +331,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 350px; top: 250px; width: 492px; height: 151px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['operandoLog']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['operandoLog']}</strong></legend>
 
                      <p:dataTable id="datosOperando" widgetVar="datosOperando" var="infoOL" rowKey="#{infoOL.secuencia}" rowIndexVar="indiceOL" style="width: 485px"
                                   value="#{controlProceso.listaOperandosLogs}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="485"
@@ -382,7 +382,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 10px; top: 414px; width: 830px; height: 52px; border-radius: 10px; padding-top: 1px !important;">
-                     <legend style="color: blue"><strong>#{msg['procesoClonar']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['procesoClonar']}</strong></legend>
 
                      <div style="display: inline-block;">
                         <div style="display: block;">

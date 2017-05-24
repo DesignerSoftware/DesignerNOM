@@ -27,7 +27,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          id="guardarRapido" value="" actionListener="#{controlNovedadesTerceros.guardarCambiosNovedades()}" process="@this"/>
@@ -37,7 +37,7 @@
                                          id="editar" value="" actionListener="#{controlNovedadesTerceros.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          id="listaValores" value="" actionListener="#{controlNovedadesTerceros.listaValoresBoton()}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -45,7 +45,7 @@
                         <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
                                          id="filtrar" value="" actionListener="#{controlNovedadesTerceros.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          id="exportarXLS" value="" ajax="false" actionListener="#{controlNovedadesTerceros.exportXLS()}"/>
@@ -62,7 +62,7 @@
                                          id="exportarPDF" value="" actionListener="#{controlNovedadesTerceros.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                          id="insertar" value="" oncomplete="PF('NuevaNovedadTercero').show()" update=":formularioDialogos:nuevaNovedad" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
@@ -75,19 +75,19 @@
                                          id="duplicar" value="" actionListener="#{controlNovedadesTerceros.duplicarTN()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                          id="rastro" value="" actionListener="#{controlNovedadesTerceros.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
                                          id="refrescar" value="" actionListener="#{controlNovedadesTerceros.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png)"
                                          id="salir" value="" actionListener="#{controlNovedadesTerceros.salir()}"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>

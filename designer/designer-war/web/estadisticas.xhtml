@@ -26,7 +26,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          disabled="true" id="guardarRapido" value=""/>
@@ -35,7 +35,7 @@
                                          actionListener="#{controlParametrosConjuntos.editar()}" id="editar" value=""/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          disabled="true" id="listaValores" value=""/>
@@ -46,7 +46,7 @@
                                          id="filtrar" value="" actionListener="#{controlParametrosConjuntos.activarFiltros()}"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlParametrosConjuntos.exportXLS()}" id="exportarXLS" value="" ajax="false"/>
@@ -62,7 +62,7 @@
                                          actionListener="#{controlParametrosConjuntos.exportPDF()}" id="exportarPDF" value="" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          disabled="true" id="insertar" value=""/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -75,17 +75,17 @@
                                          disabled="true" id="duplicar" value=""/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          disabled="true" id="rastro" value=""/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlParametrosConjuntos.salir()}"
                                          id="refrescar" value="" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" process="@this"
                                          id="salir" value="" actionListener="#{controlParametrosConjuntos.salir()}"/>  

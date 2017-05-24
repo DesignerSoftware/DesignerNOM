@@ -15,7 +15,7 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Jornadas" styleClass="panelTotal">    
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                                  actionListener="#{controlJornadas.guardarJornadas()}" process="@this"/>
@@ -25,7 +25,7 @@
                                                  actionListener="#{controlJornadas.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                                  disabled="#{controlJornadas.activarLov}"  process="@this"/>
@@ -35,7 +35,7 @@
                                                  actionListener="#{controlJornadas.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                                  actionListener="#{controlJornadas.exportXLS()}"  ajax="false"/>
@@ -51,7 +51,7 @@
                                                  actionListener="#{controlJornadas.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                                  oncomplete="PF('nuevoRegistroJornadas').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['insertar']}"/>
@@ -63,17 +63,17 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                                  actionListener="#{controlJornadas.duplicandoJornadas()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                                  actionListener="#{controlJornadas.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  actionListener="#{controlJornadas.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                                  actionListener="#{controlJornadas.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -81,9 +81,9 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Jornadas</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Jornadas</strong></legend>
 
-                            <p:dataTable id="datosJornadas" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosJornadas" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlJornadas.listJornadas}" scrollHeight="#{controlJornadas.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlJornadas.filtrarJornadas}" emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" paginator="false"  scrollable="true"
                                          selection="#{controlJornadas.jornadaSeleccionada}" selectionMode="single">

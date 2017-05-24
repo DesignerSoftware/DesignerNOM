@@ -26,14 +26,14 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlParametro.validarGuardado('GUARDADO RAPIDO')}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlParametro.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlParametro.listaValoresBoton()}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -41,7 +41,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlParametro.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlParametro.exportXLS()}" process="@this"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -54,7 +54,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlParametro.exportPDF()}" ajax="false" process="@this"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -65,17 +65,17 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  disabled="true" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlParametro.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" process="@this">
                            <f:actionListener binding="#{controlParametro.salir()}"/>
                            <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
@@ -176,7 +176,7 @@
                                       value="#{msg['adicionarempleados']}" actionListener="#{controlParametro.validarGuardado('ADICIONAR EMPLEADOS')}" process="@this"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 5px; top: 190px; width: 840px; height: 290px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 5px; top: 190px; width: 840px; height: 290px; border-radius: 10px;">
                      <legend style=" color: blue;"><strong>#{msg['empleados']}</strong></legend>
 
                      <div id="table_div">
@@ -485,19 +485,19 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalorabuscar']}"/>
                      </f:facet>
 
-                     <p:column  headerText="#{msg['codigo']}" width="90" filterBy="#{empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                     <p:column headerText="#{msg['codigo']}" width="90" filterBy="#{empleado.codigoempleado}" sortBy="#{empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                         <h:outputText value="#{empleado.codigoempleado}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoEM']}" filterBy="#{empleado.persona.primerapellido}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                     <p:column headerText="#{msg['primerapellidoEM']}" filterBy="#{empleado.persona.primerapellido}" sortBy="#{empleado.persona.primerapellido}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                         <h:outputText value="#{empleado.persona.primerapellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoEM']}" filterBy="#{empleado.persona.segundoapellido}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                     <p:column headerText="#{msg['segundoapellidoEM']}" filterBy="#{empleado.persona.segundoapellido}" sortBy="#{empleado.persona.segundoapellido}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                         <h:outputText value="#{empleado.persona.segundoapellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombreEM']}" width="200" filterBy="#{empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                     <p:column headerText="#{msg['nombreEM']}" width="200" filterBy="#{empleado.persona.nombre}" sortBy="#{empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                         <h:outputText value="#{empleado.persona.nombre}"/>  
                      </p:column> 
                   </p:dataTable> 

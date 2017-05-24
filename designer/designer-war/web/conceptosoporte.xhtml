@@ -16,7 +16,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlConceptosSoportes.guardarConceptosSoportes()}" process="@this"/>
@@ -26,7 +26,7 @@
                                          actionListener="#{controlConceptosSoportes.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlConceptosSoportes.listaValoresBoton()}" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -35,7 +35,7 @@
                                          actionListener="#{controlConceptosSoportes.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlConceptosSoportes.exportXLS()}" ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -50,7 +50,7 @@
                                          actionListener="#{controlConceptosSoportes.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>                                
+                        <p:separator style="position: relative; top: -9px;"/>                                
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          actionListener="#{controlConceptosSoportes.cargarNuevoConceptosSoportes()}" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -63,17 +63,17 @@
                                          actionListener="#{controlConceptosSoportes.duplicandoConceptosSoportes()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlConceptosSoportes.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlConceptosSoportes.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlConceptosSoportes.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>

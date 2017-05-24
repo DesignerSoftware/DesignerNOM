@@ -28,7 +28,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlDetalleConcepto.guardadoGeneral()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/guardar.png);"/>
@@ -107,12 +107,12 @@
                   </fieldset>
 
                   <fieldset  style="position: absolute; left: 7px; top: 105px; width: 840px; height: 375px; border-radius: 10px; text-align: left;">
-                     <legend style="color: blue"><strong>#{msg['asignaciondecuentas']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['asignaciondecuentas']}</strong></legend>
 
                      <p:scrollPanel id="scrollPrincipal" style="position: absolute; left: 3px; padding-top: 0px; width: 852px; height: 350px; border: none;" mode="native">  
 
                         <fieldset style="position: absolute; top: -2px; width: 805px; height: 168px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>#{msg['cuentasytipocc']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['cuentasytipocc']}</strong></legend>
 
                            <p:dataTable id="datosVigenciaCuenta" widgetVar="datosVigenciaCuenta" var="infoVC" rowKey="#{infoVC.secuencia}" rowIndexVar="indiceVC" style="border: 1px; font-size: 11px;"   
                                         value="#{controlDetalleConcepto.listVigenciasCuentasConcepto}" scrollable="true" scrollHeight="#{controlDetalleConcepto.altoTablaVigenciaCuenta}" scrollWidth="805"
@@ -331,7 +331,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 187px; width: 805px; height: 182px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>#{msg['gruposcontables']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['gruposcontables']}</strong></legend>
 
                            <p:dataTable id="datosVigenciaGrupoConcepto" widgetVar="datosVigenciaGrupoConcepto" var="infoVGC" rowKey="#{infoVGC.secuencia}" rowIndexVar="indiceVGC" style="border: 1px; width: 790px; font-size: 11px;"   
                                         value="#{controlDetalleConcepto.listVigenciasGruposConceptos}" scrollable="true" scrollHeight="#{controlDetalleConcepto.altoTablaVigenciaGrupoC}" scrollWidth="805"
@@ -429,7 +429,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 392px; width: 805px; height: 167px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>#{msg['tiposdetrabajadores']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['tiposdetrabajadores']}</strong></legend>
 
                            <p:dataTable id="datosVigenciaConceptoTT" widgetVar="datosVigenciaConceptoTT" var="infoVCTT" rowKey="#{infoVCTT.secuencia}" rowIndexVar="indiceVCTT" style="border: 1px; width: 790px; font-size: 11px;"   
                                         value="#{controlDetalleConcepto.listVigenciasConceptosTTConcepto}" scrollable="true" scrollHeight="#{controlDetalleConcepto.altoTablaVigenciaConceptoTT}" scrollWidth="805"
@@ -508,7 +508,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 582px; width: 805px; height: 167px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>#{msg['tiposdecontratos']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['tiposdecontratos']}</strong></legend>
 
                            <p:dataTable id="datosVigenciaConceptoTC" widgetVar="datosVigenciaConceptoTC" var="infoVCTC" rowKey="#{infoVCTC.secuencia}" rowIndexVar="indiceVCTC" style="border: 1px; width: 790px; font-size: 11px;"   
                                         value="#{controlDetalleConcepto.listVigenciasConceptosTCConcepto}" scrollable="true" scrollHeight="#{controlDetalleConcepto.altoTablaVigenciaConceptoTC}" scrollWidth="805"
@@ -588,7 +588,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 770px; width: 805px; height: 167px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>#{msg['tiposdesalario']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['tiposdesalario']}</strong></legend>
 
                            <p:dataTable id="datosVigenciaConceptoRL" widgetVar="datosVigenciaConceptoRL" var="infoVCRL" rowKey="#{infoVCRL.secuencia}" rowIndexVar="indiceVCRL" style="border: 1px; width: 800px; font-size: 11px;"   
                                         value="#{controlDetalleConcepto.listVigenciasConceptosRLConcepto}" scrollable="true" scrollHeight="#{controlDetalleConcepto.altoTablaVigenciaConceptoRL}" scrollWidth="805"
@@ -667,7 +667,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 959px; width: 805px; height: 194px; border-radius: 10px; text-align: left;">
-                           <legend style="color: blue"><strong>#{msg['formulas']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['formulas']}</strong></legend>
 
                            <p:dataTable id="datosFormulaConcepto" widgetVar="datosFormulaConcepto" var="infoFC" rowKey="#{infoFC.secuencia}" rowIndexVar="indiceFC" style="border: 1px; width: 790px; font-size: 11px;"   
                                         value="#{controlDetalleConcepto.listFormulasConceptos}" scrollable="true" scrollHeight="#{controlDetalleConcepto.altoTablaFormulaConcepto}" scrollWidth="805"

@@ -18,7 +18,7 @@
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" style=" font-size: 12px; position: absolute; width: 874px; height: 510px; text-align: left">  
 
-                        <fieldset style="position: absolute; left: 220px; top: 75px; font-size: 11px; width: 430px; height: 168px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 220px; top: 75px; font-size: 11px; width: 430px; height: 168px; border-radius: 10px;">
                             <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['retencion']}</legend>
 
                             <p:dataTable id="datosVigenciasRetenciones" var="v" style="font-size: 11px; width: 407px;" value="#{controlRetencion.listaVigenciasRetenciones}"
@@ -92,7 +92,7 @@
                         </fieldset>
 
                         <!-- RETENCIONES -->    
-                        <fieldset style="position: absolute; top: 270px; font-size: 11px; width: 835px; height: 158px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; top: 270px; font-size: 11px; width: 835px; height: 158px; border-radius: 10px;">
                             <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['tabladeretencion']}</legend>
 
                             <p:dataTable id="datosRetenciones" var="r" style="font-size: 11px; width: 810px;" value="#{controlRetencion.listaRetenciones}"
@@ -205,7 +205,7 @@
                         </fieldset>
 
                         <p:toolbar style="font-size: 12px; position: absolute; top: 35px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlRetencion.guardarCambiosRetenciones()}" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -264,7 +264,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoVigencia" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;"/></strong>
                                 <p:inputText autocomplete="off" maxlength="4" id="nuevoCodigo" value="#{controlRetencion.nuevoVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
@@ -301,7 +301,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarVigenciaRetencion" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" maxlength="4" id="duplicarCodigo" value="#{controlRetencion.duplicarVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
@@ -334,7 +334,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoRetencion" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['valorminimoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="nuevoValorMinimo" value="#{controlRetencion.nuevoRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
@@ -374,7 +374,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarRetencion" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['valorminimoN']}" style="font-size: 12px; position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="duplicarValorMinimo" value="#{controlRetencion.duplicarRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">

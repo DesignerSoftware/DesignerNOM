@@ -30,7 +30,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
                         <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
@@ -92,13 +92,13 @@
                   </p:toolbar> 
 
                   <fieldset  style="position: absolute; left: 3px; top: 75px; font-size: 10px; width: 850px; height: 405px; border-radius: 10px; text-align: left; padding-left: initial;">
-                     <legend style="font-size: 12px; color: blue"><strong>#{msg['informacionPersona']}</strong></legend>
+                     <legend style="font-size: 12px; color: blue;"><strong>#{msg['informacionPersona']}</strong></legend>
 
                      <p:scrollPanel id="scrollPrincipal" style="position: relative; left: 3px; top: 0px; width: 850px; height: 380px; border: none;" mode="native">  
                         <h:outputText value="#{msg['infoBasica']}" style="position: absolute; left: 10px; top: 2px; color: #14388B; font-weight: bold; font-size: 11px; width: 800px; text-align: center; margin-bottom: 10px;"/>
 
                         <fieldset style="position: absolute; font-size: 12px; top: 40px; width: 810px; height: 155px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modPersonal']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modPersonal']}</strong></legend>
 
                            <h:outputText  value="*#{msg['empresa']}:" style="position: absolute; top: 25px; left: 15px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.empresa.nombre}" id="empresaModPersonal"
@@ -226,7 +226,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; font-size: 12px; top: 215px; width: 380px; height: 150px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modCargo']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modCargo']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/cargoDesempenado.png); width: 50px; height: 50px; top: 20px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -287,7 +287,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; top: 215px; left: 410px; width: 400px; height: 150px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modCentroCosto']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modCentroCosto']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/centroCosto.png); width: 50px; height: 50px; top: 20px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -316,7 +316,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; font-size: 12px; top: 385px; width: 380px; height: 70px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modTipoTrabajador']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modTipoTrabajador']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoTrabajador.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -334,7 +334,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; font-size: 12px; top: 385px; width: 400px; height: 70px; left: 410px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modTipoSalario']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modTipoSalario']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoSalario.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -355,7 +355,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; top: 475px; width: 380px; height: 120px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modSueldo']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modSueldo']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/sueldo.png); width: 50px; height: 50px; top: 25px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -401,7 +401,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; left: 410px; top: 475px; width: 400px; height: 120px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modTipoContrato']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modTipoContrato']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/fechaContratacion.png); width: 50px; height: 50px; top: 25px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -440,7 +440,7 @@
                         </fieldset>   
 
                         <fieldset style="position: absolute;font-size: 12px; top: 615px; width: 380px; height: 70px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modNormaLaboral']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modNormaLaboral']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/normaLaboral.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -461,7 +461,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; left: 410px; top: 615px; width: 400px; height: 70px;border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modLegislacionLaboral']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modLegislacionLaboral']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/legislacionLaboral.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -481,7 +481,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; top: 705px; width: 380px; height: 70px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modUbicacionGeografica']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modUbicacionGeografica']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/ubicacionGeografica.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -500,7 +500,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; top: 705px; left: 410px; width: 400px; height: 70px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modJornadaLaboral']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modJornadaLaboral']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/jornada.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -517,7 +517,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; top: 795px; width: 810px; height: 95px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modFormaPago']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modFormaPago']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/formaPago.png); width: 50px; height: 50px; top: 20px; left: 5px;
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -570,7 +570,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute;font-size: 12px; top: 910px; width: 810px; height: 145px; border-radius: 10px; text-align: left;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['modAfiliaciones']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['modAfiliaciones']}</strong></legend>
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/afiliaciones.png); background-repeat: no-repeat; border: none;
                                          width: 50px; height: 50px; top: 22px; left: 5px; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -632,10 +632,10 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; font-size: 12px; top: 1075px; width: 810px; height: 230px; border-radius: 10px; text-align: left; padding-bottom: 5px;">
-                           <legend style="font-size: 12px; color: blue"><strong>#{msg['camposOpcionales']}</strong></legend>
+                           <legend style="font-size: 12px; color: blue;"><strong>#{msg['camposOpcionales']}</strong></legend>
 
                            <fieldset style="position: absolute; font-size: 12px; top: 15px; width: 370px; height: 70px; border-radius: 10px; text-align: left;">
-                              <legend style="font-size: 12px; color: blue"><strong>#{msg['modFactorRH']}</strong></legend>
+                              <legend style="font-size: 12px; color: blue;"><strong>#{msg['modFactorRH']}</strong></legend>
 
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoTrabajador.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -662,7 +662,7 @@
                            </fieldset>
 
                            <fieldset style="position: absolute; font-size: 12px; top: 15px; left: 410px; width: 380px; height: 70px; border-radius: 10px; text-align: left;">
-                              <legend style="font-size: 12px; color: blue"><strong>#{msg['modEstadoCivil']}</strong></legend>
+                              <legend style="font-size: 12px; color: blue;"><strong>#{msg['modEstadoCivil']}</strong></legend>
 
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/estadocivil.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -679,7 +679,7 @@
                            </fieldset>
 
                            <fieldset style="position: absolute; font-size: 12px; top: 105px; width: 370px; height: 95px; border-radius: 10px; text-align: left;">
-                              <legend style="font-size: 12px; color: blue"><strong>#{msg['modDireccion']}</strong></legend>
+                              <legend style="font-size: 12px; color: blue;"><strong>#{msg['modDireccion']}</strong></legend>
 
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/direccion.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
@@ -704,7 +704,7 @@
                            </fieldset>
 
                            <fieldset style="position: absolute; font-size: 12px; left: 410px; width: 380px; top: 105px; height: 95px; border-radius: 10px; text-align: left;">
-                              <legend style="font-size: 12px; color: blue"><strong>#{msg['modTelefono']}</strong></legend>
+                              <legend style="font-size: 12px; color: blue;"><strong>#{msg['modTelefono']}</strong></legend>
 
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/telefono.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>

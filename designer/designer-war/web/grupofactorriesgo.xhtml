@@ -14,9 +14,9 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Grupo Factor Riesgo" styleClass="panelTotal">    
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Grupo Factor Riesgo</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Grupo Factor Riesgo</strong></legend>
 
-                            <p:dataTable id="datosGruposFactoresRiesgos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosGruposFactoresRiesgos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlGruposFactoresRiesgos.listGruposFactoresRiesgos}" scrollHeight="#{controlGruposFactoresRiesgos.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlGruposFactoresRiesgos.filtrarGruposFactoresRiesgos}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"  scrollable="true"
@@ -52,7 +52,7 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlGruposFactoresRiesgos.guardarGruposFactoresRiesgos()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -60,7 +60,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlGruposFactoresRiesgos.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlGruposFactoresRiesgos.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -68,7 +68,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlGruposFactoresRiesgos.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlGruposFactoresRiesgos.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -81,7 +81,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlGruposFactoresRiesgos.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroGruposFactoresRiesgos').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Grupo Factor Riesgo"/>
 
@@ -90,10 +90,10 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlGruposFactoresRiesgos.duplicandoGruposFactoresRiesgos()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Grupo Factor Riesgo"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlGruposFactoresRiesgos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlGruposFactoresRiesgos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>

@@ -89,8 +89,8 @@ public class ControlComprobantes implements Serializable {
       subtotalPasivo = new BigDecimal(0);
       subtotalGasto = new BigDecimal(0);
       bandera = 0;
-      altoScrollSolucionesNodosEmpleado = "95";
-      altoScrollSolucionesNodosEmpleador = "95";
+      altoScrollSolucionesNodosEmpleado = "104";
+      altoScrollSolucionesNodosEmpleador = "104";
       listaDetallesFormulas = null;
       formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
       estadoBtnArriba = false;
@@ -129,36 +129,19 @@ public class ControlComprobantes implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
+      String pagActual = "comprobante";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-         */
-String pagActual = "comprobante";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -191,8 +174,6 @@ String pagActual = "comprobante";
       listaParametros.clear();
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
-//      getListaSolucionesNodosEmpleado();
-//      getListaSolucionesNodosEmpleador();
       getListaParametros();
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("form:datosSolucionesNodosEmpleado");
@@ -276,7 +257,6 @@ String pagActual = "comprobante";
       RequestContext.getCurrentInstance().update("form:panelInf");
       RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
       RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
-
       RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
@@ -308,7 +288,6 @@ String pagActual = "comprobante";
       contarRegistrosComprobanteEmpleado();
       contarRegistrosComprobanteEmpleador();
       mostrarTodos = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:panelInf");
       RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
       RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
@@ -381,8 +360,8 @@ String pagActual = "comprobante";
          FechaModificacioSNER = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionesNodosEmpleador:FechaModificacioSNER");
          FechaModificacioSNER.setFilterStyle("width: 85% !important");
 
-         altoScrollSolucionesNodosEmpleado = "75";
-         altoScrollSolucionesNodosEmpleador = "75";
+         altoScrollSolucionesNodosEmpleado = "84";
+         altoScrollSolucionesNodosEmpleador = "84";
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
@@ -453,8 +432,8 @@ String pagActual = "comprobante";
          FechaModificacioSNER = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionesNodosEmpleador:FechaModificacioSNER");
          FechaModificacioSNER.setFilterStyle("display: none; visibility: hidden;");
 
-         altoScrollSolucionesNodosEmpleado = "95";
-         altoScrollSolucionesNodosEmpleador = "95";
+         altoScrollSolucionesNodosEmpleado = "104";
+         altoScrollSolucionesNodosEmpleador = "104";
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
@@ -632,7 +611,6 @@ String pagActual = "comprobante";
    public void editarCelda() {
       if (tablaActual == 0) {
          if (solucionNodoEmpleadoSeleccionada != null) {
-            RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodEmpleado");
                RequestContext.getCurrentInstance().execute("PF('editarCodEmpleado').show()");
@@ -698,7 +676,6 @@ String pagActual = "comprobante";
             RequestContext.getCurrentInstance().execute("formularioDialogos:seleccionarRegistro').show()");
          }
       } else if (tablaActual == 1) {
-         RequestContext context = RequestContext.getCurrentInstance();
          if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodEmpleadoEmpleador");
             RequestContext.getCurrentInstance().execute("PF('editarCodEmpleadoEmpleador').show()");

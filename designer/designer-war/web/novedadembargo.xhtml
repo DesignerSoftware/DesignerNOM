@@ -17,9 +17,9 @@
                     <f:loadBundle basename="Recursos.novedadembargo" var="msg"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="  position: absolute; width: 874px; height: 530px; text-align: left">  
 
-                        <fieldset style="position: absolute; left: 10px; top: 68px; width: 835px; height: 68px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 68px; width: 835px; height: 68px; border-radius: 10px;">
                             <legend style="font-size: 14px; color: blue;text-align: left;"><strong>#{msg['empleados']}</strong></legend>
-                            <p:panel id="panelInf" style="border: none">
+                            <p:panel id="panelInf" style="border: none;">
                                 <h:outputText value="#{msg['codigo']}" style="color: #14388B;  font-weight: bold; position: absolute; top: 20px; left: 9px"/>
                                 <p:inputText autocomplete="off" value="#{controlNovedadEmbargo.empleadoActual.codigoempleado}"  readonly="true" style="position: absolute; top: 35px; width: 70px; left: 9px"/>
                                 <h:outputText value="#{msg['nombre']}" style="color: #14388B;  font-weight: bold; position: absolute; left: 122px; top: 20px"/>
@@ -32,8 +32,8 @@
                             </p:panel>
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 10px; top: 150px; width: 835px; height: 158px; border-radius: 10px; ">
-                            <legend style="font-size: 14px ; font-weight: bold; color: #00F;">#{msg['embargos']}</legend>
+                        <fieldset style="position: absolute; left: 10px; top: 150px; width: 835px; height: 158px; border-radius: 10px;">
+                            <legend style="font-size: 14px; font-weight: bold; color: #00F;">#{msg['embargos']}</legend>
 
                             <p:dataTable id="datosEmbargos" var="embargos" style=" width: 830px;" value="#{controlNovedadEmbargo.listaEmbargos}"
                                          rowKey="#{embargos.secuencia}" scrollable="true" rowIndexVar="indice"
@@ -55,7 +55,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooTipoEmbargo" value="#{msg['tipoembargo']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooTipoEmbargo" value="#{msg['tipoembargo']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -134,7 +134,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooJuzgado" value="#{msg['juzgado']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooJuzgado" value="#{msg['juzgado']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -151,7 +151,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooMotivo" value="#{msg['motivoembargo']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooMotivo" value="#{msg['motivoembargo']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -170,7 +170,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooDemandante" value="#{msg['demandante']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooDemandante" value="#{msg['demandante']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -188,7 +188,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooTercerosNIT" value="#{msg['nit']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooTercerosNIT" value="#{msg['nit']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -269,7 +269,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooForma" value="#{msg['formadescuento']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooForma" value="#{msg['formadescuento']}"/>
                                     </f:facet>
                                 </p:column>
                                 <!-- Columna Ficti -->
@@ -336,7 +336,7 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlNovedadEmbargo.guardarTodo()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -344,7 +344,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlNovedadEmbargo.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlNovedadEmbargo.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -352,7 +352,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlNovedadEmbargo.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlNovedadEmbargo.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -365,7 +365,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlNovedadEmbargo.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlNovedadEmbargo.chiste()}" process="@this"/>  
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
 
@@ -375,7 +375,7 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlNovedadEmbargo.duplicarE()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlNovedadEmbargo.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                             </p:toolbarGroup>
@@ -387,7 +387,7 @@
 
 
                         <!-- Detalles -->    
-                        <fieldset style="position: absolute; top: 325px; width: 390px; height: 158px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; top: 325px; width: 390px; height: 158px; border-radius: 10px;">
                             <legend style="font-size: 14px; font-weight: bold; color: #00F;">#{msg['detallesembargos']}</legend>
 
                             <p:dataTable id="datosEmbargosDetalles" var="detalles" style=" width: 417px;" value="#{controlNovedadEmbargo.listaDetallesEmbargos}"
@@ -408,7 +408,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooPagos" value="#{msg['pagoscomprometidos']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooPagos" value="#{msg['pagoscomprometidos']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -509,7 +509,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooCodigoPeriodicidad" value="#{msg['cp']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooCodigoPeriodicidad" value="#{msg['cp']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -597,7 +597,7 @@
                         </fieldset>
 
                         <!-- Descuentos Realizados -->    
-                        <fieldset style="position: absolute; top: 325px; left:455px; width: 390px; height: 158px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; top: 325px; left:455px; width: 390px; height: 158px; border-radius: 10px;">
                             <legend style="font-size: 14px; font-weight: bold; color: #00F;">#{msg['descuentosrealizados']}</legend>
 
                             <p:dataTable id="datosDescuentosRealizados" var="descuentos" style=" width: 390px;" value="#{controlNovedadEmbargo.listaVWPrestamo}"
@@ -614,7 +614,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooConceptos" value="#{msg['concepto']}"/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooConceptos" value="#{msg['concepto']}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -706,7 +706,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevoEmbargo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoEmbargo" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['tipoembargoN']}" style=" position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="nuevoTipoEmbargo" value="#{controlNovedadEmbargo.nuevoEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
@@ -832,7 +832,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevoEmbargo']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarEmbargo" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['tipoembargoN']}" style=" position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="duplicarTipoEmbargo" value="#{controlNovedadEmbargo.duplicarEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
@@ -947,7 +947,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevoDetalle']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="nuevoEmbargoDetalle" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['pagoscomprometidosN']}" style=" position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="nuevoPagoComprometido" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase;" onclick="select();">
@@ -1018,7 +1018,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevoDetalle']}"  style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                         <p:panel id="duplicarEmbargoDetalle" style="border: none;">
-                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 40px; width: 665px; height: 318px; border-radius: 10px;">
 
                                 <strong><h:outputText value="#{msg['pagoscomprometidosN']}" style=" position: absolute; top: 17px;"/></strong>
                                 <p:inputText autocomplete="off" id="duplicarPagoComprometido" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase;" onclick="select();">
@@ -1404,7 +1404,7 @@
 
                             </f:facet>
 
-                            <p:column  headerText="#{msg['codigoB']}" filterOptions="" filterBy="#{empleado.codigoempleado}" filterMatchMode="contains">  
+                            <p:column headerText="#{msg['codigoB']}" filterOptions="" filterBy="#{empleado.codigoempleado}" filterMatchMode="contains">  
                                 <h:outputText value="#{empleado.codigoempleado}"/>  
                             </p:column>  
 

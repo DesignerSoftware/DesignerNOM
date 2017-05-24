@@ -16,7 +16,7 @@
                <p:panel  id="PanelTotal" header="Periodicidades" styleClass="panelTotal"> 
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPeriodicidades.guardarCambiosPeriodicidad()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -24,7 +24,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPeriodicidades.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPeriodicidades.listaValoresBoton()}"  disabled="#{controlPeriodicidades.activarLov}"
                                          process="@this"/>
@@ -33,7 +33,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPeriodicidades.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlPeriodicidades.exportXLS()}"/>
                         <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPeriodicidades.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroPeriodicidades').show()" update=":formularioDialogos:nuevaPeriodicidads" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
@@ -55,17 +55,17 @@
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlPeriodicidades.duplicandoPeriodicidades()}"  process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlPeriodicidades.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPeriodicidades.cancelarModificacion()}"  oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlPeriodicidades.salir()}"  process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -74,9 +74,9 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Periodicidades</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Periodicidades</strong></legend>
 
-                     <p:dataTable id="datosPeriodicidades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 815px ; border: 1px;"                      
+                     <p:dataTable id="datosPeriodicidades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 815px; border: 1px;"                      
                                   value="#{controlPeriodicidades.listPeriodicidades}" scrollable="true" scrollHeight="#{controlPeriodicidades.tamano}"  scrollWidth="835"
                                   filteredValue="#{controlPeriodicidades.filtrarPeriodicidades}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  widgetVar="datosPeriodicidades"

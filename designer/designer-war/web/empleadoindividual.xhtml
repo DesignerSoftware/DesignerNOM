@@ -25,7 +25,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                   <p:toolbar styleClass="cssToolbar">   
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;"
                                          actionListener="#{controlEmpleadoIndividual.guardarCambios()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -34,7 +34,7 @@
                                          actionListener="#{controlEmpleadoIndividual.editarCelda()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none;" 
                                          actionListener="#{controlEmpleadoIndividual.listaValoresBoton()}" process="@this"/> 
                         <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
@@ -57,7 +57,7 @@
                                          actionListener="#{controlEmpleadoIndividual.exportPDF()}" ajax="false"/>
                         <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value=""
                                          style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none;"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -70,17 +70,17 @@
                                          style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none;" 
                                          actionListener="#{controlEmpleadoIndividual.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none;"
                                          actionListener="#{controlEmpleadoIndividual.refrescar()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none;" 
                                          actionListener="#{controlEmpleadoIndividual.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -416,7 +416,7 @@
                   <!--**********************************************************************-->
                   <fieldset id="panelInferior" style="position: absolute; top: 270px; width: 832px; height: 200px; left: 10px; border-radius: 10px;">
                      <fieldset style="position: absolute; left: -2px; top: 2px; width: 197px; height: 205px; border-radius: 7px; padding: 0px; border: none;">
-                         <!-- <legend style="font-weight: bold; color: blue">#{msg['ubicacion']}</legend> -->
+                         <!-- <legend style="font-weight: bold; color: blue;">#{msg['ubicacion']}</legend> -->
                         <p:commandButton id="btnTelefono" value="" onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/telefono.png); background-size: 100% 100%; background-repeat: no-repeat; width: 40px; height: 40px; position: absolute; border:none;"/>
                         <h:commandLink value="#{msg['telefonos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;"
@@ -450,7 +450,7 @@
                         <p:inputText autocomplete="off" id="reemplazos" value="#{controlEmpleadoIndividual.reemplazoP}" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
                      </fieldset>
                      <fieldset style="position: absolute; left: 208px; top: 2px; width: 197px; height: 120px; border-radius: 7px; padding: 0px; border: none;">
-                         <!-- <legend style="font-weight: bold; color: blue">#{msg['educacion']}</legend> -->
+                         <!-- <legend style="font-weight: bold; color: blue;">#{msg['educacion']}</legend> -->
 
                         <p:commandButton id="btnEducacion" value="" process="@this" onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','personaeducacion')}" actionListener="#{controlPersonaEducacion.recibirPersona(controlEmpleadoIndividual.persona.secuencia,'empleadoindividual')}"
                                          style="background-image: url(Imagenes/Iconos/niveleducativo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none;"/>
@@ -487,7 +487,7 @@
                      </fieldset>
 
                      <fieldset style="position: absolute; left: 418px; top: 2px; width: 197px; height: 120px; border-radius: 7px; padding: 0px; border: none;">
-                         <!-- <legend style="font-weight: bold; color: blue">#{msg['experiencia']}</legend> -->
+                         <!-- <legend style="font-weight: bold; color: blue;">#{msg['experiencia']}</legend> -->
 
                         <p:commandButton id="btnReferenciaLaboral" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral')}" oncomplete="#{controlHvReferencias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"   
                                          style="background-image: url(Imagenes/Iconos/referencialaboral.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border: none;" process="@this"

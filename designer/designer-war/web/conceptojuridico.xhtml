@@ -23,7 +23,7 @@
 
 
                         <fieldset style="position: absolute; left: 10px; top: 95px; width: 830px; height: 370px; border-radius: 10px; text-align: left;">
-                            <legend style="color: blue"><strong>#{msg['conceptosjuridicos']}</strong></legend>
+                            <legend style="color: blue;"><strong>#{msg['conceptosjuridicos']}</strong></legend>
 
                             <p:dataTable id="datosConcepto" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"   
                                          value="#{controlConceptoJuridico.listConceptosJuridicos}" scrollable="true" scrollHeight="#{controlConceptoJuridico.altoTabla}" scrollWidth="830" selectionMode="single"
@@ -203,7 +203,7 @@
 
                 <h:form id="formTexto" style="position: absolute; top: 200px; left: 265px;">
                     <fieldset style="position: absolute; top: 260px; height: 100px; width: 805px; border-radius: 10px; text-align: left;">
-                        <legend style="color: blue"><strong>#{msg['logrosalcanzados']}</strong></legend>
+                        <legend style="color: blue;"><strong>#{msg['logrosalcanzados']}</strong></legend>
                         <p:inputTextarea id="editarTexto" value="#{controlConceptoJuridico.textoNormativo}" style="text-transform: uppercase;width: 790px; height: 70px;" readonly="#{controlConceptoJuridico.readOnlyTexto}" onclick="select();">
                             <p:ajax event="click" listener="#{controlConceptoJuridico.posicionTextoNormativo(3)}" process="@this"/> 
                             <p:ajax event="select" listener="#{controlConceptoJuridico.posicionTextoNormativo(3)}" process="@this"/> 
@@ -215,14 +215,14 @@
 
                 <h:form style="position: relative">
                     <p:toolbar style="position: absolute; top: 35px; left: 10px;">
-                        <p:toolbarGroup align="left;"> 
+                        <p:toolbarGroup align="left"> 
                             <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; width: 25px; height: 25px;"  process="@this" actionListener="#{controlConceptoJuridico.guardadoGeneral()}"/>
                             <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                             <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlConceptoJuridico.editarCelda()}" process="@this"/>
                             <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                            <p:separator style="position: relative; top: -9px"/> 
+                            <p:separator style="position: relative; top: -9px;"/> 
 
                             <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                             <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -230,7 +230,7 @@
                             <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlConceptoJuridico.activarCtrlF11()}" process="@this"/>
                             <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                            <p:separator style="position: relative; top: -9px"/> 
+                            <p:separator style="position: relative; top: -9px;"/> 
 
                             <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlConceptoJuridico.verificarExportXLS()}" ajax="false"/>
                             <p:tooltip for="exportarXLS" value="#{msg['xls']}"/>
@@ -243,7 +243,7 @@
                             <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlConceptoJuridico.validarExportPDF()}" ajax="false"/>
                             <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
-                            <p:separator style="position: relative; top: -9px"/> 
+                            <p:separator style="position: relative; top: -9px;"/> 
                             <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlConceptoJuridico.validarIngresoNuevoRegistro()}"  process="@this"/> 
                             <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -253,11 +253,11 @@
                             <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlConceptoJuridico.validarDuplicadoRegistro()}" process="@this"/>  
                             <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                            <p:separator style="position: relative; top: -9px"/> 
+                            <p:separator style="position: relative; top: -9px;"/> 
                             <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlConceptoJuridico.verificarRastroTabla()}" process="@this"/>  
                             <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                            <p:separator style="position: relative; top: -9px"/> 
+                            <p:separator style="position: relative; top: -9px;"/> 
 
                             <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlConceptoJuridico.cancelarModificacion()}"   process="@this"/>  
                             <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>

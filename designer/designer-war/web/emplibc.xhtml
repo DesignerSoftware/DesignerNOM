@@ -16,7 +16,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="PF('botones').show();"  process="@this" disabled="true"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -24,7 +24,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlEmplIbcs.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" onclick="PF('botones').show();" process="@this" disabled="true"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -32,7 +32,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  actionListener="#{controlEmplIbcs.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmplIbcs.exportXLS()}" ajax="false"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -45,7 +45,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplIbcs.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" onclick="PF('botones').show();" process="@this" disabled="true"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -55,15 +55,15 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" onclick="PF('botones').show();"  process="@this" disabled="true"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <!--  <p:commandButton id="rastro" disabled="true" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="" process="@this"/>  
                           <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                          <p:separator style="position: relative; top: -9px"/>
+                          <p:separator style="position: relative; top: -9px;"/>
                         -->
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlEmplIbcs.cancelarModificacion()}" oncomplete="window.location.reload()" disabled="true"  process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlEmplIbcs.cancelarYSalir()}" process="@this"/>  
@@ -84,10 +84,10 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 110px; left: 10px; height: 355px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>#{msg['consultaIBCS']}</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>#{msg['consultaIBCS']}</strong></legend>
 
 
-                     <p:dataTable id="datosIbcs" widgetVar="datosIbcs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                     <p:dataTable id="datosIbcs" widgetVar="datosIbcs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                   value="#{controlEmplIbcs.listIbcsPorEmpleado}"  scrollable="true" scrollHeight="#{controlEmplIbcs.altoTabla}"  scrollWidth="830"
                                   filteredValue="#{controlEmplIbcs.filtrarIbcsPorEmpleado}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell" selectionMode="single" selection="#{controlEmplIbcs.ibcSeleccionado}">
@@ -97,7 +97,7 @@
                         <f:event type="preRenderView" listener="#{controlEmplIbcs.recordarSeleccion()}"/>
 
 
-                        <p:column  id="fechaInicial" headerText="#{msg['fechaInicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains"  width="220"  filterStyle="display: none; visibility: hidden;">
+                        <p:column id="fechaInicial" headerText="#{msg['fechaInicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains"  width="220"  filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>
                               <f:facet  name="output">
                                  <h:outputText  value="#{info.fechainicial}">
@@ -191,15 +191,15 @@
 
 
             <p:dialog id="dialogoIbcs" header="#{msg['dialogoIbcs']}" widgetVar="dialogoIbcs" resizable="false" draggable="true" modal="true" height="225" width="300" style=" padding: 0px">  
-               <h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute;left: 15px ; top: 25px;"/>
-               <p:inputText autocomplete="off" readonly="true"  style=" position: absolute;left:110px ; top: 20px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechainicial}" styleClass="ui-datepicker, myClass">
+               <h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute;left: 15px; top: 25px;"/>
+               <p:inputText autocomplete="off" readonly="true"  style=" position: absolute;left:110px; top: 20px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechainicial}" styleClass="ui-datepicker, myClass">
                   <f:convertDateTime pattern="dd/MM/yyyy"/>
                </p:inputText>
-               <h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute;left: 15px ; top: 75px;"/>
-               <p:inputText autocomplete="off" readonly="true"  style=" position: absolute;left:110px ; top: 70px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
+               <h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute;left: 15px; top: 75px;"/>
+               <p:inputText autocomplete="off" readonly="true"  style=" position: absolute;left:110px; top: 70px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
                   <f:convertDateTime pattern="dd/MM/yyyy"/>
                </p:inputText>
-               <h:outputText value="#{msg['valorN']}" style=" position: absolute;left: 15px ; top: 125px;"/>
+               <h:outputText value="#{msg['valorN']}" style=" position: absolute;left: 15px; top: 125px;"/>
                <p:inputTextarea value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.valor}" style="overflow: auto; width: 160px; height: 40px;position: absolute;left: 110px; top: 120px;" readonly="true"/>
 
                <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="PF('dialogoIbcs').hide();" style="position: absolute; top: 190px; left: 225px;" process="@this"/>

@@ -15,7 +15,7 @@
                     <f:loadBundle basename="Recursos.claseaccidente" var="msg"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlClasesAccidentes.guardandoClasesAccidentes()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -23,7 +23,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlClasesAccidentes.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlClasesAccidentes.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -31,7 +31,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlClasesAccidentes.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlClasesAccidentes.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -44,7 +44,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlClasesAccidentes.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroClasesAccidentes').show()" update=":formularioDialogos:nuevaaClasesAccidentes" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
@@ -53,11 +53,11 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlClasesAccidentes.duplicandoClaseAccidente()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlClasesAccidentes.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlClasesAccidentes.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -68,9 +68,9 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['clases']}</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>#{msg['clases']}</strong></legend>
 
-                            <p:dataTable id="datosClasesAccidentes" widgetVar="datosClasesAccidentes" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                            <p:dataTable id="datosClasesAccidentes" widgetVar="datosClasesAccidentes" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                          value="#{controlClasesAccidentes.listClasesAccidentes}"  scrollHeight="#{controlClasesAccidentes.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlClasesAccidentes.filtrarClasesAccidentes}" emptyMessage="#{msg['vacio']}"
                                          selection="#{controlClasesAccidentes.claseAccidenteSeleccionado}" selectionMode="single"

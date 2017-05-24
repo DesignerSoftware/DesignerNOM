@@ -16,7 +16,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="Plataformas Tecnológicas" styleClass="panelTotal">     
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;">  
+                     <p:toolbarGroup align="left">  
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPryPlataformas.guardarPryPlataformas()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -24,7 +24,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPryPlataformas.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          disabled="#{controlPryPlataformas.activarLOV}"  process="@this"/>
@@ -33,7 +33,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPryPlataformas.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlPryPlataformas.exportXLS()}"  ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,20 +46,20 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPryPlataformas.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;"  oncomplete="PF('nuevoRegistroPryPlataforma').show()" update=":formularioDialogos:nuevaaPryPlataforma" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlPryPlataformas.borrandoPryPlataformas()}" process="@this"/>  
                         <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlPryPlataformas.duplicandoPryPlataformas()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlPryPlataformas.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPryPlataformas.cancelarModificacion()}"  process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlPryPlataformas.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
 
@@ -68,9 +68,9 @@
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlPryPlataformas.revisarDialogoGuardar()}" disabled="#{controlPryPlataformas.guardado}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlPryPlataformas.salir()}" value=""/>
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 330px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Plataformas Tecnológias</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Plataformas Tecnológias</strong></legend>
 
-                     <p:dataTable id="datosPrtPlataforma" widgetVar="datosPrtPlataforma" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                     <p:dataTable id="datosPrtPlataforma" widgetVar="datosPrtPlataforma" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                   value="#{controlPryPlataformas.listPryPlataformas}" scrollable="true" scrollHeight="#{controlPryPlataformas.tamano}"
                                   scrollWidth="830" filteredValue="#{controlPryPlataformas.filtrarPryPlataformas}"  emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell" paginator="false"  selection="#{controlPryPlataformas.pryPlataformaSeleccionada}"

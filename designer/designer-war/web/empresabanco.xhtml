@@ -14,9 +14,9 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Empresas Bancos"  styleClass="panelTotal">    
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Empresas Bancos</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Empresas Bancos</strong></legend>
 
-                            <p:dataTable id="datosEmpresasBancos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosEmpresasBancos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlEmpresasBancos.listEmpresasBancos}" scrollable="true" scrollHeight="#{controlEmpresasBancos.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlEmpresasBancos.filtrarEmpresasBancos}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false" 
@@ -37,7 +37,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue" id="fooEmpresa" value=""/>
+                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue;" id="fooEmpresa" value=""/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="Banco" sortBy="#{info.banco.nombre}" filterBy="#{info.banco.nombre}" filterMatchMode="contains" id="personafir" width="140" filterStyle="display: none; visibility: hidden;">                                  
@@ -52,7 +52,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue" id="fooBanco" value=""/>
+                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue;" id="fooBanco" value=""/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="Ciudad" sortBy="#{info.ciudad.nombre}" filterBy="#{info.ciudad.nombre}" filterMatchMode="contains" id="cargo" width="145" filterStyle="display: none; visibility: hidden;">                                  
@@ -67,7 +67,7 @@
                                         </f:facet> 
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue" id="fooCiudad" value=""/>
+                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue;" id="fooCiudad" value=""/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="Numero Cuenta" sortBy="#{info.numerocuenta}" filterBy="#{info.numerocuenta}" filterMatchMode="contains" id="subTituloFirma" width="130" filterStyle="display: none; visibility: hidden;">                                  
@@ -96,7 +96,7 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmpresasBancos.guardarEmpresasBancos()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -104,7 +104,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmpresasBancos.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlEmpresasBancos.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -112,7 +112,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmpresasBancos.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmpresasBancos.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -125,7 +125,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmpresasBancos.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  actionListener="#{controlEmpresasBancos.cargarNuevoEmpresasBancos()}" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Empresa Banco"/>
 
@@ -134,11 +134,11 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEmpresasBancos.duplicandoEmpresasBancos()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Empresa Banco"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEmpresasBancos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmpresasBancos.cancelarModificacion()}"  process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmpresasBancos.salir()}" process="@this"  action="empresa"/>  

@@ -14,9 +14,9 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Tipo Pensionado"  styleClass="panelTotal">    
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Tipo Pensionado</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Tipo Pensionado</strong></legend>
 
-                            <p:dataTable id="datosTiposPensionados" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosTiposPensionados" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlTiposPensionados.listTiposPensionados}" scrollable="true" scrollHeight="#{controlTiposPensionados.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlTiposPensionados.filtrarTiposPensionados}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editMode="cell"   liveScroll="true" scrollRows="50"   editable="true"
@@ -57,7 +57,7 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlTiposPensionados.guardarTiposPensionados()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -65,7 +65,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlTiposPensionados.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlTiposPensionados.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -73,7 +73,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlTiposPensionados.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlTiposPensionados.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -86,7 +86,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlTiposPensionados.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroTiposPensionados').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Tipo Pensionado"/>
 
@@ -95,11 +95,11 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlTiposPensionados.duplicandoTiposPensionados()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Tipo Pensionado"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlTiposPensionados.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposPensionados.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>

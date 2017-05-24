@@ -24,7 +24,7 @@
                <p:panel  id="PanelTotal" header="Errores de Liquidación" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlErroresLiquidacion.guardarErroresLiquidacion()}"  process="@this"/>
@@ -34,7 +34,7 @@
                                          actionListener="#{controlErroresLiquidacion.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -43,7 +43,7 @@
                                          actionListener="#{controlErroresLiquidacion.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlErroresLiquidacion.exportXLS()}"  ajax="false"/>
@@ -58,7 +58,7 @@
                                          actionListener="#{controlErroresLiquidacion.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" process="@this"/> 
                         <!--<p:tooltip style="" for="insertar" value="Insertar Registro"/>-->
 
@@ -68,17 +68,17 @@
 
                         <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" process="@this"/>  
                         <!--<p:tooltip style="" for="duplicar" value="Duplicar Registro"/>-->
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlErroresLiquidacion.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlErroresLiquidacion.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlErroresLiquidacion.salir()}" process="@this"/>  
@@ -87,8 +87,8 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; top: 74px; left: 10px; height: 380px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Errores de Liquidación</strong></legend>
+                  <fieldset style="position: absolute; top: 74px; left: 10px; height: 382px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="font-size: 13px; color: blue;"><strong>Errores de Liquidación</strong></legend>
 
                      <p:dataTable id="datosErroresLiquidacion" widgetVar="datosErroresLiquidacion" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"
                                   style="width: 1600px; border: 1px; position: absolute;" value="#{controlErroresLiquidacion.listErroresLiquidacion}" 
@@ -243,7 +243,7 @@
                         </p:column>
 
                      </p:dataTable>
-                     <h:outputText id="informacionRegistro" value="Registros: #{controlErroresLiquidacion.infoRegistro}" style="position: absolute; left: 15px; top: 356px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="Registros: #{controlErroresLiquidacion.infoRegistro}" style="position: relative; left: 10px; top: 356px; font-weight: bold;"/>
                   </fieldset>
                   <p:commandButton style=" position: absolute; left: 15px; top: 472px;" class="cssBoton" icon="ui-icon-trash" actionListener="#{controlErroresLiquidacion.revisarDialogoBorrarTodo()}" id="BORRARTODO" value="Borrar Todo"/>
 

@@ -19,10 +19,10 @@
                   <h:outputText id="nitEmpresa" value="#{controlPapeles.empresaSeleccionada.nit}" style="position: absolute; left: 228px; top: 85px; position: absolute; color: #BF1A1A; font-weight: bold; width: 285px; text-align: right;"/>
 
                   <fieldset style="position: absolute; top: 110px; left: 10px; height: 340px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Papeles</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Papeles</strong></legend>
                      <!-- TABLA EMPLVIGENCIACARGO -->
 
-                     <p:dataTable id="datosPapeles" rowKey="#{info.secuencia}" var="info" rowIndexVar="indice" style="width: 830px ; border: 1px;"                      
+                     <p:dataTable id="datosPapeles" rowKey="#{info.secuencia}" var="info" rowIndexVar="indice" style="width: 830px; border: 1px;"                      
                                   value="#{controlPapeles.listPapelesPorEmpresa}" scrollable="true" scrollHeight="#{controlPapeles.tamano}"  scrollWidth="830"
                                   filteredValue="#{controlPapeles.filtrarPapeles}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell" 
@@ -74,14 +74,14 @@
                   </fieldset>
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPapeles.guardarCambiosPapel()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="Guardado Rapido"/>
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPapeles.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPapeles.listaValoresBoton()}" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -89,7 +89,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPapeles.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="filtrar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlPapeles.exportXLS()}"/>
                         <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -102,7 +102,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPapeles.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroPapeles').show()" update=":formularioDialogos:nuevoPapeles" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Agregar Papel"/>
 
@@ -111,12 +111,12 @@
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlPapeles.duplicandoPapeles()}"  process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="duplicar Papel"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlPapeles.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPapeles.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="Refrescar"/>

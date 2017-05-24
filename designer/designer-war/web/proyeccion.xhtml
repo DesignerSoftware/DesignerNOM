@@ -16,11 +16,11 @@
                     <f:loadBundle basename="Recursos.centrocosto" var="msg"/>
                     <p:panel  id="PanelTotal" header="Proyecciones" styleClass="panelTotal">    
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Proyecciones</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Proyecciones</strong></legend>
 
                             <!-- TABLA EMPLVIGENCIACARGO -->
 
-                            <p:dataTable id="datosProyecciones" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                      
+                            <p:dataTable id="datosProyecciones" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                      
                                          value="#{controlProyecciones.listProyecciones}"
                                          scrollHeight="#{controlProyecciones.tamano}"
                                          filteredValue="#{controlProyecciones.filtrarProyecciones}"
@@ -61,7 +61,7 @@
 
                                 <p:column headerText="Fecha Desde" sortBy="#{info.fechaDesde}" filterBy="#{info.fechaDesde}" filterMatchMode="contains" 
                                           id="fechaDesde" width="80"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechaDesde}" style="width: 80px; text-transform: uppercase;">
@@ -80,7 +80,7 @@
 
                                 <p:column headerText="Fecha Hasta" sortBy="#{info.fechaHasta}" filterBy="#{info.fechaHasta}" filterMatchMode="contains" 
                                           id="fechaHasta" width="80"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechaHasta}" style="width: 80px; text-transform: uppercase;">
@@ -224,14 +224,14 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;">
+                            <p:toolbarGroup align="left">
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlProyecciones.guardarCambiosProyecciones()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar Cambios"/>
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlProyecciones.editarCelda()}" process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar Celda"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores"  value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -239,7 +239,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlProyecciones.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Filtrar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlProyecciones.exportXLS()}"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar XLS"/>
@@ -252,7 +252,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlProyecciones.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nueva Proyeccion"/>
 
@@ -261,7 +261,7 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" disabled="true" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Proyeccion"/>
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlProyecciones.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>

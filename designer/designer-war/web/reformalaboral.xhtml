@@ -17,7 +17,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlReformaLaboral.guardarGeneral()}" process="@this"/>
@@ -27,7 +27,7 @@
                                          actionListener="#{controlReformaLaboral.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="listaValores" value="" disabled="true" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          process="@this"/>
@@ -37,7 +37,7 @@
                                          actionListener="#{controlReformaLaboral.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          ajax="false" actionListener="#{controlReformaLaboral.validarExportXLS()}"/>
@@ -53,7 +53,7 @@
                                          actionListener="#{controlReformaLaboral.validarExportPDF()}" ajax="false"/>
                         <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          onclick="PF('verificarNuevoRegistro').show();" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -66,18 +66,18 @@
                                          actionListener="#{controlReformaLaboral.verificarRegistroDuplicar()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlReformaLaboral.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()"
                                          actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlReformaLaboral.cancelarYSalir()}"  process="@this"/>  
@@ -87,7 +87,7 @@
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; left: 10px; top: 70px; width: 830px; height: 210px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['reformaLaboral']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['reformaLaboral']}</strong></legend>
 
                      <p:dataTable id="datosReformaLaboral" widgetVar="datosReformaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left; width: 750px;"                           
                                   value="#{controlReformaLaboral.listaReformasLaborales}" scrollable="true" scrollHeight="#{controlReformaLaboral.altoTablaReforma}"
@@ -98,7 +98,7 @@
                         <p:ajax event="filter" listener="#{controlReformaLaboral.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlReformaLaboral.recordarSeleccion()}"/>
 
-                        <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
                                    id="reformaCodigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
@@ -113,7 +113,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column  headerText="#{msg['nombre']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['nombre']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
                                    id="reformaNombre" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.nombre}"/></f:facet>  
@@ -148,7 +148,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 10px; top: 295px; width: 440px; height: 190px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['detalleReforma']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['detalleReforma']}</strong></legend>
 
                      <p:dataTable id="datosDetalleReformaLaboral" widgetVar="datosDetalleReformaLaboral" var="infoD" rowKey="#{infoD.secuencia}"
                                   rowIndexVar="indiceD" style="border: 1px; text-align: left; width: 420px;" scrollWidth="430" liveScroll="true" scrollRows="10"
@@ -202,7 +202,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 476px; top: 295px; width: 364px; height: 190px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['clonarRL']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['clonarRL']}</strong></legend>
 
                      <h:outputText value="#{msg['codigo']}" style="position: absolute; top : 10px; left: 40px;"/> 
                      <p:inputText autocomplete="off" onclick="select();" id="codigoReformaLaboralClonar" value="#{controlReformaLaboral.codigoReformaClonar}"

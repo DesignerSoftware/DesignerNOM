@@ -30,7 +30,7 @@
                <p:panel  id="PanelTotal" header="Detalles de la Liquidación" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -98,7 +98,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 105px; left: 10px; height: 383px; width: 830px; border-radius: 10px; text-align: left; padding-top: 0px !important;">
-                     <legend style="font-size: 14px; color: blue;"><strong>Detalles de Liquidación</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Detalles de Liquidación</strong></legend>
 
                      <p:dataTable id="datosLiquidacionesLogs" widgetVar="datosLiquidacionesLogs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"
                                   style="width: 1000px; position: absolute;" value="#{controlLiquidacionesLogs.listLiquidacionesLogs}" scrollable="true" scrollWidth="820"

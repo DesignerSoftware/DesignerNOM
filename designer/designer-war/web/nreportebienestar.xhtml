@@ -27,14 +27,14 @@
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlNReporteBienestar.guardarCambios()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this" actionListener="#{controlNReporteBienestar.editarCelda()}"/>
                                 <p:tooltip for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" actionListener="#{controlNReporteBienestar.mostrarDialogosListas()}"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -42,7 +42,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlNReporteBienestar.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png);"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -54,7 +54,7 @@
                                 <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"   /> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -64,11 +64,11 @@
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlNReporteBienestar.cancelarModificaciones()}"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -78,7 +78,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute; left: 120px; top: 180px; width: 715px; height: 270px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 120px; top: 180px; width: 715px; height: 270px; border-radius: 10px;">
                             <legend style="color: blue;text-align:left;"><strong>#{msg['reportes']}</strong></legend>
 
                             <p:dataTable id="reportesBienestar" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 700px; border: 1px;"                           
@@ -94,7 +94,7 @@
                                     <h:outputText value="#{info.codigo}"/>
                                 </p:column>
 
-                                <p:column  id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">  
+                                <p:column id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">  
                                     <h:outputText value="#{info.nombre}"/>
                                 </p:column>
 
@@ -162,7 +162,7 @@
                 </h:form>
 
                 <h:form id="formParametros" style="position: absolute; top: 10px; left: 0px">
-                    <fieldset id="parametrosInforme" style="position: absolute; left: 10px; top: 70px; width: 830px; height: 80px; border-radius: 10px; ">
+                    <fieldset id="parametrosInforme" style="position: absolute; left: 10px; top: 70px; width: 830px; height: 80px; border-radius: 10px;">
                         <legend style="color: blue;text-align:left;"><strong>#{msg['parametros']}</strong></legend>
 
                         <h:outputText value="#{msg['fechadesde']}:" style="position: absolute; top: 20px; left: 30px;"/>
@@ -330,7 +330,7 @@
                                 <h:outputText value="#{msg['buscarR']}"/>  
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" style="width:150px; position: relative; left: 30px;"/>  
                             </f:facet>
-                            <p:column  filterBy="#{reportes.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 60px">
+                            <p:column filterBy="#{reportes.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 60px">
                                 <f:facet name="header">
                                     <h:outputText  value="#{msg['codigoR']}"/>
                                 </f:facet>

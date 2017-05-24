@@ -23,14 +23,14 @@
 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlNReportePersonal.guardarCambios()}" process="@this"/>
                         <p:tooltip for="guardarRapido" value="#{msg['guardar']}"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this" actionListener="#{controlNReportePersonal.editarCelda()}"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" disabled="#{controlNReportePersonal.activarLov}" actionListener="#{controlNReportePersonal.listaValoresBoton()}"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -38,7 +38,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none;" actionListener="#{controlNReportePersonal.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png);"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -50,7 +50,7 @@
                         <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"   /> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -60,16 +60,16 @@
                         <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlNReportePersonal.cancelarModificaciones()}"  oncomplete="window.location.reload()"  process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlNReportePersonal.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -704,7 +704,7 @@
                            <div style="display: block;">
                               <h:outputText value="#{msg['solicitud']}:" style="top: 14px; position: relative;"/>
                               <p:inputText autocomplete="off" value="#{controlNReportePersonal.parametroDeReporte.observaciones}" id="solicitudParametro" 
-                                            style="position: absolute; left: 120px; top: 44px; width: 120px ; text-transform: uppercase;" onclick="select();">
+                                            style="position: absolute; left: 120px; top: 44px; width: 120px; text-transform: uppercase;" onclick="select();">
                                  <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(3)}" process="@this"/> 
                                  <p:ajax event="change" listener="#{controlNReportePersonal.modificarParametroInforme()}" update="solicitudParametro" process="@this"/>
                               </p:inputText>

@@ -15,7 +15,7 @@
                     <p:panel  id="PanelTotal" header="Evaluaciones" styleClass="panelTotal">    
                         <f:loadBundle basename="Recursos.emplvigconvocatorias" var="msg"/>
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.guardarCambios()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -23,7 +23,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlEmplVigConvocatorias.activarLOV}"  process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -31,7 +31,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -44,7 +44,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" oncomplete="PF('NuevoRegistroResultados').show()" update=":formularioDialogos:nuevoResultado"   process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
@@ -53,16 +53,16 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.duplicarResultado()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.salir()}" action="empleadoindividual"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -94,8 +94,8 @@
                         <p:commandButton class="cssBotonCancelar"  id="ATRAS" value=""  actionListener="#{controlEmplVigConvocatorias.salir()}" action="empleadoindividual" process="@this"/>
 
                         <fieldset style="position: absolute; top: 105px; left: 10px; height: 165px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Convocatorias</strong></legend>
-                            <p:dataTable id="datosConvocatorias" widgetVar="datosConvocatorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: none; "                           
+                            <legend style="font-size: 13px; color: blue;"><strong>Convocatorias</strong></legend>
+                            <p:dataTable id="datosConvocatorias" widgetVar="datosConvocatorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
                                          value="#{controlEmplVigConvocatorias.listEvalConvocatorias}" scrollable="true" scrollHeight="#{controlEmplVigConvocatorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlEmplVigConvocatorias.listEvalConvocatoriasFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlEmplVigConvocatorias.evalConvocatoriaSeleccionado}" selectionMode="single">
@@ -189,8 +189,8 @@
 
 
                         <fieldset style="position: absolute; top: 305px; left: 10px; height: 165px; width: 510px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Evaluaciones</strong></legend>
-                            <p:dataTable id="datosResultados" widgetVar="datosResultados" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indiceR" style="width: 510px ; border: none; "                           
+                            <legend style="font-size: 13px; color: blue;"><strong>Evaluaciones</strong></legend>
+                            <p:dataTable id="datosResultados" widgetVar="datosResultados" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indiceR" style="width: 510px; border: none; "                           
                                          value="#{controlEmplVigConvocatorias.listEvalResultadosConv}" scrollable="true" scrollHeight="#{controlEmplVigConvocatorias.altoTabla2}" scrollRows="40"
                                          scrollWidth="500"  filteredValue="#{controlEmplVigConvocatorias.listEvalResultadosConvFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlEmplVigConvocatorias.evalResultadosConvSeleccionado}" selectionMode="single">

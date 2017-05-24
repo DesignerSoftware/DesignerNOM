@@ -14,7 +14,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="Tipos de Talla" styleClass="panelTotal">    
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlTiposTallas.guardarTiposTallas()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -22,7 +22,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlTiposTallas.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlTiposTallas.activarLov}"  process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -30,7 +30,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlTiposTallas.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlTiposTallas.exportXLS()}"  ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -43,7 +43,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlTiposTallas.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroTiposTallas').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nuevo Registro"/>
 
@@ -52,17 +52,17 @@
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlTiposTallas.duplicandoTiposTallas()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlTiposTallas.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposTallas.cancelarModificacion()}" process="@this"
                                          oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"  process="@this"
                                          actionListener="#{controlTiposTallas.salir()}"/>
                         <p:tooltip  for="salir" value="Salir"/>
@@ -71,9 +71,9 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Tipos de Talla</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Tipos de Talla</strong></legend>
 
-                     <p:dataTable id="datosTiposTallas" widgetVar="datosTiposTallas" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosTiposTallas" widgetVar="datosTiposTallas" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                   value="#{controlTiposTallas.listTiposTallas}"  scrollable="true" scrollHeight="#{controlTiposTallas.tamano}"
                                   scrollWidth="830" filteredValue="#{controlTiposTallas.filtrarTiposTallas}" emptyMessage="No se encontraron resultados para la búsqueda"
                                   editable="true" editMode="cell" paginator="false"  selection="#{controlTiposTallas.tiposTallasSeleccionado}"  selectionMode="single">

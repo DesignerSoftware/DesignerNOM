@@ -18,7 +18,7 @@
 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlFamiliares.guardarCambios()}" process="@this"/>
@@ -28,7 +28,7 @@
                                          actionListener="#{controlFamiliares.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          disabled="#{controlFamiliares.activarLOV}" process="@this"/>
@@ -38,7 +38,7 @@
                                          actionListener="#{controlFamiliares.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlFamiliares.exportXLS()}"  ajax="false"/>
@@ -54,7 +54,7 @@
                                          actionListener="#{controlFamiliares.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          actionListener="#{controlFamiliares.mostrarDialogoElegirTabla()}" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -66,16 +66,16 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlFamiliares.duplicarFamiliar()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlFamiliares.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          actionListener="#{controlFamiliares.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlFamiliares.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
@@ -93,7 +93,7 @@
                   </fieldset>
 
 
-                  <fieldset style="position: absolute; left: 10px; top: 105px; width: 830px; height: 340px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 10px; top: 105px; width: 830px; height: 340px; border-radius: 10px;">
                      <legend style="color: blue;text-align:left;"><strong>#{msg['datosFamiliares']}</strong></legend>
 
                      <p:dataTable id="datosFamiliares"  widgetVar="datosFamiliares" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
@@ -262,7 +262,7 @@
                      <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroFamiliar}" style="position: relative; left: 15px; top: 1px; font-weight: bold;"/>
                   </fieldset>   
 
-                  <fieldset style="position: absolute; left: 10px; top: 463px; width: 570px; height: 40px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 10px; top: 463px; width: 570px; height: 40px; border-radius: 10px;">
                      <legend style="color: blue;text-align:left;"><strong>#{msg['datosad']}</strong></legend>
 
                      <div style="position: absolute; width: 175px"> 
@@ -508,19 +508,19 @@
                      <p:watermark for="nuevoTipoFamiliar" value="#{msg['tipof']}"/>
 
                      <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sm}" style="position: absolute; top: 140px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sm}" style="position: absolute; top: 140px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sf}" style="position: absolute; top: 170px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.sf}" style="position: absolute; top: 170px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.be}" style="position: absolute; top: 200px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.be}" style="position: absolute; top: 200px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.nuevoFamiliar.upcad}" style="position: absolute; top: 230px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
@@ -568,19 +568,19 @@
                      <p:watermark for="duplicarTipoFamiliar" value="#{msg['tipof']}"/>
 
                      <strong> <h:outputText value="#{msg['servm']}" style="position: absolute; top: 145px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sm}" style="position: absolute; top: 140px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sm}" style="position: absolute; top: 140px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['subf']}" style="position: absolute; top: 175px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sf}" style="position: absolute; top: 170px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.sf}" style="position: absolute; top: 170px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['ben']}" style="position: absolute; top: 205px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.be}" style="position: absolute; top: 200px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.be}" style="position: absolute; top: 200px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
                      <strong> <h:outputText value="#{msg['upcad']}" style="position: absolute; top: 235px; left: 50px;"/> </strong>
-                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.upcad}" style="position: absolute; top: 230px; left: 220px; ">  
+                     <p:selectBooleanCheckbox value="#{controlFamiliares.duplicarFamiliares.upcad}" style="position: absolute; top: 230px; left: 220px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 

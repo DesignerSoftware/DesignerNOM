@@ -16,7 +16,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                         
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlSoActosInseguros.guardandoSoActosInseguros()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -24,7 +24,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlSoActosInseguros.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlSoActosInseguros.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -32,7 +32,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlSoActosInseguros.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlSoActosInseguros.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -45,7 +45,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlSoActosInseguros.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroSoCondicionesAmbientalesPeligrosaP').show()" update=":formularioDialogos:nuevaaSoCondicionesAmbientalP" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
@@ -54,11 +54,11 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlSoActosInseguros.duplicandoSoActoInseguro()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlSoActosInseguros.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlSoActosInseguros.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
@@ -69,9 +69,9 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['titulo']}</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
-                            <p:dataTable id="datosSoCondicionesAmbientalesP" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 815px ; border: 1px;"                           
+                            <p:dataTable id="datosSoCondicionesAmbientalesP" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 815px; border: 1px;"                           
                                          value="#{controlSoActosInseguros.listSoActosInseguros}" scrollHeight="#{controlSoActosInseguros.tamano}"  
                                          filteredValue="#{controlSoActosInseguros.filtrarSoActosInseguros}" emptyMessage="#{msg['vacio']}"
                                          selection="#{controlSoActosInseguros.soActoInseguroSeleccionado}" selectionMode="single" widgetVar="datosSoCondicionesAmbientalesP"

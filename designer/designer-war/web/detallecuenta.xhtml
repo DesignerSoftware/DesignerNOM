@@ -26,7 +26,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                         <p:toolbar class="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; width: 25px; height: 25px;"/>
                                 <p:tooltip for="guardarRapido" value="#{msg['guardar']}"/>
@@ -34,7 +34,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlDetalleCuenta.editarCelda()}" process="@this"/>
                                 <p:tooltip for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -42,7 +42,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlDetalleCuenta.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlDetalleCuenta.verificarExportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -55,7 +55,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlDetalleCuenta.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -65,16 +65,16 @@
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png)"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlDetalleCuenta.verificarRastroTabla()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlDetalleCuenta.salir()}" action="cuenta" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -89,7 +89,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; left: 10px; top: 120px; width: 830px; height: 160px; border-radius: 10px; text-align: left;">
-                            <legend style="color: blue"><strong>#{msg['cuentadebito']}</strong></legend> 
+                            <legend style="color: blue;"><strong>#{msg['cuentadebito']}</strong></legend> 
                             <p:dataTable id="datosCuentaDebito" widgetVar="datosCuentaDebito" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceD" value="#{controlDetalleCuenta.listCuentasDebito}" 
                                          filteredValue="#{controlDetalleCuenta.filtrarListCuentasDebito}" editable="true" editMode="cell" liveScroll="true" scrollRows="12"
                                          scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaDebito}" scrollWidth="830" emptyMessage="#{msg['vacio']}" 
@@ -240,7 +240,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 305px; left: 10px; width: 830px; height: 160px; border-radius: 10px; text-align: left;">
-                            <legend style="color: blue"><strong>#{msg['cuentacredito']}</strong></legend>
+                            <legend style="color: blue;"><strong>#{msg['cuentacredito']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
                             <p:dataTable id="datosCuentaCredito" widgetVar="datosCuentaCredito" var="infoCredito" rowKey="#{infoCredito.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"   
@@ -251,7 +251,7 @@
 
                                 <p:ajax event="filter" listener="#{controlDetalleCuenta.eventoFiltrarCredito()}"/>
 
-                                <p:column  headerText="#{msg['fechainicial']}" sortBy="#{infoCredito.fechainicial}" filterBy="#{infoCredito.fechainicial}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['fechainicial']}" sortBy="#{infoCredito.fechainicial}" filterBy="#{infoCredito.fechainicial}" filterMatchMode="contains" 
                                            width="80" id="creditoFechaInicial" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">

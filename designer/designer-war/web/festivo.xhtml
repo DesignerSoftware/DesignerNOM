@@ -16,18 +16,18 @@
                <p:panel  id="PanelTotal" header="Históricos Normas Laborales" styleClass="panelTotal">  
 
                   <fieldset style="position: absolute; left: 10px; top: 90px; width: 835px; height: 125px; border-radius: 10px;">
-                     <legend style="font-size: 14px; color: blue"><strong>Paises</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Paises</strong></legend>
                      <p:dataTable id="lovTiposFamiliares" style=" width: 805px;" var="tipofamiliar" value="#{controlFestivos.listPaises}" rowKey="#{tipofamiliar.secuencia}"
                                   selection="#{controlFestivos.paisSeleccionado}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="825" scrollHeight="80"
                                   filteredValue="#{controlFestivos.listPaisesFiltrar}">
                         <p:ajax event="rowSelect" listener="#{controlFestivos.recibirPais()}" update="@this"/>
-                        <p:column  width="60px;">
+                        <p:column width="60px;">
                            <f:facet name="header">
                               <h:outputText value="Codigo"/>
                            </f:facet>
                            <h:outputText value="#{tipofamiliar.codigo}" style="height: 10px;"/>
                         </p:column>
-                        <p:column  width="120px;">
+                        <p:column width="120px;">
                            <f:facet name="header">
                               <h:outputText value="Nombre" style="height: 10px;"/>
                            </f:facet>
@@ -35,10 +35,10 @@
                         </p:column>
                      </p:dataTable>
                   </fieldset>
-                  <fieldset style="position: absolute; left: 10px; top: 230px; width: 835px; height: 225px; border-radius: 10px; ">
-                     <legend style="font-size: 14px; color: blue"><strong>Festivo</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 230px; width: 835px; height: 225px; border-radius: 10px;">
+                     <legend style="font-size: 13px; color: blue;"><strong>Festivo</strong></legend>
 
-                     <p:dataTable id="datosHvEntrevista" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosHvEntrevista" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                   value="#{controlFestivos.listFestivosPorPais}" scrollable="true" scrollHeight="#{controlFestivos.tamano}"  scrollWidth="830"
                                   filteredValue="#{controlFestivos.filtrarFestivosPorPais}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell" paginator="false" selection="#{controlFestivos.festivoSeleccionado}" selectionMode="single">
@@ -68,7 +68,7 @@
                   </fieldset>
 
                   <p:toolbar styleClass="cssToolbar"> 
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlFestivos.guardarFestivos()}" process="@this"/>
@@ -78,7 +78,7 @@
                                          actionListener="#{controlFestivos.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlFestivos.listaValoresBoton()}"   process="@this"/>
@@ -88,7 +88,7 @@
                                          actionListener="#{controlFestivos.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlFestivos.exportXLS()}"  ajax="false"/>
@@ -104,7 +104,7 @@
                                          actionListener="#{controlFestivos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('nuevoRegistroEvalEmpresas').show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nueva Festivo"/>
@@ -116,12 +116,12 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlFestivos.duplicandoFestivos()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="Duplicar Festivo"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlFestivos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlFestivos.cancelarModificacion()}" process="@this"/>  

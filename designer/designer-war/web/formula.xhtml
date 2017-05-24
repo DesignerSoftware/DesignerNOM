@@ -24,7 +24,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" widgetVar="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlFormula.guardarCambios()}" process="@this"/>
@@ -90,7 +90,7 @@
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; left: 5px; top: 70px; width: 835px; height: 284px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['formulas']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['formulas']}</strong></legend>
 
                      <p:dataTable id="datosFormulas" widgetVar="datosFormulas" var="formula" rowKey="#{formula.secuencia}" rowIndexVar="indice" style="width: 820px; position: relative;"                           
                                   value="#{controlFormula.listaFormulas}" scrollable="true" scrollWidth="835"

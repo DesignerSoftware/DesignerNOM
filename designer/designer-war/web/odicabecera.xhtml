@@ -18,7 +18,7 @@
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="Incapacidades Pagadas" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlOdiCabecera.guardarCambios()}" process="@this"/>    
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -26,7 +26,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; "  actionListener="#{controlOdiCabecera.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " disabled="#{controlOdiCabecera.activarlov}"  process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}"/>
@@ -34,7 +34,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlOdiCabecera.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlOdiCabecera.seleccionarExportarXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -49,7 +49,7 @@
 
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; "   process="@this" oncomplete="PF('seleccionarTabla').show()"/>   
                                 <!--oncomplete="PF('nuevaOdiCabeceraAuto').show()" update=":formularioDialogos:nuevaOdiCabeceraAuto"-->
@@ -61,16 +61,16 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "  process="@this" actionListener="#{controlOdiCabecera.duplicandoOdiCabecera()}"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlOdiCabecera.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlOdiCabecera.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload()"/> 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " action="atrasodiscabeceras" process="@this"/>  

@@ -25,7 +25,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlVigenciaLocalizacion.guardadoGeneral()}" process="@this" 
                                          style="background-image: url(Imagenes/Iconos/guardar.png);"/>
@@ -35,7 +35,7 @@
                                          style="background-image: url(Imagenes/Iconos/editar.png);"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" disabled="#{controlVigenciaLocalizacion.activarLOV}" value="" actionListener="#{controlVigenciaLocalizacion.listaValoresBoton()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/lupa.png);"/>
@@ -45,7 +45,7 @@
                                          style="background-image: url(Imagenes/Iconos/embudo.png);"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" ajax="false" actionListener="#{controlVigenciaLocalizacion.verificarExportXLS()}"
                                          style="background-image: url(Imagenes/Iconos/excel.png);"/>
@@ -61,7 +61,7 @@
                                          style="background-image: url(Imagenes/Iconos/pdf.png);"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" actionListener="#{controlVigenciaLocalizacion.validarNuevoRegistro()}"  process="@this"
                                          style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -74,19 +74,19 @@
                                          style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" actionListener="#{controlVigenciaLocalizacion.verificarRastroTabla()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/rastro.png);"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"
                                          style="background-image: url(Imagenes/Iconos/refrescar.png);"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" actionListener="#{controlVigenciaLocalizacion.salir()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/salir.png);"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -106,7 +106,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 107px; left: 10px; height: 165px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="color: blue"><strong>#{msg['localizacion']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['localizacion']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
                      <p:dataTable id="datosVLEmpleado" widgetVar="datosVLEmpleado" var="infoDVL" rowKey="#{infoDVL.secuencia}" rowIndexVar="indice" style="width: 820px;"   
@@ -246,7 +246,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 290px; left: 10px; height: 165px; width: 455px; border-radius: 10px; text-align: left;">
-                     <legend style="color: blue"><strong>#{msg['pcc']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['pcc']}</strong></legend>
 
                      <p:dataTable id="datosVPVigencia" widgetVar="datosVPVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVP" 
                                   value="#{controlVigenciaLocalizacion.vigenciasProrrateosCentroC}" style=" border: 1px; width: 630px; position: inherit;"
@@ -406,7 +406,7 @@
 
 
                   <fieldset style="position: absolute; top: 290px; left: 492px; height: 165px; width: 348px; border-radius: 10px; text-align: left;">
-                     <legend style="color: blue"><strong>#{msg['pp']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['pp']}</strong></legend>
                      <p:dataTable id="datosVPPVigencia" widgetVar="datosVPPVigencia" var="info2" rowKey="#{info2.secuencia}" rowIndexVar="indiceVPP" value="#{controlVigenciaLocalizacion.vigenciasProrrateosProyectos}" 
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoPP}" editable="true" editMode="cell" 
                                   scrollable="true" scrollHeight="#{controlVigenciaLocalizacion.altoTabla3}" scrollWidth="345" emptyMessage="#{msg['vacio']}" style=" border: 1px; width:345px"
@@ -518,12 +518,12 @@
                      <h:outputText id="informacionRegistroVPP" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVPP}" style="position: relative; left: 15px; top: 0px; font-weight: bold;"/>
                   </fieldset>
 
+                  <p:commandButton style="position: absolute; left: 20px; top: 470px; height: 30px; width: 137px; background-image: url(Imagenes/Iconos/boton.png); 
+                                   background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" id="ARCHIVOPLANO" value="Archivo Plano" process="@this" icon="ui-icon-extlink"/>
+                  <p:tooltip for="ARCHIVOPLANO" value="#{msg['archivo']}"/>
+
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVLEmpleado" process="@this" disabled="#{controlVigenciaLocalizacion.guardado}"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaLocalizacion.salir()}" process="@this"/>
-
-                  <p:commandButton style="position: absolute; left: 20px; top: 470px; height: 30px; width: 137px; background-image: url(Imagenes/Iconos/boton.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" id="ARCHIVOPLANO" value="Archivo Plano" process="@this" icon="ui-icon-extlink"/>
-                  <p:tooltip for="ARCHIVOPLANO" value="#{msg['archivo']}"/>
 
                   <!-- DIALOGO L.O.V ESTATICO Localizacion Estr -->
                   <p:dialog header="#{msg['localizacionL']}" widgetVar="LocalizacionDialogo" draggable="true" resizable="false" closable="false" id="LocalizacionDialogo"  

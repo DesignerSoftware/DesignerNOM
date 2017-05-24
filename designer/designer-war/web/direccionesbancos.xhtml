@@ -18,13 +18,13 @@
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="Detalles Bancos : Dirección" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">
-                            <p:toolbarGroup align="left;">
+                            <p:toolbarGroup align="left">
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlDireccionesBancos.guardarCambiosDireccion()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlDireccionesBancos.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                                  disabled="#{controlDireccionesBancos.activarLOV}" actionListener="#{controlDireccionesBancos.listaValoresBoton()}" process="@this"/>
@@ -33,7 +33,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlDireccionesBancos.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlDireccionesBancos.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlDireccionesBancos.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroDireccion').show()" update=":formularioDialogos:nuevaDireccion" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['insertar']}"/>
 
@@ -56,17 +56,17 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlDireccionesBancos.duplicarD()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlDireccionesBancos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  oncomplete="window.location.reload()" actionListener="#{controlDireccionesBancos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);"
                                                  actionListener="#{controlDireccionesBancos.salir()}" action="#{controlDireccionesBancos.retornarPagina()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -407,7 +407,7 @@
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCiudades').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
-                            <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <p:column filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreC']}"/>
                                 </f:facet>

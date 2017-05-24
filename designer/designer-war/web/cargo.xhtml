@@ -32,7 +32,7 @@
                   <p:remoteCommand name="posicionCargo" actionListener="#{controlCargo.posicionCargo()}"/>
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlCargo.guardarGeneral()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/guardar.png);"/>
@@ -42,7 +42,7 @@
                                          style="background-image: url(Imagenes/Iconos/editar.png);"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" actionListener="#{controlCargo.listaValoresBoton()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/lupa.png);"/>
@@ -52,7 +52,7 @@
                                          style="background-image: url(Imagenes/Iconos/embudo.png);"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" ajax="false" actionListener="#{controlCargo.validarExportXLS()}"
                                          style="background-image: url(Imagenes/Iconos/excel.png);"/>
@@ -67,7 +67,7 @@
                                          style="background-image: url(Imagenes/Iconos/pdf.png);"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" onclick="PF('verificarNuevoRegistro').show()" process="@this"
                                          style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/>
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -80,17 +80,17 @@
                                          style="background-image: url(Imagenes/Iconos/duplicar.png);"/>
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" actionListener="#{controlCargo.verificarRastro()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/rastro.png);"/>
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" actionListener="#{controlCargo.cancelarModificacionGeneral()}" process="@this" oncomplete="window.location.reload()"
                                          style="background-image: url(Imagenes/Iconos/refrescar.png)"/>
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" actionListener="#{controlCargo.salir()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/salir.png)"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -109,7 +109,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; left: 7px; top: 105px; width: 840px; height: 167px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['cargos']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['cargos']}</strong></legend>
 
                      <p:dataTable id="datosCargo" widgetVar="datosCargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left; width: 1000px; position: absolute; margin-bottom: 0px;"                           
                                   value="#{controlCargo.listaCargos}" scrollable="true" scrollHeight="#{controlCargo.altoTablaCargo}" scrollWidth="835"
@@ -207,7 +207,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['sueldoMinimo']}" sortBy="#{info.sueldominimo}" filterBy="#{info.sueldominimo}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['sueldoMinimo']}" sortBy="#{info.sueldominimo}" filterBy="#{info.sueldominimo}" filterMatchMode="contains"
                                    id="cargoSueldoMinimo" width="90" filterStyle="display: none; visibility: hidden;">                                 
                            <f:facet name="header">
                               <h:outputText id="headerSalarioMin" value="S. Mínimo"/>
@@ -230,7 +230,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['sueldoMaximo']}" sortBy="#{info.sueldomaximo}" filterBy="#{info.sueldomaximo}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['sueldoMaximo']}" sortBy="#{info.sueldomaximo}" filterBy="#{info.sueldomaximo}" filterMatchMode="contains"
                                    id="cargoSueldoMaximo" width="90" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerSalarioMax" value="S. Máximo"/>
@@ -253,7 +253,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['grupoViatico']}" sortBy="#{info.grupoviatico.descripcion}" filterBy="#{info.grupoviatico.descripcion}" filterMatchMode="contains"  
+                        <p:column headerText="#{msg['grupoViatico']}" sortBy="#{info.grupoviatico.descripcion}" filterBy="#{info.grupoviatico.descripcion}" filterMatchMode="contains"  
                                    width="100" id="cargoGrupoViatico" filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
                               <h:outputText id="headerGrupoV" value="#{msg['grupoViatico']}"/>
@@ -367,10 +367,10 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 7px; top: 290px; width: 857px; height: 195px; border-radius: 10px; padding: 0px; padding-top: 8px;">                            
-                     <p:scrollPanel id="scrollPanelNomina" mode="native" style="position: relative; top: 0px; left: 0px; width: 850px; height: 175px; font-size: 11px; border: none; padding: 0px; padding-top: 10px; ">
+                     <p:scrollPanel id="scrollPanelNomina" mode="native" style="position: relative; top: 0px; left: 0px; width: 850px; height: 175px; font-size: 11px; border: none; padding: 0px; padding-top: 10px;">
 
                         <fieldset style="position: relative; left: 10px; top: -10px; width: 400px; height: 132px; border-radius: 10px; padding-top: 10px; padding-left: 10px; padding-right: 0px; margin: 0px; display: block;">
-                           <legend style="color: blue"><strong>#{msg['sueldosMercados']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['sueldosMercados']}</strong></legend>
 
                            <p:dataTable id="datosSueldoMercado" widgetVar="datosSueldoMercado" var="infoSM" rowKey="#{infoSM.secuencia}" rowIndexVar="indiceSM" style="border: 1px; text-align: left; width: 380px;"
                                         value="#{controlCargo.listaSueldosMercados}" scrollable="true" scrollHeight="#{controlCargo.altoTablaSueldoMercado}" scrollWidth="380"
@@ -421,7 +421,7 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column  headerText="#{msg['sueldoMaximo']}" sortBy="#{infoSM.sueldomax}" filterBy="#{infoSM.sueldomax}" filterMatchMode="contains" 
+                              <p:column headerText="#{msg['sueldoMaximo']}" sortBy="#{infoSM.sueldomax}" filterBy="#{infoSM.sueldomax}" filterMatchMode="contains" 
                                          width="80" id="sueldoMercadoSueldoMaximo" filterStyle="display: none; visibility: hidden;">  
                                  <p:cellEditor>  
                                     <f:facet name="output">
@@ -447,7 +447,7 @@
                         </fieldset> 
 
                         <fieldset style="position: relative; left: 10px; top: -5px; width: 400px; height: 132px; border-radius: 10px; padding-top: 10px; padding-left: 10px; padding-right: 0px; margin: 0px; display: block;">
-                           <legend style="color: blue"><strong>#{msg['competenciasCargos']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['competenciasCargos']}</strong></legend>
 
                            <p:dataTable id="datosCompetenciaCargo" widgetVar="datosCompetenciaCargo" var="infoCC" rowKey="#{infoCC.secuencia}" rowIndexVar="indiceCC" style="border: 1px; text-align: left;width: 380px"
                                         value="#{controlCargo.listaCompetenciasCargos}" scrollable="true" scrollHeight="#{controlCargo.altoTablaCompetencia}" scrollWidth="380"
@@ -456,7 +456,7 @@
 
                               <p:ajax event="filter" listener="#{controlCargo.eventoFiltrar()}"/>
 
-                              <p:column  headerText="#{msg['descripcion']}" sortBy="#{infoCC.evalcompetencia.descripcion}" filterBy="#{infoCC.evalcompetencia.descripcion}" filterMatchMode="contains" 
+                              <p:column headerText="#{msg['descripcion']}" sortBy="#{infoCC.evalcompetencia.descripcion}" filterBy="#{infoCC.evalcompetencia.descripcion}" filterMatchMode="contains" 
                                          width="130" id="competenciaCargoDescripcion" filterStyle="display: none; visibility: hidden;">  
                                  <p:cellEditor>  
                                     <f:facet name="output">
@@ -481,7 +481,7 @@
                         </fieldset> 
 
                         <fieldset style="position: absolute; left: 432px; top: 0px; width: 384px; height: 290px; border-radius: 10px; padding-top: 10px; padding-left: 10px; padding-right: 0px; margin: 0px;">
-                           <legend style="color: blue"><strong>#{msg['tiposDetalles']}</strong></legend>
+                           <legend style="color: blue;"><strong>#{msg['tiposDetalles']}</strong></legend>
 
                            <p:dataTable id="datosTipoDetalle" widgetVar="datosTipoDetalle" var="infoTD" rowKey="#{infoTD.secuencia}" rowIndexVar="indiceTD" style="border: 1px; text-align: left;width: 370px;"
                                         value="#{controlCargo.listaTiposDetalles}" scrollable="true" scrollHeight="#{controlCargo.altoTablaTipoDetalle}" scrollWidth="370"
@@ -490,7 +490,7 @@
 
                               <p:ajax event="filter" listener="#{controlCargo.eventoFiltrar()}"/>
 
-                              <p:column  headerText="#{msg['codigo']}" sortBy="#{infoTD.codigo}" style="text-align: center;" filterBy="#{infoTD.codigo}" filterMatchMode="contains"  
+                              <p:column headerText="#{msg['codigo']}" sortBy="#{infoTD.codigo}" style="text-align: center;" filterBy="#{infoTD.codigo}" filterMatchMode="contains"  
                                          id="tipoDetalleCodigo" width="30" filterStyle="display: none; visibility: hidden;">  
                                  <f:facet name="header">
                                     <h:outputText id="headerCde" value="Cod"/>
@@ -514,7 +514,7 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column  headerText="#{msg['descripcion']}" sortBy="#{infoTD.descripcion}" filterBy="#{infoTD.descripcion}" filterMatchMode="contains"  
+                              <p:column headerText="#{msg['descripcion']}" sortBy="#{infoTD.descripcion}" filterBy="#{infoTD.descripcion}" filterMatchMode="contains"  
                                          id="tipoDetalleDescripcion" filterStyle="display: none; visibility: hidden;">  
                                  <p:cellEditor>  
                                     <f:facet name="output">
@@ -534,7 +534,7 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column  headerText="#{msg['enfoque']}" sortBy="#{infoTD.enfoque.descripcion}" filterBy="#{infoTD.enfoque.descripcion}" filterMatchMode="contains"  
+                              <p:column headerText="#{msg['enfoque']}" sortBy="#{infoTD.enfoque.descripcion}" filterBy="#{infoTD.enfoque.descripcion}" filterMatchMode="contains"  
                                          id="tipoDetalleEnfoque" filterStyle="display: none; visibility: hidden;">  
                                  <p:cellEditor>  
                                     <f:facet name="output">

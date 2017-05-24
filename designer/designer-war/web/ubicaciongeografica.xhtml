@@ -15,7 +15,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="Ubicaciones Geográficas" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlUbicacionesGeograficas.guardarCambiosUbicacionGeografica()}" process="@this"/>
@@ -24,7 +24,7 @@
                                          actionListener="#{controlUbicacionesGeograficas.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlUbicacionesGeograficas.listaValoresBoton()}" process="@this"/>
@@ -34,7 +34,7 @@
                                          actionListener="#{controlUbicacionesGeograficas.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          ajax="false" actionListener="#{controlUbicacionesGeograficas.exportXLS()}"/>
@@ -50,7 +50,7 @@
                                          actionListener="#{controlUbicacionesGeograficas.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          actionListener="#{controlUbicacionesGeograficas.mostrarDialogoNuevoCiudades()}" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['insertar']}"/>
@@ -62,19 +62,19 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlUbicacionesGeograficas.duplicandoUbicacionG()}"  process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlUbicacionesGeograficas.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlUbicacionesGeograficas.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlUbicacionesGeograficas.salir()}" process="@this"/>  
@@ -95,7 +95,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 112px; left: 10px; height: 340px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Ubicaciones Geograficas</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Ubicaciones Geograficas</strong></legend>
 
                      <p:dataTable id="datosUbicacionesGeograficas" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 1340px; position: absolute;" widgetVar="datosUbicacionesGeograficas"
                                   value="#{controlUbicacionesGeograficas.listUbicacionesGeograficasPorEmpresa}" scrollable="true" scrollHeight="#{controlUbicacionesGeograficas.tamano}" selectionMode="single"
@@ -520,13 +520,13 @@
                      </p:inputText>
                      <p:watermark for="nuevaFax" value="Fax"/>
 
-                     <strong><h:outputText value="#{msg['obs']} : " style=" position: absolute; left:320px ; top: 60px; "/></strong>
+                     <strong><h:outputText value="#{msg['obs']} : " style=" position: absolute; left:320px; top: 60px; "/></strong>
                      <p:inputText autocomplete="off" id="nuevaObservacion" maxlength="50" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.observacion}" style=" width: 135px; position: absolute; left: 480px; top: 55px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaObservacion" value="#{msg['obs']}"/>
 
-                     <strong><h:outputText value="Zona" style="position: absolute;left:320px ; top: 90px;"/></strong>
+                     <strong><h:outputText value="Zona" style="position: absolute;left:320px; top: 90px;"/></strong>
                      <p:selectOneMenu id="nuevaZona" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.zona}" style=" width: 116px; position: absolute;left: 480px; top: 85px; text-transform: uppercase;">  
                         <f:selectItem itemLabel=" " itemValue=""/>                
                         <f:selectItem itemLabel="URBANA" itemValue="URBANA"/>  
@@ -535,13 +535,13 @@
                      </p:selectOneMenu>   
                      <p:watermark for="nuevaZona" value="Zona"/>
 
-                     <strong><h:outputText value="#{msg['act1']} : " style=" position: absolute;left:320px ; top: 120px; "/></strong>
+                     <strong><h:outputText value="#{msg['act1']} : " style=" position: absolute;left:320px; top: 120px; "/></strong>
                      <p:inputText autocomplete="off" id="nuevaAC" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.actividadeconomica}" style=" width: 135px; position: absolute; left: 480px; top: 115px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaAC" value="#{msg['act1']}"/>
 
-                     <strong><h:outputText value="Sucursal:" style=" position: absolute;left:320px ; top: 150px;"/></strong>
+                     <strong><h:outputText value="Sucursal:" style=" position: absolute;left:320px; top: 150px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaSucursal" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.sucursalPila.descripcion}" style=" width: 135px; position: absolute; left: 480px; top: 145px; text-transform: uppercase;">
                         <p:ajax event="click" listener="#{controlUbicacionesGeograficas.valoresBackupAutocompletar(1, 'SUCURSALESPILA')}"/>
                         <p:ajax event="change" listener="#{controlUbicacionesGeograficas.autocompletarNuevo('SUCURSALESPILA', controlUbicacionesGeograficas.nuevaUbicacionGeografica.sucursalPila.descripcion , 1)}"/>
@@ -550,7 +550,7 @@
                      <p:commandButton style="position: absolute; left: 625px; top: 145px;" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlUbicacionesGeograficas.asignarIndex(info, 1, 9)}"/>   
                      <p:watermark for="nuevaSucursal" value="Sucursal"/>
 
-                     <strong><h:outputText value="#{msg['codalt']} " style=" position: absolute;left:320px ; top: 180px; "/></strong>
+                     <strong><h:outputText value="#{msg['codalt']} " style=" position: absolute;left:320px; top: 180px; "/></strong>
                      <p:inputText autocomplete="off" id="nuevaCA" maxlength="4" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.codigoalternativo}" style=" width: 135px; position: absolute; left: 480px; top: 175px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -622,7 +622,7 @@
                      </p:selectOneMenu>   
                      <p:watermark for="duplicarZona" value="Zona"/>
 
-                     <strong><h:outputText value="#{msg['act1']} : " style=" position: absolute;left:320px ; top: 120px; "/></strong>
+                     <strong><h:outputText value="#{msg['act1']} : " style=" position: absolute;left:320px; top: 120px; "/></strong>
                      <p:inputText autocomplete="off" id="duplicarAC" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.actividadeconomica}" style=" width: 135px; position: absolute; left: 480px; top: 115px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>

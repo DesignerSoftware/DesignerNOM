@@ -17,7 +17,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlSolucionFormula.guardarCambios()}"  process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -25,7 +25,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlSolucionFormula.editarCelda()}" process="@this"/>
                         <p:tooltip for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; "  process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -33,7 +33,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlSolucionFormula.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlSolucionFormula.exportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlSolucionFormula.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; "  process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -57,18 +57,18 @@
                         <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "  process="@this"/>  
                         <p:tooltip for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlSolucionFormula.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar"  value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; "  process="@this" actionListener="#{controlSolucionFormula.refrescar()}"
                                          oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; "
                                          process="@this" actionListener="#{controlSolucionFormula.salir()}"/>
@@ -86,8 +86,8 @@
                      </h:outputText>   
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 370px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['informacion']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 370px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['informacion']}</strong></legend>
 
                      <p:dataTable id="datosSolucionFormula" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"  widgetVar="datosSolucionFormula"
                                   style="border: 1px; text-align: left;width: 810px;"  value="#{controlSolucionFormula.listaSolucionesFormulas}" scrollable="true" scrollWidth="825" 

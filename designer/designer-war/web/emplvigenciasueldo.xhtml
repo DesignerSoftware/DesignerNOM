@@ -21,7 +21,7 @@
                   </h:outputText>
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlVigenciaSueldo.guardadoGeneral()}" process="@this" oncomplete="window.location.reload()"
                                          style="background-image: url(Imagenes/Iconos/guardar.png);"/>
@@ -103,7 +103,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 105px; left: 10px; height: 165px; width: 830px; border-radius: 10px;">
-                     <legend style=" color: blue"><strong>#{msg['sueldo']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['sueldo']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
                      <p:dataTable id="datosVSEmpleado" widgetVar="datosVSEmpleado" var="infoDVS" rowKey="#{infoDVS.secuencia}" rowIndexVar="indice"
@@ -115,7 +115,7 @@
                         <f:event type="preRenderView" listener="#{controlVigenciaSueldo.recordarSeleccionVS()}"/>
                         <p:ajax event="filter" listener="#{controlVigenciaSueldo.eventoFiltrarS()}"/>
 
-                        <p:column  headerText="#{msg['fecha']}" sortBy="#{infoDVS.fechavigencia}" filterBy="#{infoDVS.fechavigencia}"
+                        <p:column headerText="#{msg['fecha']}" sortBy="#{infoDVS.fechavigencia}" filterBy="#{infoDVS.fechavigencia}"
                                    filterMatchMode="contains" width="74" id="vSFechaVigencia" filterStyle="display: none; visibility: hidden;" style="text-align: center;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -138,7 +138,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['motivocambiosueldo']}" sortBy="#{infoDVS.motivocambiosueldo.nombre}" filterBy="#{infoDVS.motivocambiosueldo.nombre}" 
+                        <p:column headerText="#{msg['motivocambiosueldo']}" sortBy="#{infoDVS.motivocambiosueldo.nombre}" filterBy="#{infoDVS.motivocambiosueldo.nombre}" 
                                    filterMatchMode="contains" id="vSMotivoCambioSueldo" filterStyle="display: none; visibility: hidden">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoDVS.motivocambiosueldo.nombre}"/></f:facet>  
@@ -159,7 +159,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['tiposueldo']}" sortBy="#{infoDVS.tiposueldo.descripcion}" filterBy="#{infoDVS.tiposueldo.descripcion}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['tiposueldo']}" sortBy="#{infoDVS.tiposueldo.descripcion}" filterBy="#{infoDVS.tiposueldo.descripcion}" filterMatchMode="contains" 
                                    id="vSTipoSueldo" width="150" filterStyle="display: none; visibility: hidden">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoDVS.tiposueldo.descripcion}"/></f:facet>  
@@ -224,7 +224,7 @@
                         </p:column>
                         <!--<p:tooltip for="vSVigenciaRetroactivo"  showEvent="focus" value="#{msg['vigenciaretroactivo']}"/>--> 
 
-                        <p:column  headerText="#{msg['valor']}" sortBy="#{infoDVS.valor}" filterBy="#{infoDVS.valor}" filterMatchMode="contains" id="vSValor" width="100" filterStyle="display: none; visibility: hidden;" style="text-align: right">                                  
+                        <p:column headerText="#{msg['valor']}" sortBy="#{infoDVS.valor}" filterBy="#{infoDVS.valor}" filterMatchMode="contains" id="vSValor" width="100" filterStyle="display: none; visibility: hidden;" style="text-align: right">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoDVS.valor}">
@@ -245,7 +245,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['observaciones']}" sortBy="#{infoDVS.observaciones}" filterBy="#{infoDVS.observaciones}" filterMatchMode="contains" id="vSObservaciones" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column headerText="#{msg['observaciones']}" sortBy="#{infoDVS.observaciones}" filterBy="#{infoDVS.observaciones}" filterMatchMode="contains" id="vSObservaciones" width="133" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoDVS.observaciones}"/>

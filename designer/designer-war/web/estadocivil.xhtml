@@ -15,7 +15,7 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Estados Civiles" styleClass="panelTotal">  
                          <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                                  actionListener="#{controlEstadosCiviles.guardarEstadoCivil()}" process="@this"/>
@@ -25,7 +25,7 @@
                                                  actionListener="#{controlEstadosCiviles.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                                  actionListener="#{controlEstadosCiviles.listaValoresBoton()}" disabled="#{controlEstadosCiviles.activarLov}"   process="@this"/>
@@ -35,7 +35,7 @@
                                                  actionListener="#{controlEstadosCiviles.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                                  actionListener="#{controlEstadosCiviles.exportXLS()}"  ajax="false"/>
@@ -51,7 +51,7 @@
                                                  actionListener="#{controlEstadosCiviles.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                                  oncomplete="PF('nuevoRegistroEstadoCivil').show()" update=":formularioDialogos:nuevaEstadoCivil" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -63,17 +63,17 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                                  actionListener="#{controlEstadosCiviles.duplicarEstadosCiviles()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                                  actionListener="#{controlEstadosCiviles.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  actionListener="#{controlEstadosCiviles.cancelarModificacion()}" 
                                                  oncomplete="window.location.reload()"  process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                                  actionListener="#{controlEstadosCiviles.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
@@ -87,9 +87,9 @@
                                         id="ATRAS" value="" actionListener="#{controlEstadosCiviles.salir()}"/>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Estados Civiles</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Estados Civiles</strong></legend>
 
-                            <p:dataTable id="datosEstadosCiviles" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                            <p:dataTable id="datosEstadosCiviles" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                          value="#{controlEstadosCiviles.listEstadosCiviles}"  scrollable="true" scrollHeight="#{controlEstadosCiviles.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlEstadosCiviles.filtrarEstadosCiviles}" emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"  widgetVar="datosEstadosCiviles"

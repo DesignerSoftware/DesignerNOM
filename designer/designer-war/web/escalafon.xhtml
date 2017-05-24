@@ -17,7 +17,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                         <p:toolbar style="position: absolute; top: 37px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEscalafon.guardarCambios()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -62,7 +62,7 @@
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEscalafon.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
                                 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEscalafon.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -73,7 +73,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 380px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 380px; border-radius: 10px;">
                             <legend style="color: blue;text-align:left;"><strong>#{msg['escalafones']}</strong></legend>
 
                             <p:dataTable id="datosEscalafon" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 815px; border: 1px; text-align: left"                           
@@ -101,7 +101,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['categoria']}" sortBy="#{info.categoria.descripcion}" filterBy="#{info.categoria.descripcion}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['categoria']}" sortBy="#{info.categoria.descripcion}" filterBy="#{info.categoria.descripcion}" filterMatchMode="contains" 
                                           id="escalafonCategoria" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.categoria.descripcion}"/></f:facet>  
@@ -115,7 +115,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 490px; margin: -14px; height: 26px; border: none; color: blue" id="fooCategoria" action="categoriaesca"  value=" "/>
+                                        <p:commandButton style="width: 490px; margin: -14px; height: 26px; border: none; color: blue;" id="fooCategoria" action="categoriaesca"  value=" "/>
                                     </f:facet>
                                 </p:column> 
                                 
@@ -133,7 +133,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 490px; margin: -14px; height: 26px; border: none; color: blue" id="fooSubCategoria"  value=" "/>
+                                        <p:commandButton style="width: 490px; margin: -14px; height: 26px; border: none; color: blue;" id="fooSubCategoria"  value=" "/>
                                     </f:facet>
                                 </p:column> 
                             </p:dataTable>  

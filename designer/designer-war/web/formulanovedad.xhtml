@@ -25,7 +25,7 @@
 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlFormulaNovedad.guardarGeneral()}" process="@this"/>
@@ -99,8 +99,8 @@
                      <h:outputText id="nombreCortoF" value="#{controlFormulaNovedad.formulaActual.nombrecorto}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 140px; top: 1px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 106px; width: 830px; height: 362px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['infoFormula']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 106px; width: 830px; height: 362px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['infoFormula']}</strong></legend>
 
                      <p:dataTable id="datosFormulaNovedad" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 810px;"                           
                                   value="#{controlFormulaNovedad.listFormulasNovedades}" scrollable="true" scrollHeight="#{controlFormulaNovedad.altoTabla}" scrollWidth="825"
@@ -174,7 +174,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="U" style="padding: 0px;" sortBy="#{info.usaordenformulaconcepto}" filterBy="#{info.usaordenformulaconcepto}" filterMatchMode="contains" 
+                        <p:column headerText="U" style="padding: 0px;" sortBy="#{info.usaordenformulaconcepto}" filterBy="#{info.usaordenformulaconcepto}" filterMatchMode="contains" 
                                    id="formulaUsa" width="22" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText value="U" id="textU"/>
@@ -190,7 +190,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="G" style="padding: 0px;" sortBy="#{info.garantizada}" filterBy="#{info.garantizada}" filterMatchMode="contains" 
+                        <p:column headerText="G" style="padding: 0px;" sortBy="#{info.garantizada}" filterBy="#{info.garantizada}" filterMatchMode="contains" 
                                    id="formulaGarantiza" width="22" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText value="G" id="textG"/>

@@ -18,7 +18,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          id="guardarRapido" value="" actionListener="#{controlEstructura.guardarCambiosOrganigramas()}" process="@this"/>
@@ -27,7 +27,7 @@
                                          id="editar" value="" actionListener="#{controlEstructura.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          id="listaValores" value="" disabled="#{controlEstructura.activarLOV}" actionListener="#{controlEstructura.listaValoresBoton()}" process="@this"/>
@@ -37,7 +37,7 @@
                                          id="filtrar" value="" actionListener="#{controlEstructura.activarCtrlF11()}" process="@this"/>
                         <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          id="exportarXLS" value="" ajax="false" actionListener="#{controlEstructura.exportXLS()}"/>
@@ -53,7 +53,7 @@
                                          id="exportarPDF" value="" actionListener="#{controlEstructura.exportPDF()}" ajax="false"/>
                         <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          id="insertar" value="" oncomplete="PF('NuevoRegistroOrganigramas').show()" update=":formularioDialogos:nuevoOrganigrama"  process="@this"/> 
@@ -67,18 +67,18 @@
                                          id="duplicar" value="" actionListener="#{controlEstructura.duplicarOrg()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                          id="rastro" value="" actionListener="#{controlEstructura.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          id="refrescar" value="" actionListener="#{controlEstructura.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
                                          id="salir" value="" actionListener="#{controlEstructura.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -87,7 +87,7 @@
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; top: 70px; width: 830px; height: 130px; border-radius: 10px; left: 10px;">
-                     <legend style="color: blue"><strong>#{msg['organigramas']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['organigramas']}</strong></legend>
 
                      <p:dataTable id="datosOrganigramas" var="organigrama" style="width: 814px;" value="#{controlEstructura.listaOrganigramas}"
                                   rowKey="#{organigrama.secuencia}" scrollable="true" scrollHeight="#{controlEstructura.altoTabla}" scrollWidth="830" editable="true" 
@@ -209,7 +209,7 @@
                   <!--                        <p:remoteCommand name="posicionNIT" actionListener="#/{controlEstructura.posicionNIT()}"/>-->
 
                   <fieldset style="position: absolute; top: 217px; width: 830px; height: 265px; border-radius: 10px; left: 10px;">
-                     <legend style="color: blue"><strong>#{msg['arbol']}</strong></legend>                        
+                     <legend style="color: blue;"><strong>#{msg['arbol']}</strong></legend>                        
                      <p:tree id="arbolEstructuras" widgetVar="arbolEstructuras"  value="#{controlEstructura.arbolEstructuras}"
                              style="width: 825px; position: absolute; height: 220px;" var="estructura" animate="true"
                              selectionMode="single" styleClass="ui-tree">  

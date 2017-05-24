@@ -26,7 +26,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass='panelTotal'>
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" process="@this" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlCambiosMasivos.guardarCambiosParametros()}"/>
@@ -36,7 +36,7 @@
                                          actionListener="#{controlCambiosMasivos.editar()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlCambiosMasivos.botonLOV()}" process="@this"/>
@@ -45,7 +45,7 @@
                         <p:commandButton id="filtrar" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/embudo.png);"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" ajax="false" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlCambiosMasivos.exportXLS()}"/>
@@ -60,7 +60,7 @@
                                          actionListener="#{controlCambiosMasivos.exportPDF()}"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -70,16 +70,16 @@
                         <p:commandButton id="duplicar" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" disabled="true" value="" process="@this" style="background-image: url(Imagenes/Iconos/rastro.png);"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" oncomplete="window.location.reload()" style="background-image: url(Imagenes/Iconos/refrescar.png)"
                                          actionListener="#{controlCambiosMasivos.cancelarModificaciones()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" process="@this" actionListener="#{controlCambiosMasivos.salir()}" style="background-image: url(Imagenes/Iconos/salir.png)"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -87,7 +87,7 @@
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; top: 70px; left: 8px; height: 165px; width: 250px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['titulo1']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['titulo1']}</strong></legend>
 
                      <p:dataTable id="datosEmpleadosParametros" widgetVar="datosEmpleadosParametros" var="empleadoParametro" rowKey="#{empleadoParametro.secuencia}"
                                   rowIndexVar="indice" style="font-size: 11px;"                            
@@ -108,7 +108,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 70px; left: 285px; height: 165px; width: 557px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['titulo2']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['titulo2']}</strong></legend>
 
                      <p:dataTable id="datosCambiosMasivos" widgetVar="datosCambiosMasivos" var="cambioM" rowKey="#{cambioM.secuencia}"
                                   rowIndexVar="indice" style="font-size: 11px;"                            
@@ -152,7 +152,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 253px; left: 8px; height: 230px; width: 837px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['titulo3']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['titulo3']}</strong></legend>
 
                      <p:scrollPanel id="scrollPanelPrincipal" widgetVar="scrollPanelPrincipal" mode="native" class="cssScrollPanelsBusquedaAv" style=" width: 830px; height: 220px;">
 

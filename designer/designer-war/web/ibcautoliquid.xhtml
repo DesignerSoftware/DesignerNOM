@@ -18,7 +18,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar  styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          process="@this" actionListener="#{controlIbcAutoliquid.guardadoGeneral()}"/>
@@ -28,7 +28,7 @@
                                          actionListener="#{controlIbcAutoliquid.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlIbcAutoliquid.listaValoresBoton()}" process="@this"/>
@@ -38,7 +38,7 @@
                                          actionListener="#{controlIbcAutoliquid.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlIbcAutoliquid.verificarExportXLS()}" ajax="false"/>
@@ -53,7 +53,7 @@
                                          actionListener="#{controlIbcAutoliquid.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          actionListener="#{controlIbcAutoliquid.validarIngresoNuevoRegistro()}"  process="@this"/> 
@@ -67,19 +67,19 @@
                                          actionListener="#{controlIbcAutoliquid.validarDuplicadoRegistro()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlIbcAutoliquid.verificarRastroTabla()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlIbcAutoliquid.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlIbcAutoliquid.salir()}" process="@this"/>  
@@ -100,7 +100,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; left: 210px; top: 110px; width: 410px; height: 135px; border-radius: 10px; text-align: left;">
-                     <legend style="color: blue"><strong>#{msg['tipoentidad']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['tipoentidad']}</strong></legend>
 
                      <p:dataTable id="datosTipoEntidad" var="infoTE" rowKey="#{infoTE.secuencia}" rowIndexVar="indiceTE" widgetVar="datosTipoEntidad"
                                   style="border: 1px; width: 390px;"  value="#{controlIbcAutoliquid.listTiposEntidades}" 
@@ -128,7 +128,7 @@
                   </fieldset>    
 
                   <fieldset style="position: absolute; left: 10px; top: 260px; width: 830px; height: 220px; border-radius: 10px; text-align: left;">
-                     <legend style="color: blue"><strong>#{msg['ibcs']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['ibcs']}</strong></legend>
 
                      <p:dataTable id="datosIBCS" var="infoIBC" rowKey="#{infoIBC.secuencia}" rowIndexVar="indice" widgetVar="datosIBCS"
                                   style="border: 1px; width: 810px;"  value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}" 

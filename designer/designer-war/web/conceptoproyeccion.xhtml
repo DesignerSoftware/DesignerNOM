@@ -16,10 +16,10 @@
                     <p:panel  id="PanelTotal" header="Conceptos Proyecciones" style="position: absolute; width: 874px; height: 510px; text-align: left;">  
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Concepto Proyección</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Concepto Proyección</strong></legend>
 
                             <p:dataTable id="datosConceptosProyecciones" var="info" rowKey="#{info.secuencia}"  
-                                         rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlConceptosProyecciones.listConceptosProyecciones}" 
                                          scrollable="true" scrollHeight="#{controlConceptosProyecciones.tamano}" 
                                          scrollWidth="830"
@@ -41,7 +41,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 800px; margin: -14px; height: 20px; border: none; color: blue" id="fooCiudad"  value=""/>
+                                        <p:commandButton style="width: 800px; margin: -14px; height: 20px; border: none; color: blue;" id="fooCiudad"  value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -66,7 +66,7 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlConceptosProyecciones.guardarConceptosProyecciones()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="Guardar Cambios"/>
@@ -74,7 +74,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlConceptosProyecciones.editarCelda()}"  process="@this"/>
                                 <p:tooltip  for="editar" value="Editar Celda"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlConceptosProyecciones.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip  for="listaValores" value="Lista de Valores"/>
@@ -82,7 +82,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlConceptosProyecciones.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip  for="filtrar" value="Filtrar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlConceptosProyecciones.exportXLS()}"  ajax="false"/>
                                 <p:tooltip  for="exportarXLS" value="Exportar a XLS"/>
@@ -95,7 +95,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlConceptosProyecciones.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  actionListener="#{controlConceptosProyecciones.cargarNuevoConceptosProyecciones()}" process="@this"/> 
                                 <p:tooltip  for="insertar" value="Agregar Concepto Proyección"/>
 
@@ -104,11 +104,11 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlConceptosProyecciones.duplicandoConceptosProyecciones()}" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="Duplicar Concepto Proyección"/>
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlConceptosProyecciones.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlConceptosProyecciones.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>

@@ -17,7 +17,7 @@
                <p:panel  id="PanelTotal" header="Motivos de Cambios de Cargos" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;">  
+                     <p:toolbarGroup align="left">  
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlMotivosCambiosCargos.guardarMotivosCambiosCargos()}" process="@this"/>
@@ -27,7 +27,7 @@
                                          actionListener="#{controlMotivosCambiosCargos.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          disabled="#{controlMotivosCambiosCargos.activarLOV}" actionListener="#{controlMotivosCambiosCargos.listaValoresBoton()}" process="@this"/>
@@ -37,7 +37,7 @@
                                          actionListener="#{controlMotivosCambiosCargos.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlMotivosCambiosCargos.exportXLS()}"  ajax="false"/>
@@ -53,7 +53,7 @@
                                          actionListener="#{controlMotivosCambiosCargos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('nuevoRegistroMotivoCambiosCargos').show()" update=":formularioDialogos:nuevoMotivoCambioCargo" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -66,18 +66,18 @@
                                          actionListener="#{controlMotivosCambiosCargos.duplicarMotivosCambiosCargos()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlMotivosCambiosCargos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlMotivosCambiosCargos.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlMotivosCambiosCargos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
@@ -88,9 +88,9 @@
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlMotivosCambiosCargos.salir()}"/>
 
                   <fieldset style="position: absolute; top: 77px; left: 10px; height: 380px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Motivos de Cambios Cargos</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Motivos de Cambios Cargos</strong></legend>
 
-                     <p:dataTable id="datosMotivoCambioCargo" widgetVar="datosMotivoCambioCargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosMotivoCambioCargo" widgetVar="datosMotivoCambioCargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                   value="#{controlMotivosCambiosCargos.listMotivosCambiosCargos}" scrollHeight="#{controlMotivosCambiosCargos.tamano}" 
                                   filteredValue="#{controlMotivosCambiosCargos.filtrarMotivosCambiosCargos}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell"  scrollable="true" liveScroll="true" scrollRows="50"

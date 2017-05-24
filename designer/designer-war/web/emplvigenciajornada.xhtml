@@ -16,7 +16,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 37px; left: 12px; height: 24px">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlVigenciaJornada.guardadoGeneral()}" process="@this"/>
@@ -26,7 +26,7 @@
                                          actionListener="#{controlVigenciaJornada.editarCelda()}" process="@this"/>
                         <p:tooltip for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" disabled="#{controlVigenciaJornada.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          actionListener="#{controlVigenciaJornada.listaValoresBoton()}" process="@this"/>
@@ -36,7 +36,7 @@
                                          actionListener="#{controlVigenciaJornada.activarCtrlF11()}" process="@this"/>
                         <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          ajax="false" actionListener="#{controlVigenciaJornada.verificarExportXLS()}"/>
@@ -52,7 +52,7 @@
                                          actionListener="#{controlVigenciaJornada.validarExportPDF()}" ajax="false"/>
                         <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                          oncomplete="PF('NuevoRegistroPagina').show()" update=":formularioDialogos:NuevoRegistroPanel"  process="@this"/> 
                         <p:tooltip for="insertar" value="#{msg['nuevo']}"/>
@@ -65,18 +65,18 @@
                                          actionListener="#{controlVigenciaJornada.verificarDuplicarVigencia()}"  process="@this"/>  
                         <p:tooltip for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                          actionListener="#{controlVigenciaJornada.verificarRastroTabla()}" process="@this"/>  
                         <p:tooltip for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          actionListener="#{controlVigenciaJornada.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/> 
                         <p:tooltip for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
                                          actionListener="#{controlVigenciaJornada.salir()}" process="@this"/>  
@@ -96,7 +96,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 105px; left: 10px; height: 178px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['jornada']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['jornada']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
                      <p:dataTable id="datosVJEmpleado" widgetVar="datosVJEmpleado" var="infoVJ" rowKey="#{infoVJ.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 820px;"   
@@ -107,7 +107,7 @@
                         <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlVigenciaJornada.recordarSeleccionVJ()}"/>
 
-                        <p:column  headerText="#{msg['fecha']}" sortBy="#{infoVJ.fechavigencia}" filterBy="#{infoVJ.fechavigencia}" filterMatchMode="contains"  width="70" id="vJFechaVigencia" filterStyle="display: none; visibility: hidden;">  
+                        <p:column headerText="#{msg['fecha']}" sortBy="#{infoVJ.fechavigencia}" filterBy="#{infoVJ.fechavigencia}" filterMatchMode="contains"  width="70" id="vJFechaVigencia" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoVJ.fechavigencia}">
@@ -128,7 +128,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['nombrejornada']}" sortBy="#{infoVJ.jornadatrabajo.descripcion}" filterBy="#{infoVJ.jornadatrabajo.descripcion}" filterMatchMode="contains" id="vJNombreJornada" width="300" filterStyle="display: none; visibility: hidden">                                  
+                        <p:column headerText="#{msg['nombrejornada']}" sortBy="#{infoVJ.jornadatrabajo.descripcion}" filterBy="#{infoVJ.jornadatrabajo.descripcion}" filterMatchMode="contains" id="vJNombreJornada" width="300" filterStyle="display: none; visibility: hidden">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoVJ.jornadatrabajo.descripcion}"/></f:facet>  
                               <f:facet name="input">
@@ -145,7 +145,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['tipodescanso']}" sortBy="#{infoVJ.tipodescanso.descripcion}" filterBy="#{infoVJ.tipodescanso.descripcion}" filterMatchMode="contains" id="vJTipoDescanso" filterStyle="display: none; visibility: hidden">                                  
+                        <p:column headerText="#{msg['tipodescanso']}" sortBy="#{infoVJ.tipodescanso.descripcion}" filterBy="#{infoVJ.tipodescanso.descripcion}" filterMatchMode="contains" id="vJTipoDescanso" filterStyle="display: none; visibility: hidden">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoVJ.tipodescanso.descripcion}"/></f:facet>  
                               <f:facet name="input">
@@ -169,7 +169,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 300px; left: 10px; height: 178px; width: 400px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['dtt']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['dtt']}</strong></legend>
                      <p:dataTable id="datosVigenciaCT" widgetVar="datosVigenciaCT" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVCT" value="#{controlVigenciaJornada.listVigenciasCompensacionesTiempo}"
                                   editable="true" editMode="cell"  filteredValue="#{controlVigenciaJornada.filtrarVigenciasCompensacionesTiempo}"
                                   scrollable="true" scrollHeight="#{controlVigenciaJornada.altoTabla2}" emptyMessage="#{msg['vacio']}" style=" border: 1px;"
@@ -204,7 +204,7 @@
                                   id="vCTFechaFinal" filterStyle="display: none; visibility: hidden;" width="70">                                  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{info.fechafinal}" style="width: 100px; ">
+                                 <h:outputText value="#{info.fechafinal}" style="width: 100px;">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>  
@@ -243,7 +243,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 300px; left: 440px; height: 178px; width: 400px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['dtd']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['dtd']}</strong></legend>
 
                      <p:dataTable id="datosVigenciaCD" widgetVar="datosVigenciaCD" var="info2" rowKey="#{info2.secuencia}" rowIndexVar="indiceVCD" value="#{controlVigenciaJornada.listVigenciasCompensacionesDinero}"
                                   editable="true" editMode="cell" filteredValue="#{controlVigenciaJornada.filtrarVigenciasCompensacionesDinero}"

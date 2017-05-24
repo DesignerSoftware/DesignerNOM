@@ -17,7 +17,7 @@
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " disabled="true" process="@this"/>
                                 <p:tooltip for="guardarRapido" value="#{msg['guardar']}"/>
@@ -25,7 +25,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " disabled="true" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " disabled="true" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -33,7 +33,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none;" actionListener="#{controlCerrarLiquidacion.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlCerrarLiquidacion.exportXLS()}" ajax="false"/>
                                 <p:tooltip for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlCerrarLiquidacion.exportPDF()}" ajax="false"/>
                                 <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; "  disabled="true" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -57,23 +57,23 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "  disabled="true" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " disabled="true" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " disabled="true" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlCerrarLiquidacion.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
                         
-                        <fieldset style="position: absolute; left: 10px; top: 75px; width: 830px; height: 405px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 75px; width: 830px; height: 405px; border-radius: 10px;">
                             <legend style="color: blue;text-align: left; font-weight: bold;">#{msg['parametros']}</legend>
 
                             <p:commandButton id="btnBorrarComprobantes" value="" ondblclick="abrirLiquidacion()" style="background-image: url(Imagenes/Iconos/nom_cerrar.png); width: 140px; height: 140px; background-repeat: no-repeat; background-size: 100% 100%;; z-index: 1; position: absolute; top: 20px; left: 10px"/>
@@ -107,7 +107,7 @@
                                 <p:inputText autocomplete="off"  value="#{controlCerrarLiquidacion.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 570px; width: 250px; top: 100px;" readonly="true"/> 
                             </p:panel>
 
-                            <fieldset style="position: absolute; left: 10px; top: 165px; width: 800px; height: 215px; border-radius: 10px; ">
+                            <fieldset style="position: absolute; left: 10px; top: 165px; width: 800px; height: 215px; border-radius: 10px;">
                                 <legend style="color: blue;text-align: left; font-weight: bold;">#{msg['empleados']}</legend>
                                 <p:dataTable id="datosEmpleadosParametros" var="empleadoParametro" style="width: 779px;text-align: left" value="#{controlCerrarLiquidacion.listaParametros}"
                                              scrollable="true" scrollWidth="795"  editable="true" editMode="cell" rowKey="#{empleadoParametro.secuencia}" scrollHeight="#{controlCerrarLiquidacion.altoTabla}" 

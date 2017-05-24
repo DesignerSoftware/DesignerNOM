@@ -16,7 +16,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.guardarClasesAusentismos()}" process="@this"/>
@@ -26,7 +26,7 @@
                                          actionListener="#{controlClasesAusentismos.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.listaValoresBoton()}" disabled="#{controlClasesAusentismos.activarBotonLov}"   process="@this"/>
@@ -36,7 +36,7 @@
                                          actionListener="#{controlClasesAusentismos.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.exportXLS()}"  ajax="false"/>
@@ -52,7 +52,7 @@
                                          actionListener="#{controlClasesAusentismos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.cargarNuevoClasesAusentismos()}" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -64,18 +64,18 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.duplicandoClasesAusentismos()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.verificarRastro()}"  process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border:none; "
                                          actionListener="#{controlClasesAusentismos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -87,10 +87,10 @@
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlClasesAusentismos.salir()}"/>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>#{msg['titulo1']}</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>#{msg['titulo1']}</strong></legend>
 
                      <p:dataTable id="datosClasesAusentismos" widgetVar="datosClasesAusentismos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" 
-                                  style="width: 810px ; border: 1px;"  value="#{controlClasesAusentismos.listClasesAusentismos}" scrollHeight="#{controlClasesAusentismos.tamano}"
+                                  style="width: 810px; border: 1px;"  value="#{controlClasesAusentismos.listClasesAusentismos}" scrollHeight="#{controlClasesAusentismos.tamano}"
                                   filteredValue="#{controlClasesAusentismos.filtrarClasesAusentismos}" 
                                   emptyMessage="#{msg['lovvacio']}"   selection="#{controlClasesAusentismos.clasesAusentismoSeleccionado}"
                                   selectionMode="single"  editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830">

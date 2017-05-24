@@ -18,14 +18,14 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar"> 
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPersonaEducacion.guardarTodo()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPersonaEducacion.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPersonaEducacion.listaValoresBoton()}" process="@this" disabled="#{controlPersonaEducacion.activarLov}"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -33,7 +33,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPersonaEducacion.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlPersonaEducacion.exportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -46,7 +46,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPersonaEducacion.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlPersonaEducacion.elegirTabla()}" process="@this"/>  
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
 
@@ -56,15 +56,15 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlPersonaEducacion.duplicarVF()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlPersonaEducacion.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlPersonaEducacion.cancelarModificacion()}" oncomplete="window.location.reload()"   process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlPersonaEducacion.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -277,7 +277,7 @@
                      <h:outputText id="infoRegistroF" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroF}" style="position: relative; top: 1px; font-weight: bold;"/>
                   </fieldset> 
 
-                  <fieldset style="position: relative; left: -4px; top: 50px; height: 160px; width: 830px; border-radius: 10px; ">
+                  <fieldset style="position: relative; left: -4px; top: 50px; height: 160px; width: 830px; border-radius: 10px;">
                      <legend style="font-size: 12px; color: #14388B"><strong>#{msg['nf']}</strong></legend>
 
                      <p:dataTable id="datosVigenciasNoFormalesPersona" widgetVar="datosVigenciasNoFormalesPersona" var="vigenciasNoFormales" value="#{controlPersonaEducacion.listaVigenciasNoFormales}"
@@ -324,7 +324,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooCurso" value="" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'curso')}" onclick="#{controlCursos.recibirPaginaEntrante('personaeducacion')}"/>
+                              <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooCurso" value="" onstart="#{controlPersonaEducacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('personaeducacion', 'curso')}" onclick="#{controlCursos.recibirPaginaEntrante('personaeducacion')}"/>
                            </f:facet>
                         </p:column>
 

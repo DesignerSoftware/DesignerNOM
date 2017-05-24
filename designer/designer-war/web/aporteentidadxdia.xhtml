@@ -29,7 +29,7 @@
                <p:panel  id="PanelTotal" header="Novedades AutoLiquidaciones" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlAportesEntidadesXDia.guardarCambios()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -37,7 +37,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlAportesEntidadesXDia.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; "  disabled="#{controlAportesEntidadesXDia.activarLov}" process="@this"/>
                         <p:tooltip for="listaValores" value="#{msg['lista']}"/>
@@ -45,7 +45,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlAportesEntidadesXDia.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlAportesEntidadesXDia.exportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -58,7 +58,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlAportesEntidadesXDia.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -69,16 +69,16 @@
                         <p:commandButton id="duplicar" disabled="true"  value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlAportesEntidadesXDia.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlAportesEntidadesXDia.cancelarModificacion()}" process="@this"
                                          oncomplete="window.location.reload()"/> 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlAportesEntidadesXDia.salir()}" process="@this"/>  
@@ -96,7 +96,7 @@
                      <h:outputText id="nombreEmpleado" value="#{controlAportesEntidadesXDia.aporteEntidad.empleado.persona.nombreCompleto}" 
                                    style="font-weight: bold; color: #14388B; position: absolute; left: 95px; top: 32px;"/>
                   </fieldset>
-                  <fieldset  style="position: absolute; left: 5px; top: 150px; width: 835px; height: 315px; border-radius: 10px; ">
+                  <fieldset  style="position: absolute; left: 5px; top: 150px; width: 835px; height: 315px; border-radius: 10px;">
                      <legend style="color: blue;text-align:left;"><strong>Aportes día a día</strong></legend>
 
                      <p:dataTable id="tablaAportesEntidades" var="infoAE"  rowKey="#{infoAE.secuencia}" style="border: 1px; width: 830px; position: inherit;" value="#{controlAportesEntidadesXDia.listAportesEntidades}"
@@ -105,7 +105,7 @@
                                   editable="true" editMode="cell" liveScroll="true" scrollHeight="#{controlAportesEntidadesXDia.altoTabla}" scrollRows="30">
                         <p:ajax event="filter" listener="#{controlAportesEntidadesXDia.contarRegistrosAporte()}"/>
 
-                        <p:column  id="dia" sortBy="#{infoAE.dia}" width="60" filterBy="#{infoAEempleado.dia}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">     
+                        <p:column id="dia" sortBy="#{infoAE.dia}" width="60" filterBy="#{infoAEempleado.dia}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;">     
                            <f:facet name="header"> 
                               <h:outputText id="hcodempl" value="Día"/>
                            </f:facet>
@@ -129,7 +129,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="novedad" sortBy="#{infoAE.novedad}" filterBy="#{infoAE.novedad}" filterMatchMode="contains" width="40"   filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column id="novedad" sortBy="#{infoAE.novedad}" filterBy="#{infoAE.novedad}" filterMatchMode="contains" width="40"   filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="anio" value="Novedad"/> 
                            </f:facet>
@@ -148,7 +148,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="tarifa" sortBy="#{infoAE.tarifaaux}" filterBy="#{infoAE.tarifaaux}"  filterMatchMode="contains" width="60"   filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column id="tarifa" sortBy="#{infoAE.tarifaaux}" filterBy="#{infoAE.tarifaaux}"  filterMatchMode="contains" width="60"   filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="hmes" value="Tarifa"/>
                            </f:facet>
@@ -170,7 +170,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="ibcdiario" sortBy="#{infoAE.ibcaux}" width="80" filterBy="#{infoAE.ibcaux}" 
+                        <p:column id="ibcdiario" sortBy="#{infoAE.ibcaux}" width="80" filterBy="#{infoAE.ibcaux}" 
                                    filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="nomempl" value="IBC Diario"/> 

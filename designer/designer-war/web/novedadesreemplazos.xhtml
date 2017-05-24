@@ -19,14 +19,14 @@
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;" actionListener="#{controlNovedadesReemplazos.guardarCambiosEncargaturas()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none;" actionListener="#{controlNovedadesReemplazos.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none;" actionListener="#{controlNovedadesReemplazos.listaValoresBoton()}" process="@this"
                                                  disabled="#{controlNovedadesReemplazos.activarLov}" oncomplete="PF('operacionEnProceso').hide()" onclick="PF('operacionEnProceso').show()"/>
@@ -35,7 +35,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none;" actionListener="#{controlNovedadesReemplazos.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none;" ajax="false" actionListener="#{controlNovedadesReemplazos.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -48,7 +48,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none;" actionListener="#{controlNovedadesReemplazos.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none;" oncomplete="PF('NuevaNovedadReemplazo').show()" update=":formularioDialogos:nuevaEncargatura" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
 
@@ -58,17 +58,17 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;" actionListener="#{controlNovedadesReemplazos.duplicarNR()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none;" actionListener="#{controlNovedadesReemplazos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  oncomplete="window.location.reload()" actionListener="#{controlNovedadesReemplazos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlNovedadesReemplazos.salir()}" process="@this"/>
                                 <p:tooltip  for="salir" value="Salir"/>
 
@@ -114,7 +114,7 @@
                             <h:outputText id="infoRegistroEmpleadosNovedad" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistroEmpleadosNovedad}" style="position: relative; left: 0px; top: 1px; font-weight: bold;"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 10px; top: 250px; width: 100px; height: 220px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 250px; width: 100px; height: 220px; border-radius: 10px;">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['reemplazos']}</strong></legend>
                             <p:dataTable id="datosEncargaturasEmpleado" var="encargaturas" value="#{controlNovedadesReemplazos.listaEncargaturas}"
                                          rowKey="#{encargaturas.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 820px;"                             

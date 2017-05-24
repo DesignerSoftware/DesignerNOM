@@ -16,14 +16,14 @@
 
                     <p:panel  id="PanelTotal" header="Históricos Usuario" styleClass="panelTotal">
                         <p:toolbar styleClass="cssToolbar">   
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlHistoricosUsuarios.guardarCambiosUsuario()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlHistoricosUsuarios.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" widgetVar="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlHistoricosUsuarios.listaValoresBoton()}" process="@this"
                                                  disabled="#{controlHistoricosUsuarios.activarLov}"/>
@@ -32,7 +32,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlHistoricosUsuarios.activarCrtlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlHistoricosUsuarios.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -45,7 +45,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlHistoricosUsuarios.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" onclick="PF('NuevoRegistroUsuario').show()"  update=":formularioDialogos:nuevaUsuario" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -56,16 +56,16 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlHistoricosUsuarios.duplicandoHistoricoUsuario()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlHistoricosUsuarios.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlHistoricosUsuarios.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlHistoricosUsuarios.salir()}" process="@this"
                                                  action="#{controlHistoricosUsuarios.redirigir()}" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -73,7 +73,7 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Históricos Usuario</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Históricos Usuario</strong></legend>
 
                             <p:dataTable id="datosHistoricosUsuarios" var="usuario" rowKey="#{usuario.secuencia}" rowIndexVar="indice" value="#{controlHistoricosUsuarios.listaHistoricosUsuarios}" scrollable="true"
                                          filteredValue="#{controlHistoricosUsuarios.listaHistoricosUsuariosFiltrar}" scrollHeight="#{controlHistoricosUsuarios.altoTabla}" scrollWidth="830"

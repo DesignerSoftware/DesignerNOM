@@ -25,7 +25,7 @@
                <f:loadBundle basename="Recursos.centrocosto" var="msg"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlBetaCentrosCostos.guardarCambiosCentroCosto()}" process="@this"/>
@@ -102,10 +102,10 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 107px; left: 10px; height: 350px; width: 834px; border-radius: 10px; text-align: left; padding-top: 0px;">
-                     <legend style="font-size: 14px; color: blue"><strong>#{msg['centroscosto']}</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>#{msg['centroscosto']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIACARGO -->
 
-                     <p:dataTable id="datosCentrosCostos" widgetVar="datosCentrosCostos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="top: -3px; width: 810px ; border: 1px;"                      
+                     <p:dataTable id="datosCentrosCostos" widgetVar="datosCentrosCostos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="top: -3px; width: 810px; border: 1px;"                      
                                   value="#{controlBetaCentrosCostos.listCentrosCostosPorEmpresa}"
                                   scrollHeight="#{controlBetaCentrosCostos.altoTabla}"
                                   filteredValue="#{controlBetaCentrosCostos.filtrarCentrosCostos}"

@@ -25,7 +25,7 @@
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlTipoSueldo.guardarGeneral()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -33,7 +33,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlTipoSueldo.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlTipoSueldo.listaValoresBoton()}" disabled="#{controlTipoSueldo.activarLov}"  process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -41,7 +41,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlTipoSueldo.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlTipoSueldo.validarExportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -54,7 +54,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlTipoSueldo.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlTipoSueldo.dialogoNuevoRegistro()}" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
@@ -64,24 +64,24 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlTipoSueldo.verificarRegistroDuplicar()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlTipoSueldo.verificarRastro()}" process="@this"/>  
                         <p:tooltip for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTipoSueldo.cancelarModificacionGeneral()}"   process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTipoSueldo.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; left: 10px; top: 70px; width: 830px; height: 120px; border-radius: 10px; ">
-                     <legend style=" color: blue"><strong>#{msg['tipoSueldo']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 70px; width: 830px; height: 120px; border-radius: 10px;">
+                     <legend style=" color: blue;"><strong>#{msg['tipoSueldo']}</strong></legend>
 
                      <p:dataTable id="datosTipoSueldo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left;width: 820px;"                           
                                   value="#{controlTipoSueldo.listaTiposSueldos}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTiposSueldos}"  scrollWidth="835"
@@ -105,7 +105,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains"
                                    id="tipoSueldoDescripcion" width="130" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase;"/></f:facet>  
@@ -121,7 +121,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  style="padding: 0px; width: 35px;alignment-adjust: central;" headerText="Cap" sortBy="#{info.strCapacidad}" filterBy="#{info.strCapacidad}" filterMatchMode="contains" 
+                        <p:column style="padding: 0px; width: 35px;alignment-adjust: central;" headerText="Cap" sortBy="#{info.strCapacidad}" filterBy="#{info.strCapacidad}" filterMatchMode="contains" 
                                    id="tipoSueldoCap" filterStyle="display: none; visibility: hidden;">     
                            <f:facet name="header">
                               <h:outputText id="headerCap" value="Cap"/>
@@ -144,7 +144,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  style="padding: 0px; width: 35px;alignment-adjust: central;" headerText="Bas" sortBy="#{info.strBasico}" filterBy="#{info.strBasico}" filterMatchMode="contains" 
+                        <p:column style="padding: 0px; width: 35px;alignment-adjust: central;" headerText="Bas" sortBy="#{info.strBasico}" filterBy="#{info.strBasico}" filterMatchMode="contains" 
                                    id="tipoSueldoBas" filterStyle="display: none; visibility: hidden;">     
                            <f:facet name="header">
                               <h:outputText id="headerBas" value="Bas"/>
@@ -167,7 +167,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  style="padding: 0px; width: 35px;alignment-adjust: central;" headerText="ADI..." sortBy="#{info.strAdicional}" filterBy="#{info.strAdicional}" filterMatchMode="contains" 
+                        <p:column style="padding: 0px; width: 35px;alignment-adjust: central;" headerText="ADI..." sortBy="#{info.strAdicional}" filterBy="#{info.strAdicional}" filterMatchMode="contains" 
                                    id="tipoSueldoAdi" filterStyle="display: none; visibility: hidden;">     
                            <f:facet name="header">
                               <h:outputText id="headerAdi" value="Adi..."/>
@@ -196,8 +196,8 @@
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlTipoSueldo.cambiosPagina}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlTipoSueldo.salir()}"  process="@this"/>
 
-                  <fieldset style="position: absolute; left: 10px; top: 210px; width: 415px; height: 283px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['tsFormula']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 210px; width: 415px; height: 283px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['tsFormula']}</strong></legend>
 
                      <p:dataTable id="datosTSFormula" var="infoTSF" rowKey="#{infoTSF.secuencia}" rowIndexVar="indiceTSF" style="border: 1px; text-align: left;width: 410px"
                                   value="#{controlTipoSueldo.listaTSFormulasConceptos}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTSFormulas}" scrollWidth="410"
@@ -226,7 +226,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['concepto']}" sortBy="#{infoTSF.concepto.descripcion}" filterBy="#{infoTSF.concepto.descripcion}" filterMatchMode="contains"  width="50" 
+                        <p:column headerText="#{msg['concepto']}" sortBy="#{infoTSF.concepto.descripcion}" filterBy="#{infoTSF.concepto.descripcion}" filterMatchMode="contains"  width="50" 
                                    id="tsFormulaConcepto" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -291,8 +291,8 @@
 
                   <p:remoteCommand name="posicionTSFormula" actionListener="#{controlTipoSueldo.posicionTSFormula()}"/>
 
-                  <fieldset style="position: absolute; left: 450px; top: 210px; width: 392px; height: 120px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['tsGrupo']}</strong></legend>
+                  <fieldset style="position: absolute; left: 450px; top: 210px; width: 392px; height: 120px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['tsGrupo']}</strong></legend>
 
                      <p:dataTable id="datosTSGrupo" var="infoTSG" rowKey="#{infoTSG.secuencia}" rowIndexVar="indiceTSG" style="border: 1px; text-align: left;width: 370px"
                                   value="#{controlTipoSueldo.listaTSGruposTiposEntidades}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTSGrupos}" scrollWidth="385"
@@ -328,8 +328,8 @@
                   <p:remoteCommand name="posicionTEFormula" actionListener="#{controlTipoSueldo.posicionTEFormula()}"/>
 
 
-                  <fieldset style="position: absolute; left: 450px; top: 350px; width: 392px; height: 123px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['teFormula']}</strong></legend>
+                  <fieldset style="position: absolute; left: 450px; top: 350px; width: 392px; height: 123px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['teFormula']}</strong></legend>
 
                      <p:dataTable id="datosTEFormula" var="infoTEF" rowKey="#{infoTEF.secuencia}" rowIndexVar="indiceTEF" style="border: 1px; text-align: left;width: 370px"
                                   value="#{controlTipoSueldo.listaTEFormulasConceptos}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTEFormulas}" scrollWidth="385"
@@ -378,7 +378,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['concepto']}" sortBy="#{infoTEF.concepto.descripcion}" filterBy="#{infoTEF.concepto.descripcion}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['concepto']}" sortBy="#{infoTEF.concepto.descripcion}" filterBy="#{infoTEF.concepto.descripcion}" filterMatchMode="contains" 
                                    id="teFormulaConcepto"  width="100" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -398,7 +398,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['empresa']}" sortBy="#{infoTEF.concepto.empresa.nombre}" filterBy="#{infoTEF.concepto.empresa.nombre}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['empresa']}" sortBy="#{infoTEF.concepto.empresa.nombre}" filterBy="#{infoTEF.concepto.empresa.nombre}" filterMatchMode="contains" 
                                    id="teFormulaEmpresa"  width="100" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">

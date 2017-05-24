@@ -28,7 +28,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlGrupoConcepto.guardarTodo()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/guardar.png);"/>
@@ -170,7 +170,7 @@
                   </fieldset>
 
                   <!-- VIGENCIAS GRUPOS CONCEPTOS -->    
-                  <fieldset style="position: absolute; top: 292px; font-size: 11px; width: 835px; height: 190px; border-radius: 10px; left: 10px; ">
+                  <fieldset style="position: absolute; top: 292px; font-size: 11px; width: 835px; height: 190px; border-radius: 10px; left: 10px;">
                      <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['vigencias']}</legend>
 
                      <p:dataTable id="datosVigenciasGruposConceptos" var="v" style="font-size: 11px; width: 810px;" value="#{controlGrupoConcepto.listaVigenciasGruposConceptos}"
@@ -193,7 +193,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 90px; height: 16px; font-size: 9px; border: none; color: blue" id="fooCodigo" value=""/>
+                              <p:commandButton style="width: 90px; height: 16px; font-size: 9px; border: none; color: blue;" id="fooCodigo" value=""/>
                            </f:facet>
                         </p:column>
 

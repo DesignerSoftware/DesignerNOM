@@ -16,14 +16,14 @@
                <p:panel  id="PanelTotal" header="Atención - Configuración del periodo activo " styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPeriodosActivos.guardarCambiosCentroCosto()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="Guardado Rapido"/>
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPeriodosActivos.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"  process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -31,7 +31,7 @@
                         <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Filtrar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlPeriodosActivos.exportXLS()}"/>
                         <p:tooltip style="" for="exportarXLS" value="Exportar XLS"/>
@@ -44,7 +44,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPeriodosActivos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nuevo"/>
 
@@ -54,16 +54,16 @@
                         <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="Duplicar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlPeriodosActivos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar"  value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPeriodosActivos.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlPeriodosActivos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
 
@@ -71,7 +71,7 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 75px; left: 10px; height: 385px; width: 810px; border-radius: 10px; text-align: left; padding: 10px 20px;">
-                     <legend style="font-size: 14px; color: blue"><strong>Periodo Activo</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Periodo Activo</strong></legend>
                      <!-- TABLA EMPLVIGENCIACARGO -->
 
                      <p:dataTable id="datosEmpresas" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px; border: 1px;" 

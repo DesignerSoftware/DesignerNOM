@@ -17,7 +17,7 @@
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" class="panelTotal">  
                         <p:toolbar styleClass="cssToolbar" style="position: absolute; top: 33px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                                  actionListener="#{controlTipoContrato.guardarGeneral()}" process="@this"/>
@@ -27,7 +27,7 @@
                                                  actionListener="#{controlTipoContrato.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                                  actionListener="#{controlTipoContrato.listaValoresBoton()}" disabled="#{controlTipoContrato.activarLov}"  process="@this"/>
@@ -37,7 +37,7 @@
                                                  actionListener="#{controlTipoContrato.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                                  ajax="false" actionListener="#{controlTipoContrato.validarExportXLS()}"/>
@@ -53,7 +53,7 @@
                                                  actionListener="#{controlTipoContrato.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                                  onclick="PF('verificarNuevoRegistro').show()" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -66,17 +66,17 @@
                                                  actionListener="#{controlTipoContrato.verificarRegistroDuplicar()}" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                                  actionListener="#{controlTipoContrato.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                                  actionListener="#{controlTipoContrato.cancelarModificacionGeneral()}" oncomplete="window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"   actionListener="#{controlTipoContrato.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -84,7 +84,7 @@
                         </p:toolbar> 
 
                         <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 253px; border-radius: 10px; padding-top: initial;">
-                            <legend style="color: blue"><strong>#{msg['tipoContrato']}</strong></legend>
+                            <legend style="color: blue;"><strong>#{msg['tipoContrato']}</strong></legend>
 
                             <p:dataTable id="datosTipoContrato" widgetVar="datosTipoContrato" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left; width: 810px;"                           
                                          value="#{controlTipoContrato.listaTiposContratos}" scrollable="true" scrollHeight="#{controlTipoContrato.altoTablaTiposC}" scrollWidth="825"
@@ -143,7 +143,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  style="padding: 0px; alignment-adjust: central; text-align: center;" width="60" headerText="VE" sortBy="#{info.vinculacionempresacmp}" filterBy="#{info.vinculacionempresacmp}" filterMatchMode="contains" 
+                                <p:column style="padding: 0px; alignment-adjust: central; text-align: center;" width="60" headerText="VE" sortBy="#{info.vinculacionempresacmp}" filterBy="#{info.vinculacionempresacmp}" filterMatchMode="contains" 
                                            id="tipoCVE" filterStyle="display: none; visibility: hidden;">     
                                     <f:facet name="header">
                                         <h:outputText id="headerVE" value="VE"/>
@@ -186,7 +186,7 @@
                         </fieldset> 
 
                         <fieldset style="position: absolute; left: 10px; top: 332px; width: 375px; height: 136px; border-radius: 10px; padding-top: initial; ">
-                            <legend style="color: blue"><strong>#{msg['diasLaborales']}</strong></legend>
+                            <legend style="color: blue;"><strong>#{msg['diasLaborales']}</strong></legend>
 
                             <p:dataTable id="datosDiasLaborables" widgetVar="datosDiasLaborables" var="infoD" rowKey="#{infoD.secuencia}" rowIndexVar="indiceD" style="border: 1px; text-align: left; width: 360px"
                                          value="#{controlTipoContrato.listaDiasLaborables}" scrollable="true" scrollHeight="#{controlTipoContrato.altoTablaDiasLab}" scrollWidth="375"
@@ -260,8 +260,8 @@
                             <h:outputText id="informacionRegistroDias" value="#{msg['infoRegistro']} #{controlTipoContrato.infoRegistroTipoDia}" style="position: relative; left: 15px; top: 0px; font-weight: bold;"/>
                         </fieldset> 
 
-                        <fieldset style="position: absolute; left: 410px; top: 332px; width: 430px; height: 136px; border-radius: 10px; padding-top: 0px; ">
-                            <legend style="color: blue"><strong>#{msg['clonarTC']}</strong></legend>
+                        <fieldset style="position: absolute; left: 410px; top: 332px; width: 430px; height: 136px; border-radius: 10px; padding-top: 0px;">
+                            <legend style="color: blue;"><strong>#{msg['clonarTC']}</strong></legend>
 
                             <h:outputText value="#{msg['codigo']}" style="display: inline-block; position: relative; top : 5px; left: 20px"/> 
                             <h:outputText value="#{msg['nombreNClonarTC']}" style="display: inline-block; position: relative; top : 5px; left: 70px"/>

@@ -19,7 +19,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar class="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
 
                                          actionListener="#{controlDetalleEmpresa.guardadoGeneral()}" process="@this"/>
@@ -29,7 +29,7 @@
                                          actionListener="#{controlDetalleEmpresa.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) "
                                          actionListener="#{controlDetalleEmpresa.listaValoresBoton()}" process="@this"/>
@@ -39,7 +39,7 @@
                                          actionListener="#{controlDetalleEmpresa.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) "
                                          ajax="false" actionListener="#{controlDetalleEmpresa.verificarExportXLS()}"/>
@@ -55,7 +55,7 @@
                                          actionListener="#{controlDetalleEmpresa.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" disabled="true"
                                          oncomplete="PF('NuevoRegistroDetalleEmpresa').show()" update=":formularioDialogos:nuevaDetalleEmpresa" process="@this"/> 
@@ -69,19 +69,19 @@
                                          actionListener="#{controlDetalleEmpresa.verificarDuplicarDetalleEmpresa()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true"
                                          actionListener="#{controlDetalleEmpresa.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) "
                                          actionListener="#{controlDetalleEmpresa.cancelarModificacion()}" oncomplete="window.location.reload" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) "
                                          actionListener="#{controlDetalleEmpresa.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>

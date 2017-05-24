@@ -25,7 +25,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          id="guardarRapido" value="" actionListener="#{controlNovedadesVacaciones.guardarCambiosNovedades()}" process="@this"/>
@@ -77,13 +77,13 @@
                                          id="rastro" value="" actionListener="#{controlNovedadesVacaciones.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
                                          id="refrescar" value="" oncomplete="PF('window.location.reload()" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png)"
                                          id="salir" value="" actionListener="#{controlNovedadesVacaciones.salir()}"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>

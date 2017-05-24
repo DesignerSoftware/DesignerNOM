@@ -14,7 +14,7 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Tipos Documentos" styleClass="panelTotal">    
                         <p:toolbar style=" position: absolute; top: 40px; left: 20px;">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlTiposDocumentos.guardarTiposDocumentos()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -56,7 +56,7 @@
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlTiposDocumentos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTiposDocumentos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
@@ -67,9 +67,9 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Tipo de Documento</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Tipo de Documento</strong></legend>
 
-                            <p:dataTable id="datosTiposDocumentos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosTiposDocumentos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlTiposDocumentos.listTiposDocumentos}" 
                                          scrollable="true" widgetVar="datosTiposDocumentos"
                                          scrollHeight="#{controlTiposDocumentos.tamano}"

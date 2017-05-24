@@ -24,7 +24,7 @@
                <p:panel id="PanelTotal" class="panelTotal" header="Monedas">
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton accesskey="g" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png)"
                                          actionListener="#{controlMonedas.guardarMonedas()}" process="@this"/>
@@ -34,7 +34,7 @@
                                          actionListener="#{controlMonedas.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton accesskey="l" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)"
                                          disabled="true" process="@this"/>
@@ -44,7 +44,7 @@
                                          actionListener="#{controlMonedas.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png)"
                                          actionListener="#{controlMonedas.exportXLS()}" ajax="false"/>
@@ -59,7 +59,7 @@
                                          actionListener="#{controlMonedas.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton accesskey="i" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"
                                          oncomplete="PF('nuevoRegistroMoneda').show()" update=":formularioDialogos:nuevaaMoneda" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nueva Moneda"/>
@@ -71,18 +71,18 @@
                         <p:commandButton accesskey="d" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png)"
                                          actionListener="#{controlMonedas.duplicandoMonedas()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="Duplicar Moneda"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton accesskey="r" id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png)"
                                          actionListener="#{controlMonedas.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton accesskey="5" id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png)"
                                          actionListener="#{controlMonedas.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton accesskey="s" id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png)"
                                          actionListener="#{controlMonedas.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
@@ -90,7 +90,7 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 74px; left: 10px; height: 390px; width: 835px; border-radius: 10px; padding-top: 10px;">
-                     <legend style="font-size: 14px; color: blue;"><strong>Moneda</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Moneda</strong></legend>
 
                      <p:dataTable id="datosMoneda" widgetVar="datosMoneda" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 520px; margin-left: 150px;" 
                                   value="#{controlMonedas.listMonedas}" scrollHeight="#{controlMonedas.tamano}" 

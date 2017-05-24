@@ -18,7 +18,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlATAprobacionHE.guardadoGeneral()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -27,7 +27,7 @@
                                                  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlATAprobacionHE.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -36,7 +36,7 @@
                                                  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlATAprobacionHE.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -49,7 +49,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlATAprobacionHE.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlATAprobacionHE.dispararDialogoNuevoRegistro()}" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -60,12 +60,12 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlATAprobacionHE.duplicarRegistro()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlATAprobacionHE.validarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlATAprobacionHE.cancelarModificacion()}" process="@this"
                                                  onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>  
@@ -124,7 +124,7 @@
 
                         <p:remoteCommand name="pruebaRemota" actionListener="#{controlATAprobacionHE.pruebaRemota()}"/>
 
-                        <fieldset  style="position: absolute; left: 10px; top: 180px; width: 835px; height: 140px; border-radius: 10px; ">
+                        <fieldset  style="position: absolute; left: 10px; top: 180px; width: 835px; height: 140px; border-radius: 10px;">
                             <legend style="color: blue;text-align:left;"><strong>#{msg['conceptosAAprobar']}</strong></legend>
 
                             <div  id="superiorIzquierdo" style="height: 225px; width: 350px; overflow-y: hidden; position: absolute; left: 502px; top: -4px;">
@@ -237,7 +237,7 @@
                                              rows="#{controlATAprobacionHE.rowsCabecera}"
                                  >
 
-                                    <p:column   style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.persona.strNumeroDocumento}" 
+                                    <p:column  style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.persona.strNumeroDocumento}" 
                                                 filterMatchMode="contains" id="cabeceraNumDocumento" width="91" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.strNumeroDocumento}"/></f:facet>  
@@ -249,7 +249,7 @@
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column  style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
                                                filterMatchMode="contains" id="cabeceraNombreEmpleado" width="29" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
                                             <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.nombreCompleto}"/></f:facet>  

@@ -15,7 +15,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlConceptoRedondeo.guardarCambiosConceptosRedondeos()}" process="@this"/>
@@ -67,12 +67,12 @@
                                          actionListener="#{controlConceptoRedondeo.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="refrescar" value="" actionListener="#{controlConceptoRedondeo.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"
                                          style="background-image: url(Imagenes/Iconos/refrescar.png)"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" actionListener="#{controlConceptoRedondeo.salir()}" process="@this" 
                                          style="background-image: url(Imagenes/Iconos/salir.png)"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>

@@ -19,7 +19,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlATCuadrilla.guardadoGeneral()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -27,7 +27,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlATCuadrilla.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlATCuadrilla.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -35,7 +35,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlATCuadrilla.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlATCuadrilla.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -48,7 +48,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlATCuadrilla.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlATCuadrilla.disparaDialogoNuevoRegistro()}" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -59,12 +59,12 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlATCuadrilla.disparaDialogoDuplicarRegistro()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlATCuadrilla.validarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlATCuadrilla.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -85,7 +85,7 @@
 
                                 <p:ajax event="filter" listener="#{controlATCuadrilla.eventoFiltrar()}"/>
 
-                                <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  
                                            width="133" id="cuadrillaCodigo" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -102,7 +102,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['descripcionCuadrilla']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['descripcionCuadrilla']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" 
                                            width="133" id="cuadrillaDescripcion"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}"/></f:facet>  
@@ -116,7 +116,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['estado']}" style="padding: 0px;"  filterMatchMode="contains" 
+                                <p:column headerText="#{msg['estado']}" style="padding: 0px;"  filterMatchMode="contains" 
                                            id="cuadrillaEstado" width="100" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:selectOneMenu id="editarEstadoCuadrilla" value="#{info.estado}" style="width: 100px; font-weight: bold; text-transform: uppercase;"
                                                      onblur="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});"
@@ -127,7 +127,7 @@
                                     </p:selectOneMenu>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['modulo']}" sortBy="#{info.modulo}" filterBy="#{info.modulo}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['modulo']}" sortBy="#{info.modulo}" filterBy="#{info.modulo}" filterMatchMode="contains" 
                                            width="133" id="cuadrillaModulo"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.modulo}"/></f:facet>  
@@ -141,7 +141,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['metodo']}" style="padding: 0px;"  filterMatchMode="contains" 
+                                <p:column headerText="#{msg['metodo']}" style="padding: 0px;"  filterMatchMode="contains" 
                                            id="cuadrillaMetodo" width="100" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:selectOneMenu id="editarMetodoCuadrilla" value="#{info.metodorotacion}" style="width: 100px; font-weight: bold; text-transform: uppercase;"
                                                      onblur="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});"
@@ -152,7 +152,7 @@
                                     </p:selectOneMenu>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['dias']}" sortBy="#{info.diasciclo}" filterBy="#{info.diasciclo}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['dias']}" sortBy="#{info.diasciclo}" filterBy="#{info.diasciclo}" filterMatchMode="contains" 
                                            width="133" id="cuadrillaDias"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.diasciclo}"/></f:facet>  
@@ -182,7 +182,7 @@
                                     <p:commandButton value=" " style="width: 15px; heigth: 25px"/>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['codigo']}" sortBy="#{infoTR.codigo}" filterBy="#{infoTR.codigo}" filterMatchMode="contains"  
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{infoTR.codigo}" filterBy="#{infoTR.codigo}" filterMatchMode="contains"  
                                            width="133" id="turnoCodigo" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -199,7 +199,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['descripcion']}" sortBy="#{infoTR.descripcion}" filterBy="#{infoTR.descripcion}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{infoTR.descripcion}" filterBy="#{infoTR.descripcion}" filterMatchMode="contains" 
                                            width="133" id="turnoDescripcion"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.descripcion}"/></f:facet>  
@@ -232,7 +232,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['horaInicial']}" sortBy="#{infoTR.horainicial}" filterBy="#{infoTR.horainicial}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['horaInicial']}" sortBy="#{infoTR.horainicial}" filterBy="#{infoTR.horainicial}" filterMatchMode="contains" 
                                            width="133" id="turnoHoraInicial"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.horainicial}"/></f:facet>  
@@ -246,7 +246,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['horaFinal']}" sortBy="#{infoTR.horafinal}" filterBy="#{infoTR.horafinal}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['horaFinal']}" sortBy="#{infoTR.horafinal}" filterBy="#{infoTR.horafinal}" filterMatchMode="contains" 
                                            width="133" id="turnoHoraFinal"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.horafinal}"/></f:facet>  
@@ -260,7 +260,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['minInicial']}" sortBy="#{infoTR.minutoinicial}" filterBy="#{infoTR.minutoinicial}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['minInicial']}" sortBy="#{infoTR.minutoinicial}" filterBy="#{infoTR.minutoinicial}" filterMatchMode="contains" 
                                            width="133" id="turnoMinInicial"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.minutoinicial}"/></f:facet>  
@@ -274,7 +274,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['minFinal']}" sortBy="#{infoTR.minutofinal}" filterBy="#{infoTR.minutofinal}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['minFinal']}" sortBy="#{infoTR.minutofinal}" filterBy="#{infoTR.minutofinal}" filterMatchMode="contains" 
                                            width="133" id="turnoMinFinal"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.minutofinal}"/></f:facet>  
@@ -306,7 +306,7 @@
                                     <p:commandButton value=" " style="width: 15px; heigth: 25px"/>
                                 </p:column> 
 
-                                <p:column  headerText="#{msg['orden']}" sortBy="#{infoDTR.orden}" filterBy="#{infoDTR.orden}" filterMatchMode="contains"  
+                                <p:column headerText="#{msg['orden']}" sortBy="#{infoDTR.orden}" filterBy="#{infoDTR.orden}" filterMatchMode="contains"  
                                            width="20" id="detalleOrden" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -323,7 +323,7 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['codigoEmpleado']}" sortBy="#{infoDTR.empleado.codigoempleadoSTR}" filterBy="#{infoDTR.empleado.codigoempleadoSTR}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['codigoEmpleado']}" sortBy="#{infoDTR.empleado.codigoempleadoSTR}" filterBy="#{infoDTR.empleado.codigoempleadoSTR}" filterMatchMode="contains" 
                                            width="150" id="detalleCodigo"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoDTR.empleado.codigoempleadoSTR}" style="text-transform: uppercase;"/></f:facet>  
@@ -339,7 +339,7 @@
                                 </p:column>
 
 
-                                <p:column  headerText="#{msg['nombreEmpleado']}" sortBy="#{infoDTR.empleado.persona.nombreCompleto}" filterBy="#{infoDTR.empleado.persona.nombreCompleto}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoDTR.empleado.persona.nombreCompleto}" filterBy="#{infoDTR.empleado.persona.nombreCompleto}" filterMatchMode="contains" 
                                            width="250" id="detalleEmpleado"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoDTR.empleado.persona.nombreCompleto}" style="text-transform: uppercase;"/></f:facet>  

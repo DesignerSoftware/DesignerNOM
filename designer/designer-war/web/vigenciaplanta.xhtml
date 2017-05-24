@@ -17,9 +17,9 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Vigencias Plantas"  styleClass="panelTotal">    
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Vigencias Plantas</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Vigencias Plantas</strong></legend>
 
-                            <p:dataTable id="datosVigenciaPlanta" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                            <p:dataTable id="datosVigenciaPlanta" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                          value="#{controlVigenciasPlantas.listVigenciasPlantas}" 
                                          scrollable="true"
                                          scrollHeight="#{controlVigenciasPlantas.tamano}"
@@ -35,7 +35,7 @@
 
                                 <p:column headerText="Fecha" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
                                           id="fecha" width="400px"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 100px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 100px;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" style="height: 12px; width: 600px; text-transform: uppercase;">
@@ -69,7 +69,7 @@
                         </fieldset>
 
                         <p:toolbar style=" position: absolute; top: 40px; left: 20px;">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlVigenciasPlantas.guardarVigenciasPlantas()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -111,7 +111,7 @@
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlVigenciasPlantas.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasPlantas.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>

@@ -15,7 +15,7 @@
                <p:panel  id="PanelTotal" header="Tipos de Pagos" styleClass="panelTotal">    
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlTiposPagos.guardarTiposPagos()}" process="@this"/>
@@ -25,7 +25,7 @@
                                          actionListener="#{controlTiposPagos.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true"  process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -34,7 +34,7 @@
                                          actionListener="#{controlTiposPagos.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlTiposPagos.exportXLS()}"  ajax="false"/>
@@ -50,7 +50,7 @@
                                          actionListener="#{controlTiposPagos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('nuevoRegistroTiposPagos').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nuevo Registro"/>
@@ -62,18 +62,18 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlTiposPagos.duplicandoTiposPagos()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlTiposPagos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()"
                                          actionListener="#{controlTiposPagos.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlTiposPagos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
@@ -82,9 +82,9 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 385px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Tipos de Pago</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Tipos de Pago</strong></legend>
 
-                     <p:dataTable id="datosTiposPagos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosTiposPagos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                   value="#{controlTiposPagos.listTiposPagos}" scrollable="true" scrollWidth="830"
                                   scrollHeight="#{controlTiposPagos.tamano}" filteredValue="#{controlTiposPagos.filtrarTiposPagos}"
                                   emptyMessage="No se encontrarón resultados para la búsqueda"

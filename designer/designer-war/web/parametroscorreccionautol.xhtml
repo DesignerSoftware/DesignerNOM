@@ -19,7 +19,7 @@
                <p:panel  id="PanelTotal" header="Novedades AutoLiquidaciones" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlParametrosCorreccionAutoL.guardadoGeneral()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/guardar.png); border: none; "/>
@@ -30,7 +30,7 @@
                                          actionListener="#{controlParametrosCorreccionAutoL.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " 
                                          actionListener="#{controlParametrosCorreccionAutoL.listaValoresBoton()}" process="@this"/>
@@ -41,7 +41,7 @@
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " 
                                          ajax="false" actionListener="#{controlParametrosCorreccionAutoL.validarExportXLS()}"/>
@@ -57,7 +57,7 @@
                                          actionListener="#{controlParametrosCorreccionAutoL.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " 
                                          actionListener="#{controlParametrosCorreccionAutoL.mostrarDialogoElegirTabla()}" process="@this"/> 
@@ -71,19 +71,19 @@
                                          actionListener="#{controlParametrosCorreccionAutoL.duplicarParametroAutoliq()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " 
                                          actionListener="#{controlParametrosCorreccionAutoL.verificarRastroTablas()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; "
                                          actionListener="#{controlParametrosCorreccionAutoL.cancelarModificacion()}" process="@this"
                                          oncomplete="PF('window.location.reload(),operacionEnProceso').show()" onclick="PF('operacionEnProceso').show()"
                                          /> 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " 
@@ -93,7 +93,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; left: 245px; top: 70px; width: 595px; height: 110px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 245px; top: 70px; width: 595px; height: 110px; border-radius: 10px;">
                      <legend style="color: blue;text-align:left;"><strong>#{msg['parametroautoliq']}</strong></legend>
 
                      <p:dataTable id="datosParametroAuto" var="infoPA" rowKey="#{infoPA.secuencia}" rowIndexVar="indice" style="border: 0px; width:595px;"  scrollWidth="600"                      
@@ -222,7 +222,7 @@
                   <strong><h:outputText value="#{msg['textInfoCorreccion']}" style="position: absolute; top: 80px; left: 15px; width: 210px; text-align: justify"/></strong>
 
 
-                  <fieldset  style=" position:absolute; left: 5px; top: 200px; width: 835px; height: 233px; border-radius: 10px; ">
+                  <fieldset  style=" position:absolute; left: 5px; top: 200px; width: 835px; height: 233px; border-radius: 10px;">
                      <legend style="color: blue;text-align:left;"><strong>#{msg['aportesEntidades']}</strong></legend>
 
                      <p:dataTable id="tablaAportesCorrecciones" var="infoAE"  rowKey="#{infoAE.secuencia}" style="border: 1px; width: 4650px; position: inherit; " value="#{controlParametrosCorreccionAutoL.listaAportesCorrecciones}"
@@ -231,7 +231,7 @@
                                   editable="true" editMode="cell" liveScroll="true" scrollHeight="160">
                         <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarAportes()}"/>
 
-                        <p:column  id="aporteAno" sortBy="#{infoAE.ano}" filterBy="#{infoAE.ano}"   filterMatchMode="contains" width="20" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column id="aporteAno" sortBy="#{infoAE.ano}" filterBy="#{infoAE.ano}"   filterMatchMode="contains" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="anio" value="#{msg['ano']}"/> 
                               <p:tooltip  for="anio" value="Año"/>
@@ -248,7 +248,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="aporteMes" sortBy="#{infoAE.mes}" filterBy="#{infoAE.mes}"  filterMatchMode="contains" width="20" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column id="aporteMes" sortBy="#{infoAE.mes}" filterBy="#{infoAE.mes}"  filterMatchMode="contains" width="20" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="hmes" value="#{msg['mes']}"/>
                               <p:tooltip  for="hmes" value="Mes"/>
@@ -265,7 +265,7 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column  id="aporteNombreEmpleado" sortBy="#{infoAE.empleado.persona.nombreCompleto}"  width="110" filterBy="#{infoAE.empleado.persona.nombreCompleto}" 
+                        <p:column id="aporteNombreEmpleado" sortBy="#{infoAE.empleado.persona.nombreCompleto}"  width="110" filterBy="#{infoAE.empleado.persona.nombreCompleto}" 
                                    filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="nomempl" value="#{msg['nombreEmpleado']}"/> 
@@ -286,7 +286,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  id="aporteTipoPlanilla" sortBy="#{infoAE.tipoplanilla}" width="30" filterBy="#{infoAE.tipoplanilla}" 
+                        <p:column id="aporteTipoPlanilla" sortBy="#{infoAE.tipoplanilla}" width="30" filterBy="#{infoAE.tipoplanilla}" 
                                    filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="htipoplanilla" value="T.P."/>
@@ -1909,82 +1909,82 @@
 
                      <strong><h:outputText value="Novedades" style=" position: absolute; top: 560px; left: 40px;"/></strong>
                      <h:outputText value="ING" style=" position: absolute; top: 560px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bing}" style="position: absolute; top: 560px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bing}" style="position: absolute; top: 560px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="RET" style=" position: absolute; top: 560px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bret}" style="position: absolute; top: 560px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bret}" style="position: absolute; top: 560px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="TDA" style=" position: absolute; top: 560px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.btda}" style="position: absolute; top: 560px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.btda}" style="position: absolute; top: 560px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>       
 
                      <h:outputText value="TAA" style=" position: absolute; top: 595px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.btaa}" style="position: absolute; top: 595px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.btaa}" style="position: absolute; top: 595px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="VSP" style=" position: absolute; top: 595px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvsp}" style="position: absolute; top: 595px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvsp}" style="position: absolute; top: 595px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="VTE" style=" position: absolute; top: 595px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvte}" style="position: absolute; top: 595px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvte}" style="position: absolute; top: 595px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>    
 
                      <h:outputText value="VST" style=" position: absolute; top: 625px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvst}" style="position: absolute; top: 625px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvst}" style="position: absolute; top: 625px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="SLN" style=" position: absolute; top: 625px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bsln}" style="position: absolute; top: 625px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bsln}" style="position: absolute; top: 625px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="IGE" style=" position: absolute; top: 625px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bige}" style="position: absolute; top: 625px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bige}" style="position: absolute; top: 625px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="LMA" style=" position: absolute; top: 655px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.blma}" style="position: absolute; top: 655px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.blma}" style="position: absolute; top: 655px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="VAC" style=" position: absolute; top: 655px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvac}" style="position: absolute; top: 655px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvac}" style="position: absolute; top: 655px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="AVP" style=" position: absolute; top: 655px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bavp}" style="position: absolute; top: 655px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bavp}" style="position: absolute; top: 655px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>  
 
                      <h:outputText value="VCT" style=" position: absolute; top: 685px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvct}" style="position: absolute; top: 685px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bvct}" style="position: absolute; top: 685px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="IRP" style=" position: absolute; top: 685px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.birp}" style="position: absolute; top: 685px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.birp}" style="position: absolute; top: 685px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="SUS" style=" position: absolute; top: 685px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bsus}" style="position: absolute; top: 685px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.bsus}" style="position: absolute; top: 685px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>  
 
                      <h:outputText value="INTE" style=" position: absolute; top: 715px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.binte}" style="position: absolute; top: 715px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.binte}" style="position: absolute; top: 715px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>  
 
@@ -2230,82 +2230,82 @@
 
                      <strong><h:outputText value="Novedades" style=" position: absolute; top: 560px; left: 40px;"/></strong>
                      <h:outputText value="ING" style=" position: absolute; top: 560px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bing}" style="position: absolute; top: 560px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bing}" style="position: absolute; top: 560px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="RET" style=" position: absolute; top: 560px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bret}" style="position: absolute; top: 560px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bret}" style="position: absolute; top: 560px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="TDA" style=" position: absolute; top: 560px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.btda}" style="position: absolute; top: 560px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.btda}" style="position: absolute; top: 560px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>       
 
                      <h:outputText value="TAA" style=" position: absolute; top: 595px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.btaa}" style="position: absolute; top: 595px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.btaa}" style="position: absolute; top: 595px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="VSP" style=" position: absolute; top: 595px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvsp}" style="position: absolute; top: 595px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvsp}" style="position: absolute; top: 595px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="VTE" style=" position: absolute; top: 595px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvte}" style="position: absolute; top: 595px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvte}" style="position: absolute; top: 595px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>    
 
                      <h:outputText value="VST" style=" position: absolute; top: 625px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvst}" style="position: absolute; top: 625px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvst}" style="position: absolute; top: 625px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="SLN" style=" position: absolute; top: 625px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bsln}" style="position: absolute; top: 625px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bsln}" style="position: absolute; top: 625px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="IGE" style=" position: absolute; top: 625px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bige}" style="position: absolute; top: 625px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bige}" style="position: absolute; top: 625px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="LMA" style=" position: absolute; top: 655px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.blma}" style="position: absolute; top: 655px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.blma}" style="position: absolute; top: 655px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="VAC" style=" position: absolute; top: 655px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvac}" style="position: absolute; top: 655px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvac}" style="position: absolute; top: 655px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="AVP" style=" position: absolute; top: 655px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bavp}" style="position: absolute; top: 655px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bavp}" style="position: absolute; top: 655px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>  
 
                      <h:outputText value="VCT" style=" position: absolute; top: 685px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvct}" style="position: absolute; top: 685px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bvct}" style="position: absolute; top: 685px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>
 
                      <h:outputText value="IRP" style=" position: absolute; top: 685px; left: 270px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.birp}" style="position: absolute; top: 685px; left: 250px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.birp}" style="position: absolute; top: 685px; left: 250px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>   
 
                      <h:outputText value="SUS" style=" position: absolute; top: 685px; left: 320px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bsus}" style="position: absolute; top: 685px; left: 300px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.bsus}" style="position: absolute; top: 685px; left: 300px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>  
 
                      <h:outputText value="INTE" style=" position: absolute; top: 715px; left: 225px;"/> 
-                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.binte}" style="position: absolute; top: 715px; left: 200px; ">  
+                     <p:selectBooleanCheckbox value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.binte}" style="position: absolute; top: 715px; left: 200px;">  
                         <p:ajax  update="@this"/>
                      </p:selectBooleanCheckbox>  
 

@@ -35,7 +35,7 @@
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{cargarArchivoPlano.guardar()}" process="@this"/>
@@ -45,7 +45,7 @@
                                          actionListener="#{cargarArchivoPlano.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          actionListener="#{cargarArchivoPlano.botonListaValores()}" process="@this"/>
@@ -55,7 +55,7 @@
                                          actionListener="#{cargarArchivoPlano.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          ajax="false" actionListener="#{cargarArchivoPlano.exportXLS()}"/>
@@ -69,7 +69,7 @@
                                          ajax="false" actionListener="#{cargarArchivoPlano.exportPDF()}"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          onclick="PF('nuevaTempNDialogo').show()" process="@this"/> 
@@ -83,18 +83,18 @@
                                          actionListener="#{cargarArchivoPlano.duplicar()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton disabled="true" id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{cargarArchivoPlano.cancelarModificaciones()}" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{cargarArchivoPlano.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -136,10 +136,10 @@
                                       update="reversarDialogo" process="@this" style="position: absolute; top: 160px; left: 190px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 325px; top: 75px; width: 520px; height: 178px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 325px; top: 75px; width: 520px; height: 178px; border-radius: 10px;">
 
                      <center><h:outputText value="#{msg['eap']}" style="color: #009; font-weight: bold; position: relative;"/></center>
-                     <p:scrollPanel mode="native" style="height:165px; border: none">
+                     <p:scrollPanel mode="native" style="height:165px; border: none;">
                         <h:outputText value="#{msg['concepto']}:&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['conceptotexto']}"/>
                         <br></br><h:outputText value="#{msg['empleado']}:&nbsp;&nbsp;" style="font-weight: bold;"/>
@@ -172,8 +172,8 @@
 
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 272px; width: 835px; height: 193px; border-radius: 10px; ">
-                     <legend style="color: blue"><strong>#{msg['novedad']}</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 272px; width: 835px; height: 193px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>#{msg['novedad']}</strong></legend>
 
                      <p:dataTable id="tempNovedades" var="tNovedades" style="width: 816px; font-size: 11px;" value="#{cargarArchivoPlano.listTempNovedades}"
                                   scrollable="true" scrollHeight="#{cargarArchivoPlano.altoTabla}" scrollWidth="835" emptyMessage="#{msg['noseencontraron']}" widgetVar="tempNovedades"
@@ -496,8 +496,8 @@
                   </p:dialog>
 
                   <p:dialog id="reversarDialogo" header="#{msg['reversarDialogo']}" widgetVar="reversarDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="121" width="316">  
-                     <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px; ">
-                        <legend style="color: blue"><strong>Reversar Cargue Novedades</strong></legend>
+                     <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px;">
+                        <legend style="color: blue;"><strong>Reversar Cargue Novedades</strong></legend>
                         <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;"/></strong>
                         <p:inputText autocomplete="off" id="documentoR" value="#{cargarArchivoPlano.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
                            <p:ajax event="dblclick" listener="#{cargarArchivoPlano.llamarDialogoDocumentoSoporte()}"/>
@@ -597,7 +597,7 @@
                      <p:inputNumber autocomplete="off" id="duplicaPeriocidad" value="#{cargarArchivoPlano.nuevaTempNovedades.periodicidad}" decimalPlaces="0"
                                     style=" width: 122px; position: absolute; left: 550px; top: 100px; text-transform: uppercase;"/>
 
-                     <strong><h:outputText value="#{msg['tercero']}:" style=" position: absolute; top: 135px ; left: 410px"/></strong>
+                     <strong><h:outputText value="#{msg['tercero']}:" style=" position: absolute; top: 135px; left: 410px"/></strong>
                      <p:inputNumber autocomplete="off" id="nuevoTerceroNit" value="#{cargarArchivoPlano.nuevaTempNovedades.tercero}" decimalPlaces="0" thousandSeparator=""
                                     style=" width: 122px; position: absolute; left: 550px; top: 130px; text-transform: uppercase;"/>
 
@@ -665,7 +665,7 @@
                      <p:inputNumber autocomplete="off" id="nuevaPeriocidad" value="#{cargarArchivoPlano.duplicarTempNovedades.periodicidad}" decimalPlaces="0"
                                     style=" width: 122px; position: absolute; left: 550px; top: 100px; text-transform: uppercase;"/>
 
-                     <strong><h:outputText value="#{msg['tercero']}:" style=" position: absolute; top: 135px ; left: 410px"/></strong>
+                     <strong><h:outputText value="#{msg['tercero']}:" style=" position: absolute; top: 135px; left: 410px"/></strong>
                      <p:inputNumber autocomplete="off" id="duplicaTerceroNit" value="#{cargarArchivoPlano.duplicarTempNovedades.tercero}" decimalPlaces="0" thousandSeparator=""
                                     style=" width: 122px; position: absolute; left: 550px; top: 130px; text-transform: uppercase;"/>
 
@@ -834,7 +834,7 @@
 
             <h:form id="formExportar">
                <p:dataTable id="exportarTempNovedades"  var="tNovedadesExp"
-                            style="visibility: hidden; display: none" 
+                            style="visibility: hidden; display: none;" 
                             value="#{cargarArchivoPlano.listTempNovedades}">
 
                   <p:column headerText="#{msg['conceptoX']}">      

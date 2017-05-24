@@ -24,7 +24,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          id="guardarRapido" value="" actionListener="#{controlConcepto.guardarCambios()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
@@ -106,7 +106,7 @@
                   </fieldset>   
 
                   <fieldset style="position: absolute; left: 5px; top: 108px; width: 835px; height: 274px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
                      <p:dataTable id="datosConceptos" var="concepto" rowKey="#{concepto.secuencia}" rowIndexVar="indice" style="width: 1300px; position: absolute;"                            
                                   value="#{controlConcepto.listaConceptosEmpresa}" scrollable="true" scrollWidth="835"
@@ -448,7 +448,7 @@
                                    disabled="#{controlConcepto.mostrarTodos}" id="mostrarTodos" actionListener="#{controlConcepto.mostrarTodosConceptos()}" value="" process="@this"/>
 
                   <fieldset style="position: absolute; left: 5px; top: 432px; width: 835px; height: 60px; border-radius: 10px; padding-bottom: 0px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['cconcepto']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['cconcepto']}</strong></legend>
 
                      <h:outputText value="#{msg['cnnc']}" style="color: #14388B; font-weight: bold; position: absolute; left: 30px; margin-top: 0px;"/>
                      <h:outputText value="#{msg['cncc']}" style="color: #14388B; font-weight: bold; position: absolute; left: 410px; margin-top: 0px;"/>
@@ -502,7 +502,7 @@
 
                   <p:panel id="nuevoConcepto" style="border: none;">
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 75px;"/></strong>
-                     <p:inputText autocomplete="off" id="codNu" value="#{controlConcepto.nuevoConcepto.codigo}" style=" width: 122px; position: absolute; top: 70px; left: 180px; ">
+                     <p:inputText autocomplete="off" id="codNu" value="#{controlConcepto.nuevoConcepto.codigo}" style=" width: 122px; position: absolute; top: 70px; left: 180px;">
                         <!--                     <p:inputMask id="codNu" value="#/{controlConcepto.nuevoConcepto.codigo}" mask="99999999" style="position: absolute; top: 70px; left: 180px; width: 122px;">-->
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="codNu" mask="num"/>

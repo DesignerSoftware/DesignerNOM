@@ -15,14 +15,14 @@
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                         <p:toolbar styleClass="cssToolbar">   
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlUsuariosClon.guardarCambiosUsuario()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlUsuariosClon.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlUsuariosClon.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -30,7 +30,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlUsuariosClon.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlUsuariosClon.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -43,7 +43,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlUsuariosClon.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroUsuario').show()" update=":formularioDialogos:nuevaUsuario" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -54,11 +54,11 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlUsuariosClon.duplicarUsuario()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlUsuariosClon.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlUsuariosClon.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
@@ -68,7 +68,7 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['usuarios']}</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>#{msg['usuarios']}</strong></legend>
 
                             <p:dataTable id="datosUsuarios" var="usuario" rowKey="#{usuario.secuencia}" rowIndexVar="indice"                            
                                          value="#{controlUsuariosClon.listaUsuarios}" scrollable="true"
@@ -99,7 +99,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 315px; margin: -14px; height: 26px; border: none; color: blue" value=" " id="fooPersonas" action="claseausentismo" actionListener="#{controlClasesAusentismos.recibirAtras('causasausentismos')}"/>
+                                        <p:commandButton style="width: 315px; margin: -14px; height: 26px; border: none; color: blue;" value=" " id="fooPersonas" action="claseausentismo" actionListener="#{controlClasesAusentismos.recibirAtras('causasausentismos')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -183,12 +183,12 @@
 
                         <!--Botones de la izquierda-->
                         <p:commandButton id="estructuraA"  value=""  actionListener="#{controlRemoto.infoTablas(tablas)}" 
-                                         style=" width: 15px; height:15px ; position: absolute; left: 600px; top: 100px;" 
+                                         style=" width: 15px; height:15px; position: absolute; left: 600px; top: 100px;" 
                                          disabled="#{controlUsuariosClon.vestructura}"/>
                         <p:tooltip for="estructuraA" value="#{msg['estructuratt']}"/>
 
                         <p:commandButton id="historicoA"  value=""  actionListener="#{controlRemoto.infoTablas(tablas)}"
-                                         style=" width: 15px; height:15px ; position: absolute; left: 620px; top: 100px;" 
+                                         style=" width: 15px; height:15px; position: absolute; left: 620px; top: 100px;" 
                                          disabled="#{controlUsuariosClon.vhistorico}"/>
                         <p:tooltip for="historicoA" value="#{msg['historicott']}"/>
 

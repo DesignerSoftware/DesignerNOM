@@ -14,7 +14,7 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Clases Categorias" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlClasesCategorias.guardarClasesCategorias()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -22,7 +22,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlClasesCategorias.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlClasesCategorias.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -30,7 +30,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlClasesCategorias.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlClasesCategorias.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -43,7 +43,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlClasesCategorias.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroClasesCategorias').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Clase Categoria"/>
 
@@ -52,11 +52,11 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlClasesCategorias.duplicandoClasesCategorias()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Clase Categoria"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlClasesCategorias.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlClasesCategorias.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
@@ -67,9 +67,9 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
                         <fieldset style="position: absolute; top: 110px; left: 10px; height: 340px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Clase Categoria</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Clase Categoria</strong></legend>
 
-                            <p:dataTable id="datosClasesCategorias" widgetVar="datosClasesCategorias" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosClasesCategorias" widgetVar="datosClasesCategorias" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlClasesCategorias.listClasesCategorias}"  scrollHeight="#{controlClasesCategorias.tamano}"  
                                          filteredValue="#{controlClasesCategorias.filtrarClasesCategorias}"
                                          emptyMessage="No se encontrarón resultados para la búsqueda"

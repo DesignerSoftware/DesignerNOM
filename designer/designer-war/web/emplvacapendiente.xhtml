@@ -18,7 +18,7 @@
                   <!--<h:outputText value="" style="position: absolute; top: 50px; left: 740px; width: 50px;text-align: center;"/>-->
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlEmplVacaPendiente.guardarGeneral()}" oncomplete="PF('datosVacacionesPEmpleado').unselectAllRows(), datosVacacionesDEmpleado').unselectAllRows()" process="@this"/>
@@ -27,7 +27,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmplVacaPendiente.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -35,7 +35,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmplVacaPendiente.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlEmplVacaPendiente.verificarExportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -48,7 +48,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplVacaPendiente.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroVP').show()" update=":formularioDialogos:nuevaVP" process="@this"/> 
 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -59,16 +59,16 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEmplVacaPendiente.duplicarRegistroTabla()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" disabled="true" value="" style="background-image: url(Imagenes/Iconos/rastro.png)"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmplVacaPendiente.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplVacaPendiente.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
@@ -93,7 +93,7 @@
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 110px; left: 10px; height: 360px; width: 400px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['pendientes']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['pendientes']}</strong></legend>
                      <!-- TABLA EMPLVACACIONESEMPLEADO -->
                      <p:dataTable id="datosVacacionesPEmpleado" widgetVar="datosVacacionesPEmpleado" rowIndexVar="indice" style=" position: relative; border: 1px; text-align: center; width: 390px;"                           
                                   value="#{controlEmplVacaPendiente.listVacaPendientes}" emptyMessage="#{msg['vacio']}"
@@ -111,7 +111,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['inicial']}" width="85" sortBy="#{info.inicialcausacion}" filterBy="#{info.inicialcausacion}" filterMatchMode="contains" id="vacacionesFechaInicial" filterStyle="display: none; visibility: hidden;">  
+                        <p:column headerText="#{msg['inicial']}" width="85" sortBy="#{info.inicialcausacion}" filterBy="#{info.inicialcausacion}" filterMatchMode="contains" id="vacacionesFechaInicial" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{info.inicialcausacion}">
@@ -132,7 +132,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['final']}" width="85" sortBy="#{info.finalcausacion}" filterBy="#{info.finalcausacion}"  filterMatchMode="contains" id="vacacionesFechaFinal" filterStyle="display: none; visibility: hidden;">  
+                        <p:column headerText="#{msg['final']}" width="85" sortBy="#{info.finalcausacion}" filterBy="#{info.finalcausacion}"  filterMatchMode="contains" id="vacacionesFechaFinal" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{info.finalcausacion}">
@@ -153,7 +153,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['dp']}" sortBy="#{info.diaspendientes}" filterBy="#{info.diaspendientes}" filterMatchMode="contains" id="vacacionesDP" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column headerText="#{msg['dp']}" sortBy="#{info.diaspendientes}" filterBy="#{info.diaspendientes}" filterMatchMode="contains" id="vacacionesDP" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.diaspendientes}"/></f:facet>  
                               <f:facet name="input">
@@ -178,7 +178,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; top: 110px; left: 440px; height: 360px; width: 400px; border-radius: 10px; text-align: left;">
-                     <legend style=" color: blue"><strong>#{msg['disfrutadas']}</strong></legend>
+                     <legend style=" color: blue;"><strong>#{msg['disfrutadas']}</strong></legend>
                      <!-- TABLA EMPLVACACIONESEMPLEADO -->
 
                      <p:dataTable id="datosVacacionesDEmpleado" widgetVar="datosVacacionesDEmpleado" var="info2" rowKey="#{info2.inicialcausacion}" rowIndexVar="indice2" style="border: 1px; text-align: center; width: 390px;"                           

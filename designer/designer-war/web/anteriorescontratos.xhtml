@@ -19,7 +19,7 @@
                <p:panel  id="PanelTotal" header="Anteriores Contratos" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlAnterioresContratos.guardarCambiosAC()}" process="@this"/>
@@ -29,7 +29,7 @@
                                           actionListener="#{controlAnterioresContratos.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" 
                                          disabled="#{controlAnterioresContratos.activarLOV}"  actionListener="#{controlAnterioresContratos.listaValoresBoton()}" process="@this"/>
@@ -39,7 +39,7 @@
                                          actionListener="#{controlAnterioresContratos.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          ajax="false" actionListener="#{controlAnterioresContratos.exportXLS()}"/>
@@ -54,7 +54,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlAnterioresContratos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" 
                                          oncomplete="PF('NuevoRegistroAC').show()" update=":formularioDialogos:nuevoAC" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['insertar']}"/>
@@ -66,18 +66,18 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlAnterioresContratos.duplicarAT()}"  process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlAnterioresContratos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          oncomplete="window.location.reload()" actionListener="#{controlAnterioresContratos.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlAnterioresContratos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
 
@@ -90,7 +90,7 @@
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 115px; width: 830px; height: 345px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 10px; top: 115px; width: 830px; height: 345px; border-radius: 10px;">
                      <legend style="color: blue;text-align:left;"><strong>Anteriores Contratos</strong></legend>
 
                      <p:dataTable id="datosAnterioresContratosPersona"  widgetVar="datosAnterioresContratosPersona" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
@@ -396,7 +396,7 @@
                      <p:watermark for="nuevoCargo" value="Cargo"/>
 
                      <strong><h:outputText value="Régimen Cesantías" style="position: absolute; top: 265px;"/></strong>
-                     <p:selectBooleanCheckbox value="#{controlAnterioresContratos.nuevoAnteriorContrato.checktiemporegces}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 220px; top: 260px; "> 
+                     <p:selectBooleanCheckbox value="#{controlAnterioresContratos.nuevoAnteriorContrato.checktiemporegces}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 220px; top: 260px;"> 
                         <p:ajax event="change"  update="@this"/>
                      </p:selectBooleanCheckbox>  
 
@@ -459,7 +459,7 @@
                      <p:commandButton style="position: absolute; left: 351px; top: 230px;"  class="cssBotonLovDialogos"  id="btnDuplicarCargo" value="" process="@this" actionListener="#{controlAnterioresContratos.asignarIndex(info,0,2)}"/>   
 
                      <strong><h:outputText value="Régimen Cesantías" style="position: absolute; top: 265px;"/></strong>
-                     <p:selectBooleanCheckbox value="#{controlAnterioresContratos.duplicarAnteriorContrato.checktiemporegces}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 220px; top: 260px; "> 
+                     <p:selectBooleanCheckbox value="#{controlAnterioresContratos.duplicarAnteriorContrato.checktiemporegces}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 220px; top: 260px;"> 
                         <p:ajax event="change"  update="@this"/>
                      </p:selectBooleanCheckbox>  
 

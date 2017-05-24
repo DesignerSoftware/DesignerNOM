@@ -16,7 +16,7 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Vigencias Tallas" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                                  actionListener="#{controlVigenciasTallas.guardarVigenciasTallas()}" process="@this"/>
@@ -26,7 +26,7 @@
                                                  actionListener="#{controlVigenciasTallas.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                                  actionListener="#{controlVigenciasTallas.listaValoresBoton()}"  disabled="#{controlVigenciasTallas.activarLov}" process="@this"/>
@@ -36,7 +36,7 @@
                                                  actionListener="#{controlVigenciasTallas.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                                  actionListener="#{controlVigenciasTallas.exportXLS()}"  ajax="false"/>
@@ -52,7 +52,7 @@
                                                  actionListener="#{controlVigenciasTallas.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                                  oncomplete="PF('nuevoRegistroVigenciasTallas').show()" update=":formularioDialogos:nuevooHvReferenciaLab" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -64,19 +64,19 @@
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                                  actionListener="#{controlVigenciasTallas.duplicandoVigenciasTallas()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                                  actionListener="#{controlVigenciasTallas.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  actionListener="#{controlVigenciasTallas.cancelarModificacion()}" process="@this"
                                                 oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                                  actionListener="#{controlVigenciasTallas.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -91,9 +91,9 @@
                         </fieldset>
                         
                         <fieldset style="position: absolute; top: 120px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Vigencias Tallas</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Vigencias Tallas</strong></legend>
 
-                            <p:dataTable id="datosVigenciasTallas" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                            <p:dataTable id="datosVigenciasTallas" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                          value="#{controlVigenciasTallas.listVigenciasTallas}" scrollable="true"  scrollHeight="#{controlVigenciasTallas.tamano}" widgetVar="datosVigenciasTallas"
                                          scrollWidth="830"  filteredValue="#{controlVigenciasTallas.filtrarVigenciasTallas}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlVigenciasTallas.vigenciaTallaSeleccionada}" selectionMode="single">
@@ -102,7 +102,7 @@
 
                                 <p:column headerText="Fecha" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
                                           id="fecha" width="40"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" style="width: 80px;">

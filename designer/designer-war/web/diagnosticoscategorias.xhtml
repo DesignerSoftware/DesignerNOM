@@ -15,7 +15,7 @@
                     <p:panel  id="PanelTotal" header="Tipo de Ausentismo" styleClass="panelTotal">    
                         <f:loadBundle basename="Recursos.diagnosticoscategorias" var="msg"/>
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.guardarTodo()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
@@ -23,7 +23,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlDiagnosticosCategorias.isActivarLov()}"  process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
@@ -31,7 +31,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
@@ -44,7 +44,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoElegirTabla()}"   process="@this"/> 
                                 <!--update=":formularioDialogos:nuevaTipoempresa"-->
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -54,16 +54,16 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -74,8 +74,8 @@
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"   />
 
                         <fieldset style="position: absolute; top: 70px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Capítulo</strong></legend>
-                            <p:dataTable id="datosCapitulos" widgetVar="datosCapitulos" var="capitulo" rowKey="#{capitulo.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: none; "                           
+                            <legend style="font-size: 13px; color: blue;"><strong>Capítulo</strong></legend>
+                            <p:dataTable id="datosCapitulos" widgetVar="datosCapitulos" var="capitulo" rowKey="#{capitulo.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCapitulos}" scrollable="true" scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCapitulos}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCapituloSeleccionado}" selectionMode="single">
@@ -116,8 +116,8 @@
                             <h:outputText id="infoRegistroCapitulo" value="#{msg['infoRegistros']} #{controlDiagnosticosCategorias.infoRegistroCapitulos}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
                         </fieldset>
                         <fieldset style="position: absolute; top: 205px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Sección</strong></legend>
-                            <p:dataTable id="datosSecciones" widgetVar="datosSecciones" var="seccion" rowKey="#{seccion.secuencia}"  rowIndexVar="indiceDS" style="width: 810px ; border: 1px;"                           
+                            <legend style="font-size: 13px; color: blue;"><strong>Sección</strong></legend>
+                            <p:dataTable id="datosSecciones" widgetVar="datosSecciones" var="seccion" rowKey="#{seccion.secuencia}"  rowIndexVar="indiceDS" style="width: 810px; border: 1px;"                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosSecciones}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosSecciones}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoSeccionSeleccionado}" selectionMode="single">
@@ -159,8 +159,8 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 340px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Categoría</strong></legend>
-                            <p:dataTable id="datosCategorias" widgetVar="datosCategorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indiceDC" style="width: 810px ; border: 1px;"                           
+                            <legend style="font-size: 13px; color: blue;"><strong>Categoría</strong></legend>
+                            <p:dataTable id="datosCategorias" widgetVar="datosCategorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indiceDC" style="width: 810px; border: 1px;"                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCategorias}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCategorias}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado}" selectionMode="single">

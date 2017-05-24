@@ -14,7 +14,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="Certificado de aportes obligatorios para salud" styleClass="panelTotal">    
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlTiposCertificados.guardarTiposCertificados()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -23,7 +23,7 @@
                                          actionListener="#{controlTiposCertificados.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"     disabled="true" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -48,7 +48,7 @@
                                          actionListener="#{controlTiposCertificados.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('nuevoRegistroTiposCertificados').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nuevo Registro"/>
@@ -60,18 +60,18 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          actionListener="#{controlTiposCertificados.duplicandoTiposCertificados()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlTiposCertificados.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlTiposCertificados.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlTiposCertificados.salir()}" process="@this"/>  
@@ -80,9 +80,9 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 400px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue;"><strong>Tipos Certificados</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Tipos Certificados</strong></legend>
 
-                     <p:dataTable id="datosTiposCertificados" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosTiposCertificados" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                   value="#{controlTiposCertificados.listTiposCertificados}" scrollable="true" scrollHeight="#{controlTiposCertificados.tamano}"
                                   scrollWidth="830" filteredValue="#{controlTiposCertificados.filtrarTiposCertificados}" widgetVar="datosTiposCertificados"
                                   emptyMessage="No se encontrarón resultados para la búsqueda" editable="true" editMode="cell" paginator="false" 

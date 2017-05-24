@@ -23,7 +23,7 @@
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" disabled="true" process="@this"/>
                         <p:tooltip for="guardarRapido" value="#{msg['guardar']}"/>
@@ -31,7 +31,7 @@
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" disabled="true" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -39,7 +39,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlBarra.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="PF('exportarExcel').show();"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -50,7 +50,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" onclick="PF('exportarPDF').show();"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
@@ -61,16 +61,16 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  disabled="true" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" disabled="true" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>
@@ -82,7 +82,7 @@
                      <h:outputText id="imagen" style="background-image: url(Imagenes/Iconos/#{controlBarra.imagenEstado}); width: 130px; height: 120px; background-repeat: no-repeat;
                                    border: none; background-size: 100% 100%;; z-index: 1; top: 20px; left: 30px; display: inline-block; border-radius: 8px; margin-top: 4px;"/>
 
-                     <fieldset style="position: relative; top: -120px; left: 137px; width: 320px; height: 105px; border-radius: 10px; ">
+                     <fieldset style="position: relative; top: -120px; left: 137px; width: 320px; height: 105px; border-radius: 10px;">
                         <legend style="; color: blue;text-align: left; font-weight: bold;">#{msg['indicadores']}</legend>
                         <div>
                            <h:outputText value="#{msg['ttal']}" style="font-weight: bold; position: relative; top: 0px; left: 15px; display: block;"/>
@@ -130,7 +130,7 @@
 
                      <fieldset style="position: relative; top: -125px; left: -5px; width: 479px; padding: 0px; border-width: 2px; height: 83px; text-align: center; background-color: #cccccc; border-radius: 0px 0px 6px 6px;">
                         <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}" process="@this"
-                                         style="position: relative; top: 10px; left: 0px ; width: 315px; height: 35px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
+                                         style="position: relative; top: 10px; left: 0px; width: 315px; height: 35px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
                         <p:commandButton style="position: relative; top: 10px; width: 151px; height: 35px; left: 2px; border-color: #203A8E; border-width: 2px; background-color: white;"
                                          value="#{msg['repcontrol']}" actionListener="#{controlBarra.validarDescargaReporte()}"/>
                         <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"

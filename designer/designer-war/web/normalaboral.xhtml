@@ -15,7 +15,7 @@
                     <p:panel  id="PanelTotal" header="Normas Laborales"  styleClass="panelTotal">
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                                  actionListener="#{controlNormasLaborales.guardarNormasLaborales()}" process="@this"/>
@@ -25,7 +25,7 @@
                                                  actionListener="#{controlNormasLaborales.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                                  actionListener="#{controlNormasLaborales.listaValoresBoton()}"   process="@this"/>
@@ -35,7 +35,7 @@
                                                  actionListener="#{controlNormasLaborales.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                                  actionListener="#{controlNormasLaborales.exportXLS()}"  ajax="false"/>
@@ -51,7 +51,7 @@
                                                  actionListener="#{controlNormasLaborales.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                                  oncomplete="PF('nuevoRegistroNormaLaboral').show()" update=":formularioDialogos:nuevaNormaLaboral" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Registro"/>
@@ -64,19 +64,19 @@
                                                  actionListener="#{controlNormasLaborales.duplicarNormaLaborales()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Registro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                                  actionListener="#{controlNormasLaborales.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  actionListener="#{controlNormasLaborales.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Deshacer Cambios no guardados"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                                  actionListener="#{controlNormasLaborales.salir()}" process="@this"/>  
@@ -86,9 +86,9 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 400px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Norma Laboral</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Norma Laboral</strong></legend>
 
-                            <p:dataTable id="datosNormaLaboral" widgetVar="datosNormaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                            <p:dataTable id="datosNormaLaboral" widgetVar="datosNormaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                          value="#{controlNormasLaborales.listNormasLaborales}" scrollable="true" scrollHeight="#{controlNormasLaborales.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlNormasLaborales.filtrarNormasLaborales}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  

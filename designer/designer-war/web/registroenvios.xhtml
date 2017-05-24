@@ -28,7 +28,7 @@
                                                  id="editar" value="" process="@this" actionListener="#{controlRegistroEnvios.editarCelda()}"/>
                                 <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton disabled="true" style="background-image: url(Imagenes/Iconos/lupa.png)" id="listaValores" value="" process="@this" />
                                 <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
@@ -37,7 +37,7 @@
                                                  process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png)" />
                                 <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
@@ -49,7 +49,7 @@
                                 <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png)" />
                                 <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)" /> 
                                 <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
@@ -61,17 +61,17 @@
                                 <p:commandButton id="duplicar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/duplicar.png);" />  
                                 <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/rastro.png);"  
                                                  id="rastro" value="" process="@this"/>  
                                 <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="refrescar" style="background-image: url(Imagenes/Iconos/refrescar.png);" value="" 
                                                  actionListener="#{controlRegistroEnvios.cancelarModificaciones()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="salir" style="background-image: url(Imagenes/Iconos/salir.png);" 
                                                  value="" action="atrasregistroenvio" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -93,7 +93,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 180px; left: 10px; height: 280px; width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['registros']}</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>#{msg['registros']}</strong></legend>
                             <p:dataTable id="datosEC" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" value="#{controlRegistroEnvios.enviocorreos}" 
                                          widgetVar="datosEC" filteredValue="#{controlRegistroEnvios.filterEC}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" scrollable="true" scrollWidth="830" scrollHeight="#{controlRegistroEnvios.altoTabla}" 
@@ -101,7 +101,7 @@
 
                                 <p:ajax event="filter" listener="#{controlRegistroEnvios.eventoFiltrar()}" update=":form:informacionRegistro" process="@this"/>
 
-                                <p:column  id="ecFecha" headerText="#{msg['Fecha']}" sortBy="#{info.fecha}" filterBy="#{info.fecha}" filterMatchMode="contains" 
+                                <p:column id="ecFecha" headerText="#{msg['Fecha']}" sortBy="#{info.fecha}" filterBy="#{info.fecha}" filterMatchMode="contains" 
                                            width="130" filterStyle="display: none; visibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output">

@@ -28,7 +28,7 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlEmpresa.guardarGeneral()}" process="@this"/>
@@ -38,7 +38,7 @@
                                          actionListener="#{controlEmpresa.editarCelda()}" process="@this"/>
                         <p:tooltip for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlEmpresa.listaValoresBoton()}"  process="@this"/>
@@ -48,7 +48,7 @@
                                          actionListener="#{controlEmpresa.activarCtrlF11()}" process="@this"/>
                         <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          ajax="false" actionListener="#{controlEmpresa.validarExportXLS()}"/>
@@ -64,7 +64,7 @@
                                          actionListener="#{controlEmpresa.validarExportPDF()}" ajax="false"/>
                         <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          actionListener="#{controlEmpresa.dialogoTablaNuevo()}" process="@this"/> 
@@ -78,19 +78,19 @@
                                          actionListener="#{controlEmpresa.verificarRegistroDuplicar()}" process="@this"/>  
                         <p:tooltip for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                          actionListener="#{controlEmpresa.verificarRastro()}" process="@this"/>  
                         <p:tooltip for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlEmpresa.cancelarModificacionGeneral()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlEmpresa.salir()}" process="@this"/>
@@ -108,7 +108,7 @@
 
                         <p:ajax event="filter" listener="#{controlEmpresa.eventoFiltrarEmpresa()}"/>
 
-                        <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
                                    id="empresaCodigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
@@ -122,7 +122,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column  headerText="#{msg['nit']}" sortBy="#{info.nit}" filterBy="#{info.nit}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['nit']}" sortBy="#{info.nit}" filterBy="#{info.nit}" filterMatchMode="contains"
                                    id="empresaNIT" width="90" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.nit}"/></f:facet>  
@@ -150,7 +150,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column  headerText="#{msg['reglamento']}" sortBy="#{info.reglamento}" filterBy="#{info.reglamento}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['reglamento']}" sortBy="#{info.reglamento}" filterBy="#{info.reglamento}" filterMatchMode="contains"
                                    id="empresaReglamento" width="110" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.reglamento}"/></f:facet>  
@@ -164,7 +164,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column  headerText="#{msg['manual']}" sortBy="#{info.manualadministrativo}" filterBy="#{info.manualadministrativo}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['manual']}" sortBy="#{info.manualadministrativo}" filterBy="#{info.manualadministrativo}" filterMatchMode="contains"
                                    id="empresaManual" width="110" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.manualadministrativo}"/></f:facet>
@@ -233,7 +233,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 10px; top: 240px; width: 330px; height: 150px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['conceptoJuridico']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['conceptoJuridico']}</strong></legend>
 
                      <p:dataTable id="datosVigenciaMonedaBase" widgetVar="datosVigenciaMonedaBase" var="infoVMB" rowKey="#{infoVMB.secuencia}" rowIndexVar="indiceVMB" style="width: 325px"
                                   value="#{controlEmpresa.listaVigenciasMB}" scrollable="true" scrollHeight="#{controlEmpresa.altoTablasSecundarias}" scrollWidth="325"
@@ -265,7 +265,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['codigo']}" sortBy="#{infoVMB.moneda.codigo}" filterBy="#{infoVMB.moneda.codigo}" filterMatchMode="contains"  width="60" 
+                        <p:column headerText="#{msg['codigo']}" sortBy="#{infoVMB.moneda.codigo}" filterBy="#{infoVMB.moneda.codigo}" filterMatchMode="contains"  width="60" 
                                    id="vigenciaCodigo" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -285,7 +285,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  headerText="#{msg['moneda']}" sortBy="#{infoVMB.moneda.nombre}" filterBy="#{infoVMB.moneda.nombre}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['moneda']}" sortBy="#{infoVMB.moneda.nombre}" filterBy="#{infoVMB.moneda.nombre}" filterMatchMode="contains"
                                    id="vigenciaMoneda" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -310,7 +310,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 365px; top: 240px; width: 480px; height: 150px; border-radius: 10px; padding-top: 0px;">
-                     <legend style="color: blue"><strong>#{msg['circular']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['circular']}</strong></legend>
 
                      <p:dataTable id="datosCircular" widgetVar="datosCircular" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indiceC" style="width: 475px"
                                   value="#{controlEmpresa.listaCirculares}" scrollable="true" scrollHeight="#{controlEmpresa.altoTablasSecundarias}" scrollWidth="475"
@@ -339,7 +339,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column  headerText="#{msg['expedido']}" sortBy="#{infoC.expedidopor}" filterBy="#{infoC.expedidopor}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['expedido']}" sortBy="#{infoC.expedidopor}" filterBy="#{infoC.expedidopor}" filterMatchMode="contains"
                                    id="circularExpedido" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoC.expedidopor}" style="text-transform: uppercase;"/></f:facet>  
@@ -354,7 +354,7 @@
 
                         </p:column>
 
-                        <p:column  headerText="#{msg['contenido']}" sortBy="#{infoC.texto}" filterBy="#{infoC.texto}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['contenido']}" sortBy="#{infoC.texto}" filterBy="#{infoC.texto}" filterMatchMode="contains"
                                    id="circularContenido" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoC.texto}" style="text-transform: uppercase;"/></f:facet>  
@@ -373,7 +373,7 @@
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 10px; top: 402px; width: 833px; height: 60px; border-radius: 10px;">
-                     <legend style="color: blue"><strong>#{msg['procesoClonar']}</strong></legend>
+                     <legend style="color: blue;"><strong>#{msg['procesoClonar']}</strong></legend>
                      <div style="display: inline-block;">
                         <div style="display: block;">
                            <h:outputText style="color: #14388B; font-weight: bold; position: relative; top: -2px; left: 5px; width: 420px;" value="#{msg['clonarOrigen']}"/>

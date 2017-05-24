@@ -15,7 +15,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="Eventos" styleClass="panelTotal">    
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;"
                                          actionListener="#{controlEventos.guardarEventos()}" process="@this"/>
@@ -25,7 +25,7 @@
                                          actionListener="#{controlEventos.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none;"
                                          actionListener="#{controlEventos.listaValoresBoton()}"  disabled="#{controlEventos.activarLov}"  process="@this"/>
@@ -35,7 +35,7 @@
                                          actionListener="#{controlEventos.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none;"
                                          actionListener="#{controlEventos.exportXLS()}"  ajax="false"/>
@@ -51,7 +51,7 @@
                                          actionListener="#{controlEventos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none;"
                                          oncomplete="PF('nuevoRegistroEvento').show()" update=":formularioDialogos:nuevoE" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
@@ -63,17 +63,17 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;"
                                          actionListener="#{controlEventos.duplicarEventos()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none;"
                                          actionListener="#{controlEventos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none;"
                                          actionListener="#{controlEventos.cancelarModificacion()}"  oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none;"
                                          actionListener="#{controlEventos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -85,7 +85,7 @@
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlEventos.salir()}" value=""/>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 335px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Eventos</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Eventos</strong></legend>
 
                      <p:dataTable id="datosEvento" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ;border: 1px;"                           
                                   value="#{controlEventos.listEventos}" scrollable="true" scrollHeight="#{controlEventos.tamano}"  scrollWidth="830"

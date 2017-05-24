@@ -16,7 +16,7 @@
                     <p:panel  id="PanelTotal" header="Conceptos" styleClass="panelTotal">  
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlActualizarConceptos.guardarConcepto()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -24,7 +24,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlActualizarConceptos.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlActualizarConceptos.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -32,7 +32,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlActualizarConceptos.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlActualizarConceptos.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -45,7 +45,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlActualizarConceptos.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nueva Referencia Familiar"/>
 
@@ -54,11 +54,11 @@
 
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Referencia Familiar"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlActualizarConceptos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlActualizarConceptos.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>
@@ -74,9 +74,9 @@
                         <h:outputText id="nitEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nit}" style="position: absolute; left: 228px; top: 85px; position: absolute; color: #BF1A1A; font-weight: bold; width: 285px; text-align: right;"/>
 
                         <fieldset style="position: absolute; top: 110px; left: 10px; height: 330px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Conceptos</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Conceptos</strong></legend>
 
-                            <p:dataTable id="datosActualizarConceptos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosActualizarConceptos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlActualizarConceptos.listConceptos}" 
                                          scrollable="true" widgetVar="datosActualizarConceptos"
                                          scrollHeight="#{controlActualizarConceptos.tamano}"
@@ -142,7 +142,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveDebito" value=""/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooClaveDebito" value=""/>
                                     </f:facet>
                                 </p:column>     
 
@@ -165,7 +165,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveCredito" value=""/>
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue;" id="fooClaveCredito" value=""/>
                                     </f:facet>
                                 </p:column>                                
 
@@ -208,7 +208,7 @@
 
                                 <p:column headerText="Fecha" sortBy="#{info.fechacreacion}" filterBy="#{info.fechacreacion}" filterMatchMode="contains" 
                                           id="fechaCreacion" width="70"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px;">                                  
                                     <p:cellEditor> 
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechacreacion}" style="width: 80px; text-transform: uppercase;">

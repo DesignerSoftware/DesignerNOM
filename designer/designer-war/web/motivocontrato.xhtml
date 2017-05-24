@@ -14,7 +14,7 @@
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="Motivos Contratos" styleClass="panelTotal">    
                   <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 40px; left: 20px; height: 24px">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlMotivosContratos.guardarMotivosContratos()}" process="@this"/>
@@ -24,7 +24,7 @@
                                          actionListener="#{controlMotivosContratos.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                          actionListener="#{controlMotivosContratos.listaValoresBoton()}"   process="@this"/>
@@ -34,7 +34,7 @@
                                          actionListener="#{controlMotivosContratos.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlMotivosContratos.exportXLS()}"  ajax="false"/>
@@ -50,7 +50,7 @@
                                          actionListener="#{controlMotivosContratos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          oncomplete="PF('nuevoRegistroMotivoContratos').show()" update=":formularioDialogos:nuevoMotivoContrato" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nuevo Motivo Contrato"/>
@@ -66,13 +66,13 @@
                                          actionListener="#{controlMotivosContratos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlMotivosContratos.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlMotivosContratos.salir()}" process="@this"/>  
@@ -81,9 +81,9 @@
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 400px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: blue"><strong>Motivos de los Contratos</strong></legend>
+                     <legend style="font-size: 13px; color: blue;"><strong>Motivos de los Contratos</strong></legend>
 
-                     <p:dataTable id="datosMotivoContrato" var="info" rowKey="#{info.secuencia}" widgetVar="datosMotivoContrato" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosMotivoContrato" var="info" rowKey="#{info.secuencia}" widgetVar="datosMotivoContrato" rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                   value="#{controlMotivosContratos.listMotivosContratos}" scrollable="true" scrollHeight="#{controlMotivosContratos.tamano}" scrollWidth="830"
                                   filteredValue="#{controlMotivosContratos.filtrarMotivosContratos}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell" liveScroll="true" scrollRows="50" selection="#{controlMotivosContratos.motivoContratoSeleccionado}" selectionMode="single">

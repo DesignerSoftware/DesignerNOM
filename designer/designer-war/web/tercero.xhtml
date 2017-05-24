@@ -29,7 +29,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                         <p:toolbar styleClass="cssToolbar" style="position: absolute; top: 37px; left: 12px; height: 23px">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                                  process="@this" actionListener="#{controlTercero.guardadoGeneral()}"/>
@@ -39,7 +39,7 @@
                                                  actionListener="#{controlTercero.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" disabled="#{controlTercero.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
                                                  actionListener="#{controlTercero.listaValoresBoton()}" process="@this"/>
@@ -49,7 +49,7 @@
                                                  actionListener="#{controlTercero.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                                  ajax="false" actionListener="#{controlTercero.verificarExportXLS()}"/>
@@ -65,7 +65,7 @@
                                                  actionListener="#{controlTercero.validarExportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                                  oncomplete="PF('NuevoRegistroPagina').show()" update=":formularioDialogos:NuevoRegistroPagina" process="@this"/> 
@@ -79,19 +79,19 @@
                                                  actionListener="#{controlTercero.validarDuplicadoRegistro()}" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
                                                  actionListener="#{controlTercero.verificarRastroTabla()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                                  actionListener="#{controlTercero.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
                                                  actionListener="#{controlTercero.salir()}" process="@this"/>  
@@ -111,7 +111,7 @@
                         </fieldset>
 
                         <fieldset style="position: absolute; left: 10px; top: 106px; width: 830px; height: 230px; border-radius: 10px; text-align: left;">
-                            <legend style="color: blue"><strong>#{msg['terceros']}</strong></legend>
+                            <legend style="color: blue;"><strong>#{msg['terceros']}</strong></legend>
 
                             <p:dataTable id="datosTerceros" var="infoT" widgetVar="datosTerceros" rowIndexVar="indice" style="border: 1px; width: 1350px; position: absolute;"   
                                          value="#{controlTercero.listTerceros}" scrollable="true" scrollHeight="#{controlTercero.altoTablaTercero}" scrollWidth="830"
@@ -410,7 +410,7 @@
 
 
                         <fieldset style="position: absolute; left: 10px; top: 355px; width: 830px; height: 130px; border-radius: 10px; text-align: left;">
-                            <legend style="color: blue"><strong>#{msg['sucursales']}</strong></legend>
+                            <legend style="color: blue;"><strong>#{msg['sucursales']}</strong></legend>
 
                             <p:dataTable id="datosTercerosSucursales" widgetVar="datosTercerosSucursales" var="infoTS" rowKey="#{infoTS.secuencia}" rowIndexVar="indiceTS" style="border: 1px; width: 815px;"   
                                          value="#{controlTercero.listTercerosSucursales}" scrollable="true" scrollHeight="#{controlTercero.altoTablaSucursal}" scrollWidth="830"
@@ -420,7 +420,7 @@
                                 <f:event type="preRenderView" listener="#{controlTercero.recordarSeleccionTS()}"/>
                                 <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarTS()}"/>
 
-                                <p:column  headerText="#{msg['sucursal']}" sortBy="#{infoTS.codigosucursal}" filterBy="#{infoTS.codigosucursal}" 
+                                <p:column headerText="#{msg['sucursal']}" sortBy="#{infoTS.codigosucursal}" filterBy="#{infoTS.codigosucursal}" 
                                            filterMatchMode="contains" id="terceroSucursalCodigo" width="200" filterStyle="display: none; visibility: hidden">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headsucursal" value="#{msg['sucursal']}"/>
@@ -441,7 +441,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['patronal']}" sortBy="#{infoTS.codigopatronal}" filterBy="#{infoTS.codigopatronal}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['patronal']}" sortBy="#{infoTS.codigopatronal}" filterBy="#{infoTS.codigopatronal}" filterMatchMode="contains" 
                                            id="terceroSucursalPatronal" width="200" filterStyle="display: none; visibility: hidden">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headpatronal" value="#{msg['patronal']}"/>
@@ -462,7 +462,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['observaciones']}" sortBy="#{infoTS.descripcion}" filterBy="#{infoTS.descripcion}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['observaciones']}" sortBy="#{infoTS.descripcion}" filterBy="#{infoTS.descripcion}" filterMatchMode="contains" 
                                            id="terceroSucursalObservacion" filterStyle="display: none; visibility: hidden">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headobservaciones" value="#{msg['observaciones']}"/>
@@ -483,7 +483,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['ciudad']}" sortBy="#{infoTS.ciudad.nombre}" filterBy="#{infoTS.ciudad.nombre}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['ciudad']}" sortBy="#{infoTS.ciudad.nombre}" filterBy="#{infoTS.ciudad.nombre}" filterMatchMode="contains" 
                                            id="terceroSucursalCiudad" width="200" filterStyle="display: none; visibility: hidden">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headciudadS" value="#{msg['ciudad']}"/>

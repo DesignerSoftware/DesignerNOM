@@ -14,9 +14,9 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Firmas Reportes" styleClass="panelTotal">    
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue"><strong>Firmas Reportes</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Firmas Reportes</strong></legend>
 
-                            <p:dataTable id="datosFirmasReportes" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosFirmasReportes" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlFirmasReportes.listFirmasReportes}" scrollHeight="#{controlFirmasReportes.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlFirmasReportes.filtrarFirmasReportes}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"  scrollable="true"
@@ -60,7 +60,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue" id="fooEmpresa"  value=""/>
+                                        <p:commandButton style="width: 200px; margin: -14px; height: 20px; border: none; color: blue;" id="fooEmpresa"  value=""/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="SubTituloFirma" sortBy="#{info.subtitulofirma}" filterBy="#{info.subtitulofirma}" filterMatchMode="contains" id="subTituloFirma" width="100" filterStyle="display: none; visibility: hidden;">                                  
@@ -87,7 +87,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px; margin: -14px; height: 20px; border: none; color: blue" id="fooPersona" value=""/>
+                                        <p:commandButton style="width: 140px; margin: -14px; height: 20px; border: none; color: blue;" id="fooPersona" value=""/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="Cargo" sortBy="#{info.cargo.nombre}" filterBy="#{info.cargo.nombre}" filterMatchMode="contains" id="cargo" width="100" filterStyle="display: none; visibility: hidden;">                                  
@@ -102,7 +102,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px; margin: -14px; height: 20px; border: none; color: blue" id="fooCargo" value=""/>
+                                        <p:commandButton style="width: 140px; margin: -14px; height: 20px; border: none; color: blue;" id="fooCargo" value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -110,7 +110,7 @@
                         </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left;"> 
+                            <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlFirmasReportes.guardarFirmasReportes()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="Guardar"/>
@@ -118,7 +118,7 @@
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlFirmasReportes.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlFirmasReportes.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
@@ -126,7 +126,7 @@
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlFirmasReportes.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlFirmasReportes.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
@@ -139,7 +139,7 @@
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlFirmasReportes.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroFirmasReportes').show()" update=":formularioDialogos:nuevaTipoempresa" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Firma Reporte"/>
 
@@ -148,10 +148,10 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlFirmasReportes.duplicandoFirmasReportes()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Firma Reporte"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlFirmasReportes.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
-                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:separator style="position: relative; top: -9px;"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlFirmasReportes.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Refrescar"/>

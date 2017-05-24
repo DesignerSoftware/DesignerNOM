@@ -17,14 +17,14 @@
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
                   <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left;"> 
+                     <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlVigenciasProyectos.guardarCambiosVigenciasProyectos()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlVigenciasProyectos.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasProyectos.listaValoresBoton()}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
@@ -32,7 +32,7 @@
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlVigenciasProyectos.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlVigenciasProyectos.exportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
@@ -45,7 +45,7 @@
                         <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlVigenciasProyectos.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroVigenciaProyecto').show()" update=":formularioDialogos:nuevaVigenciaProyecto" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/> 
 
@@ -55,16 +55,16 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlVigenciasProyectos.duplicarVP()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlVigenciasProyectos.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          oncomplete="window.location.reload()" actionListener="#{controlVigenciasProyectos.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlVigenciasProyectos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
@@ -235,7 +235,7 @@
                <fieldset style="position: absolute; top: 305px; left: 10px; height: 180px; width: 830px; border-radius: 10px; text-align: left;">
                   <legend style="font-size: 14px; color: #14388B"><strong>#{msg['detalle']}</strong></legend>
 
-                  <h:outputText value="#{msg['nombredelproyecto']}" style=" position: absolute; left:15px ; top: 25px; font-size: 11px;"/>
+                  <h:outputText value="#{msg['nombredelproyecto']}" style=" position: absolute; left:15px; top: 25px; font-size: 11px;"/>
                   <h:inputText id="nomProyecto" value="#{controlVigenciasProyectos.proyectoParametro.nombreproyecto}" style="left: 150px; width: 360px; position: absolute; text-transform: uppercase; font-size: 11px;" readonly="true"/>
                   <h:outputText value="#{msg['cod']}" style=" position: absolute; left: 540px; top: 25px; font-size: 11px;"/>
                   <h:inputText id="codigoProyecto" value="#{controlVigenciasProyectos.proyectoParametro.codigo}" style="left: 580px; width: 50px; position: absolute; font-size: 11px;" readonly="true"/>
@@ -244,7 +244,7 @@
                      <f:convertNumber type="number"/>
                   </h:inputText>    
                   <h:outputText value="#{msg['plataforma']}" style="position: absolute; top:55px; left: 70px; font-size: 11px;"/>
-                  <h:inputText id="plataforma" value="#{controlVigenciasProyectos.plataformaParametroProyecto}" style="left: 150px; width:480px ; top: 50px; position: absolute; font-size: 11px;" readonly="true"/>
+                  <h:inputText id="plataforma" value="#{controlVigenciasProyectos.plataformaParametroProyecto}" style="left: 150px; width:480px; top: 50px; position: absolute; font-size: 11px;" readonly="true"/>
                   <h:outputText value="#{msg['fechainicial']}" style=" position: absolute; top: 55px; left: 645px; font-size: 11px;"/>
                   <h:inputText id="fechaInicial" value="#{controlVigenciasProyectos.proyectoParametro.fechainicial}" style="left: 730px; position: absolute; width: 110px; top:50px; font-size: 11px;" readonly="true">
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -260,7 +260,7 @@
                   <h:outputText value="#{msg['totaldepersonas']}" style=" position: absolute; top: 115px; left: 645px; font-size: 11px;"/>
                   <h:inputText id="totalPersonas" value="#{controlVigenciasProyectos.proyectoParametro.cantidadpersonas}" style="left:760px;position: absolute; width: 80px; top: 110px; font-size: 11px;" readonly="true"/>
                   <h:outputText value="#{msg['detalledeproyecto']}" style="position: absolute; top: 145px; left: 15px; font-size: 11px;"/>
-                  <h:inputText id="detalleProyecto" value="#{controlVigenciasProyectos.proyectoParametro.descripcionproyecto}" style="left: 150px; width: 690px ;height: 40px ; position: absolute; top: 140px; font-size: 11px;" readonly="true"/>
+                  <h:inputText id="detalleProyecto" value="#{controlVigenciasProyectos.proyectoParametro.descripcionproyecto}" style="left: 150px; width: 690px ;height: 40px; position: absolute; top: 140px; font-size: 11px;" readonly="true"/>
 
                </fieldset>
             </h:form>
