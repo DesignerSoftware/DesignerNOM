@@ -19,7 +19,8 @@ public class AgnosMesesDiasNumeros {
     private static HashMap dias;
 
     public static HashMap getMeses() {
-        if (meses == null && !meses.isEmpty()) {
+        meses = null;
+        if (meses == null) {
             inicializarmeses();
         }
         return meses;
@@ -27,7 +28,7 @@ public class AgnosMesesDiasNumeros {
 
     private static void inicializarmeses() {
         meses = new HashMap();
-        
+
         meses.put("TODOS LOS MESES", Short.valueOf("0"));
         meses.put("ENERO", Short.valueOf("1"));
         meses.put("FEBRERO", Short.valueOf("2"));
@@ -44,14 +45,15 @@ public class AgnosMesesDiasNumeros {
     }
 
     public static HashMap getDias() {
-        if (dias == null){
+        if (dias == null) {
             inicializardias();
         }
         return dias;
     }
-    private static void inicializardias(){
+
+    private static void inicializardias() {
         dias = new HashMap();
-        
+
         dias.put("TODOS LOS DIAS", Short.valueOf("0"));
         dias.put("01", Short.valueOf("1"));
         dias.put("02", Short.valueOf("2"));
@@ -85,17 +87,19 @@ public class AgnosMesesDiasNumeros {
         dias.put("30", Short.valueOf("30"));
         dias.put("31", Short.valueOf("31"));
     }
+
     public static HashMap getAgnos(int agno) {
-        if (agnos == null){
+        if (agnos == null) {
             inicializaragnos(agno);
         }
         return agnos;
     }
-    private static void inicializaragnos(int agno){
+
+    private static void inicializaragnos(int agno) {
         agnos = new HashMap();
-        for (int i=(agno-10); i<(agno+10);i++){
+        for (int i = (agno - 10); i < (agno + 10); i++) {
             agnos.put(String.valueOf(i), i);
         }
     }
-    
+
 }

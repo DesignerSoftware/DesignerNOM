@@ -88,12 +88,11 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{p.mensaje}" id="editarMensaje" style=" border-radius: 0px; width: 99%; text-transform: uppercase; height:12px; border-radius: 3px;"> 
                                     <p:ajax event="select" listener="#{controlProverbio.cambiarIndice(p, 0)}"
-                                            onstart="PF('datosProverbios').unselectAllRows();PF('datosProverbios').selectRow(#{indice});"/>
-                                    <p:ajax event="change" listener="#{controlProverbio.modificarProverbio(p, 'N', p.mensaje)}" update="@this"/>
+                                            onstart="PF('datosProverbios').unselectAllRows();PF('datosProverbios').selectRow(#{indice});PF('datosMensajesUsuarios').unselectAllRows();"/>
+                                    <p:ajax event="change" listener="#{controlProverbio.modificarProverbio(p)}" update="@this"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -116,8 +115,8 @@
                               <f:facet name ="output"><h:outputText id="outano" value="#{m.ano}" style="text-transform: uppercase;"/> </f:facet>
                               <f:facet name="input">
                                  <p:selectOneMenu  id="editarAno" value="#{m.ano}" style="width: 98.5%; height: 100%"
-                                                   onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});"
-                                                   onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});">  
+                                                   onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"
+                                                   onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();">  
                                     <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['todoslosanos']}" itemValue="0"/>  
                                     <f:selectItem itemLabel="2005" itemValue="2005"/>  
@@ -141,7 +140,7 @@
                                     <f:selectItem itemLabel="2023" itemValue="2023"/>
                                     <f:selectItem itemLabel="2024" itemValue="2024"/>
                                     <f:selectItem itemLabel="2025" itemValue="2025"/>
-                                    <p:ajax listener="#{controlProverbio.seleccionarAno(m.estadoAno, m, celda)}" event="change" update="editarAno"/>
+                                    <p:ajax listener="#{controlProverbio.seleccionarAno(m.estadoAno, m)}" event="change" update="editarAno"/>
                                  </p:selectOneMenu>
                               </f:facet>
                               <f:facet name="footer">
@@ -155,8 +154,8 @@
                               <f:facet name ="output"><h:outputText id="outmes" value="#{m.mes}" style="text-transform: uppercase;"/> </f:facet>
                               <f:facet name="input">
                                  <p:selectOneMenu  id="editarMes" value="#{m.mes}" style="width: 98.5%; height: 100%" 
-                                                   onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});"
-                                                   onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});">  
+                                                   onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"
+                                                   onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();">  
                                     <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['todoslosmeses']}" itemValue="0"/>  
                                     <f:selectItem itemLabel="#{msg['enero']}" itemValue="1"/>  
@@ -171,7 +170,7 @@
                                     <f:selectItem itemLabel="#{msg['octubre']}" itemValue="10"/>
                                     <f:selectItem itemLabel="#{msg['noviembre']}" itemValue="11"/>
                                     <f:selectItem itemLabel="#{msg['diciembre']}" itemValue="12"/>
-                                    <p:ajax event="change" listener="#{controlProverbio.seleccionarMes(m.estadoMes, m, celda)}" update="editarMes"/>
+                                    <p:ajax event="change" listener="#{controlProverbio.seleccionarMes(m.estadoMes, m)}" update="editarMes"/>
                                  </p:selectOneMenu>
                               </f:facet>
                               <f:facet name="footer">
@@ -186,8 +185,8 @@
                               <f:facet name ="output"><h:outputText id="outdia" value="#{m.dia}" style="text-transform: uppercase;"/> </f:facet>
                               <f:facet name="input">
                                  <p:selectOneMenu  id="editarDia" value="#{m.dia}"  style="width: 98.5%; height: 100%"
-                                                   onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});"
-                                                   onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});">  
+                                                   onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"
+                                                   onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();">  
                                     <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['todoslosdias']}" itemValue="0"/>  
                                     <f:selectItem itemLabel="01" itemValue="1"/>  
@@ -221,7 +220,7 @@
                                     <f:selectItem itemLabel="29" itemValue="29"/>
                                     <f:selectItem itemLabel="30" itemValue="30"/>
                                     <f:selectItem itemLabel="31" itemValue="31"/>
-                                    <p:ajax event="change" listener="#{controlProverbio.seleccionarDia(m.estadoDia, m, celda)}" update="editarDia"/>
+                                    <p:ajax event="change" listener="#{controlProverbio.seleccionarDia(m.estadoDia, m)}" update="editarDia"/>
                                  </p:selectOneMenu>  
                               </f:facet>
                               <f:facet name="footer">
@@ -236,8 +235,8 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{m.mensaje}" id="editarMensaje2" style=" border-radius: 0px; width: 98.5%; text-transform: uppercase; "> 
                                     <p:ajax event="select" listener="#{controlProverbio.cambiarIndiceNF(m, 3)}" 
-                                            onstart="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});"/>
-                                    <p:ajax event="change" listener="#{controlProverbio.modificarMensajeUsuario(m, 'N', m.mensaje)}" update="@this"/>
+                                            onstart="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"/>
+                                    <p:ajax event="change" listener="#{controlProverbio.modificarMensajeUsuario(m)}" update="@this"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>

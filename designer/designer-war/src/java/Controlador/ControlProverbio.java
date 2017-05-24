@@ -37,523 +37,440 @@ import utilidades.AgnosMesesDiasNumeros;
 @SessionScoped
 public class ControlProverbio implements Serializable {
 
-   @EJB
-   AdministrarRecordatoriosInterface administrarRecordatorios;
-   @EJB
-   AdministrarRastrosInterface administrarRastros;
+    @EJB
+    AdministrarRecordatoriosInterface administrarRecordatorios;
+    @EJB
+    AdministrarRastrosInterface administrarRastros;
 
-   //LISTA PROVERBIOS
-   private List<Recordatorios> listaProverbios;
-   private List<Recordatorios> filtradosListaProverbios;
-   private Recordatorios proverbioSeleccionado;
-   //LISTA MENSAJES
-   private List<Recordatorios> listaMensajesUsuario;
-   private List<Recordatorios> filtradosListaMensajesUsuario;
-   private Recordatorios mensajeUsuarioSeleccionado;
-   //OTROS
-   private boolean aceptar;
-   private int tipoActualizacion; //Activo/Desactivo Crtl + F11
-   private int bandera;
-   private boolean permitirIndex;
-   //RASTROS
-   private boolean guardado, guardarOk;
-   //Editar Celda
-   private boolean cambioEditor, aceptarEditar;
-   private int cualCelda, tipoLista, tipoListaNF;
-   //ALTO SCROLL TABLA
-   private String altoTabla, altoTablaNF;
-   private boolean cambiosPagina;
-   //Crear Proverbio
-   private List<Recordatorios> listaProverbiosCrear;
-   public Recordatorios nuevoProverbio;
-   public Recordatorios duplicarProverbio;
-   private int k;
-   private BigInteger l;
-   private int m;
-   private BigInteger n;
-   //Crear Mensaje Usuario
-   private List<Recordatorios> listaMensajesUsuariosCrear;
-   public Recordatorios nuevoRegistroMensajesUsuarios;
-   public Recordatorios duplicarRegistroMensajesUsuarios;
-   //OTROS
-   private int banderaNF;
-   //Modificar Novedades
-   private List<Recordatorios> listaProverbiosModificar;
-   //Borrar Novedades
-   private List<Recordatorios> listaProverbiosBorrar;
-   //Cual Tabla
-   private int CualTabla;
-   //editar celda
-   private Recordatorios editarProverbios;
-   //Columnas Tabla Proverbio
-   private Column pMensaje;
-   //Columnas Tabla Detalles Tipos Cotizantes
-   private Column mAno, mMes, mDia, mMensaje;
-   //Tabla a Imprimir
-   private String tablaImprimir, nombreArchivo;
-   //Cual Insertar
-   private String cualInsertar;
-   //Cual Nuevo Update
-   private String cualNuevo;
-   //Modificar Detalles Tipos Cotizantes
-   private List<Recordatorios> listaMensajesUsuariosModificar;
-   private List<Recordatorios> listaMensajesUsuariosBorrar;
-   private String mensaje;
-   private int ano, dia, mes;
-   private List<Short> anios;
-   private Short anioactual;
-   private String infoRegistroProverbios, infoRegistroMsgUsuario;
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   private String paginaAnterior = "nominaf";
+    private List<Recordatorios> listaProverbios;
+    private List<Recordatorios> filtradosListaProverbios;
+    private Recordatorios proverbioSeleccionado;
+    private List<Recordatorios> listaMensajesUsuario;
+    private List<Recordatorios> filtradosListaMensajesUsuario;
+    private Recordatorios mensajeUsuarioSeleccionado;
+    private boolean aceptar;
+    private int tipoActualizacion; //Activo/Desactivo Crtl + F11
+    private int bandera;
+    private boolean permitirIndex;
+    private boolean guardado, guardarOk;
+    private boolean cambioEditor, aceptarEditar;
+    private int cualCelda, tipoLista, tipoListaNF;
+    private String altoTabla, altoTablaNF;
+    private boolean cambiosPagina;
+    private List<Recordatorios> listaProverbiosCrear;
+    public Recordatorios nuevoProverbio;
+    public Recordatorios duplicarProverbio;
+    private int k;
+    private BigInteger l;
+    private int m;
+    private BigInteger n;
+    private List<Recordatorios> listaMensajesUsuariosCrear;
+    public Recordatorios nuevoRegistroMensajesUsuarios;
+    public Recordatorios duplicarRegistroMensajesUsuarios;
+    private int banderaNF;
+    private List<Recordatorios> listaProverbiosModificar;
+    private List<Recordatorios> listaProverbiosBorrar;
+    private int CualTabla;
+    private Recordatorios editarProverbios;
+    private Column pMensaje;
+    private Column mAno, mMes, mDia, mMensaje;
+    private String tablaImprimir, nombreArchivo;
+    private String cualInsertar;
+    private String cualNuevo;
+    private List<Recordatorios> listaMensajesUsuariosModificar;
+    private List<Recordatorios> listaMensajesUsuariosBorrar;
+    private String mensaje;
+    private int ano, dia, mes;
+    private List<Short> anios;
+    private Short anioactual;
+    private String infoRegistroProverbios, infoRegistroMsgUsuario;
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String paginaAnterior = "nominaf";
 
-   public ControlProverbio() {
-      cambiosPagina = true;
-      permitirIndex = true;
-      listaProverbios = null;
-      listaMensajesUsuario = null;
-      permitirIndex = true;
-      aceptar = true;
-      guardado = true;
-      tipoLista = 0;
-      altoTabla = "115";
-      altoTablaNF = "115";
-      tipoListaNF = 0;
-      tablaImprimir = ":formExportar:datosProverbiosExportar";
-      nombreArchivo = "ProverbiosXML";
-      k = 0;
-      cualInsertar = ":formularioDialogos:NuevoRegistroProverbio";
-      cualNuevo = ":formularioDialogos:nuevoRegistroProverbio";
-      //Crear Vigencia Formal
-      nuevoProverbio = new Recordatorios();
-      duplicarProverbio = new Recordatorios();
-      nuevoProverbio.setTipo("PROVERBIO");
-      nuevoRegistroMensajesUsuarios = new Recordatorios();
-      nuevoRegistroMensajesUsuarios.setTipo("RECORDATORIO");
-      duplicarRegistroMensajesUsuarios = new Recordatorios();
-      //secuenciaPersona = BigInteger.valueOf(10668967);
-      aceptar = true;
-      listaMensajesUsuariosBorrar = new ArrayList<>();
-      listaMensajesUsuariosCrear = new ArrayList<>();
-      listaMensajesUsuariosModificar = new ArrayList<>();
-      listaProverbiosBorrar = new ArrayList<>();
-      listaProverbiosCrear = new ArrayList<>();
-      listaProverbiosModificar = new ArrayList<>();
-      //Inicializar LOVS
-      proverbioSeleccionado = null;
-      m = 0;
-//        Date datofecha = new Date();
-//        anioactual = new Short(String.valueOf(datofecha.getYear()));
-      anioactual = (short) Calendar.getInstance().get(Calendar.YEAR);
-      anios = new ArrayList<>();
-      for (int i = (anioactual - 10); i < (anioactual + 10); i++) {
-//            Short agno = new Short(String.valueOf(i + 1900));
-         anios.add(new Short(String.valueOf(i + 1900)));
-      }
-      mapParametros.put("paginaAnterior", paginaAnterior);
-   }
+    public ControlProverbio() {
+        cambiosPagina = true;
+        permitirIndex = true;
+        listaProverbios = null;
+        listaMensajesUsuario = null;
+        permitirIndex = true;
+        aceptar = true;
+        guardado = true;
+        tipoLista = 0;
+        altoTabla = "115";
+        altoTablaNF = "115";
+        tipoListaNF = 0;
+        tablaImprimir = ":formExportar:datosProverbiosExportar";
+        nombreArchivo = "ProverbiosXML";
+        k = 0;
+        cualInsertar = ":formularioDialogos:NuevoRegistroProverbio";
+        cualNuevo = ":formularioDialogos:nuevoRegistroProverbio";
+        nuevoProverbio = new Recordatorios();
+        duplicarProverbio = new Recordatorios();
+        nuevoProverbio.setTipo("PROVERBIO");
+        nuevoRegistroMensajesUsuarios = new Recordatorios();
+        nuevoRegistroMensajesUsuarios.setTipo("RECORDATORIO");
+        duplicarRegistroMensajesUsuarios = new Recordatorios();
+        aceptar = true;
+        listaMensajesUsuariosBorrar = new ArrayList<>();
+        listaMensajesUsuariosCrear = new ArrayList<>();
+        listaMensajesUsuariosModificar = new ArrayList<>();
+        listaProverbiosBorrar = new ArrayList<>();
+        listaProverbiosCrear = new ArrayList<>();
+        listaProverbiosModificar = new ArrayList<>();
+        proverbioSeleccionado = null;
+        m = 0;
+        anioactual = (short) Calendar.getInstance().get(Calendar.YEAR);
+        anios = new ArrayList<>();
+        for (int i = (anioactual - 10); i < (anioactual + 10); i++) {
+            anios.add(new Short(String.valueOf(i + 1900)));
+        }
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarRecordatorios.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
-   }
+    @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarRecordatorios.obtenerConexion(ses.getId());
+            administrarRastros.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
+    }
 
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      listaProverbios = null;
-      listaMensajesUsuario = null;
-      getListaMensajesUsuario();
-      getListaProverbios();
-      if (listaProverbios != null) {
-         infoRegistroProverbios = (!listaProverbios.isEmpty()) ? String.valueOf(listaProverbios.size()) : String.valueOf(0);
-      } else {
-         infoRegistroProverbios = String.valueOf(0);
-      }
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaProverbios = null;
+        listaMensajesUsuario = null;
+        getListaMensajesUsuario();
+        getListaProverbios();
+        if (listaProverbios != null) {
+            infoRegistroProverbios = (!listaProverbios.isEmpty()) ? String.valueOf(listaProverbios.size()) : String.valueOf(0);
+        } else {
+            infoRegistroProverbios = String.valueOf(0);
+        }
 
-      if (listaMensajesUsuario != null) {
-         infoRegistroMsgUsuario = (!listaMensajesUsuario.isEmpty()) ? String.valueOf(listaMensajesUsuario.size()) : String.valueOf(0);
-      } else {
-         infoRegistroMsgUsuario = String.valueOf(0);
-      }
-   }
+        if (listaMensajesUsuario != null) {
+            infoRegistroMsgUsuario = (!listaMensajesUsuario.isEmpty()) ? String.valueOf(listaMensajesUsuario.size()) : String.valueOf(0);
+        } else {
+            infoRegistroMsgUsuario = String.valueOf(0);
+        }
+    }
 
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-   public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        String pagActual = "proverbio";
 
-      } else {
-         */
-String pagActual = "proverbio";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
-      }
-      limpiarListasValor();
-   }
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+        }
+        limpiarListasValor();
+    }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      listaProverbios = null;
-      listaMensajesUsuario = null;
-      getListaMensajesUsuario();
-      getListaProverbios();
-      if (listaProverbios != null) {
-         infoRegistroProverbios = (!listaProverbios.isEmpty()) ? String.valueOf(listaProverbios.size()) : String.valueOf(0);
-      } else {
-         infoRegistroProverbios = String.valueOf(0);
-      }
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        listaProverbios = null;
+        listaMensajesUsuario = null;
+        getListaMensajesUsuario();
+        getListaProverbios();
+        if (listaProverbios != null) {
+            infoRegistroProverbios = (!listaProverbios.isEmpty()) ? String.valueOf(listaProverbios.size()) : String.valueOf(0);
+        } else {
+            infoRegistroProverbios = String.valueOf(0);
+        }
 
-      if (listaMensajesUsuario != null) {
-         infoRegistroMsgUsuario = (!listaMensajesUsuario.isEmpty()) ? String.valueOf(listaMensajesUsuario.size()) : String.valueOf(0);
-      } else {
-         infoRegistroMsgUsuario = String.valueOf(0);
-      }
-   }
+        if (listaMensajesUsuario != null) {
+            infoRegistroMsgUsuario = (!listaMensajesUsuario.isEmpty()) ? String.valueOf(listaMensajesUsuario.size()) : String.valueOf(0);
+        } else {
+            infoRegistroMsgUsuario = String.valueOf(0);
+        }
+    }
 
-   //GUARDAR
-   public void guardarCambiosProverbios() {
-      System.out.println("guardarCambiosProverbios : ");
-      System.out.println("listaProverbios" + listaProverbios);
-      System.out.println("listaProverbiosCrear" + listaProverbiosCrear);
-      System.out.println("listaProverbiosBorrar" + listaProverbiosBorrar);
-      System.out.println(" listaProverbiosModificar " + listaProverbiosModificar);
-      System.out.println("guardarMensajeUsuarios");
-      System.out.println("listaMensajesUsuario" + listaMensajesUsuario);
-      System.out.println("listaMensajesUsuariosCrear" + listaMensajesUsuariosCrear);
-      System.out.println("listaMensajesUsuariosBorrar" + listaMensajesUsuariosBorrar);
-      System.out.println("listaMensajesUsuariosModificar" + listaMensajesUsuariosModificar);
+    //GUARDAR
+    public void guardarCambiosProverbios() {
+        System.out.println("guardarCambiosProverbios : ");
+        System.out.println("listaProverbios" + listaProverbios);
+        System.out.println("listaProverbiosCrear" + listaProverbiosCrear);
+        System.out.println("listaProverbiosBorrar" + listaProverbiosBorrar);
+        System.out.println(" listaProverbiosModificar " + listaProverbiosModificar);
+        System.out.println("guardarMensajeUsuarios");
+        System.out.println("listaMensajesUsuario" + listaMensajesUsuario);
+        System.out.println("listaMensajesUsuariosCrear" + listaMensajesUsuariosCrear);
+        System.out.println("listaMensajesUsuariosBorrar" + listaMensajesUsuariosBorrar);
+        System.out.println("listaMensajesUsuariosModificar" + listaMensajesUsuariosModificar);
 
-      if (!guardado) {
-         if (!listaProverbiosBorrar.isEmpty()) {
-            for (int i = 0; i < listaProverbiosBorrar.size(); i++) {
-               administrarRecordatorios.borrar(listaProverbiosBorrar.get(i));
+        if (!guardado) {
+            if (!listaProverbiosBorrar.isEmpty()) {
+                for (int i = 0; i < listaProverbiosBorrar.size(); i++) {
+                    administrarRecordatorios.borrar(listaProverbiosBorrar.get(i));
+                }
+                listaProverbiosBorrar.clear();
             }
-            listaProverbiosBorrar.clear();
-         }
-      }
-      if (!listaProverbiosCrear.isEmpty()) {
-         for (int i = 0; i < listaProverbiosCrear.size(); i++) {
-            administrarRecordatorios.crear(listaProverbiosCrear.get(i));
-         }
+        }
+        if (!listaProverbiosCrear.isEmpty()) {
+            for (int i = 0; i < listaProverbiosCrear.size(); i++) {
+                administrarRecordatorios.crear(listaProverbiosCrear.get(i));
+            }
 
-      }
-      listaProverbiosCrear.clear();
-      if (!listaProverbiosModificar.isEmpty()) {
-         administrarRecordatorios.modificar(listaProverbiosModificar);
-         listaProverbiosModificar.clear();
-      }
-      if (!guardado) {
-         if (!listaMensajesUsuariosBorrar.isEmpty()) {
-            for (int i = 0; i < listaMensajesUsuariosBorrar.size(); i++) {
-               administrarRecordatorios.borrarMU(listaMensajesUsuariosBorrar.get(i));
-               listaMensajesUsuariosBorrar.clear();
+        }
+        listaProverbiosCrear.clear();
+        if (!listaProverbiosModificar.isEmpty()) {
+            administrarRecordatorios.modificar(listaProverbiosModificar);
+            listaProverbiosModificar.clear();
+        }
+        if (!guardado) {
+            if (!listaMensajesUsuariosBorrar.isEmpty()) {
+                for (int i = 0; i < listaMensajesUsuariosBorrar.size(); i++) {
+                    administrarRecordatorios.borrarMU(listaMensajesUsuariosBorrar.get(i));
+                    listaMensajesUsuariosBorrar.clear();
+                }
             }
-         }
-         if (!listaMensajesUsuariosCrear.isEmpty()) {
-            for (int i = 0; i < listaMensajesUsuariosCrear.size(); i++) {
-               administrarRecordatorios.crearMU(listaMensajesUsuariosCrear.get(i));
+            if (!listaMensajesUsuariosCrear.isEmpty()) {
+                for (int i = 0; i < listaMensajesUsuariosCrear.size(); i++) {
+                    administrarRecordatorios.crearMU(listaMensajesUsuariosCrear.get(i));
+                }
             }
-         }
-         listaMensajesUsuariosCrear.clear();
-      }
-      if (!listaMensajesUsuariosModificar.isEmpty()) {
-         administrarRecordatorios.modificarMU(listaMensajesUsuariosModificar);
-         listaMensajesUsuariosModificar.clear();
-      }
-      listaMensajesUsuario = null;
-      listaProverbios = null;
-      getListaMensajesUsuario();
-      getListaProverbios();
+            listaMensajesUsuariosCrear.clear();
+        }
+        if (!listaMensajesUsuariosModificar.isEmpty()) {
+            administrarRecordatorios.modificarMU(listaMensajesUsuariosModificar);
+            listaMensajesUsuariosModificar.clear();
+        }
+        listaMensajesUsuario = null;
+        listaProverbios = null;
+        getListaMensajesUsuario();
+        getListaProverbios();
 //        RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:datosProverbios");
-      RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-      guardado = true;
-      permitirIndex = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-      FacesContext.getCurrentInstance().addMessage(null, msg);
-      RequestContext.getCurrentInstance().update("form:growl");
-      mensajeUsuarioSeleccionado = null;
-      proverbioSeleccionado = null;
-   }
+        RequestContext.getCurrentInstance().update("form:datosProverbios");
+        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+        guardado = true;
+        permitirIndex = true;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().update("form:growl");
+        mensajeUsuarioSeleccionado = null;
+        proverbioSeleccionado = null;
+    }
 
-   //Ubicacion Celda.
-   public void cambiarIndice(Recordatorios proverbio, int celda) {
-      if (permitirIndex) {
-         proverbioSeleccionado = proverbio;
-         cualCelda = celda;
-         CualTabla = 0;
-         mensajeUsuarioSeleccionado = null;
-         proverbioSeleccionado.getSecuencia();
-      }
-   }
+    //Ubicacion Celda.
+    public void cambiarIndice(Recordatorios proverbio, int celda) {
+        if (permitirIndex) {
+            proverbioSeleccionado = proverbio;
+            cualCelda = celda;
+            CualTabla = 0;
+            mensajeUsuarioSeleccionado = null;
+            proverbioSeleccionado.getSecuencia();
+        }
+    }
 
-   //Ubicacion Celda.
-   public void cambiarIndiceNF(Recordatorios msgUsuario, int celdaNF) {
+    //Ubicacion Celda.
+    public void cambiarIndiceNF(Recordatorios msgUsuario, int celdaNF) {
 
-      if (permitirIndex) {
-         mensajeUsuarioSeleccionado = msgUsuario;
-         cualCelda = celdaNF;
-         CualTabla = 1;
-         tablaImprimir = ":formExportar:datosMensajesUsuariosExportar";
-         cualNuevo = ":formularioDialogos:nuevoMensajeUsuarios";
-         cualInsertar = "formularioDialogos:NuevoRegistroMensajeUsuario";
-         nombreArchivo = "MensajeUsuarioXML";
+        if (permitirIndex) {
+            mensajeUsuarioSeleccionado = msgUsuario;
+            cualCelda = celdaNF;
+            CualTabla = 1;
+            tablaImprimir = ":formExportar:datosMensajesUsuariosExportar";
+            cualNuevo = ":formularioDialogos:nuevoMensajeUsuarios";
+            cualInsertar = "formularioDialogos:NuevoRegistroMensajeUsuario";
+            nombreArchivo = "MensajeUsuarioXML";
 //            RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:exportarXML");
-         mensajeUsuarioSeleccionado.getSecuencia();
-      }
-   }
+            RequestContext.getCurrentInstance().update("form:exportarXML");
+            mensajeUsuarioSeleccionado.getSecuencia();
+        }
+    }
 
-   //LIMPIAR NUEVO REGISTRO
-   public void limpiarNuevoProverbio() {
-      nuevoProverbio = new Recordatorios();
-      nuevoProverbio.setTipo("PROVERBIO");
-      proverbioSeleccionado = null;
-      proverbioSeleccionado = null;
-   }
+    //LIMPIAR NUEVO REGISTRO
+    public void limpiarNuevoProverbio() {
+        nuevoProverbio = new Recordatorios();
+        nuevoProverbio.setTipo("PROVERBIO");
+        proverbioSeleccionado = null;
+        proverbioSeleccionado = null;
+    }
 
-   //FILTRADO
-   public void activarCtrlF11() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 0 && CualTabla == 0) {
-         altoTabla = "95";
-         pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
-         pMensaje.setFilterStyle("width: 85% !important");
-         RequestContext.getCurrentInstance().update("form:datosProverbios");
-         bandera = 1;
-      } else if (bandera == 1 && CualTabla == 0) {
-         altoTabla = "115";
-         pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
-         pMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosProverbios");
-         bandera = 0;
-         filtradosListaProverbios = null;
-         tipoLista = 0;
-      } else if (banderaNF == 0 && CualTabla == 1) {
-         altoTablaNF = "91";
-         mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
-         mAno.setFilterStyle("width: 85% !important");
-         mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
-         mMes.setFilterStyle("width: 85% !important");
-         mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
-         mDia.setFilterStyle("width: 85% !important");
-         mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
-         mMensaje.setFilterStyle("width: 85% !important");
-         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-         banderaNF = 1;
-      } else if (banderaNF == 1 && CualTabla == 1) {
-         altoTablaNF = "115";
-         mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
-         mAno.setFilterStyle("display: none; visibility: hidden;");
-         mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
-         mMes.setFilterStyle("display: none; visibility: hidden;");
-         mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
-         mDia.setFilterStyle("display: none; visibility: hidden;");
-         mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
-         mMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-         banderaNF = 0;
-         filtradosListaMensajesUsuario = null;
-         tipoListaNF = 0;
-      }
-   }
+    //FILTRADO
+    public void activarCtrlF11() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 0 && CualTabla == 0) {
+            altoTabla = "95";
+            pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
+            pMensaje.setFilterStyle("width: 85% !important");
+            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            bandera = 1;
+        } else if (bandera == 1 && CualTabla == 0) {
+            altoTabla = "115";
+            pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
+            pMensaje.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            bandera = 0;
+            filtradosListaProverbios = null;
+            tipoLista = 0;
+        } else if (banderaNF == 0 && CualTabla == 1) {
+            altoTablaNF = "91";
+            mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
+            mAno.setFilterStyle("width: 85% !important");
+            mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
+            mMes.setFilterStyle("width: 85% !important");
+            mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
+            mDia.setFilterStyle("width: 85% !important");
+            mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
+            mMensaje.setFilterStyle("width: 85% !important");
+            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            banderaNF = 1;
+        } else if (banderaNF == 1 && CualTabla == 1) {
+            altoTablaNF = "115";
+            mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
+            mAno.setFilterStyle("display: none; visibility: hidden;");
+            mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
+            mMes.setFilterStyle("display: none; visibility: hidden;");
+            mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
+            mDia.setFilterStyle("display: none; visibility: hidden;");
+            mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
+            mMensaje.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            banderaNF = 0;
+            filtradosListaMensajesUsuario = null;
+            tipoListaNF = 0;
+        }
+    }
 
-   //EXPORTAR
-   public void exportPDF() throws IOException {
-      if (CualTabla == 0) {
-         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosProverbiosExportar");
-         FacesContext context = FacesContext.getCurrentInstance();
-         Exporter exporter = new ExportarPDF();
-         exporter.export(context, tabla, "ProverbiosPDF", false, false, "UTF-8", null, null);
-         context.responseComplete();
-      } else {
-         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosMensajesUsuariosExportar");
-         FacesContext context = FacesContext.getCurrentInstance();
-         Exporter exporter = new ExportarPDF();
-         exporter.export(context, tabla, "MensajesUsuariosPDF", false, false, "UTF-8", null, null);
-         context.responseComplete();
-         proverbioSeleccionado = null;
-      }
-   }
+    //EXPORTAR
+    public void exportPDF() throws IOException {
+        if (CualTabla == 0) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosProverbiosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "ProverbiosPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosMensajesUsuariosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "MensajesUsuariosPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+            proverbioSeleccionado = null;
+        }
+    }
 
-   public void exportXLS() throws IOException {
-      if (CualTabla == 0) {
-         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosProverbiosExportar");
-         FacesContext context = FacesContext.getCurrentInstance();
-         Exporter exporter = new ExportarXLS();
-         exporter.export(context, tabla, "ProverbiosXLS", false, false, "UTF-8", null, null);
-         context.responseComplete();
-      } else {
-         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosMensajesUsuariosExportar");
-         FacesContext context = FacesContext.getCurrentInstance();
-         Exporter exporter = new ExportarXLS();
-         exporter.export(context, tabla, "MensajesUsuariosXLS", false, false, "UTF-8", null, null);
-         context.responseComplete();
-      }
-   }
+    public void exportXLS() throws IOException {
+        if (CualTabla == 0) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosProverbiosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "ProverbiosXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosMensajesUsuariosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "MensajesUsuariosXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        }
+    }
 
-   public void tablaNuevoRegistro() {
+    public void tablaNuevoRegistro() {
 //        RequestContext context = RequestContext.getCurrentInstance();
-      if ((listaProverbios.isEmpty() || listaMensajesUsuario.isEmpty())) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
-         RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
-      } else if (CualTabla == 0) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroProverbio");
-         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
-      } else if (CualTabla == 1) {
+        if ((listaProverbios.isEmpty() || listaMensajesUsuario.isEmpty())) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
+            RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
+        } else if (CualTabla == 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroProverbio");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
+        } else if (CualTabla == 1) {
 //            Short year = new Short(String.valueOf(anioactual));
 //            Short year = anioactual;
 //            nuevoRegistroMensajesUsuarios.setAno(year);
-         nuevoRegistroMensajesUsuarios.setAno(anioactual);
-         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroMensajeUsuario");
-         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
-      }
-   }
+            nuevoRegistroMensajesUsuarios.setAno(anioactual);
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroMensajeUsuario");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
+        }
+    }
 
-   //AUTOCOMPLETAR
-   public void modificarProverbio(Recordatorios proverbio, String confirmarCambio, String valorConfirmar) {
-      proverbioSeleccionado = proverbio;
-//        int coincidencias = 0;
-//        int indiceUnicoElemento = 0;
-//        RequestContext context = RequestContext.getCurrentInstance();
-      if (confirmarCambio.equalsIgnoreCase("N")) {
-         if (tipoLista == 0) {
-            if (!listaProverbiosCrear.contains(proverbioSeleccionado)) {
-
-               if (listaProverbiosModificar.isEmpty()) {
-                  listaProverbiosModificar.add(proverbioSeleccionado);
-               } else if (!listaProverbiosModificar.contains(proverbioSeleccionado)) {
-                  listaProverbiosModificar.add(proverbioSeleccionado);
-               }
-               if (guardado) {
-                  guardado = false;
-                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
-               }
+    //AUTOCOMPLETAR
+    public void modificarProverbio(Recordatorios proverbio) {
+        proverbioSeleccionado = proverbio;
+        if (!listaProverbiosCrear.contains(proverbioSeleccionado)) {
+            if (listaProverbiosModificar.isEmpty()) {
+                listaProverbiosModificar.add(proverbioSeleccionado);
+            } else if (!listaProverbiosModificar.contains(proverbioSeleccionado)) {
+                listaProverbiosModificar.add(proverbioSeleccionado);
             }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosProverbios");
+    }
 
-         } else if (!listaProverbiosCrear.contains(proverbioSeleccionado)) {
+    //AUTOCOMPLETAR
+    public void modificarMensajeUsuario(Recordatorios msgUsuario) {
+        mensajeUsuarioSeleccionado = msgUsuario;
+        if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
 
-            if (listaProverbiosCrear.isEmpty()) {
-               listaProverbiosCrear.add(proverbioSeleccionado);
-            } else if (!listaProverbiosCrear.contains(proverbioSeleccionado)) {
-               listaProverbiosCrear.add(proverbioSeleccionado);
+            if (listaMensajesUsuariosModificar.isEmpty()) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
+            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
             }
             if (guardado) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-         }
-         RequestContext.getCurrentInstance().update("form:datosProverbios");
-      }
-   }
+        }
+        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+    }
 
-   //AUTOCOMPLETAR
-   public void modificarMensajeUsuario(Recordatorios msgUsuario, String confirmarCambio, String valorConfirmar) {
-      mensajeUsuarioSeleccionado = msgUsuario;
-//        int coincidencias = 0;
-//        int indiceNFUnicoElemento = 0;
-//        RequestContext context = RequestContext.getCurrentInstance();
-      if (confirmarCambio.equalsIgnoreCase("N")) {
-         if (tipoLista == 0) {
-            if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-
-               if (listaMensajesUsuariosModificar.isEmpty()) {
-                  listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-               } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-                  listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-               }
-               if (guardado) {
-                  guardado = false;
-                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
-               }
+    //MOSTRAR DATOS CELDA
+    public void editarCelda() {
+        if (proverbioSeleccionado != null && CualTabla == 0) {
+            if (tipoLista == 0) {
+                editarProverbios = proverbioSeleccionado;
             }
-
-         } else if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-
-            if (listaMensajesUsuariosCrear.isEmpty()) {
-               listaMensajesUsuariosCrear.add(mensajeUsuarioSeleccionado);
-            } else if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-               listaMensajesUsuariosCrear.add(mensajeUsuarioSeleccionado);
+            if (tipoLista == 1) {
+                editarProverbios = proverbioSeleccionado;
             }
-            if (guardado) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-         }
-         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-      }
-   }
-
-   //MOSTRAR DATOS CELDA
-   public void editarCelda() {
-      if (proverbioSeleccionado != null && CualTabla == 0) {
-         if (tipoLista == 0) {
-            editarProverbios = proverbioSeleccionado;
-         }
-         if (tipoLista == 1) {
-            editarProverbios = proverbioSeleccionado;
-         }
 
 //            RequestContext context = RequestContext.getCurrentInstance();
-         if (cualCelda == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editarMensajes");
-            RequestContext.getCurrentInstance().execute("PF('editarMensajes').show()");
-            cualCelda = -1;
-         }
-         proverbioSeleccionado = null;
-      } else if (mensajeUsuarioSeleccionado != null && CualTabla == 1) {
-         if (tipoListaNF == 0) {
-            editarProverbios = mensajeUsuarioSeleccionado;
-         }
-         if (tipoListaNF == 1) {
-            editarProverbios = mensajeUsuarioSeleccionado;
-         }
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarMensajes");
+                RequestContext.getCurrentInstance().execute("PF('editarMensajes').show()");
+                cualCelda = -1;
+            }
+            proverbioSeleccionado = null;
+        } else if (mensajeUsuarioSeleccionado != null && CualTabla == 1) {
+            if (tipoListaNF == 0) {
+                editarProverbios = mensajeUsuarioSeleccionado;
+            }
+            if (tipoListaNF == 1) {
+                editarProverbios = mensajeUsuarioSeleccionado;
+            }
 //            RequestContext context = RequestContext.getCurrentInstance();
-         /*if (cualCelda == 0) {
+            /*if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarAños");
                 RequestContext.getCurrentInstance().execute("PF('editarAños').show()");
                 cualCelda = -1;
@@ -570,52 +487,448 @@ String pagActual = "proverbio";
                 RequestContext.getCurrentInstance().execute("PF('editarMensajes2').show()");
                 cualCelda = -1;
             }*/
-         switch (cualCelda) {
-            case 0:
-               RequestContext.getCurrentInstance().update("formularioDialogos:editarAños");
-               RequestContext.getCurrentInstance().execute("PF('editarAños').show()");
-               cualCelda = -1;
-               break;
-            case 1:
-               RequestContext.getCurrentInstance().update("formularioDialogos:editarMeses");
-               RequestContext.getCurrentInstance().execute("PF('editarMeses').show()");
-               cualCelda = -1;
-               break;
-            case 2:
-               RequestContext.getCurrentInstance().update("formularioDialogos:editarDias");
-               RequestContext.getCurrentInstance().execute("PF('editarDias').show()");
-               cualCelda = -1;
-               break;
-            case 3:
-               RequestContext.getCurrentInstance().update("formularioDialogos:editarMensajes2");
-               RequestContext.getCurrentInstance().execute("PF('editarMensajes2').show()");
-               cualCelda = -1;
-               break;
-         }
-         mensajeUsuarioSeleccionado = null;
-      }
-      proverbioSeleccionado = null;
-   }
+            switch (cualCelda) {
+                case 0:
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAños");
+                    RequestContext.getCurrentInstance().execute("PF('editarAños').show()");
+                    cualCelda = -1;
+                    break;
+                case 1:
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMeses");
+                    RequestContext.getCurrentInstance().execute("PF('editarMeses').show()");
+                    cualCelda = -1;
+                    break;
+                case 2:
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDias");
+                    RequestContext.getCurrentInstance().execute("PF('editarDias').show()");
+                    cualCelda = -1;
+                    break;
+                case 3:
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMensajes2");
+                    RequestContext.getCurrentInstance().execute("PF('editarMensajes2').show()");
+                    cualCelda = -1;
+                    break;
+            }
+            mensajeUsuarioSeleccionado = null;
+        }
+        proverbioSeleccionado = null;
+    }
 
-   public void dialogoProverbios() {
+    public void dialogoProverbios() {
 //        RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:datosProverbios");
-      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
-   }
+        RequestContext.getCurrentInstance().update("form:datosProverbios");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
+    }
 
-   public void dialogoMensajesUsuarios() {
+    public void dialogoMensajesUsuarios() {
 //        RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
-   }
+        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
+    }
 
-   //CREAR NUEVO PROVERBIO
-   public void agregarNuevoProverbio() {
-      int pasa = 0;
+    //CREAR NUEVO PROVERBIO
+    public void agregarNuevoProverbio() {
+        int pasa = 0;
 //        RequestContext context = RequestContext.getCurrentInstance();
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (pasa == 0) {
-         if (bandera == 1 && CualTabla == 0) {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (pasa == 0) {
+            if (bandera == 1 && CualTabla == 0) {
+                altoTabla = "115";
+                pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
+                pMensaje.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosProverbios");
+                bandera = 0;
+                filtradosListaProverbios = null;
+                tipoLista = 0;
+            }
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoProverbio.setSecuencia(l);
+            nuevoProverbio.setTipo("PROVERBIO");
+
+            listaProverbiosCrear.add(nuevoProverbio);
+            listaProverbios.add(nuevoProverbio);
+            proverbioSeleccionado = nuevoProverbio;
+            contarRegistrosProverbios();
+            nuevoProverbio = new Recordatorios();
+            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            cambiosPagina = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoProverbio");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoProverbio').show()");
+        }
+    }
+
+    public void agregarNuevoMensajeUsuario() {
+        int pasa = 0;
+//        RequestContext context = RequestContext.getCurrentInstance();
+        if (pasa == 0) {
+            if (bandera == 1 && CualTabla == 0) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                altoTablaNF = "115";
+                mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
+                mAno.setFilterStyle("display: none; visibility: hidden;");
+                mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
+                mMes.setFilterStyle("display: none; visibility: hidden;");
+                mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
+                mDia.setFilterStyle("display: none; visibility: hidden;");
+                mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
+                mMensaje.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+                banderaNF = 0;
+                filtradosListaMensajesUsuario = null;
+                tipoListaNF = 0;
+            }
+            //AGREGAR REGISTRO A LA LISTA VIGENCIAS FORMALES.
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoRegistroMensajesUsuarios.setSecuencia(l);
+            nuevoRegistroMensajesUsuarios.setTipo("RECORDATORIO");
+            listaMensajesUsuariosCrear.add(nuevoRegistroMensajesUsuarios);
+            listaMensajesUsuario.add(nuevoRegistroMensajesUsuarios);
+            contarRegistrosMensajes();
+            mensajeUsuarioSeleccionado = nuevoRegistroMensajesUsuarios;
+            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+
+            if (guardado) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            nuevoRegistroMensajesUsuarios = new Recordatorios();
+            cambiosPagina = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoMensajeUsuario");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoMensajeUsuario').show()");
+        }
+    }
+
+    //DUPLICAR PROVERBIO
+    public void duplicarP() {
+        if (proverbioSeleccionado != null && CualTabla == 0) {
+            duplicarProverbio = new Recordatorios();
+            k++;
+            l = BigInteger.valueOf(k);
+
+            if (tipoLista == 0) {
+                duplicarProverbio.setSecuencia(l);
+                duplicarProverbio.setMensaje(proverbioSeleccionado.getMensaje());
+                duplicarProverbio.setTipo(proverbioSeleccionado.getTipo());
+            }
+            if (tipoLista == 1) {
+                duplicarProverbio.setSecuencia(l);
+                duplicarProverbio.setMensaje(proverbioSeleccionado.getMensaje());
+                duplicarProverbio.setTipo(proverbioSeleccionado.getTipo());
+            }
+//            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroProverbio");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProverbio').show()");
+        } else if (mensajeUsuarioSeleccionado != null && CualTabla == 1) {
+            duplicarRegistroMensajesUsuarios = new Recordatorios();
+            m++;
+            n = BigInteger.valueOf(m);
+            if (tipoListaNF == 0) {
+                duplicarRegistroMensajesUsuarios.setSecuencia(n);
+                duplicarRegistroMensajesUsuarios.setAno(mensajeUsuarioSeleccionado.getAno());
+                duplicarRegistroMensajesUsuarios.setMes(mensajeUsuarioSeleccionado.getMes());
+                duplicarRegistroMensajesUsuarios.setDia(mensajeUsuarioSeleccionado.getDia());
+                duplicarRegistroMensajesUsuarios.setTipo(mensajeUsuarioSeleccionado.getTipo());
+                duplicarRegistroMensajesUsuarios.setMensaje(mensajeUsuarioSeleccionado.getMensaje());
+            }
+            if (tipoListaNF == 1) {
+                duplicarRegistroMensajesUsuarios.setSecuencia(n);
+                duplicarRegistroMensajesUsuarios.setAno(mensajeUsuarioSeleccionado.getAno());
+                duplicarRegistroMensajesUsuarios.setMes(mensajeUsuarioSeleccionado.getMes());
+                duplicarRegistroMensajesUsuarios.setDia(mensajeUsuarioSeleccionado.getDia());
+                duplicarRegistroMensajesUsuarios.setTipo(mensajeUsuarioSeleccionado.getTipo());
+                duplicarRegistroMensajesUsuarios.setMensaje(mensajeUsuarioSeleccionado.getMensaje());
+            }
+//            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroMensajeUsuario");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroMensajeUsuario').show()");
+
+        }
+    }
+
+    public void seleccionarAno(String estadoAno, Recordatorios msgUsuario) {
+        mensajeUsuarioSeleccionado = msgUsuario;
+        mensajeUsuarioSeleccionado.setAno(new Short(estadoAno));
+        if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
+            if (listaMensajesUsuariosModificar.isEmpty()) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
+            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
+            }
+        }
+    }
+
+    public void seleccionarMes(String estadoMes, Recordatorios msgUsuario) {
+        HashMap meses = AgnosMesesDiasNumeros.getMeses();
+        System.out.println("meses : " + meses);
+        mensajeUsuarioSeleccionado = msgUsuario;
+        if (estadoMes != null) {
+            if (meses.containsKey(estadoMes.toUpperCase())) {
+                mensajeUsuarioSeleccionado.setMes((short) meses.get(estadoMes.toUpperCase()));
+            }
+        } else {
+            mensajeUsuarioSeleccionado.setMes(null);
+        }
+        if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
+            if (listaMensajesUsuariosModificar.isEmpty()) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
+            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
+            }
+        }
+        guardado = false;
+        cambiosPagina = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+
+    }
+
+    public void seleccionarDia(String estadoDia, Recordatorios msgUsuario) {
+        HashMap diasLetras = AgnosMesesDiasNumeros.getDias();
+        mensajeUsuarioSeleccionado = msgUsuario;
+        if (estadoDia != null) {
+            if (diasLetras.containsKey(estadoDia.toUpperCase())) {
+                mensajeUsuarioSeleccionado.setDia((short) diasLetras.get(estadoDia.toUpperCase()));
+            }
+        } else {
+            mensajeUsuarioSeleccionado.setDia(null);
+        }
+        if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
+            if (listaMensajesUsuariosModificar.isEmpty()) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
+            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
+                listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
+            }
+        }
+        if (guardado) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        cambiosPagina = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+
+    }
+
+    public void seleccionarTipoNuevoAno(String estadoAno, int tipoNuevo) {
+        HashMap agnosLetras = AgnosMesesDiasNumeros.getAgnos(Calendar.getInstance().get(Calendar.YEAR));
+        if (tipoNuevo == 1) {
+            if (estadoAno != null) {
+                if (agnosLetras.containsKey(estadoAno.toUpperCase())) {
+                    nuevoRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
+                }
+            } else {
+                nuevoRegistroMensajesUsuarios.setAno(null);
+            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAno");
+        } else {
+            if (estadoAno != null) {
+                if (agnosLetras.containsKey(estadoAno.toUpperCase())) {
+                    duplicarRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
+                }
+            } else {
+                duplicarRegistroMensajesUsuarios.setAno(null);
+            }
+            cambiosPagina = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAno");
+        }
+
+    }
+
+    public void seleccionarTipoNuevoMes(String estadoMes, int tipoNuevo) {
+        HashMap meses = AgnosMesesDiasNumeros.getMeses();
+        if (tipoNuevo == 1) {
+            if (estadoMes != null) {
+                if (meses.containsKey(estadoMes.toUpperCase())) {
+                    nuevoRegistroMensajesUsuarios.setMes((short) meses.get(estadoMes.toUpperCase()));
+                }
+            } else {
+                nuevoRegistroMensajesUsuarios.setMes(null);
+            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMes");
+        } else {
+            if (estadoMes != null) {
+                if (meses.containsKey(estadoMes.toUpperCase())) {
+                    nuevoRegistroMensajesUsuarios.setMes((short) meses.get(estadoMes.toUpperCase()));
+                }
+            } else {
+                duplicarRegistroMensajesUsuarios.setMes(null);
+            }
+            cambiosPagina = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMes");
+        }
+
+    }
+
+    public void seleccionarTipoNuevoDia(String estadoDia, int tipoNuevo) {
+        HashMap dias = AgnosMesesDiasNumeros.getDias();
+        if (tipoNuevo == 1) {
+            if (estadoDia != null) {
+                if (dias.containsKey(estadoDia.toUpperCase())) {
+                    nuevoRegistroMensajesUsuarios.setDia((short) dias.get(estadoDia.toUpperCase()));
+                }
+            } else {
+                nuevoRegistroMensajesUsuarios.setDia(null);
+            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDia");
+        } else {
+            if (estadoDia != null) {
+                if (dias.containsKey(estadoDia.toUpperCase())) {
+                    duplicarRegistroMensajesUsuarios.setDia((short) dias.get(estadoDia.toUpperCase()));
+                }
+            } else {
+                duplicarRegistroMensajesUsuarios.setDia(null);
+            }
+            cambiosPagina = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDia");
+        }
+
+    }
+
+    //BORRAR VIGENCIA FORMAL
+    public void borrarProverbio() {
+
+        if (proverbioSeleccionado != null) {
+            if (CualTabla == 0) {
+                if (!listaProverbiosModificar.isEmpty() && listaProverbiosModificar.contains(proverbioSeleccionado)) {
+                    int modIndex = listaProverbiosModificar.indexOf(proverbioSeleccionado);
+                    listaProverbiosModificar.remove(modIndex);
+                    listaProverbiosBorrar.add(proverbioSeleccionado);
+                } else if (!listaProverbiosCrear.isEmpty() && listaProverbiosCrear.contains(proverbioSeleccionado)) {
+                    int crearIndex = listaProverbiosCrear.indexOf(proverbioSeleccionado);
+                    listaProverbiosCrear.remove(crearIndex);
+                } else {
+                    listaProverbiosBorrar.add(proverbioSeleccionado);
+                }
+                listaProverbios.remove(proverbioSeleccionado);
+                if (tipoLista == 1) {
+                    filtradosListaProverbios.remove(proverbioSeleccionado);
+                }
+                contarRegistrosProverbios();
+                RequestContext.getCurrentInstance().update("form:datosProverbios");
+                proverbioSeleccionado = null;
+                cambiosPagina = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            } else if (CualTabla == 1) {
+                if (!listaMensajesUsuariosModificar.isEmpty() && listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
+                    int modIndex = listaMensajesUsuariosModificar.indexOf(mensajeUsuarioSeleccionado);
+                    listaMensajesUsuariosModificar.remove(modIndex);
+                    listaMensajesUsuariosBorrar.add(mensajeUsuarioSeleccionado);
+                } else if (!listaMensajesUsuariosCrear.isEmpty() && listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
+                    int crearIndex = listaMensajesUsuariosCrear.indexOf(mensajeUsuarioSeleccionado);
+                    listaMensajesUsuariosCrear.remove(crearIndex);
+                } else {
+                    listaMensajesUsuariosBorrar.add(mensajeUsuarioSeleccionado);
+                }
+                listaMensajesUsuario.remove(mensajeUsuarioSeleccionado);
+                if (tipoListaNF == 1) {
+                    filtradosListaMensajesUsuario.remove(mensajeUsuarioSeleccionado);
+                }
+                contarRegistrosMensajes();
+                RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+                cambiosPagina = false;
+                mensajeUsuarioSeleccionado = null;
+                proverbioSeleccionado = null;
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        }
+    }
+
+    public void verificarRastro() {
+        if (CualTabla == 0) {
+            if (proverbioSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(proverbioSeleccionado.getSecuencia(), "RECORDATORIOS");
+                switch (resultado) {
+                    case 1:
+                        RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+                        break;
+                    case 2:
+                        RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+                        break;
+                    case 3:
+                        RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                        break;
+                    case 4:
+                        RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                        break;
+                    case 5:
+                        RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                        break;
+                    default:
+                        break;
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+            }
+        } else if (mensajeUsuarioSeleccionado != null) {
+            int resultadoNF = administrarRastros.obtenerTabla(mensajeUsuarioSeleccionado.getSecuencia(), "RECORDATORIOS");
+            switch (resultadoNF) {
+                case 1:
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
+                    break;
+                case 2:
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroNF').show()");
+                    break;
+                case 3:
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroNF').show()");
+                    break;
+                case 4:
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroNF').show()");
+                    break;
+                case 5:
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
+                    break;
+                default:
+                    break;
+            }
+        } else if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
+        }
+
+    }
+
+    public void limpiarNuevoMensajeUsuario() {
+        nuevoRegistroMensajesUsuarios = new Recordatorios();
+        nuevoRegistroMensajesUsuarios.setTipo("RECORDATORIO");
+    }
+
+    public void limpiarDuplicarProverbio() {
+        duplicarProverbio = new Recordatorios();
+    }
+
+    public void limpiarDuplicarRegistroMensajeUsuario() {
+        duplicarRegistroMensajesUsuarios = new Recordatorios();
+    }
+
+    public void confirmarDuplicar() {
+        listaProverbiosCrear.add(duplicarProverbio);
+        listaProverbios.add(duplicarProverbio);
+        proverbioSeleccionado = duplicarProverbio;
+        contarRegistrosProverbios();
+        cambiosPagina = false;
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
             altoTabla = "115";
             pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
             pMensaje.setFilterStyle("display: none; visibility: hidden;");
@@ -623,36 +936,22 @@ String pagActual = "proverbio";
             bandera = 0;
             filtradosListaProverbios = null;
             tipoLista = 0;
-         }
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoProverbio.setSecuencia(l);
-         nuevoProverbio.setTipo("PROVERBIO");
+        }
+        RequestContext.getCurrentInstance().update("form:datosProverbios");
+        duplicarProverbio = new Recordatorios();
+        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroProverbio");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProverbio').hide()");
+    }
 
-         listaProverbiosCrear.add(nuevoProverbio);
-         listaProverbios.add(nuevoProverbio);
-         proverbioSeleccionado = nuevoProverbio;
-         modificarInfoRegistroProverbios(listaProverbios.size());
-         nuevoProverbio = new Recordatorios();
-         RequestContext.getCurrentInstance().update("form:datosProverbios");
-         if (guardado) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').hide()");
-      } else {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoProverbio");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevoProverbio').show()");
-      }
-   }
-
-   public void agregarNuevoMensajeUsuario() {
-      int pasa = 0;
-//        RequestContext context = RequestContext.getCurrentInstance();
-      if (pasa == 0) {
-         if (bandera == 1 && CualTabla == 0) {
+    public void confirmarDuplicarNF() {
+        listaMensajesUsuariosCrear.add(duplicarRegistroMensajesUsuarios);
+        listaMensajesUsuario.add(duplicarRegistroMensajesUsuarios);
+        contarRegistrosMensajes();
+        mensajeUsuarioSeleccionado = duplicarRegistroMensajesUsuarios;
+        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             altoTablaNF = "115";
             mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
@@ -667,1415 +966,345 @@ String pagActual = "proverbio";
             banderaNF = 0;
             filtradosListaMensajesUsuario = null;
             tipoListaNF = 0;
-         }
-         //AGREGAR REGISTRO A LA LISTA VIGENCIAS FORMALES.
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoRegistroMensajesUsuarios.setSecuencia(l);
-         nuevoRegistroMensajesUsuarios.setTipo("RECORDATORIO");
-         listaMensajesUsuariosCrear.add(nuevoRegistroMensajesUsuarios);
-         listaMensajesUsuario.add(nuevoRegistroMensajesUsuarios);
-         modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
-         mensajeUsuarioSeleccionado = nuevoRegistroMensajesUsuarios;
-         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+        }
+        RequestContext.getCurrentInstance().update("form:DuplicarRegistroMensajeUsuario");
+        duplicarRegistroMensajesUsuarios = new Recordatorios();
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroMensajeUsuario");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroMensajeUsuario').hide()");
 
-         if (guardado) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         nuevoRegistroMensajesUsuarios = new Recordatorios();
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').hide()");
-      } else {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoMensajeUsuario");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevoMensajeUsuario').show()");
-      }
-   }
+    }
 
-   //DUPLICAR PROVERBIO
-   public void duplicarP() {
-      if (proverbioSeleccionado != null && CualTabla == 0) {
-         duplicarProverbio = new Recordatorios();
-         k++;
-         l = BigInteger.valueOf(k);
-
-         if (tipoLista == 0) {
-            duplicarProverbio.setSecuencia(l);
-            duplicarProverbio.setMensaje(proverbioSeleccionado.getMensaje());
-            duplicarProverbio.setTipo(proverbioSeleccionado.getTipo());
-         }
-         if (tipoLista == 1) {
-            duplicarProverbio.setSecuencia(l);
-            duplicarProverbio.setMensaje(proverbioSeleccionado.getMensaje());
-            duplicarProverbio.setTipo(proverbioSeleccionado.getTipo());
-         }
-//            RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroProverbio");
-         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProverbio').show()");
-      } else if (mensajeUsuarioSeleccionado != null && CualTabla == 1) {
-         duplicarRegistroMensajesUsuarios = new Recordatorios();
-         m++;
-         n = BigInteger.valueOf(m);
-         if (tipoListaNF == 0) {
-            duplicarRegistroMensajesUsuarios.setSecuencia(n);
-            duplicarRegistroMensajesUsuarios.setAno(mensajeUsuarioSeleccionado.getAno());
-            duplicarRegistroMensajesUsuarios.setMes(mensajeUsuarioSeleccionado.getMes());
-            duplicarRegistroMensajesUsuarios.setDia(mensajeUsuarioSeleccionado.getDia());
-            duplicarRegistroMensajesUsuarios.setTipo(mensajeUsuarioSeleccionado.getTipo());
-            duplicarRegistroMensajesUsuarios.setMensaje(mensajeUsuarioSeleccionado.getMensaje());
-         }
-         if (tipoListaNF == 1) {
-            duplicarRegistroMensajesUsuarios.setSecuencia(n);
-            duplicarRegistroMensajesUsuarios.setAno(mensajeUsuarioSeleccionado.getAno());
-            duplicarRegistroMensajesUsuarios.setMes(mensajeUsuarioSeleccionado.getMes());
-            duplicarRegistroMensajesUsuarios.setDia(mensajeUsuarioSeleccionado.getDia());
-            duplicarRegistroMensajesUsuarios.setTipo(mensajeUsuarioSeleccionado.getTipo());
-            duplicarRegistroMensajesUsuarios.setMensaje(mensajeUsuarioSeleccionado.getMensaje());
-         }
-//            RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroMensajeUsuario");
-         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroMensajeUsuario').show()");
-
-      }
-   }
-
-   public void seleccionarAno(String estadoAno, int indice, int celda) {
-      mensajeUsuarioSeleccionado.setAno(new Short(estadoAno));
-//        if (tipoLista == 0) {
-////            if (estadoAno != null) {
-////                if (estadoAno.equals("2005")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2005"));
-////                } else if (estadoAno.equals("2006")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2006"));
-////                } else if (estadoAno.equals("2007")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2007"));
-////                } else if (estadoAno.equals("2008")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2008"));
-////                } else if (estadoAno.equals("2009")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2009"));
-////                } else if (estadoAno.equals("2010")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2010"));
-////                } else if (estadoAno.equals("2011")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2011"));
-////                } else if (estadoAno.equals("2012")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2012"));
-////                } else if (estadoAno.equals("2013")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2013"));
-////                } else if (estadoAno.equals("2014")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2014"));
-////                } else if (estadoAno.equals("2015")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2015"));
-////                } else if (estadoAno.equals("2016")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2016"));
-////                } else if (estadoAno.equals("2017")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2017"));
-////                } else if (estadoAno.equals("2018")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2018"));
-////                } else if (estadoAno.equals("2019")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2019"));
-////                } else if (estadoAno.equals("2020")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2020"));
-////                } else if (estadoAno.equals("2021")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2021"));
-////                } else if (estadoAno.equals("2022")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2022"));
-////                } else if (estadoAno.equals("2023")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2023"));
-////                } else if (estadoAno.equals("2024")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2024"));
-////                } else if (estadoAno.equals("2025")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("2025"));
-////                } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
-////                    mensajeUsuarioSeleccionado.setAno(new Short("0"));
-////                }
-////            } else {
-////                mensajeUsuarioSeleccionado.setAno(null);
-////            }
-      if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-         if (listaMensajesUsuariosModificar.isEmpty()) {
-            listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-         } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-            listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-         }
-      }
-//        } else {
-//            if (estadoAno != null) {
-//                if (estadoAno.equals("2005")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2005"));
-//                } else if (estadoAno.equals("2006")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2006"));
-//                } else if (estadoAno.equals("2007")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2007"));
-//                } else if (estadoAno.equals("2008")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2008"));
-//                } else if (estadoAno.equals("2009")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2009"));
-//                } else if (estadoAno.equals("2010")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2010"));
-//                } else if (estadoAno.equals("2011")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2011"));
-//                } else if (estadoAno.equals("2012")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2012"));
-//                } else if (estadoAno.equals("2013")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2013"));
-//                } else if (estadoAno.equals("2014")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2014"));
-//                } else if (estadoAno.equals("2015")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2015"));
-//                } else if (estadoAno.equals("2016")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2016"));
-//                } else if (estadoAno.equals("2017")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2017"));
-//                } else if (estadoAno.equals("2018")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2018"));
-//                } else if (estadoAno.equals("2019")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2019"));
-//                } else if (estadoAno.equals("2020")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2020"));
-//                } else if (estadoAno.equals("2021")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2021"));
-//                } else if (estadoAno.equals("2022")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2022"));
-//                } else if (estadoAno.equals("2023")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2023"));
-//                } else if (estadoAno.equals("2024")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2024"));
-//                } else if (estadoAno.equals("2025")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("2025"));
-//                } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
-//                    mensajeUsuarioSeleccionado.setAno(new Short("0"));
-//                }
-//            } else {
-//                mensajeUsuarioSeleccionado.setAno(null);
-//            }
-//            if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-//                if (listaMensajesUsuariosModificar.isEmpty()) {
-//                    listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-//                } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-//                    listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-//                }
-//            }
-//        }
-//        if (guardado == true) {
-//            guardado = false;
-//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//        }
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        cambiosPagina = false;
-//        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-
-   }
-
-   public void seleccionarMes(String estadoMes, int indice, int celda) {
-      HashMap meses = AgnosMesesDiasNumeros.getMeses();
-      if (tipoLista == 0) {
-         if (estadoMes != null) {
-            if (meses.containsKey(estadoMes.toUpperCase())) {
-               mensajeUsuarioSeleccionado.setMes((short) meses.get(estadoMes.toUpperCase()));
-            }
-            /*if (estadoMes.equalsIgnoreCase("ENERO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("1"));
-                } else if (estadoMes.equalsIgnoreCase("FEBRERO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("2"));
-                } else if (estadoMes.equalsIgnoreCase("MARZO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("3"));
-                } else if (estadoMes.equalsIgnoreCase("ABRIL")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("4"));
-                } else if (estadoMes.equalsIgnoreCase("MAYO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("5"));
-                } else if (estadoMes.equalsIgnoreCase("JUNIO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("6"));
-                } else if (estadoMes.equalsIgnoreCase("JULIO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("7"));
-                } else if (estadoMes.equalsIgnoreCase("AGOSTO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("8"));
-                } else if (estadoMes.equalsIgnoreCase("SEPTIEMBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("9"));
-                } else if (estadoMes.equalsIgnoreCase("OCTUBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("10"));
-                } else if (estadoMes.equalsIgnoreCase("NOVIEMBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("11"));
-                } else if (estadoMes.equalsIgnoreCase("DICIEMBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("12"));
-                } else if (estadoMes.equalsIgnoreCase("TODOS LOS MESES")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("0"));
-                }*/
-         } else {
-            mensajeUsuarioSeleccionado.setMes(null);
-         }
-         if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-            if (listaMensajesUsuariosModificar.isEmpty()) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            }
-         }
-      } else {
-         if (estadoMes != null) {
-            if (meses.containsKey(estadoMes.toUpperCase())) {
-               mensajeUsuarioSeleccionado.setMes((short) meses.get(estadoMes.toUpperCase()));
-            }
-            /*if (estadoMes.equalsIgnoreCase("ENERO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("1"));
-                } else if (estadoMes.equalsIgnoreCase("FEBRERO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("2"));
-                } else if (estadoMes.equalsIgnoreCase("MARZO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("3"));
-                } else if (estadoMes.equalsIgnoreCase("ABRIL")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("4"));
-                } else if (estadoMes.equalsIgnoreCase("MAYO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("5"));
-                } else if (estadoMes.equalsIgnoreCase("JUNIO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("6"));
-                } else if (estadoMes.equalsIgnoreCase("JULIO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("7"));
-                } else if (estadoMes.equalsIgnoreCase("AGOSTO")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("8"));
-                } else if (estadoMes.equalsIgnoreCase("SEPTIEMBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("9"));
-                } else if (estadoMes.equalsIgnoreCase("OCTUBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("10"));
-                } else if (estadoMes.equalsIgnoreCase("NOVIEMBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("11"));
-                } else if (estadoMes.equalsIgnoreCase("DICIEMBRE")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("12"));
-                } else if (estadoMes.equalsIgnoreCase("TODOS LOS MESES")) {
-                    mensajeUsuarioSeleccionado.setMes(new Short("0"));
-                }*/
-         } else {
-            mensajeUsuarioSeleccionado.setMes(null);
-         }
-         if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-            if (listaMensajesUsuariosModificar.isEmpty()) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            }
-         }
-      }
-      if (guardado) {
-         guardado = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-      }
-//        RequestContext context = RequestContext.getCurrentInstance();
-      cambiosPagina = false;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-
-   }
-
-   public void seleccionarDia(String estadoDia, int indice, int celda) {
-      HashMap diasLetras = AgnosMesesDiasNumeros.getDias();
-      if (tipoLista == 0) {
-         if (estadoDia != null) {
-            if (diasLetras.containsKey(estadoDia.toUpperCase())) {
-               mensajeUsuarioSeleccionado.setDia((short) diasLetras.get(estadoDia.toUpperCase()));
-            }
-            /*
-                if (estadoDia.equalsIgnoreCase("01")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("1"));
-                } else if (estadoDia.equalsIgnoreCase("02")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("2"));
-                } else if (estadoDia.equalsIgnoreCase("03")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("3"));
-                } else if (estadoDia.equalsIgnoreCase("04")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("4"));
-                } else if (estadoDia.equalsIgnoreCase("05")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("5"));
-                } else if (estadoDia.equalsIgnoreCase("06")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("6"));
-                } else if (estadoDia.equalsIgnoreCase("07")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("7"));
-                } else if (estadoDia.equalsIgnoreCase("08")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("8"));
-                } else if (estadoDia.equalsIgnoreCase("09")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("9"));
-                } else if (estadoDia.equalsIgnoreCase("10")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("10"));
-                } else if (estadoDia.equalsIgnoreCase("11")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("11"));
-                } else if (estadoDia.equalsIgnoreCase("12")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("12"));
-                } else if (estadoDia.equalsIgnoreCase("13")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("13"));
-                } else if (estadoDia.equalsIgnoreCase("14")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("14"));
-                } else if (estadoDia.equalsIgnoreCase("15")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("15"));
-                } else if (estadoDia.equalsIgnoreCase("16")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("16"));
-                } else if (estadoDia.equalsIgnoreCase("17")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("17"));
-                } else if (estadoDia.equalsIgnoreCase("18")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("18"));
-                } else if (estadoDia.equalsIgnoreCase("19")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("19"));
-                } else if (estadoDia.equalsIgnoreCase("20")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("20"));
-                } else if (estadoDia.equalsIgnoreCase("21")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("21"));
-                } else if (estadoDia.equalsIgnoreCase("22")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("22"));
-                } else if (estadoDia.equalsIgnoreCase("23")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("23"));
-                } else if (estadoDia.equalsIgnoreCase("24")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("24"));
-                } else if (estadoDia.equalsIgnoreCase("25")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("25"));
-                } else if (estadoDia.equalsIgnoreCase("26")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("26"));
-                } else if (estadoDia.equalsIgnoreCase("27")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("27"));
-                } else if (estadoDia.equalsIgnoreCase("28")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("28"));
-                } else if (estadoDia.equalsIgnoreCase("29")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("29"));
-                } else if (estadoDia.equalsIgnoreCase("30")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("30"));
-                } else if (estadoDia.equalsIgnoreCase("31")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("31"));
-                } else if (estadoDia.equalsIgnoreCase("TODOS LOS DIAS")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("0"));
-                }
-             */
-         } else {
-            mensajeUsuarioSeleccionado.setDia(null);
-         }
-         if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-            if (listaMensajesUsuariosModificar.isEmpty()) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            }
-         }
-      } else {
-         if (estadoDia != null) {
-            if (diasLetras.containsKey(estadoDia.toUpperCase())) {
-               mensajeUsuarioSeleccionado.setDia((short) diasLetras.get(estadoDia.toUpperCase()));
-            }
-            /*
-                if (estadoDia.equalsIgnoreCase("01")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("1"));
-                } else if (estadoDia.equalsIgnoreCase("02")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("2"));
-                } else if (estadoDia.equalsIgnoreCase("03")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("3"));
-                } else if (estadoDia.equalsIgnoreCase("04")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("4"));
-                } else if (estadoDia.equalsIgnoreCase("05")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("5"));
-                } else if (estadoDia.equalsIgnoreCase("06")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("6"));
-                } else if (estadoDia.equalsIgnoreCase("07")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("7"));
-                } else if (estadoDia.equalsIgnoreCase("08")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("8"));
-                } else if (estadoDia.equalsIgnoreCase("09")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("9"));
-                } else if (estadoDia.equalsIgnoreCase("10")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("10"));
-                } else if (estadoDia.equalsIgnoreCase("11")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("11"));
-                } else if (estadoDia.equalsIgnoreCase("12")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("12"));
-                } else if (estadoDia.equalsIgnoreCase("13")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("13"));
-                } else if (estadoDia.equalsIgnoreCase("14")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("14"));
-                } else if (estadoDia.equalsIgnoreCase("15")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("15"));
-                } else if (estadoDia.equalsIgnoreCase("16")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("16"));
-                } else if (estadoDia.equalsIgnoreCase("17")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("17"));
-                } else if (estadoDia.equalsIgnoreCase("18")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("18"));
-                } else if (estadoDia.equalsIgnoreCase("19")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("19"));
-                } else if (estadoDia.equalsIgnoreCase("20")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("20"));
-                } else if (estadoDia.equalsIgnoreCase("21")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("21"));
-                } else if (estadoDia.equalsIgnoreCase("22")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("22"));
-                } else if (estadoDia.equalsIgnoreCase("23")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("23"));
-                } else if (estadoDia.equalsIgnoreCase("24")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("24"));
-                } else if (estadoDia.equalsIgnoreCase("25")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("25"));
-                } else if (estadoDia.equalsIgnoreCase("26")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("26"));
-                } else if (estadoDia.equalsIgnoreCase("27")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("27"));
-                } else if (estadoDia.equalsIgnoreCase("28")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("28"));
-                } else if (estadoDia.equalsIgnoreCase("29")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("29"));
-                } else if (estadoDia.equalsIgnoreCase("30")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("30"));
-                } else if (estadoDia.equalsIgnoreCase("31")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("31"));
-                } else if (estadoDia.equalsIgnoreCase("TODOS LOS DIAS")) {
-                    mensajeUsuarioSeleccionado.setDia(new Short("0"));
-                }
-             */
-         } else {
-            mensajeUsuarioSeleccionado.setMes(null);
-         }
-         if (!listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-            if (listaMensajesUsuariosModificar.isEmpty()) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            } else if (!listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-               listaMensajesUsuariosModificar.add(mensajeUsuarioSeleccionado);
-            }
-         }
-      }
-      if (guardado) {
-         guardado = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-//        RequestContext context = RequestContext.getCurrentInstance();
-      cambiosPagina = false;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-
-   }
-
-   public void seleccionarTipoNuevoAno(String estadoAno, int tipoNuevo) {
-      HashMap agnosLetras = AgnosMesesDiasNumeros.getAgnos(Calendar.getInstance().get(Calendar.YEAR));
-      if (tipoNuevo == 1) {
-         if (estadoAno != null) {
-            if (agnosLetras.containsKey(estadoAno.toUpperCase())) {
-               nuevoRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
-            }
-            /*
-                if (estadoAno.equals("2005")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2005"));
-                } else if (estadoAno.equals("2006")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2006"));
-                } else if (estadoAno.equals("2007")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2007"));
-                } else if (estadoAno.equals("2008")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2008"));
-                } else if (estadoAno.equals("2009")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2009"));
-                } else if (estadoAno.equals("2010")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2010"));
-                } else if (estadoAno.equals("2011")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2011"));
-                } else if (estadoAno.equals("2012")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2012"));
-                } else if (estadoAno.equals("2013")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2013"));
-                } else if (estadoAno.equals("2014")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2014"));
-                } else if (estadoAno.equals("2015")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2015"));
-                } else if (estadoAno.equals("2016")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2016"));
-                } else if (estadoAno.equals("2017")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2017"));
-                } else if (estadoAno.equals("2018")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2018"));
-                } else if (estadoAno.equals("2019")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2019"));
-                } else if (estadoAno.equals("2020")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2020"));
-                } else if (estadoAno.equals("2021")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2021"));
-                } else if (estadoAno.equals("2022")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2022"));
-                } else if (estadoAno.equals("2023")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2023"));
-                } else if (estadoAno.equals("2024")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2024"));
-                } else if (estadoAno.equals("2025")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("2025"));
-                } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
-                    nuevoRegistroMensajesUsuarios.setAno(new Short("0"));
-                }
-             */
-         } else {
-            nuevoRegistroMensajesUsuarios.setAno(null);
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAno");
-      } else {
-         if (estadoAno != null) {
-            if (agnosLetras.containsKey(estadoAno.toUpperCase())) {
-               duplicarRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
-            }
-            /*
-                if (estadoAno.equals("2005")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2005"));
-                } else if (estadoAno.equals("2006")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2006"));
-                } else if (estadoAno.equals("2007")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2007"));
-                } else if (estadoAno.equals("2008")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2008"));
-                } else if (estadoAno.equals("2009")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2009"));
-                } else if (estadoAno.equals("2010")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2010"));
-                } else if (estadoAno.equals("2011")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2011"));
-                } else if (estadoAno.equals("2012")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2012"));
-                } else if (estadoAno.equals("2013")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2013"));
-                } else if (estadoAno.equals("2014")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2014"));
-                } else if (estadoAno.equals("2015")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2015"));
-                } else if (estadoAno.equals("2016")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2016"));
-                } else if (estadoAno.equals("2017")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2017"));
-                } else if (estadoAno.equals("2018")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2018"));
-                } else if (estadoAno.equals("2019")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2019"));
-                } else if (estadoAno.equals("2020")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2020"));
-                } else if (estadoAno.equals("2021")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2021"));
-                } else if (estadoAno.equals("2022")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2022"));
-                } else if (estadoAno.equals("2023")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2023"));
-                } else if (estadoAno.equals("2024")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2024"));
-                } else if (estadoAno.equals("2025")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("2025"));
-                } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
-                    duplicarRegistroMensajesUsuarios.setAno(new Short("0"));
-                }
-             */
-         } else {
-            duplicarRegistroMensajesUsuarios.setAno(null);
-         }
-//            RequestContext context = RequestContext.getCurrentInstance();
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAno");
-      }
-
-   }
-
-   public void seleccionarTipoNuevoMes(String estadoMes, int tipoNuevo) {
-      HashMap meses = AgnosMesesDiasNumeros.getMeses();
-      if (tipoNuevo == 1) {
-         if (estadoMes != null) {
-            if (meses.containsKey(estadoMes.toUpperCase())) {
-               nuevoRegistroMensajesUsuarios.setMes((short) meses.get(estadoMes.toUpperCase()));
-            }
-            /*
-                if (estadoMes.equalsIgnoreCase("ENERO")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("1"));
-                } else if (estadoMes.equalsIgnoreCase("FEBRERO")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("2"));
-                } else if (estadoMes.equalsIgnoreCase("MARZO")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("3"));
-                } else if (estadoMes.equalsIgnoreCase("ABRIL")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("4"));
-                } else if (estadoMes.equalsIgnoreCase("MAYO")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("5"));
-                } else if (estadoMes.equalsIgnoreCase("JUNIO")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("6"));
-                } else if (estadoMes.equalsIgnoreCase("JULIO")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("7"));
-                } else if (estadoMes.equalsIgnoreCase("AGOSTO")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("8"));
-                } else if (estadoMes.equalsIgnoreCase("SEPTIEMBRE")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("9"));
-                } else if (estadoMes.equalsIgnoreCase("OCTUBRE")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("10"));
-                } else if (estadoMes.equalsIgnoreCase("NOVIEMBRE")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("11"));
-                } else if (estadoMes.equalsIgnoreCase("DICIEMBRE")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("12"));
-                } else if (estadoMes.equalsIgnoreCase("TODOS LOS MESES")) {
-                    nuevoRegistroMensajesUsuarios.setMes(new Short("0"));
-                }
-             */
-         } else {
-            nuevoRegistroMensajesUsuarios.setMes(null);
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMes");
-      } else {
-         if (estadoMes != null) {
-            if (meses.containsKey(estadoMes.toUpperCase())) {
-               nuevoRegistroMensajesUsuarios.setMes((short) meses.get(estadoMes.toUpperCase()));
-            }
-            /*
-                if (estadoMes.equalsIgnoreCase("ENERO")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("1"));
-                } else if (estadoMes.equalsIgnoreCase("FEBRERO")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("2"));
-                } else if (estadoMes.equalsIgnoreCase("MARZO")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("3"));
-                } else if (estadoMes.equalsIgnoreCase("ABRIL")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("4"));
-                } else if (estadoMes.equalsIgnoreCase("MAYO")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("5"));
-                } else if (estadoMes.equalsIgnoreCase("JUNIO")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("6"));
-                } else if (estadoMes.equalsIgnoreCase("JULIO")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("7"));
-                } else if (estadoMes.equalsIgnoreCase("AGOSTO")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("8"));
-                } else if (estadoMes.equalsIgnoreCase("SEPTIEMBRE")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("9"));
-                } else if (estadoMes.equalsIgnoreCase("OCTUBRE")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("10"));
-                } else if (estadoMes.equalsIgnoreCase("NOVIEMBRE")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("11"));
-                } else if (estadoMes.equalsIgnoreCase("DICIEMBRE")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("12"));
-                } else if (estadoMes.equalsIgnoreCase("TODOS LOS MESES")) {
-                    duplicarRegistroMensajesUsuarios.setMes(new Short("0"));
-                }
-             */
-         } else {
-            duplicarRegistroMensajesUsuarios.setMes(null);
-         }
-//            RequestContext context = RequestContext.getCurrentInstance();
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMes");
-      }
-
-   }
-
-   public void seleccionarTipoNuevoDia(String estadoDia, int tipoNuevo) {
-      HashMap dias = AgnosMesesDiasNumeros.getDias();
-      if (tipoNuevo == 1) {
-         if (estadoDia != null) {
-            if (dias.containsKey(estadoDia.toUpperCase())) {
-               nuevoRegistroMensajesUsuarios.setDia((short) dias.get(estadoDia.toUpperCase()));
-            }
-            /*
-                if (estadoDia.equalsIgnoreCase("01")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("1"));
-                } else if (estadoDia.equalsIgnoreCase("02")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("2"));
-                } else if (estadoDia.equalsIgnoreCase("03")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("3"));
-                } else if (estadoDia.equalsIgnoreCase("04")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("4"));
-                } else if (estadoDia.equalsIgnoreCase("05")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("5"));
-                } else if (estadoDia.equalsIgnoreCase("06")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("6"));
-                } else if (estadoDia.equalsIgnoreCase("07")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("7"));
-                } else if (estadoDia.equalsIgnoreCase("08")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("8"));
-                } else if (estadoDia.equalsIgnoreCase("09")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("9"));
-                } else if (estadoDia.equalsIgnoreCase("10")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("10"));
-                } else if (estadoDia.equalsIgnoreCase("11")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("11"));
-                } else if (estadoDia.equalsIgnoreCase("12")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("12"));
-                } else if (estadoDia.equalsIgnoreCase("13")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("13"));
-                } else if (estadoDia.equalsIgnoreCase("14")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("14"));
-                } else if (estadoDia.equalsIgnoreCase("15")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("15"));
-                } else if (estadoDia.equalsIgnoreCase("16")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("16"));
-                } else if (estadoDia.equalsIgnoreCase("17")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("17"));
-                } else if (estadoDia.equalsIgnoreCase("18")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("18"));
-                } else if (estadoDia.equalsIgnoreCase("19")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("19"));
-                } else if (estadoDia.equalsIgnoreCase("20")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("20"));
-                } else if (estadoDia.equalsIgnoreCase("21")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("21"));
-                } else if (estadoDia.equalsIgnoreCase("22")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("22"));
-                } else if (estadoDia.equalsIgnoreCase("23")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("23"));
-                } else if (estadoDia.equalsIgnoreCase("24")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("24"));
-                } else if (estadoDia.equalsIgnoreCase("25")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("25"));
-                } else if (estadoDia.equalsIgnoreCase("26")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("26"));
-                } else if (estadoDia.equalsIgnoreCase("27")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("27"));
-                } else if (estadoDia.equalsIgnoreCase("28")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("28"));
-                } else if (estadoDia.equalsIgnoreCase("29")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("29"));
-                } else if (estadoDia.equalsIgnoreCase("30")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("30"));
-                } else if (estadoDia.equalsIgnoreCase("31")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("31"));
-                } else if (estadoDia.equalsIgnoreCase("TODOS LOS DIAS")) {
-                    nuevoRegistroMensajesUsuarios.setDia(new Short("0"));
-                }
-             */
-         } else {
-            nuevoRegistroMensajesUsuarios.setDia(null);
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDia");
-      } else {
-         if (estadoDia != null) {
-            if (dias.containsKey(estadoDia.toUpperCase())) {
-               duplicarRegistroMensajesUsuarios.setDia((short) dias.get(estadoDia.toUpperCase()));
-            }
-            /*
-                if (estadoDia.equalsIgnoreCase("01")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("1"));
-                } else if (estadoDia.equalsIgnoreCase("02")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("2"));
-                } else if (estadoDia.equalsIgnoreCase("03")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("3"));
-                } else if (estadoDia.equalsIgnoreCase("04")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("4"));
-                } else if (estadoDia.equalsIgnoreCase("05")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("5"));
-                } else if (estadoDia.equalsIgnoreCase("06")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("6"));
-                } else if (estadoDia.equalsIgnoreCase("07")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("7"));
-                } else if (estadoDia.equalsIgnoreCase("08")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("8"));
-                } else if (estadoDia.equalsIgnoreCase("09")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("9"));
-                } else if (estadoDia.equalsIgnoreCase("10")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("10"));
-                } else if (estadoDia.equalsIgnoreCase("11")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("11"));
-                } else if (estadoDia.equalsIgnoreCase("12")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("12"));
-                } else if (estadoDia.equalsIgnoreCase("13")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("13"));
-                } else if (estadoDia.equalsIgnoreCase("14")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("14"));
-                } else if (estadoDia.equalsIgnoreCase("15")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("15"));
-                } else if (estadoDia.equalsIgnoreCase("16")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("16"));
-                } else if (estadoDia.equalsIgnoreCase("17")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("17"));
-                } else if (estadoDia.equalsIgnoreCase("18")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("18"));
-                } else if (estadoDia.equalsIgnoreCase("19")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("19"));
-                } else if (estadoDia.equalsIgnoreCase("20")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("20"));
-                } else if (estadoDia.equalsIgnoreCase("21")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("21"));
-                } else if (estadoDia.equalsIgnoreCase("22")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("22"));
-                } else if (estadoDia.equalsIgnoreCase("23")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("23"));
-                } else if (estadoDia.equalsIgnoreCase("24")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("24"));
-                } else if (estadoDia.equalsIgnoreCase("25")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("25"));
-                } else if (estadoDia.equalsIgnoreCase("26")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("26"));
-                } else if (estadoDia.equalsIgnoreCase("27")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("27"));
-                } else if (estadoDia.equalsIgnoreCase("28")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("28"));
-                } else if (estadoDia.equalsIgnoreCase("29")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("29"));
-                } else if (estadoDia.equalsIgnoreCase("30")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("30"));
-                } else if (estadoDia.equalsIgnoreCase("31")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("31"));
-                } else if (estadoDia.equalsIgnoreCase("TODOS LOS DIAS")) {
-                    duplicarRegistroMensajesUsuarios.setDia(new Short("0"));
-                }
-             */
-         } else {
-            duplicarRegistroMensajesUsuarios.setDia(null);
-         }
-//            RequestContext context = RequestContext.getCurrentInstance();
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDia");
-      }
-
-   }
-
-   //BORRAR VIGENCIA FORMAL
-   public void borrarProverbio() {
-
-      if (proverbioSeleccionado != null) {
-         if (CualTabla == 0) {
-            if (!listaProverbiosModificar.isEmpty() && listaProverbiosModificar.contains(proverbioSeleccionado)) {
-               int modIndex = listaProverbiosModificar.indexOf(proverbioSeleccionado);
-               listaProverbiosModificar.remove(modIndex);
-               listaProverbiosBorrar.add(proverbioSeleccionado);
-            } else if (!listaProverbiosCrear.isEmpty() && listaProverbiosCrear.contains(proverbioSeleccionado)) {
-               int crearIndex = listaProverbiosCrear.indexOf(proverbioSeleccionado);
-               listaProverbiosCrear.remove(crearIndex);
-            } else {
-               listaProverbiosBorrar.add(proverbioSeleccionado);
-            }
-            listaProverbios.remove(proverbioSeleccionado);
-            if (tipoLista == 1) {
-               filtradosListaProverbios.remove(proverbioSeleccionado);
-            }
-            modificarInfoRegistroProverbios(listaProverbios.size());
-//                RequestContext context = RequestContext.getCurrentInstance();
+    public void cancelarModificacion() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            altoTabla = "115";
+            pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
+            pMensaje.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosProverbios");
-            proverbioSeleccionado = null;
-            cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-            if (guardado == true) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-         } else if (CualTabla == 1) {
-            if (!listaMensajesUsuariosModificar.isEmpty() && listaMensajesUsuariosModificar.contains(mensajeUsuarioSeleccionado)) {
-               int modIndex = listaMensajesUsuariosModificar.indexOf(mensajeUsuarioSeleccionado);
-               listaMensajesUsuariosModificar.remove(modIndex);
-               listaMensajesUsuariosBorrar.add(mensajeUsuarioSeleccionado);
-            } else if (!listaMensajesUsuariosCrear.isEmpty() && listaMensajesUsuariosCrear.contains(mensajeUsuarioSeleccionado)) {
-               int crearIndex = listaMensajesUsuariosCrear.indexOf(mensajeUsuarioSeleccionado);
-               listaMensajesUsuariosCrear.remove(crearIndex);
-            } else {
-               listaMensajesUsuariosBorrar.add(mensajeUsuarioSeleccionado);
-            }
-            listaMensajesUsuario.remove(mensajeUsuarioSeleccionado);
-            if (tipoListaNF == 1) {
-               filtradosListaMensajesUsuario.remove(mensajeUsuarioSeleccionado);
-            }
-//                RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
+            bandera = 0;
+            filtradosListaProverbios = null;
+            tipoLista = 0;
+        }
+        if (banderaNF == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            altoTablaNF = "115";
+            mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
+            mAno.setFilterStyle("display: none; visibility: hidden;");
+            mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
+            mMes.setFilterStyle("display: none; visibility: hidden;");
+            mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
+            mDia.setFilterStyle("display: none; visibility: hidden;");
+            mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
+            mMensaje.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-            cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            mensajeUsuarioSeleccionado = null;
-            proverbioSeleccionado = null;
-            if (guardado == true) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-         }
-      }
-   }
+            banderaNF = 0;
+            filtradosListaMensajesUsuario = null;
+            tipoListaNF = 0;
+        }
+        listaProverbiosBorrar.clear();
+        listaProverbiosCrear.clear();
+        listaProverbiosModificar.clear();
+        proverbioSeleccionado = null;
+        proverbioSeleccionado = null;
+        listaProverbios = null;
+        listaMensajesUsuariosBorrar.clear();
+        listaMensajesUsuariosCrear.clear();
+        listaMensajesUsuariosModificar.clear();
+        mensajeUsuarioSeleccionado = null;
+        listaMensajesUsuario = null;
+        guardado = true;
+        permitirIndex = true;
+        cambiosPagina = true;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosProverbios");
+        RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+    }
 
-   public void verificarRastro() {
-      if (CualTabla == 0) {
-//            RequestContext context = RequestContext.getCurrentInstance();
-         if (proverbioSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(proverbioSeleccionado.getSecuencia(), "RECORDATORIOS");
-            /*
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+    public void salir() {
+        limpiarListasValor();
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            altoTabla = "115";
+            pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
+            pMensaje.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosProverbios");
+            bandera = 0;
+            filtradosListaProverbios = null;
+            tipoLista = 0;
+        }
+        if (banderaNF == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            altoTablaNF = "115";
+            mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
+            mAno.setFilterStyle("display: none; visibility: hidden;");
+            mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
+            mMes.setFilterStyle("display: none; visibility: hidden;");
+            mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
+            mDia.setFilterStyle("display: none; visibility: hidden;");
+            mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
+            mMensaje.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
+            banderaNF = 0;
+            filtradosListaMensajesUsuario = null;
+            tipoListaNF = 0;
+        }
+        listaProverbiosBorrar.clear();
+        listaProverbiosCrear.clear();
+        listaProverbiosModificar.clear();
+        proverbioSeleccionado = null;
+        proverbioSeleccionado = null;
+        listaProverbios = null;
+        listaMensajesUsuariosBorrar.clear();
+        listaMensajesUsuariosCrear.clear();
+        listaMensajesUsuariosModificar.clear();
+        mensajeUsuarioSeleccionado = null;
+        listaMensajesUsuario = null;
+        guardado = true;
+        permitirIndex = true;
+        cambiosPagina = true;
+        navegar("atras");
+    }
+
+    public List<String> complete(String query) {
+        List<String> results = new ArrayList<>();
+        int aux = Integer.parseInt(query);
+        for (int i = 0; i < 10; i++) {
+            results.add((Integer.toString(aux + i)));
+        }
+        return results;
+    }
+
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosProverbios();
+    }
+
+    public void eventoFiltrarNF() {
+        if (tipoListaNF == 0) {
+            tipoListaNF = 1;
+        }
+        contarRegistrosMensajes();
+    }
+
+    public void contarRegistrosProverbios() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroProverbio");
+    }
+
+    public void contarRegistrosMensajes() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroMsgUsuarios");
+    }
+
+    //Getter & Setters
+    public Recordatorios getEditarProverbios() {
+        return editarProverbios;
+    }
+
+    public void setEditarProverbios(Recordatorios editarProverbios) {
+        this.editarProverbios = editarProverbios;
+    }
+
+    public List<Recordatorios> getListaProverbios() {
+        if (listaProverbios == null) {
+            listaProverbios = administrarRecordatorios.recordatorios();
+            if (listaProverbios != null) {
+                if (!listaProverbios.isEmpty()) {
+                    proverbioSeleccionado = listaProverbios.get(0);
                 }
-             */
-            switch (resultado) {
-               case 1:
-                  RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                  break;
-               case 2:
-                  RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                  break;
-               case 3:
-                  RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                  break;
-               case 4:
-                  RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                  break;
-               case 5:
-                  RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                  break;
-               default:
-                  break;
             }
-         } else if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
-            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-         } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-         }
-      } else //            RequestContext context = RequestContext.getCurrentInstance();
-      {
-         if (mensajeUsuarioSeleccionado != null) {
-            int resultadoNF = administrarRastros.obtenerTabla(mensajeUsuarioSeleccionado.getSecuencia(), "RECORDATORIOS");
-            /*if (resultadoNF == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
-                } else if (resultadoNF == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroNF').show()");
-                } else if (resultadoNF == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroNF').show()");
-                } else if (resultadoNF == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroNF').show()");
-                } else if (resultadoNF == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
-                }*/
-            switch (resultadoNF) {
-               case 1:
-                  RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
-                  break;
-               case 2:
-                  RequestContext.getCurrentInstance().execute("PF('confirmarRastroNF').show()");
-                  break;
-               case 3:
-                  RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroNF').show()");
-                  break;
-               case 4:
-                  RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroNF').show()");
-                  break;
-               case 5:
-                  RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
-                  break;
-               default:
-                  break;
+        }
+        return listaProverbios;
+    }
+
+    public void setListaProverbios(List<Recordatorios> listaProverbios) {
+        this.listaProverbios = listaProverbios;
+    }
+
+    public List<Recordatorios> getFiltradosListaProverbios() {
+        return filtradosListaProverbios;
+    }
+
+    public void setFiltradosListaProverbios(List<Recordatorios> filtradosListaProverbios) {
+        this.filtradosListaProverbios = filtradosListaProverbios;
+    }
+
+    public List<Recordatorios> getListaMensajesUsuario() {
+        if (listaMensajesUsuario == null) {
+            listaMensajesUsuario = administrarRecordatorios.mensajesRecordatorios();
+            if (listaMensajesUsuario != null) {
+                if (!listaMensajesUsuario.isEmpty()) {
+                    mensajeUsuarioSeleccionado = listaMensajesUsuario.get(0);
+                }
             }
-         } else if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
-            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
-         } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
-         }
-      }
-
-   }
-
-   //LIMPIAR NUEVO REGISTRO
-   public void limpiarNuevoMensajeUsuario() {
-      nuevoRegistroMensajesUsuarios = new Recordatorios();
-      nuevoRegistroMensajesUsuarios.setTipo("RECORDATORIO");
-
-   }
-
-   //LIMPIAR DUPLICAR
-   public void limpiarDuplicarProverbio() {
-      duplicarProverbio = new Recordatorios();
-   }
-
-   public void limpiarDuplicarRegistroMensajeUsuario() {
-      duplicarRegistroMensajesUsuarios = new Recordatorios();
-   }
-
-   public void confirmarDuplicar() {
-      listaProverbiosCrear.add(duplicarProverbio);
-      listaProverbios.add(duplicarProverbio);
-      proverbioSeleccionado = duplicarProverbio;
-      modificarInfoRegistroProverbios(listaProverbios.size());
-//        RequestContext context = RequestContext.getCurrentInstance();
-      cambiosPagina = false;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      if (guardado == true) {
-         guardado = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-      if (bandera == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         altoTabla = "115";
-         pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
-         pMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosProverbios");
-         bandera = 0;
-         filtradosListaProverbios = null;
-         tipoLista = 0;
-      }
-      RequestContext.getCurrentInstance().update("form:datosProverbios");
-      duplicarProverbio = new Recordatorios();
-      RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroProverbio");
-      RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProverbio').hide()");
-   }
-
-   public void confirmarDuplicarNF() {
-      listaMensajesUsuariosCrear.add(duplicarRegistroMensajesUsuarios);
-      listaMensajesUsuario.add(duplicarRegistroMensajesUsuarios);
-      modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
-      mensajeUsuarioSeleccionado = duplicarRegistroMensajesUsuarios;
-//        RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-      if (guardado) {
-         guardado = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-      if (bandera == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         altoTablaNF = "115";
-         mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
-         mAno.setFilterStyle("display: none; visibility: hidden;");
-         mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
-         mMes.setFilterStyle("display: none; visibility: hidden;");
-         mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
-         mDia.setFilterStyle("display: none; visibility: hidden;");
-         mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
-         mMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-         banderaNF = 0;
-         filtradosListaMensajesUsuario = null;
-         tipoListaNF = 0;
-      }
-      RequestContext.getCurrentInstance().update("form:DuplicarRegistroMensajeUsuario");
-      duplicarRegistroMensajesUsuarios = new Recordatorios();
-      RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroMensajeUsuario");
-      RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroMensajeUsuario').hide()");
-
-   }
-
-   //CANCELAR MODIFICACIONES
-   public void cancelarModificacion() {
-      if (bandera == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         altoTabla = "115";
-         pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
-         pMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosProverbios");
-         bandera = 0;
-         filtradosListaProverbios = null;
-         tipoLista = 0;
-      }
-      if (banderaNF == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         altoTablaNF = "115";
-         mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
-         mAno.setFilterStyle("display: none; visibility: hidden;");
-         mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
-         mMes.setFilterStyle("display: none; visibility: hidden;");
-         mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
-         mDia.setFilterStyle("display: none; visibility: hidden;");
-         mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
-         mMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-         banderaNF = 0;
-         filtradosListaMensajesUsuario = null;
-         tipoListaNF = 0;
-      }
-      listaProverbiosBorrar.clear();
-      listaProverbiosCrear.clear();
-      listaProverbiosModificar.clear();
-      proverbioSeleccionado = null;
-      proverbioSeleccionado = null;
-
-      listaProverbios = null;
-
-      listaMensajesUsuariosBorrar.clear();
-      listaMensajesUsuariosCrear.clear();
-      listaMensajesUsuariosModificar.clear();
-      mensajeUsuarioSeleccionado = null;
-
-      listaMensajesUsuario = null;
-      guardado = true;
-      permitirIndex = true;
-//        RequestContext context = RequestContext.getCurrentInstance();
-      cambiosPagina = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      RequestContext.getCurrentInstance().update("form:datosProverbios");
-      RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-   }
-
-   public void salir() {
-      limpiarListasValor();
-      if (bandera == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         altoTabla = "115";
-         pMensaje = (Column) c.getViewRoot().findComponent("form:datosProverbios:pMensaje");
-         pMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosProverbios");
-         bandera = 0;
-         filtradosListaProverbios = null;
-         tipoLista = 0;
-      }
-      if (banderaNF == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         altoTablaNF = "115";
-         mAno = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mAno");
-         mAno.setFilterStyle("display: none; visibility: hidden;");
-         mMes = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMes");
-         mMes.setFilterStyle("display: none; visibility: hidden;");
-         mDia = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mDia");
-         mDia.setFilterStyle("display: none; visibility: hidden;");
-         mMensaje = (Column) c.getViewRoot().findComponent("form:datosMensajesUsuarios:mMensaje");
-         mMensaje.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-         banderaNF = 0;
-         filtradosListaMensajesUsuario = null;
-         tipoListaNF = 0;
-      }
-      listaProverbiosBorrar.clear();
-      listaProverbiosCrear.clear();
-      listaProverbiosModificar.clear();
-      proverbioSeleccionado = null;
-      proverbioSeleccionado = null;
-      listaProverbios = null;
-      listaMensajesUsuariosBorrar.clear();
-      listaMensajesUsuariosCrear.clear();
-      listaMensajesUsuariosModificar.clear();
-      mensajeUsuarioSeleccionado = null;
-      listaMensajesUsuario = null;
-      guardado = true;
-      permitirIndex = true;
-      cambiosPagina = true;
-      navegar("atras");
-   }
-
-   public List<String> complete(String query) {
-      List<String> results = new ArrayList<>();
-
-      int aux = Integer.parseInt(query);
-
-      for (int i = 0; i < 10; i++) {
-         results.add((Integer.toString(aux + i)));
-      }
-
-      return results;
-   }
-
-   //EVENTO FILTRAR
-   public void eventoFiltrar() {
-      if (tipoLista == 0) {
-         tipoLista = 1;
-      }
-      modificarInfoRegistroProverbios(filtradosListaProverbios.size());
-   }
-
-   //EVENTO FILTRARNF
-   public void eventoFiltrarNF() {
-      if (tipoListaNF == 0) {
-         tipoListaNF = 1;
-      }
-      modificarInfoRegistroMsgUsuarios(filtradosListaMensajesUsuario.size());
-   }
-
-   public void eventoFiltrarMsgUsuarios() {
-      modificarInfoRegistroMsgUsuarios(filtradosListaMensajesUsuario.size());
-   }
-
-   public void modificarInfoRegistroProverbios(int valor) {
-      infoRegistroProverbios = String.valueOf(valor);
-      RequestContext.getCurrentInstance().update("form:infoRegistroProverbio");
-   }
-
-   public void modificarInfoRegistroMsgUsuarios(int valor) {
-      infoRegistroMsgUsuario = String.valueOf(valor);
-      RequestContext.getCurrentInstance().update("form:infoRegistroMsgUsuarios");
-   }
-
-   //Getter & Setters
-   public Recordatorios getEditarProverbios() {
-      return editarProverbios;
-   }
-
-   public void setEditarProverbios(Recordatorios editarProverbios) {
-      this.editarProverbios = editarProverbios;
-   }
-
-   public List<Recordatorios> getListaProverbios() {
-      if (listaProverbios == null) {
-         listaProverbios = administrarRecordatorios.recordatorios();
-         if (listaProverbios != null) {
-            if (!listaProverbios.isEmpty()) {
-               proverbioSeleccionado = listaProverbios.get(0);
-            }
-         }
-      }
-      return listaProverbios;
-   }
-
-   public void setListaProverbios(List<Recordatorios> listaProverbios) {
-      this.listaProverbios = listaProverbios;
-   }
-
-   public List<Recordatorios> getFiltradosListaProverbios() {
-      return filtradosListaProverbios;
-   }
-
-   public void setFiltradosListaProverbios(List<Recordatorios> filtradosListaProverbios) {
-      this.filtradosListaProverbios = filtradosListaProverbios;
-   }
-
-   public List<Recordatorios> getListaMensajesUsuario() {
-      if (listaMensajesUsuario == null) {
-         listaMensajesUsuario = administrarRecordatorios.mensajesRecordatorios();
-         if (listaMensajesUsuario != null) {
-            if (!listaMensajesUsuario.isEmpty()) {
-               mensajeUsuarioSeleccionado = listaMensajesUsuario.get(0);
-            }
-         }
-      }
-      return listaMensajesUsuario;
-   }
-
-   public void setListaMensajesUsuario(List<Recordatorios> listaMensajesUsuario) {
-      this.listaMensajesUsuario = listaMensajesUsuario;
-   }
-
-   public List<Recordatorios> getFiltradosListaMensajesUsuario() {
-      return filtradosListaMensajesUsuario;
-   }
-
-   public void setFiltradosListaMensajesUsuario(List<Recordatorios> filtradosListaMensajesUsuario) {
-      this.filtradosListaMensajesUsuario = filtradosListaMensajesUsuario;
-   }
-
-   public String getAltoTabla() {
-      return altoTabla;
-   }
-
-   public void setAltoTabla(String altoTabla) {
-      this.altoTabla = altoTabla;
-   }
-
-   public String getAltoTablaNF() {
-      return altoTablaNF;
-   }
-
-   public void setAltoTablaNF(String altoTablaNF) {
-      this.altoTablaNF = altoTablaNF;
-   }
-
-   public void setTablaImprimir(String tablaImprimir) {
-      this.tablaImprimir = tablaImprimir;
-   }
-
-   public void setNombreArchivo(String nombreArchivo) {
-      this.nombreArchivo = nombreArchivo;
-   }
-
-   public Recordatorios getNuevoProverbio() {
-      return nuevoProverbio;
-   }
-
-   public void setNuevoProverbio(Recordatorios nuevoProverbio) {
-      this.nuevoProverbio = nuevoProverbio;
-   }
-
-   public Recordatorios getDuplicarProverbio() {
-      return duplicarProverbio;
-   }
-
-   public void setDuplicarProverbio(Recordatorios duplicarProverbio) {
-      this.duplicarProverbio = duplicarProverbio;
-   }
-
-   public Recordatorios getNuevoRegistroMensajesUsuarios() {
-      return nuevoRegistroMensajesUsuarios;
-   }
-
-   public void setNuevoRegistroMensajesUsuarios(Recordatorios nuevoRegistroMensajesUsuarios) {
-      this.nuevoRegistroMensajesUsuarios = nuevoRegistroMensajesUsuarios;
-   }
-
-   public Recordatorios getDuplicarRegistroMensajesUsuarios() {
-      return duplicarRegistroMensajesUsuarios;
-   }
-
-   public void setDuplicarRegistroMensajesUsuarios(Recordatorios duplicarRegistroMensajesUsuarios) {
-      this.duplicarRegistroMensajesUsuarios = duplicarRegistroMensajesUsuarios;
-   }
-
-   public boolean isCambiosPagina() {
-      return cambiosPagina;
-   }
-
-   public Recordatorios getProverbioSeleccionado() {
-      return proverbioSeleccionado;
-   }
-
-   public void setProverbioSeleccionado(Recordatorios proverbioSeleccionado) {
-      this.proverbioSeleccionado = proverbioSeleccionado;
-   }
-
-   public Recordatorios getMensajeUsuarioSeleccionado() {
-      return mensajeUsuarioSeleccionado;
-   }
-
-   public void setMensajeUsuarioSeleccionado(Recordatorios mensajeUsuarioSeleccionado) {
-      this.mensajeUsuarioSeleccionado = mensajeUsuarioSeleccionado;
-   }
-
-   public boolean isGuardado() {
-      return guardado;
-   }
-
-   public void setGuardado(boolean guardado) {
-      this.guardado = guardado;
-   }
-
-   public int getAno() {
-      return ano;
-   }
-
-   public void setAno(int ano) {
-      this.ano = ano;
-   }
-
-   public int getDia() {
-      return dia;
-   }
-
-   public void setDia(int dia) {
-      this.dia = dia;
-   }
-
-   public int getMes() {
-      return mes;
-   }
-
-   public void setMes(int mes) {
-      this.mes = mes;
-   }
-
-   public String getMensaje() {
-      return mensaje;
-   }
-
-   public void setMensaje(String mensaje) {
-      this.mensaje = mensaje;
-   }
-
-   public List<Short> getAnios() {
-      return anios;
-   }
-
-   public void setAnios(List<Short> anios) {
-      this.anios = anios;
-   }
-
-   public Short getAnioactual() {
-      return anioactual;
-   }
-
-   public void setAnioactual(Short anioactual) {
-      this.anioactual = anioactual;
-   }
-
-   public String getInfoRegistroProverbios() {
-      return infoRegistroProverbios;
-   }
-
-   public void setInfoRegistroProverbios(String infoRegistroProverbios) {
-      this.infoRegistroProverbios = infoRegistroProverbios;
-   }
-
-   public String getInfoRegistroMsgUsuario() {
-      return infoRegistroMsgUsuario;
-   }
-
-   public void setInfoRegistroMsgUsuario(String infoRegistroMsgUsuario) {
-      this.infoRegistroMsgUsuario = infoRegistroMsgUsuario;
-   }
+        }
+        return listaMensajesUsuario;
+    }
+
+    public void setListaMensajesUsuario(List<Recordatorios> listaMensajesUsuario) {
+        this.listaMensajesUsuario = listaMensajesUsuario;
+    }
+
+    public List<Recordatorios> getFiltradosListaMensajesUsuario() {
+        return filtradosListaMensajesUsuario;
+    }
+
+    public void setFiltradosListaMensajesUsuario(List<Recordatorios> filtradosListaMensajesUsuario) {
+        this.filtradosListaMensajesUsuario = filtradosListaMensajesUsuario;
+    }
+
+    public String getAltoTabla() {
+        return altoTabla;
+    }
+
+    public void setAltoTabla(String altoTabla) {
+        this.altoTabla = altoTabla;
+    }
+
+    public String getAltoTablaNF() {
+        return altoTablaNF;
+    }
+
+    public void setAltoTablaNF(String altoTablaNF) {
+        this.altoTablaNF = altoTablaNF;
+    }
+
+    public void setTablaImprimir(String tablaImprimir) {
+        this.tablaImprimir = tablaImprimir;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
+    public Recordatorios getNuevoProverbio() {
+        return nuevoProverbio;
+    }
+
+    public void setNuevoProverbio(Recordatorios nuevoProverbio) {
+        this.nuevoProverbio = nuevoProverbio;
+    }
+
+    public Recordatorios getDuplicarProverbio() {
+        return duplicarProverbio;
+    }
+
+    public void setDuplicarProverbio(Recordatorios duplicarProverbio) {
+        this.duplicarProverbio = duplicarProverbio;
+    }
+
+    public Recordatorios getNuevoRegistroMensajesUsuarios() {
+        return nuevoRegistroMensajesUsuarios;
+    }
+
+    public void setNuevoRegistroMensajesUsuarios(Recordatorios nuevoRegistroMensajesUsuarios) {
+        this.nuevoRegistroMensajesUsuarios = nuevoRegistroMensajesUsuarios;
+    }
+
+    public Recordatorios getDuplicarRegistroMensajesUsuarios() {
+        return duplicarRegistroMensajesUsuarios;
+    }
+
+    public void setDuplicarRegistroMensajesUsuarios(Recordatorios duplicarRegistroMensajesUsuarios) {
+        this.duplicarRegistroMensajesUsuarios = duplicarRegistroMensajesUsuarios;
+    }
+
+    public boolean isCambiosPagina() {
+        return cambiosPagina;
+    }
+
+    public Recordatorios getProverbioSeleccionado() {
+        return proverbioSeleccionado;
+    }
+
+    public void setProverbioSeleccionado(Recordatorios proverbioSeleccionado) {
+        this.proverbioSeleccionado = proverbioSeleccionado;
+    }
+
+    public Recordatorios getMensajeUsuarioSeleccionado() {
+        return mensajeUsuarioSeleccionado;
+    }
+
+    public void setMensajeUsuarioSeleccionado(Recordatorios mensajeUsuarioSeleccionado) {
+        this.mensajeUsuarioSeleccionado = mensajeUsuarioSeleccionado;
+    }
+
+    public boolean isGuardado() {
+        return guardado;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public List<Short> getAnios() {
+        return anios;
+    }
+
+    public void setAnios(List<Short> anios) {
+        this.anios = anios;
+    }
+
+    public Short getAnioactual() {
+        return anioactual;
+    }
+
+    public void setAnioactual(Short anioactual) {
+        this.anioactual = anioactual;
+    }
+
+    public String getInfoRegistroProverbios() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosProverbios");
+        infoRegistroProverbios = String.valueOf(tabla.getRowCount());
+        return infoRegistroProverbios;
+    }
+
+    public void setInfoRegistroProverbios(String infoRegistroProverbios) {
+        this.infoRegistroProverbios = infoRegistroProverbios;
+    }
+
+    public String getInfoRegistroMsgUsuario() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosMensajesUsuarios");
+        infoRegistroMsgUsuario = String.valueOf(tabla.getRowCount());
+        return infoRegistroMsgUsuario;
+    }
+
+    public void setInfoRegistroMsgUsuario(String infoRegistroMsgUsuario) {
+        this.infoRegistroMsgUsuario = infoRegistroMsgUsuario;
+    }
 
 }
