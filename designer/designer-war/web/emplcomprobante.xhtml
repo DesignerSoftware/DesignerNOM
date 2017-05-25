@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      >
+      xmlns:f="http://java.sun.com/jsf/core">
    <h:head>
    </h:head>
    <h:body>
@@ -13,10 +12,10 @@
          <ui:define name="body">
             <script type="text/javascript">
                $(window).load(function () {
-               foco('form:guardarRapido');
+                  foco('form:guardarRapido');
                });
                function foco(idElemento) {
-               document.getElementById(idElemento).focus();
+                  document.getElementById(idElemento).focus();
                }
                ;
             </script>
@@ -31,23 +30,28 @@
                   <p:toolbar styleClass="cssToolbar">
                      <p:toolbarGroup align="left">
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmplComprobantes.guardarCambios()}" process="@this"/>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlEmplComprobantes.guardarCambios()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmplComprobantes.editarCelda()}" process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlEmplComprobantes.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlEmplComprobantes.listaValoresBoton()}" process="@this"/>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         actionListener="#{controlEmplComprobantes.listaValoresBoton()}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmplComprobantes.activarCtrlF11()}" process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlEmplComprobantes.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlEmplComprobantes.exportXLS()}"/>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         ajax="false" actionListener="#{controlEmplComprobantes.exportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
@@ -55,22 +59,27 @@
                         </p:commandButton> 
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplComprobantes.exportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlEmplComprobantes.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlEmplComprobantes.nuevoRegistro()}" process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         actionListener="#{controlEmplComprobantes.nuevoRegistro()}" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlEmplComprobantes.borrar()}" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlEmplComprobantes.borrar()}" process="@this"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEmplComprobantes.duplicarC()}"  process="@this"/>  
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlEmplComprobantes.duplicarC()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEmplComprobantes.verificarRastro()}" process="@this"/>  
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlEmplComprobantes.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
@@ -79,7 +88,8 @@
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplComprobantes.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlEmplComprobantes.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>
                   </p:toolbar> 
@@ -88,9 +98,7 @@
                      <legend style=" font-weight: bold; color: #00F;">#{msg['empleado']}</legend>
                      <p:commandButton id="btnComprobante" value="" onclick="PF('confirmarReversar').show();" process="@this"
                                       style="background-size: 100% 100%; position: relative; background-image: url(Imagenes/Iconos/salir.png);  top: 5px; width: 50px; height: 50px; background-repeat: no-repeat; border: none;"/>
-
                      <p:tooltip for="btnComprobante" value="#{msg['eliminarComprobante']}"/>
-
                      <h:outputText value="#{msg['boton']}" style="font-size: 11px; font-weight: bold; width: 160px; text-align: justify; position: absolute; left: 60px; margin-top: 4px;"/>
                      <p:inputText autocomplete="off" value="#{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: relative; top: 30px; width: 206px; color: #BF1A1A; font-weight: bold; text-align: center; height: 10px; font-size: smaller;" readonly="true"/>
                   </fieldset>
@@ -115,7 +123,8 @@
                                  <h:outputText value="#{comprobante.numero}"/>
                               </f:facet>   
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{comprobante.numero}" readonly="#{comprobante.readOnlyNumero}" id="editarNumero" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;"
+                                 <p:inputText autocomplete="off" value="#{comprobante.numero}" readonly="#{comprobante.readOnlyNumero}" id="editarNumero"
+                                              style="border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;"
                                               onselect="posicionComprobante([{name: 'n', value: '0'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 0)}" process="@this"
@@ -261,7 +270,8 @@
                               <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarSNEmpleado()}"/>
 
                               <p:column width="20" style="text-align: center; padding: 0px !important;"> 
-                                 <p:commandButton value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 19px; height: 19px;" actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceEM, 0)}"/>
+                                 <p:commandButton value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 19px; height: 19px;"
+                                                  actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceEM, 0)}"/>
                                  <f:facet name="footer">
                                     <h:outputText value="" style="width: 0px;"/>
                                  </f:facet>
@@ -690,7 +700,6 @@
                   .ui-datatable td, .ui-datatable td, .ui-datatable td {
                      padding: 0px 2px !important;
                   }
-
                   .ui-column-filter.ui-inputfield {
                      margin-bottom: 0px !important;
                   }
@@ -1235,9 +1244,11 @@
 
                </p:dialog>
 
-               <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto" resizable="false" draggable="true" modal="true" height="182" width="330" closable="false">  
-                  <p:inputTextarea value="#{controlEmplComprobantes.parcialesSolucionNodos}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 125px; font-weight: bold; overflow: auto" readonly="true"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" style="position: absolute; top: 150px; left: 220px;" onclick="PF('parcialesConcepto').hide(); confirmacionFormatoExtendido').show();" process="@this"/>
+               <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto" resizable="false" draggable="true" modal="true" height="160" width="480" closable="false">  
+                  <p:scrollPanel mode="native" style="position: absolute; left: 10px; top: 4px; width: 460px; height: 130px; font-weight: bold;">
+                     <p:inputTextarea value="#{controlEmplComprobantes.parcialesSolucionNodos}" style="width: 430px; border: none;"/>
+                  </p:scrollPanel>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" style="position: absolute; top: 138px; left: 370px;" onclick="PF('parcialesConcepto').hide(); PF('confirmacionFormatoExtendido').show();" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido" resizable="false" draggable="true" modal="true" height="100" width="410" closable="false">  
@@ -1249,7 +1260,7 @@
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" style="position: absolute; top: 75px; left: 300px;" onclick="PF('confirmacionFormatoExtendido').hide();" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="detallesFormulas" header="#{msg['atencion']}" widgetVar="detallesFormulas" resizable="false" draggable="true" modal="true" height="220" width="505" closable="false">  
+               <p:dialog id="detallesFormulas" header="#{msg['atencion']}" widgetVar="detallesFormulas" resizable="false" draggable="true" modal="true" height="214" width="505" closable="false">  
                   <fieldset style="position: absolute; top: 5px; width: 455px; height: 195px; border-radius: 10px;">
                      <legend style=" font-weight: bold; color: #00F;">Estructura de la formula</legend>
                      <p:dataTable  id="detalleF" style=" width: 440px;" var="detalleFormula" value="#{controlEmplComprobantes.listaDetallesFormulas}"
@@ -1269,7 +1280,7 @@
                            <p:inputText autocomplete="off" value="#{detalleFormula.descripcion}" style="border-radius: 0px; width: 94.5%"/>  
                         </p:column> 
                      </p:dataTable>
-                     <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 170px; left: 350px;" icon="ui-icon-check" onclick="PF('detallesFormulas').hide();" process="@this"/>
+                     <p:commandButton value="#{msg['aceptar']}" style="position: relative; top: 2px; left: 350px;" icon="ui-icon-check" onclick="PF('detallesFormulas').hide();" process="@this"/>
                   </fieldset>
                </p:dialog>
             </h:form>

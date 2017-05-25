@@ -442,10 +442,10 @@
                <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="650">
 
-                  <p:dataTable  id="LOVConceptos" var="conceptos" value="#{controlNovedadesConceptos.lovConceptos}"
-                                scrollable="true" scrollHeight="200" scrollWidth="625" widgetVar="LOVConceptos" 
-                                filteredValue="#{controlNovedadesConceptos.filtradoslistaConceptos}" emptyMessage="#{msg['lovvacio']}"
-                                rowKey="#{conceptos.secuencia}" selection="#{controlNovedadesConceptos.conceptoSeleccionadoLov}" selectionMode="single">
+                  <p:dataTable id="LOVConceptos" var="conceptos" value="#{controlNovedadesConceptos.lovConceptos}"
+                               scrollable="true" scrollHeight="200" scrollWidth="625" widgetVar="LOVConceptos" 
+                               filteredValue="#{controlNovedadesConceptos.filtradoslistaConceptos}" emptyMessage="#{msg['lovvacio']}"
+                               rowKey="#{conceptos.secuencia}" selection="#{controlNovedadesConceptos.conceptoSeleccionadoLov}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesConceptos.contarRegistrosLovConceptos()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.activarAceptar()}" update=":formLovConceptos:aceptarC"/>
@@ -611,10 +611,10 @@
                <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="390">
 
-                  <p:dataTable  id="LOVTerceros" var="terceros" value="#{controlNovedadesConceptos.lovTerceros}"
-                                scrollable="true" scrollHeight="200" scrollWidth="366" widgetVar="LOVTerceros"
-                                filteredValue="#{controlNovedadesConceptos.filtradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
-                                rowKey="#{terceros.secuencia}" selection="#{controlNovedadesConceptos.terceroSeleccionado}" selectionMode="single">
+                  <p:dataTable id="LOVTerceros" var="terceros" value="#{controlNovedadesConceptos.lovTerceros}"
+                               scrollable="true" scrollHeight="200" scrollWidth="366" widgetVar="LOVTerceros"
+                               filteredValue="#{controlNovedadesConceptos.filtradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
+                               rowKey="#{terceros.secuencia}" selection="#{controlNovedadesConceptos.terceroSeleccionado}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesConceptos.contarRegistrosTerceros()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.activarAceptar()}" update=":formLovTerceros:aceptarT"/>

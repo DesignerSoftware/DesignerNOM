@@ -192,7 +192,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
    //Listas de Conceptos, Formulas, Periodicidades, Terceros
    @Override
    public List<Conceptos> lovConceptos() {
-      return persistenciaConceptos.buscarConceptos(em);
+      return persistenciaConceptos.buscarConceptosLovNovedades(em);
    }
 
    @Override

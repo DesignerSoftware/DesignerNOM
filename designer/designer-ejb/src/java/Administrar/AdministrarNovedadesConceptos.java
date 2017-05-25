@@ -87,7 +87,7 @@ public class AdministrarNovedadesConceptos implements AdministrarNovedadesConcep
 
    //Listas de Conceptos, Formulas, Periodicidades, Terceros
    public List<Conceptos> Conceptos() {
-      return persistenciaConceptos.novedadConceptos(em);
+      return persistenciaConceptos.buscarConceptosLovNovedades(em);
    }
 
    public List<Terceros> Terceros() {

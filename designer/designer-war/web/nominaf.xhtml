@@ -102,9 +102,9 @@
                               <p:tooltip  for="busquedarapida" value="#{msg['br']}"/>
 
                               <!--                                        <p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/lupa.png); width: 30px; height: 30px; left: 72px; top: 60px; z-index: 1;" 
-                                                                                       id="listavalores" value="" process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"
-                                                                                       disabled="#{controlRemoto.consultarPermisosPorId('listavalores')}"/>
-                                                                      <p:tooltip  for="listavalores" value="#{msg['lista']}"/>-->
+                                                                                       id="listavalores" value="" process="@this" actionListener="#/{controlRemoto.requerirBuscarEmpleadoTipo()}"
+                                                                                       disabled="#/{controlRemoto.consultarPermisosPorId('listavalores')}"/>
+                                                                      <p:tooltip  for="listavalores" value="#/{msg['lista']}"/>-->
 
                               <p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/excel.png); width: 30px; height: 30px; left: 102px; top: 60px; z-index: 1;" 
                                                id="exportarxls" value="" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false">
@@ -128,7 +128,7 @@
                               <p:commandButton id="buscarempleado" class="cssBotonBuscar" style="left: 370px; top: 60px; position: absolute;" disabled="#{controlRemoto.buscarEmp}"
                                                value="#{msg['Buscar']}" process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" update=":form:formlovempleados:lvbuscarempleado"
                                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(); $(function(){PrimeFaces.focus('form:formlovempleados:lvbuscarempleado:globalFilter');});"/>
-                                                <!--disabled="#{controlRemoto.consultarPermisosPorId('buscarempleado')}"-->
+                                                <!--disabled="#/{controlRemoto.consultarPermisosPorId('buscarempleado')}"-->
                               <p:tooltip  for="buscarempleado">
                                  #{msg['buscarunempleadoporcedula']}<br/>#{msg['nombreoapellidos']}
                               </p:tooltip>
@@ -883,7 +883,7 @@
                                    value="" actionListener="#{controlRemoto.buscarEmpleadoDefault()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(); foco('form:n');" process="@this"/>
 
                   <p:dialog id="lvbe" widgetVar="lvbe" header="#{msg['empleadosE']}" resizable="false" draggable="true" modal="true" width="750" closable="false">  
-                     <p:dataTable id="lvbuscarempleado" widgetVar="lvbuscarempleado" var="item" value="#{controlRemoto.buscarEmplTipo}"
+                     <p:dataTable id="lvbuscarempleado" widgetVar="lvbuscarempleado" var="item" value="#{controlRemoto.lovBuscarEmplTipo}"
                                   scrollable="true" scrollHeight="162" scrollWidth="725" 
                                   filteredValue="#{controlRemoto.filterBuscarEmpleado}" emptyMessage="#{msg['lovvacio']}"
                                   rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionadoBE}" selectionMode="single">
@@ -1062,7 +1062,7 @@
 
             <h:form id="formexportar">
                <p:dataTable id="empleadosexportar" var="empleadoVW" style="visibility: hidden; display: none;"                           
-                            value="#{controlRemoto.buscarEmplTipo}">
+                            value="#{controlRemoto.lovBuscarEmplTipo}">
                   <p:column>
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet>
                      <h:outputText value="#{empleadoVW.codigoEmpleado}"/>

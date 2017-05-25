@@ -106,7 +106,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
 
     @Override
     public List<Conceptos> lovConceptos() {
-        return persistenciaConceptos.buscarConceptos(em);
+        return persistenciaConceptos.buscarConceptosLovNovedades(em);
     }
 
     //Ver si está en soluciones formulas y de ser asi no borrarlo

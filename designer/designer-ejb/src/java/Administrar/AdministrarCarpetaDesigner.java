@@ -16,7 +16,7 @@ import InterfacePersistencia.PersistenciaTablasInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
 /**
@@ -26,7 +26,7 @@ import javax.persistence.EntityManager;
  *
  * @author -Felipphe-
  */
-@Stateless
+@Stateful
 public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInterface {
    //--------------------------------------------------------------------------
    //ATRIBUTOS

@@ -96,6 +96,23 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    }
 
    @Override
+   public List<Conceptos> buscarConceptosLovNovedades(EntityManager em) {
+      em.clear();
+      try {
+         String sql = "SELECT DESCRIPCION FROM CONCEPTOS C\n" +
+            " WHERE NOT EXISTS (SELECT 'X' FROM FORMULASCONCEPTOS FC, FORMULAS F, FORMULASCONTRATOS FCON\n" +
+            " WHERE F.SECUENCIA = FCON.FORMULA AND FC.CONCEPTO = C.SECUENCIA AND FC.FORMULA = F.SECUENCIA)\n" +
+            " ORDER BY DESCRIPCION";
+         Query query = em.createNativeQuery(sql,Conceptos.class);
+         List<Conceptos> listaConceptos = query.getResultList();
+          return listaConceptos;
+      } catch (Exception e) {
+         System.out.println("Error en buscarConceptosLovNovedades() : " + e.getCause());
+         return null;
+      }
+   }
+
+   @Override
    public boolean verificarCodigoConcepto(EntityManager em, BigInteger codigoConcepto) {
       try {
          em.clear();
@@ -288,7 +305,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> novedadConceptos(EntityManager em) {
       try {
          em.clear();
-         String sqlQuery = "SELECT  V.* FROM Conceptos V WHERE EXISTS (select 'x' from empresas e where v.empresa=e.secuencia) AND NVL(V.ACTIVO,'S')='S' ORDER BY V.CODIGO";
+         String sqlQuery = "SELECT V.* FROM Conceptos V WHERE EXISTS (select 'x' from empresas e where v.empresa=e.secuencia) AND NVL(V.ACTIVO,'S')='S' ORDER BY V.CODIGO";
          Query query = em.createNativeQuery(sqlQuery, Conceptos.class);
          List<Conceptos> listaConceptos = query.getResultList();
          return listaConceptos;

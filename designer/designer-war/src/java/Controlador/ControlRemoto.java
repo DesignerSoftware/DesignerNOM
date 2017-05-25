@@ -67,7 +67,7 @@ public class ControlRemoto implements Serializable {
    private List<VwTiposEmpleados> lovBusquedaRapida;
    private List<VwTiposEmpleados> filterBusquedaRapida;
    private List<VwTiposEmpleados> filterBuscarEmpleado;
-   private List<VwTiposEmpleados> buscarEmplTipo;
+   private List<VwTiposEmpleados> lovBuscarEmplTipo;
    private List<VigenciasCargos> vigenciasCargosEmpleados;
    private VigenciasCargos vigenciaSeleccionada;
    private String fechaActualesTiposContratos;
@@ -424,7 +424,7 @@ public class ControlRemoto implements Serializable {
                }
                mostrarT2 = false;
                mostrarT = true;
-               buscarEmplTipo = null;
+               lovBuscarEmplTipo = null;
                System.out.println("Ya termino de entrar  :)");
                actualizarInformacionTipoTrabajador();
                controlListaNavegacion.quitarPagina("busquedaavanzada");
@@ -472,7 +472,7 @@ public class ControlRemoto implements Serializable {
             System.out.println(this.getClass().getName() + "activos() error ");
             ex.printStackTrace();
          }
-         buscarEmplTipo = null;
+         lovBuscarEmplTipo = null;
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -520,7 +520,7 @@ public class ControlRemoto implements Serializable {
          } catch (ParseException ex) {
             System.out.println(ControlRemoto.class.getName() + " error en la entrada");
          }
-         buscarEmplTipo = null;
+         lovBuscarEmplTipo = null;
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -568,7 +568,7 @@ public class ControlRemoto implements Serializable {
          } catch (ParseException ex) {
             System.out.println(ControlRemoto.class.getName() + " error en la entrada");
          }
-         buscarEmplTipo = null;
+         lovBuscarEmplTipo = null;
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -616,7 +616,7 @@ public class ControlRemoto implements Serializable {
          } catch (ParseException ex) {
             System.out.println(ControlRemoto.class.getName() + " error en la entrada");
          }
-         buscarEmplTipo = null;
+         lovBuscarEmplTipo = null;
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -649,7 +649,7 @@ public class ControlRemoto implements Serializable {
       } else if (tipoPersonal.equals("retirados")) {
          accion = "reintegro";
       }
-      buscarEmplTipo = null;
+      lovBuscarEmplTipo = null;
       lovBusquedaRapida = null;
    }
 
@@ -706,7 +706,7 @@ public class ControlRemoto implements Serializable {
                   System.out.println(this.getClass().getName() + "activos() 'resultadoBusquedaAv' error ");
                   ex.printStackTrace();
                }
-               buscarEmplTipo = null;
+               lovBuscarEmplTipo = null;
                actualizarInformacionTipoTrabajador();
                RequestContext.getCurrentInstance().update("form:tabmenu");
                RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -973,11 +973,11 @@ public class ControlRemoto implements Serializable {
    }
 
    public void cambiarTablas() {
-//      secuenciaMod = moduloSeleccionado.getSecuencia();
-      System.out.println("ControlRemoto.cambiarTablas() moduloSeleccionado : " + moduloSeleccionado);
+      //secuenciaMod = moduloSeleccionado.getSecuencia();
+      //System.out.println("ControlRemoto.cambiarTablas() moduloSeleccionado : " + moduloSeleccionado);
       if (moduloSeleccionado != null) {
          listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-         System.out.println("cambiarTablas() consulto listaTablas : " + listaTablas);
+         //System.out.println("cambiarTablas() consulto listaTablas : " + listaTablas);
          buscarTablasLOV = (listaTablas == null || listaTablas.isEmpty());
          if (tablaExportar.equals("tablas")) {
             tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
@@ -1046,18 +1046,23 @@ public class ControlRemoto implements Serializable {
          filterBusquedaRapida = null;
          lovBusquedaRapida = administrarCarpetaPersonal.consultarRapidaEmpleados();
          contarRegistrosBR();
+         RequestContext.getCurrentInstance().update("form:formlovempleadosR:lvbusquedarapida");
          RequestContext.getCurrentInstance().update("form:formlovempleadosR:lvbr");
       }
       RequestContext.getCurrentInstance().execute("PF('lvbr').show();");
    }
 
    public void requerirBuscarEmpleadoTipo() {
-      if (buscarEmplTipo == null || buscarEmplTipo.isEmpty()) {
-         filterBuscarEmpleado = null;
-         buscarEmplTipo = administrarCarpetaPersonal.consultarEmpleadosTipoTrabajador(tipo);
-         contarRegistrosBE();
-         RequestContext.getCurrentInstance().update("form:formlovempleados:lvbe");
+      if (lovBuscarEmplTipo == null) {
+         lovBuscarEmplTipo = administrarCarpetaPersonal.consultarEmpleadosTipoTrabajador(tipo);
+      } else if (lovBuscarEmplTipo.isEmpty()) {
+         lovBuscarEmplTipo = administrarCarpetaPersonal.consultarEmpleadosTipoTrabajador(tipo);
       }
+      filterBuscarEmpleado = null;
+//      DataTable tablaTemp = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:formlovempleados:lvbuscarempleado");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:lvbe");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:lvbuscarempleado");
+      contarRegistrosBE();
       RequestContext.getCurrentInstance().execute("PF('lvbe').show()");
    }
 
@@ -1123,7 +1128,7 @@ public class ControlRemoto implements Serializable {
          posicion = 0;
          totalRegistros = totalActual;
 //         primerTipoTrabajador();
-         buscarEmplTipo = null;
+         lovBuscarEmplTipo = null;
          lovBusquedaRapida = null;
          actualizarInformacionTipoTrabajador();
       }
@@ -1399,6 +1404,9 @@ public class ControlRemoto implements Serializable {
    }
 
    public String getPago() {
+      if (pago == null) {
+         pago = "AUTOMATICO";
+      }
       return pago;
    }
 
@@ -1446,8 +1454,8 @@ public class ControlRemoto implements Serializable {
       return mostrarT;
    }
 
-   public List<VwTiposEmpleados> getBuscarEmplTipo() {
-      return buscarEmplTipo;
+   public List<VwTiposEmpleados> getLovBuscarEmplTipo() {
+      return lovBuscarEmplTipo;
    }
 
    public UploadedFile getFile() {
@@ -1623,7 +1631,7 @@ public class ControlRemoto implements Serializable {
 
    public void navegarAParametro() {
       String automatico = "";
-      if (pago.equalsIgnoreCase("NO AUTOMATICO")) {
+      if (getPago().equalsIgnoreCase("NO AUTOMATICO")) {
          automatico = "N";
       } else {
          automatico = "S";
@@ -1634,7 +1642,7 @@ public class ControlRemoto implements Serializable {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlParametro controlParametro = (ControlParametro) fc.getApplication().evaluateExpressionGet(fc, "#{controlParametro}", ControlParametro.class);
       controlParametro.recibirParametros(mapParametros);
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+//      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       controlListaNavegacion.guardarNavegacion("nominaf", "parametro");
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "parametro");
    }
