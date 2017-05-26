@@ -146,7 +146,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFecha" readonly="#{comprobante.readOnlyFecha}" value="#{comprobante.fecha}"
+                                 <p:calendar showOn="button" mode="popup" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFecha" readonly="#{comprobante.readOnlyFecha}" value="#{comprobante.fecha}"
                                              onselect="posicionComprobante([{name: 'n', value: '1'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
@@ -218,7 +218,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaCorte" value="#{corteProceso.corte}">
+                                 <p:calendar showOn="button" mode="popup" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaCorte" value="#{corteProceso.corte}">
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'N', corteProceso.corte)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarCortesProcesos(corteProceso, 'N', corteProceso.corte)}"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceCortesProcesos(corteProceso, 0)}"
@@ -697,6 +697,10 @@
                </p:panel>
 
                <style>
+                  .ui-button-icon-only{
+                     display: none;
+                  }
+
                   .ui-datatable td, .ui-datatable td, .ui-datatable td {
                      padding: 0px 2px !important;
                   }
@@ -999,7 +1003,7 @@
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplComprobantes.guardarYsalir}"
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplComprobantes.guardarYSalir()}"
                                    style="position: absolute; top: 50px; left: 167px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplComprobantes.salir()}"
                                    style="position: absolute; top: 50px; left: 228px;" process="@this" icon="ui-icon-close"/>
