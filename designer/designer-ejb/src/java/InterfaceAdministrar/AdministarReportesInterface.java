@@ -38,13 +38,13 @@ public interface AdministarReportesInterface {
     * @param asistenteReporte
     * @return Retorna la ubicacion del reporte generado.
     */
-   public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte);
+   public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) throws Exception;
 
    public String generarReporte(String nombreReporte, String tipoReporte);
 
    public String generarReporte(String nombreReporte, String tipoReporte, Map paramEmpl);
 
-   public void iniciarLlenadoReporte(String nombreReporte, AsynchronousFilllListener asistenteReporte);
+   public void iniciarLlenadoReporte(String nombreReporte, AsynchronousFilllListener asistenteReporte) throws Exception;
 
    public String crearArchivoReporte(JasperPrint print, String tipoReporte);
 

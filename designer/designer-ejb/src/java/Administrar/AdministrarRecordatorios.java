@@ -66,7 +66,6 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
     
     public void modificar(List<Recordatorios> listaProverbiosModificar) {
         for (int i = 0; i < listaProverbiosModificar.size(); i++) {
-            System.out.println("Modificando...");
             if (listaProverbiosModificar.get(i).getMensaje() == null) {
                 listaProverbiosModificar.get(i).setMensaje(null);
             }
@@ -87,7 +86,6 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
     @Override
     public void modificarMU(List<Recordatorios> listaMensajesUsuariosModificar) {
         for (int i = 0; i < listaMensajesUsuariosModificar.size(); i++) {
-            System.out.println("Modificando...");
             if (listaMensajesUsuariosModificar.get(i).getMensaje() == null) {
                 listaMensajesUsuariosModificar.get(i).setMensaje(null);
             }

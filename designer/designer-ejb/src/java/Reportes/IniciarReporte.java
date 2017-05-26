@@ -178,7 +178,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
    }
 
    @Override
-   public void llenarReporte(String nombreReporte, String rutaReporte, AsynchronousFilllListener asistenteReporte) {
+   public void llenarReporte(String nombreReporte, String rutaReporte, AsynchronousFilllListener asistenteReporte) throws Exception {
       try {
          inicarC();
          File archivo = new File(rutaReporte + nombreReporte + ".jasper");
@@ -190,6 +190,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
          System.out.println("Inicio Llenado");
       } catch (Exception ex) {
          System.out.println("Error antes de llenar el reporte (llenarReporte)\n" + ex);
+         throw ex;
       }
    }
 

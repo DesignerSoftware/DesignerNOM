@@ -79,7 +79,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            String sqlQuery = "DELETE FROM CONEXIONESKIOSKOS WHERE EMPLEADO = ?";
+            String sqlQuery = "DELETE FROM CONEXIONESKIOSKOS WHERE EMPLEADO = ? ";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secEmpleado);
             query.executeUpdate();

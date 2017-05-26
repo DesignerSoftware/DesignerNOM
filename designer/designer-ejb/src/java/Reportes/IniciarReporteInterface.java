@@ -21,7 +21,7 @@ public interface IniciarReporteInterface {
 
     public void cancelarReporte();
 
-    public void llenarReporte(String nombreReporte, String rutaReporte, AsynchronousFilllListener asistenteReporte);
+    public void llenarReporte(String nombreReporte, String rutaReporte, AsynchronousFilllListener asistenteReporte) throws Exception;
 
     public String crearArchivoReporte(String rutaGenerado, String nombreArchivo, String tipoReporte, JasperPrint imprimir);
 

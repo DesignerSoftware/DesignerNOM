@@ -97,7 +97,7 @@ public class AdministarReportes implements AdministarReportesInterface {
         em.getTransaction().commit();
     }
 
-    public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) {
+    public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) throws Exception{
         general = persistenciaGenerales.obtenerRutas(em);
         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
         String pathReporteGenerado = null;
@@ -120,7 +120,11 @@ public class AdministarReportes implements AdministarReportesInterface {
             } else if (tipoReporte.equals("DOCX")) {
                 nombreArchivo = nombreArchivo + ".rtf";
             }
+            try{
             reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
+            }catch(Exception e){
+            throw e;
+            }
             return pathReporteGenerado;
         }
         return pathReporteGenerado;
@@ -195,12 +199,16 @@ public class AdministarReportes implements AdministarReportesInterface {
     }
 
     @Override
-    public void iniciarLlenadoReporte(String nombreReporte, AsynchronousFilllListener asistenteReporte) {
+    public void iniciarLlenadoReporte(String nombreReporte, AsynchronousFilllListener asistenteReporte) throws Exception {
         if (general == null) {
             general = persistenciaGenerales.obtenerRutas(em);
         }
         String rutaReporte = general.getPathreportes();
+        try{
         reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
+        } catch(Exception ex){
+            throw ex;
+        }
     }
 
     @Override

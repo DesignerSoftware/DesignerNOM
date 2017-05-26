@@ -138,8 +138,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
     public List<Recordatorios> proverbiosRecordatorios(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT r FROM Recordatorios r WHERE r.tipo = 'PROVERBIO'");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            Query query = em.createNativeQuery("SELECT * FROM RECORDATORIOS WHERE TIPO = 'PROVERBIO'",Recordatorios.class);
             List<Recordatorios> recordatorios = query.getResultList();
             return recordatorios;
         } catch (Exception e) {
@@ -178,12 +177,10 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
 
     @Override
     public List<String> ejecutarConsultaRecordatorio(EntityManager em, BigInteger secuencia) throws Exception {
-        System.out.println("PersistenciaRecordatorios.ejecutarConsultaRecordatorio");
         try {
             Recordatorios recor = consultaRecordatorios(em, secuencia);
             em.clear();
             String consulta = recor.getConsulta();
-            System.out.println("consulta: " + consulta);
             Query query = em.createNativeQuery(consulta);
             List<String> listaConsultas = query.getResultList();
             return listaConsultas;

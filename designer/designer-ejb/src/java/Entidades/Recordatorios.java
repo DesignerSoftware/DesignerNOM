@@ -133,16 +133,102 @@ public class Recordatorios implements Serializable {
     }
 
     public String getEstadoAno() {
-        int value = ano.intValue();
-        if (value == 0) {
-            estadoAno = "TODOS LOS AÑOS";
-        } 
+        if (ano == null) {
+            estadoAno = "";
+        } else {
+            int value = ano.intValue();
+            if (value == 2005) {
+                estadoAno = "2005";
+            } else if (value == 2006) {
+                estadoAno = "2006";
+            } else if (value == 2007) {
+                estadoAno = "2007";
+            } else if (value == 2008) {
+                estadoAno = "2008";
+            } else if (value == 2009) {
+                estadoAno = "2009";
+            } else if (value == 2010) {
+                estadoAno = "2010";
+            } else if (value == 2011) {
+                estadoAno = "2011";
+            } else if (value == 2012) {
+                estadoAno = "2012";
+            } else if (value == 2013) {
+                estadoAno = "2013";
+            } else if (value == 2014) {
+                estadoAno = "2014";
+            } else if (value == 2015) {
+                estadoAno = "2015";
+            } else if (value == 2016) {
+                estadoAno = "2016";
+            } else if (value == 2017) {
+                estadoAno = "2017";
+            } else if (value == 2018) {
+                estadoAno = "2018";
+            } else if (value == 2019) {
+                estadoAno = "2019";
+            } else if (value == 2020) {
+                estadoAno = "2020";
+            } else if (value == 2021) {
+                estadoAno = "2021";
+            }else if (value == 2022) {
+                estadoAno = "2022";
+            } else if (value == 2023) {
+                estadoAno = "2023";
+            } else if (value == 2024) {
+                estadoAno = "2024";
+            } else if (value == 2025) {
+                estadoAno = "2025";
+            } else if (value == 0) {
+                estadoAno = "TODOS LOS AÑOS";
+            }
+        }
         return estadoAno;
     }
 
     public void setEstadoAno(String estadoAno) {
         System.out.println("estadoANo" + estadoAno);
-        setAno(new Short(estadoAno));
+          if (estadoAno.equals("")) {
+            setAno(null);
+        } else if (estadoAno.equalsIgnoreCase("TODOS LOS MESES")) {
+            setAno(new Short("0"));
+        } else if (estadoAno.equals("2008")) {
+            setAno(new Short("2008"));
+        } else if (estadoAno.equals("2009")) {
+            setAno(new Short("2009"));
+        } else if (estadoAno.equals("2010")) {
+            setAno(new Short("2010"));
+        } else if (estadoAno.equals("2011")) {
+            setAno(new Short("2011"));
+        } else if (estadoAno.equals("2012")) {
+            setAno(new Short("2012"));
+        } else if (estadoAno.equals("2013")) {
+            setAno(new Short("2013"));
+        } else if (estadoAno.equals("2014")) {
+            setAno(new Short("2014"));
+        } else if (estadoAno.equals("2015")) {
+            setAno(new Short("2015"));
+        } else if (estadoAno.equals("2016")) {
+            setAno(new Short("2016"));
+        } else if (estadoAno.equals("2017")) {
+            setAno(new Short("2017"));
+        } else if (estadoAno.equals("2018")) {
+            setAno(new Short("2018"));
+        } else if (estadoAno.equals("2019")) {
+            setAno(new Short("2019"));
+        }else if (estadoAno.equals("2020")) {
+            setAno(new Short("2020"));
+        }else if (estadoAno.equals("2021")) {
+            setAno(new Short("2021"));
+        }else if (estadoAno.equals("2022")) {
+            setAno(new Short("2022"));
+        }else if (estadoAno.equals("2023")) {
+            setAno(new Short("2023"));
+        }else if (estadoAno.equals("2024")) {
+            setAno(new Short("2024"));
+        }else if (estadoAno.equals("2025")) {
+            setAno(new Short("2025"));
+        }
         this.estadoAno = estadoAno;
     }
 

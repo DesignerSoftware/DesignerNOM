@@ -112,12 +112,11 @@
                         <p:column style="padding: 0px;" headerText="#{msg['ano']}" sortBy="#{m.estadoAno}" filterBy="#{m.estadoAno}" filterMatchMode="contains" id="mAno" filterStyle="display: none; visibility: hidden;">                                  
 
                            <p:cellEditor>
-                              <f:facet name ="output"><h:outputText id="outano" value="#{m.ano}" style="text-transform: uppercase;"/> </f:facet>
+                               <f:facet name ="output"><h:outputText id="outano" value="#{m.estadoAno}" style="text-transform: uppercase;"/> </f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu  id="editarAno" value="#{m.ano}" style="width: 98.5%; height: 100%"
+                                  <p:selectOneMenu  id="editarAno" value="#{m.estadoAno}" style="width: 98.5%; height: 100%"
                                                    onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"
                                                    onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();">  
-                                    <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['todoslosanos']}" itemValue="0"/>  
                                     <f:selectItem itemLabel="2005" itemValue="2005"/>  
                                     <f:selectItem itemLabel="2006" itemValue="2006"/>  
@@ -139,7 +138,7 @@
                                     <f:selectItem itemLabel="2022" itemValue="2022"/>
                                     <f:selectItem itemLabel="2023" itemValue="2023"/>
                                     <f:selectItem itemLabel="2024" itemValue="2024"/>
-                                    <f:selectItem itemLabel="2025" itemValue="2025"/>
+                                    <f:selectItem itemLabel="2025" itemValue="2025"/>-->
                                     <p:ajax listener="#{controlProverbio.seleccionarAno(m.estadoAno, m)}" event="change" update="editarAno"/>
                                  </p:selectOneMenu>
                               </f:facet>
@@ -151,12 +150,11 @@
 
                         <p:column style="padding: 0px;" headerText="#{msg['mes']}" sortBy="#{m.estadoMes}" filterBy="#{m.estadoMes}" filterMatchMode="contains" id="mMes" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>
-                              <f:facet name ="output"><h:outputText id="outmes" value="#{m.mes}" style="text-transform: uppercase;"/> </f:facet>
+                              <f:facet name ="output"><h:outputText id="outmes" value="#{m.estadoMes}" style="text-transform: uppercase;"/> </f:facet>
                               <f:facet name="input">
                                  <p:selectOneMenu  id="editarMes" value="#{m.mes}" style="width: 98.5%; height: 100%" 
                                                    onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"
                                                    onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();">  
-                                    <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['todoslosmeses']}" itemValue="0"/>  
                                     <f:selectItem itemLabel="#{msg['enero']}" itemValue="1"/>  
                                     <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2"/>  
@@ -182,12 +180,11 @@
                         <p:column style="padding: 0px;" headerText="#{msg['dia']}" sortBy="#{m.estadoDia}" filterBy="#{m.estadoDia}" filterMatchMode="contains" id="mDia" filterStyle="display: none; visibility: hidden;">                                  
 
                            <p:cellEditor>
-                              <f:facet name ="output"><h:outputText id="outdia" value="#{m.dia}" style="text-transform: uppercase;"/> </f:facet>
+                              <f:facet name ="output"><h:outputText id="outdia" value="#{m.estadoDia}" style="text-transform: uppercase;"/> </f:facet>
                               <f:facet name="input">
                                  <p:selectOneMenu  id="editarDia" value="#{m.dia}"  style="width: 98.5%; height: 100%"
                                                    onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"
                                                    onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();">  
-                                    <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['todoslosdias']}" itemValue="0"/>  
                                     <f:selectItem itemLabel="01" itemValue="1"/>  
                                     <f:selectItem itemLabel="02" itemValue="2"/>  
