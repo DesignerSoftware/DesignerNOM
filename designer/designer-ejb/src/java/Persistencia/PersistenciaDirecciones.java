@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 //import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -215,13 +216,12 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaPersona);
             direccion = (String) query.getSingleResult();
-            if (direccion == null) {
+            if (direccion == null || direccion.equals("")) {
                 direccion = " ";
-            }
+            } 
             return direccion;
-        } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()");
-            e.printStackTrace();
+        } catch (NoResultException e) {
+            System.out.println("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()" + e.getMessage());
             direccion = " ";
             return direccion;
         }

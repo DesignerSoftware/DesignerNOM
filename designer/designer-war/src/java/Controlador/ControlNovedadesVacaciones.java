@@ -547,9 +547,11 @@ public class ControlNovedadesVacaciones implements Serializable {
 
    //Ubicacion Celda Arriba 
    public void cambiarEmpleado() {
+         listaNovedades = null;
       if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
-         secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
-         listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(secuenciaEmpleado);
+//         secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
+//         listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(secuenciaEmpleado);
+         getListaNovedades();
          contarRegistrosNovedades();
          getDiasTotales();
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");

@@ -99,11 +99,11 @@
                                   scrollable="true" scrollWidth="580" filteredValue="#{controlNovedadesVacaciones.filtradosListaEmpleadosNovedad}" 
                                   emptyMessage="No se encontraron resultados para la búsqueda" selection="#{controlNovedadesVacaciones.empleadoSeleccionado}"
                                   editable="true" editMode="cell" selectionMode="single" 
-                                  rows="5" paginator="true" 
+                                  rows="6" paginator="true" 
                                   paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
                                   currentPageReportTemplate="{totalPages}">
 
-                        <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.cambiarEmpleado()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                        <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.cambiarEmpleado()}"/>
 
                         <p:column headerText="Nombre" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" 
                                   filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" width="420">                                  

@@ -292,9 +292,10 @@
                             <h:outputText value="Se ha modificado el Estado del Usuario a ACTIVO. Por favor vuelva a ingresar al sistema Kiosco" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
                         </p:dialog>
 
-                        <p:dialog id="usuarioReset" header="#{msg['error']}" widgetVar="usuarioReset"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                            <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                            <h:outputText value="Se ha reiniciado la conexión del usuario en el módulo Kiosco" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                        <p:dialog id="usuarioReset" header="#{msg['informacion']}" widgetVar="usuarioReset"  resizable="false" draggable="true" modal="true" height="75" width="350"  closable="true">  
+                            <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                            <h:outputText value="Se ha reiniciado la conexión del usuario en el módulo Kiosco" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                            <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('usuarioReset').hide();"  style="position: absolute; top: 50px; left: 225px"  process="@this"/>
                         </p:dialog>
 
                         <p:dialog id="paso1Reset" header="#{msg['informacion']}" widgetVar="paso1Reset"  resizable="false" draggable="true" modal="true" height="115" width="350"  closable="false">  
@@ -310,9 +311,6 @@
                             <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso2Reset').hide();"  actionListener="#{controlKioAdmin.resetUsuario()}" style="position: absolute; top: 63px; left: 125px"  process="@this"/>
                             <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="PF('paso2Reset').hide();" style="position: absolute; top: 63px; left: 225px" process="@this"/>
                         </p:dialog>
-
-
-
 
                         <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>

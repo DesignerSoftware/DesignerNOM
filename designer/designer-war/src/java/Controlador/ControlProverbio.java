@@ -123,7 +123,7 @@ public class ControlProverbio implements Serializable {
         anioactual = (short) Calendar.getInstance().get(Calendar.YEAR);
         anios = new ArrayList<>();
         for (int i = (anioactual - 10); i < (anioactual + 10); i++) {
-            anios.add(new Short(String.valueOf(i + 1900)));
+            anios.add(new Short(String.valueOf(i)));
         }
         mapParametros.put("paginaAnterior", paginaAnterior);
     }

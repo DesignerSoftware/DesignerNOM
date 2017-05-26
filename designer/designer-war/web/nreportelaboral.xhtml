@@ -511,7 +511,7 @@
                   <p:inputTextarea value="#{controlNReporteLaboral.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteLaboral.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+               <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteLaboral.cabezeraVisor}" width="802" height="490" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                   <p:media value="#{controlNReporteLaboral.reporte}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteLaboral.reporte != null}"/>
                </p:dialog>
 

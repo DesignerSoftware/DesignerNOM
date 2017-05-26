@@ -350,12 +350,12 @@ public class ControlInicioRed implements Serializable {
                 if (transaccion == 0) {
                     NClave = null;
                     Rclave = null;
-                    RequestContext.getCurrentInstance().execute("PF('cambiarClave.hide();");
-                    RequestContext.getCurrentInstance().execute("PF('exitoCambioClave').show();");
+                    RequestContext.getCurrentInstance().execute("PF('cambiarClave').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('exitoCambioClave').show()");
                 } else if (transaccion == 28007) {
-                    RequestContext.getCurrentInstance().execute("PF('errorCambioClaveReusar').show();");
+                    RequestContext.getCurrentInstance().execute("PF('errorCambioClaveReusar').show()");
                 } else if (transaccion == -1) {
-                    RequestContext.getCurrentInstance().execute("PF('cambiarClave.hide();");
+                    RequestContext.getCurrentInstance().execute("PF('cambiarClave').hide()");
                     System.out.println("El entity manager Factory no se ha creado, revisar.");
                 }
             } else {

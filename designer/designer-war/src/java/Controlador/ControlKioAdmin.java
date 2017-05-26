@@ -561,10 +561,13 @@ public class ControlKioAdmin implements Serializable {
             activarR2 = true;
             listEmpleadosCK = null;
             getListEmpleadosCK();
-            if (listEmpleadosCK != null) {
+            if (listEmpleadosCK == null || listEmpleadosCK.isEmpty()) {
+                listEmpleadosCK = new ArrayList<>();
+            } else {
                 empleadoCKSeleccionado = listEmpleadosCK.get(0);
             }
             ckSeleccionada = null;
+            contarRegistrosVD();
             getCkSeleccionada();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosKioAdmin");

@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
@@ -33,9 +34,8 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
             ConexionesKioskos listaCK;
             listaCK = (ConexionesKioskos) query.getSingleResult();
             return listaCK;
-        } catch (Exception e) {
-            System.out.println(this.getClass().getName() + " error en conexionesKioskos()");
-            e.printStackTrace();
+        } catch (NoResultException e) {
+            System.out.println(this.getClass().getName() + " error en conexionesKioskos()" + e.getMessage());
             return null;
         }
     }
@@ -46,7 +46,8 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
             em.clear();
             String sqlQuery = "SELECT * FROM EMPLEADOS E\n"
                     + " WHERE EXISTS (SELECT 'X' FROM CONEXIONESKIOSKOS CK WHERE CK.EMPLEADO=E.SECUENCIA)";
-            Query query = em.createNativeQuery(sqlQuery, Empleados.class);
+            Query query = em.createNativeQuery(sqlQuery, Empleados.class
+            );
             List<Empleados> listaEmpleados;
             listaEmpleados = query.getResultList();
             return listaEmpleados;

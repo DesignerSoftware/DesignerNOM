@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
@@ -161,14 +162,14 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
                     + "   and e.fechainicial = (select max(ei.fechainicial) from encargaturas ei where ei.empleado = e.empleado) AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaEmpleado);
-            reemplazo = (String) query.getSingleResult();
-            if (reemplazo == null || reemplazo.isEmpty()) {
+            if (query.getSingleResult() == null) {
                 reemplazo = " ";
+            }else{
+            reemplazo = (String) query.getSingleResult();
             }
             return reemplazo;
-        } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e);
-            e.printStackTrace();
+        } catch (NoResultException e) {
+            System.out.println("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e.getMessage());
             reemplazo = " ";
             return reemplazo;
         }
