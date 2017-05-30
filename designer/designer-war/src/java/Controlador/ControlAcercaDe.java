@@ -64,7 +64,7 @@ public class ControlAcercaDe implements Serializable {
       aceptar = true;
       filtradoListaEmpresas = null;
       correo = "www.nomina.com.co";
-      version = "Version 2014";
+      version = "Version 2017";
       grh = "Gerencia Integral de Recursos Humanos       y Administración de Nómina";
       licensiaDeUso = "Acme Corp";
       textoCopyRight = "ADVERTENCIA:\n"
@@ -83,10 +83,12 @@ public class ControlAcercaDe implements Serializable {
               + "NetBeans [32 bits] Versión 7.4\n"
               + "JSF Versión 2\n"
               + "JPA 2 implementación EclipseLink Versión 2.5.0 \n"
+              + "Java JEE 6"
+              + "Iconos basados en diseños de freepic"
               + "Java JEE 6";
       correo1 = "gerencia@nomina.com.co";
       correo2 = "www.nomina.com.co/wiki";
-      derechos = "1998 - 2014 Todos los Derechos Reservados";
+      derechos = "1998 - 2017 Todos los Derechos Reservados";
       nuevoEmpresas = new Empresas();
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
