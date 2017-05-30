@@ -1165,6 +1165,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void generarReporte(Inforeportes reporte) throws IOException {
         try {
+            guardarCambios();
             if (inforreporteSeleccionado != null) {
                 seleccionRegistro();
                 nombreReporte = inforreporteSeleccionado.getNombrereporte();
@@ -1233,6 +1234,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 

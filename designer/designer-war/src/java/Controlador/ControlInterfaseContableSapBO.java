@@ -1823,8 +1823,9 @@ public class ControlInterfaseContableSapBO implements Serializable {
                             }
                         }
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        System.out.println("error en valdiar descargar reporte : " + ex.getMessage());
+                        RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                 }

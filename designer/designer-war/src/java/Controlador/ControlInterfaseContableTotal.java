@@ -1909,8 +1909,9 @@ public class ControlInterfaseContableTotal implements Serializable {
                             }
                         }
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        System.out.println("error en validar descargar reporte : " + ex.getMessage());
+                        RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                 }
@@ -1924,7 +1925,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorCifraControl').show()");
         }
     }
-    
+
     public void reiniciarStreamedContent() {
         System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
         reporte = null;
@@ -1935,37 +1936,36 @@ public class ControlInterfaseContableTotal implements Serializable {
         administarReportes.cancelarReporte();
     }
 
-    
-     public void exportarReporte() throws IOException {
-      try {
-          System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
-         if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-               String fileName = reporteF.getName();
-               HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-               response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-               ServletOutputStream out = response.getOutputStream();
+    public void exportarReporte() throws IOException {
+        try {
+            System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
 
-               while ((read = fis.read(bytes)) != -1) {
-                  out.write(bytes, 0, read);
-               }
-               out.flush();
-               out.close();
-               ctx.responseComplete();
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
+                }
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-         } else {
-            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-         }
-      } catch (Exception e) {
-         System.out.println("error en exportarReporte :" + e.getMessage());
-      }
-   }
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte :" + e.getMessage());
+        }
+    }
 
     public void cargarLovEmpresas() {
         if (lovEmpresas == null) {

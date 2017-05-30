@@ -225,7 +225,7 @@ public class ControlHistoricosUsuarios implements Serializable {
     public String redirigir() {
         return paginaAnterior;
     }
-    
+
     public void activarAceptar() {
         aceptar = false;
     }
@@ -976,8 +976,9 @@ public class ControlHistoricosUsuarios implements Serializable {
                             }
                         }
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        System.out.println("Error en validar descargar reporte : " + ex.getMessage());
+                        RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                 }
@@ -1029,6 +1030,8 @@ public class ControlHistoricosUsuarios implements Serializable {
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte :" + e.getMessage());
+            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 

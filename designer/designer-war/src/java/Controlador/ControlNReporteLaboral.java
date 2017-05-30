@@ -420,6 +420,7 @@ public class ControlNReporteLaboral implements Serializable {
 
     public void generarReporte(Inforeportes reporte) {
         try {
+            guardarCambios();
             inforreporteSeleccionado = reporte;
             seleccionRegistro();
             generarDocumentoReporte();
@@ -467,7 +468,8 @@ public class ControlNReporteLaboral implements Serializable {
                         System.out.println("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
-                        System.out.println(ex);
+                        RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                     if (reporte != null) {

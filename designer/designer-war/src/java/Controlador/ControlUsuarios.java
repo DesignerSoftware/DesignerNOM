@@ -1368,8 +1368,9 @@ public class ControlUsuarios implements Serializable {
                             }
                         }
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        System.out.println("error en validar Descargar Reporte : " + ex.getMessage());
+                        RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                 }
@@ -1393,36 +1394,38 @@ public class ControlUsuarios implements Serializable {
         administarReportes.cancelarReporte();
     }
 
-     public void exportarReporte() throws IOException {
-      try {
-          System.out.println("ControlUsuarios.exportarReporte()   path generado : " + pathReporteGenerado);
-         if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-               String fileName = reporteF.getName();
-               HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-               response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-               ServletOutputStream out = response.getOutputStream();
+    public void exportarReporte() throws IOException {
+        try {
+            System.out.println("ControlUsuarios.exportarReporte()   path generado : " + pathReporteGenerado);
+            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
 
-               while ((read = fis.read(bytes)) != -1) {
-                  out.write(bytes, 0, read);
-               }
-               out.flush();
-               out.close();
-               ctx.responseComplete();
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
+                }
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-         } else {
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte :" + e.getMessage());
             RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-         }
-      } catch (Exception e) {
-         System.out.println("error en exportarReporte :" + e.getMessage());
-      }
-   }
+        }
+    }
 
     //GETTER AND SETTER
     public List<Usuarios> getListaUsuarios() {

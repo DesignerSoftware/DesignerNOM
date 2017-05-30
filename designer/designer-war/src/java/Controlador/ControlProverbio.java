@@ -361,17 +361,8 @@ public class ControlProverbio implements Serializable {
     }
 
     public void tablaNuevoRegistro() {
-        if ((listaProverbios.isEmpty() || listaMensajesUsuario.isEmpty())) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
-            RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
-        } else if (CualTabla == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroProverbio");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
-        } else if (CualTabla == 1) {
-            nuevoRegistroMensajesUsuarios.setAno(anioactual);
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroMensajeUsuario");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
-        }
+        RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
+        RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
     }
 
     //AUTOCOMPLETAR

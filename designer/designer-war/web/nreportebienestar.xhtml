@@ -442,10 +442,10 @@
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
                     </p:dialog> 
 
-                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlNReporteBienestar.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="100" width="360" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlNReporteBienestar.pathReporteGenerado}" style="position: absolute; left: 10px; width: 325px; height: 70px;" readonly="true"/>
                     </p:dialog>
-
+                    
                     <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteBienestar.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                         <p:media value="#{controlNReporteBienestar.file}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteBienestar.file != null}"/>
                     </p:dialog>

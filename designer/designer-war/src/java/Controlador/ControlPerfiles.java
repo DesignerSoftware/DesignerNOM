@@ -2099,8 +2099,9 @@ public class ControlPerfiles implements Serializable {
                             }
                         }
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        System.out.println("error en validarDescargarReporte : " + ex.getMessage());
+                        RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                 }
@@ -2113,8 +2114,8 @@ public class ControlPerfiles implements Serializable {
             System.out.println("Error en validar descargar Reporte " + e.toString());
         }
     }
-    
-       public void validarDescargaReporteObjetos() {
+
+    public void validarDescargaReporteObjetos() {
         try {
             System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
@@ -2193,6 +2194,8 @@ public class ControlPerfiles implements Serializable {
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte :" + e.getMessage());
+            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 

@@ -181,40 +181,30 @@ public class ControlNReporteCapacitacion implements Serializable {
             controlListaNavegacion.quitarPagina(pagActual);
             
         } else {
-            */
-String pagActual = "nreportecapacitacion";
-            
-            
-            
+         */
+        String pagActual = "nreportecapacitacion";
 
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
         }
         limpiarListasValor();
-        
+
     }
 
     public void limpiarListasValor() {
@@ -571,11 +561,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void generarReporte(Inforeportes reporte) {
         try {
+            guardarCambios();
             reporteSeleccionado = reporte;
             seleccionRegistro();
             generarDocumentoReporte();
         } catch (Exception e) {
             System.out.println("error en generarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
@@ -648,6 +641,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
@@ -677,6 +672,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
         } catch (Exception e) {
             System.out.println("error generarDocumentoReprote : " + e.getMessage());
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
@@ -695,7 +692,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                         System.out.println("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
-                        System.out.println(ex);
+                        RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                     if (reporte != null) {

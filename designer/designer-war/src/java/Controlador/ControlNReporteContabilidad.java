@@ -184,45 +184,35 @@ public class ControlNReporteContabilidad implements Serializable {
             controlListaNavegacion.quitarPagina(pagActual);
             
         } else {
-            */
-String pagActual = "nreportescontabilidad";
-            
-            
-            
+         */
+        String pagActual = "nreportescontabilidad";
 
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
         }
-        
+
     }
 
-    public void limpiarListasValor(){
-        
+    public void limpiarListasValor() {
+
     }
-    
+
     @PostConstruct
     public void inicializarAdministrador() {
         try {
@@ -555,6 +545,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void generarReporte(Inforeportes reporte) {
         try {
+            guardarCambios();
             inforreporteSeleccionado = reporte;
             seleccionRegistro();
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show();");
@@ -636,6 +627,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
 
     }
@@ -678,7 +671,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                         System.out.println("fis : " + fis);
                         file = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
-                        System.out.println(ex);
+                        RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                        RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         file = null;
                     }
                     if (file != null) {

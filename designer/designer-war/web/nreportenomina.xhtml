@@ -186,6 +186,9 @@
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNReporteNomina.activarCtrlF11()}" process="@this"/> 
 
+                </h:form>
+
+                <h:form id="formularioReportes">
                     <p:dialog header="#{msg['reporteR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlNReporteNomina.listValInforeportes}" rowKey="#{reportes.secuencia}"
@@ -193,8 +196,8 @@
                                      filteredValue="#{controlNReporteNomina.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosLovReportes()}"/>                            
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarR"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarSeleccionInforeporte()}" update=":form:lovReportesDialogo" process="@this" immediate="true"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioReportes:aceptarR"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarSeleccionInforeporte()}" update=":formularioReportes:lovReportesDialogo" process="@this" immediate="true"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"/>   
                                 <p:inputText autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
@@ -217,13 +220,14 @@
                         <div class="cssBotonesLOV">
                             <h:outputText id="infoRegistroReportes" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroReportes}"/>
                             <p:commandButton id="aceptarR" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" icon="ui-icon-check"
-                                             actionListener="#{controlNReporteNomina.actualizarSeleccionInforeporte()}" update=":form:lovReportesDialogo" process="@this" 
+                                             actionListener="#{controlNReporteNomina.actualizarSeleccionInforeporte()}" update=":formularioReportes:lovReportesDialogo" process="@this" 
                                              />
                             <p:commandButton id="atrasR" class="cssAtrasLOV" value="#{msg['cancelar']}" 
-                                             actionListener="#{controlNReporteNomina.cancelarSeleccionInforeporte()}" update=":form:lovReportesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                                             actionListener="#{controlNReporteNomina.cancelarSeleccionInforeporte()}" update=":formularioReportes:lovReportesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
-                    </p:dialog>
-
+                    </p:dialog> 
+                </h:form>
+                <h:form id="formularioEmpleadoDesde">
                     <p:dialog id="EmpleadoDesdeDialogo" header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false"   
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
                         <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReporteNomina.listValEmpleados}" rowKey="#{empleadoDesde.secuencia}"
@@ -232,8 +236,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosEmpeladoD()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarED"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEmplDesde()}" update=":form:EmpleadoDesdeDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioEmpleadoDesde:aceptarED"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEmplDesde()}" update=":formularioEmpleadoDesde:EmpleadoDesdeDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMP']}"/>  
                                 <p:inputText autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
@@ -255,13 +259,14 @@
                             <h:outputText id="infoRegistroEmpleadoDesde" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroEmpleadoDesde}"/>
 
                             <p:commandButton id="aceptarED" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarEmplDesde()}" 
-                                             icon="ui-icon-check" update=":form:EmpleadoDesdeDialogo" process="@this"/>
+                                             icon="ui-icon-check" update=":formularioEmpleadoDesde:EmpleadoDesdeDialogo" process="@this"/>
 
                             <p:commandButton id="atrasED" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarCambioEmplDesde()}" 
-                                             update=":form:EmpleadoDesdeDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                                             update=":formularioEmpleadoDesde:EmpleadoDesdeDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
-                    </p:dialog>
-
+                    </p:dialog>  
+                </h:form>
+                <h:form id="formularioEmpleadoHasta">
                     <p:dialog id="EmpleadoHastaDialogo" header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
                         <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteNomina.listValEmpleados}" rowKey="#{empleadoHasta.secuencia}"
@@ -270,8 +275,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosEmpeladoH()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarEH"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEmplHasta()}" update=":form:EmpleadoHastaDialogo" process="@this"   />
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioEmpleadoHasta:aceptarEH"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEmplHasta()}" update=":formularioEmpleadoHasta:EmpleadoHastaDialogo" process="@this"   />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPH']}"/>  
                                 <p:inputText class="cssFiltroLOV" autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" value="#{filtrado}"/>  
@@ -293,13 +298,14 @@
                             <h:outputText id="infoRegistroEmpleadoHasta" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroEmpleadoHasta}"/>
 
                             <p:commandButton id="aceptarEH" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarEmplHasta()}" 
-                                             icon="ui-icon-check" update=":form:EmpleadoHastaDialogo" process="@this"/>
+                                             icon="ui-icon-check" update=":formularioEmpleadoHasta:EmpleadoHastaDialogo" process="@this"/>
 
                             <p:commandButton id="atrasEH" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarCambioEmplHasta()}"
-                                             update=":form:EmpleadoHastaDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                                             update=":formularioEmpleadoHasta:EmpleadoHastaDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
                     </p:dialog>
-
+                </h:form>
+                <h:form id="formularioGrupoConcepto">
                     <p:dialog header="#{msg['gruposGC']}" widgetVar="GruposConceptosDialogo" draggable="true" resizable="false" closable="false" id="GruposConceptosDialogo"  
                               showEffect="fade" hideEffect="fade" width="456" modal="true">
                         <p:dataTable id="lovGruposConceptos" var="grupoC" value="#{controlNReporteNomina.listValGruposConceptos}" rowKey="#{grupoC.secuencia}"
@@ -308,8 +314,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosGrupo()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarGC"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarGrupo()}" update=":form:GruposConceptosDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioGrupoConcepto:aceptarGC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarGrupo()}" update=":formularioGrupoConcepto:GruposConceptosDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarGC']}"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovGruposConceptos').filter();" value="#{filtrado}"/>  
@@ -331,13 +337,14 @@
                             <h:outputText id="infoRegistroGrupoConcepto" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroGrupoConcepto}"/>
 
                             <p:commandButton id="aceptarGC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarGrupo()}" 
-                                             icon="ui-icon-check" update=":form:GruposConceptosDialogo" process="@this"/>
+                                             icon="ui-icon-check" update=":formularioGrupoConcepto:GruposConceptosDialogo" process="@this"/>
 
                             <p:commandButton id="atrasGC" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarCambioGrupo()}"
-                                             update=":form:GruposConceptosDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                                             update=":formularioGrupoConcepto:GruposConceptosDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
-                    </p:dialog>
-
+                    </p:dialog>  
+                </h:form>
+                <h:form id="formularioUbicacion">
                     <p:dialog header="#{msg['ubicacionUG']}" widgetVar="UbiGeograficaDialogo" draggable="true" resizable="false" closable="false" id="UbiGeograficaDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
                         <p:dataTable id="lovUbicacionGeografica" var="ubicacionG" value="#{controlNReporteNomina.listValUbicacionesGeograficas}" rowKey="#{ubicacionG.secuencia}"
@@ -346,8 +353,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosUbicacion()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarUG"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarUbicacionGeografica()}" update=":form:UbiGeograficaDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioUbicacion:aceptarUG"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarUbicacionGeografica()}" update=":formularioUbicacion:UbiGeograficaDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarUG']}"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovUbicacionGeografica').filter();" value="#{filtrado}"/>  
@@ -369,13 +376,14 @@
                             <h:outputText id="infoRegistroUbicacion" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroUbicacion}"/>
 
                             <p:commandButton id="aceptarUG" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarUbicacionGeografica()}"
-                                             update=":form:UbiGeograficaDialogo" icon="ui-icon-check" process="@this"/>
+                                             update=":formularioUbicacion:UbiGeograficaDialogo" icon="ui-icon-check" process="@this"/>
 
                             <p:commandButton id="atrasUG" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarCambioUbicacionGeografica()}" 
-                                             update=":form:UbiGeograficaDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                                             update=":formularioUbicacion:UbiGeograficaDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
                     </p:dialog>
-
+                </h:form>
+                <h:form id="formularioTipoAsociacion">
                     <p:dialog header="#{msg['tipoasociacionTA']}" widgetVar="TipoAsociacionDialogo" draggable="true" resizable="false" closable="false" id="TipoAsociacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
                         <p:dataTable id="lovTipoAsociacion" var="tipoA" value="#{controlNReporteNomina.listValTiposAsociaciones}" rowKey="#{tipoA.secuencia}"
@@ -384,8 +392,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosTipoAsociacion()}"/>
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarTA"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarTipoAsociacion()}" update=":form:TipoAsociacionDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioTipoAsociacion:aceptarTA"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarTipoAsociacion()}" update=":formularioTipoAsociacion:TipoAsociacionDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTA']}"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovTipoAsociacion').filter();" value="#{filtrado}"/>  
@@ -407,13 +415,14 @@
                             <h:outputText id="infoRegistroTipoAsociacion" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroTipoAsociacion}"/>
 
                             <p:commandButton id="aceptarTA" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarTipoAsociacion()}"
-                                             icon="ui-icon-check" update=":form:TipoAsociacionDialogo" process="@this"/>
+                                             icon="ui-icon-check" update=":formularioTipoAsociacion:TipoAsociacionDialogo" process="@this"/>
 
                             <p:commandButton id="atrasTA" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarTipoAsociacion()}" 
-                                             update=":form:TipoAsociacionDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                                             update=":formularioTipoAsociacion:TipoAsociacionDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
-                    </p:dialog>
-
+                    </p:dialog>  
+                </h:form>
+                <h:form id="formularioEmpresa">
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
                         <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteNomina.listValEmpresas}" rowKey="#{empresa.secuencia}"
@@ -422,8 +431,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosEmpresa()}"/>
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEmpresa()}" update=":form:EmpresaDialogo" process="@this"   />
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioEmpresa:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEmpresa()}" update=":formularioEmpresa:EmpresaDialogo" process="@this"   />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovEmpresa').filter();" value="#{filtrado}"/>  
@@ -445,13 +454,14 @@
                             <h:outputText id="infoRegistroEmpresa" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroEmpresa}"/>
 
                             <p:commandButton id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarEmpresa()}" 
-                                             icon="ui-icon-check" update=":form:EmpresaDialogo" process="@this"/>
+                                             icon="ui-icon-check" update=":formularioEmpresa:EmpresaDialogo" process="@this"/>
 
                             <p:commandButton id="atrasE" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarEmpresa()}" 
-                                             icon="ui-icon-arrowreturnthick-1-w" update=":form:EmpresaDialogo" process="@this"/>
+                                             icon="ui-icon-arrowreturnthick-1-w" update=":formularioEmpresa:EmpresaDialogo" process="@this"/>
                         </div>
                     </p:dialog>
-
+                </h:form>
+                <h:form id="formularioAsociacion">
                     <p:dialog header="#{msg['asociacionesAS']}" widgetVar="AsociacionDialogo" draggable="true" resizable="false" closable="false" id="AsociacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
                         <p:dataTable id="lovAsociacion" var="asociacion" value="#{controlNReporteNomina.listValAsociaciones}" rowKey="#{asociacion.secuencia}"
@@ -460,8 +470,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosAsociacion()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarA"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarAsociacion()}" update=":form:AsociacionDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioAsociacion:aceptarA"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarAsociacion()}" update=":formularioAsociacion:AsociacionDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarAS']}"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovAsociacion').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 30px;"/>  
@@ -483,13 +493,14 @@
                             <h:outputText id="infoRegistroAsociacion" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroAsociacion}"/>
 
                             <p:commandButton id="aceptarA" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarAsociacion()}" 
-                                             icon="ui-icon-check" update=":form:AsociacionDialogo" process="@this"/>
+                                             icon="ui-icon-check" update=":formularioAsociacion:AsociacionDialogo" process="@this"/>
 
                             <p:commandButton id="atrasA" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarAsociacion()}"
-                                             icon="ui-icon-arrowreturnthick-1-w" update=":form:AsociacionDialogo" process="@this"/>
+                                             icon="ui-icon-arrowreturnthick-1-w" update=":formularioAsociacion:AsociacionDialogo" process="@this"/>
                         </div>
-                    </p:dialog>
-
+                    </p:dialog>  
+                </h:form>
+                <h:form id="formularioTercero">
                     <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovTercero" var="tercero" value="#{controlNReporteNomina.listValTerceros}" rowKey="#{tercero.secuencia}"
@@ -498,8 +509,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosTercero()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarTercero()}" update=":form:TerceroDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioTercero:aceptarT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarTercero()}" update=":formularioTercero:TerceroDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 30px;"/>  
@@ -527,13 +538,15 @@
                             <h:outputText id="infoRegistroTercero" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroTercero}"/>
 
                             <p:commandButton id="aceptarT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}"  actionListener="#{controlNReporteNomina.actualizarTercero()}"
-                                             update=":form:TerceroDialogo" process="@this" icon="ui-icon-check"/>
+                                             update=":formularioTercero:TerceroDialogo" process="@this" icon="ui-icon-check"/>
 
                             <p:commandButton id="atrasT" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarTercero()}"
-                                             icon="ui-icon-arrowreturnthick-1-w" update=":form:TerceroDialogo" process="@this"/>
+                                             icon="ui-icon-arrowreturnthick-1-w" update=":formularioTercero:TerceroDialogo" process="@this"/>
                         </div>
                     </p:dialog>
 
+                </h:form>
+                <h:form id="formularioProceso">
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
                         <p:dataTable id="lovProceso" var="proceso" value="#{controlNReporteNomina.listValProcesos}" rowKey="#{proceso.secuencia}"
@@ -542,8 +555,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosProceso()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarProceso()}" update=":form:ProcesoDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioProceso:aceptarP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarProceso()}" update=":formularioProceso:ProcesoDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovProceso').filter();" value="#{filtrado}"/>  
@@ -565,13 +578,15 @@
                             <h:outputText id="infoRegistroProceso" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroProceso}"/>
 
                             <p:commandButton id="aceptarP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" 
-                                             actionListener="#{controlNReporteNomina.actualizarProceso()}" icon="ui-icon-check" update=":form:ProcesoDialogo" process="@this"/>
+                                             actionListener="#{controlNReporteNomina.actualizarProceso()}" icon="ui-icon-check" update=":formularioProceso:ProcesoDialogo" process="@this"/>
 
                             <p:commandButton id="atrasP" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarProceso()}" 
-                                             icon="ui-icon-arrowreturnthick-1-w" update=":form:ProcesoDialogo" process="@this"/>
+                                             icon="ui-icon-arrowreturnthick-1-w" update=":formularioProceso:ProcesoDialogo" process="@this"/>
                         </div>
                     </p:dialog>
 
+                </h:form>
+                <h:form id="formularioTipoTrabajador">
                     <p:dialog header="#{msg['tipotrabajadorTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" modal="true">
                         <p:dataTable id="lovTipoTrabajador" var="tipoT" value="#{controlNReporteNomina.listValTiposTrabajadores}" rowKey="#{tipoT.secuencia}"
@@ -580,8 +595,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosTipoTrabajador()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarTT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarTipoTrabajador()}" update=":form:TipoTrabajadorDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioTipoTrabajador:aceptarTT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarTipoTrabajador()}" update=":formularioTipoTrabajador:TipoTrabajadorDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTT']}"/>  
                                 <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovTipoTrabajador').filter();" value="#{filtrado}"/>  
@@ -609,13 +624,15 @@
                             <h:outputText id="infoRegistroTipoTrabajador" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroTipoTrabajador}"/>
 
                             <p:commandButton id="aceptarTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarTipoTrabajador()}" 
-                                             icon="ui-icon-check"  update=":form:TipoTrabajadorDialogo" process="@this"/>
+                                             icon="ui-icon-check"  update=":formularioTipoTrabajador:TipoTrabajadorDialogo" process="@this"/>
 
                             <p:commandButton id="atrasTT" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarTipoTrabajador()}" 
-                                             icon="ui-icon-arrowreturnthick-1-w" update=":form:TipoTrabajadorDialogo" process="@this"/>
+                                             icon="ui-icon-arrowreturnthick-1-w" update=":formularioTipoTrabajador:TipoTrabajadorDialogo" process="@this"/>
                         </div>
                     </p:dialog>
 
+                </h:form>
+                <h:form id="formularioEstructura">
                     <p:dialog header="#{msg['estructurasES']}" widgetVar="EstructuraDialogo" draggable="true" resizable="false" closable="false" id="EstructuraDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovEstructura" var="estructura" value="#{controlNReporteNomina.listValEstructuras}" rowKey="#{estructura.secuencia}"
@@ -624,8 +641,8 @@
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosEstructura()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarEST"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEstructura()}" update=":form:EstructuraDialogo" process="@this"/>
+                            <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":formularioEstructura:aceptarEST"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.actualizarEstructura()}" update=":formularioEstructura:EstructuraDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarES']}"/>  
                                 <p:inputText  id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovEstructura').filter();" value="#{filtrado}"/>  
@@ -653,14 +670,14 @@
                             <h:outputText id="infoRegistroEstructura" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistroEstructura}"/>
 
                             <p:commandButton id="aceptarEST" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteNomina.aceptar}" actionListener="#{controlNReporteNomina.actualizarEstructura()}" 
-                                             icon="ui-icon-check" update=":form:EstructuraDialogo" process="@this"/>
+                                             icon="ui-icon-check" update=":formularioEstructura:EstructuraDialogo" process="@this"/>
 
                             <p:commandButton id="atrasEST" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteNomina.cancelarEstructura()}" 
-                                             icon="ui-icon-arrowreturnthick-1-w" update=":form:EstructuraDialogo" process="@this"/>
+                                             icon="ui-icon-arrowreturnthick-1-w" update=":formularioEstructura:EstructuraDialogo" process="@this"/>
                         </div>
                     </p:dialog>
                 </h:form>
-
+                
                 <h:form id="formParametros">
                     <fieldset id="parametrosInforme" style="position: absolute; top: 85px; left: 18px; width: 835px; height: 160px; 
                               border-radius: 3px; padding: 0px; display: table; border-spacing: 5px;">
@@ -691,7 +708,7 @@
 
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['empleadodesde']}: " style="top: 9px; position: relative;"/>
-                                        <p:inputText id="empleadoDesdeParametro" autocomplete="off" widgetVar="empleadoDesdeParametro" style="position: absolute; width: 100px; left: 110px; top: 25px;"
+                                        <p:inputText id="empleadoDesdeParametro" autocomplete="off" widgetVar="empleadoDesdeParametro" style="position: absolute; width: 100px; left: 110px; top: 25px;" class="cssParametrosReportes"
                                                      value="#{controlNReporteNomina.parametroDeInforme.codigoempleadodesde}" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(2)}" process="@this"/> 
                                             <!--<p:ajax event="change" listener="#/{controlNReporteNomina.autocompletarGeneral('DESDE', controlNReporteNomina.parametroDeInforme.codigoempleadodesde)}"--> 
@@ -705,7 +722,7 @@
                                         <div style="display: block;">
                                             <h:outputText value="#{msg['hasta']}: " style="top: 11px; position: relative; left: 20px;"/>
                                             <p:inputText id="empleadoHastaParametro" autocomplete="off" widgetVar="empleadoHastaParametro" style="position: absolute; left: 85px; width: 100px; top: 12px;"
-                                                         value="#{controlNReporteNomina.parametroDeInforme.codigoempleadohasta}" onclick="select();">
+                                                         value="#{controlNReporteNomina.parametroDeInforme.codigoempleadohasta}" onclick="select();" class="cssParametrosReportes">
                                                 <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(8)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroEmpleadoHasta(controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"  
                                                         update="empleadoHastaParametro" process="@this"/>
@@ -742,7 +759,7 @@
                                         <div style="display: block;">
                                             <h:outputText value="#{msg['grupo']}:" style="top: 30px; position: relative; left: -240px"/>
                                             <p:inputText autocomplete="off" id="grupoParametro" value="#{controlNReporteNomina.parametroDeInforme.grupo.descripcion}"  
-                                                         style="position: absolute; width: 100px; top: 30px; left: -130px" onclick="select();">
+                                                         style="position: absolute; width: 100px; top: 30px; left: -130px" onclick="select();" class="cssParametrosReportes">
                                                 <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(4)}" process="@this"/> 
                                                 <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('GRUPO', controlNReporteNomina.parametroDeInforme.grupo.descripcion)}" 
                                                         event="change"  update="grupoParametro" process="@this"/>
@@ -753,7 +770,7 @@
                                         <div style="display: block;">
                                             <h:outputText value="#{msg['empresa']}:" style="top: 16px; position: relative; left: 20px;"/>
                                             <p:inputText autocomplete="off" id="empresaParametro" value="#{controlNReporteNomina.parametroDeInforme.empresa.nombre}"  
-                                                         style="position: absolute; left: 85px; width: 100px; top: 30px;" onclick="select();">
+                                                         style="position: absolute; left: 85px; width: 100px; top: 30px;" onclick="select();" class="cssParametrosReportes">
                                                 <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(10)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlNReporteNomina.autocompletarGeneral('EMPRESA', controlNReporteNomina.parametroDeInforme.empresa.nombre)}" 
                                                         update="empresaParametro" process="@this"/>
@@ -765,7 +782,7 @@
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['ubigeografica']}: " style="top: 55px; position: relative;"/>
                                         <p:inputText id="ubicacionGeograficaParametro" autocomplete="off" widgetVar="ubicacionGeograficaParametro" style="position: absolute; width: 250px; left: 110px; top: 100px;"
-                                                     value="#{controlNReporteNomina.parametroDeInforme.ubicaciongeografica.descripcion}" onclick="select();">
+                                                     value="#{controlNReporteNomina.parametroDeInforme.ubicaciongeografica.descripcion}" onclick="select();" class="cssParametrosReportes">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(5)}" process="@this"/> 
                                             <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('UBIGEOGRAFICA', controlNReporteNomina.parametroDeInforme.ubicaciongeografica.descripcion)}" 
                                                     event="change"  update="ubicacionGeograficaParametro" process="@this"/>
@@ -776,7 +793,7 @@
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['tipoasociacion']}: " style="top: 62px; position: relative;"/>
                                         <p:inputText id="tipoAsociacionParametro" autocomplete="off" widgetVar="tipoAsociacionParametro" style="position: absolute; width: 250px; left: 110px; top: 120px;"
-                                                     value="#{controlNReporteNomina.parametroDeInforme.tipoasociacion.descripcion}" onclick="select();">
+                                                     value="#{controlNReporteNomina.parametroDeInforme.tipoasociacion.descripcion}" onclick="select();" class="cssParametrosReportes">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(6)}" process="@this"/> 
                                             <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TIPOASOCIACION', controlNReporteNomina.parametroDeInforme.tipoasociacion.descripcion)}" 
                                                     event="change"  update="tipoAsociacionParametro" process="@this"/>
@@ -791,7 +808,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['estructura']}:" style="top: 2px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="estructuraParametro" value="#{controlNReporteNomina.parametroDeInforme.localizacion.nombre}" 
-                                                 onclick="select();" maxlength="50" style="position: absolute; width: 200px; left: 135px; top: 2px;">
+                                                 onclick="select();" maxlength="50" style="position: absolute; width: 200px; left: 135px; top: 2px;" class="cssParametrosReportes">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(11)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('ESTRUCTURA', controlNReporteNomina.parametroDeInforme.localizacion.nombre)}" 
                                                 event="change" update="estructuraParametro" process="@this"/>
@@ -802,7 +819,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['tipotrabajador']}:" style="top: 9px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" value="#{controlNReporteNomina.parametroDeInforme.tipotrabajador.nombre}" id="tipoTrabajadorParametro" 
-                                                 style="position: absolute; width: 200px; left: 135px; top: 25px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 25px;" onclick="select();" class="cssParametrosReportes">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(12)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TIPOTRABAJADOR', controlNReporteNomina.parametroDeInforme.tipotrabajador.nombre)}" 
                                                 event="change" update="tipoTrabajadorParametro" process="@this"/>
@@ -813,7 +830,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['tercero']}:" style="top: 18px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="terceroParametro" value="#{controlNReporteNomina.parametroDeInforme.tercero.nombre}"  
-                                                 style="position: absolute; width: 200px; left: 135px; top: 48px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 48px;" onclick="select();" class="cssParametrosReportes">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(13)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TERCERO', controlNReporteNomina.parametroDeInforme.tercero.nombre)}" 
                                                 event="change" update="terceroParametro" process="@this"/>
@@ -824,7 +841,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['proceso']}:" style="top: 25px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="procesoParametro" maxlength="30" value="#{controlNReporteNomina.parametroDeInforme.proceso.descripcion}"  
-                                                 style="position: absolute; width: 200px; left: 135px; top: 70px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 70px;" onclick="select();" class="cssParametrosReportes">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(14)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('PROCESO', controlNReporteNomina.parametroDeInforme.proceso.descripcion)}" 
                                                 event="change" update="procesoParametro" process="@this"/>
@@ -835,7 +852,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['notas']}:" style="top: 45px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="notasParametro" value="#{controlNReporteNomina.parametroDeInforme.mensajedesprendible}" onclick="select();"
-                                                 style="position: absolute; width: 200px; left: 135px; top: 105px; text-transform: uppercase;">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 105px; text-transform: uppercase;" class="cssParametrosReportes">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(15)}" process="@this"/> 
                                         <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this"/>
                                     </p:inputText>
@@ -844,7 +861,7 @@
                                 <div style="display: block;">
                                     <h:outputText value="#{msg['asociacion']}:" style="top: 52px; position: relative; left: 30px;"/>
                                     <p:inputText autocomplete="off" id="asociacionParametro" maxlength="200" value="#{controlNReporteNomina.parametroDeInforme.asociacion.descripcion}"  
-                                                 style="position: absolute; width: 200px; left: 135px; top: 125px;" onclick="select();">
+                                                 style="position: absolute; width: 200px; left: 135px; top: 125px;" onclick="select();" class="cssParametrosReportes">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(16)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('ASOCIACION', controlNReporteNomina.parametroDeInforme.asociacion.descripcion)}" 
                                                 event="change" update="asociacionParametro" process="@this"/>
@@ -855,13 +872,6 @@
 
                         </div>
                     </fieldset>
-                    <style>
-                        .ui-inputfield { 
-                            height: 14px !important;
-                            padding-bottom: 1px !important;
-                            padding-top: 1px !important;
-                        }
-                    </style>
                     <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="95" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
@@ -970,8 +980,8 @@
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
                     </p:dialog> 
 
-                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlNReporteNomina.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="100" width="360" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlNReporteNomina.pathReporteGenerado}" style="position: absolute; left: 10px; width: 325px; height: 70px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteNomina.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">

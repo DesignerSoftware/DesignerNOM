@@ -1855,6 +1855,7 @@ public class ControlNReportePersonal implements Serializable {
 
     public void generarReporte(Inforeportes reporte) {
         try {
+            guardarCambios();
             reporteSeleccionado = reporte;
             System.out.println("inforreporteSeleccionado: " + reporteSeleccionado.getNombre() + " tipo: " + reporteSeleccionado.getTipo());
             seleccionRegistro();
@@ -1952,7 +1953,8 @@ public class ControlNReportePersonal implements Serializable {
                     System.out.println("fis : " + fis);
                     reporte = new DefaultStreamedContent(fis, "application/pdf");
                 } catch (FileNotFoundException ex) {
-                    System.out.println(ex.getCause());
+                    RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                    RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                     reporte = null;
                 }
                 if (reporte != null) {
