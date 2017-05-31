@@ -261,13 +261,13 @@ public class ControlParametroAutoliq implements Serializable {
             parametroTablaSeleccionado = listaParametrosAutoliq.get(0);
          }
       }
-      listaAportesEntidades = null;
-      getListaAportesEntidades();
-      if (listaAportesEntidades != null) {
-         if (!listaAportesEntidades.isEmpty()) {
-            aporteTablaSeleccionado = listaAportesEntidades.get(0);
-         }
-      }
+//      listaAportesEntidades = null;
+//      getListaAportesEntidades();
+//      if (listaAportesEntidades != null) {
+//         if (!listaAportesEntidades.isEmpty()) {
+//            aporteTablaSeleccionado = listaAportesEntidades.get(0);
+//         }
+//      }
    }
 
    public void recibirParametros(Map<String, Object> map) {
@@ -3430,7 +3430,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    public List<AportesEntidades> getListaAportesEntidades() {
       if (listaAportesEntidades == null) {
          if (parametroTablaSeleccionado != null) {
-            System.out.println("ControlParametroAutoliq.getListaAportesEntidades()");
             listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
          }
       }

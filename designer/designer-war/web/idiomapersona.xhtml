@@ -298,7 +298,6 @@
                         <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre, 1)}"/>
                      </p:inputText>
                      <p:commandButton style=" position: absolute; left: 320px; top: 40px;" class="cssBotonLovDialogos" id="btnNuevaIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>   
-                     <p:watermark for="nuevaIdioma" value="#{msg['idioma']}"/>
 
 
                      <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px; "/></strong>
@@ -306,21 +305,18 @@
                         <p:keyFilter for="nuevaConversacion" mask="num"/>
                         <p:ajax event="change" update="nuevaConversacion"/>
                      </p:inputText>
-                     <p:watermark for="nuevaConversacion" value="#{msg['conversacion']}"/>
 
                      <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px; "/></strong>
                      <p:inputText autocomplete="off" id="nuevaLectura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
                         <p:keyFilter for="nuevaLectura" mask="num"/>
                         <p:ajax event="change" update="nuevaLectura"/>
                      </p:inputText>
-                     <p:watermark for="nuevaLectura" value="#{msg['lectura']}"/>
 
                      <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px; "/></strong>
                      <p:inputText autocomplete="off" id="nuevaEscritura" maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
                         <p:keyFilter for="nuevaEscritura" mask="num"/>
                         <p:ajax event="change" update="nuevaEscritura"/>
                      </p:inputText>
-                     <p:watermark for="nuevaEscritura" value="#{msg['escritura']}"/>
 
                      <p:commandButton id="limpiarI" value="#{msg['limpiar']}" style="position: absolute; left: 35px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" process="@this"/>
                      <p:commandButton id="agregarI" value="#{msg['agregar']}" style="position: absolute; left: 135px; top: 195px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlIdiomaPersona.agregarNuevaIdiomaPersona()}"/>
@@ -340,28 +336,24 @@
                         <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.duplicarIdiomaPersona.idioma.nombre, 2)}"/>
                      </p:inputText>
                      <p:commandButton style=" position: absolute; left: 320px; top: 40px;" class="cssBotonLovDialogos" id="btnDuplicarIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,2)}"/>   
-                     <p:watermark for="duplicarIdioma" value="#{msg['idioma']}"/>
 
                      <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 75px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarConversacion" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 70px;">
                         <p:keyFilter for="duplicarConversacion" mask="num"/>
                         <p:ajax event="change" update="duplicarConversacion"/>
                      </p:inputText>
-                     <p:watermark for="duplicarConversacion" value="#{msg['conversacion']}"/>
 
                      <strong><h:outputText value="#{msg['lecturaN']}" style="position: absolute; top: 105px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarLectura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.lectura}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
                         <p:keyFilter for="duplicarLectura" mask="num"/>
                         <p:ajax event="change" update="duplicarLectura"/>
                      </p:inputText>
-                     <p:watermark for="duplicarLectura" value="#{msg['lectura']}"/>
 
                      <strong><h:outputText value="#{msg['escrituraN']}" style="position: absolute; top: 135px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEscritura" maxlength="3" value="#{controlIdiomaPersona.duplicarIdiomaPersona.escritura}" style="width: 122px; position: absolute; left: 180px; top: 130px;">
                         <p:keyFilter for="duplicarEscritura" mask="num"/>
                         <p:ajax event="change" update="duplicarEscritura"/>
                      </p:inputText>
-                     <p:watermark for="duplicarEscritura" value="#{msg['escritura']}"/>
 
 
                      <p:commandButton id="limpiarDuplicadoI" value="#{msg['limpiar']}" style="position: absolute; left: 35px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlIdiomaPersona.limpiarDuplicar()}" update="duplicarIdiomas" process="@this"/>

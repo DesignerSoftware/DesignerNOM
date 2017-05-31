@@ -233,7 +233,6 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             referenciaP = (String) query.getSingleResult();
             if (referenciaP == null) {
                 referenciaP = "";
-
             }
             return referenciaP;
         } catch (Exception e) {

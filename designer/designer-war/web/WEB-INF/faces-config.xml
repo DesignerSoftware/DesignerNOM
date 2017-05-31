@@ -3711,7 +3711,7 @@
    <navigation-rule>
       <from-view-id>/vigenciaaficion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigAfiEmplInd</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3720,7 +3720,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>infoAficionesPersona</from-outcome>
+         <from-outcome>vigenciaaficion</from-outcome>
          <to-view-id>/vigenciaaficion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6918,7 +6918,7 @@
    <navigation-rule>
       <from-view-id>/emplfamiliares.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tiposfamiliar</from-outcome>
+         <from-outcome>tipofamiliar</from-outcome>
          <to-view-id>/tipofamiliar.xhtml</to-view-id>
          <redirect />
       </navigation-case>

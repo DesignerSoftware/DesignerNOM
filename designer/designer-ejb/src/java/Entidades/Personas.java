@@ -131,9 +131,6 @@ public class Personas implements Serializable {
     }
 
     public String getFactorrh() {
-        if (factorrh == null) {
-            factorrh = "";
-        }
         return factorrh;
     }
 
@@ -167,7 +164,7 @@ public class Personas implements Serializable {
 
     public String getGruposanguineo() {
         if (gruposanguineo == null) {
-            gruposanguineo = " ";
+            gruposanguineo = "O";
         }
         return gruposanguineo;
     }
@@ -223,7 +220,7 @@ public class Personas implements Serializable {
 
     public String getViviendapropia() {
         if (viviendapropia == null) {
-            viviendapropia = " ";
+            viviendapropia = "N";
         }
         return viviendapropia;
     }

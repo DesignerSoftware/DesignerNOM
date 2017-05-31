@@ -203,13 +203,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
         String pagActual = "empleadoindividual";
 
         if (pag.equals("atras")) {
@@ -1004,6 +997,9 @@ public class ControlEmpleadoIndividual implements Serializable {
             } else {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pagina);
+                ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+                controlListaNavegacion.guardarNavegacion("empleadoindividual", pagina);
+                
             }
         }
     }

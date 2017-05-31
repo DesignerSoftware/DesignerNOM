@@ -415,7 +415,7 @@ public class ControlAficiones implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroDeporte').hide()");
+         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroAficion').hide()");
       } else {
          RequestContext.getCurrentInstance().update("form:validacionNuevaAficion");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaAficion').show()");

@@ -637,8 +637,9 @@
                            <h:outputText value="#{msg['herramientasdeintegracion']}" styleClass="outputTextFielset"/>
                            <p:commandButton id="btnpila" value="" class="cssBotonesIntegracion"
                                             style="left: 10px; top: 20px; background-image: url(Imagenes/Iconos/IntPILA.png);"
-                                            action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'parametroautoliq')}" actionListener="#{controlParametroAutoliq.recibirPaginaEntrante('nominaf')}"
+                                            action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'parametroautoliq')}" 
                                             disabled="#{controlRemoto.consultarPermisosPorId('btnpila')}"/>
+                           <!--actionListener="#{controlParametroAutoliq.recibirPaginaEntrante('nominaf')}"-->
                            <p:commandButton id="btnpresup" value="" class="cssBotonesIntegracion"
                                             style="left: 10px; top: 115px; background-image: url(Imagenes/Iconos/IntPresupuesto.png);" disabled="#{controlRemoto.consultarPermisosPorId('btnpresup')}"/>
                            <p:commandButton id="btntersoreria" value="" class="cssBotonesIntegracion"

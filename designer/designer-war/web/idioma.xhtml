@@ -251,13 +251,11 @@
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="nuevoCodigo" mask="num"/>
                      </p:inputText>
-                     <p:watermark for="nuevoCodigo" value="Código"/>
 
                      <strong><h:outputText value="*Idioma: "  style=" position: absolute; top: 90px;"/></strong>
                      <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="15"  value="#{controlIdiomas.nuevoIdiomas.nombre}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
-                     <p:watermark for="nuevoNombre" value="Idioma"/>
                      <p:commandButton icon="ui-icon-trash" id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlIdiomas.limpiarNuevoIdiomas()}" update="nuevaTipoempresa" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlIdiomas.agregarNuevoIdiomas()}" process="@this"/>
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="nuevaTipoempresa" onclick="PF('nuevoRegistroIdiomas').hide();"  actionListener="#{controlIdiomas.limpiarNuevoIdiomas()}"  process="@this"/>
@@ -275,13 +273,11 @@
                         <p:keyFilter for="duplicarCodigo" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
-                     <p:watermark for="duplicarCodigo" value="Código"/>
 
                      <strong><h:outputText value="*Idioma :"  style=" position: absolute; top: 90px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarNombre" maxlength="15"  value="#{controlIdiomas.duplicarIdiomas.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
-                     <p:watermark for="duplicarNombre" value="Idioma"/>
                      <p:commandButton icon="ui-icon-trash" id="limpiarD" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlIdiomas.limpiarDuplicarIdiomas() }" update="duplicarTE"  process="@this"/>
                      <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlIdiomas.confirmarDuplicar()}"  process="@this"/>
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="duplicarTE" onclick="PF('duplicarRegistroIdiomas').hide();" actionListener="#{controlIdiomas.limpiarDuplicarIdiomas()}"  process="@this"/>

@@ -486,7 +486,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposCursos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroSector').hide()");
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevoSector");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevoSector').show()");
@@ -533,7 +533,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposCursos').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroSector').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
@@ -576,8 +576,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
             duplicarSectorEconomico = new SectoresEconomicos();
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTiposCursos");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposCursos').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroSector");
+        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroSector').hide()");
     }
 
     public void limpiarDuplicarSectoresEconomicos() {
@@ -872,7 +872,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     public String getInfoRegistroEmpresa() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovEmpresa");
-        infoRegistro = String.valueOf(tabla.getRowCount());
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
