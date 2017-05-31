@@ -587,13 +587,13 @@
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionEPS" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px; font-weight: bold;"/>
-                           <p:inputText autocomplete="off" id="arpModAfiliaciones" disabled="true" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
+                           <p:inputText autocomplete="off" id="arpModAfiliaciones" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
                                         style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;">
-                              <!--                              <p:ajax event="focus" listener="#/{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
-                                                            <p:ajax event="change" listener="#/{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
-                                                            <p:ajax event="dblclick" listener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
-                              <!--                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
-                                                                             actionListener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
+                                                            <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
+                                                            <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
+                                                            <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
+                                                            <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                                                             actionListener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionARP" value="#{msg['infoAfiliacion']}"/>
 
@@ -1951,6 +1951,12 @@
                      <f:actionListener binding="#{controlPersonaIndividual.salir()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
+               </p:dialog>
+
+               <p:dialog id="errorARL" header="#{msg['error']}" widgetVar="errorARL"  resizable="false" draggable="true" modal="true" height="80" width="340"
+                         style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorARL']}" style="position: absolute; left: 70px; top: 15px; width: 275px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechaContratoFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaContratoFechaIngreso"  resizable="false" draggable="true" modal="true" height="98" width="358" style="font-size: 12px;" closable="true">  

@@ -310,6 +310,9 @@ public class ControlPersonaIndividual implements Serializable {
       nuevaPersona.setCiudaddocumento(new Ciudades());
       nuevaPersona.setCiudadnacimiento(new Ciudades());
       nuevaPersona.setTipodocumento(new TiposDocumentos());
+      nuevaPersona.setGruposanguineo(null);
+      nuevaPersona.setFactorrh(null);
+      nuevaPersona.setEmail(null);
       nuevaVigenciaCargo = new VigenciasCargos();
       nuevaVigenciaCargo.setPapel(new Papeles());
       nuevaVigenciaCargo.setCargo(new Cargos());
@@ -533,25 +536,15 @@ public class ControlPersonaIndividual implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "personaindividual";
-         
-         
-         
+       */
+      String pagActual = "personaindividual";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -1959,14 +1952,16 @@ String pagActual = "personaindividual";
    public boolean validarCamposAlternativosEmpleado() {
       boolean retorno = true;
       //Para grupo sanguineo:
-      if (!nuevaPersona.getGruposanguineo().isEmpty() && !nuevaPersona.getFactorrh().isEmpty()) {
-         if (nuevaPersona.getGruposanguineo().isEmpty() && !nuevaPersona.getFactorrh().isEmpty()) {
-            System.out.println("validarCamposAlternativosEmpleado() : 1");
-            retorno = false;
-         }
-         if (!nuevaPersona.getGruposanguineo().isEmpty() && nuevaPersona.getFactorrh().isEmpty()) {
-            System.out.println("validarCamposAlternativosEmpleado() : 2");
-            retorno = false;
+      if (nuevaPersona.getGruposanguineo() != null && nuevaPersona.getFactorrh() != null) {
+         if (!nuevaPersona.getGruposanguineo().isEmpty() && !nuevaPersona.getFactorrh().isEmpty()) {
+            if (nuevaPersona.getGruposanguineo().isEmpty() && !nuevaPersona.getFactorrh().isEmpty()) {
+               System.out.println("validarCamposAlternativosEmpleado() : 1");
+               retorno = false;
+            }
+            if (!nuevaPersona.getGruposanguineo().isEmpty() && nuevaPersona.getFactorrh().isEmpty()) {
+               System.out.println("validarCamposAlternativosEmpleado() : 2");
+               retorno = false;
+            }
          }
       }
 
@@ -2419,11 +2414,6 @@ String pagActual = "personaindividual";
          if (idInformacionPersonal == 0) {
             if (nuevoEmpleado.getEmpresa().getSecuencia() != null) {
                auxInformacionPersonaEmpresal = nuevoEmpleado.getEmpresa().getNombre();
-               /*
-                     * if (nuevoEmpleado.getEmpresa() != null) {
-                     * auxInformacionPersonaEmpresal =
-                     * administrarPersonaIndividual.obtenerEmpresa(nuevoEmpleado.getEmpresa()).getNombre();
-                */
             } else {
                listaValoresInformacionPersonal(idInformacionPersonal);
             }
@@ -3303,8 +3293,10 @@ String pagActual = "personaindividual";
       nuevaVigenciaAfiliacionARP.setTercerosucursal(administrarPersonaIndividual.consultarARL(secEmpresa));
       if (nuevaVigenciaAfiliacionARP.getTercerosucursal() == null) {
          txt_terceroARL = "";
+         RequestContext.getCurrentInstance().execute("PF('errorARL').show()");
       } else if (nuevaVigenciaAfiliacionARP.getTercerosucursal().getTercero() == null) {
          txt_terceroARL = "";
+         RequestContext.getCurrentInstance().execute("PF('errorARL').show()");
       } else {
          txt_terceroARL = nuevaVigenciaAfiliacionARP.getTercerosucursal().getTercero().getNombre();
       }
@@ -4140,6 +4132,7 @@ String pagActual = "personaindividual";
          }
       }
    }
+/////PARA BORRAR
 
    public void modificarAfiliacionARP(int indice, String campo, String valor) {
       cargarLovTercerosSucursales();
@@ -4366,6 +4359,7 @@ String pagActual = "personaindividual";
       if (idAfiliacionAFP >= 0) {
          actualizarParametroAFPAfiliacion();
       } else if (idAfiliacionARP >= 0) {
+         ////PARA BORRAR
          actualizarParametroARPAfiliacion();
       } else if (idAfiliacionCaja >= 0) {
          actualizarParametroCajaAfiliacion();
@@ -4608,6 +4602,7 @@ String pagActual = "personaindividual";
 
       RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').hide()");
    }
+/////PARA BORRAR
 
    public void actualizarParametroARPAfiliacion() {
       RequestContext context = RequestContext.getCurrentInstance();
@@ -5881,7 +5876,7 @@ String pagActual = "personaindividual";
    public void activarAceptar() {
       //if (empresaSeleccionada != null) {
       aceptar = false;
-      
+
    }
 
    public Date mostrarFechaIngreso() {
@@ -6406,7 +6401,7 @@ String pagActual = "personaindividual";
 
    public void cargarLovEstructuras() {
       System.out.println("cargarLovEstructuras() : nuevoEmpleado.getEmpresa().getSecuencia() : " + nuevoEmpleado.getEmpresa().getSecuencia());
-      System.out.println("&& fechaIngreso : " + fechaIngreso + ",  lovEstructuras : " + lovEstructuras);
+//      System.out.println("&& fechaIngreso : " + fechaIngreso + ",  lovEstructuras : " + lovEstructuras);
       if (nuevoEmpleado.getEmpresa().getSecuencia() != null && (fechaIngreso != null) && lovEstructuras == null) {
          lovEstructuras = administrarPersonaIndividual.lovEstructurasModCargos(nuevoEmpleado.getEmpresa().getSecuencia(), fechaIngreso);
       }

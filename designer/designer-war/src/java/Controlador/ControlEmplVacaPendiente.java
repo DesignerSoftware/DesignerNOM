@@ -139,37 +139,20 @@ public class ControlEmplVacaPendiente implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+      String pagActual = "emplvacapendiente";
 
-      } else {
-         */
-String pagActual = "emplvacapendiente";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -196,16 +179,19 @@ String pagActual = "emplvacapendiente";
       }
    }
 
+   public String fechaParaMostrar(Date fecha) {
+      int mes = fecha.getMonth();
+      if (mes < 9) {
+         return "" + fecha.getDate() + "/0" + (mes + 1) + "/" + (fecha.getYear() + 1900);
+      } else {
+         return "" + fecha.getDate() + "/" + (mes + 1) + "/" + (fecha.getYear() + 1900);
+      }
+   }
+
    public void recibirEmpleado(BigInteger sec) {
       empleado = administrarVWVacaPendientesEmpleados.obtenerEmpleado(sec);
-
       fechaContratacion = administrarVWVacaPendientesEmpleados.obtenerFechaFinalContratacionEmpleado(empleado.getSecuencia());
-      int mes = fechaContratacion.getMonth();
-      if (mes < 9) {
-         fechaContratacionText = "" + fechaContratacion.getDate() + "/0" + (mes + 1) + "/" + (fechaContratacion.getYear() + 1900);
-      } else {
-         fechaContratacionText = "" + fechaContratacion.getDate() + "/" + (mes + 1) + "/" + (fechaContratacion.getYear() + 1900);
-      }
+      fechaContratacionText = fechaParaMostrar(fechaContratacion);
       getListVacaDisfrutadas();
       getListVacaPendientes();
       if (listVacaPendientes != null) {
@@ -242,13 +228,13 @@ String pagActual = "emplvacapendiente";
    }
 
    public boolean validarFechasRegistroPendientes() {
-      RequestContext context = RequestContext.getCurrentInstance();
       boolean retorno = true;
       if (tipoActualizacion == 0) {
          //Si nuevaVacacion F Inicial y F Final es despues de 1900
          if (regVacaAuxiliar.getInicialcausacion().after(fechaAño1900) && regVacaAuxiliar.getInicialcausacion().before(regVacaAuxiliar.getFinalcausacion())) {
             // Si nuevaVacacion F Inicial y F Final son despues de fechaFinalContratacion
-            if ((regVacaAuxiliar.getInicialcausacion().after(fechaContratacion) || regVacaAuxiliar.getInicialcausacion().equals(fechaContratacion)) && regVacaAuxiliar.getFinalcausacion().after(fechaContratacion)) {
+            String fechaIni = fechaParaMostrar(regVacaAuxiliar.getInicialcausacion());
+            if ((regVacaAuxiliar.getInicialcausacion().after(fechaContratacion) || fechaIni.equals(fechaContratacionText))) {
                retorno = validarTraslapos(regVacaAuxiliar);
             } else {
                retorno = false;
@@ -266,7 +252,8 @@ String pagActual = "emplvacapendiente";
          if (nuevaVacacion.getInicialcausacion().after(fechaAño1900) && nuevaVacacion.getInicialcausacion().before(nuevaVacacion.getFinalcausacion())) {
             int n = nuevaVacacion.getInicialcausacion().getMonth();
             // Si nuevaVacacion F Inicial y F Final son despues de fechaFinalContratacion
-            if (nuevaVacacion.getInicialcausacion().after(fechaContratacion) && nuevaVacacion.getFinalcausacion().after(fechaContratacion)) {
+            String fechaIni = fechaParaMostrar(nuevaVacacion.getInicialcausacion());
+            if (nuevaVacacion.getInicialcausacion().after(fechaContratacion) || fechaIni.equals(fechaContratacionText)) {
                retorno = validarTraslapos(nuevaVacacion);
             } else {
                retorno = false;
@@ -283,7 +270,8 @@ String pagActual = "emplvacapendiente";
          //Si nuevaVacacion F Inicial y F Final es despues de 1900
          if (duplicarVacacion.getInicialcausacion().after(fechaAño1900) && duplicarVacacion.getInicialcausacion().before(duplicarVacacion.getFinalcausacion())) {
             // Si nuevaVacacion F Inicial y F Final son despues de fechaFinalContratacion
-            if (duplicarVacacion.getInicialcausacion().after(fechaContratacion) && duplicarVacacion.getFinalcausacion().after(fechaContratacion)) {
+            String fechaIni = fechaParaMostrar(duplicarVacacion.getInicialcausacion());
+            if (duplicarVacacion.getInicialcausacion().after(fechaContratacion) || fechaIni.equals(fechaContratacionText)) {
                retorno = validarTraslapos(duplicarVacacion);
             } else {
                retorno = false;

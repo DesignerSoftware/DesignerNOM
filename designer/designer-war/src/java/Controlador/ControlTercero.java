@@ -110,7 +110,7 @@ public class ControlTercero implements Serializable {
    //
    private String infoRegistro, infoRegistroEmpresa, infoRegistroCiudad2, infoRegistroCiudad1, infoRegistroLovTercero, infoRegistroTerceroConsolidador, infoRegistroTerceroSucursal;
    //
-   private String altoTablaTercero, altoTablaSucursal;
+   private String altoTablaTercero, altoTablaSucursal, altoTablaReg;
    //
    private String auxNombreTercero;
    private long auxNitTercero;
@@ -128,7 +128,7 @@ public class ControlTercero implements Serializable {
     * Creates a new instance of ControlTercero
     */
    public ControlTercero() {
-      altoTablaTercero = "135";
+      altoTablaTercero = "139";
       altoTablaSucursal = "70";
       terceroLOVSeleccionado = new Terceros();
       listTercerosLOV = null;
@@ -252,25 +252,15 @@ public class ControlTercero implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "tercero";
-         
-         
-         
+       */
+      String pagActual = "tercero";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -741,7 +731,7 @@ String pagActual = "tercero";
 
    public void cerrarFiltradoTercero() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTablaTercero = "135";
+      altoTablaTercero = "139";
       terceroNombre = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNombre");
       terceroNombre.setFilterStyle("display: none; visibility: hidden;");
       terceroNIT = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNIT");
@@ -1290,7 +1280,7 @@ String pagActual = "tercero";
          System.err.println("Entre a filtradoTercero()");
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 0) {
-            altoTablaTercero = "115";
+            altoTablaTercero = "119";
             terceroNombre = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNombre");
             terceroNombre.setFilterStyle("width: 85% !important;");
             terceroNIT = (Column) c.getViewRoot().findComponent("form:datosTerceros:terceroNIT");
@@ -1965,13 +1955,11 @@ String pagActual = "tercero";
          //Dialogo para seleccionar el rastro Historico de la tabla deseada
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
-      {
-         if (terceroSucursalTablaSeleccionado != null) {
+       if (terceroSucursalTablaSeleccionado != null) {
             verificarRastroTercerosSucursales();
          } else if (terceroTablaSeleccionado != null) {
             verificarRastroTerceros();
          }
-      }
    }
 
    //Verificar Rastro Vigencia Terceros
@@ -2608,6 +2596,19 @@ String pagActual = "tercero";
 
    public void setAltoTablaTercero(String altoTablaTercero) {
       this.altoTablaTercero = altoTablaTercero;
+   }
+
+   public String getAltoTablaReg() {
+      if (altoTablaTercero == "119") {
+         altoTablaReg = "5";
+      } else {
+         altoTablaReg = "6";
+      }
+      return altoTablaReg;
+   }
+
+   public void setAltoTablaReg(String altoTablaReg) {
+      this.altoTablaReg = altoTablaReg;
    }
 
    public String getAltoTablaSucursal() {

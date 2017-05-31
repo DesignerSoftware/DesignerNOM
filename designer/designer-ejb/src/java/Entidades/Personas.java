@@ -163,9 +163,6 @@ public class Personas implements Serializable {
     }
 
     public String getGruposanguineo() {
-        if (gruposanguineo == null) {
-            gruposanguineo = "O";
-        }
         return gruposanguineo;
     }
 

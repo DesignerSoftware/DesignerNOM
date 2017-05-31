@@ -15,8 +15,6 @@
                <f:loadBundle basename="Recursos.emplvacapendiente" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
-                  <!--<h:outputText value="" style="position: absolute; top: 50px; left: 740px; width: 50px;text-align: center;"/>-->
-
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left"> 
 
@@ -24,7 +22,8 @@
                                          actionListener="#{controlEmplVacaPendiente.guardarGeneral()}" oncomplete="PF('datosVacacionesPEmpleado').unselectAllRows(), datosVacacionesDEmpleado').unselectAllRows()" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmplVacaPendiente.editarCelda()}" process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlEmplVacaPendiente.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
@@ -32,12 +31,14 @@
                         <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmplVacaPendiente.activarCtrlF11()}" process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlEmplVacaPendiente.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlEmplVacaPendiente.verificarExportXLS()}"/>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false"
+                                         actionListener="#{controlEmplVacaPendiente.verificarExportXLS()}"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
@@ -45,18 +46,22 @@
                         </p:commandButton> 
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplVacaPendiente.validarExportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlEmplVacaPendiente.validarExportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroVP').show()" update=":formularioDialogos:nuevaVP" process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         oncomplete="PF('NuevoRegistroVP').show()" update=":formularioDialogos:nuevaVP" process="@this"/> 
 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlEmplVacaPendiente.eliminarRegistroTabla()}" update=":form:datosVacacionesPEmpleado" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlEmplVacaPendiente.eliminarRegistroTabla()}" update=":form:datosVacacionesPEmpleado" process="@this"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEmplVacaPendiente.duplicarRegistroTabla()}"  process="@this"/>  
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlEmplVacaPendiente.duplicarRegistroTabla()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
@@ -65,24 +70,25 @@
 
                         <p:separator style="position: relative; top: -9px;"/> 
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmplVacaPendiente.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlEmplVacaPendiente.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/> 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplVacaPendiente.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlEmplVacaPendiente.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <h:outputText id="DPro" style="position: absolute; top: 52px; left: 540px; text-align: left; font-weight: bold; width: 150px;"
+                  <h:outputText id="DPro" style="position: absolute; top: 52px; left: 530px; text-align: left; font-weight: bold; width: 180px;"
                                 value="D Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
-                  <h:outputText id="DFC" style="position: absolute; top: 52px; left: 700px; text-align: right; font-weight: bold; width: 110px;"
+                  <h:outputText id="DFC" style="position: absolute; top: 52px; left: 730px; text-align: right; font-weight: bold; width: 110px;"
                                 value="FC: #{controlEmplVacaPendiente.fechaContratacionText}"/>
                   <p:tooltip for="DPro" value="#{msg['DPro']}"/>
                   <p:tooltip for="DFC" value="#{msg['DFC']}" style="position: fixed; margin: 0px;"/>
 
-                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                      <h:outputText id="nombreEmpleado" value="#{controlEmplVacaPendiente.empleado.persona.nombreCompleto}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
@@ -409,7 +415,7 @@
                         </p:calendar>
                      </div>
                      <p:commandButton id="limpiarVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 170px;" actionListener="#{controlEmplVacaPendiente.limpiarNuevoRegistro()}" update="nuevaVP" process="@this" icon="ui-icon-trash"/>
-                     <p:commandButton id="agregarVP" value="#{msg['agregar']}" style=" position: absolute; left: 155px; top: 170px;"  actionListener="#{controlEmplVacaPendiente.agregarNuevoPendientes}" process="@this" icon="ui-icon-circle-check"/>
+                     <p:commandButton id="agregarVP" value="#{msg['agregar']}" style=" position: absolute; left: 155px; top: 170px;" actionListener="#{controlEmplVacaPendiente.agregarNuevoPendientes}" process="@this" icon="ui-icon-circle-check"/>
                      <p:commandButton id="cancelarVP" value="#{msg['cancelar']}" style=" position: absolute; left: 255px; top: 170px;" actionListener="#{controlEmplVacaPendiente.limpiarNuevoRegistro()}" update="nuevaVP" onclick="PF('NuevoRegistroVP').hide();" icon="ui-icon-circle-close"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -442,9 +448,9 @@
                         </p:calendar>
                      </div>
 
-                     <p:commandButton id="limpiarDVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 170px;"  update="duplicarVP" actionListener="#{controlEmplVacaPendiente.limpiarDuplicadoVacaPendiente()}" process="@this" icon="ui-icon-trash"/>
+                     <p:commandButton id="limpiarDVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 170px;" update="duplicarVP" actionListener="#{controlEmplVacaPendiente.limpiarDuplicadoVacaPendiente()}" process="@this" icon="ui-icon-trash"/>
                      <p:commandButton id="agregarDVP" value="#{msg['agregar']}" style=" position: absolute; left: 155px; top: 170px;" actionListener="#{controlEmplVacaPendiente.confirmarDuplicarPendientes}" process="@this" icon="ui-icon-circle-check"/>
-                     <p:commandButton id="cancelarDVP" value="#{msg['cancelar']}" style=" position: absolute; left: 255px; top: 170px;"  update="duplicarVP" actionListener="#{controlEmplVacaPendiente.limpiarDuplicadoVacaPendiente()}" onclick="PF('DuplicarRegistroVP').hide();" icon="ui-icon-circle-close" process="@this"/>
+                     <p:commandButton id="cancelarDVP" value="#{msg['cancelar']}" style=" position: absolute; left: 255px; top: 170px;" update="duplicarVP" actionListener="#{controlEmplVacaPendiente.limpiarDuplicadoVacaPendiente()}" onclick="PF('DuplicarRegistroVP').hide();" icon="ui-icon-circle-close" process="@this"/>
 
                   </p:panel>
                </p:dialog>
