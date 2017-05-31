@@ -463,7 +463,7 @@
                     </p:dialog>
 
                     <!-- Dialogo para ver en qué tabla se quiere insertar -->
-                    <p:dialog id="elegirTabla" header="#{msg['informacion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="elegirTabla" header="#{msg['informacion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['proverbioET']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlProverbio.dialogoProverbios()}" style="position: absolute; top: 70px; left: 30px;" process="@this"/>

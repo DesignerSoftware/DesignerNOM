@@ -68,9 +68,9 @@ public class ControlEstadosCiviles implements Serializable {
     private Integer backUpCodigo;
     private String backUpDescripcion;
     private DataTable tablaC;
-    private boolean activarLov;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String infoRegistro;
 
     public ControlEstadosCiviles() {
         listEstadosCiviles = null;
@@ -84,7 +84,6 @@ public class ControlEstadosCiviles implements Serializable {
         a = null;
         guardado = true;
         tamano = 270;
-        activarLov = true;
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
@@ -103,52 +102,34 @@ public class ControlEstadosCiviles implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
+        String pagActual = "estadocivil";
+        if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
             controlListaNavegacion.quitarPagina(pagActual);
-         
         } else {
-            */
-String pagActual = "estadocivil";
-            
-            
-            
-
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
         }
         limpiarListasValor();
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -165,7 +146,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         paginaAnterior = pagina;
         listEstadosCiviles = null;
         getListEstadosCiviles();
-        deshabilitarBotonLov();
         if (listEstadosCiviles != null) {
             if (!listEstadosCiviles.isEmpty()) {
                 estadoCivilSeleccionado = listEstadosCiviles.get(0);
@@ -182,50 +162,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             estadoCivilSeleccionado = estadoCivil;
             cualCelda = celda;
             if (cualCelda == 0) {
-                if (tipoLista == 0) {
-                    backUpCodigo = estadoCivilSeleccionado.getCodigo();
-                } else {
-                    backUpCodigo = estadoCivilSeleccionado.getCodigo();
-                }
+                backUpCodigo = estadoCivilSeleccionado.getCodigo();
             }
             if (cualCelda == 1) {
-                if (tipoLista == 0) {
-                    backUpDescripcion = estadoCivilSeleccionado.getDescripcion();
-                } else {
-                    backUpDescripcion = estadoCivilSeleccionado.getDescripcion();
-                }
+                backUpDescripcion = estadoCivilSeleccionado.getDescripcion();
             }
             estadoCivilSeleccionado.getSecuencia();
-
-        }
-
-    }
-
-    public void asignarIndex(EstadosCiviles estadoCivil, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A ControlEstadosCiviles.asignarIndex \n");
-            estadoCivilSeleccionado = estadoCivil;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR ControlEstadosCiviles.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
     public void activarAceptar() {
         aceptar = false;
     }
-
-    public void listaValoresBoton() {
-    }
-    private String infoRegistro;
 
     public void cancelarModificacion() {
         FacesContext c = FacesContext.getCurrentInstance();
@@ -258,7 +206,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
             //CERRAR FILTRADO
@@ -454,43 +403,30 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void agregarNuevoEstadoCivil() {
-        System.out.println("Agregar EstadosCiviles");
         int contador = 0;
         int duplicados = 0;
-
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoEstadoCivil.getCodigo() == a) {
             mensajeValidacion = " Campo código vacío \n";
-            System.out.println(mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoEstadoCivil.getCodigo());
-
             for (int x = 0; x < listEstadosCiviles.size(); x++) {
                 if (listEstadosCiviles.get(x).getCodigo().equals(nuevoEstadoCivil.getCodigo())) {
                     duplicados++;
                 }
             }
-
             if (duplicados > 0) {
                 mensajeValidacion = "El Código ingresado está relacionado con un registro anterior \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoEstadoCivil.getDescripcion() == (null)) {
             mensajeValidacion = mensajeValidacion + " Campo Descripción vacío \n";
-            System.out.println(mensajeValidacion);
-
         } else {
             System.out.println("bandera");
             contador++;
-
         }
-
-        System.out.println("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
@@ -514,18 +450,13 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             nuevoEstadoCivil.setSecuencia(l);
             crearEstadosCiviles.add(nuevoEstadoCivil);
             listEstadosCiviles.add(nuevoEstadoCivil);
-            nuevoEstadoCivil = new EstadosCiviles();
+            estadoCivilSeleccionado = nuevoEstadoCivil;
             RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
             contarRegistros();
-            estadoCivilSeleccionado = nuevoEstadoCivil;
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            nuevoEstadoCivil = new EstadosCiviles();
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEstadoCivil').hide()");
-
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevoEstadoCivil");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevoEstadoCivil').show()");
@@ -569,18 +500,13 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR EstadosCiviles");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        System.err.println("ConfirmarDuplicar codigo " + duplicarEstadoCivil.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarEstadoCivil.getDescripcion());
-
         if (duplicarEstadoCivil.getCodigo() == a) {
             mensajeValidacion = "Campo Código vacío \n";
-            System.out.println(mensajeValidacion);
         } else {
             for (int x = 0; x < listEstadosCiviles.size(); x++) {
                 if (listEstadosCiviles.get(x).getCodigo().equals(duplicarEstadoCivil.getCodigo())) {
@@ -589,16 +515,13 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
             if (duplicados > 0) {
                 mensajeValidacion = " El Código ingresado está relacionado con un registro anterior \n";
-                System.out.println(mensajeValidacion);
             } else {
-                System.out.println("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarEstadoCivil.getDescripcion() == null || duplicarEstadoCivil.getDescripcion().isEmpty()) {
             mensajeValidacion = " Campo Descripción vacío \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
 
         } else {
             System.out.println("Bandera : ");
@@ -607,19 +530,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarEstadoCivil.getSecuencia() + "  " + duplicarEstadoCivil.getCodigo());
             if (crearEstadosCiviles.contains(duplicarEstadoCivil)) {
             }
             listEstadosCiviles.add(duplicarEstadoCivil);
             crearEstadosCiviles.add(duplicarEstadoCivil);
+            estadoCivilSeleccionado = duplicarEstadoCivil;
             RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
             contarRegistros();
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
-            estadoCivilSeleccionado = duplicarEstadoCivil;
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -634,7 +553,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
             duplicarEstadoCivil = new EstadosCiviles();
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').hide()");
-
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
@@ -702,11 +620,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
-    public void deshabilitarBotonLov() {
-        activarLov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void recordarSeleccion() {
@@ -827,13 +740,4 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     public void setPaginaanterior(String paginaAnterior) {
         this.paginaAnterior = paginaAnterior;
     }
-
-    public boolean isActivarLov() {
-        return activarLov;
-    }
-
-    public void setActivarLov(boolean activarLov) {
-        this.activarLov = activarLov;
-    }
-
 }

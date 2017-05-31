@@ -6039,18 +6039,22 @@
    </navigation-rule>
     
    <navigation-rule>
-      <from-view-id>/estadocivil.xhtml</from-view-id>
-      
-   </navigation-rule>   
-
-   <navigation-rule>
       <from-view-id>/perestadocivil.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>estadoCivil</from-outcome>
+         <from-outcome>estadocivil</from-outcome>
          <to-view-id>/estadocivil.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>  
+   
+   <navigation-rule>
+      <from-view-id>/estadocivil.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>perestadocivil</from-outcome>
+         <to-view-id>/perestadocivil.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule> 
 
    <navigation-rule>
       <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
