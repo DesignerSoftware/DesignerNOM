@@ -63,6 +63,7 @@ public class ControlNReporteNomina implements Serializable {
 //PARAMETROS REPORTES
     private ParametrosReportes parametroDeReporte;
     private ParametrosReportes parametroModificacion;
+    private ParametrosReportes parametroFecha;
     //INFOREPORTES
     private List<Inforeportes> listaIR;
     private Inforeportes reporteSeleccionado;
@@ -182,6 +183,7 @@ public class ControlNReporteNomina implements Serializable {
         aceptar = true;
         casilla = -1;
         parametroModificacion = new ParametrosReportes();
+        parametroFecha = new ParametrosReportes();
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
@@ -827,11 +829,13 @@ public class ControlNReporteNomina implements Serializable {
                     ctx.responseComplete();
                 }
             } else {
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte :" + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -874,11 +878,13 @@ public class ControlNReporteNomina implements Serializable {
                     }
                 }
             } else {
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
             System.out.println("error en validarDescargarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -906,6 +912,7 @@ public class ControlNReporteNomina implements Serializable {
             }
         } catch (Exception e) {
             System.out.println("error en generarDocumentoReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -1786,6 +1793,43 @@ public class ControlNReporteNomina implements Serializable {
         posicionReporte = -1;
     }
 
+    public void mostrarDialogoNuevaFecha() {
+        getParametroDeInforme();
+        if (parametroDeReporte.getFechadesde() == null && parametroDeReporte.getFechahasta() == null) {
+            RequestContext.getCurrentInstance().update("formDialogos:nuevoRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').show()");
+        }
+    }
+
+    public void agregarFecha() {
+        int contador = 0;
+        if (parametroFecha.getFechadesde() == null) {
+            contador++;
+        }
+        if (parametroFecha.getFechahasta() == null) {
+            contador++;
+        }
+
+        if (contador == 0) {
+            parametroDeReporte.setFechadesde(parametroFecha.getFechadesde());
+            parametroDeReporte.setFechahasta(parametroFecha.getFechahasta());
+            RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
+            RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formDialogos:validacionRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('validacionRegistroFechas').show()");
+        }
+
+    }
+
+    public void limpiarNuevaFecha() {
+        parametroFecha.setFechadesde(null);
+        parametroFecha.setFechahasta(null);
+    }
+
     //CONTARREGISTROS
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
@@ -2647,4 +2691,11 @@ public class ControlNReporteNomina implements Serializable {
         this.activarLov = activarLov;
     }
 
+    public ParametrosReportes getParametroFecha() {
+        return parametroFecha;
+    }
+
+    public void setParametroFecha(ParametrosReportes parametroFecha) {
+        this.parametroFecha = parametroFecha;
+    }
 }

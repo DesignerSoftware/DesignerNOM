@@ -426,6 +426,7 @@ public class ControlNReporteBienestar implements Serializable {
             generarDocumentoReporte();
         } catch (Exception e) {
             System.out.println("error en generarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -453,6 +454,7 @@ public class ControlNReporteBienestar implements Serializable {
             }
         } catch (Exception e) {
             System.out.println("Error en generarDocumentoReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -472,6 +474,7 @@ public class ControlNReporteBienestar implements Serializable {
                         fis = new FileInputStream(new File(pathReporteGenerado));
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
+                        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
@@ -494,11 +497,13 @@ public class ControlNReporteBienestar implements Serializable {
                 }
             } else {
                 System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
             System.out.println("error en validarDescargarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }

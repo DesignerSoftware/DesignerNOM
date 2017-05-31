@@ -97,6 +97,9 @@ public class ParametrosAutoliq implements Serializable {
     }
 
     public Empresas getEmpresa() {
+        if(empresa == null){
+            empresa = new Empresas();
+        }
         return empresa;
     }
 

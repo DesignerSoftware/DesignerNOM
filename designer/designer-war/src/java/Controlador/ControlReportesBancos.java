@@ -1176,6 +1176,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 if (pathReporteGenerado != null && pathReporteGenerado.startsWith("Error:")) {
                     validarDescargaReporte();
                 } else {
+                    RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                     RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                 }
@@ -1196,6 +1197,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 }
             } else {
                 System.out.println("validar descarga reporte - ingreso al else");
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
@@ -1229,11 +1231,13 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     ctx.responseComplete();
                 }
             } else {
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }

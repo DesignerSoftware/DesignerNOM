@@ -61,6 +61,7 @@ public class ControlNReportePersonal implements Serializable {
     //PARAMETROS REPORTES
     private ParametrosReportes parametroDeReporte;
     private ParametrosReportes parametroModificacion;
+    private ParametrosReportes parametroFecha;
     //INFOREPORTES
     private List<Inforeportes> listaIR;
     private Inforeportes reporteSeleccionado;
@@ -179,6 +180,7 @@ public class ControlNReportePersonal implements Serializable {
         aceptar = true;
         casilla = -1;
         parametroModificacion = new ParametrosReportes();
+        parametroFecha = new ParametrosReportes();
         reporteGenerar = "";
         requisitosReporte = "";
         altoTabla = "140";
@@ -1927,6 +1929,7 @@ public class ControlNReportePersonal implements Serializable {
                 ctx.responseComplete();
             }
         } else {
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -1953,6 +1956,7 @@ public class ControlNReportePersonal implements Serializable {
                     System.out.println("fis : " + fis);
                     reporte = new DefaultStreamedContent(fis, "application/pdf");
                 } catch (FileNotFoundException ex) {
+                    RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                     RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                     reporte = null;
@@ -1975,6 +1979,7 @@ public class ControlNReportePersonal implements Serializable {
                 //pathReporteGenerado = null;
             }
         } else {
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -2058,6 +2063,43 @@ public class ControlNReportePersonal implements Serializable {
     public void deshabilitarBotonLov() {
         activarLov = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void mostrarDialogoNuevaFecha() {
+        getParametroDeReporte();
+        if (parametroDeReporte.getFechadesde() == null && parametroDeReporte.getFechahasta() == null) {
+            RequestContext.getCurrentInstance().update("formDialogos:nuevoRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').show()");
+        }
+    }
+
+    public void agregarFecha() {
+        int contador = 0;
+        if (parametroFecha.getFechadesde() == null) {
+            contador++;
+        }
+        if (parametroFecha.getFechahasta() == null) {
+            contador++;
+        }
+
+        if (contador == 0) {
+            parametroDeReporte.setFechadesde(parametroFecha.getFechadesde());
+            parametroDeReporte.setFechahasta(parametroFecha.getFechahasta());
+            RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
+            RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formDialogos:validacionRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('validacionRegistroFechas').show()");
+        }
+
+    }
+
+    public void limpiarNuevaFecha() {
+        parametroFecha.setFechadesde(null);
+        parametroFecha.setFechahasta(null);
     }
 
     ///////////////////////////////SETS Y GETS/////////////////////////////
@@ -2663,4 +2705,11 @@ public class ControlNReportePersonal implements Serializable {
         this.activarLov = activarLov;
     }
 
+    public ParametrosReportes getParametroFecha() {
+        return parametroFecha;
+    }
+
+    public void setParametroFecha(ParametrosReportes parametroFecha) {
+        this.parametroFecha = parametroFecha;
+    }
 }

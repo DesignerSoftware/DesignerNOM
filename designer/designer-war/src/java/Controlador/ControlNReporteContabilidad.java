@@ -622,11 +622,13 @@ public class ControlNReporteContabilidad implements Serializable {
                     ctx.responseComplete();
                 }
             } else {
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
             System.out.println("error en exportarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -671,6 +673,7 @@ public class ControlNReporteContabilidad implements Serializable {
                         System.out.println("fis : " + fis);
                         file = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
+                        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         file = null;
@@ -693,6 +696,7 @@ public class ControlNReporteContabilidad implements Serializable {
                 }
             } else {
                 System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }

@@ -96,7 +96,7 @@
 
                   <fieldset style="position: absolute; left: 10px; top: 74px; width: 305px; height: 111px; border-radius: 10px;">
                      <p:commandButton value="" style="position: absolute; top: 5px; left: 5px; background-image: url(Imagenes/Iconos/innovina_icono_180x180.png); background-size: 100% 100%; background-repeat: no-repeat; width: 60px; height: 60px;" 
-                                      actionListener="#{controlParametrosCorreccionAutoL.recibirPaginaEntrante('parametroscorreccionautol')}" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'parametroscorreccionautol')}" process="@this"> 
+                                      actionListener="#{controlParametrosCorreccionAutoL.recibirPaginaEntrante('parametroscorreccionautol')}" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'parametroscorreccionautol')}" process="@this"> 
                      </p:commandButton>
                      <strong><h:outputText value="#{msg['textInfo']}" style="position: absolute; top: 5px; left: 75px; width: 230px; text-align: justify;"/></strong>
                   </fieldset>
@@ -209,7 +209,7 @@
                         <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
 
                         <p:column id="columnaAporteXDia" width="8">                                                              
-                           <p:commandButton onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'aporteentidadxdia')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                           <p:commandButton onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'aporteentidadxdia')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                             value=""  actionListener="#{controlAportesEntidadesXDia.recibirAporteEntidad('parametroautoliq', controlParametroAutoliq.aporteTablaSeleccionado)}">
                            </p:commandButton>   
                            <f:facet name="footer">
@@ -1409,7 +1409,7 @@
                   </fieldset>
 
                   <p:commandButton id="novedadauto" style="position: absolute; left: 10px; top: 462px;" class="cssBoton"
-                                   onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'novedadautoliq')}" actionListener="#{controlNovedadAutoLiquidacion.recibirPag('novedadautoliq',controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" 
+                                   onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'novedadautoliq')}" actionListener="#{controlNovedadAutoLiquidacion.recibirPag('novedadautoliq',controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" 
                                    value="#{msg['novAuto']}" process="@this" icon="ui-icon-extlink"/>
                   <p:tooltip value="#{msg['btn2']}" for="novedadauto"/>
 
@@ -1422,7 +1422,7 @@
                   <p:tooltip value="#{msg['btn5']}" for="procesoLiq"/>
 
                   <p:commandButton id="generacionArch" style="position: absolute; left: 440px; top: 464px; height: 28px;" class="cssBotonLargo"
-                                   icon="ui-icon-extlink" value="#{msg['generacionArch']}" process="@this" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'nreportesseguridad')}"/>
+                                   icon="ui-icon-extlink" value="#{msg['generacionArch']}" process="@this" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'nreporteseguridad')}"/>
                   <p:tooltip value="#{msg['btn6']}" for="generacionArch"/>
 
 <!--                  <p:commandButton id="acumDif"  style="position: absolute; left: 612px; top: 467px; width: 6px; height: 20px; color: #1a22a4; background-color: #1a22a4;"  actionListener="#/{controlParametroAutoliq.procesoAcumularDiferenciaAporteEntidad()}" value=" " process="@this"/>
@@ -1702,28 +1702,28 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroAporte').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroautoliq')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroAporte').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistroAporte, 'AportesEntidades', 'parametroautoliq')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroAporte').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistoricoAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistoricoAporte').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroautoliq')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistoricoAporte').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroautoliq')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistoricoAporte').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -1740,7 +1740,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliqu', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametroAutoliq.backUpSecRegistro, 'ParametrosAutoliq', 'parametroautoliq')}" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 

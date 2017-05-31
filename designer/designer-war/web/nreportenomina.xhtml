@@ -56,7 +56,7 @@
 
                                 <p:separator style="position: relative; top: -9px;"/> 
 
-                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"/> 
+                                <p:commandButton id="insertar" value=""  style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)" actionListener="#{controlNReporteNomina.mostrarDialogoNuevaFecha()}"/> 
                                 <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}"/>
 
                                 <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png);"/>  
@@ -677,7 +677,7 @@
                         </div>
                     </p:dialog>
                 </h:form>
-                
+
                 <h:form id="formParametros">
                     <fieldset id="parametrosInforme" style="position: absolute; top: 85px; left: 18px; width: 835px; height: 160px; 
                               border-radius: 3px; padding: 0px; display: table; border-spacing: 5px;">
@@ -872,12 +872,12 @@
 
                         </div>
                     </fieldset>
-                    <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="95" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="95" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
@@ -892,6 +892,35 @@
                 </h:form>
 
                 <h:form id="formDialogos">
+
+                    <p:dialog id="validacionRegistroFechas" header="#{msg['error']}" widgetVar="validacionRegistroFechas"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Los campos marcados con asterisco son obligatorios" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroFechas" header="Nuevo Registro" widgetVar="nuevoRegistroFechas" closable="false" resizable="false"  draggable="true" modal="true" height="140" width="340" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Ingresar Fechas Parámetros" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="nuevaFecha" style="border: none;">
+
+                            <strong><h:outputText value="*FechaDesde: "  style=" position: absolute; top: 55px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaD" value="#{controlNReporteNomina.parametroFecha.fechadesde}"
+                                        style="width: 135px; position: absolute; top: 50px; left: 135px;" >
+                                <p:ajax event="dateSelect" update="nuevaFecha"/>
+                                <p:ajax event="change" update="nuevaFecha"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*FechaHasta: "  style=" position: absolute; top: 85px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaH" value="#{controlNReporteNomina.parametroFecha.fechahasta}"
+                                        style="width: 135px; position: absolute; top: 80px; left: 135px;" >
+                                <p:ajax event="dateSelect" update="nuevaFecha"/>
+                                <p:ajax event="change" update="nuevaFecha"/>
+                            </p:calendar>
+                            <p:commandButton id="agregarTE" value="Agregar" style="position: absolute; left: 130px; top: 115px;" actionListener="#{controlNReporteNomina.agregarFecha()}" process="@this" icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarTE" value="Cancelar" style="position: absolute; left: 230px; top: 115px;"  update="nuevaFecha" onclick="PF('nuevoRegistroFechas').hide();"  actionListener="#{controlNReporteNomina.limpiarNuevaFecha()}"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+
                     <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlNReporteNomina.parametroDeInforme.fechadesde}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>

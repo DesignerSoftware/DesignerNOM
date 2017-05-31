@@ -52,7 +52,7 @@
       <property name="eclipselink.canonicalmodel.subpackage" value="three"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="RHNPN1" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="BOMEDICA" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
@@ -61,7 +61,7 @@
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.user" value="ENTRADA"/>
       <property name="javax.persistence.jdbc.password" value="ENTRADA"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@192.168.0.100:1521:PRESEN1"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@soporteasp:1521:BOMEDICA"/>
       <property name="eclipselink.target-database" value="Oracle"/>
       <property name="eclipselink.ddl-generation" value="none" />
       <property name="eclipselink.cache.shared.default" value="false"/>

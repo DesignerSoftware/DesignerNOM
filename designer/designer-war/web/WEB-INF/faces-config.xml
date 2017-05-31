@@ -6369,7 +6369,7 @@
    <navigation-rule>
       <from-view-id>/parametroautoliq.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nreportesseguridad</from-outcome>
+         <from-outcome>nreporteseguridad</from-outcome>
          <to-view-id>/nreporteseguridad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
