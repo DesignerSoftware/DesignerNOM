@@ -4,9 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      
->
+      xmlns:f="http://java.sun.com/jsf/core">
    <h:head>
       <title>Facelet Title</title>
    </h:head>
@@ -19,7 +17,8 @@
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
             <div style="position: static;"></div>                
             <h:form id="form"> 
@@ -40,7 +39,7 @@
                         <p:separator />
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                         id="listaValores" value="" actionListener="#{controlMotivosCesantias.listaValoresBoton()}" process="@this" disabled="#{controlMotivosCesantias.activarLov}"/>
+                                         id="listaValores" value="" actionListener="#{controlNovedadCesantiasRC.listaValoresBoton()}" process="@this" disabled="#{controlMotivosCesantias.activarLov}"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
@@ -94,26 +93,24 @@
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <p:commandButton style="position: absolute; left: 675px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
-                                   background-repeat: no-repeat; border: none;" value="" disabled="#{controlNovedadCesantiasRC.guardado}" id="ACEPTAR" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this"/>
-                  <p:commandButton style="position: absolute; left: 765px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlNovedadCesantiasRC.salir()}"/>
+                  <p:commandButton class="cssBotonAceptar" value="" disabled="#{controlNovedadCesantiasRC.guardado}" id="ACEPTAR" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadCesantiasRC.salir()}"/>
 
-                  <fieldset style="position: absolute; top: 80px; left: 10px; height: 150px; width: 580px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 14px; color: #14388B"><strong>Empleados</strong></legend>
+                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 200px; width: 580px; border-radius: 10px; text-align: left; padding-top: 0px;">
+                     <legend style="font-size: 13px; color: #14388B"><strong>Empleados</strong></legend>
 
                      <p:dataTable id="datosEmpleados" var="empleados" value="#{controlNovedadCesantiasRC.listaEmpleadosNovedad}"
-                                  rowKey="#{empleados.secuencia}" style=" border: 1px; text-align: left; width: 560px;"                           
-                                  scrollable="true"  scrollHeight="60" scrollWidth="580" filteredValue="#{controlNovedadCesantiasRC.listaFiltrarEmpleadosNovedad}" 
+                                  rowKey="#{empleados.secuencia}" style="width: 560px;" widgetVar="datosEmpleados"                        
+                                  scrollable="true" scrollHeight="#{controlNovedadCesantiasRC.altotabla}" scrollWidth="580" filteredValue="#{controlNovedadCesantiasRC.filtrarListaEmpleados}" 
                                   emptyMessage="No se encontraron resultados para la búsqueda" selection="#{controlNovedadCesantiasRC.empleadoSeleccionado}"
-                                  editable="true" editMode="cell" selectionMode="single" rows="20" paginator="true" 
+                                  editable="true" editMode="cell" selectionMode="single" rows="#{controlNovedadCesantiasRC.altotablaReg}" paginator="true" 
                                   paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
                                   currentPageReportTemplate="{totalPages}">
 
-                                <!--<p:ajax event="filter" listener="#{controlNovedadCesantiasRC.eventoFiltrar()}"/>-->
+                        <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.eventoFiltrarEmpleados()}" update=":form:datosNovedadesEmpleado"/>
                         <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.cambiarEmpleado()}"/>
 
-                        <p:column style="text-align: center;" headerText="Código" sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.codigoempleado}" 
+                        <p:column headerText="Código" sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.codigoempleado}" 
                                   filterMatchMode="contains" id="nEEmpleadosCodigos" width="70" filterStyle="display: none; visibility: hidden;">                                  
                            <h:outputText value="#{empleados.codigoempleado}"/>
                            <f:facet name="footer">
@@ -130,30 +127,30 @@
                         </p:column>
 
                      </p:dataTable>
-                     <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleados} " style="position: relative; left: 10px; top: 3px; font-weight: bold;"/>
+                     <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleados} " style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
 
                   </fieldset>
                   <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;
-                                   position: absolute; left: 650px; top: 100px;" id="btnBuscarEmpleados" actionListener="#{controlNovedadCesantiasRC.abrirLista(0)}"  value="" process="@this"
+                                   position: absolute; left: 650px; top: 115px;" id="btnBuscarEmpleados" actionListener="#{controlNovedadCesantiasRC.abrirLista(0)}"  value="" process="@this"
                                    onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                   <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                   position: absolute;left: 650px; top: 135px;" id="btnMostrarTodos" widgetVar="btnMostrarTodos" value="" 
+                                   position: absolute;left: 650px; top: 150px;" id="btnMostrarTodos" widgetVar="btnMostrarTodos" value="" 
                                    actionListener="#{controlNovedadCesantiasRC.mostrarTodos()}" disabled="#{controlNovedadCesantiasRC.activarMTodos}" process="@this"
                                    onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                  <p:commandButton style="position: absolute; left: 650px; top: 170px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 150px; height: 35px; color: white;" icon="ui-icon-extlink" id="NOLIQUIDADAS" value="No liquidados"
+                  <p:commandButton style="position: absolute; left: 650px; top: 185px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 150px; height: 35px; color: white;" icon="ui-icon-extlink" id="NOLIQUIDADAS" value="No liquidados"
                                    actionListener="#{controlNovedadCesantiasRC.empleadosCesantiasNoLiquidadas()}" disabled="#{controlNovedadCesantiasRC.actuales}" process="@this"
                                    onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                   <p:tooltip  for="NOLIQUIDADAS" value="#{msg['emplnoliq']}"/>
 
-                  <fieldset style="position: absolute; left: 10px; top: 250px; width: 830px; height: 205px; border-radius: 10px;">
-                     <legend style="font-size: 14px; color: #14388B"><strong>Novedades de Cesantías</strong></legend>
+                  <fieldset style="position: absolute; left: 10px; top: 284px; width: 830px; height: 202px; border-radius: 10px; padding-top: 0px;">
+                     <legend style="font-size: 13px; color: #14388B"><strong>Novedades de Cesantías</strong></legend>
                      <p:dataTable id="datosNovedadesEmpleado" var="novedades" value="#{controlNovedadCesantiasRC.listaNovedades}"
-                                  rowKey="#{novedades.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 820px;"                             
+                                  rowKey="#{novedades.secuencia}" rowIndexVar="indice" style="width: 820px;"                             
                                   scrollable="true" scrollHeight="#{controlNovedadCesantiasRC.altotabla}" scrollWidth="828"
-                                  filteredValue="#{controlNovedadCesantiasRC.listaFiltrarNovedades}" 
+                                  filteredValue="#{controlNovedadCesantiasRC.filtrarListaNovedades}" 
                                   emptyMessage="No se encontraron resultados para la búsqueda" widgetVar="datosNovedadesEmpleado"
                                   editable="true" editMode="cell" selectionMode="single" selection="#{controlNovedadCesantiasRC.novedadSeleccionada}" 
-                                  rows="#{controlNovedadCesantiasRC.altotabla}" paginator="true" 
+                                  rows="#{controlNovedadCesantiasRC.altotablaReg}" paginator="true" 
                                   paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
                                   currentPageReportTemplate="{totalPages}">
 
@@ -175,10 +172,10 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" readonly="true"  id="editarfechacortecesantia"  value="#{novedades.fechainicialdisfrute}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;" 
-                                               onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);
-                                                     PF('datosNovedadesEmpleado').unselectAllRows();
-                                                     PF('datosNovedadesEmpleado').selectRow(#{indice});
-                                               ">
+                                              onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);
+                                                    PF('datosNovedadesEmpleado').unselectAllRows();
+                                                    PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                              ">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>  
@@ -190,7 +187,7 @@
                         </p:column>
 
                         <p:column id="fechacorteintcesantias" style="text-align: center;" headerText="Fecha Corte Intereses Cesantías"  filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"
-                                   sortBy= "#{novedades.fechacortecesantia}" filterBy="#{novedades.fechacortecesantia}">     
+                                  sortBy= "#{novedades.fechacortecesantia}" filterBy="#{novedades.fechacortecesantia}">     
                            <f:facet name="header">
                               <h:outputText id="headerfechacorteint" value="F.Corte Int"/>
                               <p:tooltip  for="headerfechacorteint" value="Fecha Corte Intereses de Cesantías"/>
@@ -205,10 +202,10 @@
 
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" readonly="true"  id="editarfechacorteintcesantia"  value="#{novedades.fechacortecesantia}" style=" border-radius: 0px; width: 95.5%; text-transform: uppercase; height:12px" 
-                                               onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);
-                                                     PF('datosNovedadesEmpleado').unselectAllRows();
-                                                     PF('datosNovedadesEmpleado').selectRow(#{indice});
-                                               ">
+                                              onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);
+                                                    PF('datosNovedadesEmpleado').unselectAllRows();
+                                                    PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                              ">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>  
@@ -219,7 +216,7 @@
                         </p:column>
 
                         <p:column id="valorcesantias" style="text-align: center;" headerText="Valor Cesantías" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;" 
-                                 sortBy="#{novedades.valorcesantia}" filterBy="#{novedades.valorcesantia}">                                  
+                                  sortBy="#{novedades.valorcesantia}" filterBy="#{novedades.valorcesantia}">                                  
                            <f:facet name="header">
                               <h:outputText id="headervalorcesantia" value="Valor Cesantia"/>
                               <p:tooltip  for="headervalorcesantia" value="Valor de la Cesantía"/>
@@ -230,11 +227,11 @@
                                  <h:outputText value="#{novedades.valorcesantia}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" id="editarvalorcesantias" readonly="true" value="#{novedades.valorcesantia}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"
-                                               onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);
-                                                     PF('datosNovedadesEmpleado').unselectAllRows();
-                                                     PF('datosNovedadesEmpleado').selectRow(#{indice});">
+                                              onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);
+                                                    PF('datosNovedadesEmpleado').unselectAllRows();
+                                                    PF('datosNovedadesEmpleado').selectRow(#{indice});">
 <!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades,2 )}" process="@this"
-                                              onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
+                                             onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
                                  </p:inputText>
                                  <p:keyFilter for="editarvalorcesantias" mask="num"/>
                               </f:facet>  
@@ -246,7 +243,7 @@
                         </p:column>
 
                         <p:column id="valorintcesantias" style="text-align: center;" headerText="Valor Int Cesantías"  filterMatchMode="contains"  width="86" filterStyle="display: none; visibility: hidden;" 
-                                 sortBy="#{novedades.fechasiguientefinvaca}" filterBy="#{novedades.fechasiguientefinvaca}">                                  
+                                  sortBy="#{novedades.fechasiguientefinvaca}" filterBy="#{novedades.fechasiguientefinvaca}">                                  
                            <f:facet name="header">
                               <h:outputText id="headervalorintcesantias" value="Valor Int"/>
                               <p:tooltip  for="headervalorintcesantias" value="Valor Intereses de Cesantías"/>
@@ -258,12 +255,12 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off"  id="editarvalorintcesantias" readonly="true" value="#{novedades.valorinterescesantia}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px" 
-                                               onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
-                                                     PF('datosNovedadesEmpleado').unselectAllRows();
-                                                     PF('datosNovedadesEmpleado').selectRow(#{indice});
-                                               ">
+                                              onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
+                                                    PF('datosNovedadesEmpleado').unselectAllRows();
+                                                    PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                              ">
 <!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 3)}" process="@this" 
-                                      onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
+                                     onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -273,7 +270,7 @@
                         </p:column>
 
                         <p:column id="valorsolicitado" style="text-align: center;" headerText="Valor Solicitado"  filterMatchMode="contains"  width="80" filterStyle="display: none; visibility: hidden;"
-                                 sortBy="#{novedades.valorsolicitado}" filterBy="#{novedades.valorsolicitado}">                                  
+                                  sortBy="#{novedades.valorsolicitado}" filterBy="#{novedades.valorsolicitado}">                                  
                            <f:facet name="header">
                               <h:outputText id="headervalorsolicitado" value="Vlr Solicitado"/>
                               <p:tooltip  for="headervalorsolicitado" value="Valor Solicitado"/>
@@ -282,11 +279,11 @@
                               <f:facet name="output"><h:outputText value="#{novedades.valorsolicitado}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" id="editarvalorsolicitado" readonly="true" value="#{novedades.valorsolicitado}"  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px"
-                                               onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
-                                                     PF('datosNovedadesEmpleado').unselectAllRows();
-                                                     PF('datosNovedadesEmpleado').selectRow(#{indice});">
+                                              onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
+                                                    PF('datosNovedadesEmpleado').unselectAllRows();
+                                                    PF('datosNovedadesEmpleado').selectRow(#{indice});">
 <!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 4)}" process="@this"
-                                                 onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
+                                                onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -296,7 +293,7 @@
                         </p:column>
 
                         <p:column id="motivocesantia" style="text-align: center;" headerText="Motivo Cesantías" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;"
-                                 sortBy="#{novedades.motivocesantia}" filterBy="#{novedades.motivocesantia.nombre}">                                  
+                                  sortBy="#{novedades.motivocesantia}" filterBy="#{novedades.motivocesantia.nombre}">                                  
                            <f:facet name="header">
                               <h:outputText id="headermotivocesantia" value="Mot. Cesantía"/>
                               <p:tooltip  for="headermotivocesantia" value="Motivo Cesantía"/>
@@ -359,7 +356,7 @@
                                  <h:outputText value="#{novedades.beneficiario}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{novedades.beneficiario}" id="editarbeneficiarios" style=" border-radius: 0px; width: 93.5%;
-                                               text-transform: uppercase; height:12px;">
+                                              text-transform: uppercase; height:12px;">
                                     <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 7)}" process="@this"
                                             onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}" update="@this" process="@this"/>
@@ -382,10 +379,10 @@
             <h:form id="formLovMotivosC">
                <p:dialog id="motivoscesantiasDialogo" header="Motivos Cesantías" widgetVar="motivoscesantiasDialogo" draggable="true" resizable="false"  closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="460" height="350">
-                  <p:dataTable  id="lovmotivoscesantias" style=" width: 410px;" var="mov" value="#{controlNovedadCesantiasRC.listaMotivosCesantiasLOV}"
+                  <p:dataTable  id="lovmotivoscesantias" style=" width: 410px;" var="mov" value="#{controlNovedadCesantiasRC.lovMotivosCesantia}"
                                 scrollable="true" scrollHeight="220" scrollWidth="440" widgetVar="lovmotivoscesantias" rowKey="#{mov.secuencia}"
-                                filteredValue="#{controlNovedadCesantiasRC.listaFiltrarMotivosCesantiasLOV}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
-                                selection="#{controlNovedadCesantiasRC.motivoCesantiaSeleccionado}" selectionMode="single">
+                                filteredValue="#{controlNovedadCesantiasRC.filtrarLovMotivosCesantias}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                selection="#{controlNovedadCesantiasRC.motivoCesantiaLovSeleccionado}" selectionMode="single">
 
                      <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.activarAceptar()}" update=":formLovMotivosC:aceptarP"/>
                      <p:ajax event="rowDblselect" listener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}" process="@this"/>
@@ -480,7 +477,7 @@
 
                      <strong><h:outputText value="#{msg['vlrCesantias']}" style=" position: absolute; top: 145px;"/></strong>
                      <p:inputText autocomplete="off" id="vlrcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorcesantia}" 
-                                   style=" width: 122px; position: absolute; left: 220px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 220px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="vlrcesantias" mask="num"/>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 140px; left: 355px;" value="" 
@@ -488,7 +485,7 @@
 
                      <strong><h:outputText value="#{msg['vlrintcesantias']}" style=" position: absolute; top: 185px;"/></strong>
                      <p:inputText autocomplete="off" id="vlrintcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorinterescesantia}" 
-                                   style=" width: 122px; position: absolute; left: 220px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 220px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="vlrintcesantias" mask="num"/>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 180px; left: 355px;" value="" 
@@ -496,7 +493,7 @@
 
                      <strong><h:outputText value="#{msg['vlrsolicitado']}" style=" position: absolute; top: 225px;"/></strong>
                      <p:inputText autocomplete="off" id="vlrsolicitado" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorsolicitado} " readonly="true" 
-                                   style=" width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="vlrsolicitado" mask="num"/>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;
@@ -504,21 +501,21 @@
 
                      <strong><h:outputText value="#{msg['motcesantias']}" style=" position: absolute; top: 265px;"/></strong>
                      <p:inputText autocomplete="off" id="motivoces" value="#{controlNovedadCesantiasRC.nuevaNovedad.motivocesantia.nombre}"  readonly="true"
-                                   style=" width: 122px; position: absolute; left: 220px; top: 260px; text-align: right; " onclick="select();">
-                        <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades,5, 1)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                  style=" width: 122px; position: absolute; left: 220px; top: 260px; text-align: right; " onclick="select();">
+                        <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex2(5, 1)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 355px; top: 260px; "
-                                      id="btnNuevoMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,1)}" value="" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 355px; top: 260px;"
+                                      id="btnNuevoMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex2(5,1)}" value="" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
 
                      <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;"/></strong>
                      <p:inputText autocomplete="off" id="obsv" value="#{controlNovedadCesantiasRC.nuevaNovedad.observaciones}" 
-                                   style=" width: 122px; position: absolute; left: 220px; top: 300px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 220px; top: 300px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="obsv"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['beneficiarios']}" style=" position: absolute; top: 345px;"/></strong>
                      <p:inputText autocomplete="off" id="beneficiario" value="#{controlNovedadCesantiasRC.nuevaNovedad.beneficiario}" 
-                                   style=" width: 122px; position: absolute; left: 220px; top: 340px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 220px; top: 340px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="beneficiario"/>
                      </p:inputText>
 
@@ -550,7 +547,7 @@
 
                      <strong><h:outputText value="#{msg['vlrCesantias']}" style=" position: absolute; top: 145px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarvlrcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorcesantia}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="duplicarvlrcesantias" mask="num"/>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 140px; left: 355px;" value="" 
@@ -558,7 +555,7 @@
 
                      <strong><h:outputText value="#{msg['vlrintcesantias']}" style=" position: absolute; top: 185px;"/></strong>
                      <p:inputText autocomplete="off"  id="duplicarvlrintcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorinterescesantia}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="duplicarvlrintcesantias" mask="num"/>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 180px; left: 355px;" value="" 
@@ -567,7 +564,7 @@
 
                      <strong><h:outputText value="#{msg['vlrsolicitado']}" style=" position: absolute; top: 225px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarvlrsolicitado" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorsolicitado}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
                      </p:inputText>
                      <p:keyFilter for="duplicarvlrsolicitado" mask="num"/>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 220px; left: 355px;" value="" 
@@ -575,7 +572,7 @@
 
                      <strong><h:outputText value="#{msg['motcesantias']}" style=" position: absolute; top: 265px;"/></strong>
                      <p:inputText autocomplete="off"  id="duplicarmotivoces" value="#{controlNovedadCesantiasRC.duplicarNovedad.motivocesantia.nombre}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase;" readonly="true" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase;" readonly="true" onclick="select();">
                         <p:ajax event="click" listener="#{controlNovedadCesantiasRC.autocompletar(2,'MOTIVO')}"/>
                         <p:ajax event="change" listener="#{controlNovedadCesantiasRC.valoresautocompletarnuevo('MOTIVO', controlNovedadCesantiasRC.duplicarNovedad.motivocesantia.nombre, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,2)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -585,13 +582,13 @@
 
                      <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarobsv" value="#{controlNovedadCesantiasRC.duplicarNovedad.observaciones}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 300px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 300px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarobsv"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['beneficiarios']}" style=" position: absolute; top: 345px;"/></strong>
                      <p:inputText autocomplete="off"  id="duplicarbeneficiario" value="#{controlNovedadCesantiasRC.duplicarNovedad.beneficiario}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase;" onclick="select();">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="duplicarbeneficiario"/>
                      </p:inputText>
 

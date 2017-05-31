@@ -58,7 +58,7 @@ public class ControlNovedadesTerceros implements Serializable {
    private Terceros terceroSeleccionado; //Seleccion Mostrar
    //editar celda
    private Novedades editarNovedades;
-   private int cualCelda, tipoLista;
+   private int cualCelda, tipoLista, tipoListaNov;
    //OTROS
    private boolean aceptar;
    private int tipoActualizacion; //Activo/Desactivo Crtl + F11
@@ -104,6 +104,7 @@ public class ControlNovedadesTerceros implements Serializable {
    private List<Formulas> filtradoslistaFormulas;
    private Formulas seleccionFormulas;
    //Columnas Tabla NOVEDADES
+   private Column nTTercerosNombre, nTTercerosNit;
    private Column nTEmpleadoCodigo, nTEmpleadoNombre, nTConceptoCodigo, nTConceptoDescripcion, nTFechasInicial, nTFechasFinal,
            nTValor, nTSaldo, nTPeriodicidadCodigo, nTDescripcionPeriodicidad, nTFormulas, nTHorasDias, nTMinutosHoras, nTTipo;
    //Duplicar
@@ -115,8 +116,7 @@ public class ControlNovedadesTerceros implements Serializable {
    private int resultado;
    private boolean todas;
    private boolean actuales;
-   private String altoTabla;
-   private String altoTablaReg;
+   private String altoTabla, altoTablaTerc, altoTablaReg, altoTablaRegTer;
    BigDecimal valor = new BigDecimal(Integer.toString(0));
    //Conteo de registros
    private String infoRegistroTerceros, infoRegistroLovTerceros, infoRegistroNovedades, infoRegistroPeriodi, infoRegistroEmpleados, infoRegistroConceptos, infoRegistroFormulas;
@@ -137,6 +137,7 @@ public class ControlNovedadesTerceros implements Serializable {
       aceptar = true;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       listaNovedadesBorrar = new ArrayList<Novedades>();
       listaNovedadesCrear = new ArrayList<Novedades>();
       listaNovedadesModificar = new ArrayList<Novedades>();
@@ -240,8 +241,12 @@ public class ControlNovedadesTerceros implements Serializable {
    public void cambiarTercero() {
       //Si ninguna de las 3 listas (crear,modificar,borrar) tiene algo, hace esto
       if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
+         novedadSeleccionada = null;
          listaNovedades = null;
          getListaNovedades();
+         if (tipoListaNov == 1) {
+            RequestContext.getCurrentInstance().execute("PF('datosNovedadesTercero').clearFilters()");
+         }
          contarRegistrosNove();
          RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
       } else {
@@ -457,7 +462,7 @@ public class ControlNovedadesTerceros implements Serializable {
             listaNovedadesBorrar.add(novedadSeleccionada);
          }
          listaNovedades.remove(novedadSeleccionada);
-         if (tipoLista == 1) {
+         if (tipoListaNov == 1) {
             filtradosListaNovedades.remove(novedadSeleccionada);
          }
          RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
@@ -545,7 +550,6 @@ public class ControlNovedadesTerceros implements Serializable {
       if (pasa == 0 && pasa2 == 0) {
          if (bandera == 1) {
             cerrarFiltrado();
-            altoTabla = "145";
          }
          //AGREGAR REGISTRO A LA LISTA NOVEDADES .
          k++;
@@ -638,10 +642,26 @@ public class ControlNovedadesTerceros implements Serializable {
    }
 
    public void eventoFiltrar() {
+      if (tipoListaNov == 0) {
+         tipoListaNov = 1;
+      }
+      novedadSeleccionada = null;
+      contarRegistrosNove();
+   }
+
+   public void eventoFiltrarTerceros() {
       if (tipoLista == 0) {
          tipoLista = 1;
       }
       novedadSeleccionada = null;
+      terceroSeleccionado = null;
+      listaNovedades = null;
+      filtradosListaNovedades = null;
+      if (tipoListaNov == 1) {
+         RequestContext.getCurrentInstance().execute("PF('datosNovedadesTercero').clearFilters()");
+      }
+      RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
+      contarRegistrosTerc();
       contarRegistrosNove();
    }
 
@@ -936,7 +956,6 @@ public class ControlNovedadesTerceros implements Serializable {
          }
          if (bandera == 1) {
             cerrarFiltrado();
-            altoTabla = "145";
          }
 
          // OBTENER EL TERMINAL 
@@ -1131,12 +1150,8 @@ public class ControlNovedadesTerceros implements Serializable {
    }
 
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
-
       if (bandera == 0) {
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
          nTEmpleadoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTEmpleadoCodigo");
          nTEmpleadoCodigo.setFilterStyle("width: 85% !important;");
          nTEmpleadoNombre = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTEmpleadoNombre");
@@ -1167,14 +1182,64 @@ public class ControlNovedadesTerceros implements Serializable {
          nTTipo.setFilterStyle("width: 85% !important;");
          altoTabla = "125";
          RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
+
+         nTTercerosNombre = (Column) c.getViewRoot().findComponent("form:datosTerceros:nTTercerosNombre");
+         nTTercerosNombre.setFilterStyle("width: 85% !important;");
+         nTTercerosNit = (Column) c.getViewRoot().findComponent("form:datosTerceros:nTTercerosNit");
+         nTTercerosNit.setFilterStyle("width: 80% !important;");
+         RequestContext.getCurrentInstance().update("form:datosTerceros");
          bandera = 1;
-         tipoLista = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
          cerrarFiltrado();
-         altoTabla = "145";
       }
+      contarRegistrosTerc();
+      contarRegistrosNove();
+   }
+
+   public void cerrarFiltrado() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      nTEmpleadoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTEmpleadoCodigo");
+      nTEmpleadoCodigo.setFilterStyle("display: none; visibility: hidden;");
+      nTEmpleadoNombre = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTEmpleadoNombre");
+      nTEmpleadoNombre.setFilterStyle("display: none; visibility: hidden;");
+      nTConceptoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTConceptoCodigo");
+      nTConceptoCodigo.setFilterStyle("display: none; visibility: hidden;");
+      nTConceptoDescripcion = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTConceptoDescripcion");
+      nTConceptoDescripcion.setFilterStyle("display: none; visibility: hidden;");
+      nTFechasInicial = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTFechasInicial");
+      nTFechasInicial.setFilterStyle("display: none; visibility: hidden;");
+      nTFechasFinal = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTFechasFinal");
+      nTFechasFinal.setFilterStyle("display: none; visibility: hidden;");
+      nTValor = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTValor");
+      nTValor.setFilterStyle("display: none; visibility: hidden;");
+      nTSaldo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTSaldo");
+      nTSaldo.setFilterStyle("display: none; visibility: hidden;");
+      nTPeriodicidadCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTPeriodicidadCodigo");
+      nTPeriodicidadCodigo.setFilterStyle("display: none; visibility: hidden;");
+      nTDescripcionPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTDescripcionPeriodicidad");
+      nTDescripcionPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
+      nTFormulas = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTFormulas");
+      nTFormulas.setFilterStyle("display: none; visibility: hidden;");
+      nTHorasDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTHorasDias");
+      nTHorasDias.setFilterStyle("display: none; visibility: hidden;");
+      nTMinutosHoras = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTMinutosHoras");
+      nTMinutosHoras.setFilterStyle("display: none; visibility: hidden;");
+      nTTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTTipo");
+      nTTipo.setFilterStyle("display: none; visibility: hidden;");
+      bandera = 0;
+      altoTabla = "145";
+      nTTercerosNombre = (Column) c.getViewRoot().findComponent("form:datosTerceros:nTTercerosNombre");
+      nTTercerosNombre.setFilterStyle("display: none; visibility: hidden;");
+      nTTercerosNit = (Column) c.getViewRoot().findComponent("form:datosTerceros:nTTercerosNit");
+      nTTercerosNit.setFilterStyle("display: none; visibility: hidden;");
+      filtradosListaNovedades = null;
+      filtradosListaTercerosNovedad = null;
+      RequestContext.getCurrentInstance().execute("PF('datosNovedadesTercero').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('datosTerceros').clearFilters()");
+      RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
+      RequestContext.getCurrentInstance().update("form:datosTerceros");
+      tipoLista = 0;
+      tipoListaNov = 0;
    }
 
    //EXPORTAR
@@ -1664,7 +1729,6 @@ public class ControlNovedadesTerceros implements Serializable {
    //CANCELAR MODIFICACIONES
    public void cancelarModificacion() {
       if (bandera == 1) {
-         altoTabla = "145";
          cerrarFiltrado();
       }
       mostrarTodos();
@@ -1684,7 +1748,6 @@ public class ControlNovedadesTerceros implements Serializable {
    public void salir() {
       limpiarListasValor();
       if (bandera == 1) {
-         altoTabla = "145";
          cerrarFiltrado();
       }
       listaNovedadesBorrar.clear();
@@ -1697,42 +1760,6 @@ public class ControlNovedadesTerceros implements Serializable {
       guardado = true;
       permitirIndex = true;
       navegar("atras");
-   }
-
-   public void cerrarFiltrado() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      nTEmpleadoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTEmpleadoCodigo");
-      nTEmpleadoCodigo.setFilterStyle("display: none; visibility: hidden;");
-      nTEmpleadoNombre = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTEmpleadoNombre");
-      nTEmpleadoNombre.setFilterStyle("display: none; visibility: hidden;");
-      nTConceptoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTConceptoCodigo");
-      nTConceptoCodigo.setFilterStyle("display: none; visibility: hidden;");
-      nTConceptoDescripcion = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTConceptoDescripcion");
-      nTConceptoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-      nTFechasInicial = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTFechasInicial");
-      nTFechasInicial.setFilterStyle("display: none; visibility: hidden;");
-      nTFechasFinal = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTFechasFinal");
-      nTFechasFinal.setFilterStyle("display: none; visibility: hidden;");
-      nTValor = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTValor");
-      nTValor.setFilterStyle("display: none; visibility: hidden;");
-      nTSaldo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTSaldo");
-      nTSaldo.setFilterStyle("display: none; visibility: hidden;");
-      nTPeriodicidadCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTPeriodicidadCodigo");
-      nTPeriodicidadCodigo.setFilterStyle("display: none; visibility: hidden;");
-      nTDescripcionPeriodicidad = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTDescripcionPeriodicidad");
-      nTDescripcionPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-      nTFormulas = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTFormulas");
-      nTFormulas.setFilterStyle("display: none; visibility: hidden;");
-      nTHorasDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTHorasDias");
-      nTHorasDias.setFilterStyle("display: none; visibility: hidden;");
-      nTMinutosHoras = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTMinutosHoras");
-      nTMinutosHoras.setFilterStyle("display: none; visibility: hidden;");
-      nTTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTTipo");
-      nTTipo.setFilterStyle("display: none; visibility: hidden;");
-      RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
-      bandera = 0;
-      filtradosListaNovedades = null;
-      tipoLista = 0;
    }
 
    public void todasNovedades() {
@@ -2094,6 +2121,32 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public void setAltoTablaReg(String altoTablaReg) {
       this.altoTablaReg = altoTablaReg;
+   }
+
+   public String getAltoTablaRegTer() {
+      if (altoTabla.equals("125")) {
+         altoTablaRegTer = "3";
+      } else {
+         altoTablaRegTer = "4";
+      }
+      return altoTablaRegTer;
+   }
+
+   public void setAltoTablaRegTer(String altoTablaRegTer) {
+      this.altoTablaRegTer = altoTablaRegTer;
+   }
+
+   public String getAltoTablaTerc() {
+      if (altoTabla.equals("125")) {
+         altoTablaTerc = "56";
+      } else {
+         altoTablaTerc = "74";
+      }
+      return altoTablaTerc;
+   }
+
+   public void setAltoTablaTerc(String altoTablaTerc) {
+      this.altoTablaTerc = altoTablaTerc;
    }
 
    public boolean isGuardado() {

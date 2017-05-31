@@ -112,8 +112,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
         }
         return rutaFoto;
     }
-
-    
+  
     @Override
     public void cerrarSession(String idSesion) {
         if (em.isOpen()) {
@@ -121,6 +120,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
             administrarSesiones.borrarSesion(idSesion);
         }
     }
+    
     @Override
     public DetallesEmpresas consultarDetalleEmpresaUsuario() {
         try {

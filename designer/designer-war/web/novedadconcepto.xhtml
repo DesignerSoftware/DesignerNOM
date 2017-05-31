@@ -90,18 +90,18 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; top: 68px; left: 10px; height: 154px; width: 645px; border-radius: 10px; text-align: left; padding-top: 0px;">
+                  <fieldset style="position: absolute; top: 69px; left: 10px; height: 174px; width: 645px; border-radius: 10px; text-align: left; padding-top: 0px;">
                      <legend style="font-size: 13px; color: #14388B"><strong>#{msg['conceptos']}</strong></legend>
 
                      <p:dataTable id="datosConceptos" var="conceptos" value="#{controlNovedadesConceptos.listaConceptosNovedad}"
-                                  rowKey="#{conceptos.secuencia}" rowIndexVar="indiceT" style=" border: 1px; width: 640px;"
-                                  scrollable="true" scrollWidth="640" filteredValue="#{controlNovedadesConceptos.filtradosListaConceptosNovedad}" 
+                                  rowKey="#{conceptos.secuencia}" rowIndexVar="indiceT" style="width: 640px;" scrollHeight="#{controlNovedadesConceptos.altoTablaConceptos}"
+                                  scrollable="true" scrollWidth="640" filteredValue="#{controlNovedadesConceptos.filtradosListaConceptos}" 
                                   emptyMessage="#{msg['vacio']}" selection="#{controlNovedadesConceptos.conceptoSeleccionado}"
-                                  editable="true" editMode="cell" selectionMode="single" rows="4" paginator="true" 
+                                  editable="true" editMode="cell" selectionMode="single" rows="#{controlNovedadesConceptos.altoTablaRegConc}" paginator="true" 
                                   paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
                                   currentPageReportTemplate="{totalPages}">
 
-                        <!--<p:ajax event="filter" listener="#/{controlNovedadesConceptos.eventoFiltrar()}"/>-->
+                        <p:ajax event="filter" listener="#{controlNovedadesConceptos.eventoFiltrarConcepto()}"/>
                         <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.cambiarConcepto()}"/>
 
                         <p:column headerText="#{msg['codigoC']}" sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" filterMatchMode="contains" id="nCConceptosCodigos" width="90" filterStyle="display: none; visibility: hidden;">                                  
@@ -122,16 +122,16 @@
                      <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlNovedadesConceptos.infoRegistroConceptos}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
 
                      <p:commandButton id="btnBuscarConceptos" style="position: absolute; left: 670px; top: 30px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/buscardbL.png); 
-                                      background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlNovedadesConceptos.asignarIndex( 1, 0)}" process="@this"/>
+                                      background-size: 100% 100%; background-repeat:  no-repeat; border: none;" value=" " actionListener="#{controlNovedadesConceptos.asignarIndex( 1, 0)}" process="@this"/>
                      <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 670px; top: 70px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/todosdbL.png); 
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "  actionListener="#{controlNovedadesConceptos.mostrarTodos()}" process="@this"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 234px; width: 830px; height: 227px; border-radius: 10px; padding-top: 5px; padding-top: 0px;">
+                  <fieldset style="position: absolute; left: 10px; top: 255px; width: 830px; height: 206px; border-radius: 10px; padding-top: 5px; padding-top: 0px;">
                      <legend style="font-size: 13px; color: #14388B;"><strong>#{msg['cpd']}</strong></legend>
                      <p:dataTable id="datosNovedadesConcepto" var="novedades" value="#{controlNovedadesConceptos.listaNovedades}"
                                   rowKey="#{novedades.secuencia}" rowIndexVar="indice" scrollable="true" scrollWidth="820"
-                                  style="width: 1600px; position: absolute; font-size: 11px;" selectionMode="single"
+                                  style="width: 1600px; position: absolute;" selectionMode="single"
                                   filteredValue="#{controlNovedadesConceptos.filtradosListaNovedades}"
                                   emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" widgetVar="datosNovedadesConcepto"
                                   selection="#{controlNovedadesConceptos.novedadSeleccionada}" paginator="true"
@@ -146,7 +146,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{novedades.empleado.codigoempleadoSTR}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{novedades.empleado.codigoempleadoSTR}" id="editarEmpleadoCodigo" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                 <p:inputText autocomplete="off" value="#{novedades.empleado.codigoempleadoSTR}" id="editarEmpleadoCodigo" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlNovedadesConceptos.modificarNovedades(novedades, 'EMPLEADO', novedades.empleado.codigoempleadoSTR)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesConceptos.cambiarIndice(novedades, 0)}" process="@this"
                                             onstart="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"/>
@@ -223,9 +223,6 @@
 
                         <p:column headerText="#{msg['valorNOV']}" sortBy= "#{novedades.valortotal}" filterBy="#{novedades.valortotal}" filterMatchMode="contains" 
                                   id="nCValor" width="90" filterStyle="display: none; visibility: hidden;" style="text-align: right;" class="cssColumnasNumericas">                                  
-                           <!--<p:cellEditor>-->  
-                               <!--<f:facet name="output"><h:outputText value="#{novedades.valortotal}"/></f:facet>-->  
-                           <!--<f:facet name="input">-->
                            <p:inputNumber autocomplete="off" value="#{novedades.valortotal}" id="editarValor" symbol="$" decimalPlaces="2"
                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"
                                           onblur="PF('datosNovedadesConcepto').unselectAllRows();PF('datosNovedadesConcepto').selectRow(#{indice});"
@@ -233,8 +230,6 @@
                               <p:ajax event="change" listener="#{controlNovedadesConceptos.modificarNovedades(novedades, 'N', novedades.valortotal)}"/>
                               <p:ajax event="select" listener="#{controlNovedadesConceptos.cambiarIndice(novedades, 4)}" process="@this"/>
                            </p:inputNumber>
-                           <!--</f:facet>-->  
-                           <!--</p:cellEditor>-->
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -273,7 +268,6 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer">
                               <p:commandButton style="width: 60px;" id="fooPeriodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('novedadconcepto')}" onstart="#{controlNovedadesConceptos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadconcepto', 'periodicidad')}"  value=""/>
                            </f:facet>
@@ -292,7 +286,6 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -311,7 +304,6 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer">
                               <p:commandButton style="width: 120px;" id="fooTercerosNit" actionListener="#{controlTercero.recibirPaginaEntrante('novedadconcepto')}" onstart="#{controlNovedadesConceptos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadconcepto', 'tercero')}"  value=""/>
                            </f:facet>
@@ -416,7 +408,7 @@
                         </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroNovedades" value="#{msg['infoRegistro']} #{controlNovedadesConceptos.infoRegistroNovedades}" style="position: relative; left: 10px; top: 201px; font-weight: bold;"/>
+                     <h:outputText id="infoRegistroNovedades" value="#{msg['infoRegistro']} #{controlNovedadesConceptos.infoRegistroNovedades}" style="position: relative; left: 10px; top: 181px; font-weight: bold;"/>
                   </fieldset>
 
                   <p:commandButton style="position: absolute; left: 10px; top: 472px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white;" 
@@ -444,8 +436,8 @@
 
                   <p:dataTable id="LOVConceptos" var="conceptos" value="#{controlNovedadesConceptos.lovConceptos}"
                                scrollable="true" scrollHeight="200" scrollWidth="625" widgetVar="LOVConceptos" 
-                               filteredValue="#{controlNovedadesConceptos.filtradoslistaConceptos}" emptyMessage="#{msg['lovvacio']}"
-                               rowKey="#{conceptos.secuencia}" selection="#{controlNovedadesConceptos.conceptoSeleccionadoLov}" selectionMode="single">
+                               filteredValue="#{controlNovedadesConceptos.filtrarlovConceptos}" emptyMessage="#{msg['lovvacio']}"
+                               rowKey="#{conceptos.secuencia}" selection="#{controlNovedadesConceptos.conceptoLovSeleccionado}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesConceptos.contarRegistrosLovConceptos()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.activarAceptar()}" update=":formLovConceptos:aceptarC"/>
@@ -494,8 +486,8 @@
 
                   <p:dataTable  id="LOVFormulas" var="formulas" value="#{controlNovedadesConceptos.lovFormulas}"
                                 scrollable="true" scrollHeight="200" scrollWidth="355" widgetVar="LOVFormulas" 
-                                filteredValue="#{controlNovedadesConceptos.filtradoslistaFormulas}" emptyMessage="#{msg['lovvacio']}"
-                                rowKey="#{formulas.secuencia}" selection="#{controlNovedadesConceptos.formulaSeleccionadaLov}" selectionMode="single">
+                                filteredValue="#{controlNovedadesConceptos.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}"
+                                rowKey="#{formulas.secuencia}" selection="#{controlNovedadesConceptos.formulaLovSeleccionada}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesConceptos.contarRegistrosLovFormulas()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.activarAceptar()}" update=":formLovFormulas:aceptarF"/>
@@ -529,8 +521,8 @@
 
                   <p:dataTable id="LOVEmpleados" var="emp" value="#{controlNovedadesConceptos.lovEmpleados}"
                                scrollable="true" scrollHeight="200" scrollWidth="366" widgetVar="LOVEmpleados" 
-                               filteredValue="#{controlNovedadesConceptos.filtradoslistaEmpleados}" emptyMessage="#{msg['lovvacio']}"
-                               rowKey="#{emp.secuencia}" selection="#{controlNovedadesConceptos.empleadoSeleccionadoLov}" selectionMode="single">
+                               filteredValue="#{controlNovedadesConceptos.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                               rowKey="#{emp.secuencia}" selection="#{controlNovedadesConceptos.empleadoLovSeleccionado}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesConceptos.contarRegistrosEmpleados()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.activarAceptar()}" update=":formLovEmpleados:aceptarE"/>
@@ -571,8 +563,8 @@
 
                   <p:dataTable  id="LOVPeriodicidades" var="periodicidades" value="#{controlNovedadesConceptos.lovPeriodicidades}"
                                 scrollable="true" scrollHeight="200" scrollWidth="365" widgetVar="LOVPeriodicidades" 
-                                filteredValue="#{controlNovedadesConceptos.filtradoslistaPeriodicidades}" emptyMessage="#{msg['lovvacio']}"
-                                rowKey="#{periodicidades.secuencia}" selection="#{controlNovedadesConceptos.periodicidadSeleccionada}" selectionMode="single">
+                                filteredValue="#{controlNovedadesConceptos.filtrarLovPeriodicidades}" emptyMessage="#{msg['lovvacio']}"
+                                rowKey="#{periodicidades.secuencia}" selection="#{controlNovedadesConceptos.periodicidadlovSeleccionada}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesConceptos.contarRegistrosPeriodicidades()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.activarAceptar()}" update=":formLovPeriodicidad:aceptarP"/>
@@ -613,8 +605,8 @@
 
                   <p:dataTable id="LOVTerceros" var="terceros" value="#{controlNovedadesConceptos.lovTerceros}"
                                scrollable="true" scrollHeight="200" scrollWidth="366" widgetVar="LOVTerceros"
-                               filteredValue="#{controlNovedadesConceptos.filtradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
-                               rowKey="#{terceros.secuencia}" selection="#{controlNovedadesConceptos.terceroSeleccionado}" selectionMode="single">
+                               filteredValue="#{controlNovedadesConceptos.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}"
+                               rowKey="#{terceros.secuencia}" selection="#{controlNovedadesConceptos.terceroLovSeleccionado}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesConceptos.contarRegistrosTerceros()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.activarAceptar()}" update=":formLovTerceros:aceptarT"/>

@@ -99,10 +99,10 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> buscarConceptosLovNovedades(EntityManager em) {
       em.clear();
       try {
-         String sql = "SELECT DESCRIPCION FROM CONCEPTOS C\n" +
+         String sql = "SELECT * FROM CONCEPTOS C\n" +
             " WHERE NOT EXISTS (SELECT 'X' FROM FORMULASCONCEPTOS FC, FORMULAS F, FORMULASCONTRATOS FCON\n" +
             " WHERE F.SECUENCIA = FCON.FORMULA AND FC.CONCEPTO = C.SECUENCIA AND FC.FORMULA = F.SECUENCIA)\n" +
-            " ORDER BY DESCRIPCION";
+            " AND C.ACTIVO = 'S' ORDER BY DESCRIPCION";
          Query query = em.createNativeQuery(sql,Conceptos.class);
          List<Conceptos> listaConceptos = query.getResultList();
           return listaConceptos;

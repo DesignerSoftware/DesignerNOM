@@ -52,14 +52,13 @@ public class ControlNovedadCesantiasRC implements Serializable {
    @EJB
    AdministrarNovedadesSistemaInterface administrarNovedadesSistema;
    //SECUENCIA DE LA PERSONA
-   private BigInteger secuenciaEmpleado;
    //Lista Empleados Novedad Pago Parcial Cesantías
    private List<Empleados> listaEmpleadosNovedad;
-   private List<Empleados> listaFiltrarEmpleadosNovedad;
+   private List<Empleados> filtrarListaEmpleados;
    private Empleados empleadoSeleccionado;
    //Lista Novedades Pago Parcial Cesantias
    private List<NovedadesSistema> listaNovedades;
-   private List<NovedadesSistema> listaFiltrarNovedades;
+   private List<NovedadesSistema> filtrarListaNovedades;
    private NovedadesSistema novedadSeleccionada;
    //LOV EMPLEADOS
    private List<Empleados> listaEmpleadosLOV;
@@ -67,16 +66,15 @@ public class ControlNovedadCesantiasRC implements Serializable {
    private Empleados empleadoSeleccionadoLOV;
    //LISTA CESANTIAS NO LIQUIDADAS
    private List<Empleados> listaaux;
-   private List<NovedadesSistema> listaauxnov;
    //LOV MOTIVO CESANTIAS
-   private List<MotivosCesantias> listaMotivosCesantiasLOV;
-   private List<MotivosCesantias> listaFiltrarMotivosCesantiasLOV;
-   private MotivosCesantias motivoCesantiaSeleccionado;
+   private List<MotivosCesantias> lovMotivosCesantia;
+   private List<MotivosCesantias> filtrarLovMotivosCesantias;
+   private MotivosCesantias motivoCesantiaLovSeleccionado;
    //Duplicar
    private NovedadesSistema duplicarNovedad;
    //editar celda
    private NovedadesSistema editarNovedades;
-   private int cualCelda, tipoLista;
+   private int cualCelda, tipoLista, tipoListaNov;
    //Crear Novedades
    private List<NovedadesSistema> listaNovedadesCrear;
    private NovedadesSistema nuevaNovedad;
@@ -92,9 +90,10 @@ public class ControlNovedadCesantiasRC implements Serializable {
    //RASTROS
    private boolean guardado;
    //COLUMNAS TABLA NOVEDADES
+   private Column nEEmpleadosNombres, nEEmpleadosCodigos;
    private Column fechaCorteCesantias, fechaCorteIntCesantias, valorCesantias, valorIntCesantias, valorSolicitado, motivoCesantia, observacion, beneficiarios;
    private String motivoCesantias;
-   private int altotabla;
+   private int altotabla, altotablaReg;
    //variable para activar boton mostrar todos
    private boolean activarMTodos;
    private String infoRegistroEmpleados, infoRegistroEmpleadosLov, infoRegistroMotivosCesantias, infoRegistroNovedadCesantias;
@@ -123,10 +122,12 @@ public class ControlNovedadCesantiasRC implements Serializable {
       aceptar = true;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       listaEmpleadosLOV = null;
-      listaMotivosCesantiasLOV = null;
+      lovMotivosCesantia = null;
       permitirIndex = true;
-      altotabla = 110;
+      altotabla = 120;
+      altotablaReg = 6;
       paginaAnterior = "nominaf";
       empleadoSeleccionado = null;
       novedadSeleccionada = null;
@@ -169,37 +170,19 @@ public class ControlNovedadCesantiasRC implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "novedadcesantiasrc";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "novedadcesantiasrc";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -211,7 +194,7 @@ String pagActual = "novedadcesantiasrc";
    }
 
    public void limpiarListasValor() {
-
+      lovMotivosCesantia = null;
    }
 
    @PostConstruct
@@ -231,7 +214,6 @@ String pagActual = "novedadcesantiasrc";
          listaNovedades = null;
          getListaNovedades();
          cambiarEmpleado();
-
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
@@ -239,7 +221,6 @@ String pagActual = "novedadcesantiasrc";
    }
 
    public void recibirPag(String pag) {
-
       paginaAnterior = pag;
       listaNovedades = null;
       getListaNovedades();
@@ -255,7 +236,6 @@ String pagActual = "novedadcesantiasrc";
    }
 
    public void editarCelda() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (novedadSeleccionada != null) {
          editarNovedades = novedadSeleccionada;
          if (cualCelda == 0) {
@@ -330,9 +310,7 @@ String pagActual = "novedadcesantiasrc";
             listaEmpleadosNovedad.add(listaaux.get(i));
          }
       }
-
       contarRegistroEmpleados();
-      RequestContext context = RequestContext.getCurrentInstance();
       actuales = false;
       RequestContext.getCurrentInstance().update("form:datosEmpleados");
       RequestContext.getCurrentInstance().update("form:NOLIQUIDADAS");
@@ -340,7 +318,6 @@ String pagActual = "novedadcesantiasrc";
 
    public void modificarNovedadCesantias(NovedadesSistema novedadS) {
       novedadSeleccionada = novedadS;
-
       if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
          if (listaNovedadesModificar.isEmpty()) {
             listaNovedadesModificar.add(novedadSeleccionada);
@@ -364,16 +341,11 @@ String pagActual = "novedadcesantiasrc";
       int columna = Integer.parseInt(name);
       novedadSeleccionada = listaNovedades.get(indice);
       cambiarIndice(novedadSeleccionada, columna);
-//        System.out.println("parametrotablaseleccionado: " + parametroTablaSeleccionado);
-
    }
 
    public void agregarNuevaNovedadPagoParcialCesantias() {
       int pasa = 0;
-//        Empleados emp = new Empleados();
       mensajeValidacion = new String();
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (nuevaNovedad.getFechainicialdisfrute() == null) {
          System.out.println("Entro a Fecha Inicial Disfrute");
          mensajeValidacion = mensajeValidacion + " * Fecha Inicial Disfrute\n";
@@ -383,7 +355,6 @@ String pagActual = "novedadcesantiasrc";
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
       }
-
       if (pasa == 0) {
          if (bandera == 1) {
             cargarTablaDefault();
@@ -422,21 +393,14 @@ String pagActual = "novedadcesantiasrc";
          nuevaNovedad.setFechasistema(new Date());
          RequestContext.getCurrentInstance().execute("PF('nuevanovedadpagoparcialcesantias').hide()");
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-      } else {
       }
    }
 
    public void duplicarNV() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (novedadSeleccionada != null) {
          duplicarNovedad = new NovedadesSistema();
          paraNuevaNovedad++;
-//            Empleados emple = new Empleados();
-//            for (int i = 0; i < listaEmpleadosLOV.size(); i++) {
-//                if (empleadoSeleccionado.getSecuencia().compareTo(listaEmpleadosLOV.get(i).getSecuencia()) == 0) {
-//                    emple = listaEmpleadosLOV.get(i);
-//                }
-//            }
+
          duplicarNovedad.setSecuencia(BigInteger.valueOf(paraNuevaNovedad));
          duplicarNovedad.setEmpleado(novedadSeleccionada.getEmpleado());
          duplicarNovedad.setFechainicialdisfrute(novedadSeleccionada.getFechainicialdisfrute());
@@ -459,7 +423,6 @@ String pagActual = "novedadcesantiasrc";
 
    public void confirmarDuplicar() {
       int pasa = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (duplicarNovedad.getFechainicialdisfrute() == null) {
          System.out.println("Entro a Fecha Inicial");
          mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
@@ -511,11 +474,10 @@ String pagActual = "novedadcesantiasrc";
    }
 
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
-
       if (bandera == 0) {
-         altotabla = 90;
+         altotabla = 100;
+         altotablaReg = 5;
          fechaCorteCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacortecesantias");
          fechaCorteCesantias.setFilterStyle("width: 85% !important");
          fechaCorteIntCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacorteintcesantias");
@@ -534,42 +496,21 @@ String pagActual = "novedadcesantiasrc";
          beneficiarios.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
          bandera = 1;
-         tipoLista = 1;
+
+         nEEmpleadosCodigos = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEEmpleadosCodigos");
+         nEEmpleadosCodigos.setFilterStyle("width: 80% !important");
+         nEEmpleadosNombres = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEEmpleadosNombres");
+         nEEmpleadosNombres.setFilterStyle("width: 85% !important");
+         RequestContext.getCurrentInstance().update("form:datosEmpleados");
       } else if (bandera == 1) {
          cargarTablaDefault();
-         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       }
-   }
-
-   public void mostrarTodos() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (!listaEmpleadosNovedad.isEmpty()) {
-         listaEmpleadosNovedad.clear();
-      }
-      if (listaEmpleadosLOV != null) {
-         for (int i = 0; i < listaEmpleadosLOV.size(); i++) {
-            listaEmpleadosNovedad.add(listaEmpleadosLOV.get(i));
-         }
-      }
-
-      empleadoSeleccionado = listaEmpleadosNovedad.get(0);
-      listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
-      contarRegistrosNovedades();
-      listaFiltrarNovedades = null;
-      aceptar = true;
-      novedadSeleccionada = null;
-      tipoActualizacion = -1;
-      cualCelda = -1;
-      activarMTodos = true;
-      contarRegistroEmpleados();
-      RequestContext.getCurrentInstance().update("form:datosEmpleados");
-      RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-      RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
    }
 
    public void cargarTablaDefault() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altotabla = 110;
+      altotabla = 120;
+      altotablaReg = 6;
       fechaCorteCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacortecesantias");
       fechaCorteCesantias.setFilterStyle("display: none; visibility: hidden;");
       fechaCorteIntCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacorteintcesantias");
@@ -587,8 +528,43 @@ String pagActual = "novedadcesantiasrc";
       beneficiarios = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:beneficiarios");
       beneficiarios.setFilterStyle("display: none; visibility: hidden;");
       bandera = 0;
-      listaFiltrarNovedades = null;
+      nEEmpleadosCodigos = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEEmpleadosCodigos");
+      nEEmpleadosCodigos.setFilterStyle("display: none; visibility: hidden;");
+      nEEmpleadosNombres = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEEmpleadosNombres");
+      nEEmpleadosNombres.setFilterStyle("display: none; visibility: hidden;");
+      filtrarListaNovedades = null;
+      RequestContext.getCurrentInstance().execute("PF('datosEmpleados').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('datosNovedadesEmpleado').clearFilters()");
+      RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+      RequestContext.getCurrentInstance().update("form:datosEmpleados");
       tipoLista = 0;
+      tipoListaNov = 0;
+   }
+
+   public void mostrarTodos() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (!listaEmpleadosNovedad.isEmpty()) {
+         listaEmpleadosNovedad.clear();
+      }
+      if (listaEmpleadosLOV != null) {
+         for (int i = 0; i < listaEmpleadosLOV.size(); i++) {
+            listaEmpleadosNovedad.add(listaEmpleadosLOV.get(i));
+         }
+      }
+
+      empleadoSeleccionado = listaEmpleadosNovedad.get(0);
+      listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
+      contarRegistrosNovedades();
+      filtrarListaNovedades = null;
+      aceptar = true;
+      novedadSeleccionada = null;
+      tipoActualizacion = -1;
+      cualCelda = -1;
+      activarMTodos = true;
+      contarRegistroEmpleados();
+      RequestContext.getCurrentInstance().update("form:datosEmpleados");
+      RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+      RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
    }
 
    public void cambiarIndice(NovedadesSistema novedadS, int celda) {
@@ -626,7 +602,16 @@ String pagActual = "novedadcesantiasrc";
 
    public void asignarIndex(NovedadesSistema novedadS, int dlg, int LND) {
       novedadSeleccionada = novedadS;
-      RequestContext context = RequestContext.getCurrentInstance();
+      tipoActualizacion = LND;
+      contarRegistrosNovedades();
+      if (dlg == 5) {
+         cargarLovMotivos();
+         RequestContext.getCurrentInstance().update("formLovMotivosC:motivoscesantiasDialogo");
+         RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').show()");
+      }
+   }
+
+   public void asignarIndex2(int dlg, int LND) {
       tipoActualizacion = LND;
       contarRegistrosNovedades();
       if (dlg == 5) {
@@ -692,20 +677,18 @@ String pagActual = "novedadcesantiasrc";
 
    public void cambiarEmpleado() {
       if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
-         secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
          //Se recargan las novedades para el empleado
-         listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
-         if (listaNovedades == null) {
-            listaNovedades = new ArrayList<NovedadesSistema>();
+         novedadSeleccionada = null;
+         if (tipoListaNov == 1) {
+            RequestContext.getCurrentInstance().execute("PF('datosNovedadesEmpleado').clearFilters()");
          }
+         listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
          contarRegistrosNovedades();
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       }
    }
 
    public void abrirLista(int listaV) {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (listaV == 0) {
          cargarLovEmpleados();
          contarRegistroEmpleadosLov();
@@ -721,10 +704,9 @@ String pagActual = "novedadcesantiasrc";
          listaEmpleadosNovedad.add(empleadoSeleccionadoLOV);
          empleadoSeleccionado = listaEmpleadosNovedad.get(0);
       }
-      secuenciaEmpleado = empleadoSeleccionadoLOV.getSecuencia();
       listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
       aceptar = true;
-      listaFiltrarEmpleadosNovedad = null;
+      filtrarListaEmpleados = null;
       novedadSeleccionada = null;
       tipoActualizacion = -1;
       cualCelda = -1;
@@ -746,7 +728,7 @@ String pagActual = "novedadcesantiasrc";
    public void actualizarMotivosCesantias() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         novedadSeleccionada.setMotivocesantia(motivoCesantiaSeleccionado);
+         novedadSeleccionada.setMotivocesantia(motivoCesantiaLovSeleccionado);
          if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
             if (listaNovedadesModificar.isEmpty()) {
                listaNovedadesModificar.add(novedadSeleccionada);
@@ -754,7 +736,6 @@ String pagActual = "novedadcesantiasrc";
                listaNovedadesModificar.add(novedadSeleccionada);
             }
          }
-
          if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -762,22 +743,20 @@ String pagActual = "novedadcesantiasrc";
          permitirIndex = true;
          RequestContext.getCurrentInstance().update("formularioDialogos:motivoces");
       } else if (tipoActualizacion == 1) {
-         nuevaNovedad.setMotivocesantia(motivoCesantiaSeleccionado);
+         nuevaNovedad.setMotivocesantia(motivoCesantiaLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:motivoces");
       } else if (tipoActualizacion == 2) {
-         duplicarNovedad.setMotivocesantia(motivoCesantiaSeleccionado);
+         duplicarNovedad.setMotivocesantia(motivoCesantiaLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarmotivoces");
       }
-      listaFiltrarMotivosCesantiasLOV = null;
-      motivoCesantiaSeleccionado = null;
+      filtrarLovMotivosCesantias = null;
+      motivoCesantiaLovSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
       cualCelda = -1;
-
       RequestContext.getCurrentInstance().update("formLovMotivosC:motivoscesantiasDialogo");
       RequestContext.getCurrentInstance().update("formLovMotivosC:lovmotivoscesantias");
       RequestContext.getCurrentInstance().update("formLovMotivosC:aceptarP");
-
       context.reset("formLovMotivosC:lovmotivoscesantias:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').hide()");
@@ -792,12 +771,9 @@ String pagActual = "novedadcesantiasrc";
       }
       System.out.println("El valor solicitado es : " + valorsolicitado);
       return valorsolicitado;
-      // RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
    }
 
    public void borrarNovedades() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (novedadSeleccionada != null) {
          if (!listaNovedadesModificar.isEmpty() && listaNovedadesModificar.contains(novedadSeleccionada)) {
             int modIndex = listaNovedadesModificar.indexOf(novedadSeleccionada);
@@ -810,8 +786,8 @@ String pagActual = "novedadcesantiasrc";
             listaNovedadesBorrar.add(novedadSeleccionada);
          }
          listaNovedades.remove(novedadSeleccionada);
-         if (tipoLista == 1) {
-            listaFiltrarNovedades.remove(novedadSeleccionada);
+         if (tipoListaNov == 1) {
+            filtrarListaNovedades.remove(novedadSeleccionada);
          }
          contarRegistroMotivosNovedades();
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
@@ -902,8 +878,8 @@ String pagActual = "novedadcesantiasrc";
    }
 
    public void cancelarCambioMotivoCesantias() {
-      listaFiltrarMotivosCesantiasLOV = null;
-      motivoCesantiaSeleccionado = null;
+      filtrarLovMotivosCesantias = null;
+      motivoCesantiaLovSeleccionado = null;
       aceptar = true;
       provisioncesantias = null;
       provisionlov = null;
@@ -957,6 +933,7 @@ String pagActual = "novedadcesantiasrc";
       aceptar = true;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       permitirIndex = true;
       nuevaNovedad = new NovedadesSistema();
       nuevaNovedad.setEstado("ABIERTO");
@@ -965,7 +942,6 @@ String pagActual = "novedadcesantiasrc";
       nuevaNovedad.setTipo("CESANTIA");
       nuevaNovedad.setSubtipo("DINERO");
       nuevaNovedad.setFechasistema(new Date());
-      altotabla = 110;
       listaNovedadesBorrar.clear();
       listaNovedadesCrear.clear();
       listaNovedadesModificar.clear();
@@ -988,6 +964,7 @@ String pagActual = "novedadcesantiasrc";
       aceptar = true;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       listaEmpleadosLOV = null;
       permitirIndex = true;
       nuevaNovedad = new NovedadesSistema();
@@ -997,22 +974,39 @@ String pagActual = "novedadcesantiasrc";
       nuevaNovedad.setTipo("CESANTIA");
       nuevaNovedad.setSubtipo("DINERO");
       nuevaNovedad.setFechasistema(new Date());
-      altotabla = 110;
+      altotabla = 120;
+      altotablaReg = 6;
       listaNovedadesBorrar.clear();
       listaNovedadesCrear.clear();
       listaNovedadesModificar.clear();
       novedadSeleccionada = null;
       listaNovedades = null;
       activarMTodos = true;
-      RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       navegar("atras");
    }
 
    public void eventoFiltrar() {
+      if (tipoListaNov == 0) {
+         tipoListaNov = 1;
+      }
+      novedadSeleccionada = null;
+      contarRegistrosNovedades();
+   }
+
+   public void eventoFiltrarEmpleados() {
       if (tipoLista == 0) {
          tipoLista = 1;
       }
+      novedadSeleccionada = null;
+      empleadoSeleccionado = null;
+      listaNovedades = null;
+      filtrarListaNovedades = null;
+      if (tipoListaNov == 1) {
+         RequestContext.getCurrentInstance().execute("PF('datosNovedadesEmpleado').clearFilters()");
+      }
+      RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       contarRegistrosNovedades();
+      contarRegistroEmpleados();
    }
 
    public void contarRegistroEmpleados() {
@@ -1103,22 +1097,22 @@ String pagActual = "novedadcesantiasrc";
          } else if (tipoNuevo == 2) {
             duplicarNovedad.getMotivocesantia().setNombre(motivo);
          }
-         for (int i = 0; i < listaMotivosCesantiasLOV.size(); i++) {
-            if (listaMotivosCesantiasLOV.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosCesantia.size(); i++) {
+            if (lovMotivosCesantia.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaNovedad.setMotivocesantia(listaMotivosCesantiasLOV.get(indiceUnicoElemento));
+               nuevaNovedad.setMotivocesantia(lovMotivosCesantia.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
             } else if (tipoNuevo == 2) {
-               duplicarNovedad.setMotivocesantia(listaMotivosCesantiasLOV.get(indiceUnicoElemento));
+               duplicarNovedad.setMotivocesantia(lovMotivosCesantia.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
             }
-            listaMotivosCesantiasLOV.clear();
-            getListaMotivosCesantiasLOV();
+            lovMotivosCesantia.clear();
+            getLovMotivosCesantia();
          } else {
             RequestContext.getCurrentInstance().update("form:motivoscesantiasDialogo");
             RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').show()");
@@ -1149,8 +1143,8 @@ String pagActual = "novedadcesantiasrc";
    }
 
    public void cargarLovMotivos() {
-      if (listaMotivosCesantiasLOV == null) {
-         listaMotivosCesantiasLOV = administrarNovedadesPagoCesantias.consultarMotivosCesantias();
+      if (lovMotivosCesantia == null) {
+         lovMotivosCesantia = administrarNovedadesPagoCesantias.consultarMotivosCesantias();
       }
    }
 
@@ -1176,12 +1170,12 @@ String pagActual = "novedadcesantiasrc";
       this.listaEmpleadosNovedad = listaEmpleadosNovedad;
    }
 
-   public List<Empleados> getListaFiltrarEmpleadosNovedad() {
-      return listaFiltrarEmpleadosNovedad;
+   public List<Empleados> getFiltrarListaEmpleados() {
+      return filtrarListaEmpleados;
    }
 
-   public void setListaFiltrarEmpleadosNovedad(List<Empleados> listaFiltrarEmpleadosNovedad) {
-      this.listaFiltrarEmpleadosNovedad = listaFiltrarEmpleadosNovedad;
+   public void setFiltrarListaEmpleados(List<Empleados> filtrarListaEmpleados) {
+      this.filtrarListaEmpleados = filtrarListaEmpleados;
    }
 
    public Empleados getEmpleadoSeleccionado() {
@@ -1194,9 +1188,7 @@ String pagActual = "novedadcesantiasrc";
 
    public List<NovedadesSistema> getListaNovedades() {
       if (listaNovedades == null) {
-         if (empleadoSeleccionado != null) {
-            listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
-         }
+         listaNovedades = new ArrayList<NovedadesSistema>();
       }
       return listaNovedades;
    }
@@ -1205,12 +1197,12 @@ String pagActual = "novedadcesantiasrc";
       this.listaNovedades = listaNovedades;
    }
 
-   public List<NovedadesSistema> getListaFiltrarNovedades() {
-      return listaFiltrarNovedades;
+   public List<NovedadesSistema> getFiltrarListaNovedades() {
+      return filtrarListaNovedades;
    }
 
-   public void setListaFiltrarNovedades(List<NovedadesSistema> listaFiltrarNovedades) {
-      this.listaFiltrarNovedades = listaFiltrarNovedades;
+   public void setFiltrarListaNovedades(List<NovedadesSistema> filtrarListaNovedades) {
+      this.filtrarListaNovedades = filtrarListaNovedades;
    }
 
    public NovedadesSistema getNovedadSeleccionada() {
@@ -1309,28 +1301,28 @@ String pagActual = "novedadcesantiasrc";
       this.empleadoSeleccionadoLOV = empleadoSeleccionadoLOV;
    }
 
-   public List<MotivosCesantias> getListaMotivosCesantiasLOV() {
-      return listaMotivosCesantiasLOV;
+   public List<MotivosCesantias> getLovMotivosCesantia() {
+      return lovMotivosCesantia;
    }
 
-   public void setListaMotivosCesantiasLOV(List<MotivosCesantias> listaMotivosCesantiasLOV) {
-      this.listaMotivosCesantiasLOV = listaMotivosCesantiasLOV;
+   public void setLovMotivosCesantia(List<MotivosCesantias> lovMotivosCesantia) {
+      this.lovMotivosCesantia = lovMotivosCesantia;
    }
 
-   public List<MotivosCesantias> getListaFiltrarMotivosCesantiasLOV() {
-      return listaFiltrarMotivosCesantiasLOV;
+   public List<MotivosCesantias> getFiltrarLovMotivosCesantias() {
+      return filtrarLovMotivosCesantias;
    }
 
-   public void setListaFiltrarMotivosCesantiasLOV(List<MotivosCesantias> listaFiltrarMotivosCesantiasLOV) {
-      this.listaFiltrarMotivosCesantiasLOV = listaFiltrarMotivosCesantiasLOV;
+   public void setFiltrarLovMotivosCesantias(List<MotivosCesantias> filtrarLovMotivosCesantias) {
+      this.filtrarLovMotivosCesantias = filtrarLovMotivosCesantias;
    }
 
-   public MotivosCesantias getMotivoCesantiaSeleccionado() {
-      return motivoCesantiaSeleccionado;
+   public MotivosCesantias getMotivoCesantiaLovSeleccionado() {
+      return motivoCesantiaLovSeleccionado;
    }
 
-   public void setMotivoCesantiaSeleccionado(MotivosCesantias motivoCesantiaSeleccionado) {
-      this.motivoCesantiaSeleccionado = motivoCesantiaSeleccionado;
+   public void setMotivoCesantiaLovSeleccionado(MotivosCesantias motivoCesantiaLovSeleccionado) {
+      this.motivoCesantiaLovSeleccionado = motivoCesantiaLovSeleccionado;
    }
 
    public String getPaginaAnterior() {
@@ -1347,6 +1339,19 @@ String pagActual = "novedadcesantiasrc";
 
    public void setAltotabla(int altotabla) {
       this.altotabla = altotabla;
+   }
+
+   public int getAltotablaReg() {
+//      if (altotabla == 100) {
+//         altotablaReg = 5;
+//      } else {
+//         altotablaReg = 6;
+//      }
+      return altotablaReg;
+   }
+
+   public void setAltotablaReg(int altotablaReg) {
+      this.altotablaReg = altotablaReg;
    }
 
    public boolean isActivarMTodos() {
@@ -1395,17 +1400,17 @@ String pagActual = "novedadcesantiasrc";
    public String getInfoRegistroMotivosCesantias() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovMotivosC:lovmotivoscesantias");
-      if (listaFiltrarMotivosCesantiasLOV != null) {
-         if (listaFiltrarMotivosCesantiasLOV.size() == 1) {
-            motivoCesantiaSeleccionado = listaFiltrarMotivosCesantiasLOV.get(0);
+      if (filtrarLovMotivosCesantias != null) {
+         if (filtrarLovMotivosCesantias.size() == 1) {
+            motivoCesantiaLovSeleccionado = filtrarLovMotivosCesantias.get(0);
             aceptar = false;
             RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').unselectAllRows();PF('lovmotivoscesantias').selectRow(0);");
          } else {
-            motivoCesantiaSeleccionado = null;
+            motivoCesantiaLovSeleccionado = null;
             RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').unselectAllRows();");
          }
       } else {
-         motivoCesantiaSeleccionado = null;
+         motivoCesantiaLovSeleccionado = null;
          aceptar = true;
       }
       infoRegistroMotivosCesantias = String.valueOf(tabla.getRowCount());

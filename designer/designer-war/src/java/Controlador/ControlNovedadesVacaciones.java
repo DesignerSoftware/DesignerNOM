@@ -67,7 +67,7 @@ public class ControlNovedadesVacaciones implements Serializable {
    private NovedadesSistema duplicarNovedad;
    //editar celda
    private NovedadesSistema editarNovedades;
-   private int cualCelda, tipoLista;
+   private int cualCelda, tipoLista, tipoListaNov;
    //Crear Novedades
    private List<NovedadesSistema> listaNovedadesCrear;
    public NovedadesSistema nuevaNovedad;
@@ -95,6 +95,7 @@ public class ControlNovedadesVacaciones implements Serializable {
    private List<Vacaciones> filtradoslistaPeriodos;
    private Vacaciones periodoSeleccionado;
    //Columnas Tabla NOVEDADES
+   private Column nEFechasIngreso, nEEmpleadosNombres;
    private Column nEFechaInicialDisfrute, nEPeriodo, nEDias, nEFechaSiguiente,
            nESubTipo, nEAdelantoHasta, nEFechaPago, nEDiasAplazados;
    private Date suma364;
@@ -103,7 +104,7 @@ public class ControlNovedadesVacaciones implements Serializable {
    private short diasAplazadosTotal;
    private final String cero;
    //ALTO SCROLL TABLA
-   private String altoTabla;
+   private String altoTablaEmp, altoTablaRegEmp;// altoTablaEmp, altoTablaRegEmp;
    // activar mostrar todos:
    private boolean activarMTodos, activarLOV;
    // fecha contratacion empleado
@@ -124,6 +125,7 @@ public class ControlNovedadesVacaciones implements Serializable {
       aceptar = true;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       listaValEmpleados = null;
       permitirIndex = true;
       nuevaNovedad = new NovedadesSistema();
@@ -140,7 +142,7 @@ public class ControlNovedadesVacaciones implements Serializable {
       duplicarNovedad.setDias(BigInteger.valueOf(0));
       diasTotales = BigInteger.valueOf(0);
       diasAplazadosTotal = Short.parseShort(cero);
-      altoTabla = "110";
+      altoTablaEmp = "110";
       paginaAnterior = "nominaf";
       activarMTodos = true;
       novedadSeleccionada = null;
@@ -368,7 +370,7 @@ public class ControlNovedadesVacaciones implements Serializable {
          paraNuevaNovedad++;
          nuevaNovedadSec = BigInteger.valueOf(paraNuevaNovedad);
          Empleados emple = new Empleados();
-
+         cargarLovEmpleados();
          for (int i = 0; i < listaValEmpleados.size(); i++) {
             if (empleadoSeleccionado.getSecuencia().compareTo(listaValEmpleados.get(i).getSecuencia()) == 0) {
                emple = listaValEmpleados.get(i);
@@ -460,17 +462,15 @@ public class ControlNovedadesVacaciones implements Serializable {
    }
 
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
-
       if (bandera == 0) {
-         altoTabla = "90";
+         altoTablaEmp = "92";
          nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
          nEFechaInicialDisfrute.setFilterStyle("width: 85% !important");
          nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
-         nEPeriodo.setFilterStyle("85% !important");
+         nEPeriodo.setFilterStyle("width: 85% !important");
          nEDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDias");
-         nEDias.setFilterStyle("width: 85% !important");
+         nEDias.setFilterStyle("width: 75% !important");
          nEFechaSiguiente = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaSiguiente");
          nEFechaSiguiente.setFilterStyle("width: 85% !important");
          nESubTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nESubTipo");
@@ -480,18 +480,56 @@ public class ControlNovedadesVacaciones implements Serializable {
          nEFechaPago = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaPago");
          nEFechaPago.setFilterStyle("width: 85% !important");
          nEDiasAplazados = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDiasAplazados");
-         nEDiasAplazados.setFilterStyle("width: 85% !important");
+         nEDiasAplazados.setFilterStyle("width: 75% !important");
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
          bandera = 1;
-         tipoLista = 1;
+         nEEmpleadosNombres = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEEmpleadosNombres");
+         nEEmpleadosNombres.setFilterStyle("width: 85% !important");
+         nEFechasIngreso = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEFechasIngreso");
+         nEFechasIngreso.setFilterStyle("width: 80% !important");
+         RequestContext.getCurrentInstance().update("form:datosEmpleados");
       } else if (bandera == 1) {
          cargarTablaDefault();
-         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       }
+      contarRegistroEmpleados();
+      contarRegistrosNovedades();
+   }
+
+   public void cargarTablaDefault() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      altoTablaEmp = "110";
+      nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
+      nEFechaInicialDisfrute.setFilterStyle("display: none; visibility: hidden;");
+      nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
+      nEPeriodo.setFilterStyle("display: none; visibility: hidden;");
+      nEDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDias");
+      nEDias.setFilterStyle("display: none; visibility: hidden;");
+      nEFechaSiguiente = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaSiguiente");
+      nEFechaSiguiente.setFilterStyle("display: none; visibility: hidden;");
+      nESubTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nESubTipo");
+      nESubTipo.setFilterStyle("display: none; visibility: hidden;");
+      nEAdelantoHasta = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEAdelantoHasta");
+      nEAdelantoHasta.setFilterStyle("display: none; visibility: hidden;");
+      nEFechaPago = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaPago");
+      nEFechaPago.setFilterStyle("display: none; visibility: hidden;");
+      nEDiasAplazados = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDiasAplazados");
+      nEDiasAplazados.setFilterStyle("display: none; visibility: hidden;");
+      bandera = 0;
+      nEEmpleadosNombres = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEEmpleadosNombres");
+      nEEmpleadosNombres.setFilterStyle("display: none; visibility: hidden;");
+      nEFechasIngreso = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nEFechasIngreso");
+      nEFechasIngreso.setFilterStyle("display: none; visibility: hidden;");
+      filtradosListaNovedades = null;
+      filtradosListaEmpleadosNovedad = null;
+      RequestContext.getCurrentInstance().execute("PF('datosNovedadesEmpleado').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('datosEmpleados').clearFilters()");
+      RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+      RequestContext.getCurrentInstance().update("form:datosEmpleados");
+      tipoLista = 0;
+      tipoListaNov = 0;
    }
 
    public void mostrarTodos() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (!listaEmpleadosNovedad.isEmpty()) {
          listaEmpleadosNovedad.clear();
       }
@@ -500,7 +538,6 @@ public class ControlNovedadesVacaciones implements Serializable {
             listaEmpleadosNovedad.add(listaValEmpleados.get(i));
          }
       }
-
       empleadoSeleccionado = listaEmpleadosNovedad.get(0);
       listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(empleadoSeleccionado.getSecuencia());
       getDiasTotales();
@@ -547,11 +584,13 @@ public class ControlNovedadesVacaciones implements Serializable {
 
    //Ubicacion Celda Arriba 
    public void cambiarEmpleado() {
-         listaNovedades = null;
+      listaNovedades = null;
       if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
-//         secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
-//         listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(secuenciaEmpleado);
+         novedadSeleccionada = null;
          getListaNovedades();
+         if (tipoListaNov == 1) {
+            RequestContext.getCurrentInstance().execute("PF('datosNovedadesEmpleado').clearFilters()");
+         }
          contarRegistrosNovedades();
          getDiasTotales();
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
@@ -622,7 +661,7 @@ public class ControlNovedadesVacaciones implements Serializable {
          }
          listaNovedades.remove(novedadSeleccionada);
 
-         if (tipoLista == 1) {
+         if (tipoListaNov == 1) {
             filtradosListaNovedades.remove(novedadSeleccionada);
          }
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
@@ -775,24 +814,16 @@ public class ControlNovedadesVacaciones implements Serializable {
       if (bandera == 1) {
          cargarTablaDefault();
       }
-//        if (!listaEmpleadosNovedad.isEmpty()) {
-//            listaEmpleadosNovedad.clear();
-//        }
-//        if (listaValEmpleados != null) {
-//            for (int i = 0; i < listaValEmpleados.size(); i++) {
-//                listaEmpleadosNovedad.add(listaValEmpleados.get(i));
-//            }
-//        }
-//        contarRegistrosNovedades();
       aceptar = true;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       permitirIndex = true;
       limpiarNuevaNovedad();
       limpiarduplicarNovedades();
       diasTotales = BigInteger.valueOf(0);
       diasAplazadosTotal = Short.parseShort(cero);
-      altoTabla = "110";
+      altoTablaEmp = "110";
       listaNovedadesBorrar.clear();
       listaNovedadesCrear.clear();
       listaNovedadesModificar.clear();
@@ -801,33 +832,8 @@ public class ControlNovedadesVacaciones implements Serializable {
       activarMTodos = true;
       empleadoSeleccionado = null;
       novedadSeleccionada = null;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       RequestContext.getCurrentInstance().update("form:datosEmpleados");
-   }
-
-   public void cargarTablaDefault() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "110";
-      nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
-      nEFechaInicialDisfrute.setFilterStyle("display: none; visibility: hidden;");
-      nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
-      nEPeriodo.setFilterStyle("display: none; visibility: hidden;");
-      nEDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDias");
-      nEDias.setFilterStyle("display: none; visibility: hidden;");
-      nEFechaSiguiente = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaSiguiente");
-      nEFechaSiguiente.setFilterStyle("display: none; visibility: hidden;");
-      nESubTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nESubTipo");
-      nESubTipo.setFilterStyle("display: none; visibility: hidden;");
-      nEAdelantoHasta = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEAdelantoHasta");
-      nEAdelantoHasta.setFilterStyle("display: none; visibility: hidden;");
-      nEFechaPago = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaPago");
-      nEFechaPago.setFilterStyle("display: none; visibility: hidden;");
-      nEDiasAplazados = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDiasAplazados");
-      nEDiasAplazados.setFilterStyle("display: none; visibility: hidden;");
-      bandera = 0;
-      filtradosListaNovedades = null;
-      tipoLista = 0;
    }
 
    public void salir() {
@@ -839,13 +845,14 @@ public class ControlNovedadesVacaciones implements Serializable {
       aceptar = true;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       listaValEmpleados = null;
       permitirIndex = true;
       limpiarNuevaNovedad();
       limpiarduplicarNovedades();
       diasTotales = BigInteger.valueOf(0);
       diasAplazadosTotal = Short.parseShort(cero);
-      altoTabla = "110";
+      altoTablaEmp = "110";
       listaNovedadesBorrar.clear();
       listaNovedadesCrear.clear();
       listaNovedadesModificar.clear();
@@ -858,10 +865,30 @@ public class ControlNovedadesVacaciones implements Serializable {
 
    //EVENTO FILTRAR
    public void eventoFiltrar() {
+      if (tipoListaNov == 0) {
+         tipoListaNov = 1;
+      }
+      novedadSeleccionada = null;
+      contarRegistrosNovedades();
+   }
+
+   public void eventoFiltrarEmpleados() {
       if (tipoLista == 0) {
          tipoLista = 1;
       }
+      empleadoSeleccionado = null;
+      novedadSeleccionada = null;
+      listaNovedades = null;
+      filtradosListaNovedades = null;
+      getDiasTotales();
+      if (tipoListaNov == 1) {
+         RequestContext.getCurrentInstance().execute("PF('datosNovedadesEmpleado').clearFilters()");
+      }
+      RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+      RequestContext.getCurrentInstance().update("form:diasTotales");
+      RequestContext.getCurrentInstance().update("form:diasAplazados");
       contarRegistrosNovedades();
+      contarRegistroEmpleados();
    }
 
    public void contarRegistroEmpleados() {
@@ -1160,6 +1187,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('validacion1').show()");
          }
       } else if (tipoAct == 2) {
+         fechaContratacionE = administrarNovedadesVacaciones.obtenerFechaContratacionEmpleado(empleadoSeleccionado.getSecuencia());
          if (duplicarNovedad.getFechainicialdisfrute().before(fechaContratacionE)) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacion1");
             duplicarNovedad.setFechainicialdisfrute(null);
@@ -1463,8 +1491,21 @@ public class ControlNovedadesVacaciones implements Serializable {
       this.mensajeValidacion = mensajeValidacion;
    }
 
-   public String getAltoTabla() {
-      return altoTabla;
+   public String getAltoTablaEmp() {
+      return altoTablaEmp;
+   }
+
+   public String getAltoTablaRegEmp() {
+      if (altoTablaEmp.equals("92")) {
+         altoTablaRegEmp = "5";
+      } else {
+         altoTablaRegEmp = "6";
+      }
+      return altoTablaRegEmp;
+   }
+
+   public void setAltoTablaRegEmp(String altoTablaRegEmp) {
+      this.altoTablaRegEmp = altoTablaRegEmp;
    }
 
    public NovedadesSistema getNovedadSeleccionada() {

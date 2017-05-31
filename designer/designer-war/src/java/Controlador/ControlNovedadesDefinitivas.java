@@ -29,6 +29,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
+import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
@@ -96,6 +97,10 @@ public class ControlNovedadesDefinitivas implements Serializable {
    private String celda;
    //Desactivar Campos
    private Boolean activate;
+   //Filtrado
+   private String altoTabla;
+   private String altoTablaReg;
+   private Column nDEmpleadosCodigos, nDEmpleadosNombres;
    //Activar boton mostrar todos
    private boolean activarMostrarTodos;
    private String infoRegistro;
@@ -135,6 +140,8 @@ public class ControlNovedadesDefinitivas implements Serializable {
       empleadoBack = new Empleados();
       activarLOV = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
+      altoTabla = "165";
+      altoTablaReg = "9";
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -473,6 +480,37 @@ public class ControlNovedadesDefinitivas implements Serializable {
       nuevaNovedad.setMotivodefinitiva(new MotivosDefinitivas());
       nuevaNovedad.setMotivoretiro(new MotivosRetiros());
       nuevaNovedad.setFechainicialdisfrute(new Date());
+   }
+
+   public void activarCtrlF11() {
+      if (bandera == 0) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         altoTabla = "145";
+         nDEmpleadosNombres = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nDEmpleadosNombres");
+         nDEmpleadosNombres.setFilterStyle("width: 85% !important;");
+         nDEmpleadosCodigos = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nDEmpleadosCodigos");
+         nDEmpleadosCodigos.setFilterStyle("width: 80% !important;");
+         RequestContext.getCurrentInstance().update("form:datosEmpleados");
+         bandera = 1;
+         tipoLista = 1;
+      } else if (bandera == 1) {
+         restaurarTabla();
+      }
+      contarRegistros();
+   }
+
+   public void restaurarTabla() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      altoTabla = "165";
+      nDEmpleadosNombres = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nDEmpleadosNombres");
+      nDEmpleadosNombres.setFilterStyle("display: none; visibility: hidden;");
+      nDEmpleadosCodigos = (Column) c.getViewRoot().findComponent("form:datosEmpleados:nDEmpleadosCodigos");
+      nDEmpleadosCodigos.setFilterStyle("display: none; visibility: hidden;");
+      RequestContext.getCurrentInstance().execute("PF('datosEmpleados').clearFilters()");
+      RequestContext.getCurrentInstance().update("form:datosEmpleados");
+      contarRegistros();
+      bandera = 0;
+      tipoLista = 0;
    }
 
    public void exportPDF() throws IOException {
@@ -1033,6 +1071,20 @@ public class ControlNovedadesDefinitivas implements Serializable {
       contarRegistros();
    }
 
+   public void eventoFiltrarEmpleados() {
+      empleadoBack = null;
+      listaNovedades = null;
+      empleadoSeleccionado = null;
+      novedadMostrar = null;
+      numNovedad = -1;
+      activarNoRango = false;
+      RequestContext.getCurrentInstance().update("form:formularioNovedades");
+      RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      deshabilitarBotonLov();
+      contarRegistros();
+   }
+
    public void contarRegistros() {
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
@@ -1297,4 +1349,24 @@ public class ControlNovedadesDefinitivas implements Serializable {
       this.infoRegistroMRetiro = infoRegistroMRetiro;
    }
 
+   public String getAltoTabla() {
+      return altoTabla;
+   }
+
+   public void setAltoTabla(String altoTabla) {
+      this.altoTabla = altoTabla;
+   }
+
+   public String getAltoTablaReg() {
+      if (altoTabla.equals("145")) {
+         altoTablaReg = "8";
+      } else {
+         altoTablaReg = "9";
+      }
+      return altoTablaReg;
+   }
+
+   public void setAltoTablaReg(String altoTablaReg) {
+      this.altoTablaReg = altoTablaReg;
+   }
 }

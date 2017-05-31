@@ -165,7 +165,8 @@ public class ControlTemplate implements Serializable {
       ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 //        ses.setAttribute(ses.getId(), null); 
       ec.invalidateSession();
-      ec.redirect(ec.getRequestContextPath() + "/iniciored.xhtml");
+//      ec.redirect(ec.getRequestContextPath() + "/iniciored.xhtml");
+      ec.redirect(ec.getRequestContextPath() + "/");
    }
 
    public void validarSession() throws IOException {

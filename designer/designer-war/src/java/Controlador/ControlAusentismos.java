@@ -82,7 +82,7 @@ public class ControlAusentismos implements Serializable {
    private Empleados seleccionMostrar; //Seleccion Mostrar
    //editar celda
    private Soausentismos editarAusentismos;
-   private int cualCelda, tipoLista;
+   private int cualCelda, tipoLista, tipoListaNov;
    //OTROS
    private boolean aceptar;
    private int tipoActualizacion; //Activo/Desactivo Crtl + F11
@@ -146,6 +146,7 @@ public class ControlAusentismos implements Serializable {
    //PRORROGA MOSTRAR
    private String Prorroga, Relacion;
    //Columnas Tabla NOVEDADES
+   private Column AEmpleadosNombre, AEmpleadosCodigo;
    private Column ATipo, AClase, ACausa, ADias, AHoras, AFecha, AFechaFinaus, AFechaExpedicion, AFechaInipago,
            AFechaFinpago, APorcentaje, ABase, AForma, ADescripcionCaso, AEnfermedad, ANumero, ADiagnostico,
            AProrroga, ARelacion, ARelacionada, ATercero, AObservaciones;
@@ -155,8 +156,7 @@ public class ControlAusentismos implements Serializable {
    //
    private boolean cambiosPagina;
    //
-   private String altoTabla;
-   private String altoTablaReg;
+   private String altoTabla, altoTablaReg, altoTablaEmpl, altoTablaRegEmp;
    private String altoDialogoNuevo;
    private String altoDialogoDuplicar;
    private boolean colapsado;
@@ -213,6 +213,7 @@ public class ControlAusentismos implements Serializable {
       ausentismoSeleccionado = null;
       guardado = true;
       tipoLista = 0;
+      tipoListaNov = 0;
       listaAusentismosBorrar = new ArrayList<Soausentismos>();
       listaAusentismosCrear = new ArrayList<Soausentismos>();
       listaAusentismosModificar = new ArrayList<Soausentismos>();
@@ -303,7 +304,11 @@ public class ControlAusentismos implements Serializable {
          }
          listaAusentismos = null;
          getListaAusentismos();
-         cambiarEmpleado();
+         if (listaAusentismosCrear.isEmpty() && listaAusentismosBorrar.isEmpty() && listaAusentismosModificar.isEmpty()) {
+            secuenciaEmpleado = seleccionMostrar.getSecuencia();
+            listaAusentismos = null;
+            getListaAusentismos();
+         }
 
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
@@ -318,6 +323,10 @@ public class ControlAusentismos implements Serializable {
    public void cambiarEmpleado() {
       if (listaAusentismosCrear.isEmpty() && listaAusentismosBorrar.isEmpty() && listaAusentismosModificar.isEmpty()) {
          secuenciaEmpleado = seleccionMostrar.getSecuencia();
+         ausentismoSeleccionado = null;
+         if (tipoListaNov == 1) {
+            RequestContext.getCurrentInstance().execute("PF('datosAusentismosEmpleado').clearFilters()");
+         }
          listaAusentismos = null;
          getListaAusentismos();
          contarRegistroAusentismos();
@@ -1411,7 +1420,7 @@ public class ControlAusentismos implements Serializable {
             listaAusentismosBorrar.add(ausentismoSeleccionado);
          }
          listaAusentismos.remove(ausentismoSeleccionado);
-         if (tipoLista == 1) {
+         if (tipoListaNov == 1) {
             filtradosListaAusentismos.remove(ausentismoSeleccionado);
          }
 
@@ -2128,6 +2137,7 @@ public class ControlAusentismos implements Serializable {
          duplicarAusentismo.setRelacionada(ausentismoSeleccionado.getRelacionada());
          duplicarAusentismo.setTercero(ausentismoSeleccionado.getTercero());
          duplicarAusentismo.setObservaciones(ausentismoSeleccionado.getObservaciones());
+         tipoActualizacion = 2;
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAusentismo");
          RequestContext.getCurrentInstance().execute("PF('DuplicarAusentismoEmpleado').show()");
       } else {
@@ -2154,7 +2164,6 @@ public class ControlAusentismos implements Serializable {
       nuevoAusentismo.setClase(new Clasesausentismos());
       ausentismoSeleccionado = null;
       ausentismoSeleccionado = null;
-      System.out.println("Entro a Bandera B. 1");
       botonLimpiar = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:limpiar");
       botonLimpiar.setStyle("position: absolute; left: 50px; top: 400px;");
       botonAgregar = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:agregarNA");
@@ -2164,18 +2173,13 @@ public class ControlAusentismos implements Serializable {
       altoDialogoNuevo = "430";
       banderaBotones = 0;
       colapsado = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoAusentismoEmpleado");
    }
 
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
-
-      System.out.println("TipoLista= " + tipoLista);
       if (bandera == 0) {
          altoTabla = "119";
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
          ATipo = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ATipo");
          ATipo.setFilterStyle("width: 85% !important");
          AClase = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AClase");
@@ -2223,14 +2227,82 @@ public class ControlAusentismos implements Serializable {
          AObservaciones = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AObservaciones");
          AObservaciones.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");
+
+         AEmpleadosCodigo = (Column) c.getViewRoot().findComponent("form:datosEmpleados:AEmpleadosCodigo");
+         AEmpleadosCodigo.setFilterStyle("width: 80% !important");
+         AEmpleadosNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleados:AEmpleadosNombre");
+         AEmpleadosNombre.setFilterStyle("width: 85% !important");
+         RequestContext.getCurrentInstance().update("form:datosEmpleados");
          bandera = 1;
-         tipoLista = 1;
       } else if (bandera == 1) {
-         altoTabla = "139";
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
          cerrarFiltrado();
       }
+      contarRegistroEmpleado();
+      contarRegistroAusentismos();
+   }
+
+   public void cerrarFiltrado() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      ATipo = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ATipo");
+      ATipo.setFilterStyle("display: none; visibility: hidden;");
+      AClase = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AClase");
+      AClase.setFilterStyle("display: none; visibility: hidden;");
+      ACausa = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ACausa");
+      ACausa.setFilterStyle("display: none; visibility: hidden;");
+      ADias = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ADias");
+      ADias.setFilterStyle("display: none; visibility: hidden;");
+      AHoras = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AHoras");
+      AHoras.setFilterStyle("display: none; visibility: hidden;");
+      AFecha = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFecha");
+      AFecha.setFilterStyle("display: none; visibility: hidden;");
+      AFechaFinaus = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaFinaus");
+      AFechaFinaus.setFilterStyle("display: none; visibility: hidden;");
+      AFechaExpedicion = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaExpedicion");
+      AFechaExpedicion.setFilterStyle("display: none; visibility: hidden;");
+      AFechaInipago = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaInipago");
+      AFechaInipago.setFilterStyle("display: none; visibility: hidden;");
+      AFechaFinpago = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaFinpago");
+      AFechaFinpago.setFilterStyle("display: none; visibility: hidden;");
+      APorcentaje = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:APorcentaje");
+      APorcentaje.setFilterStyle("display: none; visibility: hidden;");
+      ABase = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ABase");
+      ABase.setFilterStyle("display: none; visibility: hidden;");
+      AForma = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AForma");
+      AForma.setFilterStyle("display: none; visibility: hidden;");
+      ADescripcionCaso = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ADescripcionCaso");
+      ADescripcionCaso.setFilterStyle("display: none; visibility: hidden;");
+      AEnfermedad = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AEnfermedad");
+      AEnfermedad.setFilterStyle("display: none; visibility: hidden;");
+      ANumero = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ANumero");
+      ANumero.setFilterStyle("display: none; visibility: hidden;");
+      ADiagnostico = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ADiagnostico");
+      ADiagnostico.setFilterStyle("display: none; visibility: hidden;");
+      AProrroga = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AProrroga");
+      AProrroga.setFilterStyle("display: none; visibility: hidden;");
+      ANumero = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ANumero");
+      ANumero.setFilterStyle("display: none; visibility: hidden;");
+      ARelacion = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ARelacion");
+      ARelacion.setFilterStyle("display: none; visibility: hidden;");
+      ARelacionada = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ARelacionada");
+      ARelacionada.setFilterStyle("display: none; visibility: hidden;");
+      ATercero = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ATercero");
+      ATercero.setFilterStyle("display: none; visibility: hidden;");
+      AObservaciones = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AObservaciones");
+      AObservaciones.setFilterStyle("display: none; visibility: hidden;");
+      bandera = 0;
+      altoTabla = "139";
+      AEmpleadosCodigo = (Column) c.getViewRoot().findComponent("form:datosEmpleados:AEmpleadosCodigo");
+      AEmpleadosCodigo.setFilterStyle("display: none; visibility: hidden;");
+      AEmpleadosNombre = (Column) c.getViewRoot().findComponent("form:datosEmpleados:AEmpleadosNombre");
+      AEmpleadosNombre.setFilterStyle("display: none; visibility: hidden;");
+      filtradosListaAusentismos = null;
+      filtradosListaEmpleadosAusentismo = null;
+      RequestContext.getCurrentInstance().execute("PF('datosAusentismosEmpleado').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('datosEmpleados').clearFilters()");
+      RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");
+      RequestContext.getCurrentInstance().update("form:datosEmpleados");
+      tipoLista = 0;
+      tipoListaNov = 0;
    }
 
    //LISTA DE VALORES DINAMICA
@@ -2329,7 +2401,6 @@ public class ControlAusentismos implements Serializable {
 
       if (pasa == 0) {
          if (bandera == 1) {
-            altoTabla = "139";
             cerrarFiltrado();
          }
          cambiosPagina = false;
@@ -2415,8 +2486,6 @@ public class ControlAusentismos implements Serializable {
       }
 
       if (bandera == 1) {
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
          altoTabla = "139";
          cerrarFiltrado();
       }
@@ -2631,7 +2700,6 @@ public class ControlAusentismos implements Serializable {
    //CANCELAR MODIFICACIONES
    public void cancelarModificacion() {
       if (bandera == 1) {
-         altoTabla = "139";
          cerrarFiltrado();
       }
       FacesContext d = FacesContext.getCurrentInstance();
@@ -2697,9 +2765,6 @@ public class ControlAusentismos implements Serializable {
          altoDialogoNuevo = "430";
          banderaBotones = 0;
       }
-
-      RequestContext context = RequestContext.getCurrentInstance();
-      //RequestContext.getCurrentInstance().update("formularioDialogos:limpiar");
       RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAusentismo");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoAusentismoEmpleado");
       RequestContext.getCurrentInstance().execute("PF('NuevoAusentismoEmpleado').show()");
@@ -2729,9 +2794,6 @@ public class ControlAusentismos implements Serializable {
          altoDialogoDuplicar = "430";
          banderaBotonesD = 0;
       }
-
-      RequestContext context = RequestContext.getCurrentInstance();
-      //RequestContext.getCurrentInstance().update("formularioDialogos:limpiar");
       RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAusentismo");
       RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarAusentismoEmpleado");
       RequestContext.getCurrentInstance().execute("PF('DuplicarAusentismoEmpleado').show()");
@@ -2741,7 +2803,6 @@ public class ControlAusentismos implements Serializable {
    public void salir() {
       limpiarListasValor();
       if (bandera == 1) {
-         altoTabla = "139";
          cerrarFiltrado();
       }
       listaAusentismosBorrar.clear();
@@ -2754,69 +2815,30 @@ public class ControlAusentismos implements Serializable {
       guardado = true;
       cambiosPagina = true;
       permitirIndex = true;
-      RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       navegar("atras");
    }
 
-   public void cerrarFiltrado() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      ATipo = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ATipo");
-      ATipo.setFilterStyle("display: none; visibility: hidden;");
-      AClase = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AClase");
-      AClase.setFilterStyle("display: none; visibility: hidden;");
-      ACausa = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ACausa");
-      ACausa.setFilterStyle("display: none; visibility: hidden;");
-      ADias = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ADias");
-      ADias.setFilterStyle("display: none; visibility: hidden;");
-      AHoras = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AHoras");
-      AHoras.setFilterStyle("display: none; visibility: hidden;");
-      AFecha = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFecha");
-      AFecha.setFilterStyle("display: none; visibility: hidden;");
-      AFechaFinaus = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaFinaus");
-      AFechaFinaus.setFilterStyle("display: none; visibility: hidden;");
-      AFechaExpedicion = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaExpedicion");
-      AFechaExpedicion.setFilterStyle("display: none; visibility: hidden;");
-      AFechaInipago = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaInipago");
-      AFechaInipago.setFilterStyle("display: none; visibility: hidden;");
-      AFechaFinpago = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AFechaFinpago");
-      AFechaFinpago.setFilterStyle("display: none; visibility: hidden;");
-      APorcentaje = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:APorcentaje");
-      APorcentaje.setFilterStyle("display: none; visibility: hidden;");
-      ABase = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ABase");
-      ABase.setFilterStyle("display: none; visibility: hidden;");
-      AForma = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AForma");
-      AForma.setFilterStyle("display: none; visibility: hidden;");
-      ADescripcionCaso = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ADescripcionCaso");
-      ADescripcionCaso.setFilterStyle("display: none; visibility: hidden;");
-      AEnfermedad = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AEnfermedad");
-      AEnfermedad.setFilterStyle("display: none; visibility: hidden;");
-      ANumero = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ANumero");
-      ANumero.setFilterStyle("display: none; visibility: hidden;");
-      ADiagnostico = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ADiagnostico");
-      ADiagnostico.setFilterStyle("display: none; visibility: hidden;");
-      AProrroga = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AProrroga");
-      AProrroga.setFilterStyle("display: none; visibility: hidden;");
-      ANumero = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ANumero");
-      ANumero.setFilterStyle("display: none; visibility: hidden;");
-      ARelacion = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ARelacion");
-      ARelacion.setFilterStyle("display: none; visibility: hidden;");
-      ARelacionada = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ARelacionada");
-      ARelacionada.setFilterStyle("display: none; visibility: hidden;");
-      ATercero = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:ATercero");
-      ATercero.setFilterStyle("display: none; visibility: hidden;");
-      AObservaciones = (Column) c.getViewRoot().findComponent("form:datosAusentismosEmpleado:AObservaciones");
-      AObservaciones.setFilterStyle("display: none; visibility: hidden;");
-      RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");
-      bandera = 0;
-      filtradosListaAusentismos = null;
-      tipoLista = 0;
+   public void eventoFiltrar() {
+      if (tipoListaNov == 0) {
+         tipoListaNov = 1;
+      }
+      ausentismoSeleccionado = null;
+      contarRegistroAusentismos();
    }
 
-   public void eventoFiltrar() {
+   public void eventoFiltrarEmpl() {
       if (tipoLista == 0) {
          tipoLista = 1;
       }
+      ausentismoSeleccionado = null;
+      empleadoSeleccionado = null;
+      listaAusentismos = null;
+      filtradosListaAusentismos = null;
+      if (tipoListaNov == 1) {
+         RequestContext.getCurrentInstance().execute("PF('datosAusentismosEmpleado').clearFilters()");
+      }
+      RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");
+      contarRegistroEmpleado();
       contarRegistroAusentismos();
    }
 
@@ -3436,6 +3458,32 @@ public class ControlAusentismos implements Serializable {
 
    public void setAltoTablaReg(String altoTablaReg) {
       this.altoTablaReg = altoTablaReg;
+   }
+
+   public String getAltoTablaEmpl() {
+      if (altoTabla.equals("119")) {
+         altoTablaEmpl = "56";
+      } else {
+         altoTablaEmpl = "74";
+      }
+      return altoTablaEmpl;
+   }
+
+   public void setAltoTablaEmpl(String altoTablaEmpl) {
+      this.altoTablaEmpl = altoTablaEmpl;
+   }
+
+   public String getAltoTablaRegEmp() {
+      if (altoTabla.equals("119")) {
+         altoTablaRegEmp = "3";
+      } else {
+         altoTablaRegEmp = "4";
+      }
+      return altoTablaRegEmp;
+   }
+
+   public void setAltoTablaRegEmp(String altoTablaRegEmp) {
+      this.altoTablaRegEmp = altoTablaRegEmp;
    }
 
    public String getAltoDialogoNuevo() {
