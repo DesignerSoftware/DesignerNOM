@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
->
+      xmlns:f="http://java.sun.com/jsf/core">
    <h:head>        
    </h:head>
    <h:body>
@@ -63,6 +62,7 @@
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlCambioFechaIngreso.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -71,33 +71,38 @@
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
-                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText value="Empleado: " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                      <h:outputText id="nombreEmpleado" value="#{controlCambioFechaIngreso.empleado.persona.nombreCompleto}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
+                     <h:outputText value="Codigo: " style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
                      <h:outputText id="docEmpleado" value="#{controlCambioFechaIngreso.empleado.codigoempleado}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 340px; width: 830px; border-radius: 10px; text-align: left;">
-                     <legend style="font-size: 13px; color: blue;"><strong>Ingresar Nueva Fecha</strong></legend>
+                  <fieldset style="position: absolute; top: 124px; left: 10px; height: 340px; width: 830px; border-radius: 10px; text-align: left;">
+                     <fieldset style="position: absolute; top: 60px; left: 210px; height: 190px; width: 390px; border-radius: 10px; text-align: left;">
+                        <legend style="font-size: 13px; color: blue;"><strong>Ingresar Nueva Fecha</strong></legend>
 
-                     <h:outputText  value="Fecha Antigua: " style="position: absolute; top: 185px; left: 15px; font-weight: bold;"/>
-                     <div id="divFechaAntigua" style="position: absolute; top: 225px; left: 15px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" readonly="true" id="fechaAntigua" value="#{controlCambioFechaIngreso.vigenciaTipoContrato.fechavigencia}">
-                           <p:ajax event="dateSelect"  update="fechaAntigua" process="@this"/>
-                           <p:ajax event="change" update="fechaAntigua" process="@this"/>
-                        </p:calendar>
-                     </div>
+                        <h:outputText  value="En este formulario puede cambiarse la fecha de contratación del empleado, para ello solo debe rectificar la fecha actual Y diligenciar la nueva fecha de contratación."
+                                       style="position: absolute; top: 20px; left: 20px; font-weight: bold; width: 360px; text-align: justify;"/>
+                        
+                        <h:outputText  value="Fecha Antigua: " style="position: absolute; top: 95px; left: 95px; font-weight: bold;"/>
+                        <div id="divFechaAntigua" style="position: absolute; top: 95px; left: 230px;">
+                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" readonly="true" id="fechaAntigua" value="#{controlCambioFechaIngreso.vigenciaTipoContrato.fechavigencia}">
+                              <p:ajax event="dateSelect"  update="fechaAntigua" process="@this"/>
+                              <p:ajax event="change" update="fechaAntigua" process="@this"/>
+                           </p:calendar>
+                        </div>
 
-                     <h:outputText  value="Fecha Nueva: " style="position: absolute; top: 265px; left: 15px; font-weight: bold;"/>
-                     <div id="divFechaNueva" style="position: absolute; top: 305px; left: 15px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaNueva" value="#{controlCambioFechaIngreso.fechaNueva}">
-                           <p:ajax event="dateSelect" update="fechaNueva" process="@this"/>
-                           <p:ajax event="change" update="fechaNueva" process="@this"/>
-                        </p:calendar>
-                     </div>
+                        <h:outputText  value="Fecha Nueva: " style="position: absolute; top: 135px; left: 95px; font-weight: bold;"/>
+                        <div id="divFechaNueva" style="position: absolute; top: 135px; left: 230px;">
+                           <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaNueva" value="#{controlCambioFechaIngreso.fechaNueva}">
+                              <p:ajax event="dateSelect" update="fechaNueva" process="@this"/>
+                              <p:ajax event="change" update="fechaNueva" process="@this"/>
+                           </p:calendar>
+                        </div>
+                     </fieldset>
                   </fieldset>
                   <p:commandButton class="cssBotonAceptar" id="CAMBIAR" value="" actionListener="#{controlCambioFechaIngreso.cambiarFechaAntigua}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlCambioFechaIngreso.salir()}" value="" process="@this"/>

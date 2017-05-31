@@ -1914,7 +1914,6 @@ public class ControlTercero implements Serializable {
          terceroLOVSeleccionado.setTerceroconsolidador(new Terceros());
       }
       listTerceros.add(terceroLOVSeleccionado);
-      listTercerosLOV.clear();
       contarRegistrosTerc();
       RequestContext.getCurrentInstance().update("form:datosTerceros");
       listTercerosSucursales = null;

@@ -220,14 +220,13 @@
                            </span>
                         </p:treeNode>   
                      </p:tree>
-                     <p:commandButton id="btnEstructuraPlanta" value="Estructura Planta" icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; color: white;" onstart="#{controlEstructura.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'estructuraplanta')}" actionListener="#{controlEstructuraPlanta.inicializarPagina('estructura')}"/>
+                     <p:commandButton id="btnEstructuraPlanta" value="Estructura Planta" icon="ui-icon-extlink" style="position: relative; top: 225px;" class="cssBotonLargo"
+                                      onstart="#{controlEstructura.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'estructuraplanta')}" actionListener="#{controlEstructuraPlanta.inicializarPagina('estructura')}"/>
                      <p:tooltip  for="btnEstructuraPlanta" value="#{msg['estructuraplanta']}"/>
-                     <p:commandButton id="btnRiesgosProfesionales" value="Riesgos Pro..." icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; color: white;"/>
+                     <p:commandButton id="btnRiesgosProfesionales" value="Riesgos Pro..." icon="ui-icon-extlink" style="position: relative; top: 225px;" class="cssBotonLargo"/>
                      <p:tooltip  for="btnRiesgosProfesionales" value="#{msg['riesgosprofesionales']}"/>
-                     <p:commandButton id="btnReportePlanta" value="Reporte Planta" icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlEstructura.validarDescargaReporte()}" onclick="PF('generandoReporte').show()"/>
+                     <p:commandButton id="btnReportePlanta" value="Reporte Planta" icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px;" class="cssBotonLargo"
+                                      actionListener="#{controlEstructura.validarDescargaReporte()}" onclick="PF('generandoReporte').show()"/>
                      <p:tooltip  for="btnReportePlanta" value="#{msg['reporteplantapersonal']}"/>
                   </fieldset>
                </p:panel>
