@@ -66,7 +66,7 @@ public class ControlEmplAcumulados implements Serializable {
       listVWAcumuladosPorEmpleado = null;
       editarVWAcumuladosPorEmpleado = new VWAcumulados();
       secRegistro = null;
-      altoTabla = "292";
+      altoTabla = "280";
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -85,37 +85,20 @@ public class ControlEmplAcumulados implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+      String pagActual = "emplacumulados";
 
-      } else {
-         */
-String pagActual = "emplacumulados";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -127,7 +110,6 @@ String pagActual = "emplacumulados";
    }
 
    public void limpiarListasValor() {
-
    }
 
    @PostConstruct
@@ -225,8 +207,6 @@ String pagActual = "emplacumulados";
          System.out.println("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         altoTabla = "292";
-         System.out.println("Desactivar");
          cerrarFiltrado();
       }
    }
@@ -460,7 +440,7 @@ String pagActual = "emplacumulados";
       observaciones.setFilterStyle("display: none; visibility: hidden;");
       motivoNovedad = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:motivoNovedad");
       motivoNovedad.setFilterStyle("display: none; visibility: hidden;");
-      altoTabla = "292";
+      altoTabla = "280";
       RequestContext.getCurrentInstance().update("form:datosEmplAcumulados");
       bandera = 0;
       filtrarVWAcumuladosPorEmpleado = null;
