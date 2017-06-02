@@ -61,6 +61,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
 //PARAMETROS REPORTES
     private ParametrosReportes parametroDeReporte;
     private ParametrosReportes parametroModificacion;
+    private ParametrosReportes parametroFecha;
     //INFOREPORTES
     private List<Inforeportes> listaIR;
     private Inforeportes reporteSeleccionado;
@@ -161,6 +162,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
         aceptar = true;
         casilla = -1;
         parametroModificacion = new ParametrosReportes();
+        parametroFecha = new ParametrosReportes();
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
@@ -1371,6 +1373,43 @@ public class controlNReporteEvalCompetencia implements Serializable {
         RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpresa");
     }
 
+    public void mostrarDialogoNuevaFecha() {
+        getParametroDeInforme();
+        if (parametroDeReporte.getFechadesde() == null && parametroDeReporte.getFechahasta() == null) {
+            RequestContext.getCurrentInstance().update("formDialogos:nuevoRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').show()");
+        }
+    }
+
+    public void agregarFecha() {
+        int contador = 0;
+        if (parametroFecha.getFechadesde() == null) {
+            contador++;
+        }
+        if (parametroFecha.getFechahasta() == null) {
+            contador++;
+        }
+
+        if (contador == 0) {
+            parametroDeReporte.setFechadesde(parametroFecha.getFechadesde());
+            parametroDeReporte.setFechahasta(parametroFecha.getFechahasta());
+            RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
+            RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formDialogos:validacionRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('validacionRegistroFechas').show()");
+        }
+
+    }
+
+    public void limpiarNuevaFecha() {
+        parametroFecha.setFechadesde(null);
+        parametroFecha.setFechahasta(null);
+    }
+
     //GETTER AND SETTER
     public ParametrosReportes getParametroDeInforme() {
         try {
@@ -1815,6 +1854,14 @@ public class controlNReporteEvalCompetencia implements Serializable {
 
     public void setEvaluadorSeleccionado(EvalEvaluadores evaluadorSeleccionado) {
         this.evaluadorSeleccionado = evaluadorSeleccionado;
+    }
+
+    public ParametrosReportes getParametroDeReporte() {
+        return parametroDeReporte;
+    }
+
+    public void setParametroDeReporte(ParametrosReportes parametroDeReporte) {
+        this.parametroDeReporte = parametroDeReporte;
     }
 
 }

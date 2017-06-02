@@ -63,6 +63,7 @@ public class ControlNReportesSeguridad implements Serializable {
     AdministarReportesInterface administarReportes;
     private ParametrosReportes parametroDeReporte;
     private ParametrosReportes nuevoParametroInforme;
+    private ParametrosReportes parametroFecha;
     private List<Inforeportes> listaIR;
     private Inforeportes reporteSeleccionado;
     private List<Inforeportes> filtrarListIRU;
@@ -156,6 +157,7 @@ public class ControlNReportesSeguridad implements Serializable {
         aceptar = true;
         casilla = -1;
         parametroModificacion = new ParametrosReportes();
+        parametroFecha = new ParametrosReportes();
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
@@ -1090,6 +1092,7 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void generarReporte(Inforeportes reporte) {
+        cambiosReporte = false;
         guardarCambios();
         reporteSeleccionado = reporte;
         seleccionRegistro();
@@ -1323,6 +1326,43 @@ public class ControlNReportesSeguridad implements Serializable {
         if (listValInforeportes == null) {
             listValInforeportes = administrarNReportesSeguridad.listInforeportesUsuario();
         }
+    }
+
+    public void mostrarDialogoNuevaFecha() {
+        getParametroDeReporte();
+        if (parametroDeReporte.getFechadesde() == null && parametroDeReporte.getFechahasta() == null) {
+            RequestContext.getCurrentInstance().update("formDialogos:nuevoRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').show()");
+        }
+    }
+
+    public void agregarFecha() {
+        int contador = 0;
+        if (parametroFecha.getFechadesde() == null) {
+            contador++;
+        }
+        if (parametroFecha.getFechahasta() == null) {
+            contador++;
+        }
+
+        if (contador == 0) {
+            parametroDeReporte.setFechadesde(parametroFecha.getFechadesde());
+            parametroDeReporte.setFechahasta(parametroFecha.getFechahasta());
+            RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
+            RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formDialogos:validacionRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('validacionRegistroFechas').show()");
+        }
+
+    }
+
+    public void limpiarNuevaFecha() {
+        parametroFecha.setFechadesde(null);
+        parametroFecha.setFechahasta(null);
     }
 
 ////sets y gets
@@ -1783,6 +1823,14 @@ public class ControlNReportesSeguridad implements Serializable {
 
     public void setActivarLov(boolean activarLov) {
         this.activarLov = activarLov;
+    }
+
+    public ParametrosReportes getParametroFecha() {
+        return parametroFecha;
+    }
+
+    public void setParametroFecha(ParametrosReportes parametroFecha) {
+        this.parametroFecha = parametroFecha;
     }
 
 }

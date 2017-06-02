@@ -1908,31 +1908,38 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void exportarReporte() throws IOException {
-        System.out.println("pathReporteGenerado: " + pathReporteGenerado);
-        if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
+        try {
+            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
 
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
                 }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
+        } catch (Exception fe) {
+            System.out.println("error en exportarReporte : " + fe.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
+
     }
 
     public void generarArchivoReporte(JasperPrint print) {

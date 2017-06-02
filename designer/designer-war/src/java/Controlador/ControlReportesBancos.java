@@ -138,6 +138,7 @@ public class ControlReportesBancos implements Serializable {
     private ExternalContext externalContext;
     private String userAgent;
     private boolean activarLov;
+    private ParametrosReportes parametroFecha;
 
     public ControlReportesBancos() {
         activoMostrarTodos = true;
@@ -159,6 +160,7 @@ public class ControlReportesBancos implements Serializable {
         aceptar = true;
         casilla = -1;
         parametroModificacion = new ParametrosReportes();
+        parametroFecha = new ParametrosReportes();
         tipoLista = 0;
         reporteGenerar = "";
         requisitosReporte = "";
@@ -1437,6 +1439,43 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
+    public void mostrarDialogoNuevaFecha() {
+        getParametroDeReporte();
+        if (parametroDeReporte.getFechadesde() == null && parametroDeReporte.getFechahasta() == null) {
+            RequestContext.getCurrentInstance().update("formDialogos:nuevoRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').show()");
+        }
+    }
+
+    public void agregarFecha() {
+        int contador = 0;
+        if (parametroFecha.getFechadesde() == null) {
+            contador++;
+        }
+        if (parametroFecha.getFechahasta() == null) {
+            contador++;
+        }
+
+        if (contador == 0) {
+            parametroDeReporte.setFechadesde(parametroFecha.getFechadesde());
+            parametroDeReporte.setFechahasta(parametroFecha.getFechahasta());
+            RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
+            RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formDialogos:validacionRegistroFechas");
+            RequestContext.getCurrentInstance().execute("PF('validacionRegistroFechas').show()");
+        }
+
+    }
+
+    public void limpiarNuevaFecha() {
+        parametroFecha.setFechadesde(null);
+        parametroFecha.setFechahasta(null);
+    }
+    
     //GETTER && SETTER
     public ParametrosReportes getParametroDeReporte() {
         try {
@@ -1889,4 +1928,13 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     public void setActivarLov(boolean activarLov) {
         this.activarLov = activarLov;
     }
+
+    public ParametrosReportes getParametroFecha() {
+        return parametroFecha;
+    }
+
+    public void setParametroFecha(ParametrosReportes parametroFecha) {
+        this.parametroFecha = parametroFecha;
+    }
+    
 }

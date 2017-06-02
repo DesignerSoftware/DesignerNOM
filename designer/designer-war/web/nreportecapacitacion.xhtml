@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
->
+      >
     <h:head>
     </h:head>
     <h:body>
@@ -13,11 +13,12 @@
             <ui:define name="body">                  
                 <script type="text/javascript">
                     $(window).load(function () {
-                  foco('form:guardarRapido');
-               });
-               function foco(idElemento) {
-                  document.getElementById(idElemento).focus();
-                    };
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
+                    }
+                    ;
                 </script>
                 <div style="position: static;"></div>
                 <h:form id="form">
@@ -38,8 +39,8 @@
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" actionListener="#{controlNReporteCapacitacion.listaValoresBoton()}"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                               <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png)" 
-                                                id="filtrar" value="" actionListener="#{controlNReporteCapacitacion.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png)" 
+                                                 id="filtrar" value="" actionListener="#{controlNReporteCapacitacion.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/> 
@@ -220,6 +221,35 @@
                 </h:form>
 
                 <h:form id="formDialogos">
+
+                    <p:dialog id="validacionRegistroFechas" header="#{msg['error']}" widgetVar="validacionRegistroFechas"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Los campos marcados con asterisco son obligatorios" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroFechas" header="Nuevo Registro" widgetVar="nuevoRegistroFechas" closable="false" resizable="false"  draggable="true" modal="true" height="140" width="340" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Ingresar Fechas Parámetros" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="nuevaFecha" style="border: none;">
+
+                            <strong><h:outputText value="*FechaDesde: "  style=" position: absolute; top: 55px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaD" value="#{controlNReporteCapacitacion.parametroFecha.fechadesde}"
+                                        style="width: 135px; position: absolute; top: 50px; left: 135px;" >
+                                <p:ajax event="dateSelect" update="nuevaFecha"/>
+                                <p:ajax event="change" update="nuevaFecha"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*FechaHasta: "  style=" position: absolute; top: 85px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaH" value="#{controlNReporteCapacitacion.parametroFecha.fechahasta}"
+                                        style="width: 135px; position: absolute; top: 80px; left: 135px;" >
+                                <p:ajax event="dateSelect" update="nuevaFecha"/>
+                                <p:ajax event="change" update="nuevaFecha"/>
+                            </p:calendar>
+                            <p:commandButton id="agregarTE" value="Agregar" style="position: absolute; left: 130px; top: 115px;" actionListener="#{controlNReporteCapacitacion.agregarFecha()}" process="@this" icon="ui-icon-circle-check"/>
+                            <p:commandButton id="cancelarTE" value="Cancelar" style="position: absolute; left: 230px; top: 115px;"  update="nuevaFecha" onclick="PF('nuevoRegistroFechas').hide();"  actionListener="#{controlNReporteCapacitacion.limpiarNuevaFecha()}"  process="@this" icon="ui-icon-circle-close"/>
+                        </p:panel>
+                    </p:dialog>
+
                     <p:dialog header="#{msg['reporteR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlNReporteCapacitacion.listValInforeportes}" rowKey="#{reportes.secuencia}"
@@ -421,7 +451,7 @@
                     <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="100" width="360" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlNReporteCapacitacion.pathReporteGenerado}" style="position: absolute; left: 10px; width: 325px; height: 70px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteCapacitacion.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                         <p:media value="#{controlNReporteCapacitacion.reporte}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteCapacitacion.reporte != null}"/>
                     </p:dialog>
