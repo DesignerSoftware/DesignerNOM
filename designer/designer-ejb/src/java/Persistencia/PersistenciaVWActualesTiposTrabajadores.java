@@ -116,12 +116,12 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
             return totalRegistros.intValue();
          } else {
             System.out.println("Error en PersistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador. " + "No recibió el parametro");
-            return -1;
+            return 0;
          }
       } catch (Exception e) {
          System.out.println("AQUI");
          e.printStackTrace();
-         return -1;
+         return 0;
       }
    }
 

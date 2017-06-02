@@ -27,41 +27,51 @@
                   <p:toolbar styleClass="cssToolbar">   
                      <p:toolbarGroup align="left"> 
 
-                        <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" onclick="PF('botones').show();"  process="@this"/>
+                        <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         onclick="PF('botones').show();"  process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlEmplAcumulados.editarCelda()}" process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlEmplAcumulados.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton  disabled="true" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" onclick="PF('botones').show();" process="@this"/>
+                        <p:commandButton  disabled="true" id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                          onclick="PF('botones').show();" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  actionListener="#{controlEmplAcumulados.activarCtrlF11()}" process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlEmplAcumulados.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmplAcumulados.exportXLS()}" ajax="false"/>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         actionListener="#{controlEmplAcumulados.exportXLS()}" ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlEmplAcumulados.limpiarNuevaVigenciaFormpasPagos()}" ajax="false">
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         actionListener="#{controlEmplAcumulados.limpiarNuevaVigenciaFormpasPagos()}" ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosVWAEmpleadoExportar" fileName="EmplAcumuladosXML" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplAcumulados.exportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlEmplAcumulados.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px;" onclick="PF('botones').show();" process="@this"/> 
+                        <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         onclick="PF('botones').show();" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" onclick="PF('botones').show();" process="@this"/>  
+                        <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         onclick="PF('botones').show();" process="@this"/>  
                         <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
 
-                        <p:commandButton  disabled="true" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" onclick="PF('botones').show();"  process="@this"/>  
+                        <p:commandButton  disabled="true" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                          onclick="PF('botones').show();"  process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/> 
@@ -72,12 +82,14 @@
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmplAcumulados.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlEmplAcumulados.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="Refrescar"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplAcumulados.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlEmplAcumulados.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>
                   </p:toolbar>
@@ -93,14 +105,14 @@
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 376px; width: 830px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 373px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 13px; color: blue;"><strong>#{msg['acumulados']}</strong></legend>
 
                      <p:dataTable id="datosEmplAcumulados" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 2000px; position: absolute;"                           
                                   value="#{controlEmplAcumulados.listVWAcumuladosPorEmpleado}" scrollHeight="#{controlEmplAcumulados.altoTabla}" 
                                   filteredValue="#{controlEmplAcumulados.filtrarVWAcumuladosPorEmpleado}" emptyMessage="#{msg['vacio']}"
-                                  selection="#{controlEmplAcumulados.acumuladosPorEmpleadoSeleccionado}" selectionMode="single" rows="12"
-                                  editable="true" editMode="cell" scrollable="true" scrollWidth="830"
+                                  selection="#{controlEmplAcumulados.acumuladosPorEmpleadoSeleccionado}" selectionMode="single" rows="#{controlEmplAcumulados.altoTablaReg}"
+                                  editable="true" editMode="cell" scrollable="true" scrollWidth="830" widgetVar="datosEmplAcumulados"
                                   paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}">
                         <p:ajax event="filter" listener="#{controlEmplAcumulados.eventoFiltrar()}"/>
 
@@ -109,7 +121,6 @@
                               <h:outputText id="headerConcepto" value="#{msg['conceptoc']}"/>
                               <p:tooltip  for="headerConcepto" value="Código del Concepto."/>
                            </f:facet> 
-
                            <p:cellEditor>  
                               <f:facet  name="output"><h:outputText value="#{info.concepto_Codigo}"/></f:facet>  
                               <f:facet name="input">

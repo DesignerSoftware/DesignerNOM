@@ -326,7 +326,7 @@
                   <p:dialog header="#{msg['estructurasE']}" widgetVar="dlgEstructuras" draggable="true" resizable="false" id="dlgEstructuras"  
                             showEffect="fade" hideEffect="fade" modal="true" width="730" closable="false">
 
-                     <p:dataTable  id="estructurasLOV" var="estr" value="#{controlVigenciasCargos.dlgEstructuras}" rowKey="#{estr.secuencia}" 
+                     <p:dataTable  id="estructurasLOV" var="estr" value="#{controlVigenciasCargos.lovEstructuras}" rowKey="#{estr.secuencia}" 
                                    scrollable="true" scrollHeight="300" scrollWidth="707" widgetVar="estructurasLOV" 
                                    filteredValue="#{controlVigenciasCargos.filterEstructuras}" emptyMessage="#{msg['lovvacio']}"
                                    selection="#{controlVigenciasCargos.estructuraSeleccionada}" selectionMode="single">
@@ -414,7 +414,7 @@
                   <p:dialog header="#{msg['cargosC']}" widgetVar="dlgCargos" draggable="true" resizable="false" id="dlgCargos" closable="false"  
                             showEffect="fade" hideEffect="fade" modal="true" width="490">
 
-                     <p:dataTable  id="lOVCargos" var="carg" value="#{controlVigenciasCargos.cargos}"
+                     <p:dataTable  id="lOVCargos" var="carg" value="#{controlVigenciasCargos.lovCargos}"
                                    scrollable="true" scrollHeight="300" scrollWidth="467" widgetVar="lOVCargos" 
                                    filteredValue="#{controlVigenciasCargos.filterCargos}" emptyMessage="#{msg['lovvacio']}"
                                    rowKey="#{carg.secuencia}" selection="#{controlVigenciasCargos.cargoSeleccionado}" selectionMode="single">

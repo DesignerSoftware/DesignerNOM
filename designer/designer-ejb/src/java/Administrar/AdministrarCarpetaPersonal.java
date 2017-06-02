@@ -578,7 +578,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          System.out.println(this.getClass().getName() + " obtenerTotalRegistrosTipoTrabajador() totalRegistros: " + totalRegistros);
          return totalRegistros;
       } catch (Exception e) {
-         return -1;
+         return 0;
       }
    }
 

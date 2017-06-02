@@ -160,37 +160,19 @@ public class ControlVigenciasReformasLaborales implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigenciareformalaboral";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigenciareformalaboral";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -200,7 +182,6 @@ String pagActual = "emplvigenciareformalaboral";
       }
       limpiarListasValor();
    }
-
    //EMPLEADO DE LA VIGENCIA
    /**
     * Metodo que recibe la secuencia empleado desde la pagina anterior y obtiene
@@ -408,8 +389,8 @@ String pagActual = "emplvigenciareformalaboral";
          RequestContext.getCurrentInstance().update("form:listaValores");
       }
    }
-   //GUARDAR
 
+   //GUARDAR
    /**
     * Metodo que guarda los cambios efectuados en la pagina
     * VigenciasReformasLaborales
@@ -453,8 +434,8 @@ String pagActual = "emplvigenciareformalaboral";
       }
       vigenciaSeleccionada = null;
    }
-   //CANCELAR MODIFICACIONES
 
+   //CANCELAR MODIFICACIONES
    /**
     * Cancela las modificaciones realizas en la pagina
     */
@@ -581,8 +562,8 @@ String pagActual = "emplvigenciareformalaboral";
       nuevaVigencia = new VigenciasReformasLaborales();
       nuevaVigencia.setReformalaboral(new ReformasLaborales());
    }
-   //DUPLICAR VC
 
+   //DUPLICAR VC
    /**
     * Metodo que duplica una vigencia especifica dado por la posicion de la fila
     */
@@ -659,8 +640,8 @@ String pagActual = "emplvigenciareformalaboral";
          RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
       }
    }
-   //LIMPIAR DUPLICAR
 
+   //LIMPIAR DUPLICAR
    /**
     * Metodo que limpia los datos de un duplicar Vigencia
     */
@@ -693,7 +674,6 @@ String pagActual = "emplvigenciareformalaboral";
             filtrarVRL.remove(vigenciaSeleccionada);
          }
          contarRegistros();
-
          RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
          vigenciaSeleccionada = null;
 
@@ -705,8 +685,8 @@ String pagActual = "emplvigenciareformalaboral";
          }
       }
    }
-   //CTRL + F11 ACTIVAR/DESACTIVAR
 
+   //CTRL + F11 ACTIVAR/DESACTIVAR
    /**
     * Metodo que activa el filtrado por medio de la opcion en el tollbar o por
     * medio de la tecla Crtl+F11
@@ -765,8 +745,8 @@ String pagActual = "emplvigenciareformalaboral";
       limpiarListasValor();
       navegar("atras");
    }
-   //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
 
+   //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
    /**
     * Metodo que ejecuta el dialogo de reforma laboral
     *
@@ -882,8 +862,8 @@ String pagActual = "emplvigenciareformalaboral";
    public void activarAceptar() {
       aceptar = false;
    }
-   //EXPORTAR
 
+   //EXPORTAR
    /**
     * Metodo que exporta datos a PDF
     *
@@ -911,8 +891,8 @@ String pagActual = "emplvigenciareformalaboral";
       exporter.export(context, tabla, "VigenciasReformasLaboralesXLS", false, false, "UTF-8", null, null);
       context.responseComplete();
    }
-   //EVENTO FILTRAR
 
+   //EVENTO FILTRAR
    /**
     * Evento que cambia la lista reala a la filtrada
     */
@@ -933,8 +913,8 @@ String pagActual = "emplvigenciareformalaboral";
    public void contarRegistrosRL() {
       RequestContext.getCurrentInstance().update("form:infoRegistroReformaLaboral");
    }
-   //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
+   //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaSeleccionada != null) {
@@ -969,8 +949,8 @@ String pagActual = "emplvigenciareformalaboral";
          tablaC.setSelection(vigenciaSeleccionada);
       }
    }
-   //GETTERS AND SETTERS
 
+   //GETTERS AND SETTERS
    /**
     * Metodo que obtiene las VigenciasReformasLaborales de un empleado, en caso
     * de ser null por medio del administrar hace el llamado para almacenarlo

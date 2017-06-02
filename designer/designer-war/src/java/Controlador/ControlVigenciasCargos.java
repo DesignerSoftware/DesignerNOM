@@ -92,7 +92,7 @@ public class ControlVigenciasCargos implements Serializable {
    //Columnas Tabla VC
    private Column vcFecha, vcEstructura, vcMotivo, vcNombreCargo, vcCentrosC, vcNombreJefe, vcClaseRiesgo, vcPapel;
    //Estructuras
-   private List<Estructuras> dlgEstructuras;
+   private List<Estructuras> lovEstructuras;
    private List<Estructuras> filterEstructuras;
    private Estructuras estructuraSeleccionada;
    //Motivos
@@ -101,7 +101,7 @@ public class ControlVigenciasCargos implements Serializable {
    private MotivosCambiosCargos motivoSeleccionado;
 //   private MotivosCambiosCargosConverter motivoConverter;
    //Cargos
-   private List<Cargos> cargos;
+   private List<Cargos> lovCargos;
    private List<Cargos> filterCargos;
    private Cargos cargoSeleccionado;
    //Clase Riesgo
@@ -145,15 +145,8 @@ public class ControlVigenciasCargos implements Serializable {
    //REGISTRO QUE TENDRA EL FOCO
    private String registroFoco;
    //INFORMACION DEL REGISTRO QUE TIENE EL FOCO
-   private String infoRegistro;
-   private String altoTabla;
-   private String infoRegistroJefe;
-   private String infoRegistroEstructuras;
-   private String infoRegistroMotivos;
-   private String infoRegistroCargos;
-   private String infoRegistroClaseR;
-   private String infoRegistroPapel;
-   /// variables del dialogo vigencias arp
+   private String altoTabla, infoRegistro, infoRegistroJefe, infoRegistroEstructuras, infoRegistroMotivos, infoRegistroCargos, infoRegistroClaseR, infoRegistroPapel;
+   //variables del dialogo vigencias arp
    private String porcentaje;
    private VigenciasArps nuevaVigArp;
    //
@@ -173,12 +166,10 @@ public class ControlVigenciasCargos implements Serializable {
    //CONSTRUCTOR(ES)
    //------------------------------------------------------------------------------------------
    public ControlVigenciasCargos() {
-      System.out.println("ControlVigenciasCargos");
-
       actualesTiposTrabajadores = null;
       motivosCambiosCargos = null;
-      dlgEstructuras = null;
-      cargos = null;
+      lovEstructuras = null;
+      lovCargos = null;
       empleado = new Empleados();
       bandera = 0;
       vigenciasCargosEmpleado = null;
@@ -220,15 +211,14 @@ public class ControlVigenciasCargos implements Serializable {
       estadoReporte = false;
       lovPapeles = null;
       mapParametros.put("paginaAnterior", paginaAnterior);
-
    }
 
    public void limpiarListasValor() {
       lovClasesRiesgos = null;
       lovPapeles = null;
       motivosCambiosCargos = null;
-      dlgEstructuras = null;
-      cargos = null;
+      lovEstructuras = null;
+      lovCargos = null;
    }
 
    @PostConstruct
@@ -248,11 +238,6 @@ public class ControlVigenciasCargos implements Serializable {
       }
    }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
@@ -263,37 +248,19 @@ public class ControlVigenciasCargos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigenciascargos";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigenciascargos";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -302,7 +269,6 @@ String pagActual = "emplvigenciascargos";
          //}
       }
       limpiarListasValor();
-
    }
 
    //------------------------------------------------------------------------------------------
@@ -321,8 +287,6 @@ String pagActual = "emplvigenciascargos";
    }
 
    public void recibirPaginaEntrante(String pagina, Empleados emp) {
-      System.out.println(this.getClass().getName() + "recibirPaginaEntrante()");
-      System.out.println("Recibio la pagina " + pagina);
       paginaAnterior = pagina;
       recibirEmpleado(emp);
    }
@@ -352,28 +316,23 @@ String pagActual = "emplvigenciascargos";
    public void cargarEstructuras(VigenciasCargos vCargo) {
       activarLOV = false;
       String forFecha = formatoFecha.format(vCargo.getFechavigencia());
-      System.out.println("cargarEstructuras() forFecha : " + forFecha);
-      dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
-      System.out.println("dlgEstructuras : " + dlgEstructuras);
+      lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
       vigenciaSeleccionada = vCargo;
-      contarRegistrosEstructuras();
       RequestContext.getCurrentInstance().update("form:dlgEstructuras");
-      RequestContext.getCurrentInstance().update("form:listaValores");
       RequestContext.getCurrentInstance().execute("PF('dlgEstructuras').show()");
+      contarRegistrosEstructuras();
+      RequestContext.getCurrentInstance().update("form:listaValores");
       tipoActualizacion = 0;
    }
 
    public void cargarEstructurasNuevoRegistro(int tipoNuevo) {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoNuevo == 0) {
          tipoActualizacion = 1;
          if (nuevaVigencia.getFechavigencia() == null) {
             RequestContext.getCurrentInstance().execute("PF('necesitaFecha').show()");
          } else {
             String forFecha = formatoFecha.format(nuevaVigencia.getFechavigencia());
-            System.out.println("cargarEstructurasNuevoRegistro Nueva forFecha : " + forFecha);
-            dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
-            System.out.println("dlgEstructuras : " + dlgEstructuras);
+            lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
             contarRegistrosEstructuras();
             RequestContext.getCurrentInstance().update("form:dlgEstructuras");
             RequestContext.getCurrentInstance().execute("PF('dlgEstructuras').show()");
@@ -384,9 +343,7 @@ String pagActual = "emplvigenciascargos";
             RequestContext.getCurrentInstance().execute("PF('necesitaFecha').show()");
          } else {
             String forFecha = formatoFecha.format(duplicarVC.getFechavigencia());
-            System.out.println("cargarEstructurasNuevoRegistro Duplicar forFecha : " + forFecha);
-            dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
-            System.out.println("dlgEstructuras : " + dlgEstructuras);
+            lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
             contarRegistrosEstructuras();
             RequestContext.getCurrentInstance().update("form:dlgEstructuras");
             RequestContext.getCurrentInstance().execute("PF('dlgEstructuras').show()");
@@ -398,7 +355,6 @@ String pagActual = "emplvigenciascargos";
      * Metodo encargado de actualizar la Estructura de una VigenciaCargo
     */
    public void actualizarEstructura() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          vigenciaSeleccionada.setEstructura(estructuraSeleccionada);
 
@@ -448,7 +404,6 @@ String pagActual = "emplvigenciascargos";
             rta.add(m);
          }
       }
-      //System.out.println("...");
       return rta;
    }
 
@@ -456,7 +411,6 @@ String pagActual = "emplvigenciascargos";
      * Metodo encargado de actualizar el MotivoCambioCargo de una VigenciaCargo
     */
    public void actualizarMotivo() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          vigenciaSeleccionada.setMotivocambiocargo(motivoSeleccionado);
          if (!listVCCrear.contains(vigenciaSeleccionada)) {
@@ -497,7 +451,6 @@ String pagActual = "emplvigenciascargos";
      * Metodo encargado de actualizar el MotivoCambioCargo de una VigenciaCargo
     */
    public void actualizarCargo() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          vigenciaSeleccionada.setCargo(cargoSeleccionado);
          if (!listVCCrear.contains(vigenciaSeleccionada)) {
@@ -506,9 +459,7 @@ String pagActual = "emplvigenciascargos";
             } else if (!listVCModificar.contains(vigenciaSeleccionada)) {
                listVCModificar.add(vigenciaSeleccionada);
             }
-
          }
-
          if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -536,7 +487,6 @@ String pagActual = "emplvigenciascargos";
    }
 
    public void actualizarEmpleadoJefe() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          vigenciaSeleccionada.setEmpleadojefe(administrarVigenciasCargos.buscarEmpleado(tiposTrabajadorJefeSeleccionado.getRfEmpleado()));
          if (!listVCCrear.contains(vigenciaSeleccionada)) {
@@ -546,7 +496,6 @@ String pagActual = "emplvigenciascargos";
                listVCModificar.add(vigenciaSeleccionada);
             }
          }
-
          if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -620,8 +569,8 @@ String pagActual = "emplvigenciascargos";
          RequestContext.getCurrentInstance().update("form:dlgMotivos");
          RequestContext.getCurrentInstance().execute("PF('dlgMotivos').show()");
       } else if (dlg == 1) {
-         cargos = null;
-         getCargos();
+         lovCargos = null;
+         getLovCargos();
          contarRegistrosCargos();
          RequestContext.getCurrentInstance().update("form:dlgCargos");
          RequestContext.getCurrentInstance().execute("PF('dlgCargos').show()");
@@ -768,7 +717,6 @@ String pagActual = "emplvigenciascargos";
                vigenciaSeleccionada.setFechavigencia(fechaVigenciaBck);
             }
          }
-
          if (control == 0) {
             if (!listVCCrear.contains(vigenciaSeleccionada)) {
 
@@ -778,7 +726,6 @@ String pagActual = "emplvigenciascargos";
                   listVCModificar.add(vigenciaSeleccionada);
                }
             }
-
             if (guardado == true) {
                guardado = false;
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -790,18 +737,14 @@ String pagActual = "emplvigenciascargos";
       } else if (confirmarCambio.equalsIgnoreCase("ESTRUCTURA")) {
          activarLOV = false;
          vigenciaSeleccionada.getEstructura().setNombre(nombreEstructura);
-
-         for (int i = 0; i < dlgEstructuras.size(); i++) {
-            if (dlgEstructuras.get(i).getNombre().startsWith(valor.toUpperCase())) {
+         for (int i = 0; i < lovEstructuras.size(); i++) {
+            if (lovEstructuras.get(i).getNombre().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setEstructura(dlgEstructuras.get(indiceUnicoElemento));
-
-            dlgEstructuras.clear();
-            getDlgEstructuras();
+            vigenciaSeleccionada.setEstructura(lovEstructuras.get(indiceUnicoElemento));
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:dlgEstructuras");
@@ -812,7 +755,6 @@ String pagActual = "emplvigenciascargos";
       } else if (confirmarCambio.equalsIgnoreCase("MOTIVOC")) {
          activarLOV = false;
          vigenciaSeleccionada.getMotivocambiocargo().setNombre(motivoCambioC);
-
          for (int i = 0; i < motivosCambiosCargos.size(); i++) {
             if (motivosCambiosCargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -821,9 +763,6 @@ String pagActual = "emplvigenciascargos";
          }
          if (coincidencias == 1) {
             vigenciaSeleccionada.setMotivocambiocargo(motivosCambiosCargos.get(indiceUnicoElemento));
-
-            motivosCambiosCargos.clear();
-            getMotivosCambiosCargos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:dlgMotivos");
@@ -835,17 +774,17 @@ String pagActual = "emplvigenciascargos";
          activarLOV = false;
          vigenciaSeleccionada.getCargo().setNombre(nombreCargo);
 
-         for (int i = 0; i < cargos.size(); i++) {
-            if (cargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+         for (int i = 0; i < lovCargos.size(); i++) {
+            if (lovCargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setCargo(cargos.get(indiceUnicoElemento));
+            vigenciaSeleccionada.setCargo(lovCargos.get(indiceUnicoElemento));
 
-            cargos.clear();
-            getCargos();
+            lovCargos.clear();
+            getLovCargos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:dlgCargos");
@@ -887,7 +826,6 @@ String pagActual = "emplvigenciascargos";
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
       RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
-
    }
 
    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -903,7 +841,7 @@ String pagActual = "emplvigenciascargos";
                fechaValida = false;
             } else {
                forFecha = formatoFecha.format(nuevaVigencia.getFechavigencia());
-               dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
+               lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
                fechaValida = true;
             }
          } else if (tipoNuevo == 2) {
@@ -912,29 +850,29 @@ String pagActual = "emplvigenciascargos";
                fechaValida = false;
             } else {
                forFecha = formatoFecha.format(duplicarVC.getFechavigencia());
-               dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
+               lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
                fechaValida = true;
             }
          }
          if (fechaValida == true) {
-            for (int i = 0; i < dlgEstructuras.size(); i++) {
-               if (dlgEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovEstructuras.size(); i++) {
+               if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigencia.setEstructura(dlgEstructuras.get(indiceUnicoElemento));
+                  nuevaVigencia.setEstructura(lovEstructuras.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEstructura");
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCentroC");
                } else if (tipoNuevo == 2) {
-                  duplicarVC.setEstructura(dlgEstructuras.get(indiceUnicoElemento));
+                  duplicarVC.setEstructura(lovEstructuras.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEstructura");
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCentroC");
                }
-               dlgEstructuras.clear();
-               getDlgEstructuras();
+               lovEstructuras.clear();
+               getLovEstructuras();
             } else {
                RequestContext.getCurrentInstance().update("form:dlgEstructuras");
                RequestContext.getCurrentInstance().execute("PF('dlgEstructuras').show()");
@@ -991,22 +929,22 @@ String pagActual = "emplvigenciascargos";
          } else if (tipoNuevo == 2) {
             duplicarVC.getCargo().setNombre(nombreCargo);
          }
-         for (int i = 0; i < cargos.size(); i++) {
-            if (cargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovCargos.size(); i++) {
+            if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setCargo(cargos.get(indiceUnicoElemento));
+               nuevaVigencia.setCargo(lovCargos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreCargo");
             } else if (tipoNuevo == 2) {
-               duplicarVC.setCargo(cargos.get(indiceUnicoElemento));
+               duplicarVC.setCargo(lovCargos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreCargo");
             }
-            cargos.clear();
-            getCargos();
+            lovCargos.clear();
+            getLovCargos();
          } else {
             RequestContext.getCurrentInstance().update("form:dlgCargos");
             RequestContext.getCurrentInstance().execute("PF('dlgCargos').show()");
@@ -1420,7 +1358,7 @@ String pagActual = "emplvigenciascargos";
       if (vigenciaSeleccionada != null) {
          if (cualCelda == 1) {
             String forFecha = formatoFecha.format(vigenciaSeleccionada.getFechavigencia());
-            dlgEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
+            lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
             estructuraSeleccionada = null;
             contarRegistrosEstructuras();
             RequestContext.getCurrentInstance().update("form:dlgEstructuras");
@@ -1501,7 +1439,6 @@ String pagActual = "emplvigenciascargos";
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         System.out.println("Activar");
          vcFecha = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcFecha");
          vcFecha.setFilterStyle("width: 85% !important;");
          vcEstructura = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcEstructura");
@@ -1719,8 +1656,8 @@ String pagActual = "emplvigenciascargos";
    public void mostrarDialogoAdicionarPorcentaje() {
       nuevaVigArp.setFechainicial(new Date());
       nuevaVigArp.setFechafinal(new Date());
-      nuevaVigArp.setEstructuras(vigenciaSeleccionada.getEstructura());
-      nuevaVigArp.setCargos(vigenciaSeleccionada.getCargo());
+      nuevaVigArp.setEstructura(vigenciaSeleccionada.getEstructura().getSecuencia());
+      nuevaVigArp.setCargo(vigenciaSeleccionada.getCargo().getSecuencia());
       nuevaVigArp.setPorcentaje(BigDecimal.ZERO);
       RequestContext.getCurrentInstance().update("formularioDialogos:adicionarPorcentaje");
       RequestContext.getCurrentInstance().execute("PF('adicionarPorcentaje').show()");
@@ -1728,21 +1665,15 @@ String pagActual = "emplvigenciascargos";
 
    public void agregarPorcentajeARP() {
       int contador = 0;
-
       if (nuevaVigArp.getFechainicial() == null || nuevaVigArp.getFechafinal() == null || nuevaVigArp.getPorcentaje() == null) {
          contador++;
       }
-
-      System.out.println("contador: " + contador);
-
       if (contador == 0) {
-         porcentaje = administrarVigArp.buscarPorcentaje(nuevaVigArp.getEstructuras().getSecuencia(), nuevaVigArp.getCargos().getSecuencia(), new Date());
-         System.out.println("porcentaje: " + porcentaje);
+         porcentaje = administrarVigArp.buscarPorcentaje(nuevaVigArp.getEstructura(), nuevaVigArp.getCargo(), new Date());
          if (porcentaje != null) {
             RequestContext.getCurrentInstance().update("formularioDialogos:existePorcentaje");
             RequestContext.getCurrentInstance().execute("PF('existePorcentaje').show()");
          } else {
-            System.out.println("nuevaVigArp porcentaje : " + nuevaVigArp.getPorcentaje());
             nuevaVigArp.setPorcentaje(nuevaVigArp.getPorcentaje());
             RequestContext.getCurrentInstance().update("formularioDialogos:paso1");
             RequestContext.getCurrentInstance().execute("PF('paso1').show()");
@@ -1794,13 +1725,9 @@ String pagActual = "emplvigenciascargos";
 
    public void validarDescargaReporte() {
       try {
-         System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
-         RequestContext context = RequestContext.getCurrentInstance();
          nombreReporte = "funciones_cargo";
          tipoReporte = "PDF";
-         System.out.println("nombre reporte : " + nombreReporte);
-         System.out.println("tipo reporte: " + tipoReporte);
          SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
          String estructura = vigenciaSeleccionada.getEstructura().getSecuencia().toString();
          String cargo = vigenciaSeleccionada.getCargo().getSecuencia().toString();
@@ -1812,17 +1739,11 @@ String pagActual = "emplvigenciascargos";
          pathReporteGenerado = administarReportes.generarReporteFuncionesCargo(nombreReporte, tipoReporte, param);
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
          if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
             if (tipoReporte.equals("PDF")) {
-
-               System.out.println("validar descarga reporte - ingreso al if 2 else");
                FileInputStream fis;
                try {
-                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
                   fis = new FileInputStream(new File(pathReporteGenerado));
-                  System.out.println("fis : " + fis);
                   reporte = new DefaultStreamedContent(fis, "application/pdf");
-                  System.out.println("reporte despues de esto : " + reporte);
                   cabezeraVisor = "Reporte - " + nombreReporte;
                   RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
                   RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
@@ -1857,13 +1778,9 @@ String pagActual = "emplvigenciascargos";
    public void exportarReporte() throws IOException {
       System.out.println(this.getClass().getName() + ".exportarReporte()");
       if (pathReporteGenerado != null) {
-
          File reporteF = new File(pathReporteGenerado);
-         System.out.println("reporteF:  " + reporteF);
          FacesContext ctx = FacesContext.getCurrentInstance();
-         System.out.println("ctx:  " + ctx);
          FileInputStream fis = new FileInputStream(reporteF);
-         System.out.println("fis:   " + fis);
          byte[] bytes = new byte[1024];
          int read;
          if (!ctx.getResponseComplete()) {
@@ -1871,7 +1788,6 @@ String pagActual = "emplvigenciascargos";
             HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
             response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
             ServletOutputStream out = response.getOutputStream();
-
             while ((read = fis.read(bytes)) != -1) {
                out.write(bytes, 0, read);
             }
@@ -1894,7 +1810,6 @@ String pagActual = "emplvigenciascargos";
          }
          return vigenciasCargosEmpleado;
       } catch (Exception e) {
-         //System.out.println("Error....................!!!!!!!!!!!! getVigenciasCargosEmpleado ");
          return null;
       }
    }
@@ -1934,15 +1849,15 @@ String pagActual = "emplvigenciascargos";
    }
 
    //dlgEstructuras-----------------------------------------
-   public List<Estructuras> getDlgEstructuras() {
-      if (dlgEstructuras == null) {
-         dlgEstructuras = administrarEstructuras.consultarTodoEstructuras();
+   public List<Estructuras> getLovEstructuras() {
+      if (lovEstructuras == null) {
+         lovEstructuras = administrarEstructuras.consultarTodoEstructuras();
       }
-      return dlgEstructuras;
+      return lovEstructuras;
    }
 
-   public void setDlgEstructuras(List<Estructuras> dlgEstructuras) {
-      this.dlgEstructuras = dlgEstructuras;
+   public void setLovEstructuras(List<Estructuras> lovEstructuras) {
+      this.lovEstructuras = lovEstructuras;
    }
    //Estructurasfilter--------------------------------------
 
@@ -2000,27 +1915,17 @@ String pagActual = "emplvigenciascargos";
    public void setMotivoSeleccionado(MotivosCambiosCargos motivoSeleccionado) {
       this.motivoSeleccionado = motivoSeleccionado;
    }
-   //MotivoConverter--------------------------------------
 
-   /*public MotivosCambiosCargosConverter getMotivoConverter() {
-      motivoConverter.setMo(getMotivosCambiosCargos());
-      return motivoConverter;
-   }
-
-   public void setMotivoConverter(MotivosCambiosCargosConverter motivoConverter) {
-      this.motivoConverter = motivoConverter;
-   }**/
-   //CARGOS
    //Cargos------------------------------------------------
-   public List<Cargos> getCargos() {
-      if (cargos == null) {
-         cargos = administrarEstructuras.consultarTodoCargos();
+   public List<Cargos> getLovCargos() {
+      if (lovCargos == null) {
+         lovCargos = administrarEstructuras.consultarTodoCargos();
       }
-      return cargos;
+      return lovCargos;
    }
 
-   public void setCargos(List<Cargos> cargos) {
-      this.cargos = cargos;
+   public void setLovCargos(List<Cargos> lovCargos) {
+      this.lovCargos = lovCargos;
    }
 
    public String getInfoRegistroCargos() {

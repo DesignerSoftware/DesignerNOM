@@ -138,6 +138,7 @@ public class ControlRemoto implements Serializable {
    private boolean resultadoBusquedaAv = false;
    private List<VWActualesTiposTrabajadores> listaBusquedaAvanzada;
    private List<ObjetosJsf> ListObjetosJSF;
+   private List<String> listObjetosSinEmpleados;
    private ControlListaNavegacion controlListaNavegacion;
 
    public ControlRemoto() {
@@ -228,6 +229,7 @@ public class ControlRemoto implements Serializable {
             System.out.println("ControlRemoto.inicializarAdministrador() 7 CATCH");
          }
          actualizarInformacionTipoTrabajador();
+         llenarListaDeshavilitados();
          System.out.println("ControlRemoto.inicializarAdministrador() 8");
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
          System.out.println("ControlRemoto.inicializarAdministrador() 9");
@@ -261,133 +263,116 @@ public class ControlRemoto implements Serializable {
    }
 
    public void valorInputText() throws ParseException {
-      if (vwActualesTiposTrabajadoresPosicion.getEmpleado() != null) {
-         secuencia = vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia();
-         identificacion = vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getNumerodocumento();
-      }
+      if (vwActualesTiposTrabajadoresPosicion != null) {
+         if (vwActualesTiposTrabajadoresPosicion.getEmpleado() != null) {
+            secuencia = vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia();
+            identificacion = vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getNumerodocumento();
+            try {
+               vwActualesCargos = administrarCarpetaPersonal.consultarActualCargoEmpleado(secuencia);
+               Date actualFechaHasta = administrarCarpetaPersonal.consultarActualesFechas();
+               String actualARP = administrarCarpetaPersonal.consultarActualARP(vwActualesCargos.getEstructura().getSecuencia(), vwActualesCargos.getCargo().getSecuencia(), actualFechaHasta);
+               actualCargo = "%ARP: " + actualARP + " > " + vwActualesCargos.getCargo().getNombre() + " - " + vwActualesCargos.getEstructura().getOrganigrama().getEmpresa().getNombre();
+            } catch (Exception e) {
+               actualCargo = null;
+            }
+            try {
+               vwActualesTiposContratos = administrarCarpetaPersonal.consultarActualTipoContratoEmpleado(secuencia);
+               if (vwActualesTiposContratos != null) {
+                  fechaActualesTiposContratos = formato.format(vwActualesTiposContratos.getFechaVigencia());
+               } else {
+                  fechaActualesTiposContratos = null;
+               }
+            } catch (ParseException pe) {
+               vwActualesTiposContratos = null;
+               fechaActualesTiposContratos = null;
+            }
+            try {
+               vwActualesNormasEmpleados = administrarCarpetaPersonal.consultarActualNormaLaboralEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesNormasEmpleados = null;
+            }
+            try {
+               vwActualesAfiliacionesSalud = administrarCarpetaPersonal.consultarActualAfiliacionSaludEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesAfiliacionesSalud = null;
+            }
+            try {
+               vwActualesAfiliacionesPension = administrarCarpetaPersonal.consultarActualAfiliacionPensionEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesAfiliacionesPension = null;
+            }
+            try {
+               vwActualesLocalizaciones = administrarCarpetaPersonal.consultarActualLocalizacionEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesLocalizaciones = null;
+            }
+            try {
+               vwActualesTiposTrabajadores = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(secuencia);
+            } catch (Exception e) {
 
-      try {
-         vwActualesCargos = administrarCarpetaPersonal.consultarActualCargoEmpleado(secuencia);
-         Date actualFechaHasta = administrarCarpetaPersonal.consultarActualesFechas();
-         String actualARP = administrarCarpetaPersonal.consultarActualARP(vwActualesCargos.getEstructura().getSecuencia(), vwActualesCargos.getCargo().getSecuencia(), actualFechaHasta);
-         actualCargo = "%ARP: " + actualARP + " > " + vwActualesCargos.getCargo().getNombre() + " - " + vwActualesCargos.getEstructura().getOrganigrama().getEmpresa().getNombre();
-      } catch (Exception e) {
-         actualCargo = null;
-      }
-
-      try {
-         vwActualesTiposContratos = administrarCarpetaPersonal.consultarActualTipoContratoEmpleado(secuencia);
-         if (vwActualesTiposContratos != null) {
-            fechaActualesTiposContratos = formato.format(vwActualesTiposContratos.getFechaVigencia());
-         } else {
-            fechaActualesTiposContratos = null;
+               vwActualesTiposTrabajadores = null;
+            }
+            try {
+               vwActualesContratos = administrarCarpetaPersonal.consultarActualContratoEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesContratos = null;
+            }
+            try {
+               vwActualesJornadas = administrarCarpetaPersonal.consultarActualJornadaEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesJornadas = null;
+            }
+            try {
+               Sueldo = "TOTAL: " + nf.format(administrarCarpetaPersonal.consultarActualSueldoEmpleado(secuencia));
+            } catch (Exception e) {
+               Sueldo = null;
+            }
+            try {
+               vwActualesReformasLaborales = administrarCarpetaPersonal.consultarActualReformaLaboralEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesReformasLaborales = null;
+            }
+            try {
+               vwActualesUbicaciones = administrarCarpetaPersonal.consultarActualUbicacionEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesUbicaciones = null;
+            }
+            try {
+               vwActualesFormasPagos = administrarCarpetaPersonal.consultarActualFormaPagoEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesFormasPagos = null;
+            }
+            try {
+               vwActualesVigenciasViajeros = administrarCarpetaPersonal.consultarActualTipoViajeroEmpleado(secuencia);
+            } catch (Exception e) {
+               vwActualesVigenciasViajeros = null;
+            }
+            try {
+               estadoVacaciones = administrarCarpetaPersonal.consultarActualEstadoVacaciones(secuencia);
+            } catch (Exception e) {
+               estadoVacaciones = null;
+            }
+            try {
+               actualMVR = administrarCarpetaPersonal.consultarActualMVR(secuencia);
+            } catch (Exception e) {
+               actualMVR = null;
+            }
+            try {
+               actualIBC = administrarCarpetaPersonal.actualIBC(secuencia, vwActualesTiposTrabajadoresPosicion.getEmpleado().getEmpresa().getRetencionysegsocxpersona());
+            } catch (Exception e) {
+               actualIBC = null;
+            }
+            try {
+               actualSet = administrarCarpetaPersonal.consultarActualSet(secuencia);
+            } catch (Exception e) {
+               actualSet = null;
+            }
+            try {
+               actualComprobante = administrarCarpetaPersonal.consultarActualComprobante(secuencia);
+            } catch (Exception e) {
+               actualComprobante = null;
+            }
          }
-         //} catch (Exception e) {
-      } catch (ParseException pe) {
-         vwActualesTiposContratos = null;
-         fechaActualesTiposContratos = null;
-      }
-
-      try {
-         vwActualesNormasEmpleados = administrarCarpetaPersonal.consultarActualNormaLaboralEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesNormasEmpleados = null;
-      }
-
-      try {
-         vwActualesAfiliacionesSalud = administrarCarpetaPersonal.consultarActualAfiliacionSaludEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesAfiliacionesSalud = null;
-      }
-
-      try {
-         vwActualesAfiliacionesPension = administrarCarpetaPersonal.consultarActualAfiliacionPensionEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesAfiliacionesPension = null;
-      }
-
-      try {
-         vwActualesLocalizaciones = administrarCarpetaPersonal.consultarActualLocalizacionEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesLocalizaciones = null;
-      }
-
-      try {
-         vwActualesTiposTrabajadores = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(secuencia);
-      } catch (Exception e) {
-
-         vwActualesTiposTrabajadores = null;
-      }
-
-      try {
-         vwActualesContratos = administrarCarpetaPersonal.consultarActualContratoEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesContratos = null;
-      }
-
-      try {
-         vwActualesJornadas = administrarCarpetaPersonal.consultarActualJornadaEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesJornadas = null;
-      }
-
-      try {
-         Sueldo = "TOTAL: " + nf.format(administrarCarpetaPersonal.consultarActualSueldoEmpleado(secuencia));
-      } catch (Exception e) {
-         Sueldo = null;
-      }
-
-      try {
-         vwActualesReformasLaborales = administrarCarpetaPersonal.consultarActualReformaLaboralEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesReformasLaborales = null;
-      }
-
-      try {
-         vwActualesUbicaciones = administrarCarpetaPersonal.consultarActualUbicacionEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesUbicaciones = null;
-      }
-
-      try {
-         vwActualesFormasPagos = administrarCarpetaPersonal.consultarActualFormaPagoEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesFormasPagos = null;
-      }
-
-      try {
-         vwActualesVigenciasViajeros = administrarCarpetaPersonal.consultarActualTipoViajeroEmpleado(secuencia);
-      } catch (Exception e) {
-         vwActualesVigenciasViajeros = null;
-      }
-
-      try {
-         estadoVacaciones = administrarCarpetaPersonal.consultarActualEstadoVacaciones(secuencia);
-      } catch (Exception e) {
-         estadoVacaciones = null;
-      }
-      try {
-         actualMVR = administrarCarpetaPersonal.consultarActualMVR(secuencia);
-      } catch (Exception e) {
-         actualMVR = null;
-      }
-
-      try {
-         actualIBC = administrarCarpetaPersonal.actualIBC(secuencia, vwActualesTiposTrabajadoresPosicion.getEmpleado().getEmpresa().getRetencionysegsocxpersona());
-      } catch (Exception e) {
-         actualIBC = null;
-      }
-
-      try {
-         actualSet = administrarCarpetaPersonal.consultarActualSet(secuencia);
-      } catch (Exception e) {
-         actualSet = null;
-      }
-
-      try {
-         actualComprobante = administrarCarpetaPersonal.consultarActualComprobante(secuencia);
-      } catch (Exception e) {
-         actualComprobante = null;
       }
    }
 
@@ -1152,20 +1137,21 @@ public class ControlRemoto implements Serializable {
    }
 
    public void actualizarInformacionTipoTrabajador() {
-      informacionTiposTrabajadores = "Reg. " + (posicion + 1) + " de " + totalRegistros;
+      if (totalRegistros == 0) {
+         informacionTiposTrabajadores = "Reg. 0 de 0";
+      } else {
+         informacionTiposTrabajadores = "Reg. " + (posicion + 1) + " de " + totalRegistros;
+      }
    }
 
    public void actualizarNavegacion() {
-      System.out.println("actualizarNavegacion() 1");
       RequestContext.getCurrentInstance().update("form:tabmenu:btnprimero");
       RequestContext.getCurrentInstance().update("form:tabmenu:btnatras");
       RequestContext.getCurrentInstance().update("form:tabmenu:btnsiguiente");
       RequestContext.getCurrentInstance().update("form:tabmenu:btnultimo");
-      System.out.println("actualizarNavegacion() 2");
    }
 
    public VWActualesTiposTrabajadores requerirTipoTrabajador(int posicion) {
-      System.out.println("resultadoBusquedaAv : " + resultadoBusquedaAv);
       if (resultadoBusquedaAv) {
          vwActualesTiposTrabajadoresPosicion = listaBusquedaAvanzada.get(posicion);
       } else {
@@ -1180,6 +1166,53 @@ public class ControlRemoto implements Serializable {
       banner.add(new BannerInicioRed("http://www.nomina.com.co/images/publicidadInn/pInn02.png", "www.nomina.com.co"));
       banner.add(new BannerInicioRed("https://www.nomina.com.co/images/publicidadInn/pInn03.png", "www.nomina.com.co"));
       banner.add(new BannerInicioRed("https://www.nomina.com.co/images/publicidadInn/pInn04.png", "www.nomina.com.co"));
+   }
+
+   public void llenarListaDeshavilitados() {
+      listObjetosSinEmpleados = new ArrayList<String>();
+      listObjetosSinEmpleados.add("hojadevida");
+      listObjetosSinEmpleados.add("txtcargodesempenhado");
+      listObjetosSinEmpleados.add("txtfechacontratacion");
+      listObjetosSinEmpleados.add("txtnormalaboral");
+      listObjetosSinEmpleados.add("txtafiliaciones");
+      listObjetosSinEmpleados.add("txtibc");
+      listObjetosSinEmpleados.add("txttipoviajero");
+      listObjetosSinEmpleados.add("txtcentrodecosto");
+      listObjetosSinEmpleados.add("txttipotrabajador");
+      listObjetosSinEmpleados.add("txtlegislacionlaboral");
+      listObjetosSinEmpleados.add("txtjornada");
+      listObjetosSinEmpleados.add("txtmenorvalorretencion");
+      listObjetosSinEmpleados.add("txtvacaciones");
+      listObjetosSinEmpleados.add("txtsueldo");
+      listObjetosSinEmpleados.add("txttiposalario");
+      listObjetosSinEmpleados.add("txtubicaciongeografica");
+      listObjetosSinEmpleados.add("txtformadepago");
+      listObjetosSinEmpleados.add("txtset");
+      listObjetosSinEmpleados.add("txtcomprobantesdepago");
+      listObjetosSinEmpleados.add("cargodesempenhado");
+      listObjetosSinEmpleados.add("fechacontratacion");
+      listObjetosSinEmpleados.add("normalaboral");
+      listObjetosSinEmpleados.add("afiliaciones");
+      listObjetosSinEmpleados.add("ibc");
+      listObjetosSinEmpleados.add("tipoviajero");
+      listObjetosSinEmpleados.add("centrodecosto");
+      listObjetosSinEmpleados.add("tipotrabajador");
+      listObjetosSinEmpleados.add("legislacionlaboral");
+      listObjetosSinEmpleados.add("jornada");
+      listObjetosSinEmpleados.add("menorvalorretencio");
+      listObjetosSinEmpleados.add("vacaciones");
+      listObjetosSinEmpleados.add("sueldo");
+      listObjetosSinEmpleados.add("tiposalario");
+      listObjetosSinEmpleados.add("ubicacion");
+      listObjetosSinEmpleados.add("formadepago");
+      listObjetosSinEmpleados.add("set");
+      listObjetosSinEmpleados.add("comprobantes");
+      listObjetosSinEmpleados.add("acumuladosnomina");
+      listObjetosSinEmpleados.add("novedadesempleado");
+      listObjetosSinEmpleados.add("evaluarpersona");
+      listObjetosSinEmpleados.add("resultadosevaluaciones");
+      listObjetosSinEmpleados.add("informacionadicional");
+//      listObjetosSinEmpleados.add("reporteslaborales");
    }
 
    //   GET'S Y SET'S
@@ -1464,6 +1497,9 @@ public class ControlRemoto implements Serializable {
    }
 
    public boolean isBuscarEmp() {
+      if (totalRegistros == 0) {
+         buscarEmp = true;
+      }
       return buscarEmp;
    }
 
@@ -1838,18 +1874,31 @@ public class ControlRemoto implements Serializable {
    }
 
    public boolean consultarPermisosPorId(String id) {
-      boolean enable = false;
-      if (ListObjetosJSF != null) {
-         if (!ListObjetosJSF.isEmpty()) {
-            for (int i = 0; i < ListObjetosJSF.size(); i++) {
-               if (id.equalsIgnoreCase(ListObjetosJSF.get(i).getIdentificador())) {
-                  enable = ListObjetosJSF.get(i).getEnable().equals("N");
-                  i = ListObjetosJSF.size();
-               }
+      int n = 0;
+      if (totalRegistros == 0) {
+         for (int i = 0; i < listObjetosSinEmpleados.size(); i++) {
+            if (id.equals(listObjetosSinEmpleados.get(i))) {
+               n++;
+               break;
             }
          }
       }
-      return enable;
+      if (n > 0) {
+         return true;
+      } else {
+         boolean enable = false;
+         if (ListObjetosJSF != null) {
+            if (!ListObjetosJSF.isEmpty()) {
+               for (int i = 0; i < ListObjetosJSF.size(); i++) {
+                  if (id.equalsIgnoreCase(ListObjetosJSF.get(i).getIdentificador())) {
+                     enable = ListObjetosJSF.get(i).getEnable().equals("N");
+                     i = ListObjetosJSF.size();
+                  }
+               }
+            }
+         }
+         return enable;
+      }
    }
 
    public boolean consultarRenderPorId(String id) {

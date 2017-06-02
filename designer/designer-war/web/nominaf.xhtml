@@ -128,7 +128,6 @@
                               <p:commandButton id="buscarempleado" class="cssBotonBuscar" style="left: 370px; top: 60px; position: absolute;" disabled="#{controlRemoto.buscarEmp}"
                                                value="#{msg['Buscar']}" process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" update=":form:formlovempleados:lvbuscarempleado"
                                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(); $(function(){PrimeFaces.focus('form:formlovempleados:lvbuscarempleado:globalFilter');});"/>
-                                                <!--disabled="#/{controlRemoto.consultarPermisosPorId('buscarempleado')}"-->
                               <p:tooltip  for="buscarempleado">
                                  #{msg['buscarunempleadoporcedula']}<br/>#{msg['nombreoapellidos']}
                               </p:tooltip>

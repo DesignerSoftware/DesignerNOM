@@ -55,7 +55,7 @@ public class ControlEmplAcumulados implements Serializable {
            credito, centroCostoCredito, ultimaModificacion, observaciones, motivoNovedad;
    private BigInteger secRegistro;
    private int tamano;
-   public String altoTabla;
+   public String altoTabla, altoTablaReg;
    public String infoRegistro;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
@@ -86,7 +86,6 @@ public class ControlEmplAcumulados implements Serializable {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       String pagActual = "emplacumulados";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -125,33 +124,15 @@ public class ControlEmplAcumulados implements Serializable {
    }
 
    public void recibirEmpleado(BigInteger sec) {
-      if (sec == null) {
-         System.out.println("ControlVigenciasFormasPagos.recibirEmpleado");
-         System.out.println("La secuencia pasada como parametro es null: " + sec.toString());
-      }
       empleadoSeleccionado = null;
       secuenciaEmpleado = sec;
       getListVWAcumuladosPorEmpleado();
       if (listVWAcumuladosPorEmpleado != null && !listVWAcumuladosPorEmpleado.isEmpty()) {
-         System.out.println("Entra al primer IF");
          if (listVWAcumuladosPorEmpleado.size() == 1) {
-            //INFORMACION REGISTRO
             acumuladosPorEmpleadoSeleccionado = listVWAcumuladosPorEmpleado.get(0);
-            //infoRegistro = "Registro 1 de 1";
-            // infoRegistro = "Cantidad de registros: 1";
-            modificarInfoRegistro(1);
          } else if (listVWAcumuladosPorEmpleado.size() > 1) {
-            System.out.println("Else If");
-            //INFORMACION REGISTRO
             acumuladosPorEmpleadoSeleccionado = listVWAcumuladosPorEmpleado.get(0);
-            //infoRegistro = "Registro 1 de " + vigenciasCargosEmpleado.size();
-            // infoRegistro = "Cantidad de registros: " + listVWAcumuladosPorEmpleado.size();
-            modificarInfoRegistro(listVWAcumuladosPorEmpleado.size());
          }
-
-      } else {
-         //infoRegistro = "Cantidad de registros: 0";
-         modificarInfoRegistro(0);
       }
    }
 
@@ -159,14 +140,13 @@ public class ControlEmplAcumulados implements Serializable {
       if (tipoLista == 0) {
          tipoLista = 1;
       }
-      modificarInfoRegistro(filtrarVWAcumuladosPorEmpleado.size());
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      modificarInfoRegistro();
    }
 
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "272";
+         altoTabla = "260";
          conceptoCodigo = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:conceptoCodigo");
          conceptoCodigo.setFilterStyle("width: 85% !important");
          conceptoDescripcion = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:conceptoDescripcion");
@@ -447,9 +427,8 @@ public class ControlEmplAcumulados implements Serializable {
       tipoLista = 0;
    }
 
-   private void modificarInfoRegistro(int valor) {
-      infoRegistro = String.valueOf(valor);
-      System.out.println("infoRegistro: " + infoRegistro);
+   private void modificarInfoRegistro() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
 
    //-----------------------------------------------------------------------------
@@ -508,7 +487,23 @@ public class ControlEmplAcumulados implements Serializable {
       this.altoTabla = altoTabla;
    }
 
+   public String getAltoTablaReg() {
+      if ("260".equals(altoTabla)) {
+         altoTablaReg = "11";
+      } else {
+         altoTablaReg = "12";
+      }
+      return altoTablaReg;
+   }
+
+   public void setAltoTablaReg(String altoTablaReg) {
+      this.altoTablaReg = altoTablaReg;
+   }
+
    public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmplAcumulados");
+      infoRegistro = String.valueOf(tabla.getRowCount());
       return infoRegistro;
    }
 }

@@ -916,8 +916,8 @@
       </navigation-case>
 
       <navigation-case>
-         <from-outcome>estructuras</from-outcome>
-         <to-view-id>/estructuras.xhtml</to-view-id>
+         <from-outcome>estructura</from-outcome>
+         <to-view-id>/estructura.xhtml</to-view-id>
          <redirect />
       </navigation-case>
 
@@ -2541,7 +2541,7 @@
    </navigation-rule>
       
    <navigation-rule>
-      <from-view-id>/estructuras.xhtml</from-view-id>
+      <from-view-id>/estructura.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>rastrotabla</from-outcome>
          <to-view-id>/rastrotabla.xhtml</to-view-id>
@@ -3063,6 +3063,23 @@
       <navigation-case>
          <from-outcome>estructuraplanta</from-outcome>
          <to-view-id>/estructuraplanta.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+    
+   <navigation-rule>
+      <from-view-id>/vigenciasarps.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>estructura</from-outcome>
+         <to-view-id>/estructura.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/estructura.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>vigenciasarps</from-outcome>
+         <to-view-id>/vigenciasarps.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
