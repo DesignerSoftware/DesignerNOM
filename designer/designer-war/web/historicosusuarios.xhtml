@@ -191,7 +191,7 @@
                                         <h:outputText id="headerbaseestructura" value="Manipulación"/>
                                         <p:tooltip for="headerbaseestructura" value="Descripción Cambio"/>
                                     </f:facet>  
-                                    <p:selectOneMenu  id="editarBaseEstructura" value="#{usuario.estadoDescripcion}" style="width: 85%;height: 20px"
+                                    <p:selectOneMenu  id="editarBaseEstructura" value="#{usuario.estadoDescripcion}" style="width: 85%;height: 20px; color: transparent !important; background: transparent"
                                                       onblur="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});"
                                                       onfocus="PF('datosHistoricosUsuarios').unselectAllRows();PF('datosHistoricosUsuarios').selectRow(#{indice});">  
                                         <f:selectItem itemLabel="REGISTRO INSERTADO" itemValue="REGISTRO INSERTADO"/>  

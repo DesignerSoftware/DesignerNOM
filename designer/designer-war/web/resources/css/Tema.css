@@ -505,7 +505,7 @@ button .ui-widget-header{
 .ui-datatable-scrollable .ui-state-highlight .ui-inputfield{
     /*width: 98% !important;*/
     margin: 0px !important;
-    color: white !important;
+/*    color: white !important;*/
     margin-left: -3px !important;
     border-radius: 3px !important;
 }

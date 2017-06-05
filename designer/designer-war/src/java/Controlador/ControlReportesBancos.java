@@ -1183,8 +1183,6 @@ public class ControlReportesBancos implements Serializable {
     public void validarDescargaReporte() {
         try {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("path reporte generado en validar descargar reporte : " + pathReporteGenerado);
-            System.out.println("tipo reporte en validar descargar reporte : " + tipoReporte);
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
                 if (tipoReporte.equals("TXT")) {
                     RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
