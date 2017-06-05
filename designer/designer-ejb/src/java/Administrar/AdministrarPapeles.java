@@ -11,6 +11,7 @@ import Entidades.Empresas;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaPapelesInterface;
 import InterfacePersistencia.PersistenciaEmpresasInterface;
+import InterfacePersistencia.PersistenciaPantallasInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,33 +25,14 @@ import javax.persistence.EntityManager;
 @Stateful
 public class AdministrarPapeles implements AdministrarPapelesInterface {
 
-    // --------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaPapeles'.
-     */
     @EJB
     PersistenciaPapelesInterface persistenciaPapeles;
-
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaEmpresas'.
-     */
     @EJB
     PersistenciaEmpresasInterface persistenciaEmpresas;
-
-    //-------------------------------------------------------------------------------------
-        /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
     @EJB
     AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaPantallasInterface persistenciaPantallas;
 
     private EntityManager em;
 
@@ -123,6 +105,12 @@ public class AdministrarPapeles implements AdministrarPapelesInterface {
             System.out.println("ERROR ADMINISTRARPAPELES CONTARVIGENCIASCARGOSPAPEL ERRO : " + e);
             return null;
         }
+    }
+
+    @Override
+    public String interfaceContable(BigInteger secEmpresa) {
+       String intcontable = persistenciaPantallas.buscarIntContable(em, secEmpresa);
+       return intcontable;
     }
 
 }

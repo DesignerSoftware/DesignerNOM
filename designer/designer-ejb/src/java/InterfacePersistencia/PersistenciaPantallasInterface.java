@@ -21,5 +21,6 @@ public interface PersistenciaPantallasInterface {
      */
     public Pantallas buscarPantalla(EntityManager em, BigInteger secuenciaTab);
     public List<Pantallas> buscarPantallas(EntityManager em);
+    public String buscarIntContable(EntityManager em,BigInteger secEmpresa);
 
 }

@@ -56,4 +56,19 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             return null;
         }
     }
+
+    @Override
+    public String buscarIntContable(EntityManager em, BigInteger secEmpresa) {
+        try {
+            em.clear();
+            String sql="SELECT NOMBRE FROM PANTALLAS WHERE CODIGO = 902 AND EMPRESA = ?";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secEmpresa);
+            String intcontables = (String) query.getSingleResult();
+            return intcontables;
+        } catch (Exception e) {
+            System.err.println("Error: PersistenciaPantallas buscarIntContable ERROR " + e.getMessage());
+            return " ";
+        }
+    }
 }

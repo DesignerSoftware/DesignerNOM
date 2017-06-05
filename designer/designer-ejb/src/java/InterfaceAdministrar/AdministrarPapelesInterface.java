@@ -15,7 +15,6 @@ import javax.ejb.Local;
  *
  * @author user
  */
-@Local
 public interface AdministrarPapelesInterface {
 	/**
      * Método encargado de obtener el Entity Manager el cual tiene
@@ -68,4 +67,6 @@ public interface AdministrarPapelesInterface {
      * secuencia coincide con el valor del parámetro.
      */
     public BigInteger contarVigenciasCargosPapel(BigInteger secPapeles);
+    
+    public String interfaceContable(BigInteger secEmpresa);
 }
