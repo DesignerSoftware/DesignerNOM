@@ -111,7 +111,6 @@ public class ControlInicioRed implements Serializable {
          if (!estadoInicio) {
             // Iniciar sesión.
             if (!baseDatos.equals("") && !usuario.equals("") && !contraseña.equals("")) {
-//                if ( (getBaseDatos() != null) && (getUsuario() != null) && (getContraseña() != null) ) {
                // Utiliza los datos ingresados
                if (administrarInicioRed.conexionInicial(baseDatos)) {
                   // La base de datos fue verificada.
@@ -150,13 +149,11 @@ public class ControlInicioRed implements Serializable {
                            conexion.setUsuarioso(System.getProperty("os.name") + " / " + System.getProperty("user.name"));
                            conexion.setUsuariobd(administrarInicioRed.usuarioBD());
                            administrarInicioRed.guardarDatosConexion(conexion);
-//                           RequestContext.getCurrentInstance().update(actualizaciones);
                            RequestContext.getCurrentInstance().update(actualizaciones);
                         } else {
                            inicioSession = true;
                            sessionEntradaDefault();
                            contextoF.addMessage(null, new FacesMessage("", "La contraseña puede ser incorrecta, ha expirado ó esta bloqueada."));
-//                           RequestContext.getCurrentInstance().update("form:informacionAcceso");
                            RequestContext.getCurrentInstance().update("form:informacionAcceso");
                         }
                      } else {
@@ -182,7 +179,6 @@ public class ControlInicioRed implements Serializable {
                RequestContext.getCurrentInstance().update("form:informacionAcceso");
             }
          } else {
-//                administrarInicioRed.cerrarSession(ses.getId());
             ControlTemplate controlTemplate = (ControlTemplate) contextoF.getApplication().evaluateExpressionGet(contextoF, "#{controlTemplate}", ControlTemplate.class);
             controlTemplate.cerrarSession();
             cambioClave = true;
@@ -212,24 +208,9 @@ public class ControlInicioRed implements Serializable {
       try {
          System.out.println("auth: " + request.getAuthType());
          System.out.println("ContextPath: " + request.getContextPath());
-         /*for (Cookie c : request.getCookies()) {
-                System.out.println("Cookie: " + c.getComment());
-                System.out.println("Cookie: " + c.getDomain());
-                System.out.println("Cookie: " + c.getMaxAge());
-                System.out.println("Cookie: " + c.getName());
-                System.out.println("Cookie: " + c.getPath());
-                System.out.println("Cookie: " + c.getSecure());
-                System.out.println("Cookie: " + c.getValue());
-                System.out.println("Cookie: " + c.getVersion());
-                System.out.println("Cookie: " + c.isHttpOnly());
-            }*/
          System.out.println("LocalAddr: " + request.getLocalAddr());
          System.out.println("LocalName: " + request.getLocalName());
          System.out.println("LocalPort: " + request.getLocalPort());
-//            System.out.println("Method: "+request.getMethod());
-//            System.out.println("ParameterMap: "+request.getParameterMap());
-//            System.out.println("LocalAddr: "+request.getParameterValues());
-//            System.out.println("Parts: "+request.getParts());
          System.out.println("PathInfo: " + request.getPathInfo());
          System.out.println("PathTranslated: " + request.getPathTranslated());
          System.out.println("Protocol: " + request.getProtocol());
@@ -272,10 +253,6 @@ public class ControlInicioRed implements Serializable {
       banner.add(new BannerInicioRed(ubicaPublicidad + "publicidad02.png", "http://www.nomina.com.co/"));
       banner.add(new BannerInicioRed(ubicaPublicidad + "publicidad03.png", "http://www.nomina.com.co/"));
       banner.add(new BannerInicioRed(ubicaPublicidad + "publicidad04.png", "http://www.nomina.com.co/"));
-      /*banner.add(new BannerInicioRed(ubicaPublicidad+"publicidad05.png", "https://glassfish.java.net/"));
-         banner.add(new BannerInicioRed(ubicaPublicidad+"publicidad06.png", "https://www.java.com/"));
-         banner.add(new BannerInicioRed(ubicaPublicidad+"publicidad07.png", "https://javaserverfaces.java.net/"));
-       */
    }
 
    private void llenarBannerListaVacia() {
@@ -290,7 +267,6 @@ public class ControlInicioRed implements Serializable {
          for (int i = 0; i < listaRecordatorios.size(); i++) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("", listaRecordatorios.get(i)));
          }
-//         request.update("form:growl");
          RequestContext.getCurrentInstance().update("form:growl");
       }
    }
@@ -302,12 +278,6 @@ public class ControlInicioRed implements Serializable {
       listaConsultas = administrarInicioRed.consultasInicio();
       if (listaConsultas != null && !listaConsultas.isEmpty()) {
          banner.clear();
-         /*for (int j = 0; j < listaConsultas.size(); j++) {
-            
-                if (listaConsultas.get(j).getNombreimagen() != null) {
-                    banner.add(new BannerInicioRed("Iconos/" + listaConsultas.get(j).getNombreimagen(), ""));
-                }
-            }*/
          for (Recordatorios recor : listaConsultas) {
             if (recor.getNombreimagen() != null) {
                banner.add(new BannerInicioRed(ubicaPublicidad + recor.getNombreimagen(),
@@ -331,7 +301,6 @@ public class ControlInicioRed implements Serializable {
 
    public void nuevoRecordatorio() {
       getRecordatorio();
-//        RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:recordatorio");
    }
 
@@ -339,13 +308,11 @@ public class ControlInicioRed implements Serializable {
       sessionEntradaDefault();
       getNombreEmpresa();
       getRecordatorio();
-//        RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:nombreEmpresa");
       RequestContext.getCurrentInstance().update("form:recordatorio");
    }
 
    public void cambiarClave() {
-//        RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("Nclave: " + NClave + " Rclave: " + Rclave);
       if (!NClave.equals("") && !Rclave.equals("")) {
          if (NClave.equals(Rclave)) {
@@ -386,7 +353,6 @@ public class ControlInicioRed implements Serializable {
    }
 
    public void setUsuario(String usuario) {
-//        System.out.println("usuario: "+usuario);
       this.usuario = usuario.toUpperCase();
    }
 
@@ -395,7 +361,6 @@ public class ControlInicioRed implements Serializable {
    }
 
    public void setContraseña(String contraseña) {
-//        System.out.println("Contraseña: "+contraseña);
       this.contraseña = contraseña;
    }
 
@@ -404,7 +369,6 @@ public class ControlInicioRed implements Serializable {
    }
 
    public void setBaseDatos(String baseDatos) {
-//        System.out.println("Base de datos: "+baseDatos);
       this.baseDatos = baseDatos.toUpperCase();
    }
 

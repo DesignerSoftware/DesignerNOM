@@ -114,32 +114,17 @@
                                     <p:cellEditor>
                                         <f:facet name ="output"><h:outputText id="outano" value="#{m.estadoAno}" style="text-transform: uppercase;"/> </f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu  id="editarAno" value="#{m.estadoAno}" style="width: 98.5%; height: 100%"
+                                            
+                                            
+                                            
+                                            <p:selectOneMenu  id="editarAno" value="#{m.ano}" style="width: 98.5%; height: 100%"
                                                               onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();"
                                                               onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});PF('datosProverbios').unselectAllRows();">  
-                                                <f:selectItem itemLabel="#{msg['todoslosanos']}" itemValue="0"/>  
-                                                <f:selectItem itemLabel="2005" itemValue="2005"/>  
-                                                <f:selectItem itemLabel="2006" itemValue="2006"/>  
-                                                <f:selectItem itemLabel="2007" itemValue="2007"/>  
-                                                <f:selectItem itemLabel="2008" itemValue="2008"/>  
-                                                <f:selectItem itemLabel="2009" itemValue="2009"/>    
-                                                <f:selectItem itemLabel="2010" itemValue="2010"/>
-                                                <f:selectItem itemLabel="2011" itemValue="2011"/>
-                                                <f:selectItem itemLabel="2012" itemValue="2012"/>
-                                                <f:selectItem itemLabel="2013" itemValue="2013"/>
-                                                <f:selectItem itemLabel="2014" itemValue="2014"/>
-                                                <f:selectItem itemLabel="2015" itemValue="2015"/>
-                                                <f:selectItem itemLabel="2016" itemValue="2016"/>
-                                                <f:selectItem itemLabel="2017" itemValue="2017"/>
-                                                <f:selectItem itemLabel="2018" itemValue="2018"/>
-                                                <f:selectItem itemLabel="2019" itemValue="2019"/>
-                                                <f:selectItem itemLabel="2020" itemValue="2020"/>
-                                                <f:selectItem itemLabel="2021" itemValue="2021"/>
-                                                <f:selectItem itemLabel="2022" itemValue="2022"/>
-                                                <f:selectItem itemLabel="2023" itemValue="2023"/>
-                                                <f:selectItem itemLabel="2024" itemValue="2024"/>
-                                                <f:selectItem itemLabel="2025" itemValue="2025"/>-->
-                                                <p:ajax listener="#{controlProverbio.seleccionarAno(m.estadoAno, m)}" event="change" update="editarAno"/>
+                                        <f:selectItems value="#{controlProverbio.anios}"/> 
+                                        <f:selectItem itemLabel="#{msg['todoslosanos']}" itemValue="0"/> 
+                                        <p:keyFilter for="editarAno" mask="num"/>
+                                        <p:ajax event="change" update="editarAno" process="@this"/>
+                                                <p:ajax listener="#{controlProverbio.seleccionarAno(m.ano, m)}" event="change" update="editarAno"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                         <f:facet name="footer">

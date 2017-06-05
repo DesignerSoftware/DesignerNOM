@@ -492,7 +492,7 @@ public class ControlNReporteContabilidad implements Serializable {
                     empleadoDesdeParametroL.setStyle(empleadoDesdeParametroL.getStyle().replace(" color: red;", ""));
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("error en seleccionRegistro : " + e.getMessage());
             }
         }
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametroL");
@@ -547,10 +547,10 @@ public class ControlNReporteContabilidad implements Serializable {
 
     public void generarReporte(Inforeportes reporte) {
         try {
+            cambiosReporte = false;
             guardarCambios();
             inforreporteSeleccionado = reporte;
             seleccionRegistro();
-            RequestContext.getCurrentInstance().execute("PF('generandoReporte').show();");
             generarDocumentoReporte();
         } catch (Exception e) {
             System.out.println("error en generarReporte : " + e.getMessage());
@@ -647,6 +647,7 @@ public class ControlNReporteContabilidad implements Serializable {
                     pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
                 }
                 if (pathReporteGenerado != null) {
+                    RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                     validarDescargaReporte();
                 } else {
                     RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
@@ -697,13 +698,15 @@ public class ControlNReporteContabilidad implements Serializable {
                     }
                 }
             } else {
-                System.out.println("validar descarga reporte - ingreso al if 1 else");
                 RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
             System.out.println("error en validarDescargarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
 
     }
@@ -760,7 +763,6 @@ public class ControlNReporteContabilidad implements Serializable {
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
             RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
             RequestContext.getCurrentInstance().update("form:reportesContabilidad");
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");

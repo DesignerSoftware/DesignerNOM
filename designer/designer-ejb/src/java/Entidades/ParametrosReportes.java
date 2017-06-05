@@ -186,6 +186,7 @@ public class ParametrosReportes implements Serializable {
     private String estadoSN;
     @Transient
     private String tipocuentabanco;
+
     public ParametrosReportes() {
     }
 
@@ -562,6 +563,9 @@ public class ParametrosReportes implements Serializable {
     }
 
     public Bancos getBanco() {
+        if (banco == null) {
+            banco = new Bancos();
+        }
         return banco;
     }
 

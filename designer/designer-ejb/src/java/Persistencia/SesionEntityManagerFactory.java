@@ -44,12 +44,9 @@ public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInt
     @Override
     public boolean crearFactoryUsuario(String usuario, String contraseña, String baseDatos) {
         try {
-            System.out.println("entro a crearFactoryUsuario");
             Map<String, String> properties = new HashMap<String, String>();
             properties.put("javax.persistence.jdbc.user", usuario);
-            //properties.put("hibernate.connection.username", usuario);
             properties.put("javax.persistence.jdbc.password", contraseña);
-            //properties.put("hibernate.connection.password", contraseña);
             System.out.println("Usuario: " + usuario);
             System.out.println("Contraseña: " + contraseña);
             System.out.println("Base de Datos: " + baseDatos);

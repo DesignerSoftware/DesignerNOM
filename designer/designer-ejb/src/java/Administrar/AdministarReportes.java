@@ -97,7 +97,7 @@ public class AdministarReportes implements AdministarReportesInterface {
         em.getTransaction().commit();
     }
 
-    public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) throws Exception{
+    public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) throws Exception {
         general = persistenciaGenerales.obtenerRutas(em);
         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
         String pathReporteGenerado = null;
@@ -120,10 +120,11 @@ public class AdministarReportes implements AdministarReportesInterface {
             } else if (tipoReporte.equals("DOCX")) {
                 nombreArchivo = nombreArchivo + ".rtf";
             }
-            try{
-            reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
-            }catch(Exception e){
-            throw e;
+            try {
+                reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
+            } catch (Exception e) {
+                System.out.println("error en generar reporte, entra al catch : " + e.getMessage());
+                throw e;
             }
             return pathReporteGenerado;
         }
@@ -175,6 +176,9 @@ public class AdministarReportes implements AdministarReportesInterface {
                     case "DELIMITED":
                         extension = ".txt";
                         break;
+                    case "TXT":
+                        extension = ".txt";
+                        break;
                     default:
                         extension = "";
                         break;
@@ -204,9 +208,9 @@ public class AdministarReportes implements AdministarReportesInterface {
             general = persistenciaGenerales.obtenerRutas(em);
         }
         String rutaReporte = general.getPathreportes();
-        try{
-        reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
-        } catch(Exception ex){
+        try {
+            reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
+        } catch (Exception ex) {
             throw ex;
         }
     }
@@ -453,7 +457,7 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporteSegUsuarios(String nombreReporte, String tipoReporte) {
-          try {
+        try {
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
             String pathReporteGenerado = null;
@@ -564,7 +568,7 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporteObjetos(String nombreReporte, String tipoReporte) {
-       try {
+        try {
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
             String pathReporteGenerado = null;

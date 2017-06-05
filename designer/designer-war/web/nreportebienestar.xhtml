@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
->
+      >
     <h:head>
     </h:head>
     <h:body>
@@ -14,11 +14,12 @@
             <ui:define name="body">  
                 <script type="text/javascript">
                     $(window).load(function () {
-                  foco('form:guardarRapido');
-               });
-               function foco(idElemento) {
-                  document.getElementById(idElemento).focus();
-                    };
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
+                    }
+                    ;
                 </script>
                 <div style="position: static;"></div>
                 <h:form id="form"> 
@@ -99,7 +100,9 @@
                                 </p:column>
 
                                 <p:column id="tipoIR" headerText="#{msg['tipo']}" width="110" sortBy="#{info.tipo}" filterBy="#{info.tipo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding: 0px; width: 110px;">                                  
-                                    <p:selectOneMenu value="#{info.tipo}"  style="width: 99%; font-weight: bold; "  panelStyle="width: 105px">  
+                                    <p:selectOneMenu value="#{info.tipo}"  style="width: 99%; font-weight: bold; "  panelStyle="width: 105px"
+                                                     onblur="PF('reportesBienestar').unselectAllRows(); PF('reportesBienestar').selectRow(#{indice});"
+                                                     onfocus="PF('reportesBienestar').unselectAllRows(); PF('reportesBienestar').selectRow(#{indice});" >  
                                         <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
                                         <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>  
                                         <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
@@ -239,7 +242,7 @@
                             <p:commandButton id="cancelarTE" value="Cancelar" style="position: absolute; left: 230px; top: 115px;"  update="nuevaFecha" onclick="PF('nuevoRegistroFechas').hide();"  actionListener="#{controlNReporteBienestar.limpiarNuevaFecha()}"  process="@this" icon="ui-icon-circle-close"/>
                         </p:panel>
                     </p:dialog>
-                    
+
                     <p:dialog header="#{msg['actividadA']}" widgetVar="ActividadDialogo" draggable="true" resizable="false" closable="false" id="ActividadDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovActividad" style="width: 400px;" var="actividad" value="#{controlNReporteBienestar.listActividades}" rowKey="#{actividad.secuencia}"
@@ -473,7 +476,7 @@
                     <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="100" width="360" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlNReporteBienestar.pathReporteGenerado}" style="position: absolute; left: 10px; width: 325px; height: 70px;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteBienestar.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                         <p:media value="#{controlNReporteBienestar.file}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteBienestar.file != null}"/>
                     </p:dialog>

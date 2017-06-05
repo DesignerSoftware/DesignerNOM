@@ -105,9 +105,9 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{info.tipo}" style="width: 42px; font-weight: bold;">
-<!--                                                             onblur="PF('reportesNomina').unselectAllRows();PF('reportesNomina').selectRow(#{indice});"
-                                                             onfocus="PF('reportesNomina').unselectAllRows();PF('reportesNomina').selectRow(#{indice});">-->
+                                            <p:selectOneMenu value="#{info.tipo}" style="width: 42px; font-weight: bold;"
+                                                             onblur="PF('reportesNomina').unselectAllRows();PF('reportesNomina').selectRow(#{indice});"
+                                                             onfocus="PF('reportesNomina').unselectAllRows();PF('reportesNomina').selectRow(#{indice});">
                                                 <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
                                                 <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>  
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
