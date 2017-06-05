@@ -105,7 +105,6 @@ public class VigenciasAfiliaciones implements Serializable {
     }
 
     public void setFechafinal(Date fechafinal) {
-        System.out.println("VigenciasAfiliaciones.setFechafinal");
         this.fechafinal = fechafinal;
     }
 

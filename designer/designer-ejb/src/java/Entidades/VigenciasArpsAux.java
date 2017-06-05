@@ -28,9 +28,9 @@ public class VigenciasArpsAux implements Serializable {
    @NotNull
    @Column(name = "SECUENCIA")
    private BigInteger secuencia;
-   @Column(name = "nombreEstructura")
+   @Column(name = "NOMBREESTRUCTURA")
    private String nombreEstructura;
-   @Column(name = "nombreCargo")
+   @Column(name = "NOMBRECARGO")
    private String nombreCargo;
 
    public BigInteger getSecuencia() {

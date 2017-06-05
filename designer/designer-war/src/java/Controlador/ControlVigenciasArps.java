@@ -17,6 +17,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -88,7 +89,10 @@ public class ControlVigenciasArps implements Serializable {
       guardado = true;
       nuevaVig = new VigenciasArps();
       duplicarVig = new VigenciasArps();
-      altoTabla = "292";
+      listaBorrar = new ArrayList<VigenciasArps>();
+      listaCrear = new ArrayList<VigenciasArps>();
+      listaModificar = new ArrayList<VigenciasArps>();
+      altoTabla = "310";
       vigenciaSeleccionada = null;
       listaVigenciasArps = null;
       lovCargos = null;
@@ -143,7 +147,8 @@ public class ControlVigenciasArps implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovCargos = null;
+      lovEstructuras = null;
    }
 
    public void modificarV(VigenciasArps vArp, String campo, String valor) {
@@ -226,7 +231,22 @@ public class ControlVigenciasArps implements Serializable {
          }
          RequestContext.getCurrentInstance().update("form:DatosVigencias");
       }
-      RequestContext.getCurrentInstance().update("form:listaValores");
+   }
+
+   public void cambiarIndice(VigenciasArps vARP, int celda) {
+      vigenciaSeleccionada = vARP;
+      cualCelda = celda;
+      if (cualCelda == 0) {
+         estructuraBkp = vigenciaSeleccionada.getNombreEstructura();
+      } else if (cualCelda == 1) {
+         cargoBkp = vigenciaSeleccionada.getNombreCargo();
+      } else if (cualCelda == 2) {
+         fechaIniBkp = vigenciaSeleccionada.getFechainicial();
+      } else if (cualCelda == 3) {
+         fechaFinBkp = vigenciaSeleccionada.getFechafinal();
+      } else if (cualCelda == 4) {
+         porcentajeBkp = vigenciaSeleccionada.getPorcentaje();
+      }
    }
 
    public void modificarVC(VigenciasArps vigenciaA) {
@@ -315,19 +335,71 @@ public class ControlVigenciasArps implements Serializable {
       }
    }
 
-   public void cambiarIndice(VigenciasArps vARP, int celda) {
-      vigenciaSeleccionada = vARP;
-      cualCelda = celda;
-      if (cualCelda == 0) {
-         estructuraBkp = vigenciaSeleccionada.getNombreEstructura();
-      } else if (cualCelda == 1) {
-         cargoBkp = vigenciaSeleccionada.getNombreCargo();
-      } else if (cualCelda == 2) {
-         fechaIniBkp = vigenciaSeleccionada.getFechainicial();
-      } else if (cualCelda == 3) {
-         fechaFinBkp = vigenciaSeleccionada.getFechafinal();
-      } else if (cualCelda == 4) {
-         porcentajeBkp = vigenciaSeleccionada.getPorcentaje();
+   //DUPLICAR VC
+   public void duplicarVigenciaC() {
+      if (vigenciaSeleccionada != null) {
+         duplicarVig = new VigenciasArps();
+         k++;
+         l = BigInteger.valueOf(k);
+         duplicarVig.setSecuencia(l);
+         duplicarVig.setFechainicial(vigenciaSeleccionada.getFechainicial());
+         duplicarVig.setFechafinal(vigenciaSeleccionada.getFechafinal());
+         duplicarVig.setEstructura(vigenciaSeleccionada.getEstructura());
+         duplicarVig.setNombreEstructura(vigenciaSeleccionada.getNombreEstructura());
+         duplicarVig.setCargo(vigenciaSeleccionada.getCargo());
+         duplicarVig.setNombreCargo(vigenciaSeleccionada.getNombreCargo());
+         duplicarVig.setPorcentaje(vigenciaSeleccionada.getPorcentaje());
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarV");
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroV').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public void cancelarModificacion() {
+      restaurarTabla();
+      bandera = 0;
+      aceptar = true;
+      k = 0;
+      cualCelda = -1;
+      tipoLista = 0;
+      guardado = true;
+      nuevaVig = new VigenciasArps();
+      duplicarVig = new VigenciasArps();
+      altoTabla = "310";
+      vigenciaSeleccionada = null;
+      listaVigenciasArps = null;
+      lovCargos = null;
+      lovEstructuras = null;
+      mapParametros.put("paginaAnterior", paginaAnterior);
+      vigenciaSeleccionada = null;
+      guardado = true;
+      getListaVigenciasArps();
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.update("form:DatosVigencias");
+      contarRegistros();
+      context.update("form:ACEPTAR");
+   }
+
+   //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
+   public void verificarRastro() {
+      if (vigenciaSeleccionada != null) {
+         int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASARPS");
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+         }
+      } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASARPS")) {
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
    }
 
@@ -392,17 +464,17 @@ public class ControlVigenciasArps implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         columnCargo = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnCargo");
-         columnCargo.setFilterStyle("width: 85% !important;");
          columnEstructura = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnEstructura");
          columnEstructura.setFilterStyle("width: 85% !important;");
-         columnFinal = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnFinal");
-         columnFinal.setFilterStyle("width: 85% !important;");
+         columnCargo = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnCargo");
+         columnCargo.setFilterStyle("width: 85% !important;");
          columnInicial = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnInicial");
-         columnInicial.setFilterStyle("width: 85% !important;");
+         columnInicial.setFilterStyle("width: 80% !important;");
+         columnFinal = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnFinal");
+         columnFinal.setFilterStyle("width: 80% !important;");
          columnPorcentaje = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnPorcentaje");
-         columnPorcentaje.setFilterStyle("width: 85% !important;");
-         altoTabla = "272";
+         columnPorcentaje.setFilterStyle("width: 75% !important;");
+         altoTabla = "290";
          RequestContext.getCurrentInstance().update("form:DatosVigencias");
          bandera = 1;
       } else {
@@ -413,17 +485,17 @@ public class ControlVigenciasArps implements Serializable {
 
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
-      columnCargo = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnCargo");
-      columnCargo.setFilterStyle("display: none; visibility: hidden;");
       columnEstructura = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnEstructura");
       columnEstructura.setFilterStyle("display: none; visibility: hidden;");
-      columnFinal = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnFinal");
-      columnFinal.setFilterStyle("display: none; visibility: hidden;");
+      columnCargo = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnCargo");
+      columnCargo.setFilterStyle("display: none; visibility: hidden;");
       columnInicial = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnInicial");
       columnInicial.setFilterStyle("display: none; visibility: hidden;");
+      columnFinal = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnFinal");
+      columnFinal.setFilterStyle("display: none; visibility: hidden;");
       columnPorcentaje = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnPorcentaje");
       columnPorcentaje.setFilterStyle("display: none; visibility: hidden;");
-      altoTabla = "272";
+      altoTabla = "310";
       bandera = 0;
       filtrarCargos = null;
       tipoLista = 0;
@@ -500,6 +572,92 @@ public class ControlVigenciasArps implements Serializable {
 
    public void contarRegistrosEstructuras() {
       RequestContext.getCurrentInstance().update("form:infoRegistroLovEstructuras");
+   }
+
+   public void listaEstructuras(int tipoNuevo) {
+      tipoActualizacion = tipoNuevo;
+//      if (tipoActualizacion == 1) {
+//         if (nuevaVig.getFechainicial() == null) {
+//            RequestContext.getCurrentInstance().execute("PF('necesitaFecha').show()");
+//         } else {
+//            String forFecha = formatoFecha.format(nuevaVig.getFechainicial());
+//            lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
+//         }
+//      } else if (tipoActualizacion == 2) {
+//         if (duplicarVig.getFechainicial() == null) {
+//            RequestContext.getCurrentInstance().execute("PF('necesitaFecha').show()");
+//         } else {
+//            String forFecha = formatoFecha.format(duplicarVig.getFechainicial());
+//            lovEstructuras = administrarEstructuras.consultarNativeQueryEstructuras(forFecha);
+//         }
+//      }
+      RequestContext.getCurrentInstance().update("form:dlgEstructuras");
+      contarRegistrosEstructuras();
+      RequestContext.getCurrentInstance().execute("PF('dlgEstructuras').show()");
+   }
+
+   public void listaCargos(int tipoNuevo) {
+      tipoActualizacion = tipoNuevo;
+      RequestContext.getCurrentInstance().update("form:dlgCargos");
+      contarRegistrosEstructuras();
+      RequestContext.getCurrentInstance().execute("PF('dlgCargos').show()");
+   }
+
+   public void listaValoresBoton() {
+      if (vigenciaSeleccionada != null) {
+         if (cualCelda == 0) {
+            estructuraLovSeleccionada = null;
+            RequestContext.getCurrentInstance().update("form:dlgEstructuras");
+            contarRegistrosEstructuras();
+            RequestContext.getCurrentInstance().execute("PF('dlgEstructuras').show()");
+            tipoActualizacion = 0;
+         } else if (cualCelda == 1) {
+            tipoActualizacion = 0;
+            cargoLovSeleccionado = null;
+            RequestContext.getCurrentInstance().update("form:dlgCargos");
+            contarRegistrosCargos();
+            RequestContext.getCurrentInstance().execute("PF('dlgCargos').show()");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   //LIMPIAR NUEVO REGISTRO
+   public void limpiarNuevaVC() {
+      nuevaVig = new VigenciasArps();
+   }
+
+   public void limpiarduplicarVC() {
+      duplicarVig = new VigenciasArps();
+   }
+
+   public void editarCelda() {
+      if (vigenciaSeleccionada != null) {
+         if (cualCelda == 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarEstructura");
+            RequestContext.getCurrentInstance().execute("PF('editarEstructura').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 1) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreCargo");
+            RequestContext.getCurrentInstance().execute("PF('editarNombreCargo').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 2) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaI");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaI').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 3) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaF");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaF').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 4) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarPorcentaje");
+            RequestContext.getCurrentInstance().execute("PF('editarPorcentaje').show()");
+            cualCelda = -1;
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
    }
 
    //GETs y SETs

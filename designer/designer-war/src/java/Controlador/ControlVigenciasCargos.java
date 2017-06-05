@@ -620,7 +620,6 @@ public class ControlVigenciasCargos implements Serializable {
 
    public void salir() {
       limpiarListasValor();
-      limpiarListasValor();
       restaurarTabla();
       activarLOV = true;
       listVCBorrar.clear();
@@ -1249,10 +1248,9 @@ public class ControlVigenciasCargos implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
-//DUPLICAR VC
 
+//DUPLICAR VC
    public void duplicarVigenciaC() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaSeleccionada != null) {
          duplicarVC = new VigenciasCargos();
          k++;
@@ -1343,6 +1341,16 @@ public class ControlVigenciasCargos implements Serializable {
       RequestContext.getCurrentInstance().update("form:listaValores");
    }
 
+   //LIMPIAR NUEVO REGISTRO
+   public void limpiarNuevaVC() {
+      nuevaVigencia = new VigenciasCargos();
+      nuevaVigencia.setEstructura(new Estructuras());
+      nuevaVigencia.setMotivocambiocargo(new MotivosCambiosCargos());
+      nuevaVigencia.setCargo(new Cargos());
+      nuevaVigencia.setClaseRiesgo(new ClasesRiesgos());
+      nuevaVigencia.setPapel(new Papeles());
+   }
+   
    public void limpiarduplicarVC() {
       duplicarVC = new VigenciasCargos();
       duplicarVC.setEstructura(new Estructuras());
@@ -1425,16 +1433,6 @@ public class ControlVigenciasCargos implements Serializable {
       exporter.export(context, tabla, "VigenciasCargosXLS", false, false, "UTF-8", null, null);
    }
 
-   //LIMPIAR NUEVO REGISTRO
-   public void limpiarNuevaVC() {
-      nuevaVigencia = new VigenciasCargos();
-      nuevaVigencia.setEstructura(new Estructuras());
-      nuevaVigencia.setMotivocambiocargo(new MotivosCambiosCargos());
-      nuevaVigencia.setCargo(new Cargos());
-      nuevaVigencia.setClaseRiesgo(new ClasesRiesgos());
-      nuevaVigencia.setPapel(new Papeles());
-   }
-
    //CTRL + F11 ACTIVAR/DESACTIVAR
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
@@ -1466,7 +1464,6 @@ public class ControlVigenciasCargos implements Serializable {
 
    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
    public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaSeleccionada != null) {
          int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASCARGOS");
          if (resultado == 1) {

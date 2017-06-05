@@ -179,25 +179,15 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "emplvigenciaafiliacion3";
-         
-         
-         
+       */
+      String pagActual = "emplvigenciaafiliacion3";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -257,7 +247,8 @@ String pagActual = "emplvigenciaafiliacion3";
     * @param indice Fila donde se efectu el cambio
     */
    public void modificarVA(VigenciasAfiliaciones va) {
-      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("ControlEmplVigenciaAfiliacion3.modificarVA() vigenciaSeleccionada.getFechafinal(): " + vigenciaSeleccionada.getFechafinal());
+      System.out.println("ControlEmplVigenciaAfiliacion3.modificarVA() vigenciaSeleccionada.getFechainicial(): " + vigenciaSeleccionada.getFechainicial());
       vigenciaSeleccionada = va;
       vigenciaValidaciones = vigenciaSeleccionada;
       boolean validacion = true;
@@ -282,7 +273,6 @@ String pagActual = "emplvigenciaafiliacion3";
          VigenciasAfiliaciones cambio = administrarVigenciasAfiliaciones3.vigenciaAfiliacionSecuencia(vigenciaSeleccionada.getSecuencia());
          listVigenciasAfiliaciones.set(listVigenciasAfiliaciones.indexOf(vigenciaSeleccionada), cambio);
       }
-
       RequestContext.getCurrentInstance().update("form:datosVAVigencia");
    }
 
@@ -369,6 +359,7 @@ String pagActual = "emplvigenciaafiliacion3";
             } else {
                seModifica = true;
             }
+            System.out.println("ControlEmplVigenciaAfiliacion3.modificarFechasFinales() seModifica :" + seModifica);
             if (!seModifica) {
                cambiarIndiceVA(vAfiliacion, c);
             } else {
@@ -1271,8 +1262,7 @@ String pagActual = "emplvigenciaafiliacion3";
    }
 
    public void cambiarIndiceVA(VigenciasAfiliaciones va, int celda) {
-      System.out.println("va" + va);
-      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("cambiarIndiceVA celda : " + celda);
       if (permitirIndexVA == true) {
          vigenciaSeleccionada = va;
          cualCeldaVA = celda;
@@ -1283,7 +1273,7 @@ String pagActual = "emplvigenciaafiliacion3";
          } else if (cualCeldaVA == 1) {
             anularLOV();
             fechaFin = vigenciaSeleccionada.getFechafinal();
-
+            System.out.println("Asigno celda fechaFin: " + fechaFin);
          } else if (cualCeldaVA == 2) {
             habilitarLov();
             tiposEntidades = vigenciaSeleccionada.getTipoentidad().getNombre();

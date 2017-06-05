@@ -88,18 +88,20 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
    }
 
    public List<VigenciasArps> consultarVigenciasArps(EntityManager em) {
+      List<VigenciasArps> listaVigencias = null;
       try {
          em.clear();
          Query query = em.createQuery("SELECT v FROM VigenciasArps v");
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         List<VigenciasArps> listaVigencias = query.getResultList();
+         listaVigencias = query.getResultList();
          if (listaVigencias != null) {
             if (!listaVigencias.isEmpty()) {
                em.clear();
-               Query q2 = em.createNativeQuery("SELECT V.secuencia, E.NOMBRE nombreEstructura, C.NOMBRE nombreCargo\n"
-                       + " FROM VIGENCIASARPS V, ESTRUCTURAS E, CARGOS C WHERE V.ESTRUCTURA = E.SECUENCIA AND V.CARGO = C.SECUENCIA");
+               Query q2 = em.createNativeQuery("SELECT V.secuencia SECUENCIA, E.NOMBRE NOMBREESTRUCTURA, C.NOMBRE NOMBRECARGO\n"
+                       + " FROM VIGENCIASARPS V, ESTRUCTURAS E, CARGOS C WHERE V.ESTRUCTURA = E.SECUENCIA AND V.CARGO = C.SECUENCIA", VigenciasArpsAux.class);
                List<VigenciasArpsAux> listaAux = q2.getResultList();
                if (listaAux != null) {
+                  System.out.println("Persistencia.PersistenciaVigenciasArps.consultarVigenciasArps() listaVigencias.size(): " + listaVigencias.size());
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaVigencias.size(); j++) {
                         for (int i = 0; i < listaAux.size(); i++) {
@@ -118,7 +120,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          return listaVigencias;
       } catch (Exception e) {
          System.out.println("Error PersistenciaVigenciasArps.consultarVigenciasArps: " + e);
-         return null;
+         return listaVigencias;
       }
    }
 

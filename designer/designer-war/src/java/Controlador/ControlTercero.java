@@ -893,7 +893,6 @@ public class ControlTercero implements Serializable {
          if (listTercerosSucursales == null || listTercerosSucursales.isEmpty()) {
             borrarTercero();
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorBorradoTercero').show()");
          }
       }
@@ -1217,17 +1216,22 @@ public class ControlTercero implements Serializable {
          } else {
             listTerceroBorrar.add(terceroTablaSeleccionado);
          }
+         System.out.println("ControlTercero.borrarTercero() 1");
          listTerceros.remove(terceroTablaSeleccionado);
+         System.out.println("ControlTercero.borrarTercero() 2");
          if (tipoLista == 1) {
             filtrarListTercero.remove(terceroTablaSeleccionado);
+            System.out.println("ControlTercero.borrarTercero() 3");
          }
          contarRegistrosTerc();
+         System.out.println("ControlTercero.borrarTercero() 4");
          RequestContext.getCurrentInstance().update("form:datosTerceros");
-
+         System.out.println("ControlTercero.borrarTercero() 5");
          cambiosTercero = true;
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            System.out.println("ControlTercero.borrarTercero() 6");
          }
       }
    }
@@ -1954,11 +1958,13 @@ public class ControlTercero implements Serializable {
          //Dialogo para seleccionar el rastro Historico de la tabla deseada
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
-       if (terceroSucursalTablaSeleccionado != null) {
+      {
+         if (terceroSucursalTablaSeleccionado != null) {
             verificarRastroTercerosSucursales();
          } else if (terceroTablaSeleccionado != null) {
             verificarRastroTerceros();
          }
+      }
    }
 
    //Verificar Rastro Vigencia Terceros

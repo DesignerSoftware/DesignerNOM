@@ -518,19 +518,20 @@
 
                      <p:ajax event="filter" listener="#{controlTercero.contarRegistrosLovTercero()}"/>
                      <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarBT"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTercero.validarSeleccionTercero()}" update=":form:BuscarTerceroDialogo" process="@this"/>
+                     <p:ajax event="rowDblselect" listener="#{controlTercero.validarSeleccionTercero()}" process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovBuscarTercero').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterBy="#{tercero.nit}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                     <p:column filterBy="#{tercero.nit}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['nitT']}"/>
                         </f:facet>
                         <h:outputText value="#{tercero.nit}"/>
                      </p:column>
+                     
                      <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreT']}"/>
