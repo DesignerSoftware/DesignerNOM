@@ -634,7 +634,6 @@ public class ControlNReportePersonal implements Serializable {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
         reporteSeleccionado = null;
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -661,9 +660,9 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void seleccionRegistro() {
+        System.out.println("reporteSeleccionado : "+ reporteSeleccionado.getNombre());
         activarEnvioCorreo();
         RequestContext context = RequestContext.getCurrentInstance();
-        // Resalto Parametros Para Reporte
         defaultPropiedadesParametrosReporte();
         if (reporteSeleccionado.getFecdesde().equals("SI")) {
             color = "red";
@@ -675,7 +674,6 @@ public class ControlNReportePersonal implements Serializable {
         }
         if (reporteSeleccionado.getEmdesde().equals("SI")) {
             empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
-            //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
             if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
                 empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
             }
@@ -685,7 +683,7 @@ public class ControlNReportePersonal implements Serializable {
                     empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("error en seleccionRegistro : " + e.getMessage());
             }
         }
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
@@ -1854,7 +1852,6 @@ public class ControlNReportePersonal implements Serializable {
 //        }
 //
 //    }
-
     public void generarReporte(Inforeportes reporte) {
         try {
             guardarCambios();
@@ -1863,6 +1860,7 @@ public class ControlNReportePersonal implements Serializable {
             generarDocumentoReporte();
         } catch (Exception e) {
             System.out.println("error en generarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -1908,7 +1906,7 @@ public class ControlNReportePersonal implements Serializable {
         };
     }
 
-  public void exportarReporte() throws IOException {
+    public void exportarReporte() throws IOException {
         try {
             if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
                 File reporteF = new File(pathReporteGenerado);
@@ -1964,6 +1962,7 @@ public class ControlNReportePersonal implements Serializable {
                         System.out.println("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
+                        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
@@ -1997,7 +1996,7 @@ public class ControlNReportePersonal implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
-    
+
     public void generarDocumentoReporte() {
         try {
             RequestContext context = RequestContext.getCurrentInstance();
