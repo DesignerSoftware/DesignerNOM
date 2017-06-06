@@ -660,99 +660,103 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void seleccionRegistro() {
-        System.out.println("reporteSeleccionado : "+ reporteSeleccionado.getNombre());
-        activarEnvioCorreo();
-        RequestContext context = RequestContext.getCurrentInstance();
-        defaultPropiedadesParametrosReporte();
-        if (reporteSeleccionado.getFecdesde().equals("SI")) {
-            color = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (reporteSeleccionado.getFechasta().equals("SI")) {
-            color2 = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (reporteSeleccionado.getEmdesde().equals("SI")) {
-            empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
-            if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
+        try {
+            System.out.println("reporteSeleccionado : " + reporteSeleccionado.getNombrereporte());
+            activarEnvioCorreo();
+            defaultPropiedadesParametrosReporte();
+            if (reporteSeleccionado.getFecdesde().equals("SI")) {
+                color = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
             }
-        } else {
-            try {
-                if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+            if (reporteSeleccionado.getFechasta().equals("SI")) {
+                color2 = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
+            }
+            if (reporteSeleccionado.getEmdesde().equals("SI")) {
+                empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
+                if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
                 }
-            } catch (Exception e) {
-                System.out.println("error en seleccionRegistro : " + e.getMessage());
+            } else {
+                try {
+                    if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+                        empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+                    }
+                } catch (Exception e) {
+                    System.out.println("error en seleccionRegistro : " + e.getMessage());
+                    System.out.println("error en seleccionRegistro : " + e.getCause());
+                }
             }
-        }
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-        if (reporteSeleccionado.getEmhasta().equals("SI")) {
-            empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
-            empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
-        }
+            RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
+            if (reporteSeleccionado.getEmhasta().equals("SI")) {
+                empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
+                empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+            }
 
-        if (reporteSeleccionado.getLocalizacion().equals("SI")) {
-            solicitudParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:solicitudParametro");
-            solicitudParametro.setStyle(solicitudParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:solicitudParametro");
-        }
+            if (reporteSeleccionado.getLocalizacion().equals("SI")) {
+                solicitudParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:solicitudParametro");
+                solicitudParametro.setStyle(solicitudParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:solicitudParametro");
+            }
 
-        if (reporteSeleccionado.getLocalizacion().equals("SI")) {
-            estructuraParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estructuraParametro");
-            estructuraParametro.setStyle(estructuraParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
-        }
+            if (reporteSeleccionado.getLocalizacion().equals("SI")) {
+                estructuraParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estructuraParametro");
+                estructuraParametro.setStyle(estructuraParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
+            }
 
-        if (reporteSeleccionado.getTipotrabajador().equals("SI")) {
-            tipoTrabajadorParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTrabajadorParametro");
-            tipoTrabajadorParametro.setStyle(tipoTrabajadorParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
-        }
+            if (reporteSeleccionado.getTipotrabajador().equals("SI")) {
+                tipoTrabajadorParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTrabajadorParametro");
+                tipoTrabajadorParametro.setStyle(tipoTrabajadorParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
+            }
 
-        if (reporteSeleccionado.getEstadocivil().equals("SI")) {
-            estadoCivilParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estadoCivilParametro");
-            estadoCivilParametro.setStyle(estadoCivilParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:estadoCivilParametro");
-        }
+            if (reporteSeleccionado.getEstadocivil().equals("SI")) {
+                estadoCivilParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estadoCivilParametro");
+                estadoCivilParametro.setStyle(estadoCivilParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:estadoCivilParametro");
+            }
 
-        if (reporteSeleccionado.getTipotelefono().equals("SI")) {
-            tipoTelefonoParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTelefonoParametro");
-            tipoTelefonoParametro.setStyle(tipoTrabajadorParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:tipoTelefonoParametro");
-        }
+            if (reporteSeleccionado.getTipotelefono().equals("SI")) {
+                tipoTelefonoParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTelefonoParametro");
+                tipoTelefonoParametro.setStyle(tipoTrabajadorParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:tipoTelefonoParametro");
+            }
 
-        if (reporteSeleccionado.getJefedivision().equals("SI")) {
-            jefeDivisionParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:jefeDivisionParametro");
-            jefeDivisionParametro.setStyle(jefeDivisionParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:jefeDivisionParametro");
-        }
+            if (reporteSeleccionado.getJefedivision().equals("SI")) {
+                jefeDivisionParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:jefeDivisionParametro");
+                jefeDivisionParametro.setStyle(jefeDivisionParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:jefeDivisionParametro");
+            }
 
-        if (reporteSeleccionado.getCiudad().equals("SI")) {
-            ciudadParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:ciudadParametro");
-            ciudadParametro.setStyle(ciudadParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:ciudadParametro");
-        }
+            if (reporteSeleccionado.getCiudad().equals("SI")) {
+                ciudadParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:ciudadParametro");
+                ciudadParametro.setStyle(ciudadParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:ciudadParametro");
+            }
 
-        if (reporteSeleccionado.getDeporte().equals("SI")) {
-            deporteParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:deporteParametro");
-            deporteParametro.setStyle(deporteParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:deporteParametro");
-        }
+            if (reporteSeleccionado.getDeporte().equals("SI")) {
+                deporteParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:deporteParametro");
+                deporteParametro.setStyle(deporteParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:deporteParametro");
+            }
 
-        if (reporteSeleccionado.getAficion().equals("SI")) {
-            aficionParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:aficionParametro");
-            aficionParametro.setStyle(aficionParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:aficionParametro");
-        }
+            if (reporteSeleccionado.getAficion().equals("SI")) {
+                aficionParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:aficionParametro");
+                aficionParametro.setStyle(aficionParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:aficionParametro");
+            }
 
-        if (reporteSeleccionado.getIdioma().equals("SI")) {
-            idiomaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:idiomaParametro");
-            idiomaParametro.setStyle(idiomaParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:idiomaParametro");
+            if (reporteSeleccionado.getIdioma().equals("SI")) {
+                idiomaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:idiomaParametro");
+                idiomaParametro.setStyle(idiomaParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:idiomaParametro");
+            }
+            RequestContext.getCurrentInstance().update("formParametros");
+        } catch (Exception ex) {
+            System.out.println("error en seleccion Registro .Error : " + ex.getMessage());
         }
-        RequestContext.getCurrentInstance().update("formParametros");
     }
 
     public void requisitosParaReporte() {

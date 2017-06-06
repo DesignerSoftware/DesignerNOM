@@ -633,70 +633,68 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void seleccionRegistro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        activarEnvioCorreo();
-        defaultPropiedadesParametrosReporte();
-        if (reporteSeleccionado.getFecdesde().equals("SI")) {
-            color = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (reporteSeleccionado.getFechasta().equals("SI")) {
-            color2 = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (reporteSeleccionado.getEmdesde().equals("SI")) {
-            empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
-            //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
-            if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
+        try {
+            activarEnvioCorreo();
+            defaultPropiedadesParametrosReporte();
+            if (reporteSeleccionado.getFecdesde().equals("SI")) {
+                color = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
             }
-        } else {
-            try {
-                if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+            if (reporteSeleccionado.getFechasta().equals("SI")) {
+                color2 = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
+            }
+            if (reporteSeleccionado.getEmdesde().equals("SI")) {
+                empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
+                //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
+                if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                try {
+                    if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+                        empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+            RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
+            if (reporteSeleccionado.getEmhasta().equals("SI")) {
+                empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
+                empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+            }
+            if (reporteSeleccionado.getGrupo() != null && reporteSeleccionado.getGrupo().equals("SI")) {
+                grupoParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:grupoParametro");
+                grupoParametro.setStyle(grupoParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:grupoParametro");
+            }
+            if (reporteSeleccionado.getLocalizacion().equals("SI")) {
+                estructuraParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estructuraParametro");
+                estructuraParametro.setStyle(estructuraParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
+            }
+            if (reporteSeleccionado.getTipotrabajador().equals("SI")) {
+                tipoTrabajadorParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTrabajadorParametro");
+                tipoTrabajadorParametro.setStyle(tipoTrabajadorParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
+            }
+            if (reporteSeleccionado.getTercero().equals("SI")) {
+                terceroParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:terceroParametro");
+                terceroParametro.setStyle(terceroParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:terceroParametro");
+            }
+            if (reporteSeleccionado.getEstado().equals("SI")) {
+                estadoParametro = (SelectOneMenu) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estadoParametro");
+                estadoParametro.setStyleClass("selectOneMenuNReporteN");
+                RequestContext.getCurrentInstance().update("formParametros:estadoParametro");
+            }
+            RequestContext.getCurrentInstance().update("formParametros");
+            // RequestContext.getCurrentInstance().update("form:reportesNomina");
+        } catch (Exception ex) {
+            System.out.println("Error en selecccion Registro : " + ex.getMessage());
         }
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-        if (reporteSeleccionado.getEmhasta().equals("SI")) {
-            empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
-            //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
-            empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
-        }
-        if (reporteSeleccionado.getGrupo() != null && reporteSeleccionado.getGrupo().equals("SI")) {
-            grupoParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:grupoParametro");
-            //grupoParametro.setStyle("position: absolute; top: 89px; left: 150px; height: 10px; font-size: 11px; width: 130px; color: red;");
-            grupoParametro.setStyle(grupoParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:grupoParametro");
-        }
-        if (reporteSeleccionado.getLocalizacion().equals("SI")) {
-            estructuraParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estructuraParametro");
-            //estructuraParametro.setStyle("position: absolute; top: 20px; left: 625px;height: 10px; font-size: 11px;width: 180px; color: red;");
-            estructuraParametro.setStyle(estructuraParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
-        }
-        if (reporteSeleccionado.getTipotrabajador().equals("SI")) {
-            tipoTrabajadorParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTrabajadorParametro");
-            //tipoTrabajadorParametro.setStyle("position: absolute; top: 43px; left: 625px;height: 10px; font-size: 11px; width: 180px; color: red;");
-            tipoTrabajadorParametro.setStyle(tipoTrabajadorParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
-        }
-        if (reporteSeleccionado.getTercero().equals("SI")) {
-            terceroParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:terceroParametro");
-            //terceroParametro.setStyle("position: absolute; top: 66px; left: 625px; height: 10px; font-size: 11px; width: 180px; color: red;");
-            terceroParametro.setStyle(terceroParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:terceroParametro");
-        }
-        if (reporteSeleccionado.getEstado().equals("SI")) {
-            estadoParametro = (SelectOneMenu) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estadoParametro");
-            estadoParametro.setStyleClass("selectOneMenuNReporteN");
-            RequestContext.getCurrentInstance().update("formParametros:estadoParametro");
-        }
-        RequestContext.getCurrentInstance().update("formParametros");
-        // RequestContext.getCurrentInstance().update("form:reportesNomina");
     }
 
     public void requisitosParaReporte() {

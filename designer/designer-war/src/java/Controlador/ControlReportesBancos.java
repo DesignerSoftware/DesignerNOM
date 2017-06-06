@@ -292,50 +292,54 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void seleccionRegistro() {
-        activarEnvioCorreo();
-        defaultPropiedadesParametrosReporte();
-        if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
-            color = "red";
-            decoracion = "underline";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (inforreporteSeleccionado.getFechasta().equals("SI")) {
-            color2 = "red";
-            decoracion2 = "underline";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (inforreporteSeleccionado.getEmdesde().equals("SI")) {
-            empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
-            //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
-            if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
+        try {
+            activarEnvioCorreo();
+            defaultPropiedadesParametrosReporte();
+            if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
+                color = "red";
+                decoracion = "underline";
+                RequestContext.getCurrentInstance().update("formParametros");
             }
-        } else {
-            try {
-                if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+            if (inforreporteSeleccionado.getFechasta().equals("SI")) {
+                color2 = "red";
+                decoracion2 = "underline";
+                RequestContext.getCurrentInstance().update("formParametros");
+            }
+            if (inforreporteSeleccionado.getEmdesde().equals("SI")) {
+                empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
+                //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
+                if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
                 }
-            } catch (Exception e) {
-                System.out.println("error en seleccionRegistro : " + e.getMessage());
+            } else {
+                try {
+                    if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+                        empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+                    }
+                } catch (Exception e) {
+                    System.out.println("error en seleccionRegistro : " + e.getMessage());
+                }
             }
-        }
-        if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
-            empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
-            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
-        }
+            if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
+                empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
+                RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+            }
 
-        if (inforreporteSeleccionado.getTipotrabajador().equals("SI")) {
-            requisitosReporte = requisitosReporte + "- Tipo Trabajador -";
-            tipoTrabajadorParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTrabajadorParametro");
-            tipoTrabajadorParametro.setStyle("position: absolute; top: 115px; left: 390px;height: 15px;width: 180px; text-decoration: underline; color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
-        }
+            if (inforreporteSeleccionado.getTipotrabajador().equals("SI")) {
+                requisitosReporte = requisitosReporte + "- Tipo Trabajador -";
+                tipoTrabajadorParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTrabajadorParametro");
+                tipoTrabajadorParametro.setStyle("position: absolute; top: 115px; left: 390px;height: 15px;width: 180px; text-decoration: underline; color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
+            }
 
-        if (inforreporteSeleccionado.getCiudad().equals("SI")) {
-            requisitosReporte = requisitosReporte + "- Ciudad -";
-            ciudadParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:ciudadParametro");
-            ciudadParametro.setStyle("position: absolute; top: 40px; left: 690px;height: 15px;text-decoration: underline; color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
+            if (inforreporteSeleccionado.getCiudad().equals("SI")) {
+                requisitosReporte = requisitosReporte + "- Ciudad -";
+                ciudadParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:ciudadParametro");
+                ciudadParametro.setStyle("position: absolute; top: 40px; left: 690px;height: 15px;text-decoration: underline; color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
+            }
+        } catch (Exception ex) {
+            System.out.println("Error en selecccion Registro : " + ex.getMessage());
         }
     }
 

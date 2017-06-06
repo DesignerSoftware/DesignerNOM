@@ -838,10 +838,10 @@
                   <p:panel id="nuevoRiesgo" style="border: none; margin-left: 15px;">
                      <center><strong><h:outputText value="Agregar Nuevo Riesgo" style="font-size: 14px; color: blue; position: relative; top: 110px; left: -55px;"/></strong></center> 
                      <strong><h:outputText value="#{msg['estructuraN']}" style=" position: absolute; top: 50px;"/></strong>
-                     <p:inputText autocomplete="off" readonly="true"  id="nuevaEstructuraR" value="#{controlVigenciasCargos.nuevaVigArp.estructuras.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 45px; text-transform: uppercase;" onclick="select();"/>
+                     <p:inputText autocomplete="off" readonly="true"  id="nuevaEstructuraR" value="#{controlVigenciasCargos.nuevaVigArp.estructura.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 45px; text-transform: uppercase;" onclick="select();"/>
 
                      <strong><h:outputText value="#{msg['cargoN']}" style=" position: absolute; top: 80px;"/></strong>
-                     <p:inputText autocomplete="off" readonly="true"  id="nuevoNombreCargoR" value="#{controlVigenciasCargos.nuevaVigArp.cargos.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 75px; text-transform: uppercase;" onclick="select();"/>
+                     <p:inputText autocomplete="off" readonly="true"  id="nuevoNombreCargoR" value="#{controlVigenciasCargos.nuevaVigArp.cargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 75px; text-transform: uppercase;" onclick="select();"/>
 
                      <strong><h:outputText value="*Fecha Inicial" style=" position: absolute; top: 170px;"/></strong>
                      <p:calendar style=" position: absolute; top: 165px; left: 130px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialR" value="#{controlVigenciasCargos.nuevaVigArp.fechainicial}">
@@ -902,7 +902,7 @@
 
                <p:dialog id="paso2" header="#{msg['atencion']}" widgetVar="paso2"  resizable="false" draggable="true" modal="true" height="95" width="440"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>
-                  <h:outputText value="#{msg['paso2']} #{controlVigenciasCargos.nuevaVigArp.estructuras.nombre} #{msg['paso2otro']} #{controlVigenciasCargos.nuevaVigArp.cargos.nombre} " 
+                  <h:outputText value="#{msg['paso2']} #{controlVigenciasCargos.nuevaVigArp.estructura.nombre} #{msg['paso2otro']} #{controlVigenciasCargos.nuevaVigArp.cargo.nombre} " 
                                 style="position: absolute; left: 110px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('paso2').hide();" style="position: absolute; top: 60px; left: 170px;"  process="@this"/>
                   <p:commandButton icon="ui-icon-check" value="Siguiente" onclick="PF('paso3').show();" style="position: absolute; top: 60px; left: 240px;"  process="@this"/>

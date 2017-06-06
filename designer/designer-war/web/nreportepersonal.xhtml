@@ -723,7 +723,7 @@
 
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['tipotelefono']}:" style="top: 28px; position: relative;"/>
-                                        <p:inputText autocomplete="off" value="#{controlNReportePersonal.parametroDeReporte.tipotelefono.nombre}" id="tipoTelefonoParametro" 
+                                        <p:inputText autocomplete="off" value="#{controlNReportePersonal.parametroDeReporte.tipotelefono.nombre}" id="tipoTelefonoParametro" widgetVar="tipoTelefonoParametro"
                                                      style="position: absolute; top: 88px; left: 120px; height: 10px; width: 120px;" onclick="select();" class="cssParametrosReportes">
                                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(5)}" process="@this"/> 
                                             <p:ajax event="change" update="tipoTelefonoParametro" listener="#{controlNReportePersonal.autocompletarGeneral('TIPOTELEFONO',controlNReportePersonal.parametroDeReporte.tipotelefono.nombre)}" process="@this"/>

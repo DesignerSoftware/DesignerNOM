@@ -469,53 +469,50 @@ public class ControlNReporteCapacitacion implements Serializable {
     }
 
     public void seleccionRegistro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        activarEnvioCorreo();
-        defaultPropiedadesParametrosReporte();
-        if (reporteSeleccionado.getFecdesde().equals("SI")) {
-            color = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        System.out.println("reporteSeleccionado.getFechasta(): " + reporteSeleccionado.getFechasta());
-        if (reporteSeleccionado.getFechasta().equals("SI")) {
-            color2 = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        System.out.println("reporteSeleccionado.getEmdesde(): " + reporteSeleccionado.getEmdesde());
-        if (reporteSeleccionado.getEmdesde().equals("SI")) {
-            empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
-            //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
-            if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
+        try {
+            activarEnvioCorreo();
+            defaultPropiedadesParametrosReporte();
+            if (reporteSeleccionado.getFecdesde().equals("SI")) {
+                color = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
             }
-        } else {
-            try {
-                System.out.println("empleadoDesdeParametro: " + empleadoDesdeParametro);
-                if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-
-                    System.out.println("reeemplazarr " + empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
-                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+            System.out.println("reporteSeleccionado.getFechasta(): " + reporteSeleccionado.getFechasta());
+            if (reporteSeleccionado.getFechasta().equals("SI")) {
+                color2 = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
+            }
+            System.out.println("reporteSeleccionado.getEmdesde(): " + reporteSeleccionado.getEmdesde());
+            if (reporteSeleccionado.getEmdesde().equals("SI")) {
+                empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
+                //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
+                if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
+            } else {
+                try {
+                    System.out.println("empleadoDesdeParametro: " + empleadoDesdeParametro);
+                    if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
 
-        System.out.println("reporteSeleccionado.getEmhasta(): " + reporteSeleccionado.getEmhasta());
-        if (reporteSeleccionado.getEmhasta().equals("SI")) {
-            empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
-            //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
-            empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+                        System.out.println("reeemplazarr " + empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+                        empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
+
+            System.out.println("reporteSeleccionado.getEmhasta(): " + reporteSeleccionado.getEmhasta());
+            if (reporteSeleccionado.getEmhasta().equals("SI")) {
+                empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
+                //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
+                empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+            }
+            RequestContext.getCurrentInstance().update("formParametros");
+        } catch (Exception ex) {
+            System.out.println("Error en selecccion Registro : " + ex.getMessage());
         }
-//        System.out.println("reporteSeleccionado.getEstado(): " + reporteSeleccionado.getEstado());
-//        if (reporteSeleccionado.getEstado().equals("SI")) {
-//            estadoParametro = (SelectOneMenu) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estadoParametro");
-//            estadoParametro.setStyleClass("selectOneMenuNReporteN");
-//            RequestContext.getCurrentInstance().update("formParametros:estadoParametro");
-//        }
-        RequestContext.getCurrentInstance().update("formParametros");
     }
 
     public void requisitosParaReporte() {

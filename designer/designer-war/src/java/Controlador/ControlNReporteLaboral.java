@@ -250,40 +250,43 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void seleccionRegistro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        activarEnvioCorreo();
-        defaultPropiedadesParametrosReporte();
-        if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
-            color = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (inforreporteSeleccionado.getFechasta().equals("SI")) {
-            color2 = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        if (inforreporteSeleccionado.getEmdesde().equals("SI")) {
-            empleadoDesdeParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametroL");
-            if (!empleadoDesdeParametroL.getStyle().contains(" color: red;")) {
-                empleadoDesdeParametroL.setStyle(empleadoDesdeParametroL.getStyle() + " color: red;");
+        try {
+            activarEnvioCorreo();
+            defaultPropiedadesParametrosReporte();
+            if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
+                color = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
             }
-        } else {
-            try {
-                if (empleadoDesdeParametroL.getStyle().contains(" color: red;")) {
-
-                    empleadoDesdeParametroL.setStyle(empleadoDesdeParametroL.getStyle().replace(" color: red;", ""));
+            if (inforreporteSeleccionado.getFechasta().equals("SI")) {
+                color2 = "red";
+                RequestContext.getCurrentInstance().update("formParametros");
+            }
+            if (inforreporteSeleccionado.getEmdesde().equals("SI")) {
+                empleadoDesdeParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametroL");
+                if (!empleadoDesdeParametroL.getStyle().contains(" color: red;")) {
+                    empleadoDesdeParametroL.setStyle(empleadoDesdeParametroL.getStyle() + " color: red;");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametroL");
+            } else {
+                try {
+                    if (empleadoDesdeParametroL.getStyle().contains(" color: red;")) {
 
-        if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
-            empleadoHastaParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametroL");
-            empleadoHastaParametroL.setStyle(empleadoHastaParametroL.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametroL");
+                        empleadoDesdeParametroL.setStyle(empleadoDesdeParametroL.getStyle().replace(" color: red;", ""));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametroL");
+
+            if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
+                empleadoHastaParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametroL");
+                empleadoHastaParametroL.setStyle(empleadoHastaParametroL.getStyle() + "color: red;");
+                RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametroL");
+            }
+            RequestContext.getCurrentInstance().update("formParametros");
+        } catch (Exception ex) {
+            System.out.println("Error en selecccion Registro : " + ex.getMessage());
         }
-        RequestContext.getCurrentInstance().update("formParametros");
     }
 
     public void dispararDialogoGuardarCambios() {
