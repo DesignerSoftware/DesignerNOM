@@ -2913,11 +2913,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    public void cargueQueryModuloPersonal() {
-      System.out.println("Controlador.ControlBusquedaAvanzada.cargueQueryModuloPersonal()");
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCosto");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOTRABAJADOR", "BTIPOTRABAJADOR", "A");
          listaParametrosQueryModulos.add(parametro);
@@ -2939,8 +2936,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCargo() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCosto");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaCargo.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "BCARGO", "A");
@@ -2989,9 +2984,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCentroCosto() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCentroCosto");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
-//      System.out.println("cargueModuloCentroCosto : " + cargueModuloCentroCosto);
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaCentroCosto.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENTROCOSTO", "BCENTROCOSTO", "A");
@@ -3026,9 +3018,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloSueldo() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesSueldo");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
-//      System.out.println("cargueModuloSueldo : " + cargueModuloSueldo);
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaSueldo.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("SUELDO", "BSUELDO", "A");
@@ -3071,8 +3060,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFechaContrato() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesTipoContrato");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaTipoContrato.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FECHACONTRATO", "BFECHACONTRATO", "A");
@@ -3107,8 +3094,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloTipoTrabajador() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesTipoTrabajador");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaTipoTrabajador.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOTRABAJADOR", "BTIPOTRABAJADOR", "A");
@@ -3139,8 +3124,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloTipoSalario() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesTipoSalario");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaReformaLaboral.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOSALARIO", "BTIPOSALARIO", "A");
@@ -3171,8 +3154,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloNormaLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesNormaLaboral");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaNormaLaboral.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("NORMALABORAL", "BNORMALABORAL", "A");
@@ -3204,8 +3185,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloLegislacionLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesLegislacionLaboral");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaLegislacion.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("LEGISLACIONLABORAL", "BLEGISLACIONLABORAL", "A");
@@ -3246,8 +3225,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloUbicacionGeografica() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesUbicacion");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaUbicacion.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("UBICACION", "BUBICACION", "A");
@@ -3278,8 +3255,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloAfiliaciones() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesAfiliacion");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaAfiliacion.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("AFILIACIONES", "BAFILIACIONES", "A");
@@ -3318,8 +3293,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFormaPago() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesFormaPago");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaFormaPago.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FORMAPAGO", "BFORMAPAGO", "A");
@@ -3356,8 +3329,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloMVR() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesMvrs");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaMvr.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("MVRS", "BMVRS", "A");
@@ -3396,8 +3367,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloSET() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesSets");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaSet.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("SETS", "BSETS", "A");
@@ -3447,8 +3416,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloVacaciones() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesVacacion");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("VACACIONES", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
@@ -3478,8 +3445,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFechaRetiro() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesRetiro");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("FECHARETIRO", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
@@ -3503,8 +3468,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloJornadaLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesJornadaLaboral");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("JORNADALABORAL", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
@@ -3528,8 +3491,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloDatosPersonales() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesDatosPersonales");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "NN", "NN");
@@ -3568,8 +3529,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFactorRH() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesFactorRH");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh() != null && !this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh().isEmpty()) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FACTORRH", "FACTORRH", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh().toString());
@@ -3585,8 +3544,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloEstadoCivil() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesEstadoCivil");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaEstadoCivil.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("ESTADOCIVIL", "BESTADOCIVIL", "A");
@@ -3618,8 +3575,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloIdioma() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesIdioma");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("IDIOMA", "NN", "NN");
@@ -3659,8 +3614,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCensos() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCenso");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaCenso.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENSOS", "BCENSOS", "A");
@@ -3695,8 +3648,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloEducacionFormal() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesEducacionFormal");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaEducacionFormal.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONFORMAL", "BEDUCACIONFORMAL", "A");
@@ -3735,8 +3686,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloEducacionNoFormal() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesEducacionNoFormal");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaEducacionNoFormal.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONNOFORMAL", "BEDUCACIONNOFORMAL", "A");
@@ -3775,8 +3724,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCargoPostularse() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCargoPostularse");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("CARGOPOSTULARSE", "NN", "NN");
@@ -3792,8 +3739,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloProyecto() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesProyecto");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("PROYECTO", "NN", "NN");
@@ -3823,8 +3768,6 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloExperienciaLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesExperienciaLaboral");
-      System.out.println("t : " + t);
-      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("EXPERIENCIALABORAL", "NN", "NN");
@@ -3913,7 +3856,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                   System.out.println("Entro al catch1() e : " + e);
                }
             }
-            if (listaResultadoBusqueda.size() > 1) {
+            if (listaResultadoBusqueda.size() > 2) {
                ResultadoBusquedaAvanzada resultado2 = listaResultadoBusqueda.get(2);
                try {
                   if (resultado2.getColumna0().length() > resultado.getColumna0().length()) {

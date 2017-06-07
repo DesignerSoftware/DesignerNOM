@@ -542,7 +542,6 @@ public class ControlVigenciasCargos implements Serializable {
       return forFecha;
    }
    //OTROS---------------------------------------------------------------------
-
    /*
      * Metodo encargado de cambiar el valor booleano para habilitar un boton
     */
@@ -1413,7 +1412,6 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public void bien() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:editarCentroCosto");
       RequestContext.getCurrentInstance().execute("PF('editarCentroCosto').show()");
    }

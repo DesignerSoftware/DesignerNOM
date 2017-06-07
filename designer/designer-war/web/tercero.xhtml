@@ -109,15 +109,16 @@
                      <h:outputText id="nitEmpresa" value="#{controlTercero.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 106px; width: 830px; height: 237px; border-radius: 10px; text-align: left; padding-top: 0px;">
+                  <fieldset style="position: absolute; left: 10px; top: 106px; width: 830px; height: 241px; border-radius: 10px; text-align: left; padding-top: 0px;">
                      <legend style="color: blue;"><strong>#{msg['terceros']}</strong></legend>
 
                      <p:dataTable id="datosTerceros" var="infoT" widgetVar="datosTerceros" rowIndexVar="indice" style="border: 1px; width: 1350px; position: absolute;"   
                                   value="#{controlTercero.listTerceros}" scrollable="true" scrollHeight="#{controlTercero.altoTablaTercero}" scrollWidth="830"
                                   filteredValue="#{controlTercero.filtrarListTercero}" emptyMessage="#{msg['vacio']}" rowKey="#{infoT.secuencia}" 
-                                  editable="true" editMode="cell" liveScroll="true" scrollRows="40" selectionMode="single" selection="#{controlTercero.terceroTablaSeleccionado}"
+                                  editable="true" editMode="cell" selectionMode="single" selection="#{controlTercero.terceroTablaSeleccionado}"
                                   rows="#{controlTercero.altoTablaReg}" paginator="true"
-                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{totalPages}">
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                                  currentPageReportTemplate="{totalPages}">
 
                         <f:event type="preRenderView" listener="#{controlTercero.recordarSeleccionT()}"/>
                         <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarT()}"/>
@@ -399,16 +400,16 @@
                         </p:column>
 
                      </p:dataTable>
-                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlTercero.infoRegistro}" style="position: relative; left: 10px; top: 195px; font-weight: bold; display: table"/>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlTercero.infoRegistro}" style="position: relative; left: 10px; top: 198px; font-weight: bold; display: table"/>
 
-                     <p:commandButton id="btnBuscarTerceros" value="" style="position: relative; top: 180px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                     <p:commandButton id="btnBuscarTerceros" value="" style="position: relative; top: 185px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                       actionListener="#{controlTercero.dialogoSeleccionarTercero()}" process="@this"/>
-                     <p:commandButton id="btnMostrarTodos" value="" style="position: relative; top: 180px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                     <p:commandButton id="btnMostrarTodos" value="" style="position: relative; top: 185px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                       actionListener="#{controlTercero.mostrarTodos()}" process="@this"/>
                   </fieldset>
 
 
-                  <fieldset style="position: absolute; left: 10px; top: 356px; width: 830px; height: 128px; border-radius: 10px; text-align: left; padding-top: 0px;">
+                  <fieldset style="position: absolute; left: 10px; top: 359px; width: 830px; height: 128px; border-radius: 10px; text-align: left; padding-top: 0px;">
                      <legend style="color: blue;"><strong>#{msg['sucursales']}</strong></legend>
 
                      <p:dataTable id="datosTercerosSucursales" widgetVar="datosTercerosSucursales" var="infoTS" rowKey="#{infoTS.secuencia}" rowIndexVar="indiceTS" style="border: 1px; width: 815px;"   

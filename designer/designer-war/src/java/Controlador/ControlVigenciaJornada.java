@@ -258,25 +258,15 @@ public class ControlVigenciaJornada implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "emplvigenciajornada";
-         
-         
-         
+       */
+      String pagActual = "emplvigenciajornada";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -428,6 +418,7 @@ String pagActual = "emplvigenciajornada";
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
+               RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
                RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
                tipoActualizacion = 0;
             }
@@ -617,6 +608,7 @@ String pagActual = "emplvigenciajornada";
                listJornadasLaborales.clear();
             } else {
                RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
+               RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
                RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
                tipoActualizacion = tipoNuevo;
                if (tipoNuevo == 1) {
@@ -2064,6 +2056,7 @@ String pagActual = "emplvigenciajornada";
          if (dlg == 0) { //getInfoRegistroJornadaLaboral();
             contarRegistrosJornadaL();
             RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
+            RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
             RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
          } else if (dlg == 1) {
             //getInfoRegistroTipoDescanso(); contarRegistrosTipoD();
@@ -2116,6 +2109,7 @@ String pagActual = "emplvigenciajornada";
       RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').hide()");
       RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
       RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
+      RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
       RequestContext.getCurrentInstance().update("form:aceptarJL");
 
    }
@@ -2134,6 +2128,7 @@ String pagActual = "emplvigenciajornada";
       RequestContext.getCurrentInstance().execute("PF('lovJornadaLaboral').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').hide()");
       RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
+      RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
       RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
       RequestContext.getCurrentInstance().update("form:aceptarJL");
    }
@@ -2215,6 +2210,7 @@ String pagActual = "emplvigenciajornada";
          if (cualCelda == 1) {
             contarRegistrosJornadaL();
             RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
+            RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
             RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
             tipoActualizacion = 0;
          }
@@ -2416,13 +2412,15 @@ String pagActual = "emplvigenciajornada";
          //Dialogo para seleccionar el rastro Historico de la tabla deseada
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
-       if (vigenciaTiempoSeleccionada != null) {
+      {
+         if (vigenciaTiempoSeleccionada != null) {
             verificarRastroVigenciaCompensacionTiempo();
          } else if (vigenciaDineroSeleccionada != null) {
             verificarRastroVigenciaCompensacionDinero();
          } else if (vigenciaJornadaSeleccionada != null) {
             verificarRastroVigenciaJornada();
          }
+      }
    }
 
    public void verificarRastroVigenciaJornada() {

@@ -151,7 +151,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                           + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
                           + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
                   if (i == 0) {
-                     System.out.println("stringSQLQuery : " + stringSQLQuery);
+//                     System.out.println("stringSQLQuery : " + stringSQLQuery);
                   }
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
@@ -164,6 +164,39 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                   listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
                   listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                }
+               List<SolucionesNodos> listaReturn = new ArrayList<SolucionesNodos>();
+               listaReturn.add(listSNodos.get(0));
+               listSNodos.remove(0);
+               try {
+                  while (!listSNodos.isEmpty()) {
+                     if (listSNodos.get(0).getCodigoconcepto() != null) {
+                        List<SolucionesNodos> listaAux = new ArrayList<SolucionesNodos>();
+                        int banderita = 0;
+//                        for (int j = 0; j < listaReturn.size(); j++) {
+                        int j = 0;
+                        while (j < listaReturn.size()) {
+                           if (listSNodos.get(0).getCodigoconcepto().intValue() < listaReturn.get(j).getCodigoconcepto().intValue()) {
+                              listaAux.add(listaReturn.get(j));
+                              listaReturn.remove(j);
+                              banderita++;
+                           } else {
+                              j++;
+                           }
+                        }
+                        if (banderita == 0) {
+                           listaReturn.add(listSNodos.get(0));
+                           listSNodos.remove(0);
+                        } else {
+                           listaReturn.add(listSNodos.get(0));
+                           listaReturn.addAll(listaAux);
+                           listSNodos.remove(0);
+                        }
+                     }
+                  }
+               } catch (Exception e2) {
+                  System.out.println("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado() CATCH2 : ERROR CONSULTANDO TRANSIENTS");
+               }
+               listSNodos = listaReturn;
             }
          }
 
@@ -220,37 +253,46 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                   listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
                   listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
                   listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
-
-                  List<SolucionesNodos> listaReturn = new ArrayList<SolucionesNodos>();
-                  listaReturn.add(listSNodos.get(0));
-                  listSNodos.remove(0);
+               }
+               List<SolucionesNodos> listaReturn = new ArrayList<SolucionesNodos>();
+               listaReturn.add(listSNodos.get(0));
+               listSNodos.remove(0);
+               try {
                   while (!listSNodos.isEmpty()) {
-                     System.out.println("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador() + " + listSNodos.get(0).getCodigoconcepto());
-                     List<SolucionesNodos> listaAux = new ArrayList<SolucionesNodos>();
-                     int banderita = 0;
-                     for (int j = 0; j < listaReturn.size(); j++) {
-                        if (listSNodos.get(0).getCodigoconcepto().intValue() < listaReturn.get(j).getCodigoconcepto().intValue()) {
-                           listaAux.add(listaReturn.get(j));
-                           listaReturn.remove(j);
-                           banderita++;
+                     System.out.println("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador() cod(0):" + listSNodos.get(0).getCodigoconcepto());
+                     if (listSNodos.get(0).getCodigoconcepto() != null) {
+                        List<SolucionesNodos> listaAux = new ArrayList<SolucionesNodos>();
+                        int banderita = 0;
+//                        for (int j = 0; j < listaReturn.size(); j++) {
+                        int j = 0;
+                        while (j < listaReturn.size()) {
+                           if (listSNodos.get(0).getCodigoconcepto().intValue() < listaReturn.get(j).getCodigoconcepto().intValue()) {
+                              listaAux.add(listaReturn.get(j));
+                              listaReturn.remove(j);
+                              banderita++;
+                           } else {
+                              j++;
+                           }
+                        }
+                        if (banderita == 0) {
+                           listaReturn.add(listSNodos.get(0));
+                           listSNodos.remove(0);
+                        } else {
+                           listaReturn.add(listSNodos.get(0));
+                           listaReturn.addAll(listaAux);
+                           listSNodos.remove(0);
                         }
                      }
-                     if (banderita == 0) {
-                        listaReturn.add(listSNodos.get(0));
-                        listSNodos.remove(0);
-                     } else {
-                        listaReturn.add(listSNodos.get(0));
-                        listaReturn.addAll(listaAux);
-                        listSNodos.remove(0);
-                     }
                   }
-                  listSNodos = listaReturn;
+               } catch (Exception e2) {
+                  System.out.println("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador() CATCH2 : ERROR CONSULTANDO TRANSIENTS");
                }
+               listSNodos = listaReturn;
             }
          }
          return listSNodos;
       } catch (Exception e) {
-         System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador)" + e.getMessage());
+         System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador) e: " + e.getMessage());
          return null;
       }
    }

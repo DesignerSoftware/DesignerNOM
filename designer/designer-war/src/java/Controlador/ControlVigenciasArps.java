@@ -10,8 +10,11 @@ import Entidades.Cargos;
 import Entidades.Estructuras;
 import Entidades.VigenciasArps;
 import Entidades.VigenciasCargos;
+import Exportar.ExportarPDF;
+import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarRastrosInterface;
 import InterfaceAdministrar.AdministrarVigenciasArpsInterface;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -29,6 +32,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -315,9 +319,11 @@ public class ControlVigenciasArps implements Serializable {
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
                nuevaVig.setCargo(lovCargos.get(indiceUnicoElemento).getSecuencia());
+               nuevaVig.setNombreCargo(lovCargos.get(indiceUnicoElemento).getNombre());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
             } else if (tipoNuevo == 2) {
                duplicarVig.setCargo(lovCargos.get(indiceUnicoElemento).getSecuencia());
+               duplicarVig.setNombreCargo(lovCargos.get(indiceUnicoElemento).getNombre());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
             }
             lovCargos.clear();
@@ -404,30 +410,41 @@ public class ControlVigenciasArps implements Serializable {
    }
 
    public void actualizarEstructura() {
+      System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: " + tipoActualizacion);
       if (tipoActualizacion == 0) {
          vigenciaSeleccionada.setEstructura(estructuraLovSeleccionada.getSecuencia());
+         vigenciaSeleccionada.setNombreEstructura(estructuraLovSeleccionada.getNombre());
+         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 1");
          if (!listaCrear.contains(vigenciaSeleccionada)) {
+            System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 2");
             if (listaModificar.isEmpty()) {
                listaModificar.add(vigenciaSeleccionada);
+               System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 3");
             } else if (!listaModificar.contains(vigenciaSeleccionada)) {
                listaModificar.add(vigenciaSeleccionada);
+               System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 4");
             }
          }
          if (guardado == true) {
             guardado = false;
+            System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 5");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().update("form:DatosVigencias");
+         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 6");
       } else if (tipoActualizacion == 1) {
+         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 7");
          nuevaVig.setEstructura(estructuraLovSeleccionada.getSecuencia());
+         nuevaVig.setNombreEstructura(estructuraLovSeleccionada.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaV");
       } else if (tipoActualizacion == 2) {
+         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 8");
          duplicarVig.setEstructura(estructuraLovSeleccionada.getSecuencia());
+         duplicarVig.setNombreEstructura(estructuraLovSeleccionada.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarV");
       }
       filtrarEstructuras = null;
       aceptar = true;
-      tipoActualizacion = -1;
       cualCelda = -1;
       estructuraLovSeleccionada = null;
    }
@@ -435,6 +452,7 @@ public class ControlVigenciasArps implements Serializable {
    public void actualizarCargo() {
       if (tipoActualizacion == 0) {
          vigenciaSeleccionada.setCargo(cargoLovSeleccionado.getSecuencia());
+         vigenciaSeleccionada.setNombreCargo(cargoLovSeleccionado.getNombre());
          if (!listaCrear.contains(vigenciaSeleccionada)) {
             if (listaModificar.isEmpty()) {
                listaModificar.add(vigenciaSeleccionada);
@@ -449,15 +467,147 @@ public class ControlVigenciasArps implements Serializable {
          RequestContext.getCurrentInstance().update("form:DatosVigencias");
       } else if (tipoActualizacion == 1) {
          nuevaVig.setCargo(cargoLovSeleccionado.getSecuencia());
+         nuevaVig.setNombreCargo(cargoLovSeleccionado.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaV");
       } else if (tipoActualizacion == 2) {
          duplicarVig.setCargo(cargoLovSeleccionado.getSecuencia());
+         duplicarVig.setNombreCargo(cargoLovSeleccionado.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarV");
       }
       filtrarCargos = null;
       aceptar = true;
-      tipoActualizacion = -1;
       cualCelda = -1;
+   }
+
+   public void confirmarDuplicar() {
+      int pasa = 0;
+      if (duplicarVig.getFechainicial() == null) {
+         pasa++;
+      }
+      if (duplicarVig.getEstructura() == null) {
+         pasa++;
+      }
+      if (duplicarVig.getFechafinal() == null) {
+         pasa++;
+      }
+      if (duplicarVig.getCargo() == null) {
+         pasa++;
+      }
+      if (duplicarVig.getPorcentaje() == null) {
+         pasa++;
+      }
+      if (pasa == 0) {
+         int control = 0;
+         for (VigenciasArps curVigenciasArps : listaVigenciasArps) {
+            if (curVigenciasArps.getFechainicial().compareTo(duplicarVig.getFechainicial()) == 0) {
+               control++;
+            }
+         }
+         if (control == 0) {
+            listaVigenciasArps.add(duplicarVig);
+            listaCrear.add(duplicarVig);
+            vigenciaSeleccionada = listaVigenciasArps.get(listaVigenciasArps.indexOf(duplicarVig));
+
+            if (guardado == true) {
+               guardado = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            restaurarTabla();
+            contarRegistros();
+            System.out.println("vigenciaSeleccionada : " + vigenciaSeleccionada);
+            duplicarVig = new VigenciasArps();
+            RequestContext.getCurrentInstance().update("form:listaValores");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroV').hide()");
+            RequestContext.getCurrentInstance().update("form:DatosVigencias");
+            System.out.println("Ya paso por la actualizacion de tabla");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show();");
+         }
+      } else {
+         RequestContext.getCurrentInstance().update("form:validacioNuevaVigencia");
+         RequestContext.getCurrentInstance().execute("PF('validacioNuevaVigencia').show()");
+      }
+   }
+
+   //CREAR VC
+   public void agregarNuevaV() {
+      int pasa = 0;
+      vigenciaSeleccionada = null;
+      if (nuevaVig.getFechainicial() == null) {
+         pasa++;
+      }
+      if (nuevaVig.getEstructura() == null) {
+         pasa++;
+      }
+      if (nuevaVig.getFechafinal() == null) {
+         pasa++;
+      }
+      if (nuevaVig.getCargo() == null) {
+         pasa++;
+      }
+      if (nuevaVig.getPorcentaje() == null) {
+         pasa++;
+      }
+      if (pasa == 0) {
+         int control = 0;
+         for (VigenciasArps curVigencias : listaVigenciasArps) {
+            if (curVigencias.getFechainicial().compareTo(nuevaVig.getFechainicial()) == 0) {
+               control++;
+            }
+         }
+         if (control == 0) {
+            restaurarTabla();
+            //AGREGAR REGISTRO A LA LISTA VIGENCIAS CARGOS EMPLEADO.
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevaVig.setSecuencia(l);
+            listaCrear.add(nuevaVig);
+            listaVigenciasArps.add(nuevaVig);
+            vigenciaSeleccionada = nuevaVig;
+            nuevaVig = new VigenciasArps();
+            contarRegistros();
+            RequestContext.getCurrentInstance().update("form:DatosVigencias");
+            RequestContext.getCurrentInstance().update("form:listaValores");
+            if (guardado == true) {
+               guardado = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroV').hide()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show();");
+         }
+      } else {
+         RequestContext.getCurrentInstance().update("form:validacioNuevaVigencia");
+         RequestContext.getCurrentInstance().execute("PF('validacioNuevaVigencia').show()");
+      }
+   }
+
+   public void cancelarCambioLov() {
+      //filterEstructuras = null;
+      aceptar = true;
+      tipoActualizacion = -1;
+   }
+
+   /*
+     * Metodo encargado de cambiar el valor booleano para habilitar un boton
+    */
+   public void activarAceptar() {
+      aceptar = false;
+   }
+
+   public void exportPDF() throws IOException {
+      FacesContext context = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) context.getViewRoot().findComponent("formExportar:DatosVigenciasExportar");
+      Exporter exporter = new ExportarPDF();
+      exporter.export(context, tabla, "VigenciasARPsPDF", false, false, "UTF-8", null, null);
+      context.responseComplete();
+   }
+
+   public void exportXLS() throws IOException {
+      FacesContext context = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) context.getViewRoot().findComponent("formExportar:DatosVigenciasExportar");
+      Exporter exporter = new ExportarXLS();
+      exporter.export(context, tabla, "VigenciasARPsXLS", false, false, "UTF-8", null, null);
    }
 
    //CTRL + F11 ACTIVAR/DESACTIVAR
@@ -624,11 +774,11 @@ public class ControlVigenciasArps implements Serializable {
    }
 
    //LIMPIAR NUEVO REGISTRO
-   public void limpiarNuevaVC() {
+   public void limpiarNuevaV() {
       nuevaVig = new VigenciasArps();
    }
 
-   public void limpiarduplicarVC() {
+   public void limpiarduplicarV() {
       duplicarVig = new VigenciasArps();
    }
 
@@ -805,6 +955,14 @@ public class ControlVigenciasArps implements Serializable {
 
    public void setDuplicarVig(VigenciasArps duplicarVig) {
       this.duplicarVig = duplicarVig;
+   }
+
+   public boolean isAceptar() {
+      return aceptar;
+   }
+
+   public void setAceptar(boolean aceptar) {
+      this.aceptar = aceptar;
    }
 
 }

@@ -91,8 +91,8 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
       List<VigenciasArps> listaVigencias = null;
       try {
          em.clear();
-         Query query = em.createQuery("SELECT v FROM VigenciasArps v");
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         Query query = em.createNativeQuery("SELECT v.* FROM VigenciasArps v, ESTRUCTURAS E WHERE v.ESTRUCTURA = E.SECUENCIA", VigenciasArps.class);
+//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          listaVigencias = query.getResultList();
          if (listaVigencias != null) {
             if (!listaVigencias.isEmpty()) {

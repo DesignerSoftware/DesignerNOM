@@ -207,51 +207,35 @@ public class ControlRemoto implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlRemoto.inicializarAdministrador() 1");
          FacesContext x = FacesContext.getCurrentInstance();
          controlListaNavegacion = (ControlListaNavegacion) x.getApplication().evaluateExpressionGet(x, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-         System.out.println("ControlRemoto.inicializarAdministrador() 2");
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCarpetaPersonal.obtenerConexion(ses.getId());
-         System.out.println("ControlRemoto.inicializarAdministrador() 3");
          administrarCarpetaDesigner.obtenerConexion(ses.getId());
-         System.out.println("ControlRemoto.inicializarAdministrador() 4");
          administrarPermisosObjetosJsf.obtenerConexion(ses.getId());
-         System.out.println("ControlRemoto.inicializarAdministrador() 5");
          posicion = 0;
          requerirTipoTrabajador(posicion);
-         System.out.println("ControlRemoto.inicializarAdministrador() 6");
          try {
             valorInputText();
-            System.out.println("ControlRemoto.inicializarAdministrador() 7");
          } catch (ParseException ex) {
             System.out.println("error en primerTipoTrabajador");
             System.out.println("ControlRemoto.inicializarAdministrador() 7 CATCH");
          }
          actualizarInformacionTipoTrabajador();
          llenarListaDeshavilitados();
-         System.out.println("ControlRemoto.inicializarAdministrador() 8");
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
-         System.out.println("ControlRemoto.inicializarAdministrador() 9");
          totalRegistros = administrarCarpetaPersonal.obtenerTotalRegistrosTipoTrabajador(tipo);
-         System.out.println("ControlRemoto.inicializarAdministrador() 10");
          actualizarInformacionTipoTrabajador();
-         System.out.println("ControlRemoto.inicializarAdministrador() 11");
          llenarBannerDefault();
-         System.out.println("ControlRemoto.inicializarAdministrador() 12");
          getListModulos();
-         System.out.println("ControlRemoto.inicializarAdministrador() 13");
          if (listModulos != null) {
             if (!listModulos.isEmpty()) {
                moduloSeleccionado = listModulos.get(0);
-               System.out.println("ControlRemoto.inicializarAdministrador() 14");
                listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-               System.out.println("ControlRemoto.inicializarAdministrador() 15");
             }
          }
          ListObjetosJSF = null;
          getListObjetosJSF();
-         System.out.println("ControlRemoto.inicializarAdministrador() 16");
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
