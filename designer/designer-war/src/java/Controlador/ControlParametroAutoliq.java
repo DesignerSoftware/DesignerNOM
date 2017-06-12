@@ -355,7 +355,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          RequestContext.getCurrentInstance().update("form:novedadauto");
          RequestContext.getCurrentInstance().update("form:eliminarToda");
          RequestContext.getCurrentInstance().update("form:procesoLiq");
-         RequestContext.getCurrentInstance().update("form:acumDif");
+//         RequestContext.getCurrentInstance().update("form:acumDif");
       } else {
          if (!listParametrosAutoliqCrear.contains(parametroTablaSeleccionado)) {
 
@@ -374,7 +374,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          RequestContext.getCurrentInstance().update("form:novedadauto");
          RequestContext.getCurrentInstance().update("form:eliminarToda");
          RequestContext.getCurrentInstance().update("form:procesoLiq");
-         RequestContext.getCurrentInstance().update("form:acumDif");
+//         RequestContext.getCurrentInstance().update("form:acumDif");
       }
       RequestContext.getCurrentInstance().update("form:datosParametroAuto");
    }
@@ -469,7 +469,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("form:novedadauto");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
-            RequestContext.getCurrentInstance().update("form:acumDif");
+//            RequestContext.getCurrentInstance().update("form:acumDif");
          } else {
             if (!listParametrosAutoliqCrear.contains(parametroTablaSeleccionado)) {
 
@@ -488,7 +488,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("form:novedadauto");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
-            RequestContext.getCurrentInstance().update("form:acumDif");
+//            RequestContext.getCurrentInstance().update("form:acumDif");
          }
       }
       RequestContext.getCurrentInstance().update("form:datosParametroAuto");
@@ -1053,7 +1053,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          RequestContext.getCurrentInstance().update("form:novedadauto");
          RequestContext.getCurrentInstance().update("form:eliminarToda");
          RequestContext.getCurrentInstance().update("form:procesoLiq");
-         RequestContext.getCurrentInstance().update("form:acumDif");
+//         RequestContext.getCurrentInstance().update("form:acumDif");
          cambiosParametro = false;
          System.out.println("Se guardaron los datos de Parámetros de Liquidación con éxito");
          guardado = true;
@@ -1183,7 +1183,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("form:novedadauto");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
-            RequestContext.getCurrentInstance().update("form:acumDif");
+//            RequestContext.getCurrentInstance().update("form:acumDif");
          }
       } else if (cualTabla == 2) {
          if (aporteTablaSeleccionado != null) {
@@ -1696,7 +1696,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          RequestContext.getCurrentInstance().update("form:novedadauto");
          RequestContext.getCurrentInstance().update("form:eliminarToda");
          RequestContext.getCurrentInstance().update("form:procesoLiq");
-         RequestContext.getCurrentInstance().update("form:acumDif");
+//         RequestContext.getCurrentInstance().update("form:acumDif");
          if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -2614,7 +2614,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:novedadauto");
       RequestContext.getCurrentInstance().update("form:eliminarToda");
       RequestContext.getCurrentInstance().update("form:procesoLiq");
-      RequestContext.getCurrentInstance().update("form:acumDif");
+//      RequestContext.getCurrentInstance().update("form:acumDif");
       tipoActualizacion = -1;/*
          RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
          RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:lovTipoTrabajador");
@@ -2634,7 +2634,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:novedadauto");
       RequestContext.getCurrentInstance().update("form:eliminarToda");
       RequestContext.getCurrentInstance().update("form:procesoLiq");
-      RequestContext.getCurrentInstance().update("form:acumDif");
+//      RequestContext.getCurrentInstance().update("form:acumDif");
       tipoActualizacion = -1;
       permitirIndex = true;
       context.reset("formularioLovTipoTrabajador:lovTipoTrabajador:globalFilter");
@@ -2658,7 +2658,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:novedadauto");
       RequestContext.getCurrentInstance().update("form:eliminarToda");
       RequestContext.getCurrentInstance().update("form:procesoLiq");
-      RequestContext.getCurrentInstance().update("form:acumDif");
+//      RequestContext.getCurrentInstance().update("form:acumDif");
       tipoActualizacion = -1;/*
          RequestContext.getCurrentInstance().update("formularioLovEmpresa:EmpresaDialogo");
          RequestContext.getCurrentInstance().update("formularioLovEmpresa:lovEmpresa");
@@ -2678,7 +2678,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:novedadauto");
       RequestContext.getCurrentInstance().update("form:eliminarToda");
       RequestContext.getCurrentInstance().update("form:procesoLiq");
-      RequestContext.getCurrentInstance().update("form:acumDif");
+//      RequestContext.getCurrentInstance().update("form:acumDif");
       tipoActualizacion = -1;
       permitirIndex = true;
       context.reset("formularioLovEmpresa:lovEmpresa:globalFilter");
@@ -2919,7 +2919,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:novedadauto");
       RequestContext.getCurrentInstance().update("form:eliminarToda");
       RequestContext.getCurrentInstance().update("form:procesoLiq");
-      RequestContext.getCurrentInstance().update("form:acumDif");
+//      RequestContext.getCurrentInstance().update("form:acumDif");
       tipoActualizacion = -1;
       visibilidadMostrarTodos = "visible";
       RequestContext.getCurrentInstance().update("form:mostrarTodos");
@@ -2944,7 +2944,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:novedadauto");
       RequestContext.getCurrentInstance().update("form:eliminarToda");
       RequestContext.getCurrentInstance().update("form:procesoLiq");
-      RequestContext.getCurrentInstance().update("form:acumDif");
+//      RequestContext.getCurrentInstance().update("form:acumDif");
       tipoActualizacion = -1;
       permitirIndex = true;
       RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
@@ -3067,7 +3067,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       context2.update("form:incaPag");
       context2.update("form:eliminarToda");
       context2.update("form:procesoLiq");
-      context2.update("form:acumDif");
+//      context2.update("form:acumDif");
    }
 
    public void exportPDF_AE() throws IOException {
@@ -3104,7 +3104,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       context2.update("form:incaPag");
       context2.update("form:eliminarToda");
       context2.update("form:procesoLiq");
-      context2.update("form:acumDif");
+//      context2.update("form:acumDif");
    }
 
    public void exportXLS_AE() throws IOException {
@@ -3166,7 +3166,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:novedadauto");
       RequestContext.getCurrentInstance().update("form:eliminarToda");
       RequestContext.getCurrentInstance().update("form:procesoLiq");
-      RequestContext.getCurrentInstance().update("form:acumDif");
+//      RequestContext.getCurrentInstance().update("form:acumDif");
    }
 
    public void verificarRastroAporteEntidad() {

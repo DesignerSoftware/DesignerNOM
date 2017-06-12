@@ -56,7 +56,7 @@
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
-                        
+
                         <fieldset style="position: absolute; left: 5px; top: 77px; width: 430px; height: 200px; border-radius: 11px;">
                             <img src="Imagenes\Iconos\Designer.png" style="border-radius: 11px; position: absolute; top: 20px; left: 25px;" width="400" height="100" alt="Foto Designer"   />
                             <h:outputText value="#{controlAcercaDe.version}" style="position: absolute; left: 200px; top: 140px; width:180px ;height:50px; color: darkblue; font-weight: bold;"/>
@@ -123,32 +123,35 @@
 
                     <!-- LOV EMPRESAS -->
                     <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
-                              showEffect="fade" hideEffect="fade" width="350" modal="true" style="">
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" style="">
                         <p:dataTable id="lovEmpresas" style=" width: 311px;" var="empresa" value="#{controlAcercaDe.listaEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlAcercaDe.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="330" scrollHeight="250"
-                                     filteredValue="#{controlAcercaDe.filtradoListaEmpresas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                                     filteredValue="#{controlAcercaDe.filtradoListaEmpresas}" emptyMessage="No se encontraron resultados con el criterio de búsqueda.">              
                             <p:ajax event="rowSelect" listener="#{controlAcercaDe.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlAcercaDe.cambiarEmpresa()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlAcercaDe.contarRegistros()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 11px;"/>  
+                                <h:outputText value="Buscar Empresa" />  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
-                            <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                            <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="Nit"/>
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nit}"/>
                             </p:column>
-                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nombre}"/>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton id="aceptarE" style="position: relative; left: 180px;" value="Aceptar" disabled="#{controlAcercaDe.aceptar}" actionListener="#{controlAcercaDe.cambiarEmpresa()}" process="@this"/>
-                        
-                        <p:commandButton id="atrasE" style="position: relative; left: 180px;" value="Cancelar"  actionListener="#{controlAcercaDe.cancelarCambioEmpresa()}"  process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistro" value="Registros #{controlAcercaDe.infoRegistro}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="Aceptar" disabled="#{controlAcercaDe.aceptar}" actionListener="#{controlAcercaDe.cambiarEmpresa()}" process="@this"/>
+                            <p:commandButton id="atrasE" icon="ui-icon-close" class="cssAtrasLOV" value="Cancelar"  actionListener="#{controlAcercaDe.cancelarCambioEmpresa()}"  process="@this"/>
+                        </div>
                     </p:dialog>
                 </h:form>
                 <h:form id="formExportar">

@@ -1,0 +1,1143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">     
+                <script type="text/javascript">
+                    $(window).load(function () {
+
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
+                    }
+                    ;
+                </script>
+                <div style="position: static;"></div>
+                <h:form id="form">
+
+                    <f:loadBundle basename="Recursos.interfasecontablesapbo" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlInterfaseContableInfor.guardadoGeneral()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlInterfaseContableInfor.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlInterfaseContableInfor.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlInterfaseContableInfor.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlInterfaseContableInfor.validarExportXLS()}"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"  ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlInterfaseContableInfor.validarExportXML()}" fileName="#{controlInterfaseContableInfor.validarNombreExportXML()}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlInterfaseContableInfor.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="insertar" disabled="#{controlInterfaseContableInfor.activarAgregar}" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" oncomplete="PF('NuevoRegistroPC').show()" update=":formularioDialogos:nuevaParametroContable" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" disabled="#{controlInterfaseContableInfor.activarOtros}" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlInterfaseContableInfor.borrarParametroContable()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"   process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlInterfaseContableInfor.validarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlInterfaseContableInfor.cancelarModificaciones()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlInterfaseContableInfor.salir()}" action="#{controlInterfaseContableInfor.redirigir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <p:panel style="position: absolute; top: 70px; left: 5px; width: 864px; height: 75px; border: none;" id="panelParametro">
+                            <fieldset style="position: absolute; top: -1px; left: 5px; height: 55px; width: 830px; border-radius: 10px; text-align: left;">
+                                <legend style=" color: blue;text-align:left;"><strong>#{msg['parametrosContables']}</strong></legend>
+
+                                <p:commandButton id="btnrecontabilizar" value=" " style="position: relative; top: 2px; left: 5px;text-align: left; width: 45px; height: 45px; background-image: url(Imagenes/Iconos/innovina_icono_180x180.png); background-size: 100% 100%; background-repeat: no-repeat;" 
+                                                 actionListener="#{controlInterfaseContableInfor.actionBtnRecontabilizar()}" process="@this"/>
+
+                                <div id="pempresa" style="position: relative; top: -35px; left: 10px">
+                                    <strong><h:outputText value="#{msg['empresa']}" style="position: relative; top: -10px; left: 49px"/></strong>
+                                    <p:inputText autocomplete="off" id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableInfor.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 55px; width: 186px; height: 10px; text-transform: uppercase; height: 10px;">
+                                        <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarParametroContable(controlInterfaseContableInfor.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
+                                        <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(0)}"/>
+                                        <p:ajax event="dblclick" listener="#{controlInterfaseContableInfor.asignarIndex(0, 0, 0)}"/>
+                                    </p:inputText>
+
+                                    <strong><h:outputText value="#{msg['proceso']}" style="position: relative; top: -10px; left: 65px"/></strong>
+                                    <p:inputText autocomplete="off" id="parametroProceso" onclick="select();" value="#{controlInterfaseContableInfor.parametroContableActual.proceso.descripcion}" style="position: relative; top: -10px; left: 70px; width: 75px;height: 10px; text-transform: uppercase;">
+                                        <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarParametroContable(controlInterfaseContableInfor.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
+                                        <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(2)}"/>
+                                        <p:ajax event="dblclick" listener="#{controlInterfaseContableInfor.asignarIndex(2, 1, 0)}"/>
+                                    </p:inputText>
+                                </div> 
+
+                                <div id="pdoccontable" style="position: relative; top: -60px; left: 410px">
+                                    <strong><h:outputText value="#{msg['docContable']}" style="position: relative; top: 20px; left: -352px;"/></strong>
+                                    <p:inputText autocomplete="off" maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableInfor.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px; text-transform: uppercase;width: 100px; height: 10px;">
+                                        <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarParametroContable()}" update="@this"/>
+                                        <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(1)}"/>
+                                    </p:inputText>
+
+                                    <strong><h:outputText value="Núm. Documento" style="position: relative; top: 20px; left: -340px; display: inline-block; height: 10px;"/></strong>
+                                    <p:inputText autocomplete="off" id="parametroNumDoc" onclick="select();" value="#{controlInterfaseContableInfor.parametroContableActual.respuestaxml}" style="position: relative; top: 20px; left: -331px; text-transform: uppercase; height: 10px; width: 75px">
+                                        <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarParametroContable()}" update="@this"/>
+                                        <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(2)}"/>
+                                    </p:inputText>
+                                </div>
+
+                                <strong><h:outputText value="#{msg['fechaInicial']}" style="position: relative; top: -86px; left: 480px"/></strong>
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableInfor.parametroContableActual.fechainicialcontabilizacion}"
+                                            style="position: relative; top: -88px; left: 492px" >
+                                    <p:ajax event="dateSelect" listener="#{controlInterfaseContableInfor.modificarFechasParametro(3)}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarFechasParametro(3)}" update="@this"/>
+                                    <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(3)}"/>
+                                </p:calendar>
+
+
+                                <strong><h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: 44px; left: 489px"/></strong>
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableInfor.parametroContableActual.fechafinalcontabilizacion}"
+                                            style="position: relative; top: -60px; left: 408px" >
+                                    <p:ajax event="dateSelect" listener="#{controlInterfaseContableInfor.modificarFechasParametro(4)}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarFechasParametro(4)}" update="@this"/>
+                                    <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(4)}"/>
+                                </p:calendar>
+
+
+                                <p:commandButton value="#{msg['actualizar']}" style="position: absolute; top: 30px; left: 680px;" icon="ui-icon-refresh"  process="@this" actionListener="#{controlInterfaseContableInfor.actionBtnActualizar()}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                <p:commandButton id="btnAnular" value="." style="position: absolute; top: 33px; left: 795px; width: 10px; text-align: left" actionListener="#{controlInterfaseContableInfor.anularComprobantesCerrados()}"/>
+                                <p:tooltip  for="btnAnular" value="#{msg['btnAnular']}"/>
+                            </fieldset> 
+                        </p:panel>
+
+                        <p:remoteCommand name="validarDescargaReporte" actionListener="#{controlInterfaseContableInfor.validarDescargaReporte()}"/>
+                        <p:remoteCommand name="generarDocumentoReporte" actionListener="#{controlInterfaseContableInfor.generarDocumentoReporte()}"/>
+
+                        <fieldset style="position: absolute; top: 140px; left: 10px; height: 155px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style=" color: blue;text-align:left;"><strong>#{msg['generados']}</strong></legend>
+
+                            <p:dataTable id="datosGenerados" var="infoG" rowKey="#{infoG.secuencia}" rowIndexVar="indiceG" style="width: 814px; border: 1px;"                           
+                                         value="#{controlInterfaseContableInfor.listaGenerados}" scrollable="true" scrollHeight="#{controlInterfaseContableInfor.altoTablaGenerada}" scrollWidth="830"
+                                         filteredValue="#{controlInterfaseContableInfor.filtrarListaGenerados}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25"
+                                         selection="#{controlInterfaseContableInfor.generadoTablaSeleccionado}" selectionMode="single"
+                                         rows="#{controlInterfaseContableInfor.altoTablaGenerada}" paginator="true"  widgetVar="datosGenerados"
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                                         currentPageReportTemplate="{totalPages}" >
+
+                                <p:ajax event="filter" listener="#{controlInterfaseContableInfor.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['proceso']}" sortBy="#{infoG.nombreproceso}" filterBy="#{infoG.nombreproceso}"   width="133"
+                                          id="genProceso"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.nombreproceso}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="generadoProceso" readonly="true" value="#{infoG.nombreproceso}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '0'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoG.nombreempleado}" filterBy="#{infoG.nombreempleado}" filterMatchMode="contains"
+                                          id="genEmpleado" width="150" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.nombreempleado}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="generadoEmpleado" readonly="true" value="#{infoG.nombreempleado}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionGenerado([{name: 'n', value: '1'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column headerText="#{msg['cuentaCredito']}" sortBy="#{infoG.codigocuentac}" filterBy="#{infoG.codigocuentac}" filterMatchMode="contains" 
+                                          id="genCntCredito" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.codigocuentac}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="generadoCntCredito" readonly="true" value="#{infoG.codigocuentac}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '2'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['cuentaDebito']}" sortBy="#{infoG.codigocuentad}" filterBy="#{infoG.codigocuentad}" filterMatchMode="contains" 
+                                          id="genCntDebito" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.codigocuentad}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="generadoCntDebito" readonly="true" value="#{infoG.codigocuentad}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '3'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['tercero']}" sortBy="#{infoG.nittercero}" filterBy="#{infoG.nittercero}" filterMatchMode="contains" 
+                                          id="genTercero" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.nittercero}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="generadoTercero" readonly="true" value="#{infoG.nittercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '4'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valor']}" sortBy="#{infoG.valor}" filterBy="#{infoG.valor}" filterMatchMode="contains" 
+                                          id="genValor" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.valor}">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="generadoValor" readonly="true" value="#{infoG.valor}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionGenerado([{name: 'n', value: '5'}, {name: 't', value: '#{indiceG}'}]);">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </p:inputText> 
+
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['concepto']}" sortBy="#{infoG.nombreconcepto}" filterBy="#{infoG.nombreconcepto}" filterMatchMode="contains"  
+                                          id="genConcepto" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoG.nombreconcepto}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="generadoConcepto" readonly="true" value="#{infoG.nombreconcepto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionGenerado([{name: 'n', value: '6'}, {name: 't', value: '#{indiceG}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable> 
+                            <h:outputText id="infoRegistroGenerados" value="#{msg['infoRegistros']} #{controlInterfaseContableInfor.infoRegistroGenerados}" style="position: relative; left: 0px; top: 0px; font-weight: bold;"/>
+                            <p:commandButton id="btnEnviar" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" disabled="#{controlInterfaseContableInfor.activarEnviar}" value="Enviar" 
+                                             icon="ui-icon-arrowreturnthick-1-s" style="position: relative; top: 0px; left: 10px;text-align: center; height: 30px; width: 85px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                             actionListener="#{controlInterfaseContableInfor.actionBtnEnviar()}"/>
+                            <p:commandButton id="btnDeshacer"  disabled="#{controlInterfaseContableInfor.activarDeshacer}" value="#{msg['deshacer']}"  style="position: relative; top: 0px; left: 12px; height: 30px; width: 101px; background-image: url(Imagenes/Iconos/boton.png); 
+                                             color: white; background-size: 100% 100%; background-repeat: no-repeat; text-align: center; border: none;" icon="ui-icon-arrowreturnthick-1-s"  onclick="PF('procesoDeshacer').show()"/>
+
+                            <p:commandButton id="reporteControl"   value="R. Control" actionListener="#{controlInterfaseContableInfor.validarDescargaReporte()}"  icon="ui-icon-arrowreturnthick-1-s"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                             style="position: relative; top: 0px; left: 14px; height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
+                            <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}"/>
+
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 0px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="totalDGenerado" value="#{controlInterfaseContableInfor.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px; width: 100px; height: 10px; text-align: left; border-color: transparent">
+                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 0px; left: 22px;"/></strong>
+                            <p:inputText autocomplete="off" id="totalCGenerado" value="#{controlInterfaseContableInfor.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px; width: 100px; height: 10px; text-align: right; border-color: transparent">
+                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                            </p:inputText>
+                        </fieldset>
+
+                        <p:remoteCommand name="posicionGenerado" actionListener="#{controlInterfaseContableInfor.posicionGenerado()}"/>
+                        <p:remoteCommand name="posicionIntercon" actionListener="#{controlInterfaseContableInfor.posicionIntercon()}"/>
+
+                        <fieldset style="position: absolute; top: 318px; left: 10px; height: 155px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style=" color: blue;text-align:left;"><strong>#{msg['contabilizadosSAP']}</strong></legend>
+
+                            <p:dataTable id="datosIntercon" var="infoI" rowKey="#{infoI.secuencia}" rowIndexVar="indiceI" style="width: 814px; border: 1px;"                           
+                                         value="#{controlInterfaseContableInfor.listaInterconInfor}" scrollable="true" scrollWidth="830"
+                                         filteredValue="#{controlInterfaseContableInfor.filtrarListaInterconInfor}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell"   selection="#{controlInterfaseContableInfor.interconTablaSeleccionada}" selectionMode="single" 
+                                         rows="#{controlInterfaseContableInfor.altoTablaIntercon}" paginator="true"  widgetVar="datosIntercon"
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                         currentPageReportTemplate="{totalPages}" liveScroll="true" scrollHeight="#{controlInterfaseContableInfor.altoTablaIntercon}">   
+
+                                <p:ajax event="filter" listener="#{controlInterfaseContableInfor.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['empleado']}" sortBy="#{infoI.nombreempleado}" filterBy="#{infoI.nombreempleado}"   width="133"
+                                          id="interEmpleado"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.nombreempleado}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconEmpleado" readonly="true" value="#{infoI.nombreempleado}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '0'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['tercero']}" sortBy="#{infoI.codigotercero}" filterBy="#{infoI.codigotercero}" filterMatchMode="contains"
+                                          id="interTercero" width="150" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.codigotercero}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconTercero" readonly="true" value="#{infoI.codigotercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '1'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column headerText="#{msg['cuenta']}" sortBy="#{infoI.cuenta.codigo}" filterBy="#{infoI.cuenta.codigo}" filterMatchMode="contains" 
+                                          id="interCuenta" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.cuenta.codigo}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconCuenta" readonly="true" value="#{infoI.cuenta.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '2'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valorDebito']}" sortBy="#{infoI.valord}" filterBy="#{infoI.valord}" filterMatchMode="contains" 
+                                          id="interDebito" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.valord}">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconDebito" readonly="true" value="#{infoI.valord}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '3'}, {name: 't', value: '#{indiceI}'}]);">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </p:inputText> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valorCredito']}" sortBy="#{infoI.valorc}" filterBy="#{infoI.valorc}" filterMatchMode="contains" 
+                                          id="interCredito" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.valorc}">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconCredito" readonly="true" value="#{infoI.valorc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '4'}, {name: 't', value: '#{indiceI}'}]);">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </p:inputText> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['concepto']}" sortBy="#{infoI.concepto.descripcion}" filterBy="#{infoI.concepto.descripcion}" filterMatchMode="contains" 
+                                          id="interConcepto" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.concepto.descripcion}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconConcepto" readonly="true" value="#{infoI.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                                         onselect="posicionIntercon([{name: 'n', value: '5'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['centroCosto']}" sortBy="#{infoI.centrocosto.nombre}" filterBy="#{infoI.centrocosto.nombre}" filterMatchMode="contains"  
+                                          id="interCentroCosto" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.centrocosto.nombre}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconCentroCosto" readonly="true" value="#{infoI.centrocosto.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '6'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['proceso']}" sortBy="#{infoI.proceso.descripcion}" filterBy="#{infoI.proceso.descripcion}" filterMatchMode="contains"  
+                                          id="interProceso" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.proceso.descripcion}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconProceso" readonly="true" value="#{infoI.proceso.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '7'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 26px; border: none; color: blue;" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['proyecto']}" sortBy="#{infoI.proyecto.nombreproyecto}" filterBy="#{infoI.proyecto.nombreproyecto}" filterMatchMode="contains"  
+                                          id="interProyecto" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.proyecto.nombreproyecto}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconProyecto" readonly="true" value="#{infoI.proyecto.nombreproyecto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '8'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['lote']}" sortBy="#{infoI.lote}" filterBy="#{infoI.lote}" filterMatchMode="contains"  
+                                          id="interLote" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.lote}"/>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconLote" readonly="true" value="#{infoI.lote}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '9'}, {name: 't', value: '#{indiceI}'}]);"/> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechaVencimiento']}" sortBy="#{infoI.fechavencimiento}" filterBy="#{infoI.fechavencimiento}" filterMatchMode="contains"  
+                                          id="interFechaVencimiento" width="133" filterStyle="display: none; visibility: hidden;">      
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoI.fechavencimiento}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" id="interconFechaVencimiento" readonly="true" value="#{infoI.fechavencimiento}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                                         onselect="posicionIntercon([{name: 'n', value: '10'}, {name: 't', value: '#{indiceI}'}]);">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </p:inputText> 
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable> 
+                            <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableInfor.infoRegistroContabilizados}" style="position: relative; left: 3px; top: 8px; font-weight: bold;"/>
+
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 8px; left: 313px;"/></strong>
+                            <p:inputText autocomplete="off" id="totalDInter" readonly="true" value="#{controlInterfaseContableInfor.totalDInter}" style="position: relative; top: 8px; left: 316px; width: 90px; height: 10px; text-align: left; border-color: transparent">
+                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 8px; left: 328px;"/></strong>
+                            <p:inputText autocomplete="off" id="totalCInter" readonly="true" value="#{controlInterfaseContableInfor.totalCInter}" style="position: relative; top: 8px; left: 345px; width: 90px; height: 10px; text-align: right; border-color: transparent">
+                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
+                            </p:inputText>
+                        </fieldset>
+
+                        <p:dialog header="#{msg['procesoM']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="475" modal="true">
+                            <p:dataTable id="lovProceso" style=" width: 430px;" var="proceso" value="#{controlInterfaseContableInfor.lovProcesos}" rowKey="#{proceso.secuencia}"
+                                         selection="#{controlInterfaseContableInfor.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                         filteredValue="#{controlInterfaseContableInfor.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                                <p:ajax event="rowSelect" listener="#{controlInterfaseContableInfor.activarAceptar()}" update=":form:aceptarP"/>
+                                <p:ajax event="rowDblselect" listener="#{controlInterfaseContableInfor.actualizarProceso()}" process="@this"/>
+                                <p:ajax event="filter" listener="#{controlInterfaseContableInfor.contarRegistroProcesos()}"/>
+
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarP']}"/>  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();" class="cssFiltroLOV"/>  
+                                </f:facet>
+                                <p:column filterBy="#{proceso.descripcion}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['descripcion']}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{proceso.descripcion}"/>
+                                </p:column>
+                                <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
+                                    </f:facet>
+                                    <h:outputText  value="#{proceso.codigo}"/>
+                                </p:column>
+                            </p:dataTable>
+
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroProceso" value="#{controlInterfaseContableInfor.infoRegistroProceso}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableInfor.aceptar}" actionListener="#{controlInterfaseContableInfor.actualizarProceso()}"  process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasP" class="cssAtrasLOV" value="#{msg['atras']}"  actionListener="#{controlInterfaseContableInfor.cancelarProceso()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
+                        </p:dialog> 
+
+                        <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
+                                  showEffect="fade" hideEffect="fade" width="475" modal="true">
+                            <p:dataTable id="lovEmpresa" style=" width: 430px;" var="empresa" value="#{controlInterfaseContableInfor.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                                         selection="#{controlInterfaseContableInfor.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                         filteredValue="#{controlInterfaseContableInfor.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
+                                <p:ajax event="rowSelect" listener="#{controlInterfaseContableInfor.activarAceptar()}" update=":form:aceptarE"/>
+                                <p:ajax event="rowDblselect" listener="#{controlInterfaseContableInfor.actualizarEmpresa()}" process="@this"/>
+                                <p:ajax event="filter" listener="#{controlInterfaseContableInfor.contarRegistroEmpresas()}"/>
+
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarE']}"/>  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV"/>  
+                                </f:facet>
+                                <p:column filterBy="#{empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombre']}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{empresa.nombre}"/>
+                                </p:column>
+                                <p:column filterBy="#{empresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
+                                    </f:facet>
+                                    <h:outputText  value="#{empresa.codigo}"/>
+                                </p:column>
+                            </p:dataTable>
+
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroEmpresa" value="#{controlInterfaseContableInfor.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarE" class="cssAceptarLOV" style="position: relative; left: 265px;" value="#{msg['aceptar']}" disabled="#{controlInterfaseContableInfor.aceptar}" actionListener="#{controlInterfaseContableInfor.actualizarEmpresa()}" process="@this" icon="ui-icon-check"/>
+                                <p:commandButton id="atrasE" class="cssAtrasLOV" style="position: relative; left: 265px;" value="#{msg['atras']}" actionListener="#{controlInterfaseContableInfor.cancelarEmpresa()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
+                        </p:dialog> 
+
+                        <!--<p:commandButton style="position: absolute; left: 15px; top: 482px;" id="enviarSAPBO" value="#{msg['enviarSAPBO']}"  disabled="#{controlInterfaseContableInfor.activarDeshacer}" actionListener="#{controlInterfaseContableInfor.actionBtnGenerarPlano()}" process="@this"/>-->
+                        <!--<p:commandButton style="position: absolute; left: 210px; top: 482px;" id="HISTORICO" value="#{msg['HISTORICO']}"  process="@this"/>-->
+                        <!--<p:commandButton style="position: absolute; left: 325px; top: 482px; color: red;" id="CERRAR" value="#{msg['cerrarPeriodo']}" actionListener="#{controlInterfaseContableInfor.inicioCerrarPeriodoContable()}" process="@this"/>-->
+
+<!--                         <p:selectOneMenu id="tipoPlano" value="#{controlInterfaseContableInfor.tipoPlano}" style="position: relative; left: 115px; top: 450px; width: 100px">
+                            <f:selectItem itemLabel="#{msg['detallado']}" itemValue="1"/>
+                            <f:selectItem itemLabel="#{msg['semiDetallado']}" itemValue="2"/>
+                            <f:selectItem itemLabel="#{msg['resumido']}" itemValue="3"/>
+                            <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarTipoPlano(controlInterfaseContableInfor.tipoPlano)}" process="@this" update="tipoPlano"/>
+                        </p:selectOneMenu>
+
+                        -->
+                        <p:commandButton style="position: relative; left: 0px; top: 465px;text-align: center; height: 30px; width: 140px; background-image: url(Imagenes/Iconos/botonL.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="PLANO" value="Generar Plano" 
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                         actionListener="#{controlInterfaseContableInfor.actionBtnGenerarPlano()}" process="@this" icon="ui-icon-arrowreturnthick-1-s"/>
+                        <p:commandButton style="position: relative; left: 5px; top: 465px; color: red;text-align: center; height: 30px; width: 140px; background-image: url(Imagenes/Iconos/botonL.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="CERRAR" value="Cerrar P.C." icon="ui-icon-arrowreturnthick-1-s"
+                                         actionListener="#{controlInterfaseContableInfor.inicioCerrarPeriodoContable()}" process="@this"/>
+                        <p:tooltip  for="CERRAR" value="#{msg['cerrarPeriodo']}"/>
+                        <p:commandButton style="position: relative; left: 10px; top: 465px; color: red;text-align: center; height: 30px; width: 140px; background-image: url(Imagenes/Iconos/botonL.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="HISTORICO" value="Ver Históricos" icon="ui-icon-arrowreturnthick-1-s"
+                                         action="#{controlListaNavegacion.guardarNavegacion('interfasecontablesapbo', 'interfasecontablehistorico')}"  process="@this"
+                                         actionListener="#{controlInterfaseContableHistorico.recibirPaginaEntrante('interfasecontablesapbo')}" />
+                        <p:commandButton id="ACEPTAR" value="" class="cssBotonAceptar" onclick="PF('confirmarGuardar').show();"  process="@this" disabled="#{controlInterfaseContableInfor.guardado}"/>
+                        <p:commandButton id="ATRAS" value="" class="cssBotonCancelar" actionListener="#{controlInterfaseContableInfor.salir()}" action="nominaf" process="@this"/>
+
+                    </p:panel>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlInterfaseContableInfor.activarCtrlF11()}"/> 
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInterfaseContableInfor.guardarSalir()}" action="#{controlInterfaseContableInfor.redirigir()}" style="position: absolute; top: 50px; left: 125px" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlInterfaseContableInfor.cancelarSalir()}" action="#{controlInterfaseContableInfor.redirigir()}" style="position: absolute; top: 50px; left: 190px" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlInterfaseContableInfor.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlInterfaseContableInfor.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableInfor.interconTablaSeleccionada.secuencia, 'InterconSapBO', 'interfasecontablesapbov8')}" style="position: absolute; top: 63px; left: 175px" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('InterconSapBO', 'interfasecontablesapbov8')}" style="position: absolute; top: 60px; left: 175px" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableInfor.interconTablaSeleccionada.secuencia, 'InterconSapBO', 'interfasecontablesapbov8')}" style="position: absolute; top: 65px; left: 175px" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasParametro" header="#{msg['error']}" widgetVar="errorFechasParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorFechasParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorNewRegNull" header="#{msg['error']}" widgetVar="errorNewRegNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorNewRegNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasNull" header="#{msg['error']}" widgetVar="errorFechasNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorFechasNull']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorFechasParametros" header="#{msg['error']}" widgetVar="errorFechasParametros"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorFechasParametros']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="procesoSinDatos" header="#{msg['error']}" widgetVar="procesoSinDatos"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['procesoSinDatos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="anteriorContabilizacion" header="#{msg['informacion']}" widgetVar="anteriorContabilizacion"  resizable="false" draggable="true" modal="true" height="60" width="275px"  closable="true">  
+                        <h:outputText value="#{msg['anteriorContabilizacion']} #{controlInterfaseContableInfor.msnFechasActualizar}" style="position: absolute; left: 20px; top: 10px; width: 235px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="nuncaContabilizo" header="#{msg['informacion']}" widgetVar="nuncaContabilizo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['nuncaContabilizo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="contadoCeroPerContable" header="#{msg['informacion']}" widgetVar="contadoCeroPerContable"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['contadoCeroPerContable']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="anularComprobantesCerrados" header="#{msg['informacion']}" widgetVar="anularComprobantesCerrados"  resizable="false" draggable="true" modal="true" height="95" width="350px"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['anularComprobantesCerrados']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('anularComprobantesCerrados').hide();" actionListener="#{controlInterfaseContableInfor.anularComprobantesCerrados()}" style="position: absolute; top: 63px; left: 125px"  process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="PF('anularComprobantesCerrados').hide();" style="position: absolute; top: 63px; left: 225px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="procesoDeshacer" header="#{msg['informacion']}" widgetVar="procesoDeshacer"  resizable="false" draggable="true" modal="true" height="100" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['procesoDeshacer']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; "/>
+                        <p:commandButton value="#{msg['aceptar']}"  onclick="PF('procesoDeshacer').hide(); PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" icon="ui-icon-check"  actionListener="#{controlInterfaseContableInfor.actionBtnDeshacer()}" style="position: absolute; top: 63px; left: 125px"  process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="PF('procesoDeshacer').hide();" style="position: absolute; top: 63px; left: 225px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="paso1Recon" header="#{msg['informacion']}" widgetVar="paso1Recon"  resizable="false" draggable="true" modal="true" height="115" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['paso1Recon']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1Recon').hide(); PF('paso2Recon').show()" style="position: absolute; top: 90px; left: 125px" icon="ui-icon-check"  process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso1Recon').hide();" icon="ui-icon-close" style="position: absolute; top: 90px; left: 225px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="paso2Recon" header="#{msg['informacion']}" widgetVar="paso2Recon"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['paso2Recon']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso2Recon').hide();"  actionListener="#{controlInterfaseContableInfor.ejecutarPaso3Recon()}" style="position: absolute; top: 63px; left: 125px"  process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="PF('paso2Recon').hide();" style="position: absolute; top: 63px; left: 225px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="paso3Recon" header="#{msg['informacion']}" widgetVar="paso3Recon"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['paso3Recon1']}  #{controlInterfaseContableInfor.fechaIniRecon} - #{controlInterfaseContableInfor.fechaFinRecon}  #{msg['paso3Recon2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso3Recon').hide(); PF('operacionEnProceso').show()"  actionListener="#{controlInterfaseContableInfor.finalizarProcesoRecontabilizacion()}" style="position: absolute; top: 63px; left: 125px"  process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="PF('paso3Recon').hide();" style="position: absolute; top: 63px; left: 225px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRecon" header="#{msg['informacion']}" widgetVar="errorRecon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRecon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="paso1CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['paso1CerrarPeriodo']} #{controlInterfaseContableInfor.msnPaso1()}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1CerrarPeriodo').hide(); PF('paso2CerrarPeriodo').show()" style="position: absolute; top: 63px; left: 125px" icon="ui-icon-check"  process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso1CerrarPeriodo').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 225px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="paso2CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso2CerrarPeriodo"  resizable="false" draggable="true" modal="true" height="80" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['paso2CerrarPeriodo']}" style="position: absolute; left: 70px; top: 15px; width: 190px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso2CerrarPeriodo').hide(); PF('operacionEnProceso').show();" actionListener="#{controlInterfaseContableInfor.finCerrarPeriodoContable()}" style="position: absolute; top: 45px; left: 90px"  process="@this"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-close" onclick="PF('paso2CerrarPeriodo').hide();" style="position: absolute; top: 45px; left: 190px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="paso3CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso3CerrarPeriodo"  resizable="false" draggable="true" modal="true" height="80" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Período Contable Cerrado Correctamente" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso3CerrarPeriodo').hide();"  style="position: absolute; top: 45px; left: 125px"  process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="RecontabilizacionExitosa" header="#{msg['informacion']}" widgetVar="RecontabilizacionExitosa"  resizable="false" draggable="true" modal="true" height="80" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['recontabilizacionExitosa']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('RecontabilizacionExitosa').hide();" style="position: absolute; top: 45px; left: 175px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorVWActualesFechas" header="#{msg['error']}" widgetVar="errorVWActualesFechas"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorVWActualesFechas']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: justify"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorVWActualesFechas').hide();" style="position: absolute; top: 70px; left: 175px" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorCifraControl" header="#{msg['error']}" widgetVar="errorCifraControl"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorCifraControl']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: justify"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorCifraControl').hide();" style="position: absolute; top: 70px; left: 175px" process="@this"/>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formularioDialogos">
+                    <p:dialog  id="verReportePDF" header="#{controlInterfaseContableInfor.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+                        <p:media value="#{controlInterfaseContableInfor.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlInterfaseContableInfor.reporte != null}"/>
+                    </p:dialog>
+                    <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlInterfaseContableInfor.reiniciarStreamedContent()}"/>
+
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="100" width="360" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.pathReporteGenerado}" style="position: absolute; left: 10px; width: 325px; height: 70px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="80" width="400" style="font-size: 12px">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
+                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlInterfaseContableInfor.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
+                    </p:dialog>    
+
+                     <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                        <h:outputText value="Reporte Generado con éxito" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                        <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlInterfaseContableInfor.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
+                    </p:dialog> 
+                    
+                    <p:dialog id="editarEmpresaParametro" header="#{msg['editarEmpresaParametro']}" widgetVar="editarEmpresaParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.empresaRegistro.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDocContableParametro" header="#{msg['editarDocContableParametro']}" widgetVar="editarDocContableParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.documentoContable}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarProcesoParametro" header="#{msg['editarProcesoParametro']}" widgetVar="editarProcesoParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicialParametro" header="#{msg['editarFechaInicialParametro']}" widgetVar="editarFechaInicialParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.fechainicialcontabilizacion}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalParametro" header="#{msg['editarFechaFinalParametro']}" widgetVar="editarFechaFinalParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.fechafinalcontabilizacion}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarDocumentoParametro" header="#{msg['editarDocumentoParametro']}" widgetVar="editarDocumentoParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.documentoContable}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarResXML" header="#{msg['editarDocumentoParametro']}" widgetVar="editarResXML" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.respuestaxml}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaGeneracionParametro" header="#{msg['editarFechaGeneracionParametro']}" widgetVar="editarFechaGeneracionParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.parametroContableActual.fechageneracion}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <!-- -->
+                    <p:dialog id="editarProcesoGenerado" header="#{msg['editarProcesoGenerado']}" widgetVar="editarProcesoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarGenerado.nombreproceso}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarEmpleadoGenerado" header="#{msg['editarEmpleadoGenerado']}" widgetVar="editarEmpleadoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarGenerado.nombreempleado}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCreditoGenerado" header="#{msg['editarCreditoGenerado']}" widgetVar="editarCreditoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarGenerado.codigocuentac}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDebitoGenerado" header="#{msg['editarDebitoGenerado']}" widgetVar="editarDebitoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarGenerado.codigocuentad}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTerceroGenerado" header="#{msg['editarTerceroGenerado']}" widgetVar="editarTerceroGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarGenerado.nittercero}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarValorGenerado" header="#{msg['editarValorGenerado']}" widgetVar="editarValorGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarGenerado.valor}" style="overflow: auto;" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarConceptoGenerado" header="#{msg['editarConceptoGenerado']}" widgetVar="editarConceptoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarGenerado.nombreconcepto}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <!-- -->
+                    <p:dialog id="editarEmpleadoIntercon" header="#{msg['editarEmpleadoIntercon']}" widgetVar="editarEmpleadoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTerceroIntercon" header="#{msg['editarTerceroIntercon']}" widgetVar="editarTerceroIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.codigotercero}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCuentaIntercon" header="#{msg['editarCuentaIntercon']}" widgetVar="editarCuentaIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.cuenta.codigo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDebitoIntercon" header="#{msg['editarDebitoIntercon']}" widgetVar="editarDebitoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.valord}" style="overflow: auto;" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarCreditoIntercon" header="#{msg['editarCreditoIntercon']}" widgetVar="editarCreditoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.valorc}" style="overflow: auto;" readonly="true">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarConceptoIntercon" header="#{msg['editarConceptoIntercon']}" widgetVar="editarConceptoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCentroCostoIntercon" header="#{msg['editarCentroCostoIntercon']}" widgetVar="editarCentroCostoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.centrocosto.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarProcesoIntercon" header="#{msg['editarProcesoIntercon']}" widgetVar="editarProcesoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarProyectoIntercon" header="#{msg['editarProyectoIntercon']}" widgetVar="editarProyectoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.proyecto.nombreproyecto}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarLoteIntercon" header="#{msg['editarLoteIntercon']}" widgetVar="editarLoteIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.lote}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaVParametro" header="#{msg['editarFechaVParametro']}" widgetVar="editarFechaVParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableInfor.editarIntercon.fechavencimiento}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="planoGeneradoOK" header="#{msg['reporteExito']}" widgetVar="planoGeneradoOK"  resizable="false" draggable="true" modal="true" height="160" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight: bold;width: 250px;"/>
+                        <p:inputText autocomplete="off" value="#{controlInterfaseContableInfor.rutaArchivo}" style="position: absolute; left: 70px; top: 50px; text-transform: uppercase;width: 230px;" readonly="true"/>
+                        <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 70px; top: 80px; font-weight: bold;width: 230px;"/>
+                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 118px; left: 70px"  icon="ui-icon-download" actionListener="#{controlInterfaseContableInfor.exportarPlano()}"
+                                         onclick="PF('planoGeneradoOK').hide()">
+                            <p:fileDownload value="#{controlInterfaseContableInfor.download}"/>
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-close" value="#{msg['salir']}" onclick="PF('planoGeneradoOK').hide();" style="position: absolute; top: 118px; left: 232px" process="@this"/>
+                    </p:dialog>
+
+                    <p:remoteCommand name="cerrarPaginaDescarga" actionListener="#{controlInterfaseContableInfor.cerrarPaginaDescarga()}"/>
+                </h:form>
+                
+                <h:form id="formExportar">
+                    <p:dataTable id="datosParametroExportar" var="infoEXP" style="visibility: hidden; display: none;"                           
+                                 value="#{controlInterfaseContableInfor.listaParametrosContables}"> 
+
+                        <p:column headerText="#{msg['empresaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.empresaRegistro.nombre}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['docContableX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['docContableX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.documentoContable}"/>
+                        </p:column>  
+                        
+                        <p:column headerText="#{msg['docContableX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['docContableX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.respuestaxml}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['procesoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.proceso.descripcion}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['numDocumentoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['numDocumentoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXP.ultimonumerodocumento}"/>
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaInicialX']}"/>
+                            </f:facet>
+                            <h:outputText value="#{infoEXP.fechainicialcontabilizacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaFinalX']}"/>
+                            </f:facet>
+                            <h:outputText value="#{infoEXP.fechafinalcontabilizacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaGeneracionXX']}"/>
+                            </f:facet>
+                            <h:outputText value="#{infoEXP.fechageneracion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:dataTable id="datosGenerarExportar" var="infoEXG" style="visibility: hidden; display: none;"                           
+                                 value="#{controlInterfaseContableInfor.listaGenerados}"> 
+
+                        <p:column headerText="#{msg['procesoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.nombreproceso}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.nombreempleado}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['cuentaCXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cuentaCX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.codigocuentac}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['cuentaDXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cuentaDX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.codigocuentad}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['terceroX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['terceroX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.nittercero}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['valorX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['valorX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.valor}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['conceptoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXG.nombreconcepto}"/>
+                        </p:column>  
+
+                    </p:dataTable>
+
+                    <p:dataTable id="datosInterconExportar" var="infoEXI" style="visibility: hidden; display: none;"                           
+                                 value="#{controlInterfaseContableInfor.listaInterconInfor}"> 
+
+                        <p:column headerText="#{msg['empleadoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['empleadoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.nombreempleado}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['terceroX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['terceroX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.codigotercero}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['cuentaX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['cuentaX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.cuenta.codigo}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['debitoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['debitoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.valord}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['creditoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['creditoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.valorc}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['conceptoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.nombreconcepto}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['centroCostoXX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['centroCostoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.centrocosto.nombre}"/>
+                        </p:column>  
+
+                        <p:column headerText="#{msg['procesoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.nombreproceso}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['proyectoX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['proyectoX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.proyecto.nombreproyecto}"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['loteX']}">                                  
+                            <f:facet name="header"><h:outputText value="#{msg['loteX']}"/> </f:facet> 
+                            <h:outputText value="#{infoEXI.lote}"/>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaVXX']}"/>
+                            </f:facet>
+                            <h:outputText value="#{infoEXI.fechavencimiento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

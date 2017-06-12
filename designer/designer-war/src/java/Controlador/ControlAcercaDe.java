@@ -55,6 +55,7 @@ public class ControlAcercaDe implements Serializable {
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private String intcontable;
+    private String infoRegistro;
 
     /**
      * Creates a new instance of ControlAcercaDe
@@ -156,7 +157,7 @@ public class ControlAcercaDe implements Serializable {
     }
 
     public void lovEmpresas() {
-        RequestContext.getCurrentInstance().execute("EmpresasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
 
     public void activarAceptar() {
@@ -165,21 +166,24 @@ public class ControlAcercaDe implements Serializable {
 
     public void cambiarEmpresa() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
-
-        RequestContext.getCurrentInstance().update("form:nombreEmpresa");
+//        RequestContext.getCurrentInstance().update("form:nombreEmpresa");
         filtradoListaEmpresas = null;
         aceptar = true;
+        RequestContext.getCurrentInstance().update("formularioDialogos:EmpresasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
         RequestContext.getCurrentInstance().update("form:PanelTotal");
     }
 
     public void cancelarCambioEmpresa() {
         filtradoListaEmpresas = null;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:EmpresasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
@@ -207,6 +211,11 @@ public class ControlAcercaDe implements Serializable {
 
     }
 
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistro");
+    }
+
+    /////////SETS Y GETS /////
     public List<Empresas> getListaEmpresas() {
         try {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -323,8 +332,8 @@ public class ControlAcercaDe implements Serializable {
     }
 
     public String getIntcontable() {
-        if(empresaSeleccionada != null){
-        intcontable = administrarPapeles.interfaceContable(empresaSeleccionada.getSecuencia());
+        if (empresaSeleccionada != null) {
+            intcontable = administrarPapeles.interfaceContable(empresaSeleccionada.getSecuencia());
         }
         return intcontable;
     }
@@ -333,4 +342,14 @@ public class ControlAcercaDe implements Serializable {
         this.intcontable = intcontable;
     }
 
+    public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovEmpresas");
+        infoRegistro = String.valueOf(tabla.getRowCount());
+        return infoRegistro;
+    }
+
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
 }

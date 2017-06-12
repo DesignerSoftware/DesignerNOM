@@ -187,4 +187,4 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
    public Aficiones consultarAficionCodigo(Short cod) {
       return persistenciaAficiones.buscarAficionCodigo(em, cod);
    }
-}
+    }
