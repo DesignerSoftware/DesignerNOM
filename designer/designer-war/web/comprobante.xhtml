@@ -140,18 +140,31 @@
                         <p:column width="21"> 
                            <p:commandButton id="detallesconcepto" value="" style="width: 17px; height: 17px;" actionListener="#{controlComprobantes.parcialSolucionNodo(solucionNodoEmpleado,0)}"
                                             onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
-                           <p:tooltip  for="detallesconcepto" value="#{msg['detallesconcepto']}"/>
+                           <p:tooltip for="detallesconcepto" value="#{msg['detallesconcepto']}"/>
                         </p:column>
 
-                        <p:column id="codigoSNE" sortBy="#{solucionNodoEmpleado.codigoconcepto}" width="60" filterBy="#{solucionNodoEmpleado.codigoconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                        <p:column id="codigoSNE" sortBy="#{solucionNodoEmpleado.codigoconcepto}" width="60" filterBy="#{solucionNodoEmpleado.codigoconcepto}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                            <f:facet name="header">
                               <h:outputText id="tcodigoSNE" value="#{msg['codigo']}"/>
                               <p:tooltip for="tcodigoSNE" value="#{msg['codconcepto']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.codigoconcepto}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.codigoconcepto}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.codigoconcepto}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 1)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column id="descipcionSNE" sortBy="#{solucionNodoEmpleado.nombreconcepto}" filterBy="#{solucionNodoEmpleado.nombreconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                        <p:column id="descipcionSNE" sortBy="#{solucionNodoEmpleado.nombreconcepto}" filterBy="#{solucionNodoEmpleado.nombreconcepto}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                            <f:facet name="header">
                               <h:outputText id="tdescripcionSNE" value="#{msg['descripcion']}"/>
                               <p:tooltip for="tdescripcionSNE" value="#{msg['desconcepto']}"/>
@@ -159,37 +172,79 @@
                            <p:cellEditor>
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleado.nombreconcepto}"/></f:facet>
                               <f:facet name="input">
-                                 <p:inputText readonly="true" value="#{solucionNodoEmpleado.nombreconcepto}"
-                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/></f:facet>
+                                 <p:inputText value="#{solucionNodoEmpleado.nombreconcepto}"
+                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 2)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column id="unidadSNE" sortBy="#{solucionNodoEmpleado.unidades}" width="30" filterBy="#{solucionNodoEmpleado.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                        <p:column id="unidadSNE" sortBy="#{solucionNodoEmpleado.unidades}" width="30" filterBy="#{solucionNodoEmpleado.unidades}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                            <f:facet name="header">
                               <h:outputText id="tunidadSNE" value="#{msg['u']}"/>
                               <p:tooltip for="tunidadSNE" value="#{msg['uconcepto']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.unidades}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.unidades}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.unidades}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 3)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column id="pagoSNE" sortBy="#{solucionNodoEmpleado.pago}" width="90" filterBy="#{solucionNodoEmpleado.pago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;">                                    
+                        <p:column id="pagoSNE" sortBy="#{solucionNodoEmpleado.pago}" width="90" filterBy="#{solucionNodoEmpleado.pago}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;">                                    
                            <f:facet name="header">
                               <h:outputText id="tpagoSNE" value="#{msg['pago']}"/>
                               <p:tooltip for="tpagoSNE" value="#{msg['pagocomp']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.pago}" style="text-align: right;">
-                              <f:convertNumber currencyCode="COP"/>
-                           </h:outputText>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.pago}" style="text-align: right;">
+                                    <f:convertNumber currencyCode="COP"/>
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.pago}" style="text-align: right;">
+                                    <f:convertNumber currencyCode="COP"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 4)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column id="descuentoSNE" sortBy="#{solucionNodoEmpleado.descuento}" width="90" filterBy="#{solucionNodoEmpleado.descuento}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;"> 
+                        <p:column id="descuentoSNE" sortBy="#{solucionNodoEmpleado.descuento}" width="90" filterBy="#{solucionNodoEmpleado.descuento}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="text-align: right;"> 
                            <f:facet name="header">
                               <h:outputText id="tdescuentoSNE" value="#{msg['descuento']}"/>
                               <p:tooltip for="tdescuentoSNE" value="#{msg['desccomp']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.descuento}">
-                              <f:convertNumber currencyCode="COP"/>
-                           </h:outputText>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.descuento}">
+                                    <f:convertNumber currencyCode="COP"/>
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.descuento}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 5)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="terceroSNE" headerText="#{msg['tercero']}" sortBy="#{solucionNodoEmpleado.nombretercero}" width="180"
@@ -202,7 +257,12 @@
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleado.nombretercero}"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText readonly="true" value="#{solucionNodoEmpleado.nombretercero}"
-                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/></f:facet>
+                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 6)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
@@ -212,9 +272,21 @@
                               <h:outputText id="tfechaHastaSNE" value="#{msg['hasta']}"/>
                               <p:tooltip for="tfechaHastaSNE" value="#{msg['fecHasta']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.fechahasta}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText> 
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.fechahasta}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText> 
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.fechahasta}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 7)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText> 
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="debitoSNE" sortBy="#{solucionNodoEmpleado.codigocuentad}" width="80"
@@ -223,7 +295,18 @@
                               <h:outputText id="tdebitoSNE" value="#{msg['debito']}"/>
                               <p:tooltip for="tdebitoSNE" value="#{msg['debitocomp']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.codigocuentad}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.codigocuentad}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.codigocuentad}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 8)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="centroCostoDSNE" sortBy="#{solucionNodoEmpleado.nombrecentrocostod}" width="180"
@@ -236,7 +319,12 @@
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleado.nombrecentrocostod}"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText readonly="true" value="#{solucionNodoEmpleado.nombrecentrocostod}"
-                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/></f:facet>
+                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 9)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
@@ -246,7 +334,18 @@
                               <h:outputText id="tcreditoSNE" value="#{msg['credito']}"/>
                               <p:tooltip for="tcreditoSNE" value="#{msg['creditocomp']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.codigocuentac}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.codigocuentac}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.codigocuentac}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 10)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="centroCostoCSNE" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleado.nombrecentrocostoc}" width="180"
@@ -259,13 +358,29 @@
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleado.nombrecentrocostoc}"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText readonly="true" value="#{solucionNodoEmpleado.nombrecentrocostoc}"
-                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/></f:facet>
+                                              onselect="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 11)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
                         <p:column id="saldoSNE" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleado.saldo}" width="80"
                                   filterBy="#{solucionNodoEmpleado.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                           <h:outputText value="#{solucionNodoEmpleado.saldo}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.saldo}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.saldo}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 12)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="fechaDesdeSNE" sortBy="#{solucionNodoEmpleado.fechadesde}" width="70"
@@ -274,9 +389,21 @@
                               <h:outputText id="tfechaDesdeSNE" value="#{msg['desde']}"/>
                               <p:tooltip for="tfechaDesdeSNE" value="#{msg['fecDesde']}"/>
                            </f:facet>   
-                           <h:outputText value="#{solucionNodoEmpleado.fechadesde}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.fechadesde}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.fechadesde}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 13)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column> 
 
                         <p:column id="fechaPagoSNE" sortBy="#{solucionNodoEmpleado.fechapago}" width="70"
@@ -285,9 +412,21 @@
                               <h:outputText id="tfechaPagoSNE" value="#{msg['pago']}"/>
                               <p:tooltip for="tfechaPagoSNE" value="#{msg['fecpago']}"/>
                            </f:facet>    
-                           <h:outputText value="#{solucionNodoEmpleado.fechapago}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText> 
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.fechapago}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText> 
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.fechapago}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 14)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText> 
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="FechaModificacioSNE" sortBy="#{solucionNodoEmpleado.ultimamodificacion}" width="120"
@@ -296,9 +435,21 @@
                               <h:outputText id="tFechaModificacioSNE" value="#{msg['fecha']}"/>
                               <p:tooltip for="tFechaModificacioSNE" value="#{msg['fecgen']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleado.ultimamodificacion}">
-                              <f:convertDateTime pattern="dd/MM/yyyy - hh:mm"/>
-                           </h:outputText> 
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleado.ultimamodificacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy - hh:mm"/>
+                                 </h:outputText> 
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleado.ultimamodificacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy - hh:mm"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado, 15)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleado(solucionNodoEmpleado)}" update="@this" process="@this"/>
+                                 </p:inputText> 
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
                      </p:dataTable>
 
@@ -336,7 +487,18 @@
                               <h:outputText id="tcodigoSNER" value="#{msg['codigo']}"/>
                               <p:tooltip for="tcodigoSNER" value="#{msg['codconcepto']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.codigoconcepto}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.codigoconcepto}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.codigoconcepto}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 1)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="descipcionSNER" sortBy="#{solucionNodoEmpleador.nombreconcepto}" filterBy="#{solucionNodoEmpleador.nombreconcepto}"
@@ -348,8 +510,13 @@
                            <p:cellEditor>
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleador.nombreconcepto}"/></f:facet>
                               <f:facet name="input">
-                                 <p:inputText readonly="true" value="#{solucionNodoEmpleador.nombreconcepto}"
-                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/></f:facet>
+                                 <p:inputText value="#{solucionNodoEmpleador.nombreconcepto}"
+                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 2)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
@@ -359,7 +526,18 @@
                               <h:outputText id="tunidadSNER" value="#{msg['u']}"/>
                               <p:tooltip for="tunidadSNER" value="#{msg['uconcepto']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.unidades}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.unidades}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.unidades}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 3)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="pasivoSNER" sortBy="#{solucionNodoEmpleador.pasivo}" width="90" filterBy="#{solucionNodoEmpleador.pasivo}"
@@ -368,9 +546,21 @@
                               <h:outputText id="tpasivoSNER" value="#{msg['pasivo']}"/>
                               <p:tooltip for="tpasivoSNER" value="#{msg['pasivocom']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.pasivo}">
-                              <f:convertNumber currencyCode="COP"/>
-                           </h:outputText>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.pasivo}">
+                                    <f:convertNumber currencyCode="COP"/>
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.pasivo}">
+                                    <f:convertNumber currencyCode="COP"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 4)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="gastoSNER" sortBy="#{solucionNodoEmpleador.gasto}" width="90" filterBy="#{solucionNodoEmpleador.gasto}"
@@ -379,9 +569,21 @@
                               <h:outputText id="tgastoSNER" value="#{msg['gasto']}"/>
                               <p:tooltip for="tgastoSNER" value="#{msg['gastocomp']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.gasto}">
-                              <f:convertNumber currencyCode="COP"/>
-                           </h:outputText>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.gasto}">
+                                    <f:convertNumber currencyCode="COP"/>
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.gasto}">
+                                    <f:convertNumber currencyCode="COP"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 5)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="terceroSNER" sortBy="#{solucionNodoEmpleador.nombretercero}" width="180"
@@ -394,7 +596,12 @@
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleador.nombretercero}"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText readonly="true" value="#{solucionNodoEmpleador.nombretercero}"
-                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/></f:facet>
+                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 6)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
@@ -404,9 +611,21 @@
                               <h:outputText id="tfechaHastaSNER" value="#{msg['hasta']}"/>
                               <p:tooltip for="tfechaHastaSNER" value="#{msg['fecHasta']}"/>
                            </f:facet>    
-                           <h:outputText value="#{solucionNodoEmpleador.fechahasta}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText> 
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.fechahasta}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText> 
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.fechahasta}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 7)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText> 
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="debitoSNER" sortBy="#{solucionNodoEmpleador.codigocuentad}" width="80"
@@ -415,7 +634,18 @@
                               <h:outputText id="tdebitoSNER" value="#{msg['debito']}"/>
                               <p:tooltip for="tdebitoSNER" value="#{msg['debitocomp']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.codigocuentad}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.codigocuentad}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.codigocuentad}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 8)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="centroCostoDSNER" sortBy="#{solucionNodoEmpleador.nombrecentrocostod}" width="180"
@@ -428,7 +658,12 @@
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleador.nombrecentrocostod}"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText readonly="true" value="#{solucionNodoEmpleador.nombrecentrocostod}"
-                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/></f:facet>
+                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 9)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
@@ -438,7 +673,18 @@
                               <h:outputText id="tcreditoSNER" value="#{msg['credito']}"/>
                               <p:tooltip for="tcreditoSNER" value="#{msg['creditocomp']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.codigocuentac}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.codigocuentac}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.codigocuentac}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 10)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="centroCostoCSNER" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleador.nombrecentrocostoc}" width="180"
@@ -451,7 +697,12 @@
                               <f:facet name="output"><h:outputText value="#{solucionNodoEmpleador.nombrecentrocostoc}"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText readonly="true" value="#{solucionNodoEmpleador.nombrecentrocostoc}"
-                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/></f:facet>
+                                              onselect="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 11)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
@@ -461,7 +712,18 @@
                               <h:outputText id="tsaldoSNER" value="#{msg['saldo']}"/>
                               <p:tooltip for="tsaldoSNER" value="#{msg['saldoconcepto']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.saldo}"/>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.saldo}"/>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.saldo}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 12)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="fechaDesdeSNER" headerText="#{msg['desde']}" sortBy="#{solucionNodoEmpleador.fechadesde}" width="70"
@@ -470,9 +732,21 @@
                               <h:outputText id="tfechaDesdeSNER" value="#{msg['desde']}"/>
                               <p:tooltip for="tfechaDesdeSNER" value="#{msg['fecDesde']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.fechadesde}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.fechadesde}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.fechadesde}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 13)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column> 
 
                         <p:column id="fechaPagoSNER" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleador.fechapago}" width="70"
@@ -481,9 +755,21 @@
                               <h:outputText id="tfechaPagoSNER" value="#{msg['pago']}"/>
                               <p:tooltip for="tfechaPagoSNER" value="#{msg['fecpago']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.fechapago}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText> 
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.fechapago}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText> 
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.fechapago}">
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 14)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </p:inputText> 
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column id="FechaModificacioSNER" headerText="#{msg['fecha']}" sortBy="#{solucionNodoEmpleador.ultimamodificacion}" width="120"
@@ -492,9 +778,21 @@
                               <h:outputText id="tFechaModificacionSNER" value="#{msg['fecha']}"/>
                               <p:tooltip for="tFechaModificacionSNER" value="#{msg['fecgen']}"/>
                            </f:facet>
-                           <h:outputText value="#{solucionNodoEmpleador.ultimamodificacion}">
-                              <f:convertDateTime pattern="dd/MM/yyyy - hh:mm"/>
-                           </h:outputText> 
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{solucionNodoEmpleador.ultimamodificacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy - hh:mm"/>
+                                    <p:ajax event="select" listener="#{controlComprobantes.cambiarIndiceEmpleador(solucionNodoEmpleador, 15)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
+                                    <p:ajax event="change" listener="#{controlComprobantes.cambiarValorEmpleador(solucionNodoEmpleador)}" update="@this" process="@this"/>
+                                 </h:outputText> 
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:inputText value="#{solucionNodoEmpleador.ultimamodificacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy - hh:mm"/>
+                                 </p:inputText> 
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                      </p:dataTable>
@@ -518,7 +816,7 @@
 
             <h:form id="formularioDialogos">
 
-               <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo"  resizable="false" draggable="true" modal="true" width="732" closable="false">
+               <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo" resizable="false" draggable="true" modal="true" width="732" closable="false">
 
                   <p:dataTable  id="lovEmpleados" var="parametro" value="#{controlComprobantes.listaParametrosLOV}"
                                 scrollable="true" scrollHeight="225" scrollWidth="716" widgetVar="lovEmpleados" liveScroll="true" scrollRows="20" 
@@ -535,19 +833,19 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresar']}"/>
                      </f:facet>
 
-                     <p:column headerText="#{msg['codigoE']}" filterBy="#{parametro.empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                     <p:column headerText="#{msg['codigoE']}" filterBy="#{parametro.empleado.codigoempleado}" sortBy="#{parametro.empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.codigoempleado}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['pa']}" filterBy="#{parametro.empleado.persona.primerapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                     <p:column headerText="#{msg['pa']}" filterBy="#{parametro.empleado.persona.primerapellido}" sortBy="#{parametro.empleado.persona.primerapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.persona.primerapellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['sa']}" filterBy="#{parametro.empleado.persona.segundoapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                     <p:column headerText="#{msg['sa']}" filterBy="#{parametro.empleado.persona.segundoapellido}" sortBy="#{parametro.empleado.persona.segundoapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.persona.segundoapellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombre']}" width="160" filterBy="#{parametro.empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                     <p:column headerText="#{msg['nombre']}" width="160" filterBy="#{parametro.empleado.persona.nombre}" sortBy="#{parametro.empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.persona.nombre}"/>  
                      </p:column> 
                   </p:dataTable> 

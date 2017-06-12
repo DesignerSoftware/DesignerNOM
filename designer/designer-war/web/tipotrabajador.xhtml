@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
->
+      >
    <h:head>
       <title></title>
    </h:head>
@@ -521,22 +521,21 @@
                                   emptyMessage="#{msg['vacio']}" editable="true" editMode="cell"
                                   selection="#{controlTiposTrabajadores.vigenciaDiaSeleccionado}" selectionMode="single">
 
-                        <p:ajax event="rowSelect" listener="#{controlTiposTrabajadores.cambiarIndiceVDDefault()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlTiposTrabajadores.cambiarIndiceVDDefault()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlTiposTrabajadores.eventoFiltrarVD()}" process="@this"/>
-                        <f:event type="preRenderView" listener="#{controlTiposTrabajadores.recordarSeleccionVD()}"/>
+                        <!--<f:event type="preRenderView" listener="#/{controlTiposTrabajadores.recordarSeleccionVD()}"/>-->
 
-                        <p:column headerText="#{msg['dias']}" style=" text-align: center;" sortBy="#{info.dias}" filterBy="#{info.dias}" filterMatchMode="contains" id="VDTdias" filterStyle="display: none; visibility: hidden;">  
+                        <p:column headerText="#{msg['dias']}" class="cssColumnasCentradas" sortBy="#{info.dias}" filterBy="#{info.dias}" filterMatchMode="contains" id="VDTdias" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{info.dias}">
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.dias}" id="editardias"> 
-                                    <p:keyFilter for="editardias" mask="num"/>
+                                 <p:inputNumber autocomplete="off" value="#{info.dias}" id="editardias"> 
                                     <p:ajax event="change" listener="#{controlTiposTrabajadores.modificarVD(info)}" update="@this" process="@this"/>
-                                    <p:ajax event="select" onstart="PF('datosVigenciasDTT').unselectAllRows();PF('datosVigenciasDTT').selectRow(#{indice2});"/> 
-                                 </p:inputText>  
+                                    <p:ajax event="select" onstart="PF('datosVigenciasDTT').unselectAllRows();PF('datosVigenciasDTT').selectRow(#{indice2});" process="@this"/> 
+                                 </p:inputNumber>  
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -544,7 +543,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column width="100" headerText="#{msg['fecha']}" style="text-align: center;" sortBy="#{info.fechaVigencia}" filterBy="#{info.fechaVigencia}" filterMatchMode="contains" id="VDTFecha" filterStyle="display: none; visibility: hidden;">  
+                        <p:column width="100" headerText="#{msg['fecha']}" class="cssColumnasCentradas" sortBy="#{info.fechaVigencia}" filterBy="#{info.fechaVigencia}" filterMatchMode="contains" id="VDTFecha" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{info.fechaVigencia}">
@@ -578,12 +577,12 @@
                      <h:outputText value="#{msg['nombreNClonarTT']}" style="display: inline-block; position: relative; top : 7px; left: 90px"/>
 
                      <p:inputText autocomplete="off" onclick="select();" id="codigoTipoTClonar" value="#{controlTiposTrabajadores.codigoNuevoClonado}" 
-                                   style="display: block; position: relative; top : 9px; left: 25px; width: 90px; height: 12px; text-transform: uppercase;">
+                                  style="display: block; position: relative; top : 9px; left: 25px; width: 90px; height: 12px; text-transform: uppercase;">
                         <p:keyFilter for="codigoTipoTClonar" mask="num"/>
                         <p:ajax event="change" update="codigoTipoTClonar" process="@this"/>
                      </p:inputText>
                      <p:inputText autocomplete="off" onclick="select();" id="nombreTipoTClonar" value="#{controlTiposTrabajadores.nombreNuevoClonado}" 
-                                   style="display: inline-block; position: relative; top : -13px; left: 160px; width: 280px; height: 12px; text-transform: uppercase;">
+                                  style="display: inline-block; position: relative; top : -13px; left: 160px; width: 280px; height: 12px; text-transform: uppercase;">
                         <p:ajax event="change" update="nombreTipoTClonar" process="@this"/>
                      </p:inputText>
 
@@ -591,13 +590,13 @@
                      <h:outputText value="#{msg['nombreBClonarTT']}" style="display: inline-block; position: relative; top : -20px; left: 163px"/> 
 
                      <p:inputText autocomplete="off" onclick="select();" id="codigoTipoTClonarBase" value="#{controlTiposTrabajadores.tipoTrabajadorAClonar.codigo}"
-                                   style="display: block; position: relative; top : -20px; left: 25px; width: 90px; height: 12px;">
+                                  style="display: block; position: relative; top : -20px; left: 25px; width: 90px; height: 12px;">
                         <p:keyFilter for="codigoTipoTClonarBase" mask="num"/>
                         <p:ajax event="change" update="codigoTipoTClonarBase" process="@this" listener="#{controlTiposTrabajadores.autocompletarClonado('COD')}"/>
                         <p:ajax event="dblclick" process="@this" listener="#{controlTiposTrabajadores.llamadoDialogoTT(3)}"/>
                      </p:inputText>
                      <p:inputText autocomplete="off" onclick="select();" id="nombreTipoTClonarBase" value="#{controlTiposTrabajadores.tipoTrabajadorAClonar.nombre}" 
-                                   style="display: inline-block; position: relative; top : -42px; left: 160px; width: 280px; height: 12px; text-transform: uppercase;">
+                                  style="display: inline-block; position: relative; top : -42px; left: 160px; width: 280px; height: 12px; text-transform: uppercase;">
                         <p:ajax event="change" update="nombreTipoTClonarBase" process="@this" listener="#{controlTiposTrabajadores.autocompletarClonado('Nom')}"/>
                         <p:ajax event="dblclick" process="@this" listener="#{controlTiposTrabajadores.llamadoDialogoTT(3)}"/>
                      </p:inputText>
@@ -669,13 +668,14 @@
                            <h:outputText value="#{msg['buscarTT']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposTra').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{tipoTra.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        
+                        <p:column filterBy="#{tipoTra.codigo}" sortBy="#{tipoTra.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['codigo']}"/>
                            </f:facet>
                            <h:outputText  value="#{tipoTra.codigo}"/>
                         </p:column>
-                        <p:column filterBy="#{tipoTra.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <p:column filterBy="#{tipoTra.nombre}" sortBy="#{tipoTra.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['descripcion']}"/>
                            </f:facet>
@@ -692,34 +692,35 @@
                         </p:commandButton>
                      </div>
                   </p:dialog> 
-
                </p:panel>
+
+               <p:dialog id="errorClonadoNulos" header="#{msg['error']}" widgetVar="errorClonadoNulos"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorClonNulos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
             </h:form>
+
             <h:form id="formularioDialogos">
-
                <p:dialog id="NuevoRegistroTT" widgetVar="NuevoRegistroTT" header="#{msg['nuevoregistroTT']}" closable="false" resizable="false" draggable="true" modal="true" height="350" width="725" style=" padding: 0px">  
-
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTT']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
-
                   <p:panel id="nuevoTT" style="border: none;">
-
                      <!--0-->
                      <strong><h:outputText value="*#{msg['codigoNTT']}" style=" position: absolute; top: 60px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaCodigoTT" style=" width: 90px; position: absolute; left: 240px; top: 55px; text-transform: uppercase;"  
-                                   maxlength="4" value="#{controlTiposTrabajadores.nuevoTipoT.codigo}">
+                                  maxlength="4" value="#{controlTiposTrabajadores.nuevoTipoT.codigo}">
                         <p:keyFilter for="nuevaCodigoTT" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <!--1-->
                      <strong><h:outputText value="*#{msg['descripcionNTT']}" style=" position: absolute; top: 90px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaDescripcionNTT" style=" width: 140px; position: absolute; left: 190px; top: 85px; text-transform: uppercase;"
-                                   value="#{controlTiposTrabajadores.nuevoTipoT.nombre}">
+                                  value="#{controlTiposTrabajadores.nuevoTipoT.nombre}">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <!--2-->
                      <strong><h:outputText value="#{msg['tipoCotNTT']}" style=" position: absolute; top: 120px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevatipoCotNTT" style=" width: 140px; position: absolute; left: 190px; top: 115px; text-transform: uppercase;"  
-                                   value="#{controlTiposTrabajadores.nuevoTipoT.tipocotizante.descripcion}">
+                                  value="#{controlTiposTrabajadores.nuevoTipoT.tipocotizante.descripcion}">
                         <p:ajax event="change" update="@this"/>
                         <p:ajax event="dblclick" listener="#{controlTiposTrabajadores.lovTipoCotizanteNueyDup(1)}"/>
                      </p:inputText>
@@ -729,23 +730,23 @@
                      <!--3-->
                      <strong><h:outputText value="#{msg['factorDNTT']}" style=" position: absolute; top: 150px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevafactorDNTT" style=" width: 90px; position: absolute; left: 240px; top: 145px; text-transform: uppercase;"
-                                   value="#{controlTiposTrabajadores.nuevoTipoT.factordesalarizacion}">  
+                                  value="#{controlTiposTrabajadores.nuevoTipoT.factordesalarizacion}">  
                         <p:keyFilter for="nuevafactorDNTT" mask="num"/>
-<!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}"/>
-                       <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}"/>
-                       <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(0)}"/>-->
+                        <!--<p:ajax event="click" listener="#/{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}"/>
+                          <p:ajax event="change" listener="#/{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}"/>
+                          <p:ajax event="dblclick" listener="#/{controlBetaCentrosCostos.asignarVariableTiposCC(0)}"/>-->
                      </p:inputText>
                      <!--4-->
                      <strong><h:outputText value="#{msg['diasvacNoOrdNTT']}" style=" position: absolute; top: 180px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevadiasvacNoOrdNTT" style=" width: 90px; position: absolute; left: 240px; top: 175px; text-transform: uppercase;"
-                                   value="#{controlTiposTrabajadores.nuevoTipoT.diasvacacionesnoordinarios}">  
+                                  value="#{controlTiposTrabajadores.nuevoTipoT.diasvacacionesnoordinarios}">  
                         <p:keyFilter for="nuevadiasvacNoOrdNTT" mask="num"/>
-                        <!--                                <p:ajax event="change" update="@this"/>-->
+                        <!--<p:ajax event="change" update="@this"/>-->
                      </p:inputText>
                      <!--5-->
                      <strong><h:outputText value="#{msg['diasvacNTT']}" style="  position: absolute; top: 210px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevadiasvacNTT" style=" width: 90px; position: absolute; left: 240px; top: 205px; text-transform: uppercase;"  
-                                   value="#{controlTiposTrabajadores.nuevoTipoT.derechodiasvacaciones}">
+                                  value="#{controlTiposTrabajadores.nuevoTipoT.derechodiasvacaciones}">
                         <p:keyFilter for="nuevadiasvacNTT" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -779,7 +780,7 @@
                      <!--8-->
                      <strong><h:outputText value="#{msg['nivelEndeuda']}:" style=" position: absolute; top: 60px; left: 400px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevanivelEndeuda" style=" width: 50px; position: absolute; left: 630px; top: 55px; text-transform: uppercase;"  
-                                   maxlength="3" value="#{controlTiposTrabajadores.nuevoTipoT.codigo}">
+                                  maxlength="3" value="#{controlTiposTrabajadores.nuevoTipoT.codigo}">
                         <p:keyFilter for="nuevanivelEndeuda" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -794,7 +795,7 @@
                      <!--10-->
                      <strong><h:outputText value="#{msg['porc']}:" style=" position: absolute; top: 120px; left: 400px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaporc" style=" width: 50px; position: absolute; left: 630px; top: 115px; text-transform: uppercase;"
-                                   maxlength="3" value="#{controlTiposTrabajadores.nuevoTipoT.factordesalarizacion}">  
+                                  maxlength="3" value="#{controlTiposTrabajadores.nuevoTipoT.factordesalarizacion}">  
                         <p:keyFilter for="nuevaporc" mask="num"/>
 <!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}"/>
                        <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}"/>
@@ -867,20 +868,20 @@
                      <!--0-->
                      <strong><h:outputText value="*#{msg['codigoNTT']}" style=" position: absolute; top: 60px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarCodigoTT" style=" width: 90px; position: absolute; left: 240px; top: 55px; text-transform: uppercase;"  
-                                   maxlength="4" value="#{controlTiposTrabajadores.duplicarTT.codigo}">
+                                  maxlength="4" value="#{controlTiposTrabajadores.duplicarTT.codigo}">
                         <p:keyFilter for="duplicarCodigoTT" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <!--1-->
                      <strong><h:outputText value="*#{msg['descripcionNTT']}" style=" position: absolute; top: 90px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarDescripcionNTT" style=" width: 140px; position: absolute; left: 190px; top: 85px; text-transform: uppercase;"
-                                   value="#{controlTiposTrabajadores.duplicarTT.nombre}">
+                                  value="#{controlTiposTrabajadores.duplicarTT.nombre}">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <!--2-->
                      <strong><h:outputText value="#{msg['tipoCotNTT']}" style=" position: absolute; top: 120px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicartipoCotNTT" style=" width: 140px; position: absolute; left: 190px; top: 115px; text-transform: uppercase;"  
-                                   value="#{controlTiposTrabajadores.duplicarTT.tipocotizante.descripcion}">
+                                  value="#{controlTiposTrabajadores.duplicarTT.tipocotizante.descripcion}">
                         <p:ajax event="change" update="@this"/>
                         <p:ajax event="dblclick" listener="#{controlTiposTrabajadores.lovTipoCotizanteNueyDup(2)}"/>
                      </p:inputText>
@@ -890,7 +891,7 @@
                      <!--3-->
                      <strong><h:outputText value="#{msg['factorDNTT']}" style=" position: absolute; top: 150px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarfactorDNTT" style=" width: 90px; position: absolute; left: 240px; top: 145px; text-transform: uppercase;"
-                                   value="#{controlTiposTrabajadores.duplicarTT.factordesalarizacion}">  
+                                  value="#{controlTiposTrabajadores.duplicarTT.factordesalarizacion}">  
                         <p:keyFilter for="duplicarfactorDNTT" mask="num"/>
 <!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}"/>
                        <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}"/>
@@ -899,14 +900,14 @@
                      <!--4-->
                      <strong><h:outputText value="#{msg['diasvacNoOrdNTT']}" style=" position: absolute; top: 180px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicardiasvacNoOrdNTT" style=" width: 90px; position: absolute; left: 240px; top: 175px; text-transform: uppercase;"
-                                   value="#{controlTiposTrabajadores.duplicarTT.diasvacacionesnoordinarios}">  
+                                  value="#{controlTiposTrabajadores.duplicarTT.diasvacacionesnoordinarios}">  
                         <p:keyFilter for="duplicardiasvacNoOrdNTT" mask="num"/>
                         <!--                                <p:ajax event="change" update="@this"/>-->
                      </p:inputText>
                      <!--5-->
                      <strong><h:outputText value="#{msg['diasvacNTT']}" style="  position: absolute; top: 210px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicardiasvacNTT" style=" width: 90px; position: absolute; left: 240px; top: 205px; text-transform: uppercase;"  
-                                   value="#{controlTiposTrabajadores.duplicarTT.derechodiasvacaciones}">
+                                  value="#{controlTiposTrabajadores.duplicarTT.derechodiasvacaciones}">
                         <p:keyFilter for="duplicardiasvacNTT" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -940,7 +941,7 @@
                      <!--8-->
                      <strong><h:outputText value="#{msg['nivelEndeuda']}:" style=" position: absolute; top: 60px; left: 400px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarnivelEndeuda" style=" width: 50px; position: absolute; left: 630px; top: 55px; text-transform: uppercase;"  
-                                   maxlength="3" value="#{controlTiposTrabajadores.duplicarTT.codigo}">
+                                  maxlength="3" value="#{controlTiposTrabajadores.duplicarTT.codigo}">
                         <p:keyFilter for="duplicarnivelEndeuda" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -955,7 +956,7 @@
                      <!--10-->
                      <strong><h:outputText value="#{msg['porc']}:" style=" position: absolute; top: 120px; left: 400px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarporc" style=" width: 50px; position: absolute; left: 630px; top: 115px; text-transform: uppercase;"
-                                   maxlength="3" value="#{controlTiposTrabajadores.duplicarTT.factordesalarizacion}">  
+                                  maxlength="3" value="#{controlTiposTrabajadores.duplicarTT.factordesalarizacion}">  
                         <p:keyFilter for="duplicarporc" mask="num"/>
 <!--                                <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(1, 'TIPOSCENTROSCOSTOS')}"/>
                        <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarNuevo('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.nuevoCentroCosto.tipocentrocosto.nombre , 1)}"/>
@@ -1025,7 +1026,7 @@
 
                      <strong><h:outputText value="*#{msg['dias']}:" style="left: 80px; position: absolute; top: 80px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoDiasVD" style=" width: 90px; position: absolute; left: 190px; top: 75px; text-transform: uppercase;"  
-                                   maxlength="4" value="#{controlTiposTrabajadores.nuevaVD.dias}">
+                                  maxlength="4" value="#{controlTiposTrabajadores.nuevaVD.dias}">
                         <p:keyFilter for="nuevoDiasVD" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -1057,7 +1058,7 @@
 
                      <strong><h:outputText value="*#{msg['dias']}:" style="left: 80px; position: absolute; top: 80px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarDiasVD" style=" width: 90px; position: absolute; left: 190px; top: 75px; text-transform: uppercase;"  
-                                   maxlength="4" value="#{controlTiposTrabajadores.duplicarVD.dias}">
+                                  maxlength="4" value="#{controlTiposTrabajadores.duplicarVD.dias}">
                         <p:keyFilter for="duplicarDiasVD" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
@@ -1169,12 +1170,17 @@
                   <h:outputText value="#{msg['errorDatosNullVD']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
-               <p:dialog id="validacionFechas" header="#{msg['error']}" widgetVar="validacionFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="validacionFechas" header="#{msg['error']}" widgetVar="validacionFechas" resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRepetidosFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
-               <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="validacionRS" header="#{msg['error']}" widgetVar="validacionRS" resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorRegistrosSecundarios']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas" resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
@@ -1182,11 +1188,6 @@
                <p:dialog id="errorClonadoRepetido" header="#{msg['error']}" widgetVar="errorClonadoRepetido"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorClonRepetidos']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorClonadoNulos" header="#{msg['error']}" widgetVar="errorClonadoNulos"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorClonNulos']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <!-- DIALOGOS DE EDITAR COLUMNAS -->

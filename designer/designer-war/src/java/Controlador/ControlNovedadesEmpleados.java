@@ -581,31 +581,17 @@ public class ControlNovedadesEmpleados implements Serializable {
       System.out.println("controlNovedadesEmpleados.getNuevaNovedad().getFechainicial() : " + nuevaNovedad.getFechainicial());
    }
 
-   public void confirmarDuplicar() throws UnknownHostException {
-
+   public void confirmarDuplicar() {
       int pasa2 = 0;
       int pasa = 0;
-//        Empleados emp = new Empleados();
       Empleados emp2 = new Empleados();
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      System.out.println("duplicarNovedad Fechainicial : " + duplicarNovedad.getFechainicial());
-      System.out.println("Concepto : " + duplicarNovedad.getConcepto().getSecuencia());
-      System.out.println("Formula : " + duplicarNovedad.getFormula().getSecuencia());
-      System.out.println("Periodicidad : " + duplicarNovedad.getPeriodicidad().getNombre());
-      System.out.println("getTipo() : " + duplicarNovedad.getTipo());
-
       if (duplicarNovedad.getFechainicial() == null || duplicarNovedad.getEmpleado() == null
               || duplicarNovedad.getFormula().getNombrelargo() == null || duplicarNovedad.getTipo() == null
               || (duplicarNovedad.getValortotal() == null && duplicarNovedad.getUnidadesparteentera() == null && duplicarNovedad.getUnidadespartefraccion() == null)) {
          pasa++;
       }
-
-      System.out.println("confirmarDuplicar() pasa : " + pasa);
-
       if (pasa == 0) {
          emp2 = administrarNovedadesEmpleados.elEmpleado(empleadoSeleccionado.getId());
-
          if (duplicarNovedad.getFechainicial() != null) {
             if (duplicarNovedad.getFechainicial().compareTo(emp2.getFechacreacion()) < 0) {
                RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
@@ -619,38 +605,25 @@ public class ControlNovedadesEmpleados implements Serializable {
                pasa2++;
             }
          }
-
          if (pasa2 == 0) {
             listaNovedades.add(duplicarNovedad);
             listaNovedadesCrear.add(duplicarNovedad);
             contarRegistros();
             novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
-
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             if (guardado) {
                guardado = false;
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cerrarFiltrado();
-
             // OBTENER EL TERMINAL 
-            HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().getExternalContext().getRequest());
             String equipo = null;
             java.net.InetAddress localMachine = null;
-            if (request.getRemoteAddr().startsWith("127.0.0.1")) {
-               localMachine = java.net.InetAddress.getLocalHost();
-               equipo = localMachine.getHostAddress();
-            } else {
-               equipo = request.getRemoteAddr();
-            }
-            localMachine = java.net.InetAddress.getByName(equipo);
-
             getAlias();
             System.out.println("Alias: " + alias);
             getUsuarioBD();
             System.out.println("UsuarioBD: " + usuarioBD);
             duplicarNovedad.setTerminal(localMachine.getHostName());
-
             duplicarNovedad = new Novedades();
             activoBtnAcumulado = true;
             RequestContext.getCurrentInstance().update("form:ACUMULADOS");
@@ -664,8 +637,6 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public void asignarIndex(int cualLista, int tipoAct) {
-
-      RequestContext context = RequestContext.getCurrentInstance();
       activoBtnAcumulado = true;
       RequestContext.getCurrentInstance().update("form:ACUMULADOS");
       tipoActualizacion = tipoAct;

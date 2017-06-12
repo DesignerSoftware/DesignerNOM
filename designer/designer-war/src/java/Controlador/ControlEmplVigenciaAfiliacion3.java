@@ -17,6 +17,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import Entidades.Ciudades;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -76,7 +77,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    private boolean aceptar;
    //modificar
    private List<VigenciasAfiliaciones> listVAModificar;
-   private boolean guardado, guardarOk;
+   private boolean guardado;
    //crear VA
    public VigenciasAfiliaciones nuevaVigenciaA;
    private List<VigenciasAfiliaciones> listVACrear;
@@ -86,7 +87,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    private List<VigenciasAfiliaciones> listVABorrar;
    //editar celda
    private VigenciasAfiliaciones editarVA;
-   private boolean cambioEditor, aceptarEditar;
    //Indice de celdas VigenciaProrrateo / VigenciaProrrateoProyecto
    private int cualCeldaVA, tipoListaVA;
    //duplicar
@@ -127,8 +127,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       listVAModificar = new ArrayList<VigenciasAfiliaciones>();
       //editar
       editarVA = new VigenciasAfiliaciones();
-      cambioEditor = false;
-      aceptarEditar = true;
       tipoListaVA = 0;
       //guardar
       guardado = true;
@@ -148,6 +146,8 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       nuevaVigenciaA = new VigenciasAfiliaciones();
       nuevaVigenciaA.setTipoentidad(new TiposEntidades());
       nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
+      nuevaVigenciaA.getTercerosucursal().setCiudad(new Ciudades());
+      nuevaVigenciaA.getTercerosucursal().setTercero(new Terceros());
       nuevaVigenciaA.setEstadoafiliacion(new EstadosAfiliaciones());
       listVACrear = new ArrayList<VigenciasAfiliaciones>();
       fechaContratacion = new Date();
@@ -1535,8 +1535,9 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       nuevaVigenciaA = new VigenciasAfiliaciones();
       nuevaVigenciaA.setTipoentidad(new TiposEntidades());
       nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
+      nuevaVigenciaA.getTercerosucursal().setCiudad(new Ciudades());
+      nuevaVigenciaA.getTercerosucursal().setTercero(new Terceros());
       nuevaVigenciaA.setEstadoafiliacion(new EstadosAfiliaciones());
-      //vigenciaSeleccionada = null;
 
    }
 
@@ -1544,6 +1545,8 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       nuevaVigenciaA = new VigenciasAfiliaciones();
       nuevaVigenciaA.setTipoentidad(new TiposEntidades());
       nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
+      nuevaVigenciaA.getTercerosucursal().setCiudad(new Ciudades());
+      nuevaVigenciaA.getTercerosucursal().setTercero(new Terceros());
       nuevaVigenciaA.setEstadoafiliacion(new EstadosAfiliaciones());
       // vigenciaSeleccionada = null;
       cambioVigenciaA = false;
@@ -1571,10 +1574,8 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    public void duplicarVigenciaA() {
       duplicarVA = new VigenciasAfiliaciones();
       k++;
-//        BigDecimal var = BigDecimal.valueOf(k);
       BigInteger var = BigInteger.valueOf(k);
       l = BigInteger.valueOf(k);
-
       duplicarVA.setSecuencia(l);
       duplicarVA.setEmpleado(vigenciaSeleccionada.getEmpleado());
       duplicarVA.setFechafinal(vigenciaSeleccionada.getFechafinal());
@@ -1584,7 +1585,16 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       duplicarVA.setCodigo(vigenciaSeleccionada.getCodigo());
       duplicarVA.setEstadoafiliacion(vigenciaSeleccionada.getEstadoafiliacion());
       duplicarVA.setObservacion(vigenciaSeleccionada.getObservacion());
-
+      try {
+         System.out.println("duplicarVigenciaA() vigenciaSeleccionada.getTercerosucursal(): " + vigenciaSeleccionada.getTercerosucursal());
+         System.out.println("duplicarVigenciaA() vigenciaSeleccionada.getTercerosucursal().getTercero(): " + vigenciaSeleccionada.getTercerosucursal().getTercero());
+         System.out.println("duplicarVigenciaA() vigenciaSeleccionada.getTercerosucursal().getTercero().getNit(): " + vigenciaSeleccionada.getTercerosucursal().getTercero().getNit());
+         System.out.println("duplicarVigenciaA() duplicarVA.getTercerosucursal(): " + duplicarVA.getTercerosucursal());
+         System.out.println("duplicarVigenciaA() duplicarVA.getTercerosucursal().getTercero(): " + duplicarVA.getTercerosucursal().getTercero());
+         System.out.println("duplicarVigenciaA() duplicarVA.getTercerosucursal().getTercero().getNit(): " + duplicarVA.getTercerosucursal().getTercero().getNit());
+      } catch (Exception e) {
+         System.out.println("ERROR en duplicarVigenciaA() e: " + e);
+      }
       cambioVigenciaA = true;
       RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoVA");
       RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVA').show()");
@@ -2070,8 +2080,9 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       nuevaVigenciaA = new VigenciasAfiliaciones();
       nuevaVigenciaA.setTipoentidad(new TiposEntidades());
       nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
+      nuevaVigenciaA.getTercerosucursal().setCiudad(new Ciudades());
+      nuevaVigenciaA.getTercerosucursal().setTercero(new Terceros());
       nuevaVigenciaA.setEstadoafiliacion(new EstadosAfiliaciones());
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVA");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVA').show()");
    }

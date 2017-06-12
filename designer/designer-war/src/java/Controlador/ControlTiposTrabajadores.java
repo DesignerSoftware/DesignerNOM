@@ -165,8 +165,8 @@ public class ControlTiposTrabajadores implements Serializable {
       permitirCambioBotonLov = "SIapagarCelda";
       tablaActiva = 0;
       tipoTrabajadorAClonar = new TiposTrabajadores();
-      nombreNuevoClonado = "";
-      codigoNuevoClonado = new Short("0");
+      nombreNuevoClonado = null;
+      codigoNuevoClonado = null;
       nombreTTBack = "";
       codigoBack = new Short("0");
       mapParametros.put("paginaAnterior", paginaAnterior);
@@ -211,25 +211,15 @@ public class ControlTiposTrabajadores implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "tipotrabajador";
-         
-         
-         
+       */
+      String pagActual = "tipotrabajador";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -328,7 +318,6 @@ String pagActual = "tipotrabajador";
       tipoActualizacion = 0;
       anularBotonLOV();
       tablaActiva = 2;
-      System.out.println("cambiarIndiceVDDefault() tablaActiva: " + tablaActiva);
    }
 
    public void asignarIndex(TiposTrabajadores tiposTrabajador, int column) {
@@ -859,13 +848,10 @@ String pagActual = "tipotrabajador";
     * Metodo que borra las vigencias seleccionadas
     */
    public void borrar() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoTrabajadorSeleccionado == null && vigenciaDiaSeleccionado == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else {
-
          if (tablaActiva == 2 && vigenciaDiaSeleccionado != null) {
-
             if (!listVDModificar.isEmpty() && listVDModificar.contains(vigenciaDiaSeleccionado)) {
                listVDModificar.remove(vigenciaDiaSeleccionado);
                listVDBorrar.add(vigenciaDiaSeleccionado);
@@ -878,27 +864,27 @@ String pagActual = "tipotrabajador";
             if (tipoListaVD == 1) {
                filtrarVigenciasDiasTT.remove(vigenciaDiaSeleccionado);
             }
-
          } else if (tablaActiva == 1 && tipoTrabajadorSeleccionado != null) {
-
-            if (!listTTModificar.isEmpty() && listTTModificar.contains(tipoTrabajadorSeleccionado)) {
-               listTTModificar.remove(tipoTrabajadorSeleccionado);
-               listTTBorrar.add(tipoTrabajadorSeleccionado);
-            } else if (!listTTCrear.isEmpty() && listTTCrear.contains(tipoTrabajadorSeleccionado)) {
-               listTTCrear.remove(tipoTrabajadorSeleccionado);
+            if (administrarTiposTrabajadores.hayRegistrosSecundarios(tipoTrabajadorSeleccionado.getSecuencia())) {
+               RequestContext.getCurrentInstance().execute("PF('validacionRS').show()");
             } else {
-               listTTBorrar.add(tipoTrabajadorSeleccionado);
+               if (!listTTModificar.isEmpty() && listTTModificar.contains(tipoTrabajadorSeleccionado)) {
+                  listTTModificar.remove(tipoTrabajadorSeleccionado);
+                  listTTBorrar.add(tipoTrabajadorSeleccionado);
+               } else if (!listTTCrear.isEmpty() && listTTCrear.contains(tipoTrabajadorSeleccionado)) {
+                  listTTCrear.remove(tipoTrabajadorSeleccionado);
+               } else {
+                  listTTBorrar.add(tipoTrabajadorSeleccionado);
+               }
+               listaTiposTrabajadores.remove(tipoTrabajadorSeleccionado);
+               if (tipoLista == 1) {
+                  filtrarTiposTrabajadores.remove(tipoTrabajadorSeleccionado);
+               }
+               contarRegistrosTT();
             }
-            listaTiposTrabajadores.remove(tipoTrabajadorSeleccionado);
-            if (tipoLista == 1) {
-               filtrarTiposTrabajadores.remove(tipoTrabajadorSeleccionado);
-            }
-            contarRegistrosTT();
          }
-
          perderSeleccionTT();
          RequestContext.getCurrentInstance().update("form:datosTTrabajadores");
-
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1241,7 +1227,7 @@ String pagActual = "tipotrabajador";
    public void clonarTT() {
       RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("Entro en Clonar()");
-      if (nombreNuevoClonado != null && codigoNuevoClonado != null && tipoTrabajadorAClonar.getSecuencia() != null) {
+      if (nombreNuevoClonado != null && codigoNuevoClonado > 0 && tipoTrabajadorAClonar.getCodigo() > 0) {
          int error = 0;
          for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
             if (listaTiposTrabajadores.get(i).getNombre().equals(nombreNuevoClonado)) {
@@ -1255,8 +1241,8 @@ String pagActual = "tipotrabajador";
             RequestContext.getCurrentInstance().update("form:errorClonadoRepetido");
             RequestContext.getCurrentInstance().execute("PF('errorClonadoRepetido').show()");
          } else {
-            String retornoClonado = administrarTiposTrabajadores.clonarTT(nombreNuevoClonado, codigoNuevoClonado, tipoTrabajadorAClonar.getSecuencia());
-            if (retornoClonado.equals("S")) {
+            String retornoClonado = administrarTiposTrabajadores.clonarTT(nombreNuevoClonado, codigoNuevoClonado, tipoTrabajadorAClonar.getCodigo());
+            if (retornoClonado.equals("BIEN")) {
                listaTiposTrabajadores = null;
                getListaTiposTrabajadores();
                boolean banderita = false;
@@ -1272,6 +1258,10 @@ String pagActual = "tipotrabajador";
                      RequestContext.getCurrentInstance().update("form:growl");
                   }
                }
+               RequestContext.getCurrentInstance().update("form:datosTTrabajadores");
+               RequestContext.getCurrentInstance().update("form:datosVigenciasDTT");
+               contarRegistrosTT();
+               contarRegistrosVD();
             } else {
                FacesMessage msg = new FacesMessage("Error", "ERROR clonando Tipo trabajador : " + retornoClonado);
                FacesContext.getCurrentInstance().addMessage(null, msg);

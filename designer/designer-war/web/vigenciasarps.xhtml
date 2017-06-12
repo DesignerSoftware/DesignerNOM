@@ -69,7 +69,7 @@
                         <p:tooltip for="insertar" value="#{msg['nuevo']}"/>
 
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
-                                         actionListener="#{controlVigenciasArps.borrarVC()}" process="@this"/>  
+                                         actionListener="#{controlVigenciasArps.borrarV()}" process="@this"/>  
                         <p:tooltip for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" 
@@ -97,7 +97,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; top: 74px; left: 10px; height: 400px; width: 830px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 72px; left: 10px; height: 388px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 13px; color: blue;"><strong>#{msg['cargos']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIACARGO -->
                      <p:dataTable id="DatosVigencias" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" 
@@ -105,10 +105,12 @@
                                   filteredValue="#{controlVigenciasArps.filtrarVigenciasArps}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
                                   scrollHeight="#{controlVigenciasArps.altoTabla}"
-                                  selection="#{controlVigenciasArps.vigenciaSeleccionada}" selectionMode="single">
+                                  selection="#{controlVigenciasArps.vigenciaSeleccionada}" selectionMode="single"
+                                  rows="#{controlVigenciasArps.altoTablaReg}" paginator="true" 
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                  currentPageReportTemplate="{totalPages}">
 
                         <p:ajax event="filter" listener="#{controlVigenciasArps.eventoFiltrar()}" update=":form:infoRegistro" process="@this"/>
-                        <!--<f:event type="preRenderView" listener="#/{controlVigenciasArps.recordarSeleccion()}"/>-->
 
                         <p:column sortBy="#{info.nombreEstructura}" filterBy="#{info.nombreEstructura}" filterMatchMode="contains" 
                                   id="columnEstructura" filterStyle="display: none; visibility: hidden;">                                  
@@ -213,7 +215,7 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" id="editPorcentaje" value="#{info.porcentaje}">
-                                    <p:ajax event="change" listener="#{controlVigenciasArps.modificarV(info, 'N', info.porcentaje)}" update="@this" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlVigenciasArps.modificarV(info)}" update="@this" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciasArps.cambiarIndice(info, 4)}" process="@this"
                                             onstart="PF('DatosVigencias').unselectAllRows(); PF('DatosVigencias').selectRow(#{indice});"/> 
                                  </p:inputText>
@@ -227,7 +229,8 @@
 
                      <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlVigenciasArps.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold;"/>
                   </fieldset>
-
+                  <p:commandButton id="RIESGOS" class="cssBotonLargo" icon="ui-icon-extlink" value="Riesgos Profesionales" onclick="PF('confirmarGuardar').show();"
+                                   style="position: absolute; top: 478px; font-size: 11px;" process="@this"/>
                   <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" onclick="PF('confirmarGuardar').show();" update=":form:DatosVigencias" process="@this" disabled="#{controlVigenciasArps.guardado}"/>
                   <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasArps.salir()}" process="@this"/>
                   <!-- CAMPO DE LOS DIALOGOS -->      
@@ -241,17 +244,17 @@
                                    selection="#{controlVigenciasArps.estructuraLovSeleccionada}" selectionMode="single">
 
                         <p:ajax event="filter" listener="#{controlVigenciasArps.contarRegistrosEstructuras()}"/>
-                        <p:ajax event="rowSelect" listener="#{controlVigenciasArps.activarAceptar()}" update=":form:aceptarC"/>
+                        <p:ajax event="rowSelect" listener="#{controlVigenciasArps.activarAceptar()}" update=":form:aceptarE"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciasArps.actualizarEstructura()}" 
                                 oncomplete="PF('dlgEstructuras').hide(), PF('lovEstructuras').clearFilters()" update=":form:dlgEstructuras" process="@this"/>
 
-                        <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarE']}"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuras').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
-                        </f:facet>  
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['buscarE']}"/>
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuras').filter();" value="#{filtrado}" class="cssFiltroLOV"/>
+                        </f:facet>
 
-                        <p:column headerText="#{msg['nombreE']}" filterBy="#{estr.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
-                           <h:outputText value="#{estr.nombre}" style="height: 12px;"/>  
+                        <p:column headerText="#{msg['nombreE']}" filterBy="#{estr.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                           <h:outputText value="#{estr.nombre}" style="height: 12px;"/>
                         </p:column>  
                         <p:column headerText="#{msg['centroE']}" filterBy="#{estr.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                            <h:outputText value="#{estr.centrocosto.codigo} - #{estr.centrocosto.nombre}" style="height: 12px;"/>  
@@ -263,7 +266,6 @@
 
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroLovEstructuras" value="#{msg['infoRegistro']} #{controlVigenciasArps.infoRegistroLovEstructuras}" class="cssinfoRegistroLOV"/>
-
                         <p:commandButton id="aceptarE" value="#{msg['aceptar']}" class="cssAceptarLOV" disabled="#{controlVigenciasArps.aceptar ? true : false }"
                                          icon="ui-icon-check" actionListener="#{controlVigenciasArps.actualizarEstructura()}" process="@this"
                                          oncomplete="PF('dlgEstructuras').hide(), PF('lovEstructuras').clearFilters()" update=":form:dlgEstructuras"/>
@@ -298,7 +300,6 @@
                            </f:facet>
                            <h:outputText value="#{carg.nombre}"/>  
                         </p:column>  
-
                         <p:column filterBy="#{carg.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                            <f:facet name="header">
                               <h:outputText value="#{msg['empresaC']}"/>
@@ -309,7 +310,6 @@
 
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroLovCargos" value="#{msg['infoRegistro']} #{controlVigenciasArps.infoRegistroLovCargos}" styleClass="cssinfoRegistroLOV"/>
-
                         <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlVigenciasArps.aceptar}"
                                          oncomplete="PF('dlgCargos').hide(), PF('lovCargos').clearFilters()" update=":form:dlgCargos"
                                          class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlVigenciasArps.actualizarCargo()}" process="@this"/>
@@ -511,70 +511,15 @@
                      <p:commandButton id="agregarDuplicadoVC" value="#{msg['agregar']}" style="position: absolute; left: 115px; top: 240px;"
                                       process="@this" actionListener="#{controlVigenciasArps.confirmarDuplicar()}" update=":form:DatosVigencias" icon="ui-icon-circle-check"/>
                      <p:commandButton id="cancelarDuplicadoVC" value="#{msg['cancelar']}" style="position: absolute; left: 215px; top: 240px;"
-                                      actionListener="#{controlVigenciasArps.limpiarduplicarVig()}" update="duplicarV, :form:DatosVigencias" onclick="PF('duplicarRegistroV').hide();"  process="@this" icon="ui-icon-circle-close"/>
+                                      actionListener="#{controlVigenciasArps.limpiarNuevaV()}" update="duplicarV, :form:DatosVigencias" onclick="PF('duplicarRegistroV').hide();"  process="@this" icon="ui-icon-circle-close"/>
                   </p:panel> 
                </p:dialog>  
-
-
-               <p:dialog id="adicionarPorcentaje" header="#{msg['nuevoregistro']}" widgetVar="adicionarPorcentaje" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="328" style=" padding: 0px;">  
-
-                  <p:panel id="nuevoRiesgo" style="border: none; margin-left: 15px;">
-                     <center><strong><h:outputText value="Agregar Nuevo Riesgo" style="font-size: 14px; color: blue; position: relative; top: 110px; left: -55px;"/></strong></center> 
-                     <strong><h:outputText value="#{msg['estructuraN']}" style=" position: absolute; top: 50px;"/></strong>
-                     <p:inputText autocomplete="off" readonly="true"  id="nuevaEstructuraR" value="#{controlVigenciasArps.duplicarVig.nombreEstructura}" style=" width: 122px; position: absolute; left: 130px; top: 45px; text-transform: uppercase;" onclick="select();"/>
-
-                     <strong><h:outputText value="#{msg['cargoN']}" style=" position: absolute; top: 80px;"/></strong>
-                     <p:inputText autocomplete="off" readonly="true"  id="nuevoNombreCargoR" value="#{controlVigenciasArps.duplicarVig.nombreCargo}" style=" width: 122px; position: absolute; left: 130px; top: 75px; text-transform: uppercase;" onclick="select();"/>
-
-                     <strong><h:outputText value="*Fecha Inicial" style=" position: absolute; top: 170px;"/></strong>
-                     <p:calendar style=" position: absolute; top: 165px; left: 130px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialR" value="#{controlVigenciasArps.duplicarVig.fechainicial}">
-                        <p:ajax event="dateSelect" update="@this"/>
-                        <p:ajax event="change" update="@this"/>
-                     </p:calendar>
-
-                     <strong><h:outputText value="*Fecha Final" style=" position: absolute; top: 200px;"/></strong>
-                     <p:calendar style=" position: absolute; top: 195px; left: 130px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalR" value="#{controlVigenciasArps.duplicarVig.fechafinal}">
-                        <p:ajax event="dateSelect" update="@this"/>
-                        <p:ajax event="change" update="@this"/>
-                     </p:calendar>
-
-                     <strong><h:outputText value="*Porcentaje : " style=" position: absolute; top: 230px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoPorcentajeR" value="#{controlVigenciasArps.duplicarVig.porcentaje}" style=" width: 122px; position: absolute; left: 130px; top: 225px; text-transform: uppercase;" onclick="select();">
-                     </p:inputText>
-                     <p:watermark for="nuevoPorcentajeR" value="Clase Riesgo"/>
-
-                     <p:commandButton id="agregarR" value="#{msg['agregar']}" style="position: absolute; left: 115px; top: 270px;" actionListener="#{controlVigenciasArps.agregarPorcentajeARP()}"  process="@this"  icon="ui-icon-circle-check"/>
-                     <p:commandButton id="cancelarR" value="#{msg['cancelar']}" style=" position: absolute; left: 215px; top: 270px;" onclick="PF('adicionarPorcentaje').hide();"  process="@this" icon="ui-icon-circle-close"/>
-                  </p:panel>
-               </p:dialog>
 
                <p:dialog id="camposVacios" header="#{msg['error']}" widgetVar="camposVacios"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="Los campos marcados con asterisco son obligatorios" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('camposVacios').hide()"   style="position: relative; top: 70px; left: 185px"   process="@this"/>
                </p:dialog>
-
-               <p:dialog id="existePorcentaje" header="#{msg['error']}" widgetVar="existePorcentaje"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['existePorcentaje']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('existePorcentaje').hide(), PF('adicionarPorcentaje').hide()" 
-                                   style="position: relative; top: 70px; left: 185px"   process="@this"/>
-               </p:dialog>
-               <!--
-                              <p:dialog  id="verReportePDF" header="#{controlVigenciasArps.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
-                                 <p:media value="#{controlVigenciasArps.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlVigenciasArps.reporte != null}"/>
-                              </p:dialog>
-                              <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlVigenciasArps.reiniciarStreamedContent()}"/>
-               
-                              <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
-                                 <p:inputTextarea value="#{controlVigenciasArps.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
-                              </p:dialog>
-               
-                              <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte" closable="true" resizable="false" draggable="true" modal="true" height="85" width="350" style="font-size: 12px">  
-                                 <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
-                                 <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
-                                 <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlVigenciasArps.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>
-                              </p:dialog>-->
 
                <p:dialog id="paso1" header="#{msg['atencion']}" widgetVar="paso1"  resizable="false" draggable="true" modal="true" height="95" width="440"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>

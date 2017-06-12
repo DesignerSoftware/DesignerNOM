@@ -188,9 +188,6 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         System.out.println("descripcionNu : " + descripcionNu);
-         System.out.println("codigoNu : " + codigoNu);
-         System.out.println("codigoOri : " + codigoOri);
          StoredProcedureQuery query = em.createStoredProcedureQuery("PROCESOS_PKG.CLONARPROCESO");
          query.registerStoredProcedureParameter(1, String.class, ParameterMode.INOUT);
          query.registerStoredProcedureParameter(2, short.class, ParameterMode.IN);

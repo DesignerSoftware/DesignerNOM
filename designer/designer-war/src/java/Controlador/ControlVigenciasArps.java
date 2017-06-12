@@ -60,7 +60,7 @@ public class ControlVigenciasArps implements Serializable {
    private List<Cargos> lovCargos;
    private List<Cargos> filtrarCargos;
 
-   private String altoTabla, infoRegistro, infoRegistroLovCargos, infoRegistroLovEstructuras;
+   private String altoTabla, altoTablaReg, infoRegistro, infoRegistroLovCargos, infoRegistroLovEstructuras;
 
    private int tipoActualizacion;//Activo/Desactivo Crtl + F11
    private int bandera;
@@ -96,7 +96,7 @@ public class ControlVigenciasArps implements Serializable {
       listaBorrar = new ArrayList<VigenciasArps>();
       listaCrear = new ArrayList<VigenciasArps>();
       listaModificar = new ArrayList<VigenciasArps>();
-      altoTabla = "310";
+      altoTabla = "300";
       vigenciaSeleccionada = null;
       listaVigenciasArps = null;
       lovCargos = null;
@@ -195,16 +195,19 @@ public class ControlVigenciasArps implements Serializable {
             RequestContext.getCurrentInstance().update("form:DatosVigencias");
             tipoActualizacion = 0;
          }
-      } else if (campo.equalsIgnoreCase("INI")) {
-         int control = 0;
-         for (int i = 0; i < listaVigenciasArps.size(); i++) {
-            if ((listaVigenciasArps.get(i).getFechainicial().compareTo(vigenciaSeleccionada.getFechainicial()) == 0)
-                    && (!listaVigenciasArps.get(i).getSecuencia().equals(vigenciaSeleccionada.getSecuencia()))) {
-               control++;
-               vigenciaSeleccionada.setFechainicial(fechaIniBkp);
+      } else if (campo.equalsIgnoreCase("INI") || campo.equalsIgnoreCase("FIN")) {
+         boolean continuar = true;
+         for (VigenciasArps cursorVig : listaVigenciasArps) {
+            if (cursorVig.getCargo().equals(vigenciaSeleccionada.getCargo())
+                    && cursorVig.getEstructura().equals(vigenciaSeleccionada.getEstructura())
+                    && ! cursorVig.getSecuencia().equals(vigenciaSeleccionada.getSecuencia())) {
+               if (hayTraslaposFechas(cursorVig.getFechainicial(), cursorVig.getFechafinal(), vigenciaSeleccionada.getFechainicial(), vigenciaSeleccionada.getFechafinal())) {
+                  vigenciaSeleccionada.setFechainicial(fechaIniBkp);
+                  continuar = false;
+               }
             }
          }
-         if (control == 0) {
+         if (continuar) {
             if (!listaCrear.contains(vigenciaSeleccionada)) {
                if (listaModificar.isEmpty()) {
                   listaModificar.add(vigenciaSeleccionada);
@@ -253,7 +256,7 @@ public class ControlVigenciasArps implements Serializable {
       }
    }
 
-   public void modificarVC(VigenciasArps vigenciaA) {
+   public void modificarV(VigenciasArps vigenciaA) {
       vigenciaSeleccionada = vigenciaA;
       if (!listaCrear.contains(vigenciaSeleccionada)) {
          if (listaModificar.isEmpty()) {
@@ -372,7 +375,7 @@ public class ControlVigenciasArps implements Serializable {
       guardado = true;
       nuevaVig = new VigenciasArps();
       duplicarVig = new VigenciasArps();
-      altoTabla = "310";
+      altoTabla = "300";
       vigenciaSeleccionada = null;
       listaVigenciasArps = null;
       lovCargos = null;
@@ -497,29 +500,20 @@ public class ControlVigenciasArps implements Serializable {
          pasa++;
       }
       if (pasa == 0) {
-         int control = 0;
-         for (VigenciasArps curVigenciasArps : listaVigenciasArps) {
-            if (curVigenciasArps.getFechainicial().compareTo(duplicarVig.getFechainicial()) == 0) {
-               control++;
-            }
-         }
-         if (control == 0) {
+         if (validarNuevoTraslapes(duplicarVig)) {
             listaVigenciasArps.add(duplicarVig);
             listaCrear.add(duplicarVig);
             vigenciaSeleccionada = listaVigenciasArps.get(listaVigenciasArps.indexOf(duplicarVig));
-
             if (guardado == true) {
                guardado = false;
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             restaurarTabla();
             contarRegistros();
-            System.out.println("vigenciaSeleccionada : " + vigenciaSeleccionada);
             duplicarVig = new VigenciasArps();
             RequestContext.getCurrentInstance().update("form:listaValores");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroV').hide()");
             RequestContext.getCurrentInstance().update("form:DatosVigencias");
-            System.out.println("Ya paso por la actualizacion de tabla");
          } else {
             RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show();");
          }
@@ -527,6 +521,63 @@ public class ControlVigenciasArps implements Serializable {
          RequestContext.getCurrentInstance().update("form:validacioNuevaVigencia");
          RequestContext.getCurrentInstance().execute("PF('validacioNuevaVigencia').show()");
       }
+   }
+
+   public void borrarV() {
+      if (vigenciaSeleccionada != null) {
+         if (!listaModificar.isEmpty() && listaModificar.contains(vigenciaSeleccionada)) {
+            int modIndex = listaModificar.indexOf(vigenciaSeleccionada);
+            listaModificar.remove(modIndex);
+            listaBorrar.add(vigenciaSeleccionada);
+         } else if (!listaCrear.isEmpty() && listaCrear.contains(vigenciaSeleccionada)) {
+            int crearIndex = listaCrear.indexOf(vigenciaSeleccionada);
+            listaCrear.remove(crearIndex);
+         } else {
+            listaBorrar.add(vigenciaSeleccionada);
+         }
+         listaVigenciasArps.remove(vigenciaSeleccionada);
+         if (tipoLista == 1) {
+            filtrarVigenciasArps.remove(vigenciaSeleccionada);
+            restaurarTabla();
+         }
+         contarRegistros();
+         vigenciaSeleccionada = null;
+         RequestContext.getCurrentInstance().update("form:DatosVigencias");
+
+         if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public boolean hayTraslaposFechas(Date fecha1Ini, Date fecha1Fin, Date fecha2Ini, Date fecha2Fin) {
+      boolean hayTraslapos;
+      if ((fecha1Fin.after(fecha2Fin) && fecha1Ini.before(fecha2Fin))
+              || (fecha1Ini.before(fecha2Ini) && fecha1Fin.after(fecha2Ini))
+              || fecha1Fin.equals(fecha2Fin)
+              || fecha1Ini.equals(fecha2Ini)
+              || fecha1Ini.equals(fecha2Fin)
+              || fecha1Fin.equals(fecha2Ini)) {
+         hayTraslapos = true;
+      } else {
+         hayTraslapos = false;
+      }
+      return hayTraslapos;
+   }
+
+   public boolean validarNuevoTraslapes(VigenciasArps vigencia) {
+      boolean continuar = true;
+      for (VigenciasArps cursorVig : listaVigenciasArps) {
+         if (cursorVig.getCargo().equals(vigencia.getCargo()) && cursorVig.getEstructura().equals(vigencia.getEstructura())) {
+            if (hayTraslaposFechas(cursorVig.getFechainicial(), cursorVig.getFechafinal(), vigencia.getFechainicial(), vigencia.getFechafinal())) {
+               continuar = false;
+            }
+         }
+      }
+      return continuar;
    }
 
    //CREAR VC
@@ -549,13 +600,7 @@ public class ControlVigenciasArps implements Serializable {
          pasa++;
       }
       if (pasa == 0) {
-         int control = 0;
-         for (VigenciasArps curVigencias : listaVigenciasArps) {
-            if (curVigencias.getFechainicial().compareTo(nuevaVig.getFechainicial()) == 0) {
-               control++;
-            }
-         }
-         if (control == 0) {
+         if (validarNuevoTraslapes(nuevaVig)) {
             restaurarTabla();
             //AGREGAR REGISTRO A LA LISTA VIGENCIAS CARGOS EMPLEADO.
             k++;
@@ -624,7 +669,7 @@ public class ControlVigenciasArps implements Serializable {
          columnFinal.setFilterStyle("width: 80% !important;");
          columnPorcentaje = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnPorcentaje");
          columnPorcentaje.setFilterStyle("width: 75% !important;");
-         altoTabla = "290";
+         altoTabla = "280";
          RequestContext.getCurrentInstance().update("form:DatosVigencias");
          bandera = 1;
       } else {
@@ -645,7 +690,7 @@ public class ControlVigenciasArps implements Serializable {
       columnFinal.setFilterStyle("display: none; visibility: hidden;");
       columnPorcentaje = (Column) c.getViewRoot().findComponent("form:DatosVigencias:columnPorcentaje");
       columnPorcentaje.setFilterStyle("display: none; visibility: hidden;");
-      altoTabla = "310";
+      altoTabla = "300";
       bandera = 0;
       filtrarCargos = null;
       tipoLista = 0;
@@ -776,9 +821,6 @@ public class ControlVigenciasArps implements Serializable {
    //LIMPIAR NUEVO REGISTRO
    public void limpiarNuevaV() {
       nuevaVig = new VigenciasArps();
-   }
-
-   public void limpiarduplicarV() {
       duplicarVig = new VigenciasArps();
    }
 
@@ -898,6 +940,19 @@ public class ControlVigenciasArps implements Serializable {
 
    public void setAltoTabla(String altoTabla) {
       this.altoTabla = altoTabla;
+   }
+
+   public String getAltoTablaReg() {
+      if (altoTabla.equals("280")) {
+         altoTablaReg = "13";
+      } else {
+         altoTablaReg = "14";
+      }
+      return altoTablaReg;
+   }
+
+   public void setAltoTablaReg(String altoTablaReg) {
+      this.altoTablaReg = altoTablaReg;
    }
 
    public String getInfoRegistro() {

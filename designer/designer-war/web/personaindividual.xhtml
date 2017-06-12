@@ -588,12 +588,12 @@
 
                            <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="arpModAfiliaciones" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
-                                        style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;">
-                                                            <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
-                                                            <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
-                                                            <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
-                                                            <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
-                                                                             actionListener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
+                                        style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;" disabled="true">
+                              <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
+                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
+                              <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
+<!--                                                            <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionARP" value="#{msg['infoAfiliacion']}"/>
 

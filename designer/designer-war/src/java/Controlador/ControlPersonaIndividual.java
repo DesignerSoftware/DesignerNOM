@@ -2087,6 +2087,28 @@ public class ControlPersonaIndividual implements Serializable {
                            error = error + "Vigencia Tipo Trabajador, ";
                         }
                         //
+//                        TiposTrabajadores ttDisponibleparacontratacion = null;
+//                        for (TiposTrabajadores tt : lovTiposTrabajadores) {
+//                           if (tt.getCodigo() == 12) {
+//                              System.out.println("ControlPersonaIndividual.crearNuevoEmpleado() Codigo 12: " + tt.getNombre());
+//                              ttDisponibleparacontratacion = tt;
+//                              break;
+//                           }
+//                        }
+//                        if (ttDisponibleparacontratacion != null) {
+//                           k++;
+//                           l = BigInteger.valueOf(k);
+//                           nuevaVigenciaTipoTrabajador = new VigenciasTiposTrabajadores();
+//                           nuevaVigenciaTipoTrabajador.setTipotrabajador(ttDisponibleparacontratacion);
+//                           nuevaVigenciaTipoTrabajador.setSecuencia(l);
+//                           nuevaVigenciaTipoTrabajador.setEmpleado(nuevoEmpleado);
+//                           nuevaVigenciaTipoTrabajador.setFechavigencia(new Date(50, 0, 1));
+//                           System.out.println("ControlPersonaIndividual.crearNuevoEmpleado() Codigo 12: " + nuevaVigenciaTipoTrabajador.getFechavigencia());
+//                           if (!administrarPersonaIndividual.crearVigenciaTipoTrabajador(nuevaVigenciaTipoTrabajador)) {
+//                              error = error + "Vigencia Tipo Trabajador Historico 01/01/1950, ";
+//                           }
+//                        }
+                        //
                         k++;
                         l = BigInteger.valueOf(k);
                         nuevaVigenciaReformaLaboral.setSecuencia(l);

@@ -45,11 +45,13 @@ public class ControlComprobantes implements Serializable {
    private Parametros parametroSeleccionado;
    //SOLUCIONES NODOS EMPLEADO
    private List<SolucionesNodos> listaSolucionesNodosEmpleado;
+   private List<SolucionesNodos> listaSolucionesNodosEmpleadoAux;
    private List<SolucionesNodos> filtradolistaSolucionesNodosEmpleado;
    private SolucionesNodos solucionNodoEmpleadoSeleccionada;
    private SolucionesNodos editarSolucionNodo;
    //SOLUCIONES NODOS EMPLEADOR
    private List<SolucionesNodos> listaSolucionesNodosEmpleador;
+   private List<SolucionesNodos> listaSolucionesNodosEmpleadorAux;
    private List<SolucionesNodos> filtradolistaSolucionesNodosEmpleador;
    private SolucionesNodos solucionNodoEmpleadorSeleccionada;
    //REGISTRO ACTUAL
@@ -110,6 +112,8 @@ public class ControlComprobantes implements Serializable {
       registroActual = 0;
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
+      listaSolucionesNodosEmpleadoAux = new ArrayList<SolucionesNodos>();
+      listaSolucionesNodosEmpleadorAux = new ArrayList<SolucionesNodos>();
       listaParametros = new ArrayList<Parametros>();
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -484,7 +488,6 @@ public class ControlComprobantes implements Serializable {
       if (cualCelda == 0) {
          parcialesSolucionNodos = solucionNodoEmpleadorSeleccionada.getParciales();
       }
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:parcialesConcepto");
       RequestContext.getCurrentInstance().execute("PF('parcialesConcepto').show();");
    }
@@ -492,7 +495,6 @@ public class ControlComprobantes implements Serializable {
    public void cambiarIndiceEmpleador(SolucionesNodos solucionNodoEmpleador, int celda) {
       solucionNodoEmpleadorSeleccionada = solucionNodoEmpleador;
       cualCelda = celda;
-      solucionNodoEmpleadorSeleccionada.getSecuencia();
       if (cualCelda == 1) {
          solucionNodoEmpleadorSeleccionada.getCodigoconcepto();
       } else if (cualCelda == 2) {
@@ -529,7 +531,6 @@ public class ControlComprobantes implements Serializable {
    public void cambiarIndice(SolucionesNodos solucionNodo, int celda) {
       solucionNodoEmpleadoSeleccionada = solucionNodo;
       cualCelda = celda;
-      solucionNodoEmpleadoSeleccionada.getSecuencia();
       if (cualCelda == 1) {
          solucionNodoEmpleadoSeleccionada.getCodigoconcepto();
       } else if (cualCelda == 2) {
@@ -549,7 +550,7 @@ public class ControlComprobantes implements Serializable {
       } else if (cualCelda == 9) {
          solucionNodoEmpleadoSeleccionada.getNombrecentrocostod();
       } else if (cualCelda == 10) {
-         solucionNodoEmpleadoSeleccionada.getCodigocuentad();
+         solucionNodoEmpleadoSeleccionada.getCodigocuentac();
       } else if (cualCelda == 11) {
          solucionNodoEmpleadoSeleccionada.getNombrecentrocostoc();
       } else if (cualCelda == 12) {
@@ -606,6 +607,26 @@ public class ControlComprobantes implements Serializable {
    public void eventoFiltrarComprobanteEmpleador() {
       solucionNodoEmpleadorSeleccionada = null;
       contarRegistrosComprobanteEmpleador();
+   }
+
+   public void cambiarValorEmpleado(SolucionesNodos solucionNodoEmpleado) {
+      solucionNodoEmpleadoSeleccionada = solucionNodoEmpleado;
+      for (SolucionesNodos rcSolNodo : listaSolucionesNodosEmpleadoAux) {
+         if (rcSolNodo.getSecuencia().equals(solucionNodoEmpleadoSeleccionada.getSecuencia())) {
+            solucionNodoEmpleadoSeleccionada = rcSolNodo;
+            break;
+         }
+      }
+   }
+
+   public void cambiarValorEmpleador(SolucionesNodos solucionNodoEmpleador) {
+      solucionNodoEmpleadorSeleccionada = solucionNodoEmpleador;
+      for (SolucionesNodos rcSolNodo : listaSolucionesNodosEmpleadorAux) {
+         if (rcSolNodo.getSecuencia().equals(solucionNodoEmpleadorSeleccionada.getSecuencia())) {
+            solucionNodoEmpleadorSeleccionada = rcSolNodo;
+            break;
+         }
+      }
    }
 
    public void editarCelda() {
@@ -845,11 +866,13 @@ public class ControlComprobantes implements Serializable {
    public List<SolucionesNodos> getListaSolucionesNodosEmpleado() {
       if (parametroActual != null) {
          if (listaSolucionesNodosEmpleado == null) {
+            listaSolucionesNodosEmpleadoAux.clear();
             listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(parametroActual.getEmpleado().getSecuencia());
             if (listaSolucionesNodosEmpleado != null) {
                subtotalPago = new BigDecimal(0);
                subtotalDescuento = new BigDecimal(0);
                for (int i = 0; i < listaSolucionesNodosEmpleado.size(); i++) {
+                  listaSolucionesNodosEmpleadoAux.add(listaSolucionesNodosEmpleado.get(i));
                   if (listaSolucionesNodosEmpleado.get(i).getTipo().equals("PAGO")) {
                      subtotalPago = subtotalPago.add(listaSolucionesNodosEmpleado.get(i).getValor());
                   } else {
@@ -882,11 +905,13 @@ public class ControlComprobantes implements Serializable {
       if (parametroActual != null) {
          if (listaSolucionesNodosEmpleador == null) {
             if (parametroActual.getEmpleado().getSecuencia() != null) {
+               listaSolucionesNodosEmpleadorAux.clear();
                listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(parametroActual.getEmpleado().getSecuencia());
                if (listaSolucionesNodosEmpleador != null) {
                   subtotalPasivo = new BigDecimal(0);
                   subtotalGasto = new BigDecimal(0);
                   for (int i = 0; i < listaSolucionesNodosEmpleador.size(); i++) {
+                     listaSolucionesNodosEmpleadorAux.add(listaSolucionesNodosEmpleador.get(i));
                      if (listaSolucionesNodosEmpleador.get(i).getTipo().equals("PASIVO")) {
                         subtotalPasivo = subtotalPasivo.add(listaSolucionesNodosEmpleador.get(i).getValor());
                      } else if (listaSolucionesNodosEmpleador.get(i).getTipo().equals("GASTO")) {
