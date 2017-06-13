@@ -230,15 +230,7 @@ public class ControlInterfaseContableSapBO implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
         String pagActual = "interfasecontablesapbo";
-
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
@@ -275,6 +267,12 @@ public class ControlInterfaseContableSapBO implements Serializable {
             administrarRastros.obtenerConexion(ses.getId());
             externalContext = x.getExternalContext();
             userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
+            actualUsuarioBD = null;
+            getActualUsuarioBD();
+            listaParametrosContables = null;
+            getListaParametrosContables();
+            parametroContableActual = null;
+            getParametroContableActual();
         } catch (Exception e) {
             System.out.println("Error postconstruct ControlInterfaseContableSapBOV8: " + e);
             System.out.println("Causa: " + e.getCause());
@@ -1839,37 +1837,37 @@ public class ControlInterfaseContableSapBO implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorCifraControl').show()");
         }
     }
-    
-         public void exportarReporte() throws IOException {
-      try {
-          System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
-         if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-               String fileName = reporteF.getName();
-               HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-               response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-               ServletOutputStream out = response.getOutputStream();
 
-               while ((read = fis.read(bytes)) != -1) {
-                  out.write(bytes, 0, read);
-               }
-               out.flush();
-               out.close();
-               ctx.responseComplete();
+    public void exportarReporte() throws IOException {
+        try {
+            System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
+
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
+                }
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-         } else {
-            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-         }
-      } catch (Exception e) {
-         System.out.println("error en exportarReporte :" + e.getMessage());
-      }
-   }
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte :" + e.getMessage());
+        }
+    }
 
     public void reiniciarStreamedContent() {
         System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
@@ -1880,7 +1878,6 @@ public class ControlInterfaseContableSapBO implements Serializable {
         System.out.println(this.getClass().getName() + ".cancelarReporte()");
         administarReportes.cancelarReporte();
     }
-
 
     public void cargarLovEmpresas() {
         if (lovEmpresas == null) {

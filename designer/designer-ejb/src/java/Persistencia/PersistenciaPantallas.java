@@ -9,7 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+//import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import javax.persistence.Query;
 
 /**
@@ -27,7 +28,6 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
      */
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
-
     @Override
     public Pantallas buscarPantalla(EntityManager em, BigInteger secuenciaTab) {
         try {
@@ -61,7 +61,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
     public String buscarIntContable(EntityManager em, BigInteger secEmpresa) {
         try {
             em.clear();
-            String sql="SELECT NOMBRE FROM PANTALLAS WHERE CODIGO = 902 AND EMPRESA = ?";
+            String sql = "SELECT NOMBRE FROM PANTALLAS WHERE CODIGO = 902 AND EMPRESA = ?";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secEmpresa);
             String intcontables = (String) query.getSingleResult();
@@ -71,4 +71,51 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             return " ";
         }
     }
+    
+    @Override
+    public String buscarPantallaPorCodigoEmpresa(EntityManager em, BigInteger secEmpresa, Short codigo) {
+        String sql;
+        String intcontables = " ";
+        Query query;
+        try {
+            em.clear();
+            sql = "SELECT NOMBRE FROM PANTALLAS WHERE CODIGO = ? AND EMPRESA = ? ";
+            query = em.createNativeQuery(sql);
+            query.setParameter(1, codigo);
+            query.setParameter(2, secEmpresa);
+            intcontables = (String) query.getSingleResult();
+            return intcontables;
+        } catch (NoResultException nre)  {
+            System.err.println("Error: PersistenciaPantallas buscarPantallaPorCodigoEmpresa ERROR " + nre.getMessage());
+            return " ";
+        }
+    }
+
+    @Override
+    public String buscarPantallaPorCodigo(EntityManager em, Short codigo) {
+        String sql;
+        String intcontables = " ";
+        Query query;
+        try {
+            em.clear();
+            sql = "SELECT NOMBRE FROM PANTALLAS WHERE CODIGO = ?";
+            query = em.createNativeQuery(sql);
+            query.setParameter(1, codigo);
+            intcontables = (String) query.getSingleResult();
+        } catch (NonUniqueResultException nure) {
+            System.err.println("Error: PersistenciaPantallas buscarPantallaPorCodigo ERROR " + nure.getMessage());
+            try {
+                em.clear();
+                sql = "SELECT NOMBRE FROM PANTALLAS WHERE CODIGO = ? AND ROWNUM <= 1 ";
+                query = em.createNativeQuery(sql);
+                query.setParameter(1, codigo);
+                intcontables = (String) query.getSingleResult();
+            } catch (NoResultException nre) {
+                intcontables = " ";
+            }
+        } finally {
+            return intcontables;
+        }
+    }
+
 }

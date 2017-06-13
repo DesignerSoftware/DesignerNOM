@@ -663,7 +663,8 @@
                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"/>
                            <h:outputText value="#{msg['confirmarProcesoInterfaceContable']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight: bold;"/>
                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarprocesointerfacecontable').hide();"
-                                            action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'interfasecontabletotal')}" actionListener="#{controlInterfaseContableTotal.recibirPaginaEntrante('nominaf')}" style="position: absolute; top: 60px; left: 285px;" process="@this" icon="ui-icon-check"/>
+                                            action="#{controlRemoto.validarIntercon()}"  style="position: absolute; top: 60px; left: 285px;" process="@this" icon="ui-icon-check"/>
+                           <!--actionListener="#{controlInterfaseContableTotal.recibirPaginaEntrante('nominaf')}"-->
                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarprocesointerfacecontable').hide();" style="position: absolute; top: 60px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
 
@@ -1058,6 +1059,14 @@
                   <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.activos()}" icon="ui-icon-check" onclick="PF('activoEliminarPaso4').hide();"
                                    style="position: absolute; top: 60px; left: 280px;" process="@this"/>
                </p:dialog>
+                
+                <p:dialog id="errorInterfaz" widgetVar="errorInterfaz" header="#{msg['error']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="70" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                  <h:outputText value="#{controlRemoto.mensajeinterface}" style="position: absolute; left: 90px; top: 40px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorInterfaz').hide();"
+                                   style="position: absolute; top: 60px; left: 280px;" process="@this"/>
+               </p:dialog>
+                
             </h:form>
 
             <h:form id="formexportar">

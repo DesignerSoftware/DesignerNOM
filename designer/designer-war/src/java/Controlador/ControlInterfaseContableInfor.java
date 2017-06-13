@@ -274,6 +274,12 @@ public class ControlInterfaseContableInfor implements Serializable {
             administrarRastros.obtenerConexion(ses.getId());
             externalContext = x.getExternalContext();
             userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
+            actualUsuarioBD = null;
+            getActualUsuarioBD();
+            listaParametrosContables = null;
+            getListaParametrosContables();
+            parametroContableActual = null;
+            getParametroContableActual();
         } catch (Exception e) {
             System.out.println("Error postconstruct ControlInterfaseContableSapBOV8: " + e);
             System.out.println("Causa: " + e.getCause());

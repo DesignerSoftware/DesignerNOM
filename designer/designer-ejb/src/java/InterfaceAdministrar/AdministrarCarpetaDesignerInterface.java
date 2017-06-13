@@ -82,4 +82,7 @@ public interface AdministrarCarpetaDesignerInterface {
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
+    
+    public String consultarNombrePantallaPorEmpresa(Short codPantalla) throws Exception;
+    
 }

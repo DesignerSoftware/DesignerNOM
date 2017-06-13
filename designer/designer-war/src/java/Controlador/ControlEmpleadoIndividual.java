@@ -174,7 +174,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     private ExternalContext externalContext;
 
     public ControlEmpleadoIndividual() {
-        imprimir("0: constructor.", null);
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         aceptar = true;
         empleado = null;
@@ -234,7 +233,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     @PostConstruct
     public void inicializarAdministrador() {
-        imprimir("1: inicializarAdministrador.", null);
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -251,9 +249,7 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     public void recibirEmpleado(BigInteger sec) {
         try {
-            imprimir("2: recibirEmpleado.", "recibido secuencia: " + sec.toString());
             secuencia = sec;
-            imprimir("2: recibirEmpleado.", "secuencia: " + secuencia);
             empleado = null;
 //        persona = administrarEmpleadoIndividual.encontrarPersona(sec);
             persona = administrarEmpleadoIndividual.obtenerPersonaPorEmpleado(sec);
@@ -272,8 +268,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     public void datosEmpleado() {
         try {
-
-            imprimir("3: datosEmpleado.", "secuencia: " + secuencia);
             BigInteger secPersona = null;
             if (persona != null) {
                 secPersona = persona.getSecuencia();
@@ -334,13 +328,11 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void activarAceptar() {
-        imprimir("4: activarAceptar.", "secuencia: " + secuencia);
         aceptar = false;
     }
 
     //METODOS LOVS
     public void seleccionarTipoDocumento() {
-        imprimir("5: seleccionarTipoDocumento.", "secuencia: " + secuencia);
         if (seleccionTipoDocumento != null && persona != null) {
             persona.setTipodocumento(seleccionTipoDocumento);
             seleccionTipoDocumento = null;
@@ -364,7 +356,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void cancelarSeleccionTipoDocumento() {
-        imprimir("6: cancelarSeleccionTipoDocumento.", "secuencia: " + secuencia);
         filtradoListaTiposDocumentos = null;
         seleccionTipoDocumento = null;
         aceptar = true;
@@ -376,7 +367,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void dialogoCiudad(int modificacion) {
-        imprimir("7: dialogoCiudad.", "secuencia: " + secuencia);
         RequestContext context = RequestContext.getCurrentInstance();
         modificacionCiudad = modificacion;
         if (modificacionCiudad == 0) {
@@ -391,7 +381,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void seleccionarCiudad() {
-        imprimir("8: seleccionarCiudad.", "secuencia: " + secuencia);
         if (seleccionCiudad != null && persona != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (modificacionCiudad == 1) {
@@ -417,7 +406,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void cancelarSeleccionCiudad() {
-        imprimir("9: cancelarSeleccionCiudad.", "secuencia: " + secuencia);
         filtradoListaCiudades = null;
         aceptar = true;
         modificacionCiudad = -1;
@@ -429,7 +417,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void seleccionarCiudadDocumento() {
-        imprimir("10: seleccionarCiudadDocumento.", "secuencia: " + secuencia);
         if (persona != null) {
             if (persona.getCiudaddocumento() != null && seleccionCiudadDocumento != null) {
 //                System.out.println("entra al if 2");
@@ -465,7 +452,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void cancelarSeleccionCiudadDocumento() {
-        imprimir("11: cancelarSeleccionCiudadDocumento.", "secuencia: " + secuencia);
         filtradoCiudadesDocumento = null;
         aceptar = true;
         modificacionCiudad = -1;
@@ -477,7 +463,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void seleccionarCargo() {
-        imprimir("12: seleccionarCargo.", "secuencia: " + secuencia);
         if (seleccionCargo != null && hojaDeVidaPersona != null && hojaDeVidaPersona.getSecuencia() != null) {
             hojaDeVidaPersona.setCargo(seleccionCargo);
             seleccionCargo = null;
@@ -501,7 +486,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void cancelarSeleccionCargo() {
-        imprimir("13: cancelarSeleccionCargo.", "secuencia: " + secuencia);
         filtradoListaCargos = null;
         seleccionCargo = null;
         aceptar = true;
@@ -514,7 +498,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     //AUTOCOMPLETAR
     public void valoresBackupAutocompletar(String Campo) {
-        imprimir("14: valoresBackupAutocompletar.", "secuencia: " + secuencia);
         if (Campo.equals("TIPODOCUMENTO")) {
             tipoDocumento = persona.getTipodocumento().getNombrecorto();
             dialogo = 0;
@@ -537,7 +520,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void autocompletar(String confirmarCambio, String valorConfirmar) {
-        imprimir("15: autocompletar.", "secuencia: " + secuencia);
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -667,7 +649,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
-        imprimir("16: listaValoresBoton.", "secuencia: " + secuencia);
 //        RequestContext context = RequestContext.getCurrentInstance();
         if (dialogo == 0) {
             RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').show()");
@@ -690,7 +671,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void refrescar() {
-        imprimir("17: refrescar.", "secuencia: " + secuencia);
         getEmpleado();
         datosEmpleado();
         RequestContext context = RequestContext.getCurrentInstance();
@@ -703,7 +683,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     //EXPORTAR
     public void exportPDF() throws IOException {
-        imprimir("18: exportPDF.", "secuencia: " + secuencia);
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpleadoExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDFTablasAnchas();
@@ -712,7 +691,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void exportXLS() throws IOException {
-        imprimir("19: exportXLS.", "secuencia: " + secuencia);
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpleadoExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
@@ -722,12 +700,10 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
     public void cambiarTablaRastro(String tabla) {
-        imprimir("20: cambiarTablaRastro.", "secuencia: " + secuencia);
         nombreTabla = tabla;
     }
 
     public void verificarRastro() {
-        imprimir("21: verificarRastro.", "secuencia: " + secuencia);
 //        RequestContext context = RequestContext.getCurrentInstance();
 //        int resultado = -1;
 //        if (nombreTabla != null) {
@@ -764,7 +740,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     //MODIFICACION
     public void eventoDataSelectFechaNacimiento(String tipoCampo) {
-        imprimir("22: eventoDataSelectFechaNacimiento.", "secuencia: " + secuencia);
 //        System.out.println(this.getClass().getName() + ".eventoDataSelectFechaNacimiento");
         if (persona.getFechanacimiento() != null) {
             if (tipoCampo.equals("P")) {
@@ -789,7 +764,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void eventoDataSelectFechaVencimiento(String tipoCampo) {
-        imprimir("23: eventoDataSelectFechaVencimiento.", "secuencia: " + secuencia);
         if (persona.getFechavencimientocertificado() != null) {
             if (tipoCampo.equals("P")) {
                 if (modificacionPersona == false) {
@@ -813,7 +787,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void eventoDataSelectFechaFallecimiento(String tipoCampo) {
-        imprimir("24: eventoDataSelectFechaFallecimiento.", "secuencia: " + secuencia);
         if (persona.getFechafallecimiento() != null) {
             if (tipoCampo.equals("P")) {
                 if (modificacionPersona == false) {
@@ -837,7 +810,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void modificarCampo(String tipoCampo) {
-        imprimir("25: modificarCampo.", "secuencia: " + secuencia);
         if (tipoCampo.equals("P")) {
             if (!modificacionPersona) {
                 modificacionPersona = true;
@@ -865,7 +837,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     //GUARDAR CAMBIOS
     public void guardarCambios() {
-        imprimir("26: guardarCambios.", "secuencia: " + secuencia);
 //        RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (!guardado) {
@@ -954,7 +925,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void transformarArchivo(long size, InputStream in) {
-        imprimir("27: transformarArchivo.", "secuencia: " + secuencia);
         try {
             //extension = fileName.split("[.]")[1];
             //System.out.println(extension); 
@@ -975,7 +945,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     //VEHICULO PROPIO DINAMICO
     public void estadoVehiculoPropio() {
-        imprimir("28: estadoVehiculoPropio.", "secuencia: " + secuencia);
 //        RequestContext context = RequestContext.getCurrentInstance();
         if (vehiculoPropio.equals("S")) {
             estadoVP = false;
@@ -989,8 +958,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void validarRedirigirReferencias(String pagina) {
-        imprimir("29: validarRedirigirReferencias.", "secuencia: " + secuencia);
-        imprimir("29: validarRedirigirReferencias.", "pagina: " + pagina);
         if (hojaDeVidaPersona != null) {
             if (hojaDeVidaPersona.getPerfilprofesional() == null || hojaDeVidaPersona.getPerfilprofesional().isEmpty()) {
                 RequestContext.getCurrentInstance().execute("PF('validarPerfilProfesional').show()");
@@ -1158,7 +1125,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
 //GETTER AND SETTER
     public Empleados getEmpleado() {
-        imprimir("30: getEmpleado.", "secuencia: " + secuencia);
         if (empleado == null) {
             empleado = administrarEmpleadoIndividual.buscarEmpleado(secuencia);
             if (empleado != null) {
@@ -1169,92 +1135,74 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setEmpleado(Empleados empleado) {
-        imprimir("31: setEmpleado.", "secuencia: " + secuencia);
         this.empleado = empleado;
     }
 
     public HVHojasDeVida getHojaDeVidaPersona() {
-        imprimir("32: getHojaDeVidaPersona.", "secuencia: " + secuencia);
         return hojaDeVidaPersona;
     }
 
     public void setHojaDeVidaPersona(HVHojasDeVida hojaDeVidaPersona) {
-        imprimir("33: setHojaDeVidaPersona.", "secuencia: " + secuencia);
         this.hojaDeVidaPersona = hojaDeVidaPersona;
     }
 
     public void setTelefono(Telefonos telefono) {
-        imprimir("34: setTelefono.", "secuencia: " + secuencia);
         this.telefono = telefono;
     }
 
     public void setDireccion(Direcciones direccion) {
-        imprimir("35: setDireccion.", "secuencia: " + secuencia);
         this.direccion = direccion;
     }
 
     public void setEstadoCivil(VigenciasEstadosCiviles estadoCivil) {
-        imprimir("36: setEstadoCivil.", "secuencia: " + secuencia);
         this.estadoCivil = estadoCivil;
     }
 
     public void setInformacionAdicional(InformacionesAdicionales informacionAdicional) {
-        imprimir("37: setInformacionAdicional.", "secuencia: " + secuencia);
         this.informacionAdicional = informacionAdicional;
     }
 
     public void setEncargatura(Encargaturas encargatura) {
-        imprimir("38: setEncargatura.", "secuencia: " + secuencia);
         this.encargatura = encargatura;
     }
 
     public void setVigenciaFormal(VigenciasFormales vigenciaFormal) {
-        imprimir("39: setVigenciaFormal.", "secuencia: " + secuencia);
         this.vigenciaFormal = vigenciaFormal;
     }
 
     public void setIdiomasPersona(IdiomasPersonas idiomasPersona) {
-        imprimir("40: setIdiomasPersona.", "secuencia: " + secuencia);
         this.idiomasPersona = idiomasPersona;
     }
 
     public void setVigenciaProyecto(VigenciasProyectos vigenciaProyecto) {
-        imprimir("41: setVigenciaProyecto.", "secuencia: " + secuencia);
         this.vigenciaProyecto = vigenciaProyecto;
     }
 
     public HvReferencias getHvReferenciasPersonales() {
-        imprimir("42: getHvReferenciasPersonales.", "secuencia: " + secuencia);
         return hvReferenciasPersonales;
     }
 
     public void setHvReferenciasPersonales(HvReferencias hvReferenciasPersonales) {
-        imprimir("43: setHvReferenciasPersonales.", "secuencia: " + secuencia);
         this.hvReferenciasPersonales = hvReferenciasPersonales;
     }
 
     public void setHvReferenciasFamiliares(HvReferencias hvReferenciasFamiliares) {
-        imprimir("44: setHvReferenciasFamiliares.", "secuencia: " + secuencia);
         this.hvReferenciasFamiliares = hvReferenciasFamiliares;
     }
 
     public void setExperienciaLaboral(HvExperienciasLaborales experienciaLaboral) {
-        imprimir("45: setExperienciaLaboral.", "secuencia: " + secuencia);
         this.experienciaLaboral = experienciaLaboral;
     }
 
     public void setVigenciaEvento(VigenciasEventos vigenciaEvento) {
-        imprimir("46: setVigenciaEvento.", "secuencia: " + secuencia);
         this.vigenciaEvento = vigenciaEvento;
     }
 
     public void setVigenciaDeporte(VigenciasDeportes vigenciaDeporte) {
-        imprimir("47: setVigenciaDeporte.", "secuencia: " + secuencia);
         this.vigenciaDeporte = vigenciaDeporte;
     }
 
     public void setVigenciaAficion(VigenciasAficiones vigenciaAficion) {
-        imprimir("48: setVigenciaAficion.", "secuencia: " + secuencia);
         this.vigenciaAficion = vigenciaAficion;
     }
 
@@ -1262,133 +1210,107 @@ public class ControlEmpleadoIndividual implements Serializable {
         this.familiares = familiares;
     }*/
     public void setEntrevistas(HvEntrevistas entrevistas) {
-        imprimir("49: setEntrevistas.", "secuencia: " + secuencia);
         this.entrevistas = entrevistas;
     }
 
     public void setVigenciaIndicador(VigenciasIndicadores vigenciaIndicador) {
-        imprimir("50: setVigenciaIndicador.", "secuencia: " + secuencia);
         this.vigenciaIndicador = vigenciaIndicador;
     }
 
     public void setDemandas(Demandas demandas) {
-        imprimir("51: setDemandas.", "secuencia: " + secuencia);
         this.demandas = demandas;
     }
 
     public void setVigenciaDomiciliaria(VigenciasDomiciliarias vigenciaDomiciliaria) {
-        imprimir("52: setVigenciaDomiciliaria.", "secuencia: " + secuencia);
         this.vigenciaDomiciliaria = vigenciaDomiciliaria;
     }
 
     public void setPruebasAplicadas(EvalResultadosConv pruebasAplicadas) {
-        imprimir("53: setPruebasAplicadas.", "secuencia: " + secuencia);
         this.pruebasAplicadas = pruebasAplicadas;
     }
 
     public String getTelefonoP() {
-        imprimir("54: getTelefonoP.", "secuencia: " + secuencia);
         return telefonoP;
     }
 
     public String getDireccionP() {
-        imprimir("55: getDireccionP.", "secuencia: " + secuencia);
         return direccionP;
     }
 
     public String getEstadoCivilP() {
-        imprimir("56: getEstadoCivilP.", "secuencia: " + secuencia);
         return estadoCivilP;
     }
 
     public String getInformacionAdicionalP() {
-        imprimir("57: getInformacionAdicionalP.", "secuencia: " + secuencia);
         return informacionAdicionalP;
     }
 
     public String getReemplazoP() {
-        imprimir("58: getReemplazoP.", "secuencia: " + secuencia);
         return reemplazoP;
     }
 
     public String getEducacionP() {
-        imprimir("59: getEducacionP.", "secuencia: " + secuencia);
         return educacionP;
     }
 
     public String getIdiomasP() {
-        imprimir("60: getIdiomasP.", "secuencia: " + secuencia);
         return idiomasP;
     }
 
     public String getProyectosP() {
-        imprimir("61: getProyectosP.", "secuencia: " + secuencia);
         return proyectosP;
     }
 
     public String getReferenciasPersonalesP() {
-        imprimir("62: getReferenciasPersonalesP.", "secuencia: " + secuencia);
         return referenciasPersonalesP;
     }
 
     public String getReferenciasFamiliaresP() {
-        imprimir("63: getReferenciasFamiliaresP.", "secuencia: " + secuencia);
         return referenciasFamiliaresP;
     }
 
     public String getExperienciaLaboralP() {
-        imprimir("64: getExperienciaLaboralP.", "secuencia: " + secuencia);
         return experienciaLaboralP;
     }
 
     public String getEventosP() {
-        imprimir("65: getEventosP.", "secuencia: " + secuencia);
         return eventosP;
     }
 
     public String getDeportesP() {
-        imprimir("66: getDeportesP.", "secuencia: " + secuencia);
         return deportesP;
     }
 
     public String getAficionesP() {
-        imprimir("67: getAficionesP.", "secuencia: " + secuencia);
         return aficionesP;
     }
 
     public String getFamiliaresP() {
-        imprimir("68: getFamiliaresP.", "secuencia: " + secuencia);
         return familiaresP;
     }
 
     public String getEntrevistasP() {
-        imprimir("69: getEntrevistasP.", "secuencia: " + secuencia);
         return entrevistasP;
     }
 
     public String getIndicadoresP() {
-        imprimir("70: getIndicadoresP.", "secuencia: " + secuencia);
         return indicadoresP;
     }
 
     public String getDemandasP() {
-        imprimir("71: getDemandasP.", "secuencia: " + secuencia);
         return demandasP;
     }
 
     public String getVisitasDomiciliariasP() {
-        imprimir("72: getVisitasDomiciliariasP.", "secuencia: " + secuencia);
         return visitasDomiciliariasP;
     }
 
     public String getPruebasAplicadasP() {
-        imprimir("73: getPruebasAplicadasP.", "secuencia: " + secuencia);
         return pruebasAplicadasP;
     }
 
     //LISTAS DE VALORES
     public List<TiposDocumentos> getListaTiposDocumentos() {
-        imprimir("74: getListaTiposDocumentos.", "secuencia: " + secuencia);
         if (listaTiposDocumentos == null) {
             listaTiposDocumentos = administrarEmpleadoIndividual.tiposDocumentos();
         }
@@ -1396,32 +1318,26 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setListaTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
-        imprimir("75: setListaTiposDocumentos.", "secuencia: " + secuencia);
         this.listaTiposDocumentos = listaTiposDocumentos;
     }
 
     public List<TiposDocumentos> getFiltradoListaTiposDocumentos() {
-        imprimir("76: getFiltradoListaTiposDocumentos.", "secuencia: " + secuencia);
         return filtradoListaTiposDocumentos;
     }
 
     public void setFiltradoListaTiposDocumentos(List<TiposDocumentos> filtradoListaTiposDocumentos) {
-        imprimir("77: setFiltradoListaTiposDocumentos.", "secuencia: " + secuencia);
         this.filtradoListaTiposDocumentos = filtradoListaTiposDocumentos;
     }
 
     public TiposDocumentos getSeleccionTipoDocumento() {
-        imprimir("78: getSeleccionTipoDocumento.", "secuencia: " + secuencia);
         return seleccionTipoDocumento;
     }
 
     public void setSeleccionTipoDocumento(TiposDocumentos seleccionTipoDocumento) {
-        imprimir("79: setSeleccionTipoDocumento.", "secuencia: " + secuencia);
         this.seleccionTipoDocumento = seleccionTipoDocumento;
     }
 
     public List<Ciudades> getListaCiudades() {
-        imprimir("80: getListaCiudades.", "secuencia: " + secuencia);
         if (listaCiudades == null) {
             listaCiudades = administrarEmpleadoIndividual.ciudades();
         }
@@ -1429,42 +1345,34 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setListaCiudades(List<Ciudades> listaCiudades) {
-        imprimir("81: setListaCiudades.", "secuencia: " + secuencia);
         this.listaCiudades = listaCiudades;
     }
 
     public List<Ciudades> getFiltradoListaCiudades() {
-        imprimir("82: getFiltradoListaCiudades.", "secuencia: " + secuencia);
         return filtradoListaCiudades;
     }
 
     public void setFiltradoListaCiudades(List<Ciudades> filtradoListaCiudades) {
-        imprimir("83: setFiltradoListaCiudades.", "secuencia: " + secuencia);
         this.filtradoListaCiudades = filtradoListaCiudades;
     }
 
     public Ciudades getSeleccionCiudades() {
-        imprimir("84: getSeleccionCiudades.", "secuencia: " + secuencia);
         return seleccionCiudad;
     }
 
     public void setSeleccionCiudades(Ciudades seleccionCiudades) {
-        imprimir("85: setSeleccionCiudades.", "secuencia: " + secuencia);
         this.seleccionCiudad = seleccionCiudades;
     }
 
     public Ciudades getSeleccionCiudadDocumento() {
-        imprimir("86: getSeleccionCiudadDocumento.", "secuencia: " + secuencia);
         return seleccionCiudadDocumento;
     }
 
     public void setSeleccionCiudadDocumento(Ciudades seleccionCiudadDocumento) {
-        imprimir("87: setSeleccionCiudadDocumento.", "secuencia: " + secuencia);
         this.seleccionCiudadDocumento = seleccionCiudadDocumento;
     }
 
     public List<Cargos> getListaCargos() {
-        imprimir("88: getListaCargos.", "secuencia: " + secuencia);
         if (listaCargos == null) {
             listaCargos = administrarEmpleadoIndividual.cargos();
         }
@@ -1472,112 +1380,91 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setListaCargos(List<Cargos> listaCargos) {
-        imprimir("89: setListaCargos.", "secuencia: " + secuencia);
         this.listaCargos = listaCargos;
     }
 
     public List<Cargos> getFiltradoListaCargos() {
-        imprimir("90: getFiltradoListaCargos.", "secuencia: " + secuencia);
         return filtradoListaCargos;
     }
 
     public void setFiltradoListaCargos(List<Cargos> filtradoListaCargos) {
-        imprimir("91: setFiltradoListaCargos.", "secuencia: " + secuencia);
         this.filtradoListaCargos = filtradoListaCargos;
     }
 
     public Cargos getSeleccionCargo() {
-        imprimir("92: getSeleccionCargo.", "secuencia: " + secuencia);
         return seleccionCargo;
     }
 
     public void setSeleccionCargo(Cargos seleccionCargo) {
-        imprimir("93: setSeleccionCargo.", "secuencia: " + secuencia);
         this.seleccionCargo = seleccionCargo;
     }
 
     public String getCabezeraDialogoCiudad() {
-        imprimir("94: getCabezeraDialogoCiudad.", "secuencia: " + secuencia);
         return cabezeraDialogoCiudad;
     }
 
     public List<EmpleadoIndividualExportar> getEmpleadoIndividualExportar() {
-        imprimir("95: getEmpleadoIndividualExportar.", "secuencia: " + secuencia);
         empleadoIndividualExportar = new ArrayList<>();
         empleadoIndividualExportar.add(new EmpleadoIndividualExportar(empleado, persona, hojaDeVidaPersona));
         return empleadoIndividualExportar;
     }
 
     public boolean isAceptar() {
-        imprimir("96: isAceptar.", "secuencia: " + secuencia);
         return aceptar;
     }
 
     public void setPruebasAplicadasP(String pruebasAplicadasP) {
-        imprimir("97: setPruebasAplicadasP.", "secuencia: " + secuencia);
         this.pruebasAplicadasP = pruebasAplicadasP;
     }
 
     public String getNombreTabla() {
-        imprimir("98: getNombreTabla.", "secuencia: " + secuencia);
         return nombreTabla;
     }
 
     public BigInteger getSecRastro() {
-        imprimir("99: getSecRastro.", "secuencia: " + secuencia);
         return secRastro;
     }
 
     public void setSecRastro(BigInteger secRastro) {
-        imprimir("100: setSecRastro.", "secuencia: " + secuencia);
         this.secRastro = secRastro;
     }
 
     public boolean isGuardado() {
-        imprimir("101: isGuardado.", "secuencia: " + secuencia);
 //        refrescar();
         return guardado;
     }
 
     public boolean isEstadoVP() {
-        imprimir("102: isEstadoVP.", "secuencia: " + secuencia);
         return estadoVP;
     }
 
     public String getVehiculoPropio() {
-        imprimir("103: getVehiculoPropio.", "secuencia: " + secuencia);
         return vehiculoPropio;
     }
 
     public void setVehiculoPropio(String vehiculoPropio) {
-        imprimir("104: setVehiculoPropio.", "secuencia: " + secuencia);
         this.vehiculoPropio = vehiculoPropio;
     }
 
     public StreamedContent getFotoEmpleado() {
-        imprimir("105: getFotoEmpleado.", "secuencia: " + secuencia);
         obtenerFotoEmpleado();
 //        refrescarDatos();
         return fotoEmpleado;
     }
 
     public boolean isExistenHV() {
-        imprimir("106: isExistenHV.", "secuencia: " + secuencia);
         return existenHV;
     }
 
     public Personas getPersona() {
-        imprimir("107: getPersona.", "secuencia: " + secuencia);
         return persona;
     }
 
     public void setPersona(Personas persona) {
-        imprimir("108: setPersona.", "secuencia: " + secuencia);
         this.persona = persona;
     }
 
     public void obtenerFotoEmpleado() {
-        imprimir("109: obtenerFotoEmpleado.", "secuencia: " + secuencia);
         empleado = administrarEmpleadoIndividual.buscarEmpleado(secuencia);
         String rutaFoto = administrarEmpleadoIndividual.fotoEmpleado(empleado);
         if (rutaFoto != null) {
@@ -1594,7 +1481,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void refrescarDatos() {
-        imprimir("110: refrescarDatos.", "secuencia: " + secuencia);
         RequestContext context = RequestContext.getCurrentInstance();
         if (context != null) {
             datosEmpleado();
@@ -1603,7 +1489,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public String getInfoRegistroTipoDocumento() {
-        imprimir("111: getInfoRegistroTipoDocumento.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTiposDocumentos");
         infoRegistroTipoDocumento = String.valueOf(tabla.getRowCount());
@@ -1611,12 +1496,10 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setInfoRegistroTipoDocumento(String infoRegistroTipoDocumento) {
-        imprimir("112: setInfoRegistroTipoDocumento.", "secuencia: " + secuencia);
         this.infoRegistroTipoDocumento = infoRegistroTipoDocumento;
     }
 
     public String getInfoRegistroCiudad() {
-        imprimir("113: getInfoRegistroCiudad.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudades");
         infoRegistroCiudad = String.valueOf(tabla.getRowCount());
@@ -1624,12 +1507,10 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setInfoRegistroCiudad(String infoRegistroCiudad) {
-        imprimir("114: setInfoRegistroCiudad.", "secuencia: " + secuencia);
         this.infoRegistroCiudad = infoRegistroCiudad;
     }
 
     public String getInfoRegistroCargo() {
-        imprimir("115: getInfoRegistroCargo.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCargos");
         infoRegistroCargo = String.valueOf(tabla.getRowCount());
@@ -1637,12 +1518,10 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setInfoRegistroCargo(String infoRegistroCargo) {
-        imprimir("116: setInfoRegistroCargo.", "secuencia: " + secuencia);
         this.infoRegistroCargo = infoRegistroCargo;
     }
 
     public List<Ciudades> getListaCiudadesDocumento() {
-        imprimir("117: getListaCiudadesDocumento.", "secuencia: " + secuencia);
         if (listaCiudadesDocumento == null) {
             listaCiudadesDocumento = administrarEmpleadoIndividual.ciudades();
         }
@@ -1650,22 +1529,18 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setListaCiudadesDocumento(List<Ciudades> listaCiudadesDocumento) {
-        imprimir("118: setListaCiudadesDocumento.", "secuencia: " + secuencia);
         this.listaCiudadesDocumento = listaCiudadesDocumento;
     }
 
     public List<Ciudades> getFiltradoCiudadesDocumento() {
-        imprimir("119: getFiltradoCiudadesDocumento.", "secuencia: " + secuencia);
         return filtradoCiudadesDocumento;
     }
 
     public void setFiltradoCiudadesDocumento(List<Ciudades> filtradoCiudadesDocumento) {
-        imprimir("120: setFiltradoCiudadesDocumento.", "secuencia: " + secuencia);
         this.filtradoCiudadesDocumento = filtradoCiudadesDocumento;
     }
 
     public String getInfoRegistroCiudadDocumento() {
-        imprimir("121: getInfoRegistroCiudadDocumento.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudadesDocumento");
         infoRegistroCiudadDocumento = String.valueOf(tabla.getRowCount());
@@ -1673,22 +1548,18 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setInfoRegistroCiudadDocumento(String infoRegistroCiudadDocumento) {
-        imprimir("122: setInfoRegistroCiudadDocumento.", "secuencia: " + secuencia);
         this.infoRegistroCiudadDocumento = infoRegistroCiudadDocumento;
     }
 
     public String getCiudad() {
-        imprimir("123: getCiudad.", "secuencia: " + secuencia);
         return ciudad;
     }
 
     public void setCiudad(String ciudad) {
-        imprimir("124: setCiudad.", "secuencia: " + secuencia);
         this.ciudad = ciudad;
     }
 
     public String getCiudaddocumento() {
-        imprimir("125: getCiudaddocumento.", "secuencia: " + secuencia);
 //        if(ciudaddocumento == null){
 //            ciudaddocumento = persona.getCiudadnacimiento().getNombre();
 //        }
@@ -1696,18 +1567,15 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void setCiudaddocumento(String ciudaddocumento) {
-        imprimir("126: setCiudaddocumento.", "secuencia: " + secuencia);
         this.ciudaddocumento = ciudaddocumento;
     }
 
     public boolean isParaRecargar() {
-        imprimir("127: isParaRecargar.", "secuencia: " + secuencia);
         recibirEmpleado(secuencia);
         return paraRecargar;
     }
 
     public void setParaRecargar(boolean paraRecargar) {
-        imprimir("128: setParaRecargar.", "secuencia: " + secuencia);
         this.paraRecargar = paraRecargar;
     }
 

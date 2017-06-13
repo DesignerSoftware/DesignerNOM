@@ -273,6 +273,12 @@ public class ControlInterfaseContableTotal implements Serializable {
             administrarRastros.obtenerConexion(ses.getId());
             externalContext = x.getExternalContext();
             userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
+            actualUsuarioBD = null;
+            getActualUsuarioBD();
+            listaParametrosContables = null;
+            getListaParametrosContables();
+            parametroContableActual = null;
+            getParametroContableActual();
         } catch (Exception e) {
             System.out.println("Error postconstruct ControlInterfaseContableTotal: " + e);
             System.out.println("Causa: " + e.getCause());

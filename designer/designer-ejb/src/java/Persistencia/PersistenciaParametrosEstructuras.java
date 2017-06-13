@@ -59,6 +59,21 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             return null;
         }
     }
+    // 17/06/13
+    @Override
+    public BigInteger buscarEmpresaParametros(EntityManager em) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p.estructura.organigrama.empresa.secuencia FROM ParametrosEstructuras p WHERE p.usuario.alias = (SELECT vw.alias FROM ActualUsuario vw ) ");
+            //query.setParameter("usuarioBD", usuarioBD);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            BigInteger secEmpresa = (BigInteger) query.getSingleResult();
+            return secEmpresa;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
+            return null;
+        }
+    }
 
     @Override
     public ParametrosEstructuras buscarParametro(EntityManager em, String usuarioBD) {

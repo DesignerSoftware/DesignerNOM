@@ -33,6 +33,14 @@ public interface PersistenciaParametrosEstructurasInterface {
      */
     public BigInteger buscarEmpresaParametros(EntityManager em, String usuarioBD);
     /**
+     * Método encargado de buscar la secuencia de la empresa asociada al ParametroEstructura del usuario
+     * que está usando el aplicativo, consultando directamente la base de datos.
+     * @param em EntityManager usado para establecer la conexión.
+     * @return Retorna la secuencia de la empresa.
+     */
+    public BigInteger buscarEmpresaParametros(EntityManager em) ;
+    
+    /**
      * Método encargado de contar los ParametrosEstructuras del usuario que está usando el aplicativo y
      * tengan como proceso el Proceso con secuencia igual a la que entra por parámetro.
      * @param secProceso Secuencia del proceso por el cual se van a contar los ParametrosEstructuras.
