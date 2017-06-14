@@ -73,7 +73,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
    public List<TiposTrabajadores> buscarTiposTrabajadores(EntityManager em) {
       try {
          em.clear();
-         String sql = "select * from TiposTrabajadores";
+         String sql = "select * from TiposTrabajadores order by codigo";
          Query query = em.createNativeQuery(sql, TiposTrabajadores.class);
          List<TiposTrabajadores> tipoTLista = query.getResultList();
          return tipoTLista;

@@ -85,15 +85,15 @@
                      </p:toolbarGroup>
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 259px; width: 835px; border-radius: 10px; text-align: left; padding-top: 0px; padding-left: 10px;">
+                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 280px; width: 835px; border-radius: 10px; text-align: left; padding-top: 0px; padding-left: 10px;">
                      <legend style="font-size: 12px; color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
-                     <p:dataTable id="datosTTrabajadores" widgetVar="datosTTrabajadores" var="infoTT" rowIndexVar="indice" scrollable="true" scrollWidth="830" liveScroll="true" scrollRows="40"
+                     <p:dataTable id="datosTTrabajadores" widgetVar="datosTTrabajadores" var="infoTT" rowIndexVar="indice" scrollable="true" scrollWidth="830" liveScroll="true" 
                                   value="#{controlTiposTrabajadores.listaTiposTrabajadores}" rowKey="#{infoTT.secuencia}" scrollHeight="#{controlTiposTrabajadores.altoTabla}"                   
                                   filteredValue="#{controlTiposTrabajadores.filtrarTiposTrabajadores}" style="border: 1px; width: 810px;" emptyMessage="#{msg['vacio']}"
-                                  editable="true" editMode="cell" selection="#{controlTiposTrabajadores.tipoTrabajadorSeleccionado}" selectionMode="single">
-
-                        <f:event type="preRenderView" listener="#{controlTiposTrabajadores.recordarSeleccionTT()}"/>
+                                  editable="true" editMode="cell" selection="#{controlTiposTrabajadores.tipoTrabajadorSeleccionado}" selectionMode="single"
+                                  rows="#{controlTiposTrabajadores.altoTablaReg}" paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                         currentPageReportTemplate="{totalPages}" >
                         <p:ajax event="rowSelect" listener="#{controlTiposTrabajadores.cambiarIndiceDefault()}"/>
                         <p:ajax event="filter" listener="#{controlTiposTrabajadores.eventoFiltrarTT()}" process="@this"/>
 
@@ -500,18 +500,18 @@
 
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlTiposTrabajadores.infoRegistroTT}" 
-                                   style="position: relative; display: block; left: 10px; top: 0px; font-weight: bold;"/>
+                                   style="position: relative; left: 0px; top: -10px; font-weight: bold;"/>
 
                      <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; position: relative; left: 650px; top: -13px;" 
+                                      background-repeat: no-repeat; border: none; position: relative; left: 580px; top: 1px;" 
                                       actionListener="#{controlTiposTrabajadores.llamadoDialogoTT(0)}" id="buscarTT" value="" process="@this"/>
 
                      <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; position: relative; left: 650px; top: -13px;" 
+                                      background-repeat: no-repeat; border: none; position: relative; left: 580px; top: 1px;" 
                                       disabled="#{controlTiposTrabajadores.mostrartodos}" actionListener="#{controlTiposTrabajadores.mostrarTodos()}" id="mostrarTodos" value="" process="@this"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 343px; left: 10px; height: 113px; width: 215px; border-radius: 10px; text-align: left; padding-top: 0px; padding-left: 15px;">
+                  <fieldset style="position: absolute; top: 368px; left: 10px; height: 113px; width: 215px; border-radius: 10px; text-align: left; padding-top: 0px; padding-left: 15px;">
                      <legend style="font-size: 12px; color: blue;"><strong>#{msg['titulo2']}</strong></legend>
 
                      <p:dataTable id="datosVigenciasDTT" widgetVar="datosVigenciasDTT" var="info" rowIndexVar="indice2" scrollable="true" 
@@ -523,7 +523,6 @@
 
                         <p:ajax event="rowSelect" listener="#{controlTiposTrabajadores.cambiarIndiceVDDefault()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlTiposTrabajadores.eventoFiltrarVD()}" process="@this"/>
-                        <!--<f:event type="preRenderView" listener="#/{controlTiposTrabajadores.recordarSeleccionVD()}"/>-->
 
                         <p:column headerText="#{msg['dias']}" class="cssColumnasCentradas" sortBy="#{info.dias}" filterBy="#{info.dias}" filterMatchMode="contains" id="VDTdias" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
@@ -569,7 +568,7 @@
                      <h:outputText id="informacionRegistroDias" value="#{msg['infoRegistro']} #{controlTiposTrabajadores.infoRegistroVD}" style="position: relative; left: 10px; top: 80px; font-weight: bold;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 343px; left: 258px; height: 113px; width: 588px; border-radius: 10px; text-align: left; padding-top: 0px;">
+                  <fieldset style="position: absolute; top: 368px; left: 258px; height: 113px; width: 588px; border-radius: 10px; text-align: left; padding-top: 0px;">
                      <legend style="font-size: 12px; color: blue;"><strong>#{msg['clonarTC']}</strong></legend>
 
 
@@ -606,12 +605,12 @@
                      <p:tooltip for="BtnClonar" value="#{msg['clonar']}"/>
                   </fieldset>
 
-                  <p:commandButton style="position: relative; left: 10px; top: 433px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png);
+                  <p:commandButton style="position: relative; left: 10px; top: 465px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png);
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" 
                                    icon="ui-icon-extlink" value="#{msg['plantillaC']}" id="TTPlantilla" process="@this"/>
                   <p:tooltip for="TTPlantilla" value="#{msg['plantilla']}"/>
 
-                  <p:commandButton class="cssBotonAceptar"  value="" id="ACEPTAR" process="@this" onclick="PF('confirmarGuardar').show();"/>
+                  <p:commandButton class="cssBotonAceptar"  value="" id="ACEPTAR" process="@this" onclick="PF('confirmarGuardar').show();" disabled="#{controlTiposTrabajadores.guardado}"/>
 <!--                                          disabled="#{controlTiposTrabajadores.guardado}" -->
                   <p:commandButton class="cssBotonCancelar"  value="" actionListener="#{controlTiposTrabajadores.salir()}" process="@this"/>
 

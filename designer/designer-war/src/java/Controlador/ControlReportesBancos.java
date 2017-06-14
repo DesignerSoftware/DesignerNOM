@@ -1166,7 +1166,8 @@ public class ControlReportesBancos implements Serializable {
             if (inforreporteSeleccionado != null) {
                 seleccionRegistro();
                 nombreReporte = inforreporteSeleccionado.getNombrereporte();
-                tipoReporte = "TXT";
+                tipoReporte = inforreporteSeleccionado.getTipo();// "TXT";
+                System.out.println("Tipo reporte : " + tipoReporte);
                 if (nombreReporte != null && tipoReporte != null) {
                     pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
                 }
@@ -1188,9 +1189,9 @@ public class ControlReportesBancos implements Serializable {
         try {
             RequestContext context = RequestContext.getCurrentInstance();
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                if (tipoReporte.equals("TXT")) {
+                if (tipoReporte.equals("TXT") || tipoReporte.equals("XLS") || tipoReporte.equals("PDF")) {
                     RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
-                }
+                } 
                 System.out.println("userAgent : " + userAgent);
                 if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                     context.update("formDialogos:descargarReporte");
