@@ -78,7 +78,7 @@
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) "
-                                         actionListener="#{controlDetalleEmpresa.cancelarModificacion()}" oncomplete="window.location.reload" process="@this"/>  
+                                         actionListener="#{controlDetalleEmpresa.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
@@ -103,10 +103,6 @@
                               <f:facet name="input">
                                  <p:inputText readonly="true" onselect="posicion([{name: 'n', value: '0'}, {name: 't', value: '#{indiceDE}'}]);"
                                               autocomplete="off" value="#{info.nombre_empresa}" id="editarEmpresaDetalle"> 
-                                    <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,0)}"
-                                            onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
-                                    <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,0,0)}" process="@this"/>
-                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info, 'EMPRESA', info.empresa.nombre)}" process="@this" update="editarEmpresaDetalle"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -120,8 +116,6 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.strTipoDocumento}"/></f:facet>  
                               <f:facet name="input">
-                                 <!--                                 <p:inputText onselect="posicion([{name: 'n', value: '1'}, {name: 't', value: '#/{indiceDE}'}]);"
-                                                                               autocomplete="off" value="#/{info.strTipoDocumento}"/>-->
                                  <p:selectOneMenu id="editarTipoDocumentoDetalle" value="#{info.tipodocumento}"
                                                   onblur="PF('datosDetalleEmpresa').unselectAllRows(); PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
                                                   onfocus="PF('datosDetalleEmpresa').unselectAllRows(); PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
@@ -132,6 +126,7 @@
                                     <f:selectItem itemLabel="#{msg['regCivil']}" itemValue="RC"/>
                                     <f:selectItem itemLabel="#{msg['pasaporte']}" itemValue="PA"/>
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,1)}" process="@this"/> 
                                  </p:selectOneMenu> 
                               </f:facet>  
                            </p:cellEditor>                           
@@ -142,11 +137,11 @@
 
                         <p:column sortBy="#{info.tipo}" filterBy="#{info.tipo}" width="30"
                                   filterMatchMode="contains" id="detalleTipo" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"><h:outputText value="T" id="headerT"/><p:tooltip for="headerT" value="Tipo Empresa"/></f:facet>  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipo}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '2'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off"  value="#{info.tipo}" maxlength="10" id="editarTipoDetalle"> 
+                                 <p:inputText size="10" autocomplete="off"  value="#{info.tipo}" maxlength="10" id="editarTipoDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,2)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarTipoDetalle"/>                                   
@@ -161,12 +156,9 @@
                         <p:column headerText="#{msg['direccion']}" sortBy="#{info.direccion}" filterBy="#{info.direccion}" filterMatchMode="contains" width="130"
                                   id="detalleDireccion" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.direccion}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.direccion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '3'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.direccion}" maxlength="40" id="editarDireccionDetalle"> 
+                                 <p:inputText autocomplete="off" value="#{info.direccion}" maxlength="40" id="editarDireccionDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,3)}" process="@this" 
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarDireccionDetalle"/>                                   
@@ -181,12 +173,9 @@
                         <p:column headerText="#{msg['ciudad']}" sortBy="#{info.nombre_ciudad}" filterBy="#{info.nombre_ciudad}" filterMatchMode="contains" width="90"
                                   id="detalleCiudad" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.nombre_ciudad}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nombre_ciudad}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre_ciudad}" id="editarCiudadDetalle"
-                                              onselect="posicion([{name: 'n', value: '4'}, {name: 't', value: '#{indiceDE}'}]);">
+                                 <p:inputText autocomplete="off" value="#{info.nombre_ciudad}" id="editarCiudadDetalle">
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,4)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,1,0)}" process="@this"/>
@@ -202,12 +191,9 @@
                         <p:column headerText="#{msg['telefono']}" sortBy="#{info.telefono}" filterBy="#{info.telefono}" width="80"
                                   filterMatchMode="contains" id="detalleTelefono" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.telefono}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.telefono}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  value="#{info.telefono}" maxlength="10" id="editarTelefonoDetalle"
-                                              onselect="posicion([{name: 'n', value: '5'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off"  value="#{info.telefono}" maxlength="10" id="editarTelefonoDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,5)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarTelefonoDetalle"/>                                   
@@ -222,12 +208,9 @@
                         <p:column headerText="#{msg['fax']}" sortBy="#{info.fax}" filterBy="#{info.fax}" width="80"
                                   filterMatchMode="contains" id="detalleFax" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.fax}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.fax}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  value="#{info.fax}" maxlength="10" id="editarFaxDetalle"
-                                              onselect="posicion([{name: 'n', value: '6'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off"  value="#{info.fax}" maxlength="10" id="editarFaxDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,6)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarFaxDetalle"/>                                   
@@ -242,12 +225,9 @@
                         <p:column headerText="#{msg['nombreRepre']}" sortBy="#{info.nombre_representantecir}" filterBy="#{info.nombre_representantecir}" filterMatchMode="contains" width="145"
                                   id="detalleNombreRepresentante" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.nombre_representantecir}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nombre_representantecir}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombrerepresentante}" maxlength="40" id="editarNombreRepresentanteDetalle"
-                                              onselect="posicion([{name: 'n', value: '7'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombrerepresentante}" maxlength="40" id="editarNombreRepresentanteDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,7)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarNombreRepresentanteDetalle"/>                                   
@@ -265,12 +245,9 @@
                               <p:tooltip for="headerdocrep" value="#{msg['documentoRepre']}"/>
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.documentorepresentante}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.documentorepresentante}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  value="#{info.documentorepresentante}" maxlength="15" id="editarDocumentoRepresentanteDetalle"
-                                              onselect="posicion([{name: 'n', value: '8'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off"  value="#{info.documentorepresentante}" maxlength="15" id="editarDocumentoRepresentanteDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,8)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarDocumentoRepresentanteDetalle"/>                                   
@@ -287,12 +264,9 @@
                            <f:facet name="header"><h:outputText value="Ciudad D" id="ciudoc"/>
                               <p:tooltip for="ciudoc" value="#{msg['ciudadDoc']}"/></f:facet>  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.nombre_ciudaddocumentorepresentante}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nombre_ciudaddocumentorepresentante}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre_ciudaddocumentorepresentante}" id="editarCiudadDocumentoDetalle">
-                                    <!--onselect="posicion([{name: 'n', value: '9'}, {name: 't', value: '#/{indiceDE}'}]);">--> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre_ciudaddocumentorepresentante}" id="editarCiudadDocumentoDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,9)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,2,0)}" process="@this"/>
@@ -308,12 +282,9 @@
                         <p:column headerText="#{msg['tipoNit']}" sortBy="#{info.tiponit}" filterBy="#{info.tiponit}" width="80"
                                   filterMatchMode="contains" id="detalleTipoNit" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.tiponit}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.tiponit}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.tiponit}" id="editarTipoNitDetalle"
-                                              onselect="posicion([{name: 'n', value: '10'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.tiponit}" id="editarTipoNitDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,10)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarTipoNitDetalle"/>                                   
@@ -330,12 +301,9 @@
                            <f:facet name="header"><h:outputText value="DV" id="DV"/>
                               <p:tooltip for="DV" value="#{msg['digitoVer']}"/></f:facet>  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.digitoverificacion}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.digitoverificacion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.digitoverificacion}" id="editarDigitoVerificacionDetalle"
-                                              onselect="posicion([{name: 'n', value: '11'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.digitoverificacion}" id="editarDigitoVerificacionDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,11)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarDigitoVerificacionDetalle"/>                                   
@@ -354,8 +322,7 @@
                                  <h:outputText value="#{info.nombre_gerentegeneral}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre_gerentegeneral}" id="editarGerenteGeneralDetalle"
-                                              onselect="posicion([{name: 'n', value: '12'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre_gerentegeneral}" id="editarGerenteGeneralDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,12)}" process="@this" 
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,3,0)}" process="@this"/>
@@ -371,12 +338,9 @@
                         <p:column headerText="#{msg['personaFirma']}" sortBy="#{info.nombre_personafirmaconstancia}" filterBy="#{info.nombre_personafirmaconstancia}" filterMatchMode="contains" width="160"
                                   id="detallePersonaFirma" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.nombre_personafirmaconstancia}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nombre_personafirmaconstancia}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre_personafirmaconstancia}" id="editarPersonaFirmaDetalle"
-                                              onselect="posicion([{name: 'n', value: '13'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre_personafirmaconstancia}" id="editarPersonaFirmaDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,13)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,4,0)}" process="@this"/>
@@ -392,12 +356,9 @@
                         <p:column headerText="#{msg['cargoFirma']}" sortBy="#{info.nombre_cargofirmaconstancia}" filterBy="#{info.nombre_cargofirmaconstancia}" filterMatchMode="contains" width="145"
                                   id="detalleCargoFirma" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.nombre_cargofirmaconstancia}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nombre_cargofirmaconstancia}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre_cargofirmaconstancia}" id="editarCargoFirmaDetalle"
-                                              onselect="posicion([{name: 'n', value: '14'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre_cargofirmaconstancia}" id="editarCargoFirmaDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,14)}" process="@this" 
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,5,0)}" process="@this"/>
@@ -413,12 +374,9 @@
                         <p:column headerText="#{msg['email']}" sortBy="#{info.email}" filterBy="#{info.email}" width="110"
                                   filterMatchMode="contains" id="detalleEmail" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.email}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.email}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.email}" maxlength="100" id="editarEmailDetalle"
-                                              onselect="posicion([{name: 'n', value: '15'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.email}" maxlength="100" id="editarEmailDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,15)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarEmailDetalle"/>                                   
@@ -435,15 +393,13 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.zona}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '16'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.zona}"/>
+                                 <p:selectOneMenu id="editarTipoZonaDetalle" value="#{info.zona}">  
+                                    <f:selectItem itemLabel="#{msg['urbana']}" itemValue="URBANA"/>  
+                                    <f:selectItem itemLabel="#{msg['rural']}" itemValue="RURAL"/> 
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarTipoZonaDetalle" value="#{info.zona}">  
-                              <f:selectItem itemLabel="#{msg['urbana']}" itemValue="URBANA"/>  
-                              <f:selectItem itemLabel="#{msg['rural']}" itemValue="RURAL"/> 
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -453,15 +409,14 @@
                                   filterMatchMode="contains" id="detalleCIIU" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerCIUU" value="CIIU"/>
-                              <p:tooltip  for="headerCIUU" value="#{msg['headerCIUU']}"/>
+                              <p:tooltip for="headerCIUU" value="#{msg['headerCIUU']}"/>
                            </f:facet>
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{info.ciiu}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  value="#{info.ciiu}" maxlength="10" id="editarCIIUDetalle"
-                                              onselect="posicion([{name: 'n', value: '17'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off"  value="#{info.ciiu}" maxlength="10" id="editarCIIUDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,17)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarCIIUDetalle"/>                                   
@@ -482,8 +437,7 @@
                                  <h:outputText value="#{info.actividadeconomica}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  value="#{info.actividadeconomica}" maxlength="200" id="editarActEconomicaDetalle"
-                                              onselect="posicion([{name: 'n', value: '18'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off"  value="#{info.actividadeconomica}" maxlength="200" id="editarActEconomicaDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,18)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarActEconomicaDetalle"/>                                   
@@ -502,8 +456,7 @@
                                  <h:outputText value="#{info.nombre_subgerente}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre_subgerente}" id="editarSubGerenteDetalle"
-                                              onselect="posicion([{name: 'n', value: '19'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre_subgerente}" id="editarSubGerenteDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,19)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,6,0)}" process="@this"/>
@@ -523,8 +476,7 @@
                                  <h:outputText value="#{info.nombrearquitecto}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombrearquitecto}" maxlength="100" id="editarArquitectoDetalle"
-                                              onselect="posicion([{name: 'n', value: '20'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombrearquitecto}" maxlength="100" id="editarArquitectoDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,20)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarArquitectoDetalle"/>                                   
@@ -539,12 +491,9 @@
                         <p:column headerText="#{msg['cargoArquitecto']}" sortBy="#{info.cargoarquitecto}" filterBy="#{info.cargoarquitecto}" width="110"
                                   filterMatchMode="contains" id="detalleCargoArquitecto" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.cargoarquitecto}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.cargoarquitecto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  value="#{info.cargoarquitecto}" maxlength="50" id="editarCargoArquitectoDetalle"
-                                              onselect="posicion([{name: 'n', value: '21'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off"  value="#{info.cargoarquitecto}" maxlength="50" id="editarCargoArquitectoDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,21)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarCargoArquitectoDetalle"/>                                   
@@ -559,12 +508,9 @@
                         <p:column headerText="#{msg['representante']}" sortBy="#{info.nombre_representantecir}" filterBy="#{info.nombre_representantecir}" filterMatchMode="contains" width="180"
                                   id="detalleRepresentante" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.nombre_representantecir}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nombre_representantecir}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre_representantecir}" id="editarRepresentanteDetalle"
-                                              onselect="posicion([{name: 'n', value: '22'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre_representantecir}" id="editarRepresentanteDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,22)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info,7,0)}" process="@this"/>
@@ -580,12 +526,9 @@
                         <p:column headerText="#{msg['planilla']}" sortBy="#{info.pilaultimaplanilla}" filterBy="#{info.pilaultimaplanilla}" width="110"
                                   filterMatchMode="contains" id="detallePlanilla" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{info.pilaultimaplanilla}"/>
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.pilaultimaplanilla}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.pilaultimaplanilla}"  maxlength="20" id="editarPlanillaDetalle"
-                                              onselect="posicion([{name: 'n', value: '23'}, {name: 't', value: '#{indiceDE}'}]);"> 
+                                 <p:inputText autocomplete="off" value="#{info.pilaultimaplanilla}"  maxlength="20" id="editarPlanillaDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,23)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarPlanillaDetalle"/>                                   
@@ -602,18 +545,19 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.strTipoPersona}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.strTipoPersona}"/>
+                                 <p:selectOneMenu id="editarTipoPersonaDetalle" value="#{info.tipopersona}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                  posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                  posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                    <f:selectItem itemLabel="" itemValue="null"/>  
+                                    <f:selectItem itemLabel="#{msg['natural']}" itemValue="N"/>  
+                                    <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J"/> 
+                                    <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,24)}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarTipoPersonaDetalle" value="#{info.tipopersona}"
-                                            onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
-                                            onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
-                              <f:selectItem itemLabel="" itemValue="null"/>  
-                              <f:selectItem itemLabel="#{msg['natural']}" itemValue="N"/>  
-                              <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J"/> 
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -624,21 +568,22 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.strNaturalezaJuridica}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '25'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.strNaturalezaJuridica}"/>
+                                 <p:selectOneMenu id="editarNaturalezaJDetalle" value="#{info.naturalezajuridica}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                  posicion([{name: 'n', value: '25'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                  posicion([{name: 'n', value: '25'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                    <f:selectItem itemLabel="" itemValue="null"/>  
+                                    <f:selectItem itemLabel="#{msg['publica']}" itemValue="1"/>  
+                                    <f:selectItem itemLabel="#{msg['privada']}" itemValue="2"/> 
+                                    <f:selectItem itemLabel="#{msg['mixta']}" itemValue="3"/> 
+                                    <f:selectItem itemLabel="#{msg['organismoMulti']}" itemValue="4"/> 
+                                    <f:selectItem itemLabel="#{msg['entidadDerecho']}" itemValue="5"/> 
+                                    <!--<p:ajax event="select" listener="#/{controlDetalleEmpresa.cambiarIndice(info,25)}" process="@this"/>-->
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarNaturalezaJDetalle" value="#{info.naturalezajuridica}"
-                                            onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
-                                            onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
-                              <f:selectItem itemLabel="" itemValue="null"/>  
-                              <f:selectItem itemLabel="#{msg['publica']}" itemValue="1"/>  
-                              <f:selectItem itemLabel="#{msg['privada']}" itemValue="2"/> 
-                              <f:selectItem itemLabel="#{msg['mixta']}" itemValue="3"/> 
-                              <f:selectItem itemLabel="#{msg['organismoMulti']}" itemValue="4"/> 
-                              <f:selectItem itemLabel="#{msg['entidadDerecho']}" itemValue="5"/> 
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -649,19 +594,19 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.strClaseAportante}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '26'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.strClaseAportante}"/>
+                                 <p:selectOneMenu id="editarClaseAportanteDetalle" value="#{info.claseaportante}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '26'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '26'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                    <f:selectItem itemLabel="" itemValue="null"/>  
+                                    <f:selectItem itemLabel="#{msg['aportanteMas']}" itemValue="A"/>  
+                                    <f:selectItem itemLabel="#{msg['aportanteMenos']}" itemValue="B"/> 
+                                    <f:selectItem itemLabel="#{msg['independiente']}" itemValue="I"/> 
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarClaseAportanteDetalle" value="#{info.claseaportante}"
-                                            onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
-                                            onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
-                              <f:selectItem itemLabel="" itemValue="null"/>  
-                              <f:selectItem itemLabel="#{msg['aportanteMas']}" itemValue="A"/>  
-                              <f:selectItem itemLabel="#{msg['aportanteMenos']}" itemValue="B"/> 
-                              <f:selectItem itemLabel="#{msg['independiente']}" itemValue="I"/> 
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -672,20 +617,20 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.strFormaPresentacion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '27'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.strFormaPresentacion}"/>
+                                 <p:selectOneMenu id="editarFormaPresentacionDetalle" value="#{info.formapresentacion}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '27'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '27'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                    <f:selectItem itemLabel="" itemValue="null"/>  
+                                    <f:selectItem itemLabel="#{msg['unico']}" itemValue="U"/>  
+                                    <f:selectItem itemLabel="#{msg['consolidado']}" itemValue="C"/> 
+                                    <f:selectItem itemLabel="#{msg['sucursal']}" itemValue="S"/> 
+                                    <f:selectItem itemLabel="#{msg['dependencia']}" itemValue="D"/> 
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarFormaPresentacionDetalle" value="#{info.formapresentacion}"
-                                            onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
-                                            onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
-                              <f:selectItem itemLabel="" itemValue="null"/>  
-                              <f:selectItem itemLabel="#{msg['unico']}" itemValue="U"/>  
-                              <f:selectItem itemLabel="#{msg['consolidado']}" itemValue="C"/> 
-                              <f:selectItem itemLabel="#{msg['sucursal']}" itemValue="S"/> 
-                              <f:selectItem itemLabel="#{msg['dependencia']}" itemValue="D"/> 
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -696,24 +641,24 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.strTipoAportante}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '28'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.strTipoAportante}"/>
+                                 <p:selectOneMenu id="editarTipoAportanteDetalle" value="#{info.tipoaportante}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '28'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '28'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                    <f:selectItem itemLabel="" itemValue="null"/>  
+                                    <f:selectItem itemLabel="#{msg['empleador']}" itemValue="1"/>  
+                                    <f:selectItem itemLabel="#{msg['independiente']}" itemValue="2"/> 
+                                    <f:selectItem itemLabel="#{msg['entidadesUPublic']}" itemValue="3"/> 
+                                    <f:selectItem itemLabel="#{msg['agremiaciones']}" itemValue="4"/> 
+                                    <f:selectItem itemLabel="#{msg['cooperativas']}" itemValue="5"/>  
+                                    <f:selectItem itemLabel="#{msg['misionesDiplo']}" itemValue="6"/> 
+                                    <f:selectItem itemLabel="#{msg['orgaAdmistrativas']}" itemValue="7"/> 
+                                    <f:selectItem itemLabel="#{msg['pagadorAportes']}" itemValue="8"/> 
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarTipoAportanteDetalle" value="#{info.tipoaportante}"
-                                            onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
-                                            onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
-                              <f:selectItem itemLabel="" itemValue="null"/>  
-                              <f:selectItem itemLabel="#{msg['empleador']}" itemValue="1"/>  
-                              <f:selectItem itemLabel="#{msg['independiente']}" itemValue="2"/> 
-                              <f:selectItem itemLabel="#{msg['entidadesUPublic']}" itemValue="3"/> 
-                              <f:selectItem itemLabel="#{msg['agremiaciones']}" itemValue="4"/> 
-                              <f:selectItem itemLabel="#{msg['cooperativas']}" itemValue="5"/>  
-                              <f:selectItem itemLabel="#{msg['misionesDiplo']}" itemValue="6"/> 
-                              <f:selectItem itemLabel="#{msg['orgaAdmistrativas']}" itemValue="7"/> 
-                              <f:selectItem itemLabel="#{msg['pagadorAportes']}" itemValue="8"/> 
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -724,20 +669,20 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.strTipoAccion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '29'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.strTipoAccion}"/>
+                                 <p:selectOneMenu id="editarTipoAccioDetalle" value="#{info.tipoaccion}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '29'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '29'}, {name: 't', value: '#{indiceDE}'}]);">
+                                    <f:selectItem itemLabel="" itemValue="null"/>
+                                    <f:selectItem itemLabel="#{msg['concordato']}" itemValue="1"/>
+                                    <f:selectItem itemLabel="#{msg['reestructuracion']}" itemValue="2"/>
+                                    <f:selectItem itemLabel="#{msg['liquidacion']}" itemValue="3"/>
+                                    <f:selectItem itemLabel="#{msg['ceseActividades']}" itemValue="4"/>
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarTipoAccioDetalle" value="#{info.tipoaccion}"
-                                            onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
-                                            onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">
-                              <f:selectItem itemLabel="" itemValue="null"/>
-                              <f:selectItem itemLabel="#{msg['concordato']}" itemValue="1"/>
-                              <f:selectItem itemLabel="#{msg['reestructuracion']}" itemValue="2"/>
-                              <f:selectItem itemLabel="#{msg['liquidacion']}" itemValue="3"/>
-                              <f:selectItem itemLabel="#{msg['ceseActividades']}" itemValue="4"/>
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -747,13 +692,10 @@
                                   filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>
                               <f:facet name="output">
-                                 <h:outputText value="#{info.fechacamaracomercio}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                 </h:outputText>
+                                 <h:outputText value="#{info.fechacamaracomercio}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaCamara" value="#{info.fechacamaracomercio}"
-                                             onselect="posicion([{name: 'n', value: '30'}, {name: 't', value: '#{indiceDE}'}]);">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaCamara" value="#{info.fechacamaracomercio}">
                                     <p:ajax event="dateSelect" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(info,30)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(info,30)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,30)}" process="@this"
@@ -771,19 +713,19 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.anosinicialesexentoprf}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText onselect="posicion([{name: 'n', value: '31'}, {name: 't', value: '#{indiceDE}'}]);"
-                                              autocomplete="off" value="#{info.anosinicialesexentoprf}"/>
+                                 <p:selectOneMenu id="editarAnosParafiscalDetalle" value="#{info.anosinicialesexentoprf}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '31'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '31'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                    <f:selectItem itemLabel="" itemValue="#{null}"/>
+                                    <f:selectItem itemLabel="3" itemValue="3"/>
+                                    <f:selectItem itemLabel="5" itemValue="5"/>
+                                    <f:selectItem itemLabel="10" itemValue="10"/>
+                                    <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                                 </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor> 
-                           <p:selectOneMenu id="editarAnosParafiscalDetalle" value="#/{info.anosinicialesexentoprf}"
-                                            onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
-                                            onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
-                              <f:selectItem itemLabel="" itemValue="#{null}"/>
-                              <f:selectItem itemLabel="3" itemValue="3"/>
-                              <f:selectItem itemLabel="5" itemValue="5"/>
-                              <f:selectItem itemLabel="10" itemValue="10"/>
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
-                           </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -795,8 +737,11 @@
                               <h:outputText id="headerReformaExonera" value="R"/>
                               <p:tooltip  for="headerReformaExonera" value="#{msg['headerReformaExonera']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkReformaExonera" value="#{info.checkReformaExoneraIcbfSenaSalud}">  
+                           <p:selectBooleanCheckbox id="checkReformaExonera" value="#{info.checkReformaExoneraIcbfSenaSalud}"
+                                                    onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
+                                                    onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                              <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,32)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -809,8 +754,11 @@
                               <h:outputText id="headerPilaMultinea" value="P"/>
                               <p:tooltip  for="headerPilaMultinea" value="#{msg['headerPilaMultinea']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkPilaMultinea" value="#{info.checkPilaSsaMultilineasln}">  
+                           <p:selectBooleanCheckbox id="checkPilaMultinea" value="#{info.checkPilaSsaMultilineasln}"
+                                                    onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
+                                                    onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">  
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                              <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,32)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -823,8 +771,11 @@
                               <h:outputText id="headerSolidaridadFosyga" value="S"/>
                               <p:tooltip  for="headerSolidaridadFosyga" value="#{msg['headerSolidaridadFosyga']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkSolidaridadFosyga" value="#{info.checkSolidaridadFosygaeExentoPrf}">  
+                           <p:selectBooleanCheckbox id="checkSolidaridadFosyga" value="#{info.checkSolidaridadFosygaeExentoPrf}"
+                                                    onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
+                                                    onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">   
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                              <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,32)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -837,8 +788,11 @@
                               <h:outputText id="headerExoneraLnsTarifa" value="E"/>
                               <p:tooltip  for="headerExoneraLnsTarifa" value="#{msg['headerExoneraLnsTarifa']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkExoneraLnsTarifa" value="#{info.checkExoneraLnsTarifaAfpPatron}">  
+                           <p:selectBooleanCheckbox id="checkExoneraLnsTarifa" value="#{info.checkExoneraLnsTarifaAfpPatron}"
+                                                    onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
+                                                    onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">   
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                              <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,32)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -851,8 +805,11 @@
                               <h:outputText id="headerReportaLnsTarifa" value="R"/>
                               <p:tooltip  for="headerReportaLnsTarifa" value="#{msg['headerReportaLnsTarifa']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkReportaLnsTarifa" value="#{info.checkReportaLnsTarifaAfpEspecial}">  
+                           <p:selectBooleanCheckbox id="checkReportaLnsTarifa" value="#{info.checkReportaLnsTarifaAfpEspecial}"
+                                                    onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"
+                                                    onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});">   
                               <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
+                              <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,32)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -972,7 +929,7 @@
 
                   <p:dialog header="#{msg['personaD']}" widgetVar="PersonaFirmaDialogo" draggable="true" resizable="false" closable="false" id="PersonaFirmaDialogo"  
                             showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovPersona" style="width: 400px;" var="persona" value="#{controlDetalleEmpresa.lovPersonas}" rowKey="#{persona.secuencia}"
+                     <p:dataTable id="lovPersona" var="persona" value="#{controlDetalleEmpresa.lovPersonas}" rowKey="#{persona.secuencia}"
                                   selection="#{controlDetalleEmpresa.personaSeleccionada}" selectionMode="single" widgetVar="lovPersona" scrollable="true" scrollWidth="416" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovPersonas}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarPF"/>
@@ -1081,8 +1038,8 @@
                <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.guardarSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.guardarSalir()}" style="position: absolute; top: 50px; left: 207px;" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.salir()}" style="position: absolute; top: 50px; left: 258px;" icon="ui-icon-close"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
 

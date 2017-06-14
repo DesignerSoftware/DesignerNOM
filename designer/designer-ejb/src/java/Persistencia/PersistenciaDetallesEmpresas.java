@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 //import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Clase Stateless. <br>
@@ -57,8 +56,10 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
+         System.out.println("PersistenciaDetallesEmpresas.editar()");
          em.merge(detallesEmpresas);
          tx.commit();
+         System.out.println("PersistenciaDetallesEmpresas.editar() luego del merge() y commit()");
       } catch (Exception e) {
          System.out.println("Error PersistenciaDetallesEmpresas.editar: " + e);
          if (tx.isActive()) {
@@ -168,7 +169,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          Query cq = em.createNativeQuery("SELECT D.* FROM DETALLESEMPRESAS D, EMPRESAS E WHERE E.SECUENCIA = D.EMPRESA", DetallesEmpresas.class);
          List<DetallesEmpresas> listaResultado = cq.getResultList();
          if (listaResultado != null) {
-//            System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaResultado : " + listaResultado);
+            System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaResultado : " + listaResultado);
             if (!listaResultado.isEmpty()) {
                em.clear();
                Query query = em.createNativeQuery("SELECT D.SECUENCIA,\n"
@@ -198,7 +199,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
                        + " AND CA.SECUENCIA(+) = D.CARGOFIRMACONSTANCIA", DetallesEmpresasAux.class);
                List<DetallesEmpresasAux> listaAux = query.getResultList();
                if (listaAux != null) {
-//                  System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaAux : " + listaAux);
+                  System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaAux : " + listaAux);
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaResultado.size(); j++) {
                         for (int i = 0; i < listaAux.size(); i++) {

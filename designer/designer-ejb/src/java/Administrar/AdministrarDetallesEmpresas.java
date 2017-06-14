@@ -116,6 +116,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
 
    public List<DetallesEmpresas> listaDetallesEmpresas() {
       try {
+         System.out.println("AdministrarDetallesEmpresas.listaDetallesEmpresas() em: " + em);
          return persistenciaDetallesEmpresas.buscarDetallesEmpresas(em);
       } catch (Exception e) {
          System.out.println("Error listaDetallesEmpresas Admi : " + e.toString());
@@ -158,28 +159,8 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public void editarDetalleEmpresa(List<DetallesEmpresas> listaDE) {
       try {
+         System.out.println("AdministrarDetallesEmpresas.editarDetalleEmpresa()");
          for (int i = 0; i < listaDE.size(); i++) {
-//            if (listaDE.get(i).getCiudaddocumentorepresentante().getSecuencia() == null) {
-//               listaDE.get(i).setCiudaddocumentorepresentante(null);
-//            }
-//            if (listaDE.get(i).getCargofirmaconstancia().getSecuencia() == null) {
-//               listaDE.get(i).setCargofirmaconstancia(null);
-//            }
-//            if (listaDE.get(i).getGerentegeneral().getSecuencia() == null) {
-//               listaDE.get(i).setGerentegeneral(null);
-//            }
-//            if (listaDE.get(i).getPersonafirmaconstancia().getSecuencia() == null) {
-//               listaDE.get(i).setPersonafirmaconstancia(null);
-//            }
-//            if (listaDE.get(i).getRepresentantecir().getSecuencia() == null) {
-//               listaDE.get(i).setRepresentantecir(null);
-//            }
-//            if (listaDE.get(i).getSubgerente().getSecuencia() == null) {
-//               listaDE.get(i).setSubgerente(null);
-//            }
-//            if (listaDE.get(i).getCiudad().getSecuencia() == null) {
-//               listaDE.get(i).setCiudad(null);
-//            }
             persistenciaDetallesEmpresas.editar(em, listaDE.get(i));
          }
       } catch (Exception e) {

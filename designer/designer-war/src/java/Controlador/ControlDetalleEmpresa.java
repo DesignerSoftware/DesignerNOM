@@ -142,7 +142,11 @@ public class ControlDetalleEmpresa implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovCargos = null;
+      lovCiudades = null;
+      lovEmpleados = null;
+      lovEmpresas = null;
+      lovPersonas = null;
    }
 
    @PostConstruct
@@ -158,10 +162,10 @@ public class ControlDetalleEmpresa implements Serializable {
       }
    }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+//   public void recibirPaginaEntrante(String pagina) {
+//      paginaAnterior = pagina;
+//      //inicializarCosas(); Inicializar cosas de ser necesario
+//   }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
@@ -173,37 +177,19 @@ public class ControlDetalleEmpresa implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "detalleempresa";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "detalleempresa";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -376,7 +362,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       }
    }
 
-   public void modificarDetalleEmpresaSOneMenuCheckBox(int indice) {
+   public void modificarDetalleEmpresaSOneMenuCheckBox(DetallesEmpresas detalleEmp) {
+      detalleSeleccionado = detalleEmp;
       if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
          if (listDetallesEmpresasModificar.isEmpty()) {
             listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -425,6 +412,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
+         getLovCiudades();
          detalleSeleccionado.setNombre_ciudad(ciudad);
          for (int i = 0; i < lovCiudades.size(); i++) {
             if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -442,6 +430,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             tipoActualizacion = 0;
          }
       } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
+         getLovEmpresas();
          detalleSeleccionado.setNombre_empresa(empresa);
          for (int i = 0; i < lovEmpresas.size(); i++) {
             if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -459,6 +448,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             tipoActualizacion = 0;
          }
       } else if (confirmarCambio.equalsIgnoreCase("GERENTE")) {
+         getLovEmpleados();
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_gerentegeneral(gerente);
             for (int i = 0; i < lovEmpleados.size(); i++) {
@@ -483,6 +473,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             detalleSeleccionado.setRef_gerentegeneral(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("REPRESENTANTE")) {
+         getLovEmpleados();
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_representantecir(representante);
             for (int i = 0; i < lovEmpleados.size(); i++) {
@@ -507,6 +498,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             detalleSeleccionado.setRef_representantecir(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
+         getLovCargos();
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_cargofirmaconstancia(cargo);
             for (int i = 0; i < lovCargos.size(); i++) {
@@ -531,6 +523,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             detalleSeleccionado.setNombre_cargofirmaconstancia(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("SUBGERENTE")) {
+         getLovEmpleados();
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_subgerente(subGerente);
             for (int i = 0; i < lovEmpleados.size(); i++) {
@@ -555,6 +548,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             detalleSeleccionado.setNombre_subgerente(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
+         getLovPersonas();
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_personafirmaconstancia(persona);
             for (int i = 0; i < lovPersonas.size(); i++) {
@@ -579,6 +573,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             detalleSeleccionado.setRef_personafirmaconstancia(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
+         getLovCiudades();
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_ciudaddocumentorepresentante(ciudadDocumento);
             for (int i = 0; i < lovCiudades.size(); i++) {
@@ -678,6 +673,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
+         getLovEmpresas();
          if (tipoNuevo == 1) {
             nuevaDetalleEmpresa.setNombre_empresa(empresa);
          } else if (tipoNuevo == 2) {
@@ -710,6 +706,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
          }
       } else if (confirmarCambio.equalsIgnoreCase("GERENTE")) {
+         getLovEmpleados();
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
                nuevaDetalleEmpresa.setNombre_gerentegeneral(gerente);
@@ -752,6 +749,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("SUBGERENTE")) {
+         getLovEmpleados();
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
                nuevaDetalleEmpresa.setNombre_subgerente(subGerente);
@@ -794,6 +792,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("REPRESENTANTE")) {
+         getLovEmpleados();
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
                nuevaDetalleEmpresa.setNombre_representantecir(representante);
@@ -836,6 +835,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
+         getLovCargos();
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
                nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(cargo);
@@ -878,6 +878,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
+         getLovPersonas();
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
                nuevaDetalleEmpresa.setNombre_personafirmaconstancia(persona);
@@ -920,6 +921,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
+         getLovCiudades();
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
                nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(ciudadDocumento);
@@ -962,6 +964,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
+         getLovCiudades();
          if (tipoNuevo == 1) {
             nuevaDetalleEmpresa.setNombre_ciudad(ciudad);
          } else if (tipoNuevo == 2) {
@@ -1016,7 +1019,21 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void guardarSalir() {
-      guardadoGeneral();
+      if (guardado == false) {
+         if (!listDetallesEmpresasBorrar.isEmpty()) {
+            administrarDetalleEmpresa.borrarDetalleEmpresa(listDetallesEmpresasBorrar);
+            listDetallesEmpresasBorrar.clear();
+         }
+         if (!listDetallesEmpresasCrear.isEmpty()) {
+            administrarDetalleEmpresa.crearDetalleEmpresa(listDetallesEmpresasCrear);
+            listDetallesEmpresasCrear.clear();
+         }
+         if (!listDetallesEmpresasModificar.isEmpty()) {
+            administrarDetalleEmpresa.editarDetalleEmpresa(listDetallesEmpresasModificar);
+            listDetallesEmpresasModificar.clear();
+         }
+         System.out.println("ControlDetalleEmpresa.guardadoGeneral() Ya ejecuto");
+      }
       salir();
    }
 
@@ -1027,12 +1044,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    //GUARDAR
    public void guardadoGeneral() {
-      guardarCambios();
-      guardado = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-   }
-
-   public void guardarCambios() {
       try {
          if (guardado == false) {
             if (!listDetallesEmpresasBorrar.isEmpty()) {
@@ -1047,6 +1058,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                administrarDetalleEmpresa.editarDetalleEmpresa(listDetallesEmpresasModificar);
                listDetallesEmpresasModificar.clear();
             }
+            System.out.println("ControlDetalleEmpresa.guardadoGeneral() Ya ejecuto");
             listaDetallesEmpresas = null;
             getListaDetallesEmpresas();
             contarRegistros();
@@ -1065,6 +1077,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }
+      guardado = true;
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
    //CANCELAR MODIFICACIONES
@@ -1106,7 +1120,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    public void editarCelda() {
       if (detalleSeleccionado != null) {
          editarDetalleEmpresa = detalleSeleccionado;
-         RequestContext context = RequestContext.getCurrentInstance();
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpresaDE");
             RequestContext.getCurrentInstance().execute("PF('editarEmpresaDE').show()");
@@ -1556,7 +1569,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void restaurarTabla() {
-      altoTabla = "300";
       FacesContext c = FacesContext.getCurrentInstance();
       detalleEmpresa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleEmpresa");
       detalleEmpresa.setFilterStyle("display: none; visibility: hidden;");
@@ -1632,16 +1644,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       detalleExoneraLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
       detalleReportaLnsTarifa = (Column) c.getViewRoot().findComponent("form:datosDetalleEmpresa:detalleReportaLnsTarifa");
       detalleReportaLnsTarifa.setFilterStyle("display: none; visibility: hidden;");
-      RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
+      altoTabla = "300";
       bandera = 0;
       filtrarDetallesEmpresas = null;
       tipoLista = 0;
+      RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
    }
 
-   public void salir() {  limpiarListasValor();
-      if (bandera == 1) {
-         restaurarTabla();
-      }
+   public void salir() {
+      altoTabla = "300";
+      bandera = 0;
+      filtrarDetallesEmpresas = null;
+      tipoLista = 0;
       listDetallesEmpresasBorrar.clear();
       listDetallesEmpresasCrear.clear();
       listDetallesEmpresasModificar.clear();
@@ -1650,7 +1664,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       listaDetallesEmpresas = null;
       guardado = true;
       cambiosPagina = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       tipoActualizacion = -1;
       navegar("atras");
    }

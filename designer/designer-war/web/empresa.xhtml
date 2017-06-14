@@ -422,7 +422,7 @@
                   </p:commandButton>
 
                   <p:commandButton id="DETALLES" style="position: absolute; left: 10px; top: 479px;" class="cssBotonLargo" icon="ui-icon-arrowreturnthick-1-w"
-                                   value="#{msg['detalle']}" disabled="#{controlEmpresa.activoBtnesAdd}" actionListener="#{controlDetalleEmpresa.recibirPaginaEntrante('empresa')}" onstart="#{controlEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresa', 'detalleempresa')}" process="@this"/>
+                                   value="#{msg['detalle']}" onstart="#{controlEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresa', 'detalleempresa')}" process="@this"/>
                   <p:commandButton id="EMPRESABANCO" style="position: absolute; left: 180px; top: 479px;" class="cssBotonLargo" icon="ui-icon-arrowreturnthick-1-w"
                                    value="#{msg['empresaBanco']}" disabled="#{controlEmpresa.activoBtnesAdd}" process="@this" onstart="#{controlEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresa', 'empresabanco')}"/>
                   <p:commandButton id="DIRECCIONES" style="position: absolute; left: 350px; top: 479px;" class="cssBotonLargo" icon="ui-icon-arrowreturnthick-1-w"
