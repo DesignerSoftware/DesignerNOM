@@ -141,7 +141,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipo}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText size="10" autocomplete="off"  value="#{info.tipo}" maxlength="10" id="editarTipoDetalle"> 
+                                 <p:inputText autocomplete="off"  value="#{info.tipo}" maxlength="10" id="editarTipoDetalle"> 
                                     <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(info,2)}" process="@this"
                                             onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(info)}" process="@this" update="editarTipoDetalle"/>                                   

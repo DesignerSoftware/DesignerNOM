@@ -937,9 +937,6 @@ public class Empresas implements Serializable {
     }
 
     public CentrosCostos getCentrocosto() {
-        if (centrocosto == null) {
-            centrocosto = new CentrosCostos();
-        }
         return centrocosto;
     }
 

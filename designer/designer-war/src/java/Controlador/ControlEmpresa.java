@@ -238,25 +238,15 @@ public class ControlEmpresa implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "empresa";
-         
-         
-         
+       */
+      String pagActual = "empresa";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -411,7 +401,6 @@ String pagActual = "empresa";
          modificarCirculares(circularSeleccionada);
       } else {
          circularSeleccionada.setFecha(auxFechaCircular);
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosCircular");
          RequestContext.getCurrentInstance().execute("PF('errorFechasCircular').show()");
       }
@@ -420,17 +409,15 @@ String pagActual = "empresa";
    public boolean validarCamposNulosEmpresa(int i) {
       boolean retorno = true;
       if (i == 0) {
-         Empresas aux = new Empresas();
-         aux = empresaSeleccionada;
-         if (aux.getNit() <= 0) {
+         if (empresaSeleccionada.getNit() <= 0) {
             retorno = false;
          }
-         if (aux.getNombre() == null) {
+         if (empresaSeleccionada.getNombre() == null) {
             retorno = false;
-         } else if (aux.getNombre().isEmpty()) {
+         } else if (empresaSeleccionada.getNombre().isEmpty()) {
             retorno = false;
          }
-         if (aux.getCodigo() <= 0) {
+         if (empresaSeleccionada.getCodigo() <= 0) {
             retorno = false;
          }
       }
@@ -460,15 +447,14 @@ String pagActual = "empresa";
             retorno = false;
          }
       }
+      System.out.println("ControlEmpresa.validarCamposNulosEmpresa() retorno: " + retorno);
       return retorno;
    }
 
    public boolean validarCamposNulosVigenciaMonedaBase(int i) {
       boolean retorno = true;
       if (i == 0) {
-         VigenciasMonedasBases aux = new VigenciasMonedasBases();
-         aux = vigenciaMBSeleccionada;
-         if (aux.getMoneda().getSecuencia() == null || aux.getFecha() == null) {
+         if (vigenciaMBSeleccionada.getMoneda().getSecuencia() == null || vigenciaMBSeleccionada.getFecha() == null) {
             retorno = false;
          }
       }
@@ -487,8 +473,7 @@ String pagActual = "empresa";
 
    public void procesoModificacionEmpresa(Empresas empresa) {
       empresaSeleccionada = empresa;
-      boolean respuesta = validarCamposNulosEmpresa(0);
-      if (respuesta == true) {
+      if (validarCamposNulosEmpresa(0)) {
          modificarEmpresa(empresaSeleccionada);
       } else {
          empresaSeleccionada.setCodigo(auxCodigoEmpresa);
@@ -500,11 +485,10 @@ String pagActual = "empresa";
    }
 
    public void modificarEmpresa(Empresas empresa) {
+      System.out.println("ControlEmpresa.modificarEmpresa()");
       tablaActiva = 0;
       empresaSeleccionada = empresa;
-      int tamDes = 0;
-      tamDes = empresaSeleccionada.getNombre().length();
-      if (tamDes >= 1 && tamDes <= 50) {
+      if (empresaSeleccionada.getNombre().length() >= 1 && empresaSeleccionada.getNombre().length() <= 50) {
          if (empresaSeleccionada.getNombre() != null) {
             String textM = empresaSeleccionada.getNombre().toUpperCase();
             empresaSeleccionada.setNombre(textM);
@@ -535,6 +519,9 @@ String pagActual = "empresa";
          RequestContext.getCurrentInstance().update("form:datosEmpresa");
          RequestContext.getCurrentInstance().execute("PF('errorNombreEmpresa').show()");
       }
+      if (!listEmpresasModificar.isEmpty()) {
+         System.out.println("listEmpresasModificar.get(0): " + listEmpresasModificar.get(0) + ", Nom: " + listEmpresasModificar.get(0).getNombre());
+      }
    }
 
    public void modificarEmpresa(Empresas empresa, String confirmarCambio, String valorConfirmar) {
@@ -542,7 +529,6 @@ String pagActual = "empresa";
       empresaSeleccionada = empresa;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CENTROCOSTO")) {
          if (!valorConfirmar.isEmpty()) {
             empresaSeleccionada.getCentrocosto().setNombre(centroCosto);
@@ -665,9 +651,7 @@ String pagActual = "empresa";
    public boolean validarCamposNulosCircular(int i) {
       boolean retorno = true;
       if (i == 0) {
-         Circulares aux = new Circulares();
-         aux = circularSeleccionada;
-         if (aux.getFecha() == null) {
+         if (circularSeleccionada.getFecha() == null) {
             retorno = false;
          }
       }

@@ -109,11 +109,11 @@
                         <p:ajax event="filter" listener="#{controlEmpresa.eventoFiltrarEmpresa()}"/>
 
                         <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
-                                   id="empresaCodigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                                  id="empresaCodigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.codigo}" onclick="select();" id="editarCodigoEmpresa" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.codigo}" id="editarCodigoEmpresa" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" update="editarCodigoEmpresa" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info, 0)}"  process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/>
@@ -123,16 +123,17 @@
                         </p:column>
 
                         <p:column headerText="#{msg['nit']}" sortBy="#{info.nit}" filterBy="#{info.nit}" filterMatchMode="contains"
-                                   id="empresaNIT" width="90" filterStyle="display: none; visibility: hidden;">                                  
+                                  id="empresaNIT" width="90" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.nit}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nit}" onclick="select();" id="editarNITEmpresa" style="text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" update="editarNITEmpresa" process="@this"/>
+                                 <p:inputText autocomplete="off" value="#{info.nit}" id="editarNITEmpresa" maxlength="10" size="10" style="text-transform: uppercase;">
+                                    <p:keyFilter for="editarNITEmpresa" mask="num"/>
+                                    <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/>
                                  </p:inputText>
-                              </f:facet>  
+                              </f:facet>
                            </p:cellEditor>
                         </p:column>
 
@@ -141,7 +142,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.nombre}" onclick="select();" maxlength="50" id="editarNombreEmpresa" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.nombre}" maxlength="50" id="editarNombreEmpresa" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" update="editarNombreEmpresa" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info, 2)}" process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/>
@@ -151,11 +152,11 @@
                         </p:column>
 
                         <p:column headerText="#{msg['reglamento']}" sortBy="#{info.reglamento}" filterBy="#{info.reglamento}" filterMatchMode="contains"
-                                   id="empresaReglamento" width="110" filterStyle="display: none; visibility: hidden;">
+                                  id="empresaReglamento" width="110" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.reglamento}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.reglamento}" onclick="select();" id="editarReglamentoEmpresa" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.reglamento}" id="editarReglamentoEmpresa" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" update="editarReglamentoEmpresa" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/>
@@ -165,11 +166,11 @@
                         </p:column>
 
                         <p:column headerText="#{msg['manual']}" sortBy="#{info.manualadministrativo}" filterBy="#{info.manualadministrativo}" filterMatchMode="contains"
-                                   id="empresaManual" width="110" filterStyle="display: none; visibility: hidden;">
+                                  id="empresaManual" width="110" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.manualadministrativo}"/></f:facet>
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.manualadministrativo}" onclick="select();" id="editarManualEmpresa" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.manualadministrativo}" id="editarManualEmpresa" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" update="editarManualEmpresa" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info, 4)}" process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/>
@@ -183,7 +184,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.logo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.logo}" onclick="select();" maxlength="50" id="editarLogoEmpresa"> 
+                                 <p:inputText autocomplete="off" value="#{info.logo}" maxlength="50" id="editarLogoEmpresa"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" update="editarLogoEmpresa" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info, 5)}" process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/>
@@ -200,7 +201,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.centrocosto.nombre}" onclick="select();"  id="editarCentroCostoEmpresa" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.centrocosto.nombre}"  id="editarCentroCostoEmpresa" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.modificarEmpresa(info, 'CENTROCOSTO', info.centrocosto.nombre)}" process="@this" update="editarCentroCostoEmpresa"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info,6)}" process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/> 
@@ -219,7 +220,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigoalternativo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.codigoalternativo}" maxlength="10" onclick="select();" id="editarCodigoAlternativoEmpresa" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{info.codigoalternativo}" maxlength="10" id="editarCodigoAlternativoEmpresa" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.procesoModificacionEmpresa(info)}" update="editarCodigoAlternativoEmpresa" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndice(info, 7)}" process="@this"
                                             onstart="PF('datosEmpresa').unselectAllRows();PF('datosEmpresa').selectRow(#{indice});"/>
@@ -266,13 +267,13 @@
                         </p:column>
 
                         <p:column headerText="#{msg['codigo']}" sortBy="#{infoVMB.moneda.codigo}" filterBy="#{infoVMB.moneda.codigo}" filterMatchMode="contains"  width="60" 
-                                   id="vigenciaCodigo" filterStyle="display: none; visibility: hidden;">  
+                                  id="vigenciaCodigo" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoVMB.moneda.codigo}" style="text-transform: uppercase;"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.codigo}" onclick="select();"  id="editarCodigoVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.codigo}"  id="editarCodigoVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.modificarVigenciaMonedaBase(infoVMB, 'CODIGOMONEDA', infoVMB.moneda.codigo)}" process="@this" update="editarCodigoVigenciaMonedaBase"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceVigencia(infoVMB,1)}" process="@this"
                                             onstart="PF('datosVigenciaMonedaBase').unselectAllRows();PF('datosVigenciaMonedaBase').selectRow(#{indiceVMB});"/> 
@@ -286,13 +287,13 @@
                         </p:column>
 
                         <p:column headerText="#{msg['moneda']}" sortBy="#{infoVMB.moneda.nombre}" filterBy="#{infoVMB.moneda.nombre}" filterMatchMode="contains"
-                                   id="vigenciaMoneda" filterStyle="display: none; visibility: hidden;">  
+                                  id="vigenciaMoneda" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoVMB.moneda.nombre}" style="text-transform: uppercase;"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.nombre}" onclick="select();"  id="editarNombreVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoVMB.moneda.nombre}"  id="editarNombreVigenciaMonedaBase" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.modificarVigenciaMonedaBase(infoVMB, 'MONEDA', infoVMB.moneda.nombre)}" process="@this" update="editarNombreVigenciaMonedaBase"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceVigencia(infoVMB,2)}" process="@this"
                                             onstart="PF('datosVigenciaMonedaBase').unselectAllRows();PF('datosVigenciaMonedaBase').selectRow(#{indiceVMB});"/> 
@@ -340,11 +341,11 @@
                         </p:column>
 
                         <p:column headerText="#{msg['expedido']}" sortBy="#{infoC.expedidopor}" filterBy="#{infoC.expedidopor}" filterMatchMode="contains"
-                                   id="circularExpedido" filterStyle="display: none; visibility: hidden;">                                  
+                                  id="circularExpedido" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoC.expedidopor}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoC.expedidopor}" onclick="select();" id="editarExpedidoCircular" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.expedidopor}" id="editarExpedidoCircular" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.modificarCirculares(infoC)}" update="editarExpedidoCircular" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceCircular(infoC, 1)}" process="@this"
                                             onstart="PF('datosCircular').unselectAllRows();PF('datosCircular').selectRow(#{indiceC});"/>
@@ -355,11 +356,11 @@
                         </p:column>
 
                         <p:column headerText="#{msg['contenido']}" sortBy="#{infoC.texto}" filterBy="#{infoC.texto}" filterMatchMode="contains"
-                                   id="circularContenido" filterStyle="display: none; visibility: hidden;">                                  
+                                  id="circularContenido" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoC.texto}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoC.texto}" onclick="select();" id="editarContenidoCircular" style="text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.texto}" id="editarContenidoCircular" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlEmpresa.modificarCirculares(infoC)}" update="editarContenidoCircular" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmpresa.cambiarIndiceCircular(infoC, 2)}" process="@this"
                                             onstart="PF('datosCircular').unselectAllRows();PF('datosCircular').selectRow(#{indiceC});"/>
@@ -401,14 +402,14 @@
                         <div style="display: block;">
                            <p:inputText autocomplete="off" id="CodigoBaseClonado" value="#{controlEmpresa.empresaDestinoClonado.codigo}"
                                         style="position: relative; width: 70px; height: 14px; margin: 1px; left: 36px; top: 0px; display: inline;">
-                               <!--disabled="#/{controlEmpresa.activoCasillaClonado}"-->
+                              <!--disabled="#/{controlEmpresa.activoCasillaClonado}"-->
                               <p:ajax event="click" process="@this" listener="#{controlEmpresa.posicionProcesoClonadoDestino()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlEmpresa.autoCompletarEmpresaDestinoClonado(controlEmpresa.empresaDestinoClonado.codigo,0)}" update="CodigoNuevoClonado"/>
                               <p:ajax event="dblclick" process="@this" listener="#{controlEmpresa.dispararDialogoEmpresaDestinoClonado()}"/>
                            </p:inputText>
                            <p:inputText autocomplete="off" id="DescripcionBaseClonado" value="#{controlEmpresa.empresaDestinoClonado.nombre}" onclick="select();"
                                         style="position: relative; width: 240px; height: 14px; margin: 1px; left: 36px; top: 0px; display: inline;">
-                                        <!--disabled="#/{controlEmpresa.activoCasillaClonado}"--> 
+                              <!--disabled="#/{controlEmpresa.activoCasillaClonado}"--> 
                               <p:ajax event="click" process="@this" listener="#{controlEmpresa.posicionProcesoClonadoDestino()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlEmpresa.autoCompletarEmpresaDestinoClonado(controlEmpresa.empresaDestinoClonado.nombre,1)}" update="CodigoNuevoClonado"/>
                               <p:ajax event="dblclick" process="@this" listener="#{controlEmpresa.dispararDialogoEmpresaDestinoClonado()}"/>
@@ -704,49 +705,49 @@
                   <p:panel id="nuevoEmpresa" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNE']}" style="position: absolute; top: 65px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaCodigo" onclick="select();" value="#{controlEmpresa.nuevoEmpresa.codigo}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaCodigo" value="#{controlEmpresa.nuevoEmpresa.codigo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 60px;">
                         <p:ajax event="change" update="nuevoEmpresaCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="nuevoEmpresaCodigo"/>
 
                      <strong><h:outputText value="*#{msg['nitNE']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaNIT" onclick="select();" value="#{controlEmpresa.nuevoEmpresa.nit}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaNIT" value="#{controlEmpresa.nuevoEmpresa.nit}"
                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEmpresaNIT"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nit']}" for="nuevoEmpresaNIT"/>
 
                      <strong><h:outputText value="*#{msg['nombreNE']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaNombre" onclick="select();" maxlength="50" value="#{controlEmpresa.nuevoEmpresa.nombre}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaNombre" maxlength="50" value="#{controlEmpresa.nuevoEmpresa.nombre}"
                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEmpresaNombre"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nombre']}" for="nuevoEmpresaNombre"/>
 
                      <strong><h:outputText value="#{msg['reglamentoNE']}" style="position: absolute; top: 155px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaReglamento" onclick="select();" value="#{controlEmpresa.nuevoEmpresa.reglamento}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaReglamento" value="#{controlEmpresa.nuevoEmpresa.reglamento}"
                                   style="width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEmpresaReglamento"/>
                      </p:inputText>
                      <p:watermark value="#{msg['reglamento']}" for="nuevoEmpresaReglamento"/>
 
                      <strong><h:outputText value="#{msg['manualNE']}" style="position: absolute; top: 185px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaManual" onclick="select();" value="#{controlEmpresa.nuevoEmpresa.manualadministrativo}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaManual" value="#{controlEmpresa.nuevoEmpresa.manualadministrativo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEmpresaManual"/>
                      </p:inputText>
                      <p:watermark value="#{msg['manual']}" for="nuevoEmpresaManual"/>
 
                      <strong><h:outputText value="#{msg['logoNE']}" style="position: absolute; top: 215px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaLogo" onclick="select();" maxlength="50" value="#{controlEmpresa.nuevoEmpresa.logo}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaLogo" maxlength="50" value="#{controlEmpresa.nuevoEmpresa.logo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 210px">
                         <p:ajax event="change" update="nuevoEmpresaLogo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['logo']}" for="nuevoEmpresaLogo"/>
 
                      <strong><h:outputText value="#{msg['centroCostoNE']}" style="position: absolute; top: 245px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaCentroCosto" onclick="select();" value="#{controlEmpresa.nuevoEmpresa.centrocosto.nombre}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaCentroCosto" value="#{controlEmpresa.nuevoEmpresa.centrocosto.nombre}"
                                   style="width: 122px; position: absolute; left: 200px; top: 240px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEmpresa.asignarIndex1(0,1)}" process="@this" update="nuevoEmpresaCentroCosto"/>
                         <p:ajax event="click" listener="#{controlEmpresa.valoresBackupAutocompletarGeneral(1, 'CENTROCOSTO')}"/>
@@ -756,7 +757,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 242px;" class="cssBotonLovDialogos" id="btnNuevoCentroCosto" value="" process="@this" actionListener="#{controlEmpresa.asignarIndex1(0,1)}"/>   
 
                      <strong><h:outputText value="#{msg['codigoAlternativoNE']}" style="position: absolute; top: 275px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpresaCodigoAlternativo" onclick="select();" maxlength="10" value="#{controlEmpresa.nuevoEmpresa.codigoalternativo}"
+                     <p:inputText autocomplete="off" id="nuevoEmpresaCodigoAlternativo" maxlength="10" value="#{controlEmpresa.nuevoEmpresa.codigoalternativo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 270px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEmpresaCodigoAlternativo"/>
                      </p:inputText>
@@ -775,49 +776,49 @@
                   <p:panel id="duplicarEmpresa" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNE']}" style="position: absolute; top: 65px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaCodigo" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.codigo}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaCodigo" value="#{controlEmpresa.duplicarEmpresa.codigo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 60px;">
                         <p:ajax event="change" update="duplicarEmpresaCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="duplicarEmpresaCodigo"/>
 
                      <strong><h:outputText value="*#{msg['nitNE']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaNIT" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.nit}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaNIT" value="#{controlEmpresa.duplicarEmpresa.nit}"
                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaNIT"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nit']}" for="duplicarEmpresaNIT"/>
 
                      <strong><h:outputText value="*#{msg['nombreNE']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaNombre" onclick="select();" maxlength="50" value="#{controlEmpresa.duplicarEmpresa.nombre}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaNombre" maxlength="50" value="#{controlEmpresa.duplicarEmpresa.nombre}"
                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaNombre"/>
                      </p:inputText>
                      <p:watermark value="#{msg['nombre']}" for="duplicarEmpresaNombre"/>
 
                      <strong><h:outputText value="#{msg['reglamentoNE']}" style="position: absolute; top: 155px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaReglamento" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.reglamento}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaReglamento" value="#{controlEmpresa.duplicarEmpresa.reglamento}"
                                   style="width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaReglamento"/>
                      </p:inputText>
                      <p:watermark value="#{msg['reglamento']}" for="duplicarEmpresaReglamento"/>
 
                      <strong><h:outputText value="#{msg['manualNE']}" style="position: absolute; top: 185px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaManual" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.manualadministrativo}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaManual" value="#{controlEmpresa.duplicarEmpresa.manualadministrativo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaManual"/>
                      </p:inputText>
                      <p:watermark value="#{msg['manual']}" for="duplicarEmpresaManual"/>
 
                      <strong><h:outputText value="#{msg['logoNE']}" style="position: absolute; top: 215px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaLogo" onclick="select();" maxlength="50" value="#{controlEmpresa.duplicarEmpresa.logo}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaLogo" maxlength="50" value="#{controlEmpresa.duplicarEmpresa.logo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 210px">
                         <p:ajax event="change" update="duplicarEmpresaLogo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['logo']}" for="duplicarEmpresaLogo"/>
 
                      <strong><h:outputText value="#{msg['centroCostoNE']}" style="position: absolute; top: 245px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaCentroCosto" onclick="select();" value="#{controlEmpresa.duplicarEmpresa.centrocosto.nombre}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaCentroCosto" value="#{controlEmpresa.duplicarEmpresa.centrocosto.nombre}"
                                   style="width: 122px; position: absolute; left: 200px; top: 240px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEmpresa.asignarIndex1(0,2)}" process="@this" update="duplicarEmpresaCentroCosto"/>
                         <p:ajax event="click" listener="#{controlEmpresa.valoresBackupAutocompletarGeneral(2, 'CENTROCOSTO')}"/>
@@ -827,7 +828,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 242px;" class="cssBotonLovDialogos" id="btnDuplicarCentroCosto" value="" process="@this" actionListener="#{controlEmpresa.asignarIndex1(0,2)}"/>   
 
                      <strong><h:outputText value="#{msg['codigoAlternativoNE']}" style="position: absolute; top: 275px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpresaCodigoAlternativo" onclick="select();" maxlength="10" value="#{controlEmpresa.duplicarEmpresa.codigoalternativo}"
+                     <p:inputText autocomplete="off" id="duplicarEmpresaCodigoAlternativo" maxlength="10" value="#{controlEmpresa.duplicarEmpresa.codigoalternativo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 270px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEmpresaCodigoAlternativo"/>
                      </p:inputText>
@@ -852,7 +853,7 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['codigoNVMB']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoVigenciaMonedaBaseCodigo" onclick="select();" value="#{controlEmpresa.nuevoVigenciaMonedaBase.moneda.codigo}"
+                     <p:inputText autocomplete="off" id="nuevoVigenciaMonedaBaseCodigo" value="#{controlEmpresa.nuevoVigenciaMonedaBase.moneda.codigo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEmpresa.asignarIndex2(0,1)}" process="@this" update="nuevoVigenciaMonedaBaseCodigo"/>
                         <p:ajax event="click" listener="#{controlEmpresa.valoresBackupAutocompletarGeneral(1, 'CODIGOMONEDA')}"/>
@@ -862,7 +863,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 92px;" id="btnNuevoVigenciaCodigo" class="cssBotonLovDialogos" value="" process="@this" actionListener="#{controlEmpresa.asignarIndex2(0,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['monedaNVMB']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoVigenciaMonedaBaseMoneda" onclick="select();" value="#{controlEmpresa.nuevoVigenciaMonedaBase.moneda.nombre}"
+                     <p:inputText autocomplete="off" id="nuevoVigenciaMonedaBaseMoneda" value="#{controlEmpresa.nuevoVigenciaMonedaBase.moneda.nombre}"
                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEmpresa.asignarIndex2(1,1)}" process="@this" update="nuevoVigenciaMonedaBaseMoneda"/>
                         <p:ajax event="click" listener="#{controlEmpresa.valoresBackupAutocompletarGeneral(1, 'MONEDA')}"/>
@@ -890,7 +891,7 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['codigoNVMB']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarVigenciaMonedaBaseCodigo" onclick="select();" value="#{controlEmpresa.duplicarVigenciaMB.moneda.codigo}"
+                     <p:inputText autocomplete="off" id="duplicarVigenciaMonedaBaseCodigo" value="#{controlEmpresa.duplicarVigenciaMB.moneda.codigo}"
                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEmpresa.asignarIndex2(0,2,1)}" process="@this" update="duplicarVigenciaMonedaBaseCodigo"/>
                         <p:ajax event="click" listener="#{controlEmpresa.valoresBackupAutocompletarGeneral(2, 'CODIGOMONEDA')}"/>
@@ -900,7 +901,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 90px;" id="btnDuplicarVigenciaCodigo" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlEmpresa.asignarIndex2(0,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['monedaNVMB']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarVigenciaMonedaBaseMoneda" onclick="select();" value="#{controlEmpresa.duplicarVigenciaMB.moneda.nombre}"
+                     <p:inputText autocomplete="off" id="duplicarVigenciaMonedaBaseMoneda" value="#{controlEmpresa.duplicarVigenciaMB.moneda.nombre}"
                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEmpresa.asignarIndex2(1,2)}" process="@this" update="duplicarVigenciaMonedaBaseMoneda"/>
                         <p:ajax event="click" listener="#{controlEmpresa.valoresBackupAutocompletarGeneral(2, 'MONEDA')}"/>
@@ -929,14 +930,14 @@
                      </div>
 
                      <strong><h:outputText value="#{msg['expedidoNC']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoCircularExpedido" onclick="select();" value="#{controlEmpresa.nuevoCircular.expedidopor}"
+                     <p:inputText autocomplete="off" id="nuevoCircularExpedido" value="#{controlEmpresa.nuevoCircular.expedidopor}"
                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoCircularExpedido"/>
                      </p:inputText>
                      <p:watermark value="#{msg['expedido']}" for="nuevoCircularExpedido"/>
 
                      <strong><h:outputText value="#{msg['contenidoNE']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoCircularContenido" onclick="select();" value="#{controlEmpresa.nuevoCircular.texto}"
+                     <p:inputText autocomplete="off" id="nuevoCircularContenido" value="#{controlEmpresa.nuevoCircular.texto}"
                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoCircularContenido"/>
                      </p:inputText>
@@ -961,14 +962,14 @@
                      </div>
 
                      <strong><h:outputText value="#{msg['expedidoNC']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarCircularExpedido" onclick="select();" value="#{controlEmpresa.duplicarCircular.expedidopor}"
+                     <p:inputText autocomplete="off" id="duplicarCircularExpedido" value="#{controlEmpresa.duplicarCircular.expedidopor}"
                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarCircularExpedido"/>
                      </p:inputText>
                      <p:watermark value="#{msg['expedido']}" for="duplicarCircularExpedido"/>
 
                      <strong><h:outputText value="#{msg['contenidoNE']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarCircularContenido" onclick="select();" value="#{controlEmpresa.duplicarCircular.texto}"
+                     <p:inputText autocomplete="off" id="duplicarCircularContenido" value="#{controlEmpresa.duplicarCircular.texto}"
                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarCircularContenido"/>
                      </p:inputText>

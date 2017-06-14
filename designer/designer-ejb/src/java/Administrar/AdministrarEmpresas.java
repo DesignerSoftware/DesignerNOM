@@ -122,7 +122,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
       try {
          for (int i = 0; i < listaE.size(); i++) {
             if (listaE.get(i).getCentrocosto().getSecuencia() == null) {
-               listaE.get(i).setCentrocosto(new CentrosCostos());
+               listaE.get(i).setCentrocosto(null);
             }
             persistenciaEmpresas.crear(em, listaE.get(i));
          }
@@ -135,9 +135,9 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
    public void editarEmpresas(List<Empresas> listaE) {
       try {
          for (int i = 0; i < listaE.size(); i++) {
-            /*if (listaE.get(i).getCentrocosto().getSecuencia() == null) {
-                    listaE.get(i).setCentrocosto(new CentrosCostos());
-                }*/
+            if (listaE.get(i).getCentrocosto().getSecuencia() == null) {
+               listaE.get(i).setCentrocosto(null);
+            }
             persistenciaEmpresas.editar(em, listaE.get(i));
          }
       } catch (Exception e) {
@@ -150,7 +150,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
       try {
          for (int i = 0; i < listaE.size(); i++) {
             if (listaE.get(i).getCentrocosto().getSecuencia() == null) {
-               listaE.get(i).setCentrocosto(new CentrosCostos());
+               listaE.get(i).setCentrocosto(null);
             }
             persistenciaEmpresas.borrar(em, listaE.get(i));
          }
