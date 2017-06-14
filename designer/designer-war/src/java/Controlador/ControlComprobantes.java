@@ -45,15 +45,13 @@ public class ControlComprobantes implements Serializable {
    private Parametros parametroSeleccionado;
    //SOLUCIONES NODOS EMPLEADO
    private List<SolucionesNodos> listaSolucionesNodosEmpleado;
-   private List<SolucionesNodos> listaSolucionesNodosEmpleadoAux;
    private List<SolucionesNodos> filtradolistaSolucionesNodosEmpleado;
-   private SolucionesNodos solucionNodoEmpleadoSeleccionada;
+   private SolucionesNodos solucionNodoEmpleadoSeleccionado;
    private SolucionesNodos editarSolucionNodo;
    //SOLUCIONES NODOS EMPLEADOR
    private List<SolucionesNodos> listaSolucionesNodosEmpleador;
-   private List<SolucionesNodos> listaSolucionesNodosEmpleadorAux;
    private List<SolucionesNodos> filtradolistaSolucionesNodosEmpleador;
-   private SolucionesNodos solucionNodoEmpleadorSeleccionada;
+   private SolucionesNodos solucionNodoEmpleadorSeleccionado;
    //REGISTRO ACTUAL
    private int registroActual, tablaActual, index;
    //OTROS
@@ -67,7 +65,7 @@ public class ControlComprobantes implements Serializable {
    private Column codigoSNE, descipcionSNE, unidadSNE, pagoSNE, descuentoSNE, terceroSNE, fechaHastaSNE, debitoSNE, centroCostoDSNE, creditoSNE, centroCostoCSNE, saldoSNE, fechaDesdeSNE, fechaPagoSNE, FechaModificacioSNE;
    private Column codigoSNER, descipcionSNER, unidadSNER, pasivoSNER, gastoSNER, terceroSNER, fechaHastaSNER, debitoSNER, centroCostoDSNER, creditoSNER, centroCostoCSNER, saldoSNER, fechaDesdeSNER, fechaPagoSNER, FechaModificacioSNER;
    private int bandera;
-   private String altoScrollSolucionesNodosEmpleado, altoScrollSolucionesNodosEmpleador;
+   private String altoScrollSolucionesNodosEmpleado;
    //PARCIALES 
    private String parcialesSolucionNodos;
    //DETALLES FORMULAS
@@ -91,8 +89,7 @@ public class ControlComprobantes implements Serializable {
       subtotalPasivo = new BigDecimal(0);
       subtotalGasto = new BigDecimal(0);
       bandera = 0;
-      altoScrollSolucionesNodosEmpleado = "104";
-      altoScrollSolucionesNodosEmpleador = "104";
+      altoScrollSolucionesNodosEmpleado = "100";
       listaDetallesFormulas = null;
       formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
       estadoBtnArriba = false;
@@ -103,17 +100,16 @@ public class ControlComprobantes implements Serializable {
       pago = "0";
       descuento = "0";
       netoTotal = "0";
+      tablaActual = 0;
       listaParametrosLOV = new ArrayList<Parametros>();
       editarParametros = new Parametros();
       tipoLista = 0;
-      solucionNodoEmpleadoSeleccionada = null;
-      solucionNodoEmpleadorSeleccionada = null;
+      solucionNodoEmpleadoSeleccionado = null;
+      solucionNodoEmpleadorSeleccionado = null;
       editarSolucionNodo = new SolucionesNodos();
       registroActual = 0;
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
-      listaSolucionesNodosEmpleadoAux = new ArrayList<SolucionesNodos>();
-      listaSolucionesNodosEmpleadorAux = new ArrayList<SolucionesNodos>();
       listaParametros = new ArrayList<Parametros>();
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -173,8 +169,8 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void refrescar() {
-      solucionNodoEmpleadoSeleccionada = null;
-      solucionNodoEmpleadorSeleccionada = null;
+      solucionNodoEmpleadoSeleccionado = null;
+      solucionNodoEmpleadorSeleccionado = null;
       listaParametros.clear();
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
@@ -364,8 +360,7 @@ public class ControlComprobantes implements Serializable {
          FechaModificacioSNER = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionesNodosEmpleador:FechaModificacioSNER");
          FechaModificacioSNER.setFilterStyle("width: 85% !important");
 
-         altoScrollSolucionesNodosEmpleado = "84";
-         altoScrollSolucionesNodosEmpleador = "84";
+         altoScrollSolucionesNodosEmpleado = "80";
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
@@ -436,9 +431,7 @@ public class ControlComprobantes implements Serializable {
          FechaModificacioSNER = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionesNodosEmpleador:FechaModificacioSNER");
          FechaModificacioSNER.setFilterStyle("display: none; visibility: hidden;");
 
-         altoScrollSolucionesNodosEmpleado = "104";
-         altoScrollSolucionesNodosEmpleador = "104";
-         RequestContext context = RequestContext.getCurrentInstance();
+         altoScrollSolucionesNodosEmpleado = "100";
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
          bandera = 0;
@@ -470,11 +463,11 @@ public class ControlComprobantes implements Serializable {
 
    //PARCIALES CONCEPTO
    public void parcialSolucionNodo(SolucionesNodos solucionNodo, int celda) {
-      solucionNodoEmpleadoSeleccionada = solucionNodo;
+      solucionNodoEmpleadoSeleccionado = solucionNodo;
       cualCelda = celda;
-      solucionNodoEmpleadoSeleccionada.getSecuencia();
+      solucionNodoEmpleadoSeleccionado.getSecuencia();
       if (cualCelda == 0) {
-         parcialesSolucionNodos = solucionNodoEmpleadoSeleccionada.getParciales();
+         parcialesSolucionNodos = solucionNodoEmpleadoSeleccionado.getParciales();
       }
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:parcialesConcepto");
@@ -482,85 +475,99 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void parcialSolucionNodoEmpleador(SolucionesNodos solucionNodoEmpleador, int celda) {
-      solucionNodoEmpleadorSeleccionada = solucionNodoEmpleador;
+      solucionNodoEmpleadorSeleccionado = solucionNodoEmpleador;
       cualCelda = celda;
-      solucionNodoEmpleadorSeleccionada.getSecuencia();
+      solucionNodoEmpleadorSeleccionado.getSecuencia();
       if (cualCelda == 0) {
-         parcialesSolucionNodos = solucionNodoEmpleadorSeleccionada.getParciales();
+         parcialesSolucionNodos = solucionNodoEmpleadorSeleccionado.getParciales();
       }
       RequestContext.getCurrentInstance().update("formularioDialogos:parcialesConcepto");
       RequestContext.getCurrentInstance().execute("PF('parcialesConcepto').show();");
    }
 
+   public void cambiarDefaultEmpleador() {
+      tablaActual = 1;
+      solucionNodoEmpleadoSeleccionado = null;
+      RequestContext.getCurrentInstance().execute("PF('datosSolucionesNodosEmpleado').unselectAllRows();");
+   }
+
+   public void cambiarDefault() {
+      tablaActual = 0;
+      solucionNodoEmpleadorSeleccionado = null;
+      RequestContext.getCurrentInstance().execute("PF('datosSolucionesNodosEmpleador').unselectAllRows();");
+   }
+
    public void cambiarIndiceEmpleador(SolucionesNodos solucionNodoEmpleador, int celda) {
-      solucionNodoEmpleadorSeleccionada = solucionNodoEmpleador;
+      solucionNodoEmpleadorSeleccionado = solucionNodoEmpleador;
+      tablaActual = 1;
       cualCelda = celda;
       if (cualCelda == 1) {
-         solucionNodoEmpleadorSeleccionada.getCodigoconcepto();
+         solucionNodoEmpleadorSeleccionado.getCodigoconcepto();
       } else if (cualCelda == 2) {
-         solucionNodoEmpleadorSeleccionada.getNombreconcepto();
+         solucionNodoEmpleadorSeleccionado.getNombreconcepto();
       } else if (cualCelda == 3) {
-         solucionNodoEmpleadorSeleccionada.getUnidades();
+         solucionNodoEmpleadorSeleccionado.getUnidades();
       } else if (cualCelda == 4) {
-         solucionNodoEmpleadorSeleccionada.getPasivo();
+         solucionNodoEmpleadorSeleccionado.getPasivo();
       } else if (cualCelda == 5) {
-         solucionNodoEmpleadorSeleccionada.getGasto();
+         solucionNodoEmpleadorSeleccionado.getGasto();
       } else if (cualCelda == 6) {
-         solucionNodoEmpleadorSeleccionada.getNombretercero();
+         solucionNodoEmpleadorSeleccionado.getNombretercero();
       } else if (cualCelda == 7) {
-         solucionNodoEmpleadorSeleccionada.getFechahasta();
+         solucionNodoEmpleadorSeleccionado.getFechahasta();
       } else if (cualCelda == 8) {
-         solucionNodoEmpleadorSeleccionada.getCodigocuentad();
+         solucionNodoEmpleadorSeleccionado.getCodigocuentad();
       } else if (cualCelda == 9) {
-         solucionNodoEmpleadorSeleccionada.getNombrecentrocostod();
+         solucionNodoEmpleadorSeleccionado.getNombrecentrocostod();
       } else if (cualCelda == 10) {
-         solucionNodoEmpleadorSeleccionada.getCodigocuentac();
+         solucionNodoEmpleadorSeleccionado.getCodigocuentac();
       } else if (cualCelda == 11) {
-         solucionNodoEmpleadorSeleccionada.getNombrecentrocostoc();
+         solucionNodoEmpleadorSeleccionado.getNombrecentrocostoc();
       } else if (cualCelda == 12) {
-         solucionNodoEmpleadorSeleccionada.getSaldo();
+         solucionNodoEmpleadorSeleccionado.getSaldo();
       } else if (cualCelda == 13) {
-         solucionNodoEmpleadorSeleccionada.getFechadesde();
+         solucionNodoEmpleadorSeleccionado.getFechadesde();
       } else if (cualCelda == 14) {
-         solucionNodoEmpleadorSeleccionada.getFechapago();
+         solucionNodoEmpleadorSeleccionado.getFechapago();
       } else if (cualCelda == 15) {
-         solucionNodoEmpleadorSeleccionada.getUltimamodificacion();
+         solucionNodoEmpleadorSeleccionado.getUltimamodificacion();
       }
    }
 
    public void cambiarIndice(SolucionesNodos solucionNodo, int celda) {
-      solucionNodoEmpleadoSeleccionada = solucionNodo;
+      solucionNodoEmpleadoSeleccionado = solucionNodo;
+      tablaActual = 0;
       cualCelda = celda;
       if (cualCelda == 1) {
-         solucionNodoEmpleadoSeleccionada.getCodigoconcepto();
+         solucionNodoEmpleadoSeleccionado.getCodigoconcepto();
       } else if (cualCelda == 2) {
-         solucionNodoEmpleadoSeleccionada.getNombreconcepto();
+         solucionNodoEmpleadoSeleccionado.getNombreconcepto();
       } else if (cualCelda == 3) {
-         solucionNodoEmpleadoSeleccionada.getUnidades();
+         solucionNodoEmpleadoSeleccionado.getUnidades();
       } else if (cualCelda == 4) {
-         solucionNodoEmpleadoSeleccionada.getPago();
+         solucionNodoEmpleadoSeleccionado.getPago();
       } else if (cualCelda == 5) {
-         solucionNodoEmpleadoSeleccionada.getDescuento();
+         solucionNodoEmpleadoSeleccionado.getDescuento();
       } else if (cualCelda == 6) {
-         solucionNodoEmpleadoSeleccionada.getNombretercero();
+         solucionNodoEmpleadoSeleccionado.getNombretercero();
       } else if (cualCelda == 7) {
-         solucionNodoEmpleadoSeleccionada.getFechahasta();
+         solucionNodoEmpleadoSeleccionado.getFechahasta();
       } else if (cualCelda == 8) {
-         solucionNodoEmpleadoSeleccionada.getCodigocuentad();
+         solucionNodoEmpleadoSeleccionado.getCodigocuentad();
       } else if (cualCelda == 9) {
-         solucionNodoEmpleadoSeleccionada.getNombrecentrocostod();
+         solucionNodoEmpleadoSeleccionado.getNombrecentrocostod();
       } else if (cualCelda == 10) {
-         solucionNodoEmpleadoSeleccionada.getCodigocuentac();
+         solucionNodoEmpleadoSeleccionado.getCodigocuentac();
       } else if (cualCelda == 11) {
-         solucionNodoEmpleadoSeleccionada.getNombrecentrocostoc();
+         solucionNodoEmpleadoSeleccionado.getNombrecentrocostoc();
       } else if (cualCelda == 12) {
-         solucionNodoEmpleadoSeleccionada.getSaldo();
+         solucionNodoEmpleadoSeleccionado.getSaldo();
       } else if (cualCelda == 13) {
-         solucionNodoEmpleadoSeleccionada.getFechadesde();
+         solucionNodoEmpleadoSeleccionado.getFechadesde();
       } else if (cualCelda == 14) {
-         solucionNodoEmpleadoSeleccionada.getFechapago();
+         solucionNodoEmpleadoSeleccionado.getFechapago();
       } else if (cualCelda == 15) {
-         solucionNodoEmpleadoSeleccionada.getUltimamodificacion();
+         solucionNodoEmpleadoSeleccionado.getUltimamodificacion();
       }
    }
 
@@ -600,38 +607,18 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void eventoFiltrarComprobanteEmpleado() {
-      solucionNodoEmpleadoSeleccionada = null;
+      solucionNodoEmpleadoSeleccionado = null;
       contarRegistrosComprobanteEmpleado();
    }
 
    public void eventoFiltrarComprobanteEmpleador() {
-      solucionNodoEmpleadorSeleccionada = null;
+      solucionNodoEmpleadorSeleccionado = null;
       contarRegistrosComprobanteEmpleador();
-   }
-
-   public void cambiarValorEmpleado(SolucionesNodos solucionNodoEmpleado) {
-      solucionNodoEmpleadoSeleccionada = solucionNodoEmpleado;
-      for (SolucionesNodos rcSolNodo : listaSolucionesNodosEmpleadoAux) {
-         if (rcSolNodo.getSecuencia().equals(solucionNodoEmpleadoSeleccionada.getSecuencia())) {
-            solucionNodoEmpleadoSeleccionada = rcSolNodo;
-            break;
-         }
-      }
-   }
-
-   public void cambiarValorEmpleador(SolucionesNodos solucionNodoEmpleador) {
-      solucionNodoEmpleadorSeleccionada = solucionNodoEmpleador;
-      for (SolucionesNodos rcSolNodo : listaSolucionesNodosEmpleadorAux) {
-         if (rcSolNodo.getSecuencia().equals(solucionNodoEmpleadorSeleccionada.getSecuencia())) {
-            solucionNodoEmpleadorSeleccionada = rcSolNodo;
-            break;
-         }
-      }
    }
 
    public void editarCelda() {
       if (tablaActual == 0) {
-         if (solucionNodoEmpleadoSeleccionada != null) {
+         if (solucionNodoEmpleadoSeleccionado != null) {
             if (cualCelda == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodEmpleado");
                RequestContext.getCurrentInstance().execute("PF('editarCodEmpleado').show()");
@@ -770,8 +757,8 @@ public class ControlComprobantes implements Serializable {
       String registro = map.get("registro"); // type attribute of node 
       int indice = Integer.parseInt(registro);
       int columna = Integer.parseInt(celda);
-      solucionNodoEmpleadoSeleccionada = listaSolucionesNodosEmpleado.get(indice);
-      cambiarIndice(solucionNodoEmpleadoSeleccionada, columna);
+      solucionNodoEmpleadoSeleccionado = listaSolucionesNodosEmpleado.get(indice);
+      cambiarIndice(solucionNodoEmpleadoSeleccionado, columna);
    }
 
    public void posicionOtroEmpleador() {
@@ -781,9 +768,8 @@ public class ControlComprobantes implements Serializable {
       String registro = mapEm.get("registro"); // type attribute of node 
       int indice = Integer.parseInt(registro);
       int columna = Integer.parseInt(celda);
-      solucionNodoEmpleadorSeleccionada = listaSolucionesNodosEmpleador.get(indice);
-      cambiarIndice(solucionNodoEmpleadorSeleccionada, columna);
-
+      solucionNodoEmpleadorSeleccionado = listaSolucionesNodosEmpleador.get(indice);
+      cambiarIndice(solucionNodoEmpleadorSeleccionado, columna);
    }
 
    //GETTER AND SETTER
@@ -866,17 +852,15 @@ public class ControlComprobantes implements Serializable {
    public List<SolucionesNodos> getListaSolucionesNodosEmpleado() {
       if (parametroActual != null) {
          if (listaSolucionesNodosEmpleado == null) {
-            listaSolucionesNodosEmpleadoAux.clear();
             listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(parametroActual.getEmpleado().getSecuencia());
             if (listaSolucionesNodosEmpleado != null) {
                subtotalPago = new BigDecimal(0);
                subtotalDescuento = new BigDecimal(0);
-               for (int i = 0; i < listaSolucionesNodosEmpleado.size(); i++) {
-                  listaSolucionesNodosEmpleadoAux.add(listaSolucionesNodosEmpleado.get(i));
-                  if (listaSolucionesNodosEmpleado.get(i).getTipo().equals("PAGO")) {
-                     subtotalPago = subtotalPago.add(listaSolucionesNodosEmpleado.get(i).getValor());
+               for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleado) {
+                  if (recSolNodo.getTipo().equals("PAGO")) {
+                     subtotalPago = subtotalPago.add(recSolNodo.getValor());
                   } else {
-                     subtotalDescuento = subtotalDescuento.add(listaSolucionesNodosEmpleado.get(i).getValor());
+                     subtotalDescuento = subtotalDescuento.add(recSolNodo.getValor());
                   }
                }
                neto = subtotalPago.subtract(subtotalDescuento);
@@ -905,17 +889,15 @@ public class ControlComprobantes implements Serializable {
       if (parametroActual != null) {
          if (listaSolucionesNodosEmpleador == null) {
             if (parametroActual.getEmpleado().getSecuencia() != null) {
-               listaSolucionesNodosEmpleadorAux.clear();
                listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(parametroActual.getEmpleado().getSecuencia());
                if (listaSolucionesNodosEmpleador != null) {
                   subtotalPasivo = new BigDecimal(0);
                   subtotalGasto = new BigDecimal(0);
-                  for (int i = 0; i < listaSolucionesNodosEmpleador.size(); i++) {
-                     listaSolucionesNodosEmpleadorAux.add(listaSolucionesNodosEmpleador.get(i));
-                     if (listaSolucionesNodosEmpleador.get(i).getTipo().equals("PASIVO")) {
-                        subtotalPasivo = subtotalPasivo.add(listaSolucionesNodosEmpleador.get(i).getValor());
-                     } else if (listaSolucionesNodosEmpleador.get(i).getTipo().equals("GASTO")) {
-                        subtotalGasto = subtotalGasto.add(listaSolucionesNodosEmpleador.get(i).getValor());
+                  for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleador) {
+                     if (recSolNodo.getTipo().equals("PASIVO")) {
+                        subtotalPasivo = subtotalPasivo.add(recSolNodo.getValor());
+                     } else if (recSolNodo.getTipo().equals("GASTO")) {
+                        subtotalGasto = subtotalGasto.add(recSolNodo.getValor());
                      }
                   }
                   pasivo = nf.format(subtotalPasivo);
@@ -924,7 +906,6 @@ public class ControlComprobantes implements Serializable {
             }
          }
       }
-
       return listaSolucionesNodosEmpleador;
    }
 
@@ -988,10 +969,6 @@ public class ControlComprobantes implements Serializable {
       return altoScrollSolucionesNodosEmpleado;
    }
 
-   public String getAltoScrollSolucionesNodosEmpleador() {
-      return altoScrollSolucionesNodosEmpleador;
-   }
-
    public String getParcialesSolucionNodos() {
       return parcialesSolucionNodos;
    }
@@ -1045,12 +1022,12 @@ public class ControlComprobantes implements Serializable {
       this.editarParametros = editarParametros;
    }
 
-   public SolucionesNodos getSolucionNodoEmpleadoSeleccionada() {
-      return solucionNodoEmpleadoSeleccionada;
+   public SolucionesNodos getSolucionNodoEmpleadoSeleccionado() {
+      return solucionNodoEmpleadoSeleccionado;
    }
 
-   public void setSolucionNodoEmpleadoSeleccionada(SolucionesNodos solucionNodoEmpleadoSeleccionada) {
-      this.solucionNodoEmpleadoSeleccionada = solucionNodoEmpleadoSeleccionada;
+   public void setSolucionNodoEmpleadoSeleccionado(SolucionesNodos solucionNodoEmpleadoSeleccionado) {
+      this.solucionNodoEmpleadoSeleccionado = solucionNodoEmpleadoSeleccionado;
    }
 
    public SolucionesNodos getEditarSolucionNodo() {
@@ -1061,12 +1038,12 @@ public class ControlComprobantes implements Serializable {
       this.editarSolucionNodo = editarSolucionNodo;
    }
 
-   public SolucionesNodos getSolucionNodoEmpleadorSeleccionada() {
-      return solucionNodoEmpleadorSeleccionada;
+   public SolucionesNodos getSolucionNodoEmpleadorSeleccionado() {
+      return solucionNodoEmpleadorSeleccionado;
    }
 
-   public void setSolucionNodoEmpleadorSeleccionada(SolucionesNodos solucionNodoEmpleadorSeleccionada) {
-      this.solucionNodoEmpleadorSeleccionada = solucionNodoEmpleadorSeleccionada;
+   public void setSolucionNodoEmpleadorSeleccionado(SolucionesNodos solucionNodoEmpleadorSeleccionado) {
+      this.solucionNodoEmpleadorSeleccionado = solucionNodoEmpleadorSeleccionado;
    }
 
    public String getInfoRegistroComprobanteEmpleador() {

@@ -66,7 +66,7 @@ public class ControlEmplAcumulados implements Serializable {
       listVWAcumuladosPorEmpleado = null;
       editarVWAcumuladosPorEmpleado = new VWAcumulados();
       secRegistro = null;
-      altoTabla = "280";
+      altoTabla = "284";
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -146,7 +146,7 @@ public class ControlEmplAcumulados implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "260";
+         altoTabla = "264";
          conceptoCodigo = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:conceptoCodigo");
          conceptoCodigo.setFilterStyle("width: 85% !important");
          conceptoDescripcion = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:conceptoDescripcion");
@@ -420,7 +420,7 @@ public class ControlEmplAcumulados implements Serializable {
       observaciones.setFilterStyle("display: none; visibility: hidden;");
       motivoNovedad = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:motivoNovedad");
       motivoNovedad.setFilterStyle("display: none; visibility: hidden;");
-      altoTabla = "280";
+      altoTabla = "284";
       RequestContext.getCurrentInstance().update("form:datosEmplAcumulados");
       bandera = 0;
       filtrarVWAcumuladosPorEmpleado = null;
@@ -488,7 +488,7 @@ public class ControlEmplAcumulados implements Serializable {
    }
 
    public String getAltoTablaReg() {
-      if ("260".equals(altoTabla)) {
+      if ("264".equals(altoTabla)) {
          altoTablaReg = "11";
       } else {
          altoTablaReg = "12";
