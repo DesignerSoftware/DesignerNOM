@@ -8,113 +8,113 @@ and open the template in the editor.
     Author     : Administrator
 */
 .panelTotal{
-    position: absolute; 
-    width: 874px; 
-    height: 530px;
-    box-shadow: 5px 5px 5px 0px rgba(0,12,92,1);
+   position: absolute; 
+   width: 874px; 
+   height: 530px;
+   box-shadow: 5px 5px 5px 0px rgba(0,12,92,1);
 }
 
 .ui-widget {
-    font-family: Tahoma;
-    font-size: 12px;
+   font-family: Tahoma;
+   font-size: 12px;
 }
 
 .ui-widget input,
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-    font-family: Tahoma;
-    font-size: 12px;
+   font-family: Tahoma;
+   font-size: 12px;
 }
 
 .ui-widget-content {
-    border: 1px solid #1E63A4;
-    /*background: #CBCFDA;*/
-    background: #FFFFFF;
-    color: #1F2429;
+   border: 1px solid #1E63A4;
+   /*background: #CBCFDA;*/
+   background: #FFFFFF;
+   color: #1F2429;
 }
 
 .ui-widget-content a {
-    color: #000000;
+   color: #000000;
 }
 
 .ui-widget-header {
-    border: 1px solid #ffffff;
-    background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;
-    color: #FFFFFF;
-    font-weight: bold;
-    text-shadow: none;
+   border: 1px solid #ffffff;
+   background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;
+   color: #FFFFFF;
+   font-weight: bold;
+   text-shadow: none;
 }
 
 .ui-widget-header a {
-    color: #ffffff;
+   color: #ffffff;
 }
 /* Interaction states
 ----------------------------------*/
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default{
-    border: 1px solid #a8a8a8;
-    box-shadow: none;
-    background-color: transparent;
-    color: #1F2429;
-    text-shadow: none;
+   border: 1px solid #a8a8a8;
+   box-shadow: none;
+   background-color: transparent;
+   color: #1F2429;
+   text-shadow: none;
 }
 
 button .ui-state-default,
 button .ui-widget-content,
 button .ui-widget-header{
-    border: none;
-    box-shadow: none;
-    background-color: transparent;
-    color: #1F2429;
-    text-shadow: none;
+   border: none;
+   box-shadow: none;
+   background-color: transparent;
+   color: #1F2429;
+   text-shadow: none;
 }
 
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-    color: #000000;
-    text-decoration: none;
+   color: #000000;
+   text-decoration: none;
 }
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover {
-    border: 1px solid #bbbbbb;
-    background: #1E63A4;
-    color: #ffffff;
+   border: 1px solid #bbbbbb;
+   background: #1E63A4;
+   color: #ffffff;
 }
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-    border: 1px solid #bbbbbb;
-    border-color: #1E63A4;
-    background: #ffffff;
-    color: black;
+   border: 1px solid #bbbbbb;
+   border-color: #1E63A4;
+   background: #ffffff;
+   color: black;
 }
 /*ARREGLAR*/
 .ui-state-hover a,
 .ui-state-hover a:hover,
 .ui-state-hover a:link,
 .ui-state-hover a:visited {
-    color: #ffffff !important;
-    text-decoration: none;
+   color: #ffffff !important;
+   text-decoration: none;
 }
 /*ARREGLAR ESTADO SELECCIONADO*/
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-    border: 1px solid #ffffff;
-    background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
-    font-weight: bold;
-    color: #ffffff;
+   border: 1px solid #ffffff;
+   background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
+   font-weight: bold;
+   color: #ffffff;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-    color: #ffffff;
-    background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
-    text-decoration: none;
+   color: #ffffff;
+   background: #1E63A4 url("images/ui-bg_flat_45_1E63A4_40x100.png") 50% 50% repeat-x;
+   text-decoration: none;
 }
 /*------------------------------*/
 /* Interaction Cues
@@ -122,49 +122,49 @@ button .ui-widget-header{
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-    border: 1px solid #ffffff;
-    background: #0A246A;
-    color: #ffffff;
+   border: 1px solid #ffffff;
+   background: #0A246A;
+   color: #ffffff;
 }
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
-    color: #ffffff;
+   color: #ffffff;
 }
 /* Icons
 ----------------------------------*/
 
 /* states and images */
 .ui-icon {
-    width: 16px;
-    height: 16px;
+   width: 16px;
+   height: 16px;
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-    background-image: url("images/ui-icons_999999_256x240.png");
+   background-image: url("images/ui-icons_999999_256x240.png");
 }
 .ui-widget-header .ui-icon {
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-default .ui-icon {
-    background-image: url("images/ui-icons_255ac2_256x240.png");
+   background-image: url("images/ui-icons_255ac2_256x240.png");
 }
 .ui-state-hover .ui-icon{
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-focus .ui-icon {
-    background-image: url("images/ui-icons_255ac2_256x240.png");
+   background-image: url("images/ui-icons_255ac2_256x240.png");
 }
 .ui-state-active .ui-icon {
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-highlight .ui-icon {
-    /*background-image: url("images/ui-icons_255ac2_256x240.png");*/
-    background-image: url("images/ui-icons_ffffff_256x240.png");
+   /*background-image: url("images/ui-icons_255ac2_256x240.png");*/
+   background-image: url("images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
-    background-image: url("images/ui-icons_fbc856_256x240.png");
+   background-image: url("images/ui-icons_fbc856_256x240.png");
 }
 /* positioning */
 .ui-icon-blank { background-position: 16px 16px; }
@@ -351,104 +351,106 @@ button .ui-widget-header{
 .ui-corner-top,
 .ui-corner-left,
 .ui-corner-tl {
-    border-radius: 3px;
+   border-radius: 3px;
 }
 /* Overlays */
 .ui-widget-overlay {
-    background: #AAAAAA url("images/ui-bg_highlight-soft_30_AAAAAA_1x100.png") 50% top repeat-x;
-    opacity: .9;
-    filter: Alpha(Opacity=90);
+   background: #AAAAAA url("images/ui-bg_highlight-soft_30_AAAAAA_1x100.png") 50% top repeat-x;
+   opacity: .9;
+   filter: Alpha(Opacity=90);
 }
 .ui-widget-shadow {
-    margin: -1px 0 0 -1px;
-    padding: 2px;
-    background: #676767 url("images/ui-bg_flat_0_676767_40x100.png") 50% 50% repeat-x;
-    opacity: .4;
-    filter: Alpha(Opacity=40);
-    border-radius: 3px;
+   margin: -1px 0 0 -1px;
+   padding: 2px;
+   background: #676767 url("images/ui-bg_flat_0_676767_40x100.png") 50% 50% repeat-x;
+   opacity: .4;
+   filter: Alpha(Opacity=40);
+   border-radius: 3px;
 }
 /* PrimeFaces Extensions */
 .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
-    background: #ffffff;
-    /*-moz-box-shadow: inset 0 2px 2px #8f8f8f;
-    -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
-    box-shadow: inset 0 2px 2px #8f8f8f;*/
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    color: #313131;
+   background: #ffffff;
+   /*-moz-box-shadow: inset 0 2px 2px #8f8f8f;
+   -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
+   box-shadow: inset 0 2px 2px #8f8f8f;*/
+   -moz-box-shadow: none;
+   -webkit-box-shadow: none;
+   box-shadow: none;
+   color: #313131;
 }
 
 .ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield.ui-state-focus, .ui-widget-header .ui-inputfield.ui-state-focus {
-    /*-moz-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-    -webkit-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-    box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;*/
-    box-shadow: none;
+   /*-moz-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+   -webkit-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+   box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;*/
+   box-shadow: none;
 }
 
 .ui-tooltip {
-    background: white !important;
+   background: white !important;
 }
 
 .ui-clock {
-    padding: 4px 0px;
-    background: initial;
-    color: black;
-    border: 0px;
+   padding: 4px 0px;
+   background: initial;
+   color: black;
+   border: 0px;
 }
 
 .outputTextFielset{
-    font-weight: bold;
-    color: #0000FF;
-    position: absolute;
-    top: -9px;
-    left: 10px;
-    /*background: #CBCFDA;*/
-    background: #FFFFFF;
-    padding: 0px 3px;
+   font-weight: bold;
+   color: #0000FF;
+   position: absolute;
+   top: -9px;
+   left: 10px;
+   /*background: #CBCFDA;*/
+   background: #FFFFFF;
+   padding: 0px 3px;
 }
 
 .cssBotonesEmpleado{
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    padding-left: 0px;
-    padding-right: 0px;
+   position: absolute;
+   width: 30px;
+   height: 30px;
+   padding-left: 0px;
+   padding-right: 0px;
 }
 
 .ui-button-text-only .ui-button-text{
-    padding: 0 0 0;
+   padding: 0 0 0;
 }
 .ui-button{
-    padding-left: 5px;
-    padding-right: 5px;
+   padding-left: 5px;
+   padding-right: 5px;
 }
 
 .ui-datatable .cssFiltroLOV {
-    width: 45% !important;
-    display: inline-block; margin-left: 15px;
+   width: 45% !important;
+   display: inline-block;
+   margin-left: 15px;
 } 
 
 .ui-datatable-scrollable .ui-datatable-scrollable-footer {
-    /*position: rela;*/
-    height: 11px;
+   /*position: rela;*/
+   height: 11px;
+   background: #85b2cb !important;
 }
 
 .ui-datatable-scrollable .ui-datatable-scrollable-footer button {
-    top: -7px;
-    height: 20px;
-    border-radius: 0px;
-    margin-left: -10px; 
-    margin-right: -10px;
-    background-color: #61A0CA;
+   top: -7px;
+   height: 20px;
+   border-radius: 0px;
+   margin-left: -10px; 
+   margin-right: -10px;
+   background-color: #61A0CA;
 }
 
 .ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker{
-    width: 78px;
-    text-align: center;
-    padding-left: 0px;
-    padding-right: 0px;
-    height: 11px;
+   width: 78px;
+   text-align: center;
+   padding-left: 0px;
+   padding-right: 0px;
+   height: 11px;
 }
 
 .ui-datatable thead th,
@@ -458,104 +460,104 @@ button .ui-widget-header{
 .ui-datatable tbody th, 
 .ui-datatable tbody td
 {
-    padding: 1px 1px !important;
+   padding: 1px 1px !important;
 }
 
 .ui-datatable-scrollable .ui-cell-editor-input input,
 .ui-datatable-scrollable .ui-cell-editor-input .ui-input,
 .ui-datatable-scrollable .ui-cell-editor-input .ui-inputfield
 {
-    height: 99% !important;
-    width: 99% !important;
-    padding: 2px 2px !important; 
+   height: 99% !important;
+   width: 99% !important;
+   padding: 2px 2px !important; 
 }
 
 .ui-inputfield.ui-inputtext.ui-widget.ui-state-focus.ui-corner-all,
 .ui-inputfield.ui-widget.ui-state-focus.ui-corner-all.hasDatepicker 
 {
-    background-color: white !important;
-    color: black !important;
+   background-color: white !important;
+   color: black !important;
 }
 
 .ui-state-default ui-sortable-column ui-filter-column input{
-    padding-top: 3px !important;
-    padding-bottom: 3px !important;
+   padding-top: 3px !important;
+   padding-bottom: 3px !important;
 }
 
 .ui-column-filter.ui-inputfield {
-    height: 12px !important;
-    padding: 2px;
-    margin-bottom: 2px !important;
+   height: 12px !important;
+   padding: 2px;
+   margin-bottom: 2px !important;
 }
 
 .ui-datatable tbody td {
-    padding-left: 3px !important;
+   padding-left: 3px !important;
 }
 
 .ui-datatable-scrollable .ui-state-highlight input,
 .ui-datatable-scrollable .ui-state-highlight .ui-input
 {
-    margin: 0px !important;
-    background-color: #0A246A !important;
-    color: white !important;
-    margin-left: -2px !important;
-    border-radius: 2px !important;
+   margin: 0px !important;
+   background-color: #0A246A !important;
+   color: white !important;
+   margin-left: -2px !important;
+   border-radius: 2px !important;
 }
 
 .ui-datatable-scrollable .ui-state-highlight .ui-inputfield{
-    /*width: 98% !important;*/
-    margin: 0px !important;
-/*    color: white !important;*/
-    margin-left: -3px !important;
-    border-radius: 3px !important;
+   /*width: 98% !important;*/
+   margin: 0px !important;
+   /*    color: white !important;*/
+   margin-left: -3px !important;
+   border-radius: 3px !important;
 }
 
 .ui-datatable-scrollable-theadclone tr th {
-    height: 0px !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
+   height: 0px !important;
+   padding-top: 0px !important;
+   padding-bottom: 0px !important;
 }
 
 .ui-datepicker .ui-datepicker-header {
-    background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x
+   background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x
 }
 
 .ui-scrollpanel-hbar .ui-scrollpanel-track {
-    height: 10px !important;
-    background: #9CC3DD !important; 
+   height: 10px !important;
+   background: #9CC3DD !important; 
 }
 
 .ui-scrollpanel-hbar .ui-scrollpanel-drag {
-    background: #578CB0  !important;
-    border-radius: 3px !important;
-    height: 12px !important;
-    top: -1px !important;
+   background: #578CB0  !important;
+   border-radius: 3px !important;
+   height: 12px !important;
+   top: -1px !important;
 }
 
 .ui-selectonemenu {
-    display: block;
-    height: 19px;
-    padding-right: 27px;
-    font-size: 11px !important;
+   display: block;
+   height: 19px;
+   padding-right: 27px;
+   font-size: 11px !important;
 }
 
 .ui-selectonemenu .ui-selectonemenu-trigger {
-    height: 93% !important;
+   height: 93% !important;
 }
 
 .ui-fileupload-content {
-    display: none !important;
-    /*border: none !important;*/
-    background-color: white !important;
+   display: none !important;
+   /*border: none !important;*/
+   background-color: white !important;
 }
 
 .ui-fileupload-buttonbar, .ui-fileupload-buttonbar-.ui-widget-header {
-    padding: 0 0;
-    background-color: white !important;
+   padding: 0 0;
+   background-color: white !important;
 }
 
 .ui-selectonemenu label.ui-selectonemenu-label {
-    padding: 2px 3px !important;
+   padding: 2px 3px !important;
 }
 /*
 .ui-datatable-scrollable .ui-cell-editor {
@@ -563,51 +565,51 @@ button .ui-widget-header{
 }*/
 
 .ui-datatable-scrollable .ui-cell-editor-output {
-    width: max-content;
-    width: -moz-max-content;
-    height: 18px;
-    position: relative;
-    margin: 0px;
+   width: max-content;
+   width: -moz-max-content;
+   height: 18px;
+   position: relative;
+   margin: 0px;
 }
 
 .ui-paginator.ui-paginator-bottom {
-    display: none !important;
+   display: none !important;
 }
 
 .ui-paginator-top {
-    text-align: right !important;
-    font-size: 11px;
-    height: 19px;
-    padding-top: 1px !important;
+   text-align: right !important;
+   font-size: 11px;
+   height: 19px;
+   padding-top: 1px !important;
 }
 
 .ui-datatable-scrollable{
-    font-size: 11px !important;
-    border: none;
+   font-size: 11px !important;
+   border: none;
 }
 
 .ui-paginator-top .ui-paginator-jtp-select{
-    margin-right: 5px !important;
-    width: 50px !important;
+   margin-right: 5px !important;
+   width: 50px !important;
 }
 
 .ui-paginator-top a{
-    color: transparent !important;
+   color: transparent !important;
 }
 
 .ui-paginator-current{
-    margin: 0px !important;
+   margin: 0px !important;
 }
 
 .ui-paginator-first{
-    margin-left: 15px !important;
+   margin-left: 15px !important;
 }
 
 .ui-datatable-scrollable-header,
 .ui-datatable-scrollable-body,
 .ui-datatable-scrollable-footer{
-    border-left: solid #C0D0DA 2px !important;
-    border-right: solid #C0D0DA 2px !important;
+   border-left: solid #C0D0DA 2px !important;
+   border-right: solid #C0D0DA 2px !important;
 }
 
 /* Clases que yo cree */
@@ -616,350 +618,350 @@ button .ui-widget-header{
 .cssColumnasNumericas .ui-cell-editor-input input,
 .cssColumnasNumericas input
 {
-    width: 100% !important;
-    text-align: right !important;
+   width: 100% !important;
+   text-align: right !important;
 }
 .cssColumnasNumericas
 {
-    text-align: right !important;
+   text-align: right !important;
 }
 
 .cssColumnasCentradas .ui-cell-editor-output,
 .cssColumnasCentradas .ui-cell-editor-input input,
 .cssColumnasCentradas input
 {
-    width: 100% !important;
-    text-align: center !important;
+   width: 100% !important;
+   text-align: center !important;
 }
 
 .cssColumnasCentradas{
-    text-align: center !important;
+   text-align: center !important;
 }
 
 .cssTablaFooterAlto .ui-datatable-scrollable-footer,
 .cssTablaFooterAlto tfoot tr td {
-    /*position: rela;*/
-    height: 22px !important;
+   /*position: rela;*/
+   height: 22px !important;
 }
 
 .ui-datatable-scrollable th {
-    text-align: center !important;
+   text-align: center !important;
 }
 
 .ui-inputnumber input {
-    width: 100% !important;
+   width: 100% !important;
 }
 
 .ui-datatable .ui-inputnumber input {
-    height: 10px !important;
-    border: none !important;   
-    padding-bottom: 2px !important;
-    padding-top: 2px !important;
+   height: 10px !important;
+   border: none !important;   
+   padding-bottom: 2px !important;
+   padding-top: 2px !important;
 }
 
 .cssToolbar{
-    background: transparent;
-    /*border-color: #61A0CA;*/
-    border-color: #C7BFBF;
-    position: absolute; 
-    top: 37px; 
-    left: 12px; 
-    height: 25px;
-    width: 96%;
+   background: transparent;
+   /*border-color: #61A0CA;*/
+   border-color: #C7BFBF;
+   position: absolute; 
+   top: 37px; 
+   left: 12px; 
+   height: 25px;
+   width: 96%;
 }
 
 .cssToolbar .ui-button {
-    width: 25px; 
-    height: 25px;
-    border: none;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+   width: 25px; 
+   height: 25px;
+   border: none;
+   background-size: 100% 100%;
+   background-repeat: no-repeat;
 }
 
 .cssBotonAceptar {
-    width: 90px;
-    height: 30px;
-    background-image: url(../../Imagenes/Iconos/aceptar.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    position: absolute;
-    left: 685px;
-    top: 501px;
+   width: 90px;
+   height: 30px;
+   background-image: url(../../Imagenes/Iconos/aceptar.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   position: absolute;
+   left: 685px;
+   top: 501px;
 }
 
 .cssBotonCancelar {
-    width: 90px;
-    height: 30px;
-    background-image: url(../../Imagenes/Iconos/cancelar.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    position: absolute;
-    left: 775px;
-    top: 501px;
+   width: 90px;
+   height: 30px;
+   background-image: url(../../Imagenes/Iconos/cancelar.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   position: absolute;
+   left: 775px;
+   top: 501px;
 }
 
 .cssBotonLargo {
-    background-image: url(../../Imagenes/Iconos/botonL.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    color: white !important;
-    border: none !important;
-    width: 170px;
-    height: 28px; 
+   background-image: url(../../Imagenes/Iconos/botonL.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   color: white !important;
+   border: none !important;
+   width: 170px;
+   height: 28px; 
 }
 
 .cssBoton {
-    background-image: url(../../Imagenes/Iconos/boton.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    color: white !important;
-    border: none !important;
-    width: 130px;
-    height: 30px; 
+   background-image: url(../../Imagenes/Iconos/boton.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   color: white !important;
+   border: none !important;
+   width: 130px;
+   height: 30px; 
 }
 
 .cssBotonLovDialogos {
-    background-image: url(../../Imagenes/Iconos/lupa.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    width: 20px;
-    height: 20px;
+   background-image: url(../../Imagenes/Iconos/lupa.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   width: 20px;
+   height: 20px;
 }
 
 .cssBotonDefault {
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none;
 }
 
 .cssBotonesLOV {
-    position: relative; width: 100%; height: 40px;
+   position: relative; width: 100%; height: 40px;
 }
 
 .cssinfoRegistroLOV {
-    position: relative; top: 5px; font-weight: bold;
+   position: relative; top: 5px; font-weight: bold;
 }
 
 .cssAceptarLOV {
-    position: absolute; margin-top: 10px;
-    right: 110px; width: 100px;
+   position: absolute; margin-top: 10px;
+   right: 110px; width: 100px;
 }
 
 .cssAtrasLOV {
-    position: absolute;
-    margin-top: 10px;
-    right: 10px;
-    width: 100px;
+   position: absolute;
+   margin-top: 10px;
+   right: 10px;
+   width: 100px;
 }
 
 .cssTextAreaEdit {
-    height: 60px !important;
+   height: 60px !important;
 }
 
 .cssBotonBuscar {
-    background-image: url(../../Imagenes/Iconos/buscardb.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    width: 90px !important;
-    height: 30px !important; 
+   background-image: url(../../Imagenes/Iconos/buscardb.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   width: 90px !important;
+   height: 30px !important; 
 }
 
 .cssBotonMostrarTodos {
-    background-image: url(../../Imagenes/Iconos/todosdb.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    width: 90px !important;
-    height: 30px !important; 
+   background-image: url(../../Imagenes/Iconos/todosdb.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   width: 90px !important;
+   height: 30px !important; 
 }
 
 .cssBotonBuscarL {
-    background-image: url(../../Imagenes/Iconos/buscardbL.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    width: 150px !important;
-    height: 30px !important; 
+   background-image: url(../../Imagenes/Iconos/buscardbL.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   width: 150px !important;
+   height: 30px !important; 
 }
 
 .cssBotonMostrarTodosL {
-    background-image: url(../../Imagenes/Iconos/todosdbL.png) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    border: none !important;
-    width: 150px !important;
-    height: 30px !important; 
+   background-image: url(../../Imagenes/Iconos/todosdbL.png) !important;
+   background-size: 100% 100% !important;
+   background-repeat: no-repeat !important;
+   border: none !important;
+   width: 150px !important;
+   height: 30px !important; 
 }
 
 .cssDialogosEditar textArea {
-    height: 66px !important;
-    width: 366px !important;
+   height: 66px !important;
+   width: 366px !important;
 }
 
 .cssScrollPanelsBusquedaAv {
-    position: relative; top: 0px; left: 0px; width: 864px; height: 238px; font-size: 11px; border: none; padding-left: -5px; padding-right: -5px;
+   position: relative; top: 0px; left: 0px; width: 864px; height: 238px; font-size: 11px; border: none; padding-left: -5px; padding-right: -5px;
 }
 
 .cssScrollPanelsBusquedaAv .ui-tabs-top,
 .cssScrollPanelsBusquedaAv .ui-tabs .ui-tabs-nav{
-    height: 20px !important;
+   height: 20px !important;
 }
 
 .cssScrollPanelsBusquedaAv .ui-tabs-nav li{
-    top: 0px !important;
-    height: 20px !important;
-    margin-top: -3px !important;
+   top: 0px !important;
+   height: 20px !important;
+   margin-top: -3px !important;
 }
 
 .cssScrollPanelsBusquedaAv .ui-tabs-selected a {
-    height: 10px !important;
+   height: 10px !important;
 }
 
 .cssBotonClonar{
-    background-image: url(../../Imagenes/Iconos/duplicar.png) !important;
-    background-size: 96% 96% !important;
-    background-repeat: no-repeat !important;
-    border: solid 2px #1A5FA0 !important;
-    border-radius: 8px !important;
-    padding: 3px !important;
-    width: 46px;
-    height: 46px;
+   background-image: url(../../Imagenes/Iconos/duplicar.png) !important;
+   background-size: 96% 96% !important;
+   background-repeat: no-repeat !important;
+   border: solid 2px #1A5FA0 !important;
+   border-radius: 8px !important;
+   padding: 3px !important;
+   width: 46px;
+   height: 46px;
 }
 
 .cssBotonesNominafVigencias{
-    position: absolute !important;
-    width: 40px !important;
-    height: 40px !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-    border: outset !important;
-    border-width: 0px !important;
+   position: absolute !important;
+   width: 40px !important;
+   height: 40px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: outset !important;
+   border-width: 0px !important;
 }
 
 .cssComandsLinksNominaf {
-    position: absolute !important;
-    font-weight: bold !important;
-    color: #14388B !important;
+   position: absolute !important;
+   font-weight: bold !important;
+   color: #14388B !important;
 }
 
 .cssOutputTextNomina {
-    position: absolute !important;
-    top: 104px !important;
-    color: #14388B !important;
-    font-weight: bold !important;
-    text-align: center !important;
-    width: 160px !important;
+   position: absolute !important;
+   top: 104px !important;
+   color: #14388B !important;
+   font-weight: bold !important;
+   text-align: center !important;
+   width: 160px !important;
 }
 
 .cssOutputTextNomina3 {
-    width: 160px !important;
-    height: 12px !important;
-    position: absolute !important;
-    color: #14388B !important;
-    font-weight: bold !important;
-    text-align: center !important;
+   width: 160px !important;
+   height: 12px !important;
+   position: absolute !important;
+   color: #14388B !important;
+   font-weight: bold !important;
+   text-align: center !important;
 }
 
 .cssOutputTextNomina2 {
-    width: 280px !important;
-    height: 12px !important;
-    position: absolute !important;
-    color: #14388B !important;
-    font-weight: bold !important;
-    text-align: justify !important;
+   width: 280px !important;
+   height: 12px !important;
+   position: absolute !important;
+   color: #14388B !important;
+   font-weight: bold !important;
+   text-align: justify !important;
 }
 
 .cssOutputTextNomina2N {
-    width: 280px !important;
-    height: 12px !important;
-    position: absolute !important;
-    text-align: justify !important;
+   width: 280px !important;
+   height: 12px !important;
+   position: absolute !important;
+   text-align: justify !important;
 }
 
 .cssOutputTextCajas {
-    position: absolute !important;
-    width: 210px !important;
-    height: 12px !important;
-    box-shadow: none !important;
-    border: none !important;
-    font-size: 0.9em !important;
+   position: absolute !important;
+   width: 210px !important;
+   height: 12px !important;
+   box-shadow: none !important;
+   border: none !important;
+   font-size: 0.9em !important;
 }
 
 .cssBotonesNomina {
-    position: absolute !important;
-    top: 7px !important;
-    width: 95px !important;
-    height: 95px !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-    border: none !important;
+   position: absolute !important;
+   top: 7px !important;
+   width: 95px !important;
+   height: 95px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
 }
 
 .cssBotonesPInferior {
-    width: 40px !important;
-    height: 40px !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-    border: none !important;
+   width: 40px !important;
+   height: 40px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
 }
 
 .cssBotonesNomina2 {
-    position: absolute !important;
-    width: 78px !important;
-    height: 78px !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-    border: none !important;
+   position: absolute !important;
+   width: 78px !important;
+   height: 78px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
 }
 
 .cssBotonesIntegracion {
-    position: absolute !important;
-    width: 90px !important;
-    height: 90px !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-    border: none !important;
+   position: absolute !important;
+   width: 90px !important;
+   height: 90px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
 }
 
 .cssBotonesNomina3 {
-    position: absolute !important;
-    width: 100px !important;
-    height: 100px !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-    border: none !important;
+   position: absolute !important;
+   width: 100px !important;
+   height: 100px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
 }
 
 .cssBotonConImagen{
-    position: absolute !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-    border: none !important;
+   position: absolute !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
 }
 
 .ui-selectonemenu{
-    min-width: 0px !important;
+   min-width: 0px !important;
 }
 
 .ui-button.ui-state-focus{
-    border-left: solid 2px #1A5FA0 !important;
-    border-right: solid 2px #1A5FA0 !important;
-    border-top: solid 2px #5498D8 !important;
-    border-bottom: solid 2px #5498D8 !important;
+   border-left: solid 2px #1A5FA0 !important;
+   border-right: solid 2px #1A5FA0 !important;
+   border-top: solid 2px #5498D8 !important;
+   border-bottom: solid 2px #5498D8 !important;
 }
 
 a:link:focus {
-    border-radius: 4px;
-    padding: 0px 3px;
-    border-left: solid 1px #1A5FA0 !important;
-    border-right: solid 1px #1A5FA0 !important;
-    border-top: solid 1px #5498D8 !important;
-    border-bottom: solid 1px #5498D8 !important;
-    z-index: 99;
+   border-radius: 4px;
+   padding: 0px 3px;
+   border-left: solid 1px #1A5FA0 !important;
+   border-right: solid 1px #1A5FA0 !important;
+   border-top: solid 1px #5498D8 !important;
+   border-bottom: solid 1px #5498D8 !important;
+   z-index: 99;
 }
 
 .ui-paginator-page.ui-state-focus,
@@ -967,28 +969,25 @@ a:link:focus {
 .ui-paginator-last.ui-state-focus,
 .ui-paginator-first.ui-state-focus,
 .ui-paginator-prev.ui-state-focus {
-    padding: 2px 6px !important;
+   padding: 2px 6px !important;
 }
 
 .ui-selectonemenu-trigger.ui-corner-right.ui-state-highlight,
 .ui-selectonemenu-trigger.ui-corner-right.ui-state-focus{
-    background: #1A5FA0 !important;
-    border-radius: 2px !important;
-    border-color: white !important; 
-    color: black !important;
+   background: #1A5FA0 !important;
+   border-radius: 2px !important;
+   border-color: white !important; 
+   color: black !important;
 }
 
 .ui-datatable-scrollable .ui-cell-editor-input .ui-selectonemenu label.ui-selectonemenu-label.ui-inputfield {
-    background: #0a246a !important;
-    margin-left: 0px !important;
-}
-
-.ui-datatable-scrollable .ui-cell-editor-input .ui-selectonemenu{
-    padding-left: 0px !important;
+   background: #0a246a !important;
+   margin-left: 0px !important;
+   color: white !important;
 }
 
 .cssParametrosReportes { 
-    height: 14px !important;
-    padding-bottom: 1px !important;
-    padding-top: 1px !important;
+   height: 14px !important;
+   padding-bottom: 1px !important;
+   padding-top: 1px !important;
 }

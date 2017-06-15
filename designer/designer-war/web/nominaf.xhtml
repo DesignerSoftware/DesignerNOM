@@ -811,7 +811,8 @@
                            </p:dataTable>
                            <h:outputText id="infoRegistroTablas" value="Registros: #{controlRemoto.infoRegistroMod}" style="font-weight: bold; display: block; position: relative; top: 0px;"/>
                            <p:commandButton id="buscartablas" value="" class="cssBotonBuscar" style="position: relative; top: -10px; left: 620px;"
-                                            actionListener="#{controlRemoto.buscarTablas()}" disabled="#{controlRemoto.buscarTablasLOV}"/>
+                                            actionListener="#{controlRemoto.buscarTablas()}"/>
+                           <!--disabled="#/{controlRemoto.buscarTablasLOV}"-->
                            <p:commandButton id="mostrartodastablas" value="" class="cssBotonMostrarTodos" style="position: relative; top: -10px; left: 620px;"
                                             disabled="#{controlRemoto.mostrarTodasTablas}" actionListener="#{controlRemoto.mostrarTodo_Tablas()}"/>
                         </fieldset>
@@ -925,43 +926,41 @@
                   </p:dialog>
                </h:form>
 
-               <!-- LOV TABLAS-->
-               <p:dialog id="buscartablasdialogo" widgetVar="buscartablasdialogo" header="Tablas" draggable="true" resizable="false" closable="false"   
-                         showEffect="fade" hideEffect="fade" width="548" modal="true">
-                  <p:dataTable id="lovtablas" widgetVar="lovtablas" var="tabla" value="#{controlRemoto.listTablasLOV}" rowKey="#{tabla.secuencia}"
-                               selection="#{controlRemoto.tablaSeleccionadaLOV}" selectionMode="single" scrollable="true" scrollWidth="527" scrollHeight="250"
-                               filteredValue="#{controlRemoto.filtradoListTablasLOV}" emptyMessage="#{msg['lovvacio']}">              
+               <h:form id="formlovtablas">
+                  <p:dialog header="Tablas" widgetVar="buscartablasdialogo" draggable="true" resizable="false" closable="false" id="buscartablasdialogo"  
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovtablas" var="tab" value="#{controlRemoto.listTablasLOV}" rowKey="#{tab.secuencia}"
+                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="414" selectionMode="single" widgetVar="lovtablas" scrollable="true" scrollHeight="250" 
+                                  filteredValue="#{controlRemoto.filtradoListTablasLOV}" emptyMessage="#{msg['lovvacio']}">   
 
-                     <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:aceptart"/>
-                     <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTabla()}" process="@this"/>
-                     <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBT()}"/>
+                        <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBT()}" process="@this"/>
+                        <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:formlovtablas:aceptarTT"/>
+                        <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTabla()}" process="@this"/>
 
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarT']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV"/>  
-                     </f:facet>
-
-                     <p:column filterBy="#{tabla.nombre}" sortBy="#{tabla.nombre}" filterMatchMode="contains" filterStyle="width: 150px">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['nombre']}"/>
+                        <f:facet name="header">  
+                           <h:outputText value="Buscar Tabla:"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <h:outputText value="#{tabla.nombre}"/>
-                     </p:column>
-
-                     <p:column filterBy="#{tabla.descripcion}" sortBy="#{tabla.descripcion}" filterMatchMode="contains" filterStyle="width: 150px">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['descripcion']}"/>
-                        </f:facet>
-                        <h:outputText  value="#{tabla.descripcion}"/>
-                     </p:column>
-                  </p:dataTable>
-
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="inforegistrobuscartablas" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarTablas}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
-                     <p:commandButton id="aceptart" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlRemoto.buscar}" actionListener="#{controlRemoto.seleccionTabla()}"  process="@this"/>
-                     <p:commandButton id="atrasf" class="cssAtrasLOV" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('buscartablasdialogo').hide()" actionListener="#{controlRemoto.cancelarSeleccionTabla()}"  process="@this"/>
-                  </div>
-               </p:dialog>
+                        <p:column filterBy="#{tab.nombre}" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['nombre']}"/>
+                           </f:facet>
+                           <h:outputText value="#{tab.nombre}"/>
+                        </p:column>
+                        <p:column filterBy="#{tab.descripcion}" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['descripcion']}"/>
+                           </f:facet>
+                           <h:outputText value="#{tab.descripcion}"/>
+                        </p:column>
+                     </p:dataTable>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="inforegistrobuscartablas" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarTablas}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.buscar}" actionListener="#{controlRemoto.seleccionTabla()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasT" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlRemoto.cancelarSeleccionTabla()}" process="@this"/>
+                     </div>
+                  </p:dialog>
+               </h:form>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlRemoto.lab()}"/> 
                <p:hotkey bind="ctrl+f12" actionListener="#{controlRemoto.lab2()}"/>
@@ -1059,14 +1058,14 @@
                   <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.activos()}" icon="ui-icon-check" onclick="PF('activoEliminarPaso4').hide();"
                                    style="position: absolute; top: 60px; left: 280px;" process="@this"/>
                </p:dialog>
-                
-                <p:dialog id="errorInterfaz" widgetVar="errorInterfaz" header="#{msg['error']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
+
+               <p:dialog id="errorInterfaz" widgetVar="errorInterfaz" header="#{msg['error']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="70" height="60" style="position: absolute; left: 15px; top: 10px;"/>
                   <h:outputText value="#{controlRemoto.mensajeinterface}" style="position: absolute; left: 90px; top: 40px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorInterfaz').hide();"
                                    style="position: absolute; top: 60px; left: 280px;" process="@this"/>
                </p:dialog>
-                
+
             </h:form>
 
             <h:form id="formexportar">

@@ -576,7 +576,7 @@
                         <h:outputText value="#{msg['buscarEmp']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{empresa.codigo}" width="110" filterMatchMode="contains">
+                     <p:column filterBy="#{empresa.codigo}" width="110" filterMatchMode="contains" >
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoEmp']}"/>
                         </f:facet>

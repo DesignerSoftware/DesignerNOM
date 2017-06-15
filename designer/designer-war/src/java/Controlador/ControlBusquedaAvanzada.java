@@ -296,6 +296,7 @@ public class ControlBusquedaAvanzada implements Serializable {
    private List<ColumnasEscenarios> lovColumnasEscenarios;
    private List<ColumnasEscenarios> filtradoColumnasEscenarios;
    private List<ColumnasEscenarios> columnasEsSeleccionadas;
+   private List<ColumnasEscenarios> columnasEsSeleccionadas2;
    private String infoRegistroColumnasEs;
    //Variables control visibilidad.
    private String vTipoBusqueda;
@@ -342,6 +343,7 @@ public class ControlBusquedaAvanzada implements Serializable {
 
    public ControlBusquedaAvanzada() {
       //Inicializar objeto de negocio
+      columnasEsSeleccionadas = new ArrayList<ColumnasEscenarios>();
       parametros = new ParametrosBusquedaAvanzada();
       parametros.setParametrosBusquedaNomina(new ParametrosBusquedaNomina());
 
@@ -2005,8 +2007,7 @@ public class ControlBusquedaAvanzada implements Serializable {
       } else if (lovColumnasEscenarios.isEmpty()) {
          lovColumnasEscenarios = administrarBusquedaAvanzada.buscarColumnasEscenarios();
       }
-      columnasEsSeleccionadas = null;
-//      modificarInfoR(lovColumnasEscenarios.size()
+      columnasEsSeleccionadas2 = null;
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCB");
    }
 
@@ -2247,6 +2248,7 @@ public class ControlBusquedaAvanzada implements Serializable {
 
    //METODO ACEPTAR - PARAMETROS PERSONAL
    public void actualizarParametroPersonal(String tipoLov) {
+      //
       aceptar = true;
       if (tipoLov.equals("CIUDADNACIMIENTO")) {
          parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(ciudadSeleccionado);
@@ -2325,6 +2327,15 @@ public class ControlBusquedaAvanzada implements Serializable {
          filtroLovCargos = null;
       } else if (tipoLov.equals("COLUMNASBUSQUEDA")) {
          filtradoColumnasEscenarios = null;
+         if (!columnasEsSeleccionadas2.equals(null)) {
+            if (!columnasEsSeleccionadas2.isEmpty()) {
+               for (ColumnasEscenarios columna : columnasEsSeleccionadas2) {
+                  if (!columnasEsSeleccionadas.contains(columna)) {
+                     columnasEsSeleccionadas.add(columna);
+                  }
+               }
+            }
+         }
       }
    }
 
@@ -2390,7 +2401,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          cargoSeleccionado = null;
          filtroLovCargos = null;
       } else if (tipoLov.equals("COLUMNASBUSQUEDA")) {
-         columnasEsSeleccionadas = null;
+         columnasEsSeleccionadas2 = null;
          filtradoColumnasEscenarios = null;
       }
       anchoTablaResultados = 800 + "px";
@@ -3802,6 +3813,12 @@ public class ControlBusquedaAvanzada implements Serializable {
       }
    }
 
+   public void dialogoListaColumnas() {
+      columnasEsSeleccionadas.clear();
+      columnasEsSeleccionadas2 = null;
+      RequestContext.getCurrentInstance().execute("PF('detallesBusquedaDialogo').show();");
+   }
+
    //CONVERTIR LISTA A STRING
    public String convertirListaAString() {
       String columnas = "CODIGOEMPLEADO, NOMBRE, PRIMERAPELLIDO, SEGUNDOAPELLIDO";
@@ -4115,9 +4132,10 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    public void exportPDF() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosBusquedaAvanzadaExportar");
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:resultadoBusqueda");
       FacesContext context = FacesContext.getCurrentInstance();
       Exporter exporter = new ExportarPDF();
+      System.out.println("exportPDF() tabla.getColumns(): " + tabla.getColumnsCount());
       exporter.export(context, tabla, "ResultadosBusquedaAvanzada_PDF", false, false, "UTF-8", null, null);
       context.responseComplete();
    }
@@ -4133,9 +4151,10 @@ public class ControlBusquedaAvanzada implements Serializable {
     * @throws IOException Excepcion de In-Out de datos
     */
    public void exportXLS() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosBusquedaAvanzadaExportar");
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:resultadoBusqueda");
       FacesContext context = FacesContext.getCurrentInstance();
       Exporter exporter = new ExportarXLS();
+      System.out.println("exportXLS() tabla.getColumns(): " + tabla.getColumns());
       exporter.export(context, tabla, "ResultadosBusquedaAvanzada_XLS", false, false, "UTF-8", null, null);
       context.responseComplete();
 
@@ -5158,6 +5177,14 @@ public class ControlBusquedaAvanzada implements Serializable {
 
    public void setColumnasEsSeleccionadas(List<ColumnasEscenarios> seleccionColumnasEscenarios) {
       this.columnasEsSeleccionadas = seleccionColumnasEscenarios;
+   }
+
+   public List<ColumnasEscenarios> getColumnasEsSeleccionadas2() {
+      return columnasEsSeleccionadas2;
+   }
+
+   public void setColumnasEsSeleccionadas2(List<ColumnasEscenarios> columnasEsSeleccionadas2) {
+      this.columnasEsSeleccionadas2 = columnasEsSeleccionadas2;
    }
 
    public List<ResultadoBusquedaAvanzada> getFiltroResultadoBusqueda() {

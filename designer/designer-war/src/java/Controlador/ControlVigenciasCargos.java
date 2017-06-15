@@ -1420,6 +1420,7 @@ public class ControlVigenciasCargos implements Serializable {
       FacesContext context = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) context.getViewRoot().findComponent("formExportar:datosVCEmpleadoExportar");
       Exporter exporter = new ExportarPDF();
+      System.out.println("exportPDF() tabla: " + tabla.getColumns());
       exporter.export(context, tabla, "VigenciasCargosPDF", false, false, "UTF-8", null, null);
       context.responseComplete();
    }
@@ -1428,6 +1429,7 @@ public class ControlVigenciasCargos implements Serializable {
       FacesContext context = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) context.getViewRoot().findComponent("formExportar:datosVCEmpleadoExportar");
       Exporter exporter = new ExportarXLS();
+      System.out.println("exportXLS() tabla: " + tabla.getColumns());
       exporter.export(context, tabla, "VigenciasCargosXLS", false, false, "UTF-8", null, null);
    }
 

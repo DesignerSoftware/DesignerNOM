@@ -1865,7 +1865,7 @@
                                    background-size: 100% 100% !important; border-radius: 7px;
                                    background-repeat: no-repeat !important;
                                    font-family: Arial, Helvetica, sans-serif; width: 40px; height: 40px; background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
-                                   value="" onclick="PF('detallesBusquedaDialogo').show();"/>
+                                   value="" actionListener="#{controlBusquedaAvanzada.dialogoListaColumnas()}"/>
                   <p:tooltip style="font-size: 12px;" for="detalles" value="#{msg['textDetalles']}"/>
 
                   <p:commandButton id="btnbuscar" style="position: relative; left: 760px; top: 363px; font-size: 11px;
@@ -3451,7 +3451,7 @@
                <p:dialog header="Añadir detalles" widgetVar="columnasBusquedaDialogo" draggable="true" resizable="false" closable="false" id="columnasBusquedaDialogo" 
                          showEffect="fade" hideEffect="fade" width="530" modal="true" style="font-size: 11px;">
                   <p:dataTable id="lovColumnasBusqueda" var="columnaBusqueda" value="#{controlBusquedaAvanzada.lovColumnasEscenarios}" rowKey="#{columnaBusqueda.secuencia}"
-                               selection="#{controlBusquedaAvanzada.columnasEsSeleccionadas}" selectionMode="multiple" widgetVar="lovColumnasBusqueda" scrollable="true" scrollWidth="505" scrollHeight="250"
+                               selection="#{controlBusquedaAvanzada.columnasEsSeleccionadas2}" selectionMode="multiple" widgetVar="lovColumnasBusqueda" scrollable="true" scrollWidth="505" scrollHeight="250"
                                filteredValue="#{controlBusquedaAvanzada.filtradoColumnasEscenarios}" emptyMessage="#{msg['lovvacio']}">
 
                      <p:ajax event="filter" update=":formularioDialogos:infoRegistroCB, :formularioDialogos:aceptarCB"/> 
@@ -3490,7 +3490,7 @@
                   </div>       
                </p:dialog>
 
-               <p:dialog header="Detalles busqueda" widgetVar="detallesBusquedaDialogo" draggable="true" resizable="false" closable="false" id="detallesBusquedaDialogo" 
+               <p:dialog header="Detalles busqueda" widgetVar="detallesBusquedaDialogo" draggable="true" resizable="false" closable="true" id="detallesBusquedaDialogo" 
                          showEffect="fade" hideEffect="fade" width="530" modal="true" style="font-size: 11px;">
                   <p:dataTable id="detallesBusqueda" var="detalleBusqueda" value="#{controlBusquedaAvanzada.columnasEsSeleccionadas}" rowKey="#{detalleBusqueda.secuencia}"
                                widgetVar="detallesBusqueda" scrollable="true" scrollWidth="505" scrollHeight="250" emptyMessage="#{msg['lovvacio']}">

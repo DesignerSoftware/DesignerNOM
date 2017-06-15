@@ -393,7 +393,11 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.zona}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarTipoZonaDetalle" value="#{info.zona}">  
+                                 <p:selectOneMenu id="editarTipoZonaDetalle" value="#{info.zona}"
+                                                  onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                  onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
+                                                        posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);">  
                                     <f:selectItem itemLabel="#{msg['urbana']}" itemValue="URBANA"/>  
                                     <f:selectItem itemLabel="#{msg['rural']}" itemValue="RURAL"/> 
                                     <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresaSOneMenuCheckBox(info)}" process="@this"/>
@@ -547,9 +551,9 @@
                               <f:facet name="input">
                                  <p:selectOneMenu id="editarTipoPersonaDetalle" value="#{info.tipopersona}"
                                                   onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
-                                                  posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                        posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);"
                                                   onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
-                                                  posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                                        posicion([{name: 'n', value: '24'}, {name: 't', value: '#{indiceDE}'}]);">  
                                     <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['natural']}" itemValue="N"/>  
                                     <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J"/> 
@@ -570,9 +574,9 @@
                               <f:facet name="input">
                                  <p:selectOneMenu id="editarNaturalezaJDetalle" value="#{info.naturalezajuridica}"
                                                   onblur="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
-                                                  posicion([{name: 'n', value: '25'}, {name: 't', value: '#{indiceDE}'}]);"
+                                                        posicion([{name: 'n', value: '25'}, {name: 't', value: '#{indiceDE}'}]);"
                                                   onfocus="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});
-                                                  posicion([{name: 'n', value: '25'}, {name: 't', value: '#{indiceDE}'}]);">  
+                                                        posicion([{name: 'n', value: '25'}, {name: 't', value: '#{indiceDE}'}]);">  
                                     <f:selectItem itemLabel="" itemValue="null"/>  
                                     <f:selectItem itemLabel="#{msg['publica']}" itemValue="1"/>  
                                     <f:selectItem itemLabel="#{msg['privada']}" itemValue="2"/> 
@@ -825,95 +829,130 @@
 
                   <p:dialog header="#{msg['empresasD']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                             showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlDetalleEmpresa.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                     <p:dataTable id="lovEmpresas" var="empresa" value="#{controlDetalleEmpresa.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                   selection="#{controlDetalleEmpresa.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
 
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarE"/>
                         <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarEmpresa()}" process="@this"/>
+
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscarE']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{empresa.nombre}"  filterMatchMode="contains">
+                        <p:column filterBy="#{empresa.nit}" sortBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="NIR"/>
+                           </f:facet>
+                           <h:outputText value="#{empresa.nit}"/>
+                        </p:column>
+                        <p:column filterBy="#{empresa.nombre}" sortBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreE']}"/>
                            </f:facet>
                            <h:outputText value="#{empresa.nombre}"/>
                         </p:column>
                      </p:dataTable>
-
-                     <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
-                     <p:commandButton icon="ui-icon-check" id="aceptarE" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarEmpresa()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasE" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioEmpresa()}" process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarEmpresa()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioEmpresa()}" process="@this"/>
+                     </div>
                   </p:dialog>
 
-
                   <p:dialog header="#{msg['ciudadD']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
-                            showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovCiudad" style="width: 400px;" var="ciudad" value="#{controlDetalleEmpresa.lovCiudades}" rowKey="#{ciudad.secuencia}"
-                                  selection="#{controlDetalleEmpresa.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="416" scrollHeight="250"
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovCiudad" var="ciudad" value="#{controlDetalleEmpresa.lovCiudades}" rowKey="#{ciudad.secuencia}"
+                                  selection="#{controlDetalleEmpresa.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="414" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarC"/>
-                        <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCiudad()}"  process="@this"/>
+                        <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCiudad()}" process="@this"/>
 
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudad').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscarC']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudad').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains">
+
+                        <p:column filterBy="#{ciudad.nombre}" sortBy="#{ciudad.nombre}" filterMatchMode="contains" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreC']}"/>
                            </f:facet>
                            <h:outputText value="#{ciudad.nombre}"/>
                         </p:column>
+
+                        <p:column filterBy="#{ciudad.departamento.nombre}" sortBy="#{ciudad.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['departamento']}"/>
+                           </f:facet>
+                           <h:outputText value="#{ciudad.departamento.nombre}"/>
+                        </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroCiudad" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroCiudad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
-                     <p:commandButton icon="ui-icon-check" id="aceptarC" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarCiudad()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasC" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioCiudad()}" process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroCiudad" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroCiudad}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarCiudad()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasC" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioCiudad()}"/>
+                     </div>
                   </p:dialog>
 
                   <p:dialog header="#{msg['ciudadD']}" widgetVar="CiudadDocumentoDialogo" draggable="true" resizable="false" closable="false" id="CiudadDocumentoDialogo"  
-                            showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovCiudadDocumento" style="width: 400px;" var="ciudadDoc" value="#{controlDetalleEmpresa.lovCiudades}" rowKey="#{ciudadDoc.secuencia}"
-                                  selection="#{controlDetalleEmpresa.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadDocumento" scrollable="true" scrollWidth="416" scrollHeight="250"
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovCiudadDocumento" var="ciudadDoc" value="#{controlDetalleEmpresa.lovCiudades}" rowKey="#{ciudadDoc.secuencia}"
+                                  selection="#{controlDetalleEmpresa.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadDocumento" scrollable="true" scrollWidth="414" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovCiudades}" emptyMessage="#{msg['lovvacio']}">              
+
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarCD"/>
                         <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCiudadDocumento()}"  process="@this"/>
+
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscarC']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{ciudadDoc.nombre}"  filterMatchMode="contains">
+
+                        <p:column filterBy="#{ciudadDoc.nombre}" sortBy="#{ciudadDoc.nombre}" filterMatchMode="contains" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreC']}"/>
                            </f:facet>
                            <h:outputText value="#{ciudadDoc.nombre}"/>
                         </p:column>
+
+                        <p:column filterBy="#{ciudadDoc.departamento.nombre}" sortBy="#{ciudadDoc.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['departamento']}"/>
+                           </f:facet>
+                           <h:outputText value="#{ciudadDoc.departamento.nombre}"/>
+                        </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroCiudadDocumento" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroCiudadDocumento}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
-                     <p:commandButton icon="ui-icon-check" id="aceptarCD" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarCiudadDocumento()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCD" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioCiudadDocumento()}" process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroCiudadDocumento" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroCiudadDocumento}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarCD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarCiudadDocumento()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCD" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioCiudadDocumento()}" process="@this"/>
+                     </div>
                   </p:dialog>
 
                   <p:dialog header="#{msg['gerenteD']}" widgetVar="GerenteDialogo" draggable="true" resizable="false" closable="false" id="GerenteDialogo"  
-                            showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovGerente" style="width: 400px;" var="gerente" value="#{controlDetalleEmpresa.lovEmpleados}" rowKey="#{gerente.secuencia}"
-                                  selection="#{controlDetalleEmpresa.empleadoSeleccionado}" selectionMode="single" widgetVar="lovGerente" scrollable="true" scrollWidth="416" scrollHeight="250"
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovGerente" var="gerente" value="#{controlDetalleEmpresa.lovEmpleados}" rowKey="#{gerente.secuencia}"
+                                  selection="#{controlDetalleEmpresa.empleadoSeleccionado}" selectionMode="single" widgetVar="lovGerente" scrollable="true" scrollWidth="414" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarG"/>
                         <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarGerente()}"  process="@this"/>
+
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGerente').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscarG']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGerente').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{gerente.persona.nombreCompleto}" filterMatchMode="contains">
+
+                        <p:column filterBy="#{gerente.persona.numerodocumento}" sortBy="#{gerente.persona.numerodocumento}" filterMatchMode="contains" width="90" filterStyle="width: 75% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['numerodocumento']}"/>
+                           </f:facet>
+                           <h:outputText value="#{gerente.persona.numerodocumento}"/>
+                        </p:column>
+                        <p:column filterBy="#{gerente.persona.nombreCompleto}" sortBy="#{gerente.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreEmpl']}"/>
                            </f:facet>
@@ -921,24 +960,34 @@
                         </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroGerente" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroGerente}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
-                     <p:commandButton icon="ui-icon-check" id="aceptarG" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarGerente()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasG" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioGerente()}" process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroGerente" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroGerente}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarG" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarGerente()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasG" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioGerente()}" process="@this"/>
+                     </div>
                   </p:dialog>
 
                   <p:dialog header="#{msg['personaD']}" widgetVar="PersonaFirmaDialogo" draggable="true" resizable="false" closable="false" id="PersonaFirmaDialogo"  
-                            showEffect="fade" hideEffect="fade" width="431" modal="true">
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
                      <p:dataTable id="lovPersona" var="persona" value="#{controlDetalleEmpresa.lovPersonas}" rowKey="#{persona.secuencia}"
-                                  selection="#{controlDetalleEmpresa.personaSeleccionada}" selectionMode="single" widgetVar="lovPersona" scrollable="true" scrollWidth="416" scrollHeight="250"
+                                  selection="#{controlDetalleEmpresa.personaSeleccionada}" selectionMode="single" widgetVar="lovPersona" scrollable="true" scrollWidth="414" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovPersonas}" emptyMessage="#{msg['lovvacio']}">              
+
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarPF"/>
                         <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarPersona()}"  process="@this"/>
+
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscaP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPersona').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscaP']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPersona').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{persona.nombreCompleto}"  filterMatchMode="contains">
+
+                        <p:column filterBy="#{persona.numerodocumento}" sortBy="#{persona.numerodocumento}" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['numerodocumento']}"/>
+                           </f:facet>
+                           <h:outputText value="#{persona.numerodocumento}"/>
+                        </p:column>
+                        <p:column filterBy="#{persona.nombreCompleto}" sortBy="#{persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombrePer']}"/>
                            </f:facet>
@@ -946,24 +995,34 @@
                         </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroPersona" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroPersona}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
-                     <p:commandButton icon="ui-icon-check" id="aceptarPF" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}"  actionListener="#{controlDetalleEmpresa.actualizarPersona()}"  process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasPF" style="position: relative; left: 230px;" value="#{msg['atras']}"  actionListener="#{controlDetalleEmpresa.cancelarCambioPersona()}"  process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroPersona" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroPersona}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarPF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}"  actionListener="#{controlDetalleEmpresa.actualizarPersona()}"  process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasPF" class="cssAtrasLOV" value="#{msg['atras']}"  actionListener="#{controlDetalleEmpresa.cancelarCambioPersona()}" process="@this"/>
+                     </div>
                   </p:dialog>
 
                   <p:dialog header="#{msg['cargoD']}" widgetVar="CargoFirmaDialogo" draggable="true" resizable="false" closable="false" id="CargoFirmaDialogo"  
-                            showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovCargoFirma" style="width: 400px;" var="cargo" value="#{controlDetalleEmpresa.lovCargos}" rowKey="#{cargo.secuencia}"
-                                  selection="#{controlDetalleEmpresa.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargoFirma" scrollable="true" scrollWidth="416" scrollHeight="250"
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovCargoFirma" var="cargo" value="#{controlDetalleEmpresa.lovCargos}" rowKey="#{cargo.secuencia}"
+                                  selection="#{controlDetalleEmpresa.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargoFirma" scrollable="true" scrollWidth="414" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovCargos}" emptyMessage="#{msg['lovvacio']}">              
+
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarCF"/>
                         <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCargo()}"  process="@this"/>
+
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscaCar']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCargoFirma').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscaCar']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCargoFirma').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{cargo.nombre}" filterMatchMode="contains">
+
+                        <p:column filterBy="#{cargo.codigo}" sortBy="#{cargo.codigo}" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['codigo']}"/>
+                           </f:facet>
+                           <h:outputText value="#{cargo.codigo}"/>
+                        </p:column>
+                        <p:column filterBy="#{cargo.nombre}" sortBy="#{cargo.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreCar']}"/>
                            </f:facet>
@@ -971,24 +1030,34 @@
                         </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroCargo" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroCargo}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
-                     <p:commandButton icon="ui-icon-check" id="aceptarCF" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarCargo()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCF" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioCargo()}" process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroCargo" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroCargo}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarCF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarCargo()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCF" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioCargo()}" process="@this"/>
+                     </div>
                   </p:dialog>
 
                   <p:dialog header="#{msg['subGerenteD']}" widgetVar="SubGerenteDialogo" draggable="true" resizable="false" closable="false" id="SubGerenteDialogo"  
-                            showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovSubGerente" style="width: 400px;" var="subGerente" value="#{controlDetalleEmpresa.lovEmpleados}" rowKey="#{subGerente.secuencia}"
-                                  selection="#{controlDetalleEmpresa.empleadoSeleccionado}" selectionMode="single" widgetVar="lovSubGerente" scrollable="true" scrollWidth="416" scrollHeight="250"
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovSubGerente" var="subGerente" value="#{controlDetalleEmpresa.lovEmpleados}" rowKey="#{subGerente.secuencia}"
+                                  selection="#{controlDetalleEmpresa.empleadoSeleccionado}" selectionMode="single" widgetVar="lovSubGerente" scrollable="true" scrollWidth="414" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarSG"/>
                         <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarSubGerente()}"  process="@this"/>
+
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSubGerente').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscarG']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSubGerente').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{subGerente.persona.nombreCompleto}" width="140"  filterMatchMode="contains">
+
+                        <p:column filterBy="#{subGerente.persona.numerodocumento}" sortBy="#{subGerente.persona.numerodocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['numerodocumento']}"/>
+                           </f:facet>
+                           <h:outputText value="#{subGerente.persona.numerodocumento}"/>
+                        </p:column>
+                        <p:column filterBy="#{subGerente.persona.nombreCompleto}" sortBy="#{subGerente.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreEmpl']}"/>
                            </f:facet>
@@ -996,24 +1065,34 @@
                         </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroSubGerente" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroSubGerente}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
-                     <p:commandButton icon="ui-icon-check" id="aceptarSG" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarSubGerente()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasSG" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioSubGerente()}" process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroSubGerente" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroSubGerente}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarSG" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarSubGerente()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasSG" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioSubGerente()}" process="@this"/>
+                     </div>
                   </p:dialog>
 
                   <p:dialog header="#{msg['representanteD']}" widgetVar="RepresentanteDialogo" draggable="true" resizable="false" closable="false" id="RepresentanteDialogo"  
-                            showEffect="fade" hideEffect="fade" width="431" modal="true">
-                     <p:dataTable id="lovRepresentante" style="width: 400px;" var="representante" value="#{controlDetalleEmpresa.lovEmpleados}" rowKey="#{representante.secuencia}"
-                                  selection="#{controlDetalleEmpresa.empleadoSeleccionado}" selectionMode="single" widgetVar="lovRepresentante" scrollable="true" scrollWidth="416" scrollHeight="250"
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                     <p:dataTable id="lovRepresentante" var="representante" value="#{controlDetalleEmpresa.lovEmpleados}" rowKey="#{representante.secuencia}"
+                                  selection="#{controlDetalleEmpresa.empleadoSeleccionado}" selectionMode="single" widgetVar="lovRepresentante" scrollable="true" scrollWidth="414" scrollHeight="250"
                                   filteredValue="#{controlDetalleEmpresa.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+
                         <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarR"/>
                         <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarRepresentante()}"  process="@this"/>
+
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovRepresentante').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                           <h:outputText value="#{msg['buscarG']}"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovRepresentante').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{representante.persona.nombreCompleto}" width="140"  filterMatchMode="contains">globalFilter
+
+                        <p:column filterBy="#{representante.persona.numerodocumento}" sortBy="#{representante.persona.numerodocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['numerodocumento']}"/>
+                           </f:facet>
+                           <h:outputText value="#{representante.persona.numerodocumento}"/>
+                        </p:column>
+                        <p:column filterBy="#{representante.persona.nombreCompleto}" sortBy="#{representante.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreEmpl']}"/>
                            </f:facet>
@@ -1021,42 +1100,52 @@
                         </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistroRepresentante" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroRepresentante}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-                     <p:commandButton icon="ui-icon-check" id="aceptarR" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarRepresentante()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasR" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioRepresentante()}" process="@this"/>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroRepresentante" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroRepresentante}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarR" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarRepresentante()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasR" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioRepresentante()}" process="@this"/>
+                     </div>
                   </p:dialog>
                </p:panel>
 
-               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.guardadoGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
-                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 110px; top: 20px; width: 250px; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.guardadoGeneral()}"
+                                   style="position: absolute; top: 50px; left: 127px;" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDetalleEmpresa.cancelarModificacion()}"
+                                   style="position: absolute; top: 50px; left: 188px;" process="@this" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();"
+                                   style="position: absolute; top: 50px; left: 254px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
 
-               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.guardarSalir()}" style="position: absolute; top: 50px; left: 207px;" icon="ui-icon-check"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.salir()}" style="position: absolute; top: 50px; left: 258px;" icon="ui-icon-close"/>
-                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.guardarSalir()}"
+                                   style="position: absolute; top: 50px; left: 127px;" icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlDetalleEmpresa.salir()}"
+                                   style="position: absolute; top: 50px; left: 188px;" icon="ui-icon-close"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();"
+                                   style="position: absolute; top: 50px; left: 254px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'DetallesEmpresas', 'detalleempresa')}"
-                                   style="position: absolute; top: 63px; left: 230px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'DetallesEmpresas', 'detalleempresa')}"
+                                   style="position: absolute; top: 70px; left: 210px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close"
+                                   style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DetallesEmpresas', 'detalleempresa')}"
-                                   style="position: absolute; top: 60px; left: 230px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('DetallesEmpresas', 'detalleempresa')}"
+                                   style="position: absolute; top: 70px; left: 210px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close"
+                                   style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
@@ -1071,10 +1160,12 @@
 
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <h:outputText value="#{msg['errorTablaConRastro']}"
+                                style="position: absolute; left: 70px; top: 12px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleEmpresa.backUpSecRegistro, 'Proyectos', 'detalleempresa')}"
-                                   style="position: absolute; top: 60px; left: 230px;" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                                   style="position: absolute; top: 70px; left: 210px;" icon="ui-icon-check" onstart="#{controlDetalleEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('detalleempresa','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
+                                   style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
@@ -1084,29 +1175,26 @@
 
                <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;text-align: center;"/>
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="280"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 190px; font-weight: bold;"/>
                </p:dialog>
-               <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleEmpresa.activarCtrlF11()}"/> 
 
-               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas" resizable="false" draggable="true" modal="true" height="74" width="400" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
-                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorDatosNull" header="#{msg['atencion']}" widgetVar="errorDatosNull"  resizable="false" draggable="true" modal="true" height="110" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+               <p:dialog id="errorDatosNull" header="#{msg['atencion']}" widgetVar="errorDatosNull" resizable="false" draggable="true" modal="true" height="90" width="400" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNull']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
-                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorDatosNull').hide();" style="position: absolute; top: 75px; left: 300px;" process="@this"/>
                </p:dialog>
 
                <p:remoteCommand name="posicion" actionListener="#{controlDetalleEmpresa.posicionOtro()}"/>
-
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleEmpresa.activarCtrlF11()}"/> 
             </h:form>
             <h:form id="formularioDialogos">
 
