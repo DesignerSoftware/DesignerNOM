@@ -376,9 +376,9 @@
 
                <!-- DIALOGO L.O.V ESTATICO DE CIUDADES -->
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesDialogo" draggable="true" resizable="false" closable="false" id="ciudadesDialogo"  
-                         showEffect="fade" hideEffect="fade" width="430" modal="true">
+                         showEffect="fade" hideEffect="fade" width="460" height="450" modal="true">
                   <p:dataTable id="lovCiudades" var="ItemCiudad" value="#{controlVigenciasTiposContratos.listaCiudades}" rowKey="#{ItemCiudad.secuencia}"
-                               selection="#{controlVigenciasTiposContratos.ciudadSelecionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="405" scrollHeight="250"
+                               selection="#{controlVigenciasTiposContratos.ciudadSelecionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="435" scrollHeight="315"
                                filteredValue="#{controlVigenciasTiposContratos.filtradoCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlVigenciasTiposContratos.contarRegistrosCiudades()}"/>
@@ -391,25 +391,31 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudades').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterBy="#{ItemCiudad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
+                     <p:column filterBy="#{ItemCiudad.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['codigoC']}"/>
                         </f:facet>
                         <h:outputText  value="#{ItemCiudad.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{ItemCiudad.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
+                     <p:column filterBy="#{ItemCiudad.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['ciudadC']}"/>
                         </f:facet>
                         <h:outputText value="#{ItemCiudad.nombre}"/>
                      </p:column>
+                     <p:column filterBy="#{ItemCiudad.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <f:facet name="header">
+                           <h:outputText value="Departamento"/>
+                        </f:facet>
+                        <h:outputText value="#{ItemCiudad.departamento.nombre}"/>
+                     </p:column>
                   </p:dataTable>
 
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistro']} #{controlVigenciasTiposContratos.infoRegistroCiudades}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptarC" value="#{msg['aceptar']}" class="cssAceptarLOV" disabled="#{controlVigenciasTiposContratos.aceptar}" process="@this" actionListener="#{controlVigenciasTiposContratos.actualizarCiudad()}" icon="ui-icon-circle-check"
+                     <p:commandButton id="aceptarC" value="#{msg['aceptar']}" class="cssAceptarLOV" disabled="#{controlVigenciasTiposContratos.aceptar}" process="@this" actionListener="#{controlVigenciasTiposContratos.actualizarCiudad()}" icon="ui-icon-check"
                                       oncomplete="PF('ciudadesDialogo').hide(), PF('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
-                     <p:commandButton id="atrasC" value="#{msg['cancelar']}" class="cssAtrasLOV" actionListener="#{controlVigenciasTiposContratos.cancelarCambioCiudad()}"  process="@this" icon="ui-icon-circle-close"
+                     <p:commandButton id="atrasC" value="#{msg['cancelar']}" class="cssAtrasLOV" actionListener="#{controlVigenciasTiposContratos.cancelarCambioCiudad()}"  process="@this" icon="ui-icon-close"
                                       oncomplete="PF('ciudadesDialogo').hide(), PF('lovCiudades').clearFilters()" update=":formularioDialogos:ciudadesDialogo"/>
                   </div>
                </p:dialog> 

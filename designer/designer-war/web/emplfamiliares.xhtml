@@ -400,10 +400,10 @@
 
 
                <p:dialog header="Ciudad de Documento" widgetVar="ciudadDocumentoDialogo" draggable="true"
-                         resizable="false" closable="false" id="ciudadDocumentoDialogo" showEffect="fade" hideEffect="fade" width="418" modal="true">
+                         resizable="false" closable="false" id="ciudadDocumentoDialogo" showEffect="fade" hideEffect="fade" width="460" height="450" modal="true">
                   <p:dataTable id="lovCiudadDocumento" var="ciudadDIP" value="#{controlFamiliares.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
-                               selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="390" selectionMode="single" widgetVar="lovCiudadDocumento"
-                               scrollable="true" scrollHeight="250"
+                               selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="435" selectionMode="single" widgetVar="lovCiudadDocumento"
+                               scrollable="true" scrollHeight="315"
                                emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovCiudades}" liveScroll="true" scrollRows="50">
 
                      <p:ajax event="filter" listener="#{controlFamiliares.contarRegistroCiudades()}"/>
@@ -439,12 +439,12 @@
                   </div>
                </p:dialog>
 
-               <p:dialog header="Ciudad de Nacimiento" widgetVar="ciudadNacimientoDialogo" draggable="true" height="375"
-                         resizable="false" closable="false" id="ciudadNacimientoDialogo" showEffect="fade" hideEffect="fade" width="410" modal="true">
+               <p:dialog header="Ciudad de Nacimiento" widgetVar="ciudadNacimientoDialogo" draggable="true" height="450"
+                         resizable="false" closable="false" id="ciudadNacimientoDialogo" showEffect="fade" hideEffect="fade" width="460" modal="true">
 
                   <p:dataTable id="lovCiudadNacimiento" var="ciudadDIP" value="#{controlFamiliares.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
-                               selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="380" selectionMode="single"
-                               widgetVar="lovCiudadNacimiento" scrollable="true" scrollHeight="250"
+                               selection="#{controlFamiliares.ciudadSeleccionada}" scrollWidth="435" selectionMode="single"
+                               widgetVar="lovCiudadNacimiento" scrollable="true" scrollHeight="315"
                                emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlFamiliares.filtrarLovCiudades}"
                                liveScroll="true" scrollRows="50">
 

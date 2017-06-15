@@ -393,10 +393,10 @@
 
                     <!--DIALOGO CIUDADES-->    
                     <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesDialogo" draggable="true" resizable="false" id="ciudadesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="380">
+                              showEffect="fade" hideEffect="fade" modal="true" width="460" height="450">
 
                         <p:dataTable  id="LOVCiudades"  var="ciudad" value="#{controlDireccionesBancos.listaCiudades}"
-                                      scrollable="true" scrollHeight="250" scrollWidth="325" liveScroll="true" scrollRows="15" widgetVar="LOVCiudades" 
+                                      scrollable="true" scrollHeight="315" scrollWidth="435" liveScroll="true" scrollRows="30" widgetVar="LOVCiudades" 
                                       filteredValue="#{controlDireccionesBancos.listaCiudadesFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{ciudad.secuencia}" selection="#{controlDireccionesBancos.ciudadSeleccionada}" selectionMode="single">
                             <p:ajax event="filter" listener="#{controlDireccionesBancos.contarRegistrosCiudades()}"/>
@@ -407,11 +407,17 @@
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCiudades').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
-                            <p:column filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <p:column filterBy="#{ciudad.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreC']}"/>
                                 </f:facet>
                                 <h:outputText value="#{ciudad.nombre}"/>  
+                            </p:column>  
+                            <p:column filterBy="#{ciudad.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Departamento"/>
+                                </f:facet>
+                                <h:outputText value="#{ciudad.departamento.nombre}"/>  
                             </p:column>  
                         </p:dataTable>  
 

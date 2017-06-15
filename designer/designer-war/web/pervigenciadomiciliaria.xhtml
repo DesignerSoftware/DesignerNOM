@@ -1916,10 +1916,10 @@
                </p:dialog>
 
                <p:dialog header="Ciudades" widgetVar="ciudadesDireccionesDialogo" draggable="true" resizable="false" id="ciudadesDireccionesDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="347">
+                         showEffect="fade" hideEffect="fade" modal="true" width="460" height="450">
 
                   <p:dataTable  id="LOVDireccionesCiudades"  var="ciudad" value="#{controlPerVigenciaDomiciliaria.lovCiudadDireccion}"
-                                scrollable="true" scrollHeight="117" scrollWidth="315" liveScroll="true" scrollRows="8" widgetVar="LOVDireccionesCiudades" 
+                                scrollable="true" scrollHeight="315" scrollWidth="435" liveScroll="true" scrollRows="8" widgetVar="LOVDireccionesCiudades" 
                                 filteredValue="#{controlPerVigenciaDomiciliaria.lovCiudadDireccionFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{ciudad.secuencia}" selection="#{controlPerVigenciaDomiciliaria.ciudadDireccionSeleccionada}" selectionMode="single">
                      <p:ajax event="filter" listener="#{controlPerVigenciaDomiciliaria.contarRegistrosCiudadesDirecciones()}"/>
@@ -1930,11 +1930,17 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVDireccionesCiudades').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;"> 
+                     <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important"> 
                         <f:facet name="header">
                            <h:outputText value="Nombre"/>
                         </f:facet>
                         <h:outputText value="#{ciudad.nombre}"/>  
+                     </p:column>  
+                     <p:column filterBy="#{ciudad.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                        <f:facet name="header">
+                           <h:outputText value="Departamento"/>
+                        </f:facet>
+                        <h:outputText value="#{ciudad.departamento.nombre}"/>  
                      </p:column>  
                   </p:dataTable>  
 
@@ -1996,10 +2002,10 @@
 
 
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesTelefonoDialogo" draggable="true" resizable="false" id="ciudadesTelefonoDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="347">
+                         showEffect="fade" hideEffect="fade" modal="true" width="460" height="450">
 
                   <p:dataTable  id="LOVCiudadesTelefono"  var="ciudad" value="#{controlPerVigenciaDomiciliaria.lovCiudadTelefono}"
-                                scrollable="true" scrollHeight="117" scrollWidth="315" liveScroll="true" scrollRows="8" widgetVar="LOVCiudadesTelefono" 
+                                scrollable="true" scrollHeight="315" scrollWidth="435" liveScroll="true" scrollRows="8" widgetVar="LOVCiudadesTelefono" 
                                 filteredValue="#{controlPerVigenciaDomiciliaria.lovCiudadTelefonoFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{ciudad.secuencia}" selection="#{controlPerVigenciaDomiciliaria.ciudadTelefonoSeleccionada}" selectionMode="single">
                      <p:ajax event="filter" listener="#{controlPerVigenciaDomiciliaria.contarRegistrosCiudadesTelefonos()}"/>
@@ -2010,11 +2016,17 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVCiudadesTelefono').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;"> 
+                     <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreC']}"/>
                         </f:facet>
                         <h:outputText value="#{ciudad.nombre}"/>  
+                     </p:column>  
+                     <p:column filterBy="#{ciudad.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                        <f:facet name="header">
+                           <h:outputText value="Departamento"/>
+                        </f:facet>
+                        <h:outputText value="#{ciudad.departamento.nombre}"/>  
                      </p:column>  
                   </p:dataTable> 
 
@@ -2997,7 +3009,7 @@
                   </p:dataTable>
 
                   <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroTipoDocumento" value="#{msg['infoRegistro']} #{controlPerVigenciaDomiciliaria.infoRegistroTipoDocumento}" class="cssinfoRegistroLOV"/>
+                     <h:outputText id="infoRegistroTipoDocumento" value="#{msg['infoRegistros']} #{controlPerVigenciaDomiciliaria.infoRegistroTipoDocumento}" class="cssinfoRegistroLOV"/>
 
                      <p:commandButton id="aceptarTD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPerVigenciaDomiciliaria.aceptar}"
                                       actionListener="#{controlPerVigenciaDomiciliaria.actualizarTipoDocumento()}" process="@this" icon="ui-icon-check"/>
@@ -3006,10 +3018,10 @@
                </p:dialog>
 
                <p:dialog header="Ciudad de Documento" widgetVar="ciudadDocumentoDialogo" draggable="true"
-                         resizable="false" closable="false" id="ciudadDocumentoDialogo" showEffect="fade" hideEffect="fade" width="410" modal="true">
+                         resizable="false" closable="false" id="ciudadDocumentoDialogo" showEffect="fade" hideEffect="fade" width="460" height="450" modal="true">
                   <p:dataTable id="lovCiudadDocumento" var="ciudadDIP" value="#{controlPerVigenciaDomiciliaria.lovCiudadDocumento}" rowKey="#{ciudadDIP.secuencia}"
-                               selection="#{controlPerVigenciaDomiciliaria.ciudadSeleccionada}" scrollWidth="390" selectionMode="single" widgetVar="lovCiudadDocumento"
-                               scrollable="true" scrollHeight="250"
+                               selection="#{controlPerVigenciaDomiciliaria.ciudadSeleccionada}" scrollWidth="435" selectionMode="single" widgetVar="lovCiudadDocumento"
+                               scrollable="true" scrollHeight="315"
                                emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPerVigenciaDomiciliaria.lovCiudadDocumentoFiltrar}" liveScroll="true" scrollRows="50">
 
                      <p:ajax event="filter" listener="#{controlPerVigenciaDomiciliaria.contarRegistroCiudades()}"/>
@@ -3027,10 +3039,16 @@
                         </f:facet>
                         <h:outputText  value="#{ciudadDIP.nombre}"/>
                      </p:column>
+                     <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="Departamento"/>
+                        </f:facet>
+                        <h:outputText  value="#{ciudadDIP.departamento.nombre}"/>
+                     </p:column>
                   </p:dataTable>
 
                   <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistro']} #{controlPerVigenciaDomiciliaria.infoRegistroCiudadDocumento}" class="cssinfoRegistroLOV"/>
+                     <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerVigenciaDomiciliaria.infoRegistroCiudadDocumento}" class="cssinfoRegistroLOV"/>
 
                      <p:commandButton id="aceptarCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPerVigenciaDomiciliaria.aceptar}" 
                                       actionListener="#{controlPerVigenciaDomiciliaria.actualizarCiudadDocumento()}" process="@this" icon="ui-icon-check"/>
@@ -3039,12 +3057,12 @@
                   </div>
                </p:dialog>
 
-               <p:dialog header="Ciudad de Nacimiento" widgetVar="ciudadNacimientoDialogo" draggable="true" height="375"
-                         resizable="false" closable="false" id="ciudadNacimientoDialogo" showEffect="fade" hideEffect="fade" width="410" modal="true">
+               <p:dialog header="Ciudad de Nacimiento" widgetVar="ciudadNacimientoDialogo" draggable="true" height="450"
+                         resizable="false" closable="false" id="ciudadNacimientoDialogo" showEffect="fade" hideEffect="fade" width="460" modal="true">
 
                   <p:dataTable id="lovCiudadNacimiento" var="ciudadDIP" value="#{controlPerVigenciaDomiciliaria.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
-                               selection="#{controlPerVigenciaDomiciliaria.ciudadSeleccionada}" scrollWidth="380" selectionMode="single"
-                               widgetVar="lovCiudadNacimiento" scrollable="true" scrollHeight="250"
+                               selection="#{controlPerVigenciaDomiciliaria.ciudadSeleccionada}" scrollWidth="435" selectionMode="single"
+                               widgetVar="lovCiudadNacimiento" scrollable="true" scrollHeight="315"
                                emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPerVigenciaDomiciliaria.lovCiudadesFiltrar}"
                                liveScroll="true" scrollRows="50">
 
@@ -3062,9 +3080,15 @@
                         </f:facet>
                         <h:outputText  value="#{ciudadDIP.nombre}"/>
                      </p:column>
+                     <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <f:facet name="header">
+                           <h:outputText style="text-align: center;" value="Departamento"/>
+                        </f:facet>
+                        <h:outputText  value="#{ciudadDIP.departamento.nombre}"/>
+                     </p:column>
                   </p:dataTable>
                   <div>
-                     <h:outputText id="infoRegistroCiudadNacimiento" value="#{msg['infoRegistro']} #{controlPerVigenciaDomiciliaria.infoRegistroCiudadNacimiento}" class="cssinfoRegistroLOV"/>
+                     <h:outputText id="infoRegistroCiudadNacimiento" value="#{msg['infoRegistros']} #{controlPerVigenciaDomiciliaria.infoRegistroCiudadNacimiento}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarCN" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPerVigenciaDomiciliaria.aceptar}"  
                                       actionListener="#{controlPerVigenciaDomiciliaria.actualizarCiudadNacimiento()}" process="@this" icon="ui-icon-check"/>
                      <p:commandButton id="atrasCN" class="cssAtrasLOV" value="#{msg['atras']}"  

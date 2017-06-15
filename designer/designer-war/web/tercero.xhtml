@@ -586,9 +586,9 @@
                </p:dialog>
 
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
-                         showEffect="fade" hideEffect="fade" width="435" modal="true">
+                         showEffect="fade" hideEffect="fade" width="520" modal="true">
                   <p:dataTable id="lovCiudad" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
-                               selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="416" scrollHeight="250"
+                               selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="490" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlTercero.contarRegistrosCiudadTerc()}"/>
@@ -611,6 +611,12 @@
                         </f:facet>
                         <h:outputText  value="#{ciudad.nombre}"/>
                      </p:column>
+                     <p:column filterBy="#{ciudad.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText value="Departamento"/>
+                        </f:facet>
+                         <h:outputText  value="#{ciudad.departamento.nombre}"/>
+                     </p:column>
 
                   </p:dataTable>
                   <div class="cssBotonesLOV">
@@ -621,9 +627,9 @@
                </p:dialog>
 
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadTSDialogo" draggable="true" resizable="false" closable="false" id="CiudadTSDialogo"  
-                         showEffect="fade" hideEffect="fade" width="435" modal="true">
+                         showEffect="fade" hideEffect="fade" width="520" modal="true">
                   <p:dataTable id="lovCiudadTS" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
-                               selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadTS" scrollable="true" scrollWidth="416" scrollHeight="250"
+                               selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadTS" scrollable="true" scrollWidth="490" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlTercero.contarRegistrosCiudadTSucur()}"/>
@@ -645,6 +651,12 @@
                            <h:outputText  value="#{msg['nombreC']}"/>
                         </f:facet>
                         <h:outputText  value="#{ciudad.nombre}"/>
+                     </p:column>
+                     <p:column filterBy="#{ciudad.departamento.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText  value="Departamento"/>
+                        </f:facet>
+                        <h:outputText  value="#{ciudad.departamento.nombre}"/>
                      </p:column>
 
                   </p:dataTable>

@@ -156,6 +156,7 @@ public class ControlNReporteLaboral implements Serializable {
         empleadoSeleccionado = new Empleados();
         mapParametros.put("paginaAnterior", paginaAnterior);
         activarLov = true;
+        inforreporteSeleccionado = null;
     }
 
     public void recibirPaginaEntrante(String pagina) {
@@ -217,6 +218,7 @@ public class ControlNReporteLaboral implements Serializable {
         activoBuscarReporte = false;
         listaIR = null;
         getListaIR();
+        inforreporteSeleccionado = null;
     }
 
     public void requisitosParaReporte() {
@@ -488,11 +490,13 @@ public class ControlNReporteLaboral implements Serializable {
                                 RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
                                 RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                             }
+                            cabezeraVisor = "Reporte - " + nombreReporte;
                         } else {
                             cabezeraVisor = "Reporte - ";
                         }
                     }
                 }
+                inforreporteSeleccionado = null;
             } else {
                 RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");

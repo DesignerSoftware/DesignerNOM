@@ -178,7 +178,7 @@
                         </p:dialog>
 
                         <p:dialog header="Ciudades" widgetVar="ciudadesDialogo" draggable="true" resizable="false" closable="false" id="ciudadesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="470" modal="true">
+                                  showEffect="fade" hideEffect="fade" width="480" modal="true">
                             <p:dataTable id="lovCiudades" style=" width: 430px;" var="personaCiudades" value="#{controlSucursales.listaCiudades}" rowKey="#{personaCiudades.secuencia}"
                                          selection="#{controlSucursales.ciudadSeleccionado}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="450" scrollHeight="280"
                                          filteredValue="#{controlSucursales.filtradoCiudades}" emptyMessage="#{msg['lovvacioD']}">              
@@ -201,6 +201,12 @@
                                         <h:outputText value="#{msg['nombre']}"/>
                                     </f:facet>
                                     <h:outputText value="#{personaCiudades.nombre}"/>
+                                </p:column>
+                                <p:column filterBy="#{personaCiudades.departamento.nombre}" width="130px;" filterStyle="width: 80% !important" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Departamento"/>
+                                    </f:facet>
+                                    <h:outputText value="#{personaCiudades.departamento.nombre}"/>
                                 </p:column>
                             </p:dataTable>
 

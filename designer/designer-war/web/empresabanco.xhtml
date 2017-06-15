@@ -221,9 +221,9 @@
 
 
                         <p:dialog header="Ciudades" widgetVar="cargosDialogo" draggable="true" resizable="false" closable="false" id="cargosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
-                            <p:dataTable id="lovCiudades" style=" width: 400px;" var="personaCiudades" value="#{controlEmpresasBancos.listaCiudades}" rowKey="#{personaCiudades.secuencia}"
-                                         selection="#{controlEmpresasBancos.ciudadSeleccionado}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="420" scrollHeight="280"
+                                  showEffect="fade" hideEffect="fade" width="460" height="450" modal="true" style="">
+                            <p:dataTable id="lovCiudades" var="personaCiudades" value="#{controlEmpresasBancos.listaCiudades}" rowKey="#{personaCiudades.secuencia}"
+                                         selection="#{controlEmpresasBancos.ciudadSeleccionado}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="435" scrollHeight="315"
                                          filteredValue="#{controlEmpresasBancos.filtradoCiudades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlEmpresasBancos.activarAceptar()}" update=":form:aceptarCar"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmpresasBancos.actualizarCiudades()}" process="@this"/>
@@ -232,17 +232,23 @@
                                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudades').filter();" style="width:150px; position: relative; left: 50px;"/>  
                                 </f:facet>
 
-                                <p:column filterBy="#{personaCiudades.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
+                                <p:column filterBy="#{personaCiudades.codigo}" width="50" filterStyle="width: 80% !important" filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="Codigo"/>
                                     </f:facet>
                                     <h:outputText value="#{personaCiudades.codigo}"/>
                                 </p:column>
-                                <p:column filterBy="#{personaCiudades.nombre}" width="130px;" filterStyle="width:110px;" filterMatchMode="contains">
+                                <p:column filterBy="#{personaCiudades.nombre}" filterStyle="width: 80% !important" filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="Nombre"/>
                                     </f:facet>
                                     <h:outputText value="#{personaCiudades.nombre}"/>
+                                </p:column>
+                                <p:column filterBy="#{personaCiudades.departamento.nombre}" filterStyle="width: 80% !important" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Departamento"/>
+                                    </f:facet>
+                                    <h:outputText value="#{personaCiudades.departamento.nombre}"/>
                                 </p:column>
                             </p:dataTable>
 
