@@ -69,7 +69,7 @@ public class ControlVigenciasViajeros implements Serializable {
    private Empleados empleadoSeleccionado;
    //autocompletar
    private String viajeros;
-   private List<Tiposviajeros> listaTiposviajeros;
+   private List<Tiposviajeros> lovTiposviajeros;
    private List<Tiposviajeros> filtradoTiposviajeros;
    private Tiposviajeros viajeroSeleccionado;
    private String nuevoYduplicarCompletarViajero;
@@ -96,7 +96,7 @@ public class ControlVigenciasViajeros implements Serializable {
       empleadoSeleccionado = null;
       bandera = 0;
       //secuenciaEmpleado = null;
-      listaTiposviajeros = null;
+      lovTiposviajeros = null;
       filtradoTiposviajeros = null;
       guardado = true;
       aceptar = true;
@@ -108,7 +108,7 @@ public class ControlVigenciasViajeros implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovTiposviajeros = null;
    }
 
    @PostConstruct
@@ -139,37 +139,19 @@ public class ControlVigenciasViajeros implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplviajero";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplviajero";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -403,17 +385,17 @@ String pagActual = "emplviajero";
          RequestContext.getCurrentInstance().update("form:listaValores");
          if (!vigenciaSeleccionada.getTipoViajero().getNombre().equals("")) {
             vigenciaSeleccionada.getTipoViajero().setNombre(viajeros);
-            for (int i = 0; i < listaTiposviajeros.size(); i++) {
-               if (listaTiposviajeros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposviajeros.size(); i++) {
+               if (lovTiposviajeros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
 
             if (coincidencias == 1) {
-               vigenciaSeleccionada.setTipoViajero(listaTiposviajeros.get(indiceUnicoElemento));
-               listaTiposviajeros.clear();
-               listaTiposviajeros = null;
+               vigenciaSeleccionada.setTipoViajero(lovTiposviajeros.get(indiceUnicoElemento));
+               lovTiposviajeros.clear();
+               lovTiposviajeros = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -512,17 +494,17 @@ String pagActual = "emplviajero";
 
          if (!nuevoVigenciasViajeros.getTipoViajero().getNombre().equals("")) {
             nuevoVigenciasViajeros.getTipoViajero().setNombre(nuevoYduplicarCompletarViajero);
-            getListaTiposviajeros();
-            for (int i = 0; i < listaTiposviajeros.size(); i++) {
-               if (listaTiposviajeros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            getLovTiposviajeros();
+            for (int i = 0; i < lovTiposviajeros.size(); i++) {
+               if (lovTiposviajeros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               nuevoVigenciasViajeros.setTipoViajero(listaTiposviajeros.get(indiceUnicoElemento));
-               listaTiposviajeros = null;
-               getListaTiposviajeros();
+               nuevoVigenciasViajeros.setTipoViajero(lovTiposviajeros.get(indiceUnicoElemento));
+               lovTiposviajeros = null;
+               getLovTiposviajeros();
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
@@ -583,16 +565,16 @@ String pagActual = "emplviajero";
 
          if (!duplicarVigenciasViajeros.getTipoViajero().getNombre().equals("")) {
             duplicarVigenciasViajeros.getTipoViajero().setNombre(nuevoYduplicarCompletarViajero);
-            for (int i = 0; i < listaTiposviajeros.size(); i++) {
-               if (listaTiposviajeros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposviajeros.size(); i++) {
+               if (lovTiposviajeros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               duplicarVigenciasViajeros.setTipoViajero(listaTiposviajeros.get(indiceUnicoElemento));
-               listaTiposviajeros = null;
-               getListaTiposviajeros();
+               duplicarVigenciasViajeros.setTipoViajero(lovTiposviajeros.get(indiceUnicoElemento));
+               lovTiposviajeros = null;
+               getLovTiposviajeros();
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
@@ -1026,15 +1008,15 @@ String pagActual = "emplviajero";
       this.empleadoSeleccionado = empleadoSeleccionado;
    }
 
-   public List<Tiposviajeros> getListaTiposviajeros() {
-      if (listaTiposviajeros == null) {
-         listaTiposviajeros = administrarVigenciasViajeros.consultarLOVTiposViajeros();
+   public List<Tiposviajeros> getLovTiposviajeros() {
+      if (lovTiposviajeros == null) {
+         lovTiposviajeros = administrarVigenciasViajeros.consultarLOVTiposViajeros();
       }
-      return listaTiposviajeros;
+      return lovTiposviajeros;
    }
 
-   public void setListaTiposviajeros(List<Tiposviajeros> listaTiposviajeros) {
-      this.listaTiposviajeros = listaTiposviajeros;
+   public void setLovTiposviajeros(List<Tiposviajeros> lovTiposviajeros) {
+      this.lovTiposviajeros = lovTiposviajeros;
    }
 
    public List<Tiposviajeros> getFiltradoTiposviajeros() {

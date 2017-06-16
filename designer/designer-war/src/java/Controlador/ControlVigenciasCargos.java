@@ -1,6 +1,5 @@
 package Controlador;
 
-//import Convertidores.MotivosCambiosCargosConverter;
 import Entidades.*;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -45,7 +43,6 @@ import java.io.FileInputStream;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.model.DefaultStreamedContent;
@@ -81,7 +78,7 @@ public class ControlVigenciasCargos implements Serializable {
    private VigenciasCargos vigenciaSeleccionada;
    private DataTable tablaC;
    //private List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadoresesLista;
-   private List<VwTiposEmpleados> actualesTiposTrabajadores;
+   private List<VwTiposEmpleados> lovActualesTiposTrabajadores;
    private List<VwTiposEmpleados> filtradoActualesTiposTrabajadores;
    private VwTiposEmpleados tiposTrabajadorJefeSeleccionado;
    private Date fechaVigencia;
@@ -96,7 +93,7 @@ public class ControlVigenciasCargos implements Serializable {
    private List<Estructuras> filterEstructuras;
    private Estructuras estructuraSeleccionada;
    //Motivos
-   private List<MotivosCambiosCargos> motivosCambiosCargos;
+   private List<MotivosCambiosCargos> lovMotivosCambiosCargos;
    private List<MotivosCambiosCargos> filterMotivos;
    private MotivosCambiosCargos motivoSeleccionado;
 //   private MotivosCambiosCargosConverter motivoConverter;
@@ -166,8 +163,8 @@ public class ControlVigenciasCargos implements Serializable {
    //CONSTRUCTOR(ES)
    //------------------------------------------------------------------------------------------
    public ControlVigenciasCargos() {
-      actualesTiposTrabajadores = null;
-      motivosCambiosCargos = null;
+      lovActualesTiposTrabajadores = null;
+      lovMotivosCambiosCargos = null;
       lovEstructuras = null;
       lovCargos = null;
       empleado = new Empleados();
@@ -216,9 +213,10 @@ public class ControlVigenciasCargos implements Serializable {
    public void limpiarListasValor() {
       lovClasesRiesgos = null;
       lovPapeles = null;
-      motivosCambiosCargos = null;
+      lovMotivosCambiosCargos = null;
       lovEstructuras = null;
       lovCargos = null;
+      lovActualesTiposTrabajadores = null;
    }
 
    @PostConstruct
@@ -397,7 +395,7 @@ public class ControlVigenciasCargos implements Serializable {
      * Metodo encargado de llenar la lista utilizada por el autocompletar
     */
    public List<MotivosCambiosCargos> autocompletarMotivo(String in) {
-      List<MotivosCambiosCargos> mot = getMotivosCambiosCargos();
+      List<MotivosCambiosCargos> mot = getLovMotivosCambiosCargos();
       List<MotivosCambiosCargos> rta = new ArrayList<MotivosCambiosCargos>();
       for (MotivosCambiosCargos m : mot) {
          if (m.getNombre().startsWith(in.toUpperCase())) {
@@ -541,6 +539,7 @@ public class ControlVigenciasCargos implements Serializable {
       String forFecha = formatoFecha.format(fecha);
       return forFecha;
    }
+
    //OTROS---------------------------------------------------------------------
    /*
      * Metodo encargado de cambiar el valor booleano para habilitar un boton
@@ -562,8 +561,8 @@ public class ControlVigenciasCargos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       activarLOV = false;
       if (dlg == 0) {
-         motivosCambiosCargos = null;
-         getMotivosCambiosCargos();
+         lovMotivosCambiosCargos = null;
+         getLovMotivosCambiosCargos();
          contarRegistrosMotivos();
          RequestContext.getCurrentInstance().update("form:dlgMotivos");
          RequestContext.getCurrentInstance().execute("PF('dlgMotivos').show()");
@@ -753,14 +752,14 @@ public class ControlVigenciasCargos implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("MOTIVOC")) {
          activarLOV = false;
          vigenciaSeleccionada.getMotivocambiocargo().setNombre(motivoCambioC);
-         for (int i = 0; i < motivosCambiosCargos.size(); i++) {
-            if (motivosCambiosCargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+         for (int i = 0; i < lovMotivosCambiosCargos.size(); i++) {
+            if (lovMotivosCambiosCargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setMotivocambiocargo(motivosCambiosCargos.get(indiceUnicoElemento));
+            vigenciaSeleccionada.setMotivocambiocargo(lovMotivosCambiosCargos.get(indiceUnicoElemento));
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:dlgMotivos");
@@ -895,22 +894,22 @@ public class ControlVigenciasCargos implements Serializable {
          } else if (tipoNuevo == 2) {
             duplicarVC.getMotivocambiocargo().setNombre(motivoCambioC);
          }
-         for (int i = 0; i < motivosCambiosCargos.size(); i++) {
-            if (motivosCambiosCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosCambiosCargos.size(); i++) {
+            if (lovMotivosCambiosCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setMotivocambiocargo(motivosCambiosCargos.get(indiceUnicoElemento));
+               nuevaVigencia.setMotivocambiocargo(lovMotivosCambiosCargos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMotivo");
             } else if (tipoNuevo == 2) {
-               duplicarVC.setMotivocambiocargo(motivosCambiosCargos.get(indiceUnicoElemento));
+               duplicarVC.setMotivocambiocargo(lovMotivosCambiosCargos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivo");
             }
-            motivosCambiosCargos.clear();
-            getMotivosCambiosCargos();
+            lovMotivosCambiosCargos.clear();
+            getLovMotivosCambiosCargos();
          } else {
             RequestContext.getCurrentInstance().update("form:dlgMotivos");
             RequestContext.getCurrentInstance().execute("PF('dlgMotivos').show()");
@@ -960,22 +959,22 @@ public class ControlVigenciasCargos implements Serializable {
             } else if (tipoNuevo == 2) {
                duplicarVC.getEmpleadojefe().getPersona().setNombreCompleto(nombreCompleto);
             }
-            for (int i = 0; i < actualesTiposTrabajadores.size(); i++) {
-               if (actualesTiposTrabajadores.get(indiceUnicoElemento).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovActualesTiposTrabajadores.size(); i++) {
+               if (lovActualesTiposTrabajadores.get(indiceUnicoElemento).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigencia.setEmpleadojefe(administrarVigenciasCargos.buscarEmpleado(actualesTiposTrabajadores.get(indiceUnicoElemento).getRfEmpleado()));
+                  nuevaVigencia.setEmpleadojefe(administrarVigenciasCargos.buscarEmpleado(lovActualesTiposTrabajadores.get(indiceUnicoElemento).getRfEmpleado()));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevoJefe");
                } else if (tipoNuevo == 2) {
-                  duplicarVC.setEmpleadojefe(administrarVigenciasCargos.buscarEmpleado(actualesTiposTrabajadores.get(indiceUnicoElemento).getRfEmpleado()));
+                  duplicarVC.setEmpleadojefe(administrarVigenciasCargos.buscarEmpleado(lovActualesTiposTrabajadores.get(indiceUnicoElemento).getRfEmpleado()));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarJefe");
                }
-               actualesTiposTrabajadores.clear();
-               getActualesTiposTrabajadores();
+               lovActualesTiposTrabajadores.clear();
+               getLovActualesTiposTrabajadores();
             } else {
                RequestContext.getCurrentInstance().update("form:dialogoEmpleadoJefe");
                RequestContext.getCurrentInstance().execute("PF('dialogoEmpleadoJefe').show()");
@@ -1349,7 +1348,7 @@ public class ControlVigenciasCargos implements Serializable {
       nuevaVigencia.setClaseRiesgo(new ClasesRiesgos());
       nuevaVigencia.setPapel(new Papeles());
    }
-   
+
    public void limpiarduplicarVC() {
       duplicarVC = new VigenciasCargos();
       duplicarVC.setEstructura(new Estructuras());
@@ -1877,15 +1876,15 @@ public class ControlVigenciasCargos implements Serializable {
    //MOTIVOS
    //MotivosCambiosCargos---------------------------------
 
-   public List<MotivosCambiosCargos> getMotivosCambiosCargos() {
-      if (motivosCambiosCargos == null) {
-         motivosCambiosCargos = administrarMotivosCambiosCargos.consultarMotivosCambiosCargos();
+   public List<MotivosCambiosCargos> getLovMotivosCambiosCargos() {
+      if (lovMotivosCambiosCargos == null) {
+         lovMotivosCambiosCargos = administrarMotivosCambiosCargos.consultarMotivosCambiosCargos();
       }
-      return motivosCambiosCargos;
+      return lovMotivosCambiosCargos;
    }
 
-   public void setMotivosCambiosCargos(List<MotivosCambiosCargos> motivosCambiosCargos) {
-      this.motivosCambiosCargos = motivosCambiosCargos;
+   public void setLovMotivosCambiosCargos(List<MotivosCambiosCargos> lovMotivosCambiosCargos) {
+      this.lovMotivosCambiosCargos = lovMotivosCambiosCargos;
    }
 
    public String getInfoRegistroMotivos() {
@@ -1992,11 +1991,11 @@ public class ControlVigenciasCargos implements Serializable {
       this.duplicarVC = duplicarVC;
    }
 
-   public List<VwTiposEmpleados> getActualesTiposTrabajadores() {
-      if (actualesTiposTrabajadores == null) {
-         actualesTiposTrabajadores = administrarVigenciasCargos.FiltrarTipoTrabajador();
+   public List<VwTiposEmpleados> getLovActualesTiposTrabajadores() {
+      if (lovActualesTiposTrabajadores == null) {
+         lovActualesTiposTrabajadores = administrarVigenciasCargos.FiltrarTipoTrabajador();
       }
-      return actualesTiposTrabajadores;
+      return lovActualesTiposTrabajadores;
    }
 
    public List<VwTiposEmpleados> getFiltradoActualesTiposTrabajadores() {

@@ -263,7 +263,7 @@
 
                   <p:dialog header="#{msg['eventoEV']}" widgetVar="EventosDialogo" draggable="true" resizable="false" closable="false" id="EventosDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovEventos" var="eventos" value="#{controlEmplVigenciaEvento.listEventos}" rowKey="#{eventos.secuencia}"
+                     <p:dataTable id="lovEventos" var="eventos" value="#{controlEmplVigenciaEvento.lovEventos}" rowKey="#{eventos.secuencia}"
                                   selection="#{controlEmplVigenciaEvento.eventoSeleccionado}" selectionMode="single" widgetVar="lovEventos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                   filteredValue="#{controlEmplVigenciaEvento.filtrarListEventos}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlEmplVigenciaEvento.activarAceptar()}" update=":form:aceptarE"/>

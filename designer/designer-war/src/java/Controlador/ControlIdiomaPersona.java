@@ -48,9 +48,9 @@ public class ControlIdiomaPersona implements Serializable {
    private List<IdiomasPersonas> filtrarListIdiomasPersonas;
    private IdiomasPersonas idiomaTablaSeleccionado;
 
-   private List<Idiomas> listIdiomas;
-   private Idiomas idiomaSeleccionado;
-   private List<Idiomas> filtrarListIdiomas;
+   private List<Idiomas> lovIdiomas;
+   private Idiomas idiomaLovSeleccionado;
+   private List<Idiomas> filtrarLovIdiomas;
    private int tipoActualizacion;
    //Activo/Desactivo Crtl + F11
    private int bandera;
@@ -89,7 +89,7 @@ public class ControlIdiomaPersona implements Serializable {
    public ControlIdiomaPersona() {
       altoTabla = "304";
       listIdiomasPersonas = null;
-      listIdiomas = null;
+      lovIdiomas = null;
       aceptar = true;
       listIdiomaPersonaBorrar = new ArrayList<IdiomasPersonas>();
       listIdiomaPersonaCrear = new ArrayList<IdiomasPersonas>();
@@ -125,31 +125,14 @@ public class ControlIdiomaPersona implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+      String pagActual = "idiomapersona";
 
-      } else {
-         */
-String pagActual = "idiomapersona";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -167,7 +150,7 @@ String pagActual = "idiomapersona";
    }
 
    public void limpiarListasValor() {
-
+      lovIdiomas = null;
    }
 
    @PostConstruct
@@ -185,7 +168,7 @@ String pagActual = "idiomapersona";
 
    public void recibirEmpleado(BigInteger secuencia) {
       listIdiomasPersonas = null;
-      listIdiomas = null;
+      lovIdiomas = null;
       empleadoActual = administrarIdiomaPersona.empleadoActual(secuencia);
       getListIdiomasPersonas();
       deshabilitarBotonLov();
@@ -229,22 +212,22 @@ String pagActual = "idiomapersona";
          } else if (tipoNuevo == 2) {
             duplicarIdiomaPersona.getIdioma().setNombre(idioma);
          }
-         for (int i = 0; i < listIdiomas.size(); i++) {
-            if (listIdiomas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovIdiomas.size(); i++) {
+            if (lovIdiomas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaIdiomaPersona.setIdioma(listIdiomas.get(indiceUnicoElemento));
+               nuevaIdiomaPersona.setIdioma(lovIdiomas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaIdioma");
             } else if (tipoNuevo == 2) {
-               duplicarIdiomaPersona.setIdioma(listIdiomas.get(indiceUnicoElemento));
+               duplicarIdiomaPersona.setIdioma(lovIdiomas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIdioma");
             }
-            listIdiomas.clear();
-            getListIdiomas();
+            lovIdiomas.clear();
+            getLovIdiomas();
          } else {
             //  eliminarRegistrosIdiomaLov();
             RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
@@ -660,7 +643,7 @@ String pagActual = "idiomapersona";
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          if (tipoLista == 0) {
-            idiomaTablaSeleccionado.setIdioma(idiomaSeleccionado);
+            idiomaTablaSeleccionado.setIdioma(idiomaLovSeleccionado);
             if (!listIdiomaPersonaCrear.contains(idiomaTablaSeleccionado)) {
                if (listIdiomaPersonaModificar.isEmpty()) {
                   listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
@@ -669,7 +652,7 @@ String pagActual = "idiomapersona";
                }
             }
          } else {
-            idiomaTablaSeleccionado.setIdioma(idiomaSeleccionado);
+            idiomaTablaSeleccionado.setIdioma(idiomaLovSeleccionado);
             if (!listIdiomaPersonaCrear.contains(idiomaTablaSeleccionado)) {
                if (listIdiomaPersonaModificar.isEmpty()) {
                   listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
@@ -685,13 +668,13 @@ String pagActual = "idiomapersona";
          permitirIndex = true;
          RequestContext.getCurrentInstance().update("form:datosIdiomas");
       } else if (tipoActualizacion == 1) {
-         nuevaIdiomaPersona.setIdioma(idiomaSeleccionado);
+         nuevaIdiomaPersona.setIdioma(idiomaLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaIdioma");
       } else if (tipoActualizacion == 2) {
-         duplicarIdiomaPersona.setIdioma(idiomaSeleccionado);
+         duplicarIdiomaPersona.setIdioma(idiomaLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIdioma");
       }
-      filtrarListIdiomas = null;
+      filtrarLovIdiomas = null;
       aceptar = true;
       idiomaTablaSeleccionado = null;
       tipoActualizacion = -1;
@@ -705,7 +688,7 @@ String pagActual = "idiomapersona";
    }
 
    public void cancelarCambioIdioma() {
-      filtrarListIdiomas = null;
+      filtrarLovIdiomas = null;
       aceptar = true;
       tipoActualizacion = -1;
       permitirIndex = true;
@@ -871,21 +854,21 @@ String pagActual = "idiomapersona";
       return aceptar;
    }
 
-   public List<Idiomas> getListIdiomas() {
-      listIdiomas = administrarIdiomaPersona.listIdiomas();
-      return listIdiomas;
+   public List<Idiomas> getLovIdiomas() {
+      lovIdiomas = administrarIdiomaPersona.listIdiomas();
+      return lovIdiomas;
    }
 
-   public void setListIdiomas(List<Idiomas> setListIdiomas) {
-      this.listIdiomas = setListIdiomas;
+   public void setLovIdiomas(List<Idiomas> setListIdiomas) {
+      this.lovIdiomas = setListIdiomas;
    }
 
-   public List<Idiomas> getFiltrarListIdiomas() {
-      return filtrarListIdiomas;
+   public List<Idiomas> getFiltrarLovIdiomas() {
+      return filtrarLovIdiomas;
    }
 
-   public void setFiltrarListIdiomas(List<Idiomas> setFiltrarListIdiomas) {
-      this.filtrarListIdiomas = setFiltrarListIdiomas;
+   public void setFiltrarLovIdiomas(List<Idiomas> setFiltrarListIdiomas) {
+      this.filtrarLovIdiomas = setFiltrarListIdiomas;
    }
 
    public IdiomasPersonas getEditarIdiomaPersona() {
@@ -904,12 +887,12 @@ String pagActual = "idiomapersona";
       this.duplicarIdiomaPersona = setDuplicarIdiomaPersona;
    }
 
-   public Idiomas getIdiomaSeleccionado() {
-      return idiomaSeleccionado;
+   public Idiomas getIdiomaLovSeleccionado() {
+      return idiomaLovSeleccionado;
    }
 
-   public void setIdiomaSeleccionado(Idiomas setIdiomaSeleccionado) {
-      this.idiomaSeleccionado = setIdiomaSeleccionado;
+   public void setIdiomaLovSeleccionado(Idiomas setIdiomaSeleccionado) {
+      this.idiomaLovSeleccionado = setIdiomaSeleccionado;
    }
 
    public BigInteger getBackUpSecRegistro() {

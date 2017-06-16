@@ -56,15 +56,15 @@ public class ControlVigenciasProyectos implements Serializable {
    //Columnas Tabla Vigencias Proyectos
    private Column vPFechasIniciales, vPFechasFinales, vPProyectos, vPPryRoles, vPCargos, vPCantidadPersonas;
    //L.O.V Proyectos
-   private List<Proyectos> listaProyectos;
+   private List<Proyectos> lovProyectos;
    private List<Proyectos> filtradoslistaProyectos;
    private Proyectos seleccionProyectos;
    //L.O.V PRYROLES
-   private List<PryRoles> listaPryRoles;
+   private List<PryRoles> lovPryRoles;
    private List<PryRoles> filtradoslistaPryRoles;
    private PryRoles seleccionPryRoles;
    //L.O.V CARGOS
-   private List<Cargos> listaCargos;
+   private List<Cargos> lovCargos;
    private List<Cargos> filtradoslistaCargos;
    private Cargos seleccionCargos;
    //OTROS
@@ -121,17 +121,17 @@ public class ControlVigenciasProyectos implements Serializable {
       proyectoParametro = new Proyectos();
       altoTabla = "115";
       plataformaParametroProyecto = null;
-      listaProyectos = null;
-      listaPryRoles = null;
-      listaCargos = null;
+      lovProyectos = null;
+      lovPryRoles = null;
+      lovCargos = null;
       paginaAnterior = "nominaf";
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
    public void limpiarListasValor() {
-      listaProyectos = null;
-      listaPryRoles = null;
-      listaCargos = null;
+      lovProyectos = null;
+      lovPryRoles = null;
+      lovCargos = null;
    }
 
    @PostConstruct
@@ -163,37 +163,19 @@ public class ControlVigenciasProyectos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "vigenciasproyectos";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "vigenciasproyectos";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -261,20 +243,20 @@ String pagActual = "vigenciasproyectos";
             vigenciaProyectoSeleccionado.getProyecto().setNombreproyecto(Proyecto);
          }
 
-         for (int i = 0; i < listaProyectos.size(); i++) {
-            if (listaProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovProyectos.size(); i++) {
+            if (lovProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               vigenciaProyectoSeleccionado.setProyecto(listaProyectos.get(indiceUnicoElemento));
+               vigenciaProyectoSeleccionado.setProyecto(lovProyectos.get(indiceUnicoElemento));
             } else {
-               vigenciaProyectoSeleccionado.setProyecto(listaProyectos.get(indiceUnicoElemento));
+               vigenciaProyectoSeleccionado.setProyecto(lovProyectos.get(indiceUnicoElemento));
             }
-            listaProyectos.clear();
-            getListaProyectos();
+            lovProyectos.clear();
+            getLovProyectos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
@@ -287,20 +269,20 @@ String pagActual = "vigenciasproyectos";
          } else {
             vigenciaProyectoSeleccionado.getPryRol().setDescripcion(PryRol);
          }
-         for (int i = 0; i < listaPryRoles.size(); i++) {
-            if (listaPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPryRoles.size(); i++) {
+            if (lovPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               vigenciaProyectoSeleccionado.setPryRol(listaPryRoles.get(indiceUnicoElemento));
+               vigenciaProyectoSeleccionado.setPryRol(lovPryRoles.get(indiceUnicoElemento));
             } else {
-               vigenciaProyectoSeleccionado.setPryRol(listaPryRoles.get(indiceUnicoElemento));
+               vigenciaProyectoSeleccionado.setPryRol(lovPryRoles.get(indiceUnicoElemento));
             }
-            listaPryRoles.clear();
-            getListaPryRoles();
+            lovPryRoles.clear();
+            getLovPryRoles();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
@@ -313,20 +295,20 @@ String pagActual = "vigenciasproyectos";
          } else {
             vigenciaProyectoSeleccionado.getPryCargoproyecto().setNombre(Cargo);
          }
-         for (int i = 0; i < listaPryRoles.size(); i++) {
-            if (listaPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPryRoles.size(); i++) {
+            if (lovPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               vigenciaProyectoSeleccionado.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
+               vigenciaProyectoSeleccionado.setPryCargoproyecto(lovCargos.get(indiceUnicoElemento));
             } else {
-               vigenciaProyectoSeleccionado.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
+               vigenciaProyectoSeleccionado.setPryCargoproyecto(lovCargos.get(indiceUnicoElemento));
             }
-            listaCargos.clear();
-            getListaCargos();
+            lovCargos.clear();
+            getLovCargos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
@@ -401,20 +383,20 @@ String pagActual = "vigenciasproyectos";
       RequestContext context = RequestContext.getCurrentInstance();
       tipoActualizacion = LND;
       if (dlg == 0) {
-         listaProyectos = null;
-         getListaProyectos();
+         lovProyectos = null;
+         getLovProyectos();
          contarRegistroProyecto();
          RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
          RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
       } else if (dlg == 1) {
-         listaPryRoles = null;
-         getListaPryRoles();
+         lovPryRoles = null;
+         getLovPryRoles();
          contarRegistroRol();
          RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
          RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
       } else if (dlg == 2) {
-         listaCargos = null;
-         getListaCargos();
+         lovCargos = null;
+         getLovCargos();
          contarRegistroCargo();
          RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
          RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
@@ -612,20 +594,20 @@ String pagActual = "vigenciasproyectos";
       if (vigenciaProyectoSeleccionado != null) {
          RequestContext context = RequestContext.getCurrentInstance();
          if (cualCelda == 2) {
-            listaProyectos = null;
-            getListaProyectos();
+            lovProyectos = null;
+            getLovProyectos();
             RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
             RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
             tipoActualizacion = 0;
          } else if (cualCelda == 3) {
-            listaPryRoles = null;
-            getListaPryRoles();
+            lovPryRoles = null;
+            getLovPryRoles();
             RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
             RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
             tipoActualizacion = 0;
          } else if (cualCelda == 4) {
-            listaCargos = null;
-            getListaCargos();
+            lovCargos = null;
+            getLovCargos();
             RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
             RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
             tipoActualizacion = 0;
@@ -944,9 +926,9 @@ String pagActual = "vigenciasproyectos";
       vigenciaProyectoSeleccionado = null;
 //        k = 0;
       listaVigenciasProyectos = null;
-      listaProyectos = null;
-      listaCargos = null;
-      listaPryRoles = null;
+      lovProyectos = null;
+      lovCargos = null;
+      lovPryRoles = null;
       guardado = true;
       permitirIndex = true;
       proyectoParametro.setNombreproyecto("");
@@ -1108,22 +1090,22 @@ String pagActual = "vigenciasproyectos";
          } else if (tipoNuevo == 2) {
             duplicarVigenciaProyectos.getProyecto().setNombreproyecto(Proyecto);
          }
-         for (int i = 0; i < listaProyectos.size(); i++) {
-            if (listaProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovProyectos.size(); i++) {
+            if (lovProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaProyectos.setProyecto(listaProyectos.get(indiceUnicoElemento));
+               nuevaVigenciaProyectos.setProyecto(lovProyectos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoProyecto");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaProyectos.setProyecto(listaProyectos.get(indiceUnicoElemento));
+               duplicarVigenciaProyectos.setProyecto(lovProyectos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProyecto");
             }
-            listaProyectos.clear();
-            getListaProyectos();
+            lovProyectos.clear();
+            getLovProyectos();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
             RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
@@ -1141,22 +1123,22 @@ String pagActual = "vigenciasproyectos";
             duplicarVigenciaProyectos.getPryRol().setDescripcion(PryRol);
          }
 
-         for (int i = 0; i < listaPryRoles.size(); i++) {
-            if (listaPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPryRoles.size(); i++) {
+            if (lovPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaProyectos.setPryRol(listaPryRoles.get(indiceUnicoElemento));
+               nuevaVigenciaProyectos.setPryRol(lovPryRoles.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPryRol");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaProyectos.setPryRol(listaPryRoles.get(indiceUnicoElemento));
+               duplicarVigenciaProyectos.setPryRol(lovPryRoles.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPryRol");
             }
-            listaPryRoles.clear();
-            getListaPryRoles();
+            lovPryRoles.clear();
+            getLovPryRoles();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
             RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
@@ -1174,22 +1156,22 @@ String pagActual = "vigenciasproyectos";
             duplicarVigenciaProyectos.getPryCargoproyecto().setNombre(Cargo);
          }
 
-         for (int i = 0; i < listaCargos.size(); i++) {
-            if (listaCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovCargos.size(); i++) {
+            if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaProyectos.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
+               nuevaVigenciaProyectos.setPryCargoproyecto(lovCargos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaProyectos.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
+               duplicarVigenciaProyectos.setPryCargoproyecto(lovCargos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
             }
-            listaCargos.clear();
-            getListaCargos();
+            lovCargos.clear();
+            getLovCargos();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
             RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
@@ -1530,38 +1512,38 @@ String pagActual = "vigenciasproyectos";
       this.filtradosListaVigenciasProyectos = filtradosListaVigenciasProyectos;
    }
 
-   public List<Proyectos> getListaProyectos() {
-      if (listaProyectos == null) {
-         listaProyectos = administrarVigenciasProyectos.lovProyectos();
+   public List<Proyectos> getLovProyectos() {
+      if (lovProyectos == null) {
+         lovProyectos = administrarVigenciasProyectos.lovProyectos();
       }
-      return listaProyectos;
+      return lovProyectos;
    }
 
-   public void setListaProyectos(List<Proyectos> listaProyectos) {
-      this.listaProyectos = listaProyectos;
+   public void setLovProyectos(List<Proyectos> lovProyectos) {
+      this.lovProyectos = lovProyectos;
    }
 
-   public List<PryRoles> getListaPryRoles() {
-      if (listaPryRoles == null) {
-         listaPryRoles = administrarVigenciasProyectos.lovPryRoles();
+   public List<PryRoles> getLovPryRoles() {
+      if (lovPryRoles == null) {
+         lovPryRoles = administrarVigenciasProyectos.lovPryRoles();
       }
 
-      return listaPryRoles;
+      return lovPryRoles;
    }
 
-   public void setListaPryRoles(List<PryRoles> listaPryRoles) {
-      this.listaPryRoles = listaPryRoles;
+   public void setLovPryRoles(List<PryRoles> lovPryRoles) {
+      this.lovPryRoles = lovPryRoles;
    }
 
-   public List<Cargos> getListaCargos() {
-      if (listaCargos == null) {
-         listaCargos = administrarVigenciasProyectos.lovCargos();
+   public List<Cargos> getLovCargos() {
+      if (lovCargos == null) {
+         lovCargos = administrarVigenciasProyectos.lovCargos();
       }
-      return listaCargos;
+      return lovCargos;
    }
 
-   public void setListaCargos(List<Cargos> listaCargos) {
-      this.listaCargos = listaCargos;
+   public void setLovCargos(List<Cargos> lovCargos) {
+      this.lovCargos = lovCargos;
    }
 
    public List<Proyectos> getFiltradoslistaProyectos() {

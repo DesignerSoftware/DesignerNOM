@@ -248,9 +248,9 @@
 
                <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" id="ProcesosDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
-                  <p:dataTable id="lovProcesos" style="width: 400px;" var="proceso" value="#{controlIbcAutoliquid.listProcesos}" rowKey="#{proceso.secuencia}"
-                               selection="#{controlIbcAutoliquid.procesoSeleccionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="250"
-                               filteredValue="#{controlIbcAutoliquid.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                  <p:dataTable id="lovProcesos" style="width: 400px;" var="proceso" value="#{controlIbcAutoliquid.lovProcesos}" rowKey="#{proceso.secuencia}"
+                               selection="#{controlIbcAutoliquid.procesoLovSeleccionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="250"
+                               filteredValue="#{controlIbcAutoliquid.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.activarAceptar()}" update=":form:aceptarP"/>
                      <p:ajax event="rowDblselect" listener="#{controlIbcAutoliquid.actualizarProceso()}" process="@this"/>
                      <f:facet name="header">  

@@ -38,13 +38,13 @@ public class ControlVigenciasTiposContratos implements Serializable {
    private List<VigenciasTiposContratos> vigenciasTiposContratoEmpleado;
    private List<VigenciasTiposContratos> filtrarVTC;
    private VigenciasTiposContratos vigenciaSeleccionada;
-   private List<Ciudades> listaCiudades;
+   private List<Ciudades> lovCiudades;
    private Ciudades ciudadSelecionada;
    private List<Ciudades> filtradoCiudades;
-   private List<MotivosContratos> listaMotivosContratos;
+   private List<MotivosContratos> lovMotivosContratos;
    private MotivosContratos MotivoContratoSelecionado;
    private List<MotivosContratos> filtradoMotivoContrato;
-   private List<TiposContratos> listaTiposContratos;
+   private List<TiposContratos> lovTiposContratos;
    private List<TiposContratos> filtradoTiposContrato;
    private TiposContratos TipoContratoSelecionado;
    //private BigInteger secuenciaEmpleado;
@@ -96,9 +96,9 @@ public class ControlVigenciasTiposContratos implements Serializable {
       aceptar = true;
       //borrar aficiones
       listVTCBorrar = new ArrayList<VigenciasTiposContratos>();
-      listaTiposContratos = null;
-      listaMotivosContratos = null;
-      listaCiudades = null;
+      lovTiposContratos = null;
+      lovMotivosContratos = null;
+      lovCiudades = null;
       //crear aficiones
       listVTCCrear = new ArrayList<VigenciasTiposContratos>();
       k = 0;
@@ -124,9 +124,9 @@ public class ControlVigenciasTiposContratos implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listaTiposContratos = null;
-      listaMotivosContratos = null;
-      listaCiudades = null;
+      lovTiposContratos = null;
+      lovMotivosContratos = null;
+      lovCiudades = null;
    }
 
    @PostConstruct
@@ -157,37 +157,19 @@ public class ControlVigenciasTiposContratos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigenciatipocontrato";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigenciatipocontrato";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -252,17 +234,17 @@ String pagActual = "emplvigenciatipocontrato";
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
 
-         for (int i = 0; i < listaMotivosContratos.size(); i++) {
-            if (listaMotivosContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosContratos.size(); i++) {
+            if (lovMotivosContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setMotivocontrato(listaMotivosContratos.get(indiceUnicoElemento));
+            vigenciaSeleccionada.setMotivocontrato(lovMotivosContratos.get(indiceUnicoElemento));
 
-            listaMotivosContratos.clear();
-            getListaMotivosContratos();
+            lovMotivosContratos.clear();
+            getLovMotivosContratos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:MotivosContratoDialogo");
@@ -274,17 +256,17 @@ String pagActual = "emplvigenciatipocontrato";
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
 
-         for (int i = 0; i < listaTiposContratos.size(); i++) {
-            if (listaTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposContratos.size(); i++) {
+            if (lovTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setTipocontrato(listaTiposContratos.get(indiceUnicoElemento));
+            vigenciaSeleccionada.setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
 
-            listaTiposContratos.clear();
-            getListaTiposContratos();
+            lovTiposContratos.clear();
+            getLovTiposContratos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:TiposContratoDialogo");
@@ -297,17 +279,17 @@ String pagActual = "emplvigenciatipocontrato";
          if (!valorConfirmar.isEmpty()) {
             vigenciaSeleccionada.getCiudad().setNombre(Ciudad);
 
-            for (int i = 0; i < listaCiudades.size(); i++) {
-               if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               vigenciaSeleccionada.setCiudad(listaCiudades.get(indiceUnicoElemento));
+               vigenciaSeleccionada.setCiudad(lovCiudades.get(indiceUnicoElemento));
 
-               listaCiudades.clear();
-               getListaCiudades();
+               lovCiudades.clear();
+               getLovCiudades();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
@@ -385,22 +367,22 @@ String pagActual = "emplvigenciatipocontrato";
          } else if (tipoNuevo == 2) {
             duplicarVTC.getMotivocontrato().setNombre(Motivo);
          }
-         for (int i = 0; i < listaMotivosContratos.size(); i++) {
-            if (listaMotivosContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosContratos.size(); i++) {
+            if (lovMotivosContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setMotivocontrato(listaMotivosContratos.get(indiceUnicoElemento));
+               nuevaVigencia.setMotivocontrato(lovMotivosContratos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMotivoContrato");
             } else if (tipoNuevo == 2) {
-               duplicarVTC.setMotivocontrato(listaMotivosContratos.get(indiceUnicoElemento));
+               duplicarVTC.setMotivocontrato(lovMotivosContratos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoContrato");
             }
-            listaMotivosContratos.clear();
-            getListaMotivosContratos();
+            lovMotivosContratos.clear();
+            getLovMotivosContratos();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:MotivosContratoDialogo");
             RequestContext.getCurrentInstance().execute("PF('MotivosContratoDialogo').show()");
@@ -417,22 +399,22 @@ String pagActual = "emplvigenciatipocontrato";
          } else if (tipoNuevo == 2) {
             duplicarVTC.getTipocontrato().setNombre(TipoContrato);
          }
-         for (int i = 0; i < listaTiposContratos.size(); i++) {
-            if (listaTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposContratos.size(); i++) {
+            if (lovTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setTipocontrato(listaTiposContratos.get(indiceUnicoElemento));
+               nuevaVigencia.setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoContrato");
             } else if (tipoNuevo == 2) {
-               duplicarVTC.setTipocontrato(listaTiposContratos.get(indiceUnicoElemento));
+               duplicarVTC.setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoContrato");
             }
-            listaTiposContratos.clear();
-            getListaTiposContratos();
+            lovTiposContratos.clear();
+            getLovTiposContratos();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:TiposContratoDialogo");
             RequestContext.getCurrentInstance().execute("PF('TiposContratoDialogo').show()");
@@ -449,22 +431,22 @@ String pagActual = "emplvigenciatipocontrato";
          } else if (tipoNuevo == 2) {
             duplicarVTC.getCiudad().setNombre(Ciudad);
          }
-         for (int i = 0; i < listaCiudades.size(); i++) {
-            if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovCiudades.size(); i++) {
+            if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setCiudad(listaCiudades.get(indiceUnicoElemento));
+               nuevaVigencia.setCiudad(lovCiudades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
             } else if (tipoNuevo == 2) {
-               duplicarVTC.setCiudad(listaCiudades.get(indiceUnicoElemento));
+               duplicarVTC.setCiudad(lovCiudades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
             }
-            listaCiudades.clear();
-            getListaCiudades();
+            lovCiudades.clear();
+            getLovCiudades();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -522,7 +504,7 @@ String pagActual = "emplvigenciatipocontrato";
       guardarCambiosVTC();
       salir();
    }
-      
+
    //GUARDAR
    public void guardarCambiosVTC() {
       if (guardado == false) {
@@ -1284,11 +1266,11 @@ String pagActual = "emplvigenciatipocontrato";
       this.duplicarVTC = duplicarVTC;
    }
 
-   public List<Ciudades> getListaCiudades() {
-      if (listaCiudades == null) {
-         listaCiudades = administrarVigenciasTiposContratos.ciudades();
+   public List<Ciudades> getLovCiudades() {
+      if (lovCiudades == null) {
+         lovCiudades = administrarVigenciasTiposContratos.ciudades();
       }
-      return listaCiudades;
+      return lovCiudades;
    }
 
    public Ciudades getCiudadSelecionada() {
@@ -1307,15 +1289,15 @@ String pagActual = "emplvigenciatipocontrato";
       this.filtradoCiudades = filtradoCiudades;
    }
 
-   public List<MotivosContratos> getListaMotivosContratos() {
-      if (listaMotivosContratos == null) {
-         listaMotivosContratos = administrarVigenciasTiposContratos.motivosContratos();
+   public List<MotivosContratos> getLovMotivosContratos() {
+      if (lovMotivosContratos == null) {
+         lovMotivosContratos = administrarVigenciasTiposContratos.motivosContratos();
       }
-      return listaMotivosContratos;
+      return lovMotivosContratos;
    }
 
-   public void setListaMotivosContratos(List<MotivosContratos> listaMotivosContratos) {
-      this.listaMotivosContratos = listaMotivosContratos;
+   public void setLovMotivosContratos(List<MotivosContratos> lovMotivosContratos) {
+      this.lovMotivosContratos = lovMotivosContratos;
    }
 
    public MotivosContratos getMotivoContratoSelecionado() {
@@ -1342,15 +1324,15 @@ String pagActual = "emplvigenciatipocontrato";
       this.filtradoTiposContrato = filtradoTiposContrato;
    }
 
-   public List<TiposContratos> getListaTiposContratos() {
-      if (listaTiposContratos == null) {
-         listaTiposContratos = administrarVigenciasTiposContratos.tiposContratos();
+   public List<TiposContratos> getLovTiposContratos() {
+      if (lovTiposContratos == null) {
+         lovTiposContratos = administrarVigenciasTiposContratos.tiposContratos();
       }
-      return listaTiposContratos;
+      return lovTiposContratos;
    }
 
-   public void setListaTiposContratos(List<TiposContratos> listaTiposContratos) {
-      this.listaTiposContratos = listaTiposContratos;
+   public void setLovTiposContratos(List<TiposContratos> lovTiposContratos) {
+      this.lovTiposContratos = lovTiposContratos;
    }
 
    public TiposContratos getTipoContratoSelecionado() {

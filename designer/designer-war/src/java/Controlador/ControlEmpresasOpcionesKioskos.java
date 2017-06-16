@@ -42,834 +42,834 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlEmpresasOpcionesKioskos implements Serializable {
 
-    @EJB
-    AdministrarEmpresasOpcionesKioskosInterface administrarEmpresasOK;
-    @EJB
-    AdministrarEmpresasInterface administrarEmpresas;
-    @EJB
-    AdministrarOpcionesKioskosInterface administrarOK;
-    @EJB
-    AdministrarRastrosInterface administrarRastros;
+   @EJB
+   AdministrarEmpresasOpcionesKioskosInterface administrarEmpresasOK;
+   @EJB
+   AdministrarEmpresasInterface administrarEmpresas;
+   @EJB
+   AdministrarOpcionesKioskosInterface administrarOK;
+   @EJB
+   AdministrarRastrosInterface administrarRastros;
 
-    private List<EmpresasOpcionesKioskos> listEmpresasOk;
-    private List<EmpresasOpcionesKioskos> listEmpresasOkFiltrar;
-    private List<EmpresasOpcionesKioskos> listEmpresasOkCrear;
-    private List<EmpresasOpcionesKioskos> listEmpresasOkModificar;
-    private List<EmpresasOpcionesKioskos> listEmpresasOkBorrar;
-    private EmpresasOpcionesKioskos nuevaEmpresaOk;
-    private EmpresasOpcionesKioskos duplicarEmpresaOk;
-    private EmpresasOpcionesKioskos editarEmpresaOK;
-    private EmpresasOpcionesKioskos empresaOkSeleccionada;
-    private List<Empresas> lovEmpresas;
-    private List<Empresas> lovEmpresasFiltrar;
-    private Empresas empresaLovSeleccionda;
-    private List<OpcionesKioskos> lovOpcionesKioskos;
-    private List<OpcionesKioskos> lovOpcionesKioskosFiltrar;
-    private OpcionesKioskos opcionKioskoLovSeleccionda;
-    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
-    private BigInteger l;
-    private boolean aceptar, guardado;
-    private Column empresa, opcionkiosko;
-    private int registrosBorrados;
-    private String mensajeValidacion;
-    private int tamano;
-    private boolean activarLov;
-    private String infoRegistro, infoRegistroEmpresa, infoRegistroOK;
-    private DataTable tablaC;
-    private String paginaAnterior = "nominaf";
-    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private List<EmpresasOpcionesKioskos> listEmpresasOk;
+   private List<EmpresasOpcionesKioskos> listEmpresasOkFiltrar;
+   private List<EmpresasOpcionesKioskos> listEmpresasOkCrear;
+   private List<EmpresasOpcionesKioskos> listEmpresasOkModificar;
+   private List<EmpresasOpcionesKioskos> listEmpresasOkBorrar;
+   private EmpresasOpcionesKioskos nuevaEmpresaOk;
+   private EmpresasOpcionesKioskos duplicarEmpresaOk;
+   private EmpresasOpcionesKioskos editarEmpresaOK;
+   private EmpresasOpcionesKioskos empresaOkSeleccionada;
+   private List<Empresas> lovEmpresas;
+   private List<Empresas> lovEmpresasFiltrar;
+   private Empresas empresaLovSeleccionda;
+   private List<OpcionesKioskos> lovOpcionesKioskos;
+   private List<OpcionesKioskos> lovOpcionesKioskosFiltrar;
+   private OpcionesKioskos opcionKioskoLovSeleccionda;
+   private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+   private BigInteger l;
+   private boolean aceptar, guardado;
+   private Column empresa, opcionkiosko;
+   private int registrosBorrados;
+   private String mensajeValidacion;
+   private int tamano;
+   private boolean activarLov;
+   private String infoRegistro, infoRegistroEmpresa, infoRegistroOK;
+   private DataTable tablaC;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-    public ControlEmpresasOpcionesKioskos() {
-        listEmpresasOk = null;
-        listEmpresasOkCrear = new ArrayList<EmpresasOpcionesKioskos>();
-        listEmpresasOkModificar = new ArrayList<EmpresasOpcionesKioskos>();
-        listEmpresasOkBorrar = new ArrayList<EmpresasOpcionesKioskos>();
-        editarEmpresaOK = new EmpresasOpcionesKioskos();
-        nuevaEmpresaOk = new EmpresasOpcionesKioskos();
-        duplicarEmpresaOk = new EmpresasOpcionesKioskos();
-        guardado = true;
-        tamano = 330;
-        cualCelda = -1;
-        empresaOkSeleccionada = null;
-        lovEmpresas = null;
-        empresaLovSeleccionda = null;
-        lovOpcionesKioskos = null;
-        opcionKioskoLovSeleccionda = null;
-        activarLov = true;
-        mapParametros.put("paginaAnterior", paginaAnterior);
-    }
+   public ControlEmpresasOpcionesKioskos() {
+      listEmpresasOk = null;
+      listEmpresasOkCrear = new ArrayList<EmpresasOpcionesKioskos>();
+      listEmpresasOkModificar = new ArrayList<EmpresasOpcionesKioskos>();
+      listEmpresasOkBorrar = new ArrayList<EmpresasOpcionesKioskos>();
+      editarEmpresaOK = new EmpresasOpcionesKioskos();
+      nuevaEmpresaOk = new EmpresasOpcionesKioskos();
+      duplicarEmpresaOk = new EmpresasOpcionesKioskos();
+      guardado = true;
+      tamano = 330;
+      cualCelda = -1;
+      empresaOkSeleccionada = null;
+      lovEmpresas = null;
+      empresaLovSeleccionda = null;
+      lovOpcionesKioskos = null;
+      opcionKioskoLovSeleccionda = null;
+      activarLov = true;
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
 
-    public void limpiarListasValor() {
-        lovEmpresas = null;
-        lovOpcionesKioskos = null;
-    }
+   public void limpiarListasValor() {
+      lovEmpresas = null;
+      lovOpcionesKioskos = null;
+   }
 
-    @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarEmpresasOK.obtenerConexion(ses.getId());
-            administrarRastros.obtenerConexion(ses.getId());
-            administrarEmpresas.obtenerConexion(ses.getId());
-            administrarOK.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarEmpresasOK.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+         administrarEmpresas.obtenerConexion(ses.getId());
+         administrarOK.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
 
-    public void recibirPaginaEntrante(String pagina) {
-        paginaAnterior = pagina;
-        listEmpresasOk = null;
-        getListEmpresasOk();
-        if (listEmpresasOk != null) {
-            if (!listEmpresasOk.isEmpty()) {
-                empresaOkSeleccionada = listEmpresasOk.get(0);
-            }
-        }
-    }
-
-    public void recibirParametros(Map<String, Object> map) {
-        mapParametros = map;
-        paginaAnterior = (String) mapParametros.get("paginaAnterior");
-        listEmpresasOk = null;
-        getListEmpresasOk();
-        if (listEmpresasOk != null) {
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      listEmpresasOk = null;
+      getListEmpresasOk();
+      if (listEmpresasOk != null) {
+         if (!listEmpresasOk.isEmpty()) {
             empresaOkSeleccionada = listEmpresasOk.get(0);
-        }
-    }
+         }
+      }
+   }
 
-    public void navegar(String pag) {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        String pagActual = "kioempresas";
-        if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
-        } else {
-            controlListaNavegacion.guardarNavegacion(pagActual, pag);
-            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-            //mapParaEnviar.put("paginaAnterior", pagActual);
-            //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-            //      } else if (pag.equals("rastrotablaH")) {
-            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //     controlRastro.historicosTabla("Conceptos", pagActual);
-            //   pag = "rastrotabla";
-            //}
-        }
-        limpiarListasValor();
-    }
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      listEmpresasOk = null;
+      getListEmpresasOk();
+      if (listEmpresasOk != null) {
+         empresaOkSeleccionada = listEmpresasOk.get(0);
+      }
+   }
 
-    public String redirigir() {
-        return paginaAnterior;
-    }
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      String pagActual = "kioempresas";
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina(pagActual);
+      } else {
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParaEnviar.put("paginaAnterior", pagActual);
+         //mas Parametros
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class); 
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+      }
+      limpiarListasValor();
+   }
 
-    public void cambiarIndice(EmpresasOpcionesKioskos empresa, int celda) {
-        empresaOkSeleccionada = empresa;
-        cualCelda = celda;
-        empresaOkSeleccionada.getSecuencia();
-        if (cualCelda == 0) {
-            empresaOkSeleccionada.getEmpresa().getNombre();
-        } else if (cualCelda == 1) {
-            empresaOkSeleccionada.getOpcionkiosko().getDescripcion();
-        }
-    }
+   public String redirigir() {
+      return paginaAnterior;
+   }
 
-    public void activarAceptar() {
-        aceptar = false;
-    }
+   public void cambiarIndice(EmpresasOpcionesKioskos empresa, int celda) {
+      empresaOkSeleccionada = empresa;
+      cualCelda = celda;
+      empresaOkSeleccionada.getSecuencia();
+      if (cualCelda == 0) {
+         empresaOkSeleccionada.getEmpresa().getNombre();
+      } else if (cualCelda == 1) {
+         empresaOkSeleccionada.getOpcionkiosko().getDescripcion();
+      }
+   }
 
-    public void cancelarModificacion() {
-        if (bandera == 1) {
-            //CERRAR FILTRADO
-            FacesContext c = FacesContext.getCurrentInstance();
-            empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
-            empresa.setFilterStyle("display: none; visibility: hidden;");
-            opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
-            opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
-            bandera = 0;
-            listEmpresasOkFiltrar = null;
-            tamano = 330;
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            tipoLista = 0;
-        }
+   public void activarAceptar() {
+      aceptar = false;
+   }
 
-        listEmpresasOkBorrar.clear();
-        listEmpresasOkCrear.clear();
-        listEmpresasOkModificar.clear();
-        empresaOkSeleccionada = null;
-        contarRegistros();
-        k = 0;
-        listEmpresasOk = null;
-        guardado = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void cancelarModificacion() {
+      if (bandera == 1) {
+         //CERRAR FILTRADO
+         FacesContext c = FacesContext.getCurrentInstance();
+         empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
+         empresa.setFilterStyle("display: none; visibility: hidden;");
+         opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
+         opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
+         bandera = 0;
+         listEmpresasOkFiltrar = null;
+         tamano = 330;
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+         tipoLista = 0;
+      }
 
-    public void salir() {
-        limpiarListasValor();
-        if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
-            empresa.setFilterStyle("display: none; visibility: hidden;");
-            opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
-            opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            bandera = 0;
-            listEmpresasOkFiltrar = null;
-            tipoLista = 0;
-            tamano = 330;
-        }
-        listEmpresasOkBorrar.clear();
-        listEmpresasOkCrear.clear();
-        listEmpresasOkModificar.clear();
-        empresaOkSeleccionada = null;
-        k = 0;
-        listEmpresasOk = null;
-        guardado = true;
-        navegar("atras");
-    }
+      listEmpresasOkBorrar.clear();
+      listEmpresasOkCrear.clear();
+      listEmpresasOkModificar.clear();
+      empresaOkSeleccionada = null;
+      contarRegistros();
+      k = 0;
+      listEmpresasOk = null;
+      guardado = true;
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
 
-    public void activarCtrlF11() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 0) {
-            tamano = 310;
-            empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
-            empresa.setFilterStyle("width: 85% !important;");
-            opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
-            opcionkiosko.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            bandera = 1;
-        } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            tamano = 330;
-            empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
-            empresa.setFilterStyle("display: none; visibility: hidden;");
-            opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
-            opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            bandera = 0;
-            listEmpresasOkFiltrar = null;
-            tipoLista = 0;
-        }
-    }
+   public void salir() {
+      limpiarListasValor();
+      if (bandera == 1) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
+         empresa.setFilterStyle("display: none; visibility: hidden;");
+         opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
+         opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+         bandera = 0;
+         listEmpresasOkFiltrar = null;
+         tipoLista = 0;
+         tamano = 330;
+      }
+      listEmpresasOkBorrar.clear();
+      listEmpresasOkCrear.clear();
+      listEmpresasOkModificar.clear();
+      empresaOkSeleccionada = null;
+      k = 0;
+      listEmpresasOk = null;
+      guardado = true;
+      navegar("atras");
+   }
 
-    public void modificarEmpresaOk(EmpresasOpcionesKioskos empok) {
-        empresaOkSeleccionada = empok;
-        if (!listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
-            if (listEmpresasOkModificar.isEmpty()) {
-                listEmpresasOkModificar.add(empresaOkSeleccionada);
-            } else if (!listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
-                listEmpresasOkModificar.add(empresaOkSeleccionada);
+   public void activarCtrlF11() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 0) {
+         tamano = 310;
+         empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
+         empresa.setFilterStyle("width: 85% !important;");
+         opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
+         opcionkiosko.setFilterStyle("width: 85% !important;");
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+         bandera = 1;
+      } else if (bandera == 1) {
+         System.out.println("Desactivar");
+         tamano = 330;
+         empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
+         empresa.setFilterStyle("display: none; visibility: hidden;");
+         opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
+         opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+         bandera = 0;
+         listEmpresasOkFiltrar = null;
+         tipoLista = 0;
+      }
+   }
+
+   public void modificarEmpresaOk(EmpresasOpcionesKioskos empok) {
+      empresaOkSeleccionada = empok;
+      if (!listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
+         if (listEmpresasOkModificar.isEmpty()) {
+            listEmpresasOkModificar.add(empresaOkSeleccionada);
+         } else if (!listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
+            listEmpresasOkModificar.add(empresaOkSeleccionada);
+         }
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      }
+      RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+   }
+
+   public void borrarEmpresaOk() {
+      if (empresaOkSeleccionada != null) {
+         if (!listEmpresasOkModificar.isEmpty() && listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
+            listEmpresasOkModificar.remove(listEmpresasOkModificar.indexOf(empresaOkSeleccionada));
+            listEmpresasOkBorrar.add(empresaOkSeleccionada);
+         } else if (!listEmpresasOkCrear.isEmpty() && listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
+            listEmpresasOkCrear.remove(listEmpresasOkCrear.indexOf(empresaOkSeleccionada));
+         } else {
+            listEmpresasOkBorrar.add(empresaOkSeleccionada);
+         }
+         listEmpresasOk.remove(empresaOkSeleccionada);
+         if (tipoLista == 1) {
+            listEmpresasOkFiltrar.remove(empresaOkSeleccionada);
+         }
+         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+         contarRegistros();
+         empresaOkSeleccionada = null;
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public void revisarDialogoGuardar() {
+      if (!listEmpresasOkBorrar.isEmpty() || !listEmpresasOkCrear.isEmpty() || !listEmpresasOkModificar.isEmpty()) {
+         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+      }
+   }
+
+   public void guardarCambios() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      try {
+         if (guardado == false) {
+            if (!listEmpresasOkBorrar.isEmpty()) {
+               administrarEmpresasOK.borrarEmpresasOpcionesKioskos(listEmpresasOkBorrar);
+               registrosBorrados = listEmpresasOkBorrar.size();
+               RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+               RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+               listEmpresasOkBorrar.clear();
             }
-            guardado = false;
+            if (!listEmpresasOkModificar.isEmpty()) {
+               administrarEmpresasOK.modificarEmpresasOpcionesKioskos(listEmpresasOkModificar);
+               listEmpresasOkModificar.clear();
+            }
+            if (!listEmpresasOkCrear.isEmpty()) {
+               administrarEmpresasOK.crearEmpresasOpcionesKioskos(listEmpresasOkCrear);
+               listEmpresasOkCrear.clear();
+            }
+            listEmpresasOk = null;
+            getListEmpresasOk();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }
-        RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-    }
-
-    public void borrarEmpresaOk() {
-        if (empresaOkSeleccionada != null) {
-            if (!listEmpresasOkModificar.isEmpty() && listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
-                listEmpresasOkModificar.remove(listEmpresasOkModificar.indexOf(empresaOkSeleccionada));
-                listEmpresasOkBorrar.add(empresaOkSeleccionada);
-            } else if (!listEmpresasOkCrear.isEmpty() && listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
-                listEmpresasOkCrear.remove(listEmpresasOkCrear.indexOf(empresaOkSeleccionada));
-            } else {
-                listEmpresasOkBorrar.add(empresaOkSeleccionada);
-            }
-            listEmpresasOk.remove(empresaOkSeleccionada);
-            if (tipoLista == 1) {
-                listEmpresasOkFiltrar.remove(empresaOkSeleccionada);
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            contarRegistros();
-            empresaOkSeleccionada = null;
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-        }
-    }
-
-    public void revisarDialogoGuardar() {
-        if (!listEmpresasOkBorrar.isEmpty() || !listEmpresasOkCrear.isEmpty() || !listEmpresasOkModificar.isEmpty()) {
-            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-        }
-    }
-
-    public void guardarCambios() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        try {
-            if (guardado == false) {
-                if (!listEmpresasOkBorrar.isEmpty()) {
-                    administrarEmpresasOK.borrarEmpresasOpcionesKioskos(listEmpresasOkBorrar);
-                    registrosBorrados = listEmpresasOkBorrar.size();
-                    RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                    RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-                    listEmpresasOkBorrar.clear();
-                }
-                if (!listEmpresasOkModificar.isEmpty()) {
-                    administrarEmpresasOK.modificarEmpresasOpcionesKioskos(listEmpresasOkModificar);
-                    listEmpresasOkModificar.clear();
-                }
-                if (!listEmpresasOkCrear.isEmpty()) {
-                    administrarEmpresasOK.crearEmpresasOpcionesKioskos(listEmpresasOkCrear);
-                    listEmpresasOkCrear.clear();
-                }
-                listEmpresasOk = null;
-                getListEmpresasOk();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                k = 0;
-                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                contarRegistros();
-                empresaOkSeleccionada = null;
-            }
-            guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-        } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            k = 0;
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
-        }
-
-    }
-
-    public void editarCelda() {
-        if (empresaOkSeleccionada != null) {
-            editarEmpresaOK = empresaOkSeleccionada;
-
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (cualCelda == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editEmpresa");
-                RequestContext.getCurrentInstance().execute("PF('editEmpresa').show()");
-                cualCelda = -1;
-            } else if (cualCelda == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editOpcionKiosko");
-                RequestContext.getCurrentInstance().execute("PF('editOpcionKiosko').show()");
-                cualCelda = -1;
-            }
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-        }
-    }
-
-    public void agregarNuevaEmpresaOK() {
-        int contador = 0;
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        mensajeValidacion = " ";
-
-        if (nuevaEmpresaOk.getEmpresa().getSecuencia() == null) {
-            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-            contador++;
-        }
-        if (nuevaEmpresaOk.getOpcionkiosko().getSecuencia() == null) {
-            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-            contador++;
-        }
-        
-        for (int i = 0; i < listEmpresasOk.size(); i++) {
-            if (nuevaEmpresaOk.getOpcionkiosko().getSecuencia() == listEmpresasOk.get(i).getOpcionkiosko().getSecuencia()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
-                duplicados++;
-            }
-        }
-
-        if (contador != 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaPregunta");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevaPregunta').show()");
-        }
-
-        if (contador == 0 && duplicados == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
-                empresa.setFilterStyle("display: none; visibility: hidden;");
-                opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
-                opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
-                bandera = 0;
-                listEmpresasOkFiltrar = null;
-                tipoLista = 0;
-                tamano = 330;
-                RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevaEmpresaOk.setSecuencia(l);
-            listEmpresasOkCrear.add(nuevaEmpresaOk);
-            listEmpresasOk.add(nuevaEmpresaOk);
             contarRegistros();
-            empresaOkSeleccionada = nuevaEmpresaOk;
-            nuevaEmpresaOk = new EmpresasOpcionesKioskos();
+            empresaOkSeleccionada = null;
+         }
+         guardado = true;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+      } catch (Exception e) {
+         System.out.println("Error guardarCambios : " + e.toString());
+         FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      }
+
+   }
+
+   public void editarCelda() {
+      if (empresaOkSeleccionada != null) {
+         editarEmpresaOK = empresaOkSeleccionada;
+
+         RequestContext context = RequestContext.getCurrentInstance();
+         if (cualCelda == 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editEmpresa");
+            RequestContext.getCurrentInstance().execute("PF('editEmpresa').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 1) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editOpcionKiosko");
+            RequestContext.getCurrentInstance().execute("PF('editOpcionKiosko').show()");
+            cualCelda = -1;
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public void agregarNuevaEmpresaOK() {
+      int contador = 0;
+      int duplicados = 0;
+      RequestContext context = RequestContext.getCurrentInstance();
+      mensajeValidacion = " ";
+
+      if (nuevaEmpresaOk.getEmpresa().getSecuencia() == null) {
+         mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+         contador++;
+      }
+      if (nuevaEmpresaOk.getOpcionkiosko().getSecuencia() == null) {
+         mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+         contador++;
+      }
+
+      for (int i = 0; i < listEmpresasOk.size(); i++) {
+         if (nuevaEmpresaOk.getOpcionkiosko().getSecuencia() == listEmpresasOk.get(i).getOpcionkiosko().getSecuencia()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
+            RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
+            duplicados++;
+         }
+      }
+
+      if (contador != 0) {
+         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaPregunta");
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevaPregunta').show()");
+      }
+
+      if (contador == 0 && duplicados == 0) {
+         if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
+            empresa.setFilterStyle("display: none; visibility: hidden;");
+            opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
+            opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
+            bandera = 0;
+            listEmpresasOkFiltrar = null;
+            tipoLista = 0;
+            tamano = 330;
             RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEmpresaOK').hide()");
-        }
-    }
+         }
+         k++;
+         l = BigInteger.valueOf(k);
+         nuevaEmpresaOk.setSecuencia(l);
+         listEmpresasOkCrear.add(nuevaEmpresaOk);
+         listEmpresasOk.add(nuevaEmpresaOk);
+         contarRegistros();
+         empresaOkSeleccionada = nuevaEmpresaOk;
+         nuevaEmpresaOk = new EmpresasOpcionesKioskos();
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEmpresaOK').hide()");
+      }
+   }
 
-    public void limpiarNuevaEmpresaOK() {
-        nuevaEmpresaOk = new EmpresasOpcionesKioskos();
-    }
+   public void limpiarNuevaEmpresaOK() {
+      nuevaEmpresaOk = new EmpresasOpcionesKioskos();
+   }
 
-    public void duplicandoEmpresaOk() {
-        if (empresaOkSeleccionada != null) {
-            duplicarEmpresaOk = new EmpresasOpcionesKioskos();
-            k++;
-            l = BigInteger.valueOf(k);
+   public void duplicandoEmpresaOk() {
+      if (empresaOkSeleccionada != null) {
+         duplicarEmpresaOk = new EmpresasOpcionesKioskos();
+         k++;
+         l = BigInteger.valueOf(k);
 
-            duplicarEmpresaOk.setSecuencia(l);
-            duplicarEmpresaOk.setEmpresa(empresaOkSeleccionada.getEmpresa());
-            duplicarEmpresaOk.setOpcionkiosko(empresaOkSeleccionada.getOpcionkiosko());
+         duplicarEmpresaOk.setSecuencia(l);
+         duplicarEmpresaOk.setEmpresa(empresaOkSeleccionada.getEmpresa());
+         duplicarEmpresaOk.setOpcionkiosko(empresaOkSeleccionada.getOpcionkiosko());
 
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresaOK').show()");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-        }
-    }
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresaOK').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
 
-    public void confirmarDuplicar() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        int contador = 0;
-        int duplicados = 0;
-        
-        for(int i= 0;i<listEmpresasOk.size();i++){
-            if(duplicarEmpresaOk.getOpcionkiosko().getSecuencia() == listEmpresasOk.get(i).getOpcionkiosko().getSecuencia()){
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
-             duplicados++;
-            }
-        }
+   public void confirmarDuplicar() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      int contador = 0;
+      int duplicados = 0;
 
-        if (contador == 0 && duplicados == 0) {
-            listEmpresasOk.add(duplicarEmpresaOk);
-            listEmpresasOkCrear.add(duplicarEmpresaOk);
-            empresaOkSeleccionada = duplicarEmpresaOk;
-            contarRegistros();
+      for (int i = 0; i < listEmpresasOk.size(); i++) {
+         if (duplicarEmpresaOk.getOpcionkiosko().getSecuencia() == listEmpresasOk.get(i).getOpcionkiosko().getSecuencia()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
+            RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
+            duplicados++;
+         }
+      }
+
+      if (contador == 0 && duplicados == 0) {
+         listEmpresasOk.add(duplicarEmpresaOk);
+         listEmpresasOkCrear.add(duplicarEmpresaOk);
+         empresaOkSeleccionada = duplicarEmpresaOk;
+         contarRegistros();
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
+            empresa.setFilterStyle("display: none; visibility: hidden;");
+            opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
+            opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
+            bandera = 0;
+            listEmpresasOkFiltrar = null;
             RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
-                empresa.setFilterStyle("display: none; visibility: hidden;");
-                opcionkiosko = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:opcionkiosko");
-                opcionkiosko.setFilterStyle("display: none; visibility: hidden;");
-                bandera = 0;
-                listEmpresasOkFiltrar = null;
-                RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-                tipoLista = 0;
+            tipoLista = 0;
+         }
+         duplicarEmpresaOk = new EmpresasOpcionesKioskos();
+      }
+      RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroEmpresaOK");
+      RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresaOK').hide()");
+   }
+
+   public void limpiparDuplicarEmpresaOk() {
+      duplicarEmpresaOk = new EmpresasOpcionesKioskos();
+   }
+
+   public void exportPDF() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasOkExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarPDF();
+      exporter.export(context, tabla, "EmpresasOpcionesKioskos", false, false, "UTF-8", null, null);
+      context.responseComplete();
+   }
+
+   public void exportXLS() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasOkExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarXLS();
+      exporter.export(context, tabla, "EmpresasOpcionesKioskos", false, false, "UTF-8", null, null);
+      context.responseComplete();
+   }
+
+   public void verificarRastro() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (empresaOkSeleccionada != null) {
+         int resultado = administrarRastros.obtenerTabla(empresaOkSeleccionada.getSecuencia(), "EMPRESASOPCIONESKIOSKOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+         }
+      } else if (administrarRastros.verificarHistoricosTabla("EMPRESASOPCIONESKIOSKOS")) { // igual acá
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+      }
+   }
+
+   public void eventoFiltrar() {
+      if (tipoLista == 0) {
+         tipoLista = 1;
+      }
+      contarRegistros();
+   }
+
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
+
+   public void contarRegistrosEmpresas() {
+      RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
+   }
+
+   public void contarRegistrosOpcionesKioskos() {
+      RequestContext.getCurrentInstance().update("form:infoRegistroOK");
+   }
+
+   public void asignarIndex(EmpresasOpcionesKioskos empresasok, int LND, int dialogo) {
+      empresaOkSeleccionada = empresasok;
+      RequestContext context = RequestContext.getCurrentInstance();
+      tipoActualizacion = LND;
+      if (dialogo == 1) {
+         contarRegistrosEmpresas();
+         RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
+         RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
+
+      } else if (dialogo == 2) {
+         contarRegistrosOpcionesKioskos();
+         RequestContext.getCurrentInstance().update("form:OpcionesKioskosDialogo");
+         RequestContext.getCurrentInstance().execute("PF('OpcionesKioskosDialogo').show()");
+      }
+   }
+
+   public void actualizarEmpresa() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (tipoActualizacion == 0) {
+         empresaOkSeleccionada.setEmpresa(empresaLovSeleccionda);
+         if (!listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
+            if (listEmpresasOkModificar.isEmpty()) {
+               listEmpresasOkModificar.add(empresaOkSeleccionada);
+            } else if (!listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
+               listEmpresasOkModificar.add(empresaOkSeleccionada);
             }
-            duplicarEmpresaOk = new EmpresasOpcionesKioskos();
-        }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroEmpresaOK");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresaOK').hide()");
-    }
+         }
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         deshabilitarBotonLov();
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+      } else if (tipoActualizacion == 1) {
+         nuevaEmpresaOk.setEmpresa(empresaLovSeleccionda);
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaOK");
+      } else if (tipoActualizacion == 2) {
+         duplicarEmpresaOk.setEmpresa(empresaLovSeleccionda);
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
+      }
+      lovEmpresasFiltrar = null;
+      empresaLovSeleccionda = null;
+      aceptar = true;
+      tipoActualizacion = -1;
 
-    public void limpiparDuplicarEmpresaOk() {
-        duplicarEmpresaOk = new EmpresasOpcionesKioskos();
-    }
+      RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
+      RequestContext.getCurrentInstance().update("form:lovEmpresas");
+      RequestContext.getCurrentInstance().update("form:aceptarD");
+      context.reset("form:lovEmpresas:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
+   }
 
-    public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasOkExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "EmpresasOpcionesKioskos", false, false, "UTF-8", null, null);
-        context.responseComplete();
-    }
+   public void cancelarCambioEmpresa() {
+      lovEmpresasFiltrar = null;
+      empresaLovSeleccionda = null;
+      aceptar = true;
+      tipoActualizacion = -1;
 
-    public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasOkExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "EmpresasOpcionesKioskos", false, false, "UTF-8", null, null);
-        context.responseComplete();
-    }
+      RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
+      RequestContext.getCurrentInstance().update("form:lovEmpresas");
+      RequestContext.getCurrentInstance().update("form:aceptarD");
+      RequestContext.getCurrentInstance().reset("form:lovEmpresas:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
+   }
 
-    public void verificarRastro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (empresaOkSeleccionada != null) {
-            int resultado = administrarRastros.obtenerTabla(empresaOkSeleccionada.getSecuencia(), "EMPRESASOPCIONESKIOSKOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            if (resultado == 1) {
-                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+   public void actualizarOpcionKiosko() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (tipoActualizacion == 0) {
+         empresaOkSeleccionada.setOpcionkiosko(opcionKioskoLovSeleccionda);
+         if (!listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
+            if (listEmpresasOkModificar.isEmpty()) {
+               listEmpresasOkModificar.add(empresaOkSeleccionada);
+            } else if (!listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
+               listEmpresasOkModificar.add(empresaOkSeleccionada);
             }
-        } else if (administrarRastros.verificarHistoricosTabla("EMPRESASOPCIONESKIOSKOS")) { // igual acá
-            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-        }
-    }
+         }
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         deshabilitarBotonLov();
+         RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
+      } else if (tipoActualizacion == 1) {
+         nuevaEmpresaOk.setOpcionkiosko(opcionKioskoLovSeleccionda);
+         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaOK");
+      } else if (tipoActualizacion == 2) {
+         duplicarEmpresaOk.setOpcionkiosko(opcionKioskoLovSeleccionda);
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
+      }
+      lovOpcionesKioskosFiltrar = null;
+      opcionKioskoLovSeleccionda = null;
+      aceptar = true;
+      tipoActualizacion = -1;
 
-    public void eventoFiltrar() {
-        if (tipoLista == 0) {
-            tipoLista = 1;
-        }
-        contarRegistros();
-    }
+      RequestContext.getCurrentInstance().update("form:OpcionesKioskosDialogo");
+      RequestContext.getCurrentInstance().update("form:lovOK");
+      RequestContext.getCurrentInstance().update("form:aceptarD");
 
-    public void contarRegistros() {
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-    }
+      context.reset("form:lovOK:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovOK').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('OpcionesKioskosDialogo').hide()");
+   }
 
-    public void contarRegistrosEmpresas() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
-    }
+   public void cancelarCambioOpcionKiosko() {
+      lovOpcionesKioskosFiltrar = null;
+      aceptar = true;
+      tipoActualizacion = -1;
+      opcionKioskoLovSeleccionda = null;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("form:lovOK:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovOK').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('OpcionesKioskosDialogo').hide()");
+      RequestContext.getCurrentInstance().update("form:OpcionesKioskosDialogo");
+      RequestContext.getCurrentInstance().update("form:lovOK");
+      RequestContext.getCurrentInstance().update("form:aceptarOK");
+   }
 
-    public void contarRegistrosOpcionesKioskos() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroOK");
-    }
-
-    public void asignarIndex(EmpresasOpcionesKioskos empresasok, int LND, int dialogo) {
-        empresaOkSeleccionada = empresasok;
-        RequestContext context = RequestContext.getCurrentInstance();
-        tipoActualizacion = LND;
-        if (dialogo == 1) {
+   public void listaValoresBoton() {
+      if (empresaOkSeleccionada != null) {
+         RequestContext context = RequestContext.getCurrentInstance();
+         if (cualCelda == 0) {
             contarRegistrosEmpresas();
             RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
-
-        } else if (dialogo == 2) {
+            tipoActualizacion = 0;
+         } else if (cualCelda == 1) {
             contarRegistrosOpcionesKioskos();
             RequestContext.getCurrentInstance().update("form:OpcionesKioskosDialogo");
             RequestContext.getCurrentInstance().execute("PF('OpcionesKioskosDialogo').show()");
-        }
-    }
+            tipoActualizacion = 0;
+         }
+      }
+   }
 
-    public void actualizarEmpresa() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tipoActualizacion == 0) {
-            empresaOkSeleccionada.setEmpresa(empresaLovSeleccionda);
-            if (!listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
-                if (listEmpresasOkModificar.isEmpty()) {
-                    listEmpresasOkModificar.add(empresaOkSeleccionada);
-                } else if (!listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
-                    listEmpresasOkModificar.add(empresaOkSeleccionada);
-                }
-            }
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            deshabilitarBotonLov();
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-        } else if (tipoActualizacion == 1) {
-            nuevaEmpresaOk.setEmpresa(empresaLovSeleccionda);
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaOK");
-        } else if (tipoActualizacion == 2) {
-            duplicarEmpresaOk.setEmpresa(empresaLovSeleccionda);
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-        }
-        lovEmpresasFiltrar = null;
-        empresaLovSeleccionda = null;
-        aceptar = true;
-        tipoActualizacion = -1;
+   public void habilitarBotonLov() {
+      activarLov = false;
+      RequestContext.getCurrentInstance().update("form:listaValores");
+   }
 
-        RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-        RequestContext.getCurrentInstance().update("form:lovEmpresas");
-        RequestContext.getCurrentInstance().update("form:aceptarD");
-        context.reset("form:lovEmpresas:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
-    }
+   public void deshabilitarBotonLov() {
+      activarLov = true;
+      RequestContext.getCurrentInstance().update("form:listaValores");
+   }
 
-    public void cancelarCambioEmpresa() {
-        lovEmpresasFiltrar = null;
-        empresaLovSeleccionda = null;
-        aceptar = true;
-        tipoActualizacion = -1;
+   //////SETS Y GETS///
+   public List<EmpresasOpcionesKioskos> getListEmpresasOk() {
+      if (listEmpresasOk == null) {
+         listEmpresasOk = administrarEmpresasOK.consultarEmpresasOpcionesKioskos();
+      }
+      return listEmpresasOk;
+   }
 
-        RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-        RequestContext.getCurrentInstance().update("form:lovEmpresas");
-        RequestContext.getCurrentInstance().update("form:aceptarD");
-        RequestContext.getCurrentInstance().reset("form:lovEmpresas:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
-    }
+   public void setListEmpresasOk(List<EmpresasOpcionesKioskos> listEmpresasOk) {
+      this.listEmpresasOk = listEmpresasOk;
+   }
 
-    public void actualizarOpcionKiosko() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tipoActualizacion == 0) {
-            empresaOkSeleccionada.setOpcionkiosko(opcionKioskoLovSeleccionda);
-            if (!listEmpresasOkCrear.contains(empresaOkSeleccionada)) {
-                if (listEmpresasOkModificar.isEmpty()) {
-                    listEmpresasOkModificar.add(empresaOkSeleccionada);
-                } else if (!listEmpresasOkModificar.contains(empresaOkSeleccionada)) {
-                    listEmpresasOkModificar.add(empresaOkSeleccionada);
-                }
-            }
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            deshabilitarBotonLov();
-            RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
-        } else if (tipoActualizacion == 1) {
-            nuevaEmpresaOk.setOpcionkiosko(opcionKioskoLovSeleccionda);
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaOK");
-        } else if (tipoActualizacion == 2) {
-            duplicarEmpresaOk.setOpcionkiosko(opcionKioskoLovSeleccionda);
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-        }
-        lovOpcionesKioskosFiltrar = null;
-        opcionKioskoLovSeleccionda = null;
-        aceptar = true;
-        tipoActualizacion = -1;
+   public EmpresasOpcionesKioskos getNuevaEmpresaOk() {
+      return nuevaEmpresaOk;
+   }
 
-        RequestContext.getCurrentInstance().update("form:OpcionesKioskosDialogo");
-        RequestContext.getCurrentInstance().update("form:lovOK");
-        RequestContext.getCurrentInstance().update("form:aceptarD");
+   public void setNuevaEmpresaOk(EmpresasOpcionesKioskos nuevaEmpresaOk) {
+      this.nuevaEmpresaOk = nuevaEmpresaOk;
+   }
 
-        context.reset("form:lovOK:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovOK').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('OpcionesKioskosDialogo').hide()");
-    }
+   public EmpresasOpcionesKioskos getDuplicarEmpresaOk() {
+      return duplicarEmpresaOk;
+   }
 
-    public void cancelarCambioOpcionKiosko() {
-        lovOpcionesKioskosFiltrar = null;
-        aceptar = true;
-        tipoActualizacion = -1;
-        opcionKioskoLovSeleccionda = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("form:lovOK:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovOK').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('OpcionesKioskosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("form:OpcionesKioskosDialogo");
-        RequestContext.getCurrentInstance().update("form:lovOK");
-        RequestContext.getCurrentInstance().update("form:aceptarOK");
-    }
+   public void setDuplicarEmpresaOk(EmpresasOpcionesKioskos duplicarEmpresaOk) {
+      this.duplicarEmpresaOk = duplicarEmpresaOk;
+   }
 
-    public void listaValoresBoton() {
-        if (empresaOkSeleccionada != null) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (cualCelda == 0) {
-                contarRegistrosEmpresas();
-                RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
-                tipoActualizacion = 0;
-            } else if (cualCelda == 1) {
-                contarRegistrosOpcionesKioskos();
-                RequestContext.getCurrentInstance().update("form:OpcionesKioskosDialogo");
-                RequestContext.getCurrentInstance().execute("PF('OpcionesKioskosDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-    }
+   public EmpresasOpcionesKioskos getEditarEmpresaOK() {
+      return editarEmpresaOK;
+   }
 
-    public void habilitarBotonLov() {
-        activarLov = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
-    }
+   public void setEditarEmpresaOK(EmpresasOpcionesKioskos editarEmpresaOK) {
+      this.editarEmpresaOK = editarEmpresaOK;
+   }
 
-    public void deshabilitarBotonLov() {
-        activarLov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
-    }
+   public EmpresasOpcionesKioskos getEmpresaOkSeleccionada() {
+      return empresaOkSeleccionada;
+   }
 
-    //////SETS Y GETS///
-    public List<EmpresasOpcionesKioskos> getListEmpresasOk() {
-        if (listEmpresasOk == null) {
-            listEmpresasOk = administrarEmpresasOK.consultarEmpresasOpcionesKioskos();
-        }
-        return listEmpresasOk;
-    }
+   public void setEmpresaOkSeleccionada(EmpresasOpcionesKioskos empresaOkSeleccionada) {
+      this.empresaOkSeleccionada = empresaOkSeleccionada;
+   }
 
-    public void setListEmpresasOk(List<EmpresasOpcionesKioskos> listEmpresasOk) {
-        this.listEmpresasOk = listEmpresasOk;
-    }
+   public List<Empresas> getLovEmpresas() {
+      if (lovEmpresas == null) {
+         lovEmpresas = administrarEmpresas.listaEmpresas();
+      }
+      return lovEmpresas;
+   }
 
-    public EmpresasOpcionesKioskos getNuevaEmpresaOk() {
-        return nuevaEmpresaOk;
-    }
+   public void setLovEmpresas(List<Empresas> lovEmpresas) {
+      this.lovEmpresas = lovEmpresas;
+   }
 
-    public void setNuevaEmpresaOk(EmpresasOpcionesKioskos nuevaEmpresaOk) {
-        this.nuevaEmpresaOk = nuevaEmpresaOk;
-    }
+   public List<Empresas> getLovEmpresasFiltrar() {
+      return lovEmpresasFiltrar;
+   }
 
-    public EmpresasOpcionesKioskos getDuplicarEmpresaOk() {
-        return duplicarEmpresaOk;
-    }
+   public void setLovEmpresasFiltrar(List<Empresas> lovEmpresasFiltrar) {
+      this.lovEmpresasFiltrar = lovEmpresasFiltrar;
+   }
 
-    public void setDuplicarEmpresaOk(EmpresasOpcionesKioskos duplicarEmpresaOk) {
-        this.duplicarEmpresaOk = duplicarEmpresaOk;
-    }
+   public Empresas getEmpresaLovSeleccionda() {
+      return empresaLovSeleccionda;
+   }
 
-    public EmpresasOpcionesKioskos getEditarEmpresaOK() {
-        return editarEmpresaOK;
-    }
+   public void setEmpresaLovSeleccionda(Empresas empresaLovSeleccionda) {
+      this.empresaLovSeleccionda = empresaLovSeleccionda;
+   }
 
-    public void setEditarEmpresaOK(EmpresasOpcionesKioskos editarEmpresaOK) {
-        this.editarEmpresaOK = editarEmpresaOK;
-    }
+   public List<OpcionesKioskos> getLovOpcionesKioskos() {
+      if (lovOpcionesKioskos == null) {
+         lovOpcionesKioskos = administrarOK.consultarOpcionesKioskos();
+      }
+      return lovOpcionesKioskos;
+   }
 
-    public EmpresasOpcionesKioskos getEmpresaOkSeleccionada() {
-        return empresaOkSeleccionada;
-    }
+   public void setLovOpcionesKioskos(List<OpcionesKioskos> lovOpcionesKioskos) {
+      this.lovOpcionesKioskos = lovOpcionesKioskos;
+   }
 
-    public void setEmpresaOkSeleccionada(EmpresasOpcionesKioskos empresaOkSeleccionada) {
-        this.empresaOkSeleccionada = empresaOkSeleccionada;
-    }
+   public List<OpcionesKioskos> getLovOpcionesKioskosFiltrar() {
+      return lovOpcionesKioskosFiltrar;
+   }
 
-    public List<Empresas> getLovEmpresas() {
-        if (lovEmpresas == null) {
-            lovEmpresas = administrarEmpresas.listaEmpresas();
-        }
-        return lovEmpresas;
-    }
+   public void setLovOpcionesKioskosFiltrar(List<OpcionesKioskos> lovOpcionesKioskosFiltrar) {
+      this.lovOpcionesKioskosFiltrar = lovOpcionesKioskosFiltrar;
+   }
 
-    public void setLovEmpresas(List<Empresas> lovEmpresas) {
-        this.lovEmpresas = lovEmpresas;
-    }
+   public OpcionesKioskos getOpcionKioskoLovSeleccionda() {
+      return opcionKioskoLovSeleccionda;
+   }
 
-    public List<Empresas> getLovEmpresasFiltrar() {
-        return lovEmpresasFiltrar;
-    }
+   public void setOpcionKioskoLovSeleccionda(OpcionesKioskos opcionKioskoLovSeleccionda) {
+      this.opcionKioskoLovSeleccionda = opcionKioskoLovSeleccionda;
+   }
 
-    public void setLovEmpresasFiltrar(List<Empresas> lovEmpresasFiltrar) {
-        this.lovEmpresasFiltrar = lovEmpresasFiltrar;
-    }
+   public boolean isAceptar() {
+      return aceptar;
+   }
 
-    public Empresas getEmpresaLovSeleccionda() {
-        return empresaLovSeleccionda;
-    }
+   public void setAceptar(boolean aceptar) {
+      this.aceptar = aceptar;
+   }
 
-    public void setEmpresaLovSeleccionda(Empresas empresaLovSeleccionda) {
-        this.empresaLovSeleccionda = empresaLovSeleccionda;
-    }
+   public boolean isGuardado() {
+      return guardado;
+   }
 
-    public List<OpcionesKioskos> getLovOpcionesKioskos() {
-        if (lovOpcionesKioskos == null) {
-            lovOpcionesKioskos = administrarOK.consultarOpcionesKioskos();
-        }
-        return lovOpcionesKioskos;
-    }
+   public void setGuardado(boolean guardado) {
+      this.guardado = guardado;
+   }
 
-    public void setLovOpcionesKioskos(List<OpcionesKioskos> lovOpcionesKioskos) {
-        this.lovOpcionesKioskos = lovOpcionesKioskos;
-    }
+   public String getMensajeValidacion() {
+      return mensajeValidacion;
+   }
 
-    public List<OpcionesKioskos> getLovOpcionesKioskosFiltrar() {
-        return lovOpcionesKioskosFiltrar;
-    }
+   public void setMensajeValidacion(String mensajeValidacion) {
+      this.mensajeValidacion = mensajeValidacion;
+   }
 
-    public void setLovOpcionesKioskosFiltrar(List<OpcionesKioskos> lovOpcionesKioskosFiltrar) {
-        this.lovOpcionesKioskosFiltrar = lovOpcionesKioskosFiltrar;
-    }
+   public int getTamano() {
+      return tamano;
+   }
 
-    public OpcionesKioskos getOpcionKioskoLovSeleccionda() {
-        return opcionKioskoLovSeleccionda;
-    }
+   public void setTamano(int tamano) {
+      this.tamano = tamano;
+   }
 
-    public void setOpcionKioskoLovSeleccionda(OpcionesKioskos opcionKioskoLovSeleccionda) {
-        this.opcionKioskoLovSeleccionda = opcionKioskoLovSeleccionda;
-    }
+   public boolean isActivarLov() {
+      return activarLov;
+   }
 
-    public boolean isAceptar() {
-        return aceptar;
-    }
+   public void setActivarLov(boolean activarLov) {
+      this.activarLov = activarLov;
+   }
 
-    public void setAceptar(boolean aceptar) {
-        this.aceptar = aceptar;
-    }
+   public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpresasOk");
+      infoRegistro = String.valueOf(tabla.getRowCount());
+      return infoRegistro;
+   }
 
-    public boolean isGuardado() {
-        return guardado;
-    }
+   public void setInfoRegistro(String infoRegistro) {
+      this.infoRegistro = infoRegistro;
+   }
 
-    public void setGuardado(boolean guardado) {
-        this.guardado = guardado;
-    }
+   public String getInfoRegistroEmpresa() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
+      infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
+      return infoRegistroEmpresa;
+   }
 
-    public String getMensajeValidacion() {
-        return mensajeValidacion;
-    }
+   public void setInfoRegistroEmpresa(String infoRegistroEmpresa) {
+      this.infoRegistroEmpresa = infoRegistroEmpresa;
+   }
 
-    public void setMensajeValidacion(String mensajeValidacion) {
-        this.mensajeValidacion = mensajeValidacion;
-    }
+   public String getInfoRegistroOK() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovOK");
+      infoRegistroOK = String.valueOf(tabla.getRowCount());
+      return infoRegistroOK;
+   }
 
-    public int getTamano() {
-        return tamano;
-    }
+   public void setInfoRegistroOK(String infoRegistroOK) {
+      this.infoRegistroOK = infoRegistroOK;
+   }
 
-    public void setTamano(int tamano) {
-        this.tamano = tamano;
-    }
+   public List<EmpresasOpcionesKioskos> getListEmpresasOkFiltrar() {
+      return listEmpresasOkFiltrar;
+   }
 
-    public boolean isActivarLov() {
-        return activarLov;
-    }
+   public void setListEmpresasOkFiltrar(List<EmpresasOpcionesKioskos> listEmpresasOkFiltrar) {
+      this.listEmpresasOkFiltrar = listEmpresasOkFiltrar;
+   }
 
-    public void setActivarLov(boolean activarLov) {
-        this.activarLov = activarLov;
-    }
+   public int getRegistrosBorrados() {
+      return registrosBorrados;
+   }
 
-    public String getInfoRegistro() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpresasOk");
-        infoRegistro = String.valueOf(tabla.getRowCount());
-        return infoRegistro;
-    }
-
-    public void setInfoRegistro(String infoRegistro) {
-        this.infoRegistro = infoRegistro;
-    }
-
-    public String getInfoRegistroEmpresa() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
-        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
-        return infoRegistroEmpresa;
-    }
-
-    public void setInfoRegistroEmpresa(String infoRegistroEmpresa) {
-        this.infoRegistroEmpresa = infoRegistroEmpresa;
-    }
-
-    public String getInfoRegistroOK() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovOK");
-        infoRegistroOK = String.valueOf(tabla.getRowCount());
-        return infoRegistroOK;
-    }
-
-    public void setInfoRegistroOK(String infoRegistroOK) {
-        this.infoRegistroOK = infoRegistroOK;
-    }
-
-    public List<EmpresasOpcionesKioskos> getListEmpresasOkFiltrar() {
-        return listEmpresasOkFiltrar;
-    }
-
-    public void setListEmpresasOkFiltrar(List<EmpresasOpcionesKioskos> listEmpresasOkFiltrar) {
-        this.listEmpresasOkFiltrar = listEmpresasOkFiltrar;
-    }
-
-    public int getRegistrosBorrados() {
-        return registrosBorrados;
-    }
-
-    public void setRegistrosBorrados(int registrosBorrados) {
-        this.registrosBorrados = registrosBorrados;
-    }
+   public void setRegistrosBorrados(int registrosBorrados) {
+      this.registrosBorrados = registrosBorrados;
+   }
 
 }

@@ -47,7 +47,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
    private List<VigenciasReformasLaborales> vigenciasReformasLaborales;
    private List<VigenciasReformasLaborales> filtrarVRL;
    private VigenciasReformasLaborales vigenciaSeleccionada;
-   private List<ReformasLaborales> listaReformasLaborales;
+   private List<ReformasLaborales> lovReformasLaborales;
    private ReformasLaborales reformaLaboralSelecionada;
    private List<ReformasLaborales> filtradoReformasLaborales;
    private Empleados empleado;
@@ -99,7 +99,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
    public ControlVigenciasReformasLaborales() {
 
       vigenciasReformasLaborales = null;
-      listaReformasLaborales = new ArrayList<ReformasLaborales>();
+      lovReformasLaborales = new ArrayList<ReformasLaborales>();
       empleado = new Empleados();
       //Otros
       aceptar = true;
@@ -129,7 +129,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listaReformasLaborales = null;
+      lovReformasLaborales = null;
    }
 
    @PostConstruct
@@ -182,6 +182,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
       }
       limpiarListasValor();
    }
+
    //EMPLEADO DE LA VIGENCIA
    /**
     * Metodo que recibe la secuencia empleado desde la pagina anterior y obtiene
@@ -191,7 +192,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     */
    public void recibirEmpleado(Empleados empl) {
       vigenciasReformasLaborales = null;
-      listaReformasLaborales = null;
+      lovReformasLaborales = null;
       empleado = empl;
       getVigenciasReformasLaboralesEmpleado();
       if (vigenciasReformasLaborales != null) {
@@ -284,14 +285,14 @@ public class ControlVigenciasReformasLaborales implements Serializable {
       if (confirmarCambio.equalsIgnoreCase("REFORMALABORAL")) {
          vigenciaSeleccionada.getReformalaboral().setNombre(reformaLaboral);
 
-         for (int i = 0; i < listaReformasLaborales.size(); i++) {
-            if (listaReformasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovReformasLaborales.size(); i++) {
+            if (lovReformasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setReformalaboral(listaReformasLaborales.get(indiceUnicoElemento));
+            vigenciaSeleccionada.setReformalaboral(lovReformasLaborales.get(indiceUnicoElemento));
 
          } else {
             permitirIndex = false;
@@ -340,18 +341,18 @@ public class ControlVigenciasReformasLaborales implements Serializable {
          } else if (tipoNuevo == 2) {
             duplicarVRL.getReformalaboral().setNombre(reformaLaboral);
          }
-         for (int i = 0; i < listaReformasLaborales.size(); i++) {
-            if (listaReformasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovReformasLaborales.size(); i++) {
+            if (lovReformasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setReformalaboral(listaReformasLaborales.get(indiceUnicoElemento));
+               nuevaVigencia.setReformalaboral(lovReformasLaborales.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaReformaLaboral");
             } else if (tipoNuevo == 2) {
-               duplicarVRL.setReformalaboral(listaReformasLaborales.get(indiceUnicoElemento));
+               duplicarVRL.setReformalaboral(lovReformasLaborales.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarReformaLaboral");
             }
          } else {
@@ -1009,15 +1010,15 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     *
     * @return listTC Lista Reformas Laborales
     */
-   public List<ReformasLaborales> getListaReformasLaborales() {
-      if (listaReformasLaborales == null) {
-         listaReformasLaborales = administrarVigenciasReformasLaborales.reformasLaborales();
+   public List<ReformasLaborales> getLovReformasLaborales() {
+      if (lovReformasLaborales == null) {
+         lovReformasLaborales = administrarVigenciasReformasLaborales.reformasLaborales();
       }
-      return listaReformasLaborales;
+      return lovReformasLaborales;
    }
 
-   public void setListaReformasLaborales(List<ReformasLaborales> listaLaboraleses) {
-      this.listaReformasLaborales = listaLaboraleses;
+   public void setLovReformasLaborales(List<ReformasLaborales> listaLaboraleses) {
+      this.lovReformasLaborales = listaLaboraleses;
    }
 
    public List<ReformasLaborales> getFiltradoReformasLaborales() {

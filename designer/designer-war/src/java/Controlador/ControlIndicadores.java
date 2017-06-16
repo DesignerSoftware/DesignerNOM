@@ -141,7 +141,7 @@ public class ControlIndicadores implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovTiposIndicadores = null;
    }
 
    @PostConstruct

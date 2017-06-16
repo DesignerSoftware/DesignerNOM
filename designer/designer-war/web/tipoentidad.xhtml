@@ -148,7 +148,7 @@
 
                     <p:dialog header="Grupos De Tipo Entidad" widgetVar="gruposTiposEntidadesDialogo" draggable="true" resizable="false" closable="false" id="gruposTiposEntidadesDialogo"  
                               showEffect="fade" hideEffect="fade" width="410" modal="true" style="">
-                        <p:dataTable id="lovGruposTiposEntidades" var="grupos" value="#{controlTiposEntidades.listaGruposTiposEntidades}" rowKey="#{grupos.secuencia}"
+                        <p:dataTable id="lovGruposTiposEntidades" var="grupos" value="#{controlTiposEntidades.lovGruposTiposEntidades}" rowKey="#{grupos.secuencia}"
                                      selection="#{controlTiposEntidades.gruposTiposEntidadesSeleccionada}" selectionMode="single" widgetVar="lovGruposTiposEntidades" scrollable="true" scrollWidth="385" scrollHeight="250"
                                      filteredValue="#{controlTiposEntidades.filtradoGruposTiposEntidades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
 

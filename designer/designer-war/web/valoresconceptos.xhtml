@@ -134,8 +134,8 @@
 
                         <p:dialog header="CONCEPTOS" widgetVar="personasDialogo" draggable="true" resizable="false" closable="false" id="personasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
-                            <p:dataTable id="lovConceptos" style=" width: 400px;" var="personaFirmas" value="#{controlValoresConceptos.listaConceptos}" rowKey="#{personaFirmas.secuencia}"
-                                         selection="#{controlValoresConceptos.conceptoSeleccionado}" selectionMode="single" widgetVar="lovConceptos" scrollable="true" scrollWidth="420" scrollHeight="280"
+                            <p:dataTable id="lovConceptos" style=" width: 400px;" var="personaFirmas" value="#{controlValoresConceptos.lovConceptos}" rowKey="#{personaFirmas.secuencia}"
+                                         selection="#{controlValoresConceptos.conceptolovSeleccionado}" selectionMode="single" widgetVar="lovConceptos" scrollable="true" scrollWidth="420" scrollHeight="280"
                                          filteredValue="#{controlValoresConceptos.filtradoConceptos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlValoresConceptos.activarAceptar()}" update=":form:aceptarPer"/>
                                 <p:ajax event="rowDblselect" listener="#{controlValoresConceptos.actualizarConceptos()}" process="@this"/>

@@ -586,9 +586,9 @@
             <h:form id="formularioDialogos">
                <p:dialog id="TiposDocumentosDialogo" header="#{msg['tiposdedocumentosTD']}" widgetVar="TiposDocumentosDialogo" draggable="true" resizable="false" closable="false"   
                          showEffect="fade" hideEffect="fade" width="445" modal="true" style="position: absolute; top: 0px; left: 0px;">
-                  <p:dataTable id="lovTiposDocumentos" style="width: 400px;" var="tipoDocumento" value="#{controlEmpleadoIndividual.listaTiposDocumentos}" rowKey="#{tipoDocumento.secuencia}"
-                               selection="#{controlEmpleadoIndividual.seleccionTipoDocumento}" selectionMode="single" widgetVar="lovTiposDocumentos" scrollable="true" scrollWidth="416" scrollHeight="180"
-                               filteredValue="#{controlEmpleadoIndividual.filtradoListaTiposDocumentos}" emptyMessage="#{msg['lovvacio']}">              
+                  <p:dataTable id="lovTiposDocumentos" style="width: 400px;" var="tipoDocumento" value="#{controlEmpleadoIndividual.lovTiposDocumentos}" rowKey="#{tipoDocumento.secuencia}"
+                               selection="#{controlEmpleadoIndividual.seleccionLovTipoDocumento}" selectionMode="single" widgetVar="lovTiposDocumentos" scrollable="true" scrollWidth="416" scrollHeight="180"
+                               filteredValue="#{controlEmpleadoIndividual.filtradoLovTiposDocumentos}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarTD"/>
                      <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarTipoDocumento()}"/>
                      <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosTiposDocumentos()}"/>
@@ -621,7 +621,7 @@
                <!-- ********************************************************************** -->
                <p:dialog id="CiudadesDialogo" header="#{controlEmpleadoIndividual.cabezeraDialogoCiudad}" widgetVar="CiudadesDialogo" draggable="true" resizable="false" closable="false" 
                          showEffect="fade" hideEffect="fade" width="445" modal="true">
-                  <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.listaCiudades}" rowKey="#{ciudad.secuencia}"
+                  <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.lovCiudades}" rowKey="#{ciudad.secuencia}"
                                selection="#{controlEmpleadoIndividual.seleccionCiudades}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="418" scrollHeight="250"
                                filteredValue="#{controlEmpleadoIndividual.filtradoListaCiudades}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                scrollRows="15">              
@@ -663,8 +663,8 @@
                <!-- ********************************************************************** -->
                <p:dialog id="CiudadesDocumentoDialogo" header="#{controlEmpleadoIndividual.cabezeraDialogoCiudad}" widgetVar="CiudadesDocumentoDialogo" draggable="true" resizable="false" closable="false" 
                          showEffect="fade" hideEffect="fade" width="445" modal="true">
-                  <p:dataTable id="lovCiudadesDocumento" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.listaCiudadesDocumento}" rowKey="#{ciudad.secuencia}"
-                               selection="#{controlEmpleadoIndividual.seleccionCiudadDocumento}" selectionMode="single" widgetVar="lovCiudadesDocumento" scrollable="true" scrollWidth="418" scrollHeight="250"
+                  <p:dataTable id="lovCiudadesDocumento" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.lovCiudadesDocumento}" rowKey="#{ciudad.secuencia}"
+                               selection="#{controlEmpleadoIndividual.seleccionLovCiudadDocumento}" selectionMode="single" widgetVar="lovCiudadesDocumento" scrollable="true" scrollWidth="418" scrollHeight="250"
                                filteredValue="#{controlEmpleadoIndividual.filtradoCiudadesDocumento}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                scrollRows="15">              
                      <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCD"/>
@@ -705,8 +705,8 @@
                <!-- ********************************************************************** -->
                <p:dialog id="CargosDialogo" header="Cargo Postulado" widgetVar="CargosDialogo" draggable="true" resizable="false" closable="false"   
                          showEffect="fade" hideEffect="fade" width="492" modal="true">
-                  <p:dataTable id="lovCargos" style="width: 446px;" var="cargo" value="#{controlEmpleadoIndividual.listaCargos}" rowKey="#{cargo.secuencia}"
-                               selection="#{controlEmpleadoIndividual.seleccionCargo}" selectionMode="single" widgetVar="lovCargos" scrollable="true" scrollWidth="464" scrollHeight="250"
+                  <p:dataTable id="lovCargos" style="width: 446px;" var="cargo" value="#{controlEmpleadoIndividual.lovCargos}" rowKey="#{cargo.secuencia}"
+                               selection="#{controlEmpleadoIndividual.seleccionLovCargo}" selectionMode="single" widgetVar="lovCargos" scrollable="true" scrollWidth="464" scrollHeight="250"
                                filteredValue="#{controlEmpleadoIndividual.filtradoListaCargos}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCA"/>
                      <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCargo()}"/>

@@ -375,7 +375,7 @@
                <!-- DIALOGO L.O.V CERTIFICADOS-->
                <p:dialog header="#{msg['certificadosC']}" widgetVar="CertificadosDialogo" draggable="true" resizable="false" closable="false" id="CertificadosDialogo"  
                          showEffect="fade" hideEffect="fade" width="450" modal="true">
-                  <p:dataTable id="lovCertificado" var="tipoC" value="#{controlEmplMvr.listTiposCertificados}" rowKey="#{tipoC.secuencia}"
+                  <p:dataTable id="lovCertificado" var="tipoC" value="#{controlEmplMvr.lovTiposCertificados}" rowKey="#{tipoC.secuencia}"
                                selection="#{controlEmplMvr.tipoCertificadoSeleccionado}" selectionMode="single" widgetVar="lovCertificado" scrollable="true" scrollWidth="435" scrollHeight="150"
                                filteredValue="#{controlEmplMvr.filtrarListTiposCertificados}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -412,7 +412,7 @@
 
                <p:dialog id="MotivoDialogo" header="#{msg['mvrM']}" widgetVar="MotivoDialogo" draggable="true" resizable="false" closable="false" 
                          showEffect="fade" hideEffect="fade" width="420" modal="true">
-                  <p:dataTable id="lovMotivo" var="motivo" value="#{controlEmplMvr.listMotivosMvrs}" rowKey="#{motivo.secuencia}"
+                  <p:dataTable id="lovMotivo" var="motivo" value="#{controlEmplMvr.lovMotivosMvrs}" rowKey="#{motivo.secuencia}"
                                selection="#{controlEmplMvr.motivoMvrSeleccionado}" selectionMode="single" widgetVar="lovMotivo" scrollable="true" scrollHeight="150" scrollWidth="400"
                                filteredValue="#{controlEmplMvr.filtrarListMotivosMvrs}" emptyMessage="#{msg['lovvacio']}">              
 

@@ -66,10 +66,10 @@ public class ControlSucursales implements Serializable {
    private String mensajeValidacion;
    //filtrado table
    private int tamano;
-   private List<Bancos> listaBancos;
+   private List<Bancos> lovBancos;
    private List<Bancos> filtradoBancos;
    private Bancos bancoSeleccionado;
-   private List<Ciudades> listaCiudades;
+   private List<Ciudades> lovCiudades;
    private List<Ciudades> filtradoCiudades;
    private Ciudades ciudadSeleccionado;
    private String infoRegistro;
@@ -89,9 +89,9 @@ public class ControlSucursales implements Serializable {
       duplicarSucursales = new Sucursales();
       duplicarSucursales.setBanco(new Bancos());
       duplicarSucursales.setCiudad(new Ciudades());
-      listaBancos = null;
+      lovBancos = null;
       filtradoBancos = null;
-      listaCiudades = null;
+      lovCiudades = null;
       filtradoCiudades = null;
       guardado = true;
       tamano = 270;
@@ -101,7 +101,8 @@ public class ControlSucursales implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovBancos = null;
+      lovCiudades = null;
    }
 
    @PostConstruct
@@ -132,37 +133,19 @@ public class ControlSucursales implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "sucursal";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "sucursal";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -911,15 +894,15 @@ String pagActual = "sucursal";
    }
    private String infoRegistroBancos;
 
-   public List<Bancos> getListaBancos() {
-      if (listaBancos == null) {
-         listaBancos = administrarSucursales.consultarLOVBancos();
+   public List<Bancos> getLovBancos() {
+      if (lovBancos == null) {
+         lovBancos = administrarSucursales.consultarLOVBancos();
       }
-      return listaBancos;
+      return lovBancos;
    }
 
-   public void setListaBancos(List<Bancos> listaBancos) {
-      this.listaBancos = listaBancos;
+   public void setLovBancos(List<Bancos> lovBancos) {
+      this.lovBancos = lovBancos;
    }
 
    public List<Bancos> getFiltradoBancos() {
@@ -939,15 +922,15 @@ String pagActual = "sucursal";
    }
    private String infoRegistroCiudades;
 
-   public List<Ciudades> getListaCiudades() {
-      if (listaCiudades == null) {
-         listaCiudades = administrarSucursales.consultarLOVCiudades();
+   public List<Ciudades> getLovCiudades() {
+      if (lovCiudades == null) {
+         lovCiudades = administrarSucursales.consultarLOVCiudades();
       }
-      return listaCiudades;
+      return lovCiudades;
    }
 
-   public void setListaCiudades(List<Ciudades> listaCiudades) {
-      this.listaCiudades = listaCiudades;
+   public void setLovCiudades(List<Ciudades> lovCiudades) {
+      this.lovCiudades = lovCiudades;
    }
 
    public List<Ciudades> getFiltradoCiudades() {

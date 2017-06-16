@@ -54,7 +54,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
    private int registrosBorrados;
    private String mensajeValidacion;
 //EMPRESA
-   private List<Empresas> listaEmpresas;
+   private List<Empresas> lovEmpresas;
    private List<Empresas> filtradoListaEmpresas;
 
    private Empresas empresaSeleccionada;
@@ -74,11 +74,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
    private Column codigoUG, descripcionUG, ciudadUG, direccionUG, telefono, fax;
    private Column observacion, zonaUG, actividadEconomica, sucursalPila, codigoAT;
    private String ciudadesAutocompletar;
-   private List<Ciudades> listaCiudades;
+   private List<Ciudades> lovCiudades;
    private List<Ciudades> filtradoCiudades;
    private Ciudades ciudadesSeleccionada;
    private String sucursalPilaAutocompletar;
-   private List<SucursalesPila> listaSucursalesPilas;
+   private List<SucursalesPila> lovSucursalesPilas;
    private List<SucursalesPila> filtradoSucursalesPilas;
    private SucursalesPila sucursalesPilasSeleccionada;
    private List<UbicacionesGeograficas> filterUbicacionesGeograficasPorEmpresa;
@@ -103,7 +103,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
 
    public ControlUbicacionesGeograficas() {
       permitirIndex = true;
-      listaEmpresas = null;
+      lovEmpresas = null;
       empresaSeleccionada = null;
       indiceEmpresaMostrada = 0;
       listUbicacionesGeograficasPorEmpresa = null;
@@ -115,18 +115,20 @@ public class ControlUbicacionesGeograficas implements Serializable {
       nuevaUbicacionGeografica.setCiudad(new Ciudades());
       nuevaUbicacionGeografica.setSucursalPila(new SucursalesPila());
       duplicarUbicacionGeografica = new UbicacionesGeograficas();
-      listaCiudades = null;
+      lovCiudades = null;
       aceptar = true;
       filtradoListaEmpresas = null;
       guardado = true;
       banderaSeleccionUbicacionesGeograficasPorEmpresa = false;
-      listaSucursalesPilas = null;
+      lovSucursalesPilas = null;
       tamano = 270;
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
    public void limpiarListasValor() {
-
+      lovCiudades = null;
+      lovEmpresas = null;
+      lovSucursalesPilas = null;
    }
 
    @PostConstruct
@@ -144,11 +146,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      listaEmpresas = null;
-      getListaEmpresas();
-      if (listaEmpresas != null) {
-         if (!listaEmpresas.isEmpty()) {
-            empresaSeleccionada = listaEmpresas.get(0);
+      lovEmpresas = null;
+      getLovEmpresas();
+      if (lovEmpresas != null) {
+         if (!lovEmpresas.isEmpty()) {
+            empresaSeleccionada = lovEmpresas.get(0);
          }
       }
    }
@@ -157,11 +159,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
-      listaEmpresas = null;
-      getListaEmpresas();
-      if (listaEmpresas != null) {
-         if (!listaEmpresas.isEmpty()) {
-            empresaSeleccionada = listaEmpresas.get(0);
+      lovEmpresas = null;
+      getLovEmpresas();
+      if (lovEmpresas != null) {
+         if (!lovEmpresas.isEmpty()) {
+            empresaSeleccionada = lovEmpresas.get(0);
          }
       }
    }
@@ -170,15 +172,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-       */
       String pagActual = "ubicaciongeografica";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -186,11 +180,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -424,8 +418,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
          }
          if (dig == 9) {
             System.out.println("Secuencia Empresa Seleccionada = " + empresaSeleccionada.getSecuencia());
-            listaSucursalesPilas = null;
-            getListaSucursalesPilas();
+            lovSucursalesPilas = null;
+            getLovSucursalesPilas();
             contarRegistrosSucursales();
             RequestContext.getCurrentInstance().update("form:sucursalesPilaDialogo");
             RequestContext.getCurrentInstance().execute("PF('sucursalesPilaDialogo').show()");
@@ -573,18 +567,18 @@ public class ControlUbicacionesGeograficas implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CIUDADES")) {
          nuevaUbicacionGeografica.getCiudad().setNombre(nuevoTipoCCAutoCompletar);
-         getListaCiudades();
-         for (int i = 0; i < listaCiudades.size(); i++) {
-            if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         getLovCiudades();
+         for (int i = 0; i < lovCiudades.size(); i++) {
+            if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          System.out.println("Coincidencias: " + coincidencias);
          if (coincidencias == 1) {
-            nuevaUbicacionGeografica.setCiudad(listaCiudades.get(indiceUnicoElemento));
-            listaCiudades = null;
-            getListaCiudades();
+            nuevaUbicacionGeografica.setCiudad(lovCiudades.get(indiceUnicoElemento));
+            lovCiudades = null;
+            getLovCiudades();
          } else {
             RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -594,18 +588,18 @@ public class ControlUbicacionesGeograficas implements Serializable {
       }
       if (confirmarCambio.equalsIgnoreCase("SUCURSALESPILA")) {
          nuevaUbicacionGeografica.getSucursalPila().setDescripcion(nuevoSucursalPilaAutocompletar);
-         getListaSucursalesPilas();
-         for (int i = 0; i < listaSucursalesPilas.size(); i++) {
-            if (listaSucursalesPilas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         getLovSucursalesPilas();
+         for (int i = 0; i < lovSucursalesPilas.size(); i++) {
+            if (lovSucursalesPilas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          System.out.println("Coincidencias: " + coincidencias);
          if (coincidencias == 1) {
-            nuevaUbicacionGeografica.setSucursalPila(listaSucursalesPilas.get(indiceUnicoElemento));
-            listaSucursalesPilas = null;
-            getListaCiudades();
+            nuevaUbicacionGeografica.setSucursalPila(lovSucursalesPilas.get(indiceUnicoElemento));
+            lovSucursalesPilas = null;
+            getLovCiudades();
          } else {
             RequestContext.getCurrentInstance().update("form:sucursalesPilaDialogo");
             RequestContext.getCurrentInstance().execute("PF('sucursalesPilaDialogo').show()");
@@ -635,16 +629,16 @@ public class ControlUbicacionesGeograficas implements Serializable {
       if (confirmarCambio.equalsIgnoreCase("CIUDADES")) {
          if (!duplicarUbicacionGeografica.getCiudad().getNombre().equals("")) {
             duplicarUbicacionGeografica.getCiudad().setNombre(nuevoTipoCCAutoCompletar);
-            for (int i = 0; i < listaCiudades.size(); i++) {
-               if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               duplicarUbicacionGeografica.setCiudad(listaCiudades.get(indiceUnicoElemento));
-               listaCiudades = null;
-               getListaCiudades();
+               duplicarUbicacionGeografica.setCiudad(lovCiudades.get(indiceUnicoElemento));
+               lovCiudades = null;
+               getLovCiudades();
             } else {
                RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
                RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -664,17 +658,17 @@ public class ControlUbicacionesGeograficas implements Serializable {
       if (confirmarCambio.equalsIgnoreCase("SUCURSALESPILA")) {
          if (!duplicarUbicacionGeografica.getSucursalPila().getDescripcion().equals("")) {
             duplicarUbicacionGeografica.getSucursalPila().setDescripcion(nuevoSucursalPilaAutocompletar);
-            for (int i = 0; i < listaSucursalesPilas.size(); i++) {
-               if (listaSucursalesPilas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovSucursalesPilas.size(); i++) {
+               if (lovSucursalesPilas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarUbicacionGeografica.setSucursalPila(listaSucursalesPilas.get(indiceUnicoElemento));
-               listaSucursalesPilas = null;
-               getListaCiudades();
+               duplicarUbicacionGeografica.setSucursalPila(lovSucursalesPilas.get(indiceUnicoElemento));
+               lovSucursalesPilas = null;
+               getLovCiudades();
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesPilaDialogo");
                RequestContext.getCurrentInstance().execute("PF('sucursalesPilaDialogo').show()");
@@ -1243,7 +1237,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
       aceptar = true;
       backUpEmpresaActual = empresaSeleccionada;
       banderaModificacionEmpresa = 0;
-      listaSucursalesPilas = null;
+      lovSucursalesPilas = null;
       RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
       contarRegistros();
       context.reset("formularioDialogos:lovEmpresas:globalFilter");
@@ -1286,20 +1280,20 @@ public class ControlUbicacionesGeograficas implements Serializable {
    }
    private String infoRegistroEmpresas;
 
-   public List<Empresas> getListaEmpresas() {
+   public List<Empresas> getLovEmpresas() {
       try {
-         if (listaEmpresas == null) {
-            listaEmpresas = administrarUbicacionesGeograficas.consultarEmpresas();
+         if (lovEmpresas == null) {
+            lovEmpresas = administrarUbicacionesGeograficas.consultarEmpresas();
          }
-         return listaEmpresas;
+         return lovEmpresas;
       } catch (Exception e) {
          System.out.println("ERROR LISTA EMPRESAS " + e);
          return null;
       }
    }
 
-   public void setListaEmpresas(List<Empresas> listaEmpresas) {
-      this.listaEmpresas = listaEmpresas;
+   public void setLovEmpresas(List<Empresas> lovEmpresas) {
+      this.lovEmpresas = lovEmpresas;
    }
 
    public List<Empresas> getFiltradoListaEmpresas() {
@@ -1359,15 +1353,15 @@ public class ControlUbicacionesGeograficas implements Serializable {
       this.duplicarUbicacionGeografica = duplicarUbicacionGeografica;
    }
 
-   public List<Ciudades> getListaCiudades() {
-      if (listaCiudades == null) {
-         listaCiudades = administrarUbicacionesGeograficas.lovCiudades();
+   public List<Ciudades> getLovCiudades() {
+      if (lovCiudades == null) {
+         lovCiudades = administrarUbicacionesGeograficas.lovCiudades();
       }
-      return listaCiudades;
+      return lovCiudades;
    }
 
-   public void setListaCiudades(List<Ciudades> listaCiudades) {
-      this.listaCiudades = listaCiudades;
+   public void setLovCiudades(List<Ciudades> lovCiudades) {
+      this.lovCiudades = lovCiudades;
    }
 
    public List<Ciudades> getFiltradoCiudades() {
@@ -1418,17 +1412,17 @@ public class ControlUbicacionesGeograficas implements Serializable {
       this.guardado = guardado;
    }
 
-   public List<SucursalesPila> getListaSucursalesPilas() {
-      if (listaSucursalesPilas == null) {
+   public List<SucursalesPila> getLovSucursalesPilas() {
+      if (lovSucursalesPilas == null) {
          if (empresaSeleccionada != null) {
-            listaSucursalesPilas = administrarUbicacionesGeograficas.lovSucursalesPilaPorEmpresa(empresaSeleccionada.getSecuencia());
+            lovSucursalesPilas = administrarUbicacionesGeograficas.lovSucursalesPilaPorEmpresa(empresaSeleccionada.getSecuencia());
          }
       }
-      return listaSucursalesPilas;
+      return lovSucursalesPilas;
    }
 
-   public void setListaSucursalesPilas(List<SucursalesPila> listaSucursalesPilas) {
-      this.listaSucursalesPilas = listaSucursalesPilas;
+   public void setLovSucursalesPilas(List<SucursalesPila> lovSucursalesPilas) {
+      this.lovSucursalesPilas = lovSucursalesPilas;
    }
 
    public List<SucursalesPila> getFiltradoSucursalesPilas() {

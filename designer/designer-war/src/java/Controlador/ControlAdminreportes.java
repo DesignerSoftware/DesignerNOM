@@ -51,7 +51,7 @@ public class ControlAdminreportes implements Serializable {
    private Inforeportes inforeporteSeleccionado;
    //L.O.V INFOREPORTES
    private List<Inforeportes> lovlistaInforeportes;
-   private List<Inforeportes> lovfiltradoslistaInforeportes;
+   private List<Inforeportes> filtrarlovInforeportes;
    private Inforeportes inforeportesSeleccionado;
    //editar celda
    private Inforeportes editarInforeportes;
@@ -77,8 +77,8 @@ public class ControlAdminreportes implements Serializable {
    //Borrar Novedades
    private List<Inforeportes> listaInforeportesBorrar;
    //L.O.V MODULOS
-   private List<Modulos> lovListaModulos;
-   private List<Modulos> lovFiltradoslistaModulos;
+   private List<Modulos> lovModulos;
+   private List<Modulos> filtrarLovModulos;
    private Modulos moduloSeleccionado;
    //AUTOCOMPLETAR
    private String Modulo;
@@ -96,7 +96,7 @@ public class ControlAdminreportes implements Serializable {
       cambiosPagina = true;
       nuevoInforeporte = new Inforeportes();
       nuevoInforeporte.setModulo(new Modulos());
-      lovListaModulos = null;
+      lovModulos = null;
       permitirIndex = true;
       listaInforeportes = null;
       permitirIndex = true;
@@ -130,37 +130,19 @@ public class ControlAdminreportes implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "adminreportes";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "adminreportes";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -172,7 +154,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void limpiarListasValor() {
-
+      lovModulos = null;
+      lovlistaInforeportes = null;
    }
 
    @PostConstruct
@@ -349,20 +332,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             filtradosListaInforeportes.get(indice).getModulo().setNombre(Modulo);
          }
 
-         for (int i = 0; i < lovListaModulos.size(); i++) {
-            if (lovListaModulos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovModulos.size(); i++) {
+            if (lovModulos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listaInforeportes.get(indice).setModulo(lovListaModulos.get(indiceUnicoElemento));
+               listaInforeportes.get(indice).setModulo(lovModulos.get(indiceUnicoElemento));
             } else {
-               filtradosListaInforeportes.get(indice).setModulo(lovListaModulos.get(indiceUnicoElemento));
+               filtradosListaInforeportes.get(indice).setModulo(lovModulos.get(indiceUnicoElemento));
             }
-            lovListaModulos.clear();
-            getLovListaModulos();
+            lovModulos.clear();
+            getLovModulos();
             for (int i = 0; i < listaInforeportes.size(); i++) {
                if (listaInforeportes.get(indice).getCodigo().equals(listaInforeportes.get(i).getCodigo())) {
                   if (listaInforeportes.get(indice).getModulo().getSecuencia().equals(listaInforeportes.get(i).getModulo().getSecuencia())) {
@@ -710,7 +693,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarModuloInforeporte");
 
       }
-      lovFiltradoslistaModulos = null;
+      filtrarLovModulos = null;
       moduloSeleccionado = null;
       aceptar = true;
       index = -1;
@@ -743,22 +726,22 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarInforeporte.getModulo().setNombre(Modulo);
          }
-         for (int i = 0; i < lovListaModulos.size(); i++) {
-            if (lovListaModulos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovModulos.size(); i++) {
+            if (lovModulos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoInforeporte.setModulo(lovListaModulos.get(indiceUnicoElemento));
+               nuevoInforeporte.setModulo(lovModulos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoModuloInforeporte");
             } else if (tipoNuevo == 2) {
-               duplicarInforeporte.setModulo(lovListaModulos.get(indiceUnicoElemento));
+               duplicarInforeporte.setModulo(lovModulos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarModuloInforeporte");
             }
-            lovListaModulos.clear();
-            getLovListaModulos();
+            lovModulos.clear();
+            getLovModulos();
          } else {
             RequestContext.getCurrentInstance().update("form:modulosDialogo");
             RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
@@ -875,7 +858,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void cancelarCambioInforeportes() {
-      lovfiltradoslistaInforeportes = null;
+      filtrarlovInforeportes = null;
       inforeportesSeleccionado = null;
       aceptar = true;
       index = -1;
@@ -890,7 +873,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void cancelarCambioModulos() {
-      lovFiltradoslistaModulos = null;
+      filtrarLovModulos = null;
       moduloSeleccionado = null;
       aceptar = true;
       index = -1;
@@ -1539,7 +1522,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       index = -1;
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          altoTabla = "270";
@@ -1602,12 +1586,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.lovlistaInforeportes = lovlistaInforeportes;
    }
 
-   public List<Inforeportes> getLovfiltradoslistaInforeportes() {
-      return lovfiltradoslistaInforeportes;
+   public List<Inforeportes> getFiltrarlovInforeportes() {
+      return filtrarlovInforeportes;
    }
 
-   public void setLovfiltradoslistaInforeportes(List<Inforeportes> lovfiltradoslistaInforeportes) {
-      this.lovfiltradoslistaInforeportes = lovfiltradoslistaInforeportes;
+   public void setFiltrarlovInforeportes(List<Inforeportes> filtrarlovInforeportes) {
+      this.filtrarlovInforeportes = filtrarlovInforeportes;
    }
 
    public Inforeportes getInforeportesSeleccionado() {
@@ -1618,21 +1602,21 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.inforeportesSeleccionado = inforeportesSeleccionado;
    }
 
-   public List<Modulos> getLovListaModulos() {
-      lovListaModulos = administrarInforeportes.lovmodulos();
-      return lovListaModulos;
+   public List<Modulos> getLovModulos() {
+      lovModulos = administrarInforeportes.lovmodulos();
+      return lovModulos;
    }
 
-   public void setLovListaModulos(List<Modulos> lovListaModulos) {
-      this.lovListaModulos = lovListaModulos;
+   public void setLovModulos(List<Modulos> lovModulos) {
+      this.lovModulos = lovModulos;
    }
 
-   public List<Modulos> getLovFiltradoslistaModulos() {
-      return lovFiltradoslistaModulos;
+   public List<Modulos> getFiltrarLovModulos() {
+      return filtrarLovModulos;
    }
 
-   public void setLovFiltradoslistaModulos(List<Modulos> lovFiltradoslistaModulos) {
-      this.lovFiltradoslistaModulos = lovFiltradoslistaModulos;
+   public void setFiltrarLovModulos(List<Modulos> filtrarLovModulos) {
+      this.filtrarLovModulos = filtrarLovModulos;
    }
 
    public Modulos getModuloSeleccionado() {
@@ -1712,9 +1696,9 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public String getInfoRegistroModulo() {
-      getLovListaModulos();
-      if (lovListaModulos != null) {
-         infoRegistroModulo = "Cantidad de registros : " + lovListaModulos.size();
+      getLovModulos();
+      if (lovModulos != null) {
+         infoRegistroModulo = "Cantidad de registros : " + lovModulos.size();
       } else {
          infoRegistroModulo = "Cantidad de registros : 0";
       }

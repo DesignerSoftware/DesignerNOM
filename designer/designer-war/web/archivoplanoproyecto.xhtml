@@ -136,7 +136,7 @@
 
                         <p:ajax event="filter" listener="#{controlArchivoPlanoProyecto.eventoFiltrar()}"/>
 
-                        <p:column width="20" exportable="false" sortBy="#{tNovedades.estadovalidacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                        <p:column width="20" exportable="false" sortBy="#{tNovedades.estado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <p:commandButton id="revisar" value="" actionListener="#{controlArchivoPlanoProyecto.revisarNovedad(tNovedades.secuencia)}"
                                             process="@this" style="background-image: url(Imagenes/Iconos/revisar.png); width: 17px; height: 17px; background-repeat: no-repeat; background-size: 100% 100%; border-radius: 2px;"/>
                         </p:column> 
@@ -404,7 +404,7 @@
                <p:dialog header="#{msg['documentosDS']}" widgetVar="documentoSoporteDialogo" draggable="true" resizable="false" closable="false" id="documentoSoporteDialogo"  
                          showEffect="fade" hideEffect="fade" width="445" modal="true">
 
-                  <p:dataTable id="lovDocumentoSoporte" var="documentoSoporte" value="#{controlArchivoPlanoProyecto.documentosSoporteCargados}" rowKey="#{documentoSoporte}"
+                  <p:dataTable id="lovDocumentoSoporte" var="documentoSoporte" value="#{controlArchivoPlanoProyecto.lovdocumentosSoporteCargados}" rowKey="#{documentoSoporte}"
                                selection="#{controlArchivoPlanoProyecto.seleccionDocumentosSoporteCargado}" selectionMode="single" widgetVar="lovDocumentoSoporte" scrollable="true" scrollWidth="415" scrollHeight="225"
                                filteredValue="#{controlArchivoPlanoProyecto.filtradoDocumentosSoporteCargados}" emptyMessage="#{msg['lovvacio']}">              
 

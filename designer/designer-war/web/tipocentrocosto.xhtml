@@ -148,7 +148,7 @@
 
                     <p:dialog header="Grupos de Tipos Centros Costos" widgetVar="gruposTiposCentrosCostosDialogo" draggable="true" resizable="false" closable="false" id="gruposTiposCentrosCostosDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                        <p:dataTable id="lovGruposTiposCC" style=" width: 430px;" var="grupos" value="#{controlTiposCentrosCostos.listaGruposTiposCC}" rowKey="#{grupos.secuencia}"
+                        <p:dataTable id="lovGruposTiposCC" style=" width: 430px;" var="grupos" value="#{controlTiposCentrosCostos.lovGruposTiposCC}" rowKey="#{grupos.secuencia}"
                                      selection="#{controlTiposCentrosCostos.grupoTipoCCSeleccionada}" selectionMode="single" widgetVar="lovGruposTiposCC" scrollable="true" scrollWidth="450" scrollHeight="250"
                                      filteredValue="#{controlTiposCentrosCostos.filtradoGruposTiposCC }" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlTiposCentrosCostos.activarAceptar()}" update=":form:aceptarGTCC"/>

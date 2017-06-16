@@ -13,7 +13,6 @@ import InterfaceAdministrar.AdministrarEmplDemandaInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
 import java.io.IOException;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +54,7 @@ public class ControlEmplDemanda implements Serializable {
    private Demandas editarDemandaEmpleado;
    private Demandas duplicarDemandaEmpleado;
    //LOV MOTIVOS DEMANDAS
-   private List<MotivosDemandas> listMotivosDemandas;
+   private List<MotivosDemandas> lovMotivosDemandas;
    private MotivosDemandas motivoDemandaSeleccionado;
    private List<MotivosDemandas> filtrarListMotivosDemandas;
    private int tipoActualizacion;
@@ -97,7 +96,7 @@ public class ControlEmplDemanda implements Serializable {
       permitirIndexD = true;
       demandaTablaSeleccionada = null;
       cualCelda = -1;
-      listMotivosDemandas = null;
+      lovMotivosDemandas = null;
       nuevaDemandaEmpleado = new Demandas();
       nuevaDemandaEmpleado.setMotivo(new MotivosDemandas());
       nuevaDemandaEmpleado.setFecha(new Date());
@@ -121,31 +120,13 @@ public class ControlEmplDemanda implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "empldemanda";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "empldemanda";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -163,7 +144,7 @@ String pagActual = "empldemanda";
    }
 
    public void limpiarListasValor() {
-
+      lovMotivosDemandas = null;
    }
 
    @PostConstruct
@@ -303,22 +284,22 @@ String pagActual = "empldemanda";
          } else if (tipoNuevo == 2) {
             duplicarDemandaEmpleado.getMotivo().setDescripcion(motivo);
          }
-         for (int i = 0; i < listMotivosDemandas.size(); i++) {
-            if (listMotivosDemandas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosDemandas.size(); i++) {
+            if (lovMotivosDemandas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaDemandaEmpleado.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
+               nuevaDemandaEmpleado.setMotivo(lovMotivosDemandas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivo");
             } else if (tipoNuevo == 2) {
-               duplicarDemandaEmpleado.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
+               duplicarDemandaEmpleado.setMotivo(lovMotivosDemandas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivo");
             }
-            listMotivosDemandas = null;
-            getListMotivosDemandas();
+            lovMotivosDemandas = null;
+            getLovMotivosDemandas();
          } else {
             RequestContext.getCurrentInstance().update("form:DemandaDialogo");
             RequestContext.getCurrentInstance().execute("PF('DemandaDialogo').show()");
@@ -422,7 +403,7 @@ String pagActual = "empldemanda";
       listDemandaEmpleadoCrear.clear();
       listDemandaEmpleadoModificar.clear();
       k = 0;
-      listMotivosDemandas = null;
+      lovMotivosDemandas = null;
       demandaTablaSeleccionada = null;
       listDemandasEmpleado = null;
       guardado = true;
@@ -927,18 +908,18 @@ String pagActual = "empldemanda";
       this.filtrarListDemandasEmpleado = setFiltrarListDemandasEmpleado;
    }
 
-   public List<MotivosDemandas> getListMotivosDemandas() {
+   public List<MotivosDemandas> getLovMotivosDemandas() {
       try {
-         listMotivosDemandas = administrarEmplDemanda.listMotivosDemandas();
-         return listMotivosDemandas;
+         lovMotivosDemandas = administrarEmplDemanda.listMotivosDemandas();
+         return lovMotivosDemandas;
       } catch (Exception e) {
          System.out.println("Error getListEmpresas " + e.toString());
          return null;
       }
    }
 
-   public void setListMotivosDemandas(List<MotivosDemandas> setListMotivosDemandas) {
-      this.listMotivosDemandas = setListMotivosDemandas;
+   public void setLovMotivosDemandas(List<MotivosDemandas> setListMotivosDemandas) {
+      this.lovMotivosDemandas = setListMotivosDemandas;
    }
 
    public MotivosDemandas getMotivoDemandaSeleccionado() {

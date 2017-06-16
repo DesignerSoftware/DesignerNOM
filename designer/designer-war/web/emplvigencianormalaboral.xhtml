@@ -142,7 +142,7 @@
 
                   <p:dialog header="#{msg['normaLaboralM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                             showEffect="fade" hideEffect="fade" width="470" modal="true">
-                     <p:dataTable id="lovNormas" var="tipofamiliar" value="#{controlBetaEmplVigenciaNormaLaboral.listaNormasLaborales}" rowKey="#{tipofamiliar.secuencia}"
+                     <p:dataTable id="lovNormas" var="tipofamiliar" value="#{controlBetaEmplVigenciaNormaLaboral.lovNormasLaborales}" rowKey="#{tipofamiliar.secuencia}"
                                   selection="#{controlBetaEmplVigenciaNormaLaboral.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovNormas" scrollable="true" scrollWidth="445" scrollHeight="130"
                                   filteredValue="#{controlBetaEmplVigenciaNormaLaboral.filtradoNormasLaborales}" emptyMessage="#{msg['lovvacio']}">
 

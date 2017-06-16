@@ -242,7 +242,7 @@
 
                         <p:dialog header="CLAVES DEBITO" widgetVar="clavesSapDebitoDialgo" draggable="true" resizable="false" closable="false" id="clavesSapDebitoDialgo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                            <p:dataTable id="lovClavesSap" style=" width: 430px;" var="idclavedebito" value="#{controlActualizarConceptos.listaClavesSap}" rowKey="#{idclavedebito.secuencia}"
+                            <p:dataTable id="lovClavesSap" style=" width: 430px;" var="idclavedebito" value="#{controlActualizarConceptos.lovClavesSap}" rowKey="#{idclavedebito.secuencia}"
                                          selection="#{controlActualizarConceptos.claveSapDebito}" selectionMode="single" widgetVar="lovClavesSap" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlActualizarConceptos.filtradoClavesSap}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlActualizarConceptos.activarAceptar()}" update=":form:aceptarS"/>
@@ -275,7 +275,7 @@
 
                         <p:dialog header="CLAVES CREDITO" widgetVar="claveSapCreditoDialogo" draggable="true" resizable="false" closable="false" id="claveSapCreditoDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                            <p:dataTable id="lovClavesSapCredito" style=" width: 430px;" var="idclavecredito" value="#{controlActualizarConceptos.listaClavesSap}" rowKey="#{idclavecredito.secuencia}"
+                            <p:dataTable id="lovClavesSapCredito" style=" width: 430px;" var="idclavecredito" value="#{controlActualizarConceptos.lovClavesSap}" rowKey="#{idclavecredito.secuencia}"
                                          selection="#{controlActualizarConceptos.claveSapCredito}" selectionMode="single" widgetVar="lovClavesSapCredito" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlActualizarConceptos.filtradoClavesSap}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlActualizarConceptos.activarAceptar()}" update=":form:aceptarC"/>
@@ -435,7 +435,7 @@
 
                     <p:dialog header="EMPRESAS" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="370" modal="true" style="">
-                        <p:dataTable id="lovEmpresas" style="width: 330px;" var="empresa" value="#{controlActualizarConceptos.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresas" style="width: 330px;" var="empresa" value="#{controlActualizarConceptos.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlActualizarConceptos.empresaSeleccionadaMostrar}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="350" scrollHeight="250"
                                      filteredValue="#{controlActualizarConceptos.filtradoEmpresas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                             <p:ajax event="rowSelect" listener="#{controlActualizarConceptos.activarAceptar()}" update=":formularioDialogos:aceptarE"/>

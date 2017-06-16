@@ -47,7 +47,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
    private List<InformacionesAdicionales> listInformacionAdicional;
    private List<InformacionesAdicionales> filtrarListInformacionAdicional;
    private InformacionesAdicionales informacionTablaSeleccionada;
-   private List<GruposInfAdicionales> listGruposInfAdicional;
+   private List<GruposInfAdicionales> lovGruposInfAdicional;
    private GruposInfAdicionales grupoSelecionado;
    private List<GruposInfAdicionales> filtrarListGruposInfAdicional;
    private Empleados empleado;
@@ -85,7 +85,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
       grupoSelecionado = new GruposInfAdicionales();
       backUpSecRegistro = null;
       listInformacionAdicional = null;
-      listGruposInfAdicional = null;
+      lovGruposInfAdicional = null;
       empleado = new Empleados();
       aceptar = true;
       listInfoAdicionalBorrar = new ArrayList<InformacionesAdicionales>();
@@ -120,37 +120,19 @@ public class ControlEmplInformacionAdicional implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplinformacionadicional";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplinformacionadicional";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -162,7 +144,7 @@ String pagActual = "emplinformacionadicional";
    }
 
    public void limpiarListasValor() {
-
+      lovGruposInfAdicional = null;
    }
 
    @PostConstruct
@@ -262,20 +244,20 @@ String pagActual = "emplinformacionadicional";
             } else {
                informacionTablaSeleccionada.getGrupo().setDescripcion(grupo);
             }
-            //   for (int i = 0; i < listGruposInfAdicional.size(); i++) {
+            //   for (int i = 0; i < lovGruposInfAdicional.size(); i++) {
             if (informacionTablaSeleccionada.getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                //   indiceUnicoElemento = i;
                coincidencias++;
             }
-            
+
             if (coincidencias == 1) {
                if (tipoLista == 0) {
                   informacionTablaSeleccionada.setGrupo(grupoSelecionado);
                } else {
                   informacionTablaSeleccionada.setGrupo(grupoSelecionado);
                }
-               listGruposInfAdicional.clear();
-               getListGruposInfAdicional();
+               lovGruposInfAdicional.clear();
+               getLovGruposInfAdicional();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:GrupoDialogo");
@@ -426,22 +408,22 @@ String pagActual = "emplinformacionadicional";
             } else if (tipoNuevo == 2) {
                duplicarInfoAdicional.getGrupo().setDescripcion(grupo);
             }
-            for (int i = 0; i < listGruposInfAdicional.size(); i++) {
-               if (listGruposInfAdicional.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovGruposInfAdicional.size(); i++) {
+               if (lovGruposInfAdicional.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaInfoAdicional.setGrupo(listGruposInfAdicional.get(indiceUnicoElemento));
+                  nuevaInfoAdicional.setGrupo(lovGruposInfAdicional.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaGrupo");
                } else if (tipoNuevo == 2) {
-                  duplicarInfoAdicional.setGrupo(listGruposInfAdicional.get(indiceUnicoElemento));
+                  duplicarInfoAdicional.setGrupo(lovGruposInfAdicional.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupo");
                }
-               listGruposInfAdicional.clear();
-               getListGruposInfAdicional();
+               lovGruposInfAdicional.clear();
+               getLovGruposInfAdicional();
             } else {
                RequestContext.getCurrentInstance().update("form:GrupoDialogo");
                RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
@@ -1126,13 +1108,15 @@ String pagActual = "emplinformacionadicional";
       return aceptar;
    }
 
-   public List<GruposInfAdicionales> getListGruposInfAdicional() {
-      listGruposInfAdicional = administrarEmplInformacionAdicional.listGruposInfAdicionales();
-      return listGruposInfAdicional;
+   public List<GruposInfAdicionales> getLovGruposInfAdicional() {
+      if (lovGruposInfAdicional.equals(null)) {
+         lovGruposInfAdicional = administrarEmplInformacionAdicional.listGruposInfAdicionales();
+      }
+      return lovGruposInfAdicional;
    }
 
-   public void setListGruposInfAdicional(List<GruposInfAdicionales> listGruposInfAdicional) {
-      this.listGruposInfAdicional = listGruposInfAdicional;
+   public void setLovGruposInfAdicional(List<GruposInfAdicionales> lovGruposInfAdicional) {
+      this.lovGruposInfAdicional = lovGruposInfAdicional;
    }
 
    public List<GruposInfAdicionales> getFiltrarListGruposInfAdicional() {

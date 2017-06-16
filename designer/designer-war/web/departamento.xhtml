@@ -150,9 +150,9 @@
 
                   <p:dialog header="Países" widgetVar="paisesDialogo" draggable="true" resizable="false" closable="false" id="paisesDialogo"  
                             showEffect="fade" hideEffect="fade" width="450" modal="true" style="">
-                     <p:dataTable id="lovPaises" style=" width: 400px;" var="pais" value="#{controlDepartamentos.listaPaises}" rowKey="#{pais.secuencia}"
-                                  selection="#{controlDepartamentos.paisSeleccionado}" selectionMode="single" widgetVar="lovPaises" scrollable="true" scrollWidth="420" scrollHeight="280"
-                                  filteredValue="#{controlDepartamentos.filtradoPaises}" emptyMessage="#{msg['lovvacio']}">              
+                     <p:dataTable id="lovPaises" style=" width: 400px;" var="pais" value="#{controlDepartamentos.lovPaises}" rowKey="#{pais.secuencia}"
+                                  selection="#{controlDepartamentos.paislovSeleccionado}" selectionMode="single" widgetVar="lovPaises" scrollable="true" scrollWidth="420" scrollHeight="280"
+                                  filteredValue="#{controlDepartamentos.filtrarLovPaises}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlDepartamentos.activarAceptar()}" update=":form:aceptarS"/>
                         <p:ajax event="rowDblselect" listener="#{controlDepartamentos.actualizarPais()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlDepartamentos.contarRegistrosPaises()}" process="@this"/>

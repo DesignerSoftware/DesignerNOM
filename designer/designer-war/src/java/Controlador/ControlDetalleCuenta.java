@@ -59,7 +59,7 @@ public class ControlDetalleCuenta implements Serializable {
    //Columnas Tabla VP
    private Column debitoFechaInicial, debitoFechaFinal, debitoCodigo, debitoDescripcion, debitoDescripcionCC, debitoCC, debitoTipo;
    private boolean aceptar;
-   private boolean guardado, guardarOk;
+   private boolean guardado;
    private VigenciasCuentas editarCredito;
    private VigenciasCuentas editarDebito;
    private int cualCeldaCredito, tipoListaCredito;
@@ -107,9 +107,8 @@ public class ControlDetalleCuenta implements Serializable {
       cuentaDebitoTablaSeleccionada = null;
       nombreTabla = ":formExportarCredito:datosCreditoExportar";
       nombreXML = "CuentrasCreditoXML";
-   mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
-
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
@@ -126,32 +125,14 @@ public class ControlDetalleCuenta implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "detallecuenta";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "detallecuenta";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -167,7 +148,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -434,7 +415,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (banderaCredito == 1) {
          altoTablaCredito = "95";
          creditoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaInicial");

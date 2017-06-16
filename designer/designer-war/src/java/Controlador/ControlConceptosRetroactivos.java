@@ -68,13 +68,13 @@ public class ControlConceptosRetroactivos implements Serializable {
 
    //---------------------------------
    private String backupConcepto;
-   private List<Conceptos> listaConceptos;
+   private List<Conceptos> lovConceptos;
    private List<Conceptos> filtradoConceptos;
    private Conceptos conceptoSeleccionado;
    private String nuevoYduplicarCompletarConcepto;
    //--------------------------------------
    private String backupConceptoRetro;
-   private List<Conceptos> listaConceptosRetro;
+   private List<Conceptos> lovConceptosRetro;
    private List<Conceptos> filtradoConceptosRetro;
    private Conceptos conceptoRetroSeleccionado;
    private String nuevoYduplicarCompletarConceptoRetro;
@@ -94,9 +94,9 @@ public class ControlConceptosRetroactivos implements Serializable {
       duplicarConceptosRetroactivos = new ConceptosRetroactivos();
       duplicarConceptosRetroactivos.setConcepto(new Conceptos());
       duplicarConceptosRetroactivos.setConceptoRetroActivo(new Conceptos());
-      listaConceptos = null;
+      lovConceptos = null;
       filtradoConceptos = null;
-      listaConceptosRetro = null;
+      lovConceptosRetro = null;
       filtradoConceptosRetro = null;
       guardado = true;
       tamano = 270;
@@ -119,37 +119,19 @@ public class ControlConceptosRetroactivos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "conceptoretroactivo";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "conceptoretroactivo";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -161,7 +143,8 @@ String pagActual = "conceptoretroactivo";
    }
 
    public void limpiarListasValor() {
-
+      lovConceptos = null;
+      lovConceptosRetro = null;
    }
 
    @PostConstruct
@@ -554,8 +537,8 @@ String pagActual = "conceptoretroactivo";
                listConceptosRetroactivos.get(indice).getConcepto().setDescripcion(backupConcepto);
             }
 
-            for (int i = 0; i < listaConceptos.size(); i++) {
-               if (listaConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptos.size(); i++) {
+               if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -563,12 +546,12 @@ String pagActual = "conceptoretroactivo";
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listConceptosRetroactivos.get(indice).setConcepto(listaConceptos.get(indiceUnicoElemento));
+                  listConceptosRetroactivos.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
                } else {
-                  filtrarConceptosRetroactivos.get(indice).setConcepto(listaConceptos.get(indiceUnicoElemento));
+                  filtrarConceptosRetroactivos.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
                }
-               listaConceptos.clear();
-               listaConceptos = null;
+               lovConceptos.clear();
+               lovConceptos = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -635,8 +618,8 @@ String pagActual = "conceptoretroactivo";
                listConceptosRetroactivos.get(indice).getConceptoRetroActivo().setDescripcion(backupConceptoRetro);
             }
 
-            for (int i = 0; i < listaConceptosRetro.size(); i++) {
-               if (listaConceptosRetro.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptosRetro.size(); i++) {
+               if (lovConceptosRetro.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -644,12 +627,12 @@ String pagActual = "conceptoretroactivo";
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listConceptosRetroactivos.get(indice).setConceptoRetroActivo(listaConceptosRetro.get(indiceUnicoElemento));
+                  listConceptosRetroactivos.get(indice).setConceptoRetroActivo(lovConceptosRetro.get(indiceUnicoElemento));
                } else {
-                  filtrarConceptosRetroactivos.get(indice).setConceptoRetroActivo(listaConceptosRetro.get(indiceUnicoElemento));
+                  filtrarConceptosRetroactivos.get(indice).setConceptoRetroActivo(lovConceptosRetro.get(indiceUnicoElemento));
                }
-               listaConceptosRetro.clear();
-               listaConceptosRetro = null;
+               lovConceptosRetro.clear();
+               lovConceptosRetro = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -800,16 +783,16 @@ String pagActual = "conceptoretroactivo";
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarConcepto);
             nuevoConceptosRetroactivos.getConcepto().setDescripcion(nuevoYduplicarCompletarConcepto);
-            for (int i = 0; i < listaConceptos.size(); i++) {
-               if (listaConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptos.size(); i++) {
+               if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoConceptosRetroactivos.setConcepto(listaConceptos.get(indiceUnicoElemento));
-               listaConceptos = null;
+               nuevoConceptosRetroactivos.setConcepto(lovConceptos.get(indiceUnicoElemento));
+               lovConceptos = null;
                System.err.println("CONCEPTOS GUARDADA :-----> " + nuevoConceptosRetroactivos.getConcepto().getDescripcion());
             } else {
                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
@@ -833,16 +816,16 @@ String pagActual = "conceptoretroactivo";
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarConceptoRetro);
             nuevoConceptosRetroactivos.getConceptoRetroActivo().setDescripcion(nuevoYduplicarCompletarConceptoRetro);
-            for (int i = 0; i < listaConceptosRetro.size(); i++) {
-               if (listaConceptosRetro.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptosRetro.size(); i++) {
+               if (lovConceptosRetro.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoConceptosRetroactivos.setConceptoRetroActivo(listaConceptosRetro.get(indiceUnicoElemento));
-               listaConceptosRetro = null;
+               nuevoConceptosRetroactivos.setConceptoRetroActivo(lovConceptosRetro.get(indiceUnicoElemento));
+               lovConceptosRetro = null;
                System.err.println("CONCEPTOSRETRO GUARDADA :-----> " + nuevoConceptosRetroactivos.getConceptoRetroActivo().getDescripcion());
             } else {
                RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
@@ -899,16 +882,16 @@ String pagActual = "conceptoretroactivo";
             System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
             System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarConcepto);
             duplicarConceptosRetroactivos.getConcepto().setDescripcion(nuevoYduplicarCompletarConcepto);
-            for (int i = 0; i < listaConceptos.size(); i++) {
-               if (listaConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptos.size(); i++) {
+               if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarConceptosRetroactivos.setConcepto(listaConceptos.get(indiceUnicoElemento));
-               listaConceptos = null;
+               duplicarConceptosRetroactivos.setConcepto(lovConceptos.get(indiceUnicoElemento));
+               lovConceptos = null;
             } else {
                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
@@ -942,17 +925,17 @@ String pagActual = "conceptoretroactivo";
             System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
             System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarConceptoRetro);
             duplicarConceptosRetroactivos.getConceptoRetroActivo().setDescripcion(nuevoYduplicarCompletarConceptoRetro);
-            for (int i = 0; i < listaConceptosRetro.size(); i++) {
-               if (listaConceptosRetro.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptosRetro.size(); i++) {
+               if (lovConceptosRetro.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarConceptosRetroactivos.setConceptoRetroActivo(listaConceptosRetro.get(indiceUnicoElemento));
-               listaConceptosRetro = null;
-               getListaConceptosRetro();
+               duplicarConceptosRetroactivos.setConceptoRetroActivo(lovConceptosRetro.get(indiceUnicoElemento));
+               lovConceptosRetro = null;
+               getLovConceptosRetro();
             } else {
                RequestContext.getCurrentInstance().update("form:conceptosRetroDialogo");
                RequestContext.getCurrentInstance().execute("PF('conceptosRetroDialogo').show()");
@@ -1409,23 +1392,23 @@ String pagActual = "conceptoretroactivo";
    }
    private String infoRegistroConceptos;
 
-   public List<Conceptos> getListaConceptos() {
-      if (listaConceptos == null) {
-         listaConceptos = administrarConceptosRetroactivos.consultarLOVConceptos();
+   public List<Conceptos> getLovConceptos() {
+      if (lovConceptos == null) {
+         lovConceptos = administrarConceptosRetroactivos.consultarLOVConceptos();
       }
 
       RequestContext context = RequestContext.getCurrentInstance();
-      if (listaConceptos == null || listaConceptos.isEmpty()) {
+      if (lovConceptos == null || lovConceptos.isEmpty()) {
          infoRegistroConceptos = "Cantidad de registros: 0 ";
       } else {
-         infoRegistroConceptos = "Cantidad de registros: " + listaConceptos.size();
+         infoRegistroConceptos = "Cantidad de registros: " + lovConceptos.size();
       }
       RequestContext.getCurrentInstance().update("form:infoRegistroConceptos");
-      return listaConceptos;
+      return lovConceptos;
    }
 
-   public void setListaConceptos(List<Conceptos> listaConceptos) {
-      this.listaConceptos = listaConceptos;
+   public void setLovConceptos(List<Conceptos> lovConceptos) {
+      this.lovConceptos = lovConceptos;
    }
 
    public List<Conceptos> getFiltradoConceptos() {
@@ -1445,23 +1428,23 @@ String pagActual = "conceptoretroactivo";
    }
    private String infoRegistroConceptosRetro;
 
-   public List<Conceptos> getListaConceptosRetro() {
-      if (listaConceptosRetro == null) {
-         listaConceptosRetro = administrarConceptosRetroactivos.consultarLOVConceptosRetro();
+   public List<Conceptos> getLovConceptosRetro() {
+      if (lovConceptosRetro == null) {
+         lovConceptosRetro = administrarConceptosRetroactivos.consultarLOVConceptosRetro();
       }
 
       RequestContext context = RequestContext.getCurrentInstance();
-      if (listaConceptosRetro == null || listaConceptosRetro.isEmpty()) {
+      if (lovConceptosRetro == null || lovConceptosRetro.isEmpty()) {
          infoRegistroConceptosRetro = "Cantidad de registros: 0 ";
       } else {
-         infoRegistroConceptosRetro = "Cantidad de registros: " + listaConceptosRetro.size();
+         infoRegistroConceptosRetro = "Cantidad de registros: " + lovConceptosRetro.size();
       }
       RequestContext.getCurrentInstance().update("form:infoRegistroConceptosRetro");
-      return listaConceptosRetro;
+      return lovConceptosRetro;
    }
 
-   public void setListaConceptosRetro(List<Conceptos> listaConceptosRetro) {
-      this.listaConceptosRetro = listaConceptosRetro;
+   public void setLovConceptosRetro(List<Conceptos> lovConceptosRetro) {
+      this.lovConceptosRetro = lovConceptosRetro;
    }
 
    public List<Conceptos> getFiltradoConceptosRetro() {

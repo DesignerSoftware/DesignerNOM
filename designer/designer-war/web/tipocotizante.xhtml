@@ -392,9 +392,9 @@
                <!-- DIALOGO L.O.V TIPOS ENTIDADES-->
                <p:dialog header="#{msg['tiposentidadesTE']}"  widgetVar="tiposEntidadesDialogo" draggable="true" resizable="false" closable="false" id="tiposEntidadesDialogo"  
                          showEffect="fade" hideEffect="fade" width="390" height="325" modal="true">
-                  <p:dataTable id="LOVTiposEntidades" style=" width: 340px;" var="tiposEntidades" value="#{controlTipoCotizante.lovListaTiposEntidades}" rowKey="#{tiposEntidades.secuencia}"
+                  <p:dataTable id="LOVTiposEntidades" style=" width: 340px;" var="tiposEntidades" value="#{controlTipoCotizante.lovTiposEntidades}" rowKey="#{tiposEntidades.secuencia}"
                                selection="#{controlTipoCotizante.seleccionTiposEntidades}" selectionMode="single" widgetVar="LOVTiposEntidades" scrollable="true" scrollHeight="200" scrollWidth="360"
-                               filteredValue="#{controlTipoCotizante.filtradoslovListaTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
+                               filteredValue="#{controlTipoCotizante.filtrarLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlTipoCotizante.activarAceptar()}" update=":formularioDialogos:aceptarTE"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoEntidad()}" process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoCotizante.contarRegistrosLovTE()}" process="@this"/>
@@ -426,9 +426,9 @@
                <!-- DIALOGO L.O.V TIPOS Cotizantes-->
                <p:dialog header="#{msg['tiposcotizantesTC']}"  widgetVar="tiposCotizantesDialogo" draggable="true" resizable="false" closable="false" id="tiposCotizantesDialogo"  
                          showEffect="fade" hideEffect="fade" width="390" height="325" modal="true">
-                  <p:dataTable id="LOVTiposCotizantes" style=" width: 340px;" var="tiposCotizantes" value="#{controlTipoCotizante.lovListaTiposCotizantes}" rowKey="#{tiposCotizantes.secuencia}"
+                  <p:dataTable id="LOVTiposCotizantes" style=" width: 340px;" var="tiposCotizantes" value="#{controlTipoCotizante.lovTiposCotizantes}" rowKey="#{tiposCotizantes.secuencia}"
                                selection="#{controlTipoCotizante.lovTipoCotizanteSeleccionado}" selectionMode="single" widgetVar="LOVTiposCotizantes" scrollable="true" scrollHeight="200" scrollWidth="360"
-                               filteredValue="#{controlTipoCotizante.lovFiltradosListaTiposCotizantes}" emptyMessage="#{msg['lovvacio']}">              
+                               filteredValue="#{controlTipoCotizante.filtrarLovTiposCotizantes}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlTipoCotizante.activarAceptar()}" update=":formularioDialogos:aceptarTC"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoCotizante()}" process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoCotizante.contarRegistrosLovTC()}" process="@this"/>

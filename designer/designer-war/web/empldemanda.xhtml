@@ -153,7 +153,7 @@
 
                         <p:dialog header="#{msg['motivoDemandaM']}" widgetVar="DemandaDialogo" draggable="true" resizable="false" closable="false" id="DemandaDialogo"  
                                   showEffect="fade" hideEffect="fade" width="445" modal="true">
-                            <p:dataTable id="lovDemanda" style="width: 400px;" var="demanda" value="#{controlEmplDemanda.listMotivosDemandas}" rowKey="#{demanda.secuencia}"
+                            <p:dataTable id="lovDemanda" style="width: 400px;" var="demanda" value="#{controlEmplDemanda.lovMotivosDemandas}" rowKey="#{demanda.secuencia}"
                                          selection="#{controlEmplDemanda.motivoDemandaSeleccionado}" selectionMode="single" widgetVar="lovDemanda" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlEmplDemanda.filtrarListMotivosDemandas}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlEmplDemanda.activarAceptar()}" update=":form:aceptarD"/>

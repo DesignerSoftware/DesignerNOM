@@ -48,19 +48,19 @@ public class ControlVigenciaSueldo implements Serializable {
    private List<VigenciasAfiliaciones> filtrarVigenciasAfiliaciones;
    private VigenciasAfiliaciones vigenciaAfiliacioneSeleccionada;
    //Tipo Sueldo
-   private List<TiposSueldos> listTiposSueldos;
+   private List<TiposSueldos> lovTiposSueldos;
    private TiposSueldos tipoSueldoSeleccionado;
    private List<TiposSueldos> filtrarTiposSueldos;
    //Motivo Cambio Sueldo
-   private List<MotivosCambiosSueldos> listMotivosCambiosSueldos;
+   private List<MotivosCambiosSueldos> lovMotivosCambiosSueldos;
    private MotivosCambiosSueldos motivoCambioSueldoSeleccionado;
    private List<MotivosCambiosSueldos> filtrarMotivosCambiosSueldos;
    //Tipos Entidades
-   private List<TiposEntidades> listTiposEntidades;
+   private List<TiposEntidades> lovTiposEntidades;
    private TiposEntidades tipoEntidadSeleccionado;
    private List<TiposEntidades> filtrarTiposEntidades;
    //Terceros
-   private List<Terceros> listTerceros;
+   private List<Terceros> lovTerceros;
    private Terceros terceroSeleccionado;
    private List<Terceros> filtrarTerceros;
    //Empleado
@@ -148,12 +148,12 @@ public class ControlVigenciaSueldo implements Serializable {
       listVigenciasAfiliaciones = null;
       msnConfirmarRastro = "";
       msnConfirmarRastroHistorico = "";
-      listTiposSueldos = null;
+      lovTiposSueldos = null;
       listVigenciasSueldos = null;
-      listMotivosCambiosSueldos = null;
-      listTiposEntidades = null;
+      lovMotivosCambiosSueldos = null;
+      lovTiposEntidades = null;
       empleado = new Empleados();
-      listTerceros = null;
+      lovTerceros = null;
       //Otros
       aceptar = true;
       //borrar aficiones
@@ -212,10 +212,10 @@ public class ControlVigenciaSueldo implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listMotivosCambiosSueldos = null;
-      listTerceros = null;
-      listTiposEntidades = null;
-      listTiposSueldos = null;
+      lovMotivosCambiosSueldos = null;
+      lovTerceros = null;
+      lovTiposEntidades = null;
+      lovTiposSueldos = null;
    }
 
    @PostConstruct
@@ -246,37 +246,19 @@ public class ControlVigenciaSueldo implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigenciasueldo";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigenciasueldo";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -410,17 +392,17 @@ String pagActual = "emplvigenciasueldo";
       if (confirmarCambio.equalsIgnoreCase("MOTIVOCAMBIOSUELDO")) {
          vigenciaSueldoSeleccionada.getMotivocambiosueldo().setNombre(motivoCambioSueldo);
 
-         for (int i = 0; i < listMotivosCambiosSueldos.size(); i++) {
-            if (listMotivosCambiosSueldos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+         for (int i = 0; i < lovMotivosCambiosSueldos.size(); i++) {
+            if (lovMotivosCambiosSueldos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSueldoSeleccionada.setMotivocambiosueldo(listMotivosCambiosSueldos.get(indiceUnicoElemento));
+            vigenciaSueldoSeleccionada.setMotivocambiosueldo(lovMotivosCambiosSueldos.get(indiceUnicoElemento));
 
-            listMotivosCambiosSueldos.clear();
-            getListMotivosCambiosSueldos();
+            lovMotivosCambiosSueldos.clear();
+            getLovMotivosCambiosSueldos();
          } else {
             permitirIndex = false;
             getInfoRegistroMotivoCambioSueldo();
@@ -432,17 +414,17 @@ String pagActual = "emplvigenciasueldo";
       if (confirmarCambio.equalsIgnoreCase("TIPOSUELDO")) {
          vigenciaSueldoSeleccionada.getTiposueldo().setDescripcion(tiposSueldos);
 
-         for (int i = 0; i < listTiposSueldos.size(); i++) {
-            if (listTiposSueldos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+         for (int i = 0; i < lovTiposSueldos.size(); i++) {
+            if (lovTiposSueldos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSueldoSeleccionada.setTiposueldo(listTiposSueldos.get(indiceUnicoElemento));
+            vigenciaSueldoSeleccionada.setTiposueldo(lovTiposSueldos.get(indiceUnicoElemento));
 
-            listTiposSueldos.clear();
-            getListTiposSueldos();
+            lovTiposSueldos.clear();
+            getLovTiposSueldos();
          } else {
             permitirIndex = false;
             getInfoRegistroTipoSueldo();
@@ -598,18 +580,18 @@ String pagActual = "emplvigenciasueldo";
       if (confirmarCambio.equalsIgnoreCase("TIPOENTIDAD")) {
          vigenciaAfiliacioneSeleccionada.getTipoentidad().setNombre(tiposEntidades);
 
-         for (int i = 0; i < listTiposEntidades.size(); i++) {
-            if (listTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposEntidades.size(); i++) {
+            if (lovTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             cambioVigenciaA = true;
-            vigenciaAfiliacioneSeleccionada.setTipoentidad(listTiposEntidades.get(indiceUnicoElemento));
+            vigenciaAfiliacioneSeleccionada.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
 
-            listTiposEntidades.clear();
-            getListTiposEntidades();
+            lovTiposEntidades.clear();
+            getLovTiposEntidades();
          } else {
             permitirIndexVA = false;
             getInfoRegistroTipoEntidad();
@@ -620,8 +602,8 @@ String pagActual = "emplvigenciasueldo";
       } else if (confirmarCambio.equalsIgnoreCase("TERCEROS")) {
          vigenciaAfiliacioneSeleccionada.getTercerosucursal().getTercero().setNombre(terceros);
 
-         for (int i = 0; i < listTerceros.size(); i++) {
-            if (listTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTerceros.size(); i++) {
+            if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -629,11 +611,11 @@ String pagActual = "emplvigenciasueldo";
          if (coincidencias == 1) {
             vigenciaAfiliacioneSeleccionada.setTercerosucursal(new TercerosSucursales());
             vigenciaAfiliacioneSeleccionada.getTercerosucursal().setTercero(new Terceros());
-            vigenciaAfiliacioneSeleccionada.getTercerosucursal().setTercero(listTerceros.get(indiceUnicoElemento));
+            vigenciaAfiliacioneSeleccionada.getTercerosucursal().setTercero(lovTerceros.get(indiceUnicoElemento));
             cambioVigenciaA = true;
 
-            listTerceros.clear();
-            getListTerceros();
+            lovTerceros.clear();
+            getLovTerceros();
          } else {
             permitirIndexVA = false;
             getInfoRegistroTercero();
@@ -705,18 +687,18 @@ String pagActual = "emplvigenciasueldo";
          } else if (tipoNuevo == 2) {
             duplicarVS.getMotivocambiosueldo().setNombre(motivoCambioSueldo);
          }
-         for (int i = 0; i < listMotivosCambiosSueldos.size(); i++) {
-            if (listMotivosCambiosSueldos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosCambiosSueldos.size(); i++) {
+            if (lovMotivosCambiosSueldos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaS.setMotivocambiosueldo(listMotivosCambiosSueldos.get(indiceUnicoElemento));
+               nuevaVigenciaS.setMotivocambiosueldo(lovMotivosCambiosSueldos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoCambioSueldo");
             } else if (tipoNuevo == 2) {
-               duplicarVS.setMotivocambiosueldo(listMotivosCambiosSueldos.get(indiceUnicoElemento));
+               duplicarVS.setMotivocambiosueldo(lovMotivosCambiosSueldos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoCambioSueldo");
             }
          } else {
@@ -735,18 +717,18 @@ String pagActual = "emplvigenciasueldo";
          } else if (tipoNuevo == 2) {
             duplicarVS.getTiposueldo().setDescripcion(tiposSueldos);
          }
-         for (int i = 0; i < listTiposSueldos.size(); i++) {
-            if (listTiposSueldos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposSueldos.size(); i++) {
+            if (lovTiposSueldos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaS.setTiposueldo(listTiposSueldos.get(indiceUnicoElemento));
+               nuevaVigenciaS.setTiposueldo(lovTiposSueldos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoSueldo");
             } else if (tipoNuevo == 2) {
-               duplicarVS.setTiposueldo(listTiposSueldos.get(indiceUnicoElemento));
+               duplicarVS.setTiposueldo(lovTiposSueldos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoSueldo");
             }
          } else {
@@ -810,22 +792,22 @@ String pagActual = "emplvigenciasueldo";
          } else if (tipoNuevo == 2) {
             duplicarVA.getTipoentidad().setNombre(tiposEntidades);
          }
-         for (int i = 0; i < listTiposEntidades.size(); i++) {
-            if (listTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposEntidades.size(); i++) {
+            if (lovTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaA.setTipoentidad(listTiposEntidades.get(indiceUnicoElemento));
+               nuevaVigenciaA.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoEntidadVA");
             } else if (tipoNuevo == 2) {
-               duplicarVA.setTipoentidad(listTiposEntidades.get(indiceUnicoElemento));
+               duplicarVA.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEntidadVA");
             }
-            listTiposEntidades.clear();
-            getListTiposEntidades();
+            lovTiposEntidades.clear();
+            getLovTiposEntidades();
          } else {
             RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
@@ -842,22 +824,22 @@ String pagActual = "emplvigenciasueldo";
          } else if (tipoNuevo == 2) {
             duplicarVA.getTercerosucursal().getTercero().setNombre(terceros);
          }
-         for (int i = 0; i < listTerceros.size(); i++) {
-            if (listTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTerceros.size(); i++) {
+            if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaA.getTercerosucursal().setTercero(listTerceros.get(indiceUnicoElemento));
+               nuevaVigenciaA.getTercerosucursal().setTercero(lovTerceros.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTerceroVA");
             } else if (tipoNuevo == 2) {
-               duplicarVA.getTercerosucursal().setTercero(listTerceros.get(indiceUnicoElemento));
+               duplicarVA.getTercerosucursal().setTercero(lovTerceros.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroVA");
             }
-            listTerceros.clear();
-            getListTerceros();
+            lovTerceros.clear();
+            getLovTerceros();
          } else {
             RequestContext.getCurrentInstance().update("form:TerceroDialogoVA");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogoVA').show()");
@@ -988,7 +970,7 @@ String pagActual = "emplvigenciasueldo";
       guardarCambiosVS();
       //if (listVigenciasAfiliaciones != null) {
       guardarCambiosVA();
-      
+
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
       guardado = true;
@@ -2681,15 +2663,15 @@ String pagActual = "emplvigenciasueldo";
       this.filtrarVigenciasAfiliaciones = filtrarVigenciasAfiliaciones;
    }
 
-   public List<TiposSueldos> getListTiposSueldos() {
-      if (listTiposSueldos == null) {
-         listTiposSueldos = administrarVigenciasSueldos.tiposSueldos();
+   public List<TiposSueldos> getLovTiposSueldos() {
+      if (lovTiposSueldos == null) {
+         lovTiposSueldos = administrarVigenciasSueldos.tiposSueldos();
       }
-      return listTiposSueldos;
+      return lovTiposSueldos;
    }
 
-   public void setListTiposSueldos(List<TiposSueldos> listTiposSueldos) {
-      this.listTiposSueldos = listTiposSueldos;
+   public void setLovTiposSueldos(List<TiposSueldos> lovTiposSueldos) {
+      this.lovTiposSueldos = lovTiposSueldos;
    }
 
    public TiposSueldos getTipoSueldoSeleccionado() {
@@ -2708,15 +2690,15 @@ String pagActual = "emplvigenciasueldo";
       this.filtrarTiposSueldos = filtrarTiposSueldos;
    }
 
-   public List<MotivosCambiosSueldos> getListMotivosCambiosSueldos() {
-      if (listMotivosCambiosSueldos == null) {
-         listMotivosCambiosSueldos = administrarVigenciasSueldos.motivosCambiosSueldos();
+   public List<MotivosCambiosSueldos> getLovMotivosCambiosSueldos() {
+      if (lovMotivosCambiosSueldos == null) {
+         lovMotivosCambiosSueldos = administrarVigenciasSueldos.motivosCambiosSueldos();
       }
-      return listMotivosCambiosSueldos;
+      return lovMotivosCambiosSueldos;
    }
 
-   public void setListMotivosCambiosSueldos(List<MotivosCambiosSueldos> listMotivosCambiosSueldos) {
-      this.listMotivosCambiosSueldos = listMotivosCambiosSueldos;
+   public void setLovMotivosCambiosSueldos(List<MotivosCambiosSueldos> lovMotivosCambiosSueldos) {
+      this.lovMotivosCambiosSueldos = lovMotivosCambiosSueldos;
    }
 
    public MotivosCambiosSueldos getMotivoCambioSueldoSeleccionado() {
@@ -2735,15 +2717,15 @@ String pagActual = "emplvigenciasueldo";
       this.filtrarMotivosCambiosSueldos = filtrarMotivosCambiosSueldos;
    }
 
-   public List<TiposEntidades> getListTiposEntidades() {
-      if (listTiposEntidades == null) {
-         listTiposEntidades = administrarVigenciasSueldos.tiposEntidades();
+   public List<TiposEntidades> getLovTiposEntidades() {
+      if (lovTiposEntidades == null) {
+         lovTiposEntidades = administrarVigenciasSueldos.tiposEntidades();
       }
-      return listTiposEntidades;
+      return lovTiposEntidades;
    }
 
-   public void setListTiposEntidades(List<TiposEntidades> listTiposEntidades) {
-      this.listTiposEntidades = listTiposEntidades;
+   public void setLovTiposEntidades(List<TiposEntidades> lovTiposEntidades) {
+      this.lovTiposEntidades = lovTiposEntidades;
    }
 
    public TiposEntidades getTipoEntidadSeleccionado() {
@@ -2762,15 +2744,15 @@ String pagActual = "emplvigenciasueldo";
       this.filtrarTiposEntidades = filtrarTiposEntidades;
    }
 
-   public List<Terceros> getListTerceros() {
-      if (listTerceros == null) {
-         listTerceros = administrarVigenciasSueldos.terceros();
+   public List<Terceros> getLovTerceros() {
+      if (lovTerceros == null) {
+         lovTerceros = administrarVigenciasSueldos.terceros();
       }
-      return listTerceros;
+      return lovTerceros;
    }
 
-   public void setListTerceros(List<Terceros> listTerceros) {
-      this.listTerceros = listTerceros;
+   public void setLovTerceros(List<Terceros> lovTerceros) {
+      this.lovTerceros = lovTerceros;
    }
 
    public Terceros getTerceroSeleccionado() {

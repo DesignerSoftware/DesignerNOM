@@ -272,7 +272,7 @@
 
                   <p:dialog header="#{msg['deporteM']}" widgetVar="DeportesDialogo" draggable="true" resizable="false" closable="false" id="DeportesDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovDeportes"  var="deportes" value="#{controlVigenciaDeporte.listDeportes}" rowKey="#{deportes.secuencia}"
+                     <p:dataTable id="lovDeportes"  var="deportes" value="#{controlVigenciaDeporte.lovDeportes}" rowKey="#{deportes.secuencia}"
                                   selection="#{controlVigenciaDeporte.deporteSeleccionado}" selectionMode="single" widgetVar="lovDeportes" scrollable="true" scrollWidth="415" scrollHeight="250"
                                   filteredValue="#{controlVigenciaDeporte.filtrarListDeportes}" emptyMessage="#{msg['lovvacio']}">   
                         <p:ajax event="filter" listener="#{controlVigenciaDeporte.contarRegistroDeporte()}"/>

@@ -890,7 +890,7 @@
             <h:form  id="formLovPorcentajes">
                <p:dialog header="#{msg['porcentajes']}" widgetVar="porcentajesDialogo" draggable="true" resizable="false" id="porcentajesDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="350">
-                  <p:dataTable  id="LOVPorcentajes" var="por" value="#{controlAusentismos.listaPorcentaje}"
+                  <p:dataTable  id="LOVPorcentajes" var="por" value="#{controlAusentismos.lovPorcentaje}"
                                 scrollable="true" scrollWidth="330" widgetVar="LOVPorcentajes" scrollHeight="115"
                                 filteredValue="#{controlAusentismos.filtradosListaPorcentajes}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{por}" selection="#{controlAusentismos.seleccionPorcentajes}" selectionMode="single">
@@ -919,7 +919,7 @@
             <h:form id="formLovIbcs">
                <p:dialog header="#{msg['ibcs']}" widgetVar="ibcsDialogo" draggable="true" resizable="false" id="ibcsDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="390">
-                  <p:dataTable  id="LOVIbcs" var="ibcs" value="#{controlAusentismos.listaIBCS}"
+                  <p:dataTable  id="LOVIbcs" var="ibcs" value="#{controlAusentismos.lovIBCS}"
                                 scrollable="true" scrollHeight="120" scrollWidth="365" widgetVar="LOVIbcs" 
                                 filteredValue="#{controlAusentismos.filtradosListaIBCS}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{ibcs.secuencia}" selection="#{controlAusentismos.seleccionIBCS}" selectionMode="single">
@@ -971,7 +971,7 @@
                <p:dialog header="#{msg['formaspagosF']}" widgetVar="formasDialogo" draggable="true" resizable="false" id="formasDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="360">
 
-                  <p:dataTable  id="LOVFormas" var="for" value="#{controlAusentismos.listaForma}"
+                  <p:dataTable  id="LOVFormas" var="for" value="#{controlAusentismos.lovForma}"
                                 scrollable="true" scrollHeight="170" scrollWidth="334" widgetVar="LOVFormas" 
                                 filteredValue="#{controlAusentismos.filtradosListaForma}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{for}" selection="#{controlAusentismos.seleccionForma}" selectionMode="single">

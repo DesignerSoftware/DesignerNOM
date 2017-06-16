@@ -1,6 +1,5 @@
 package Controlador;
 
-import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Cargos;
 import Entidades.Competenciascargos;
 import Entidades.DetallesCargos;
@@ -21,10 +20,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -316,34 +312,19 @@ public class ControlCargo implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "cargo";
-//         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-//         mapParametros.put("paginaAnterior", pagActual);
-         
-//         if (pag.equals("grupoviatico")) {
-//            ControlGruposViaticos controlGruposViaticos = (ControlGruposViaticos) fc.getApplication().evaluateExpressionGet(fc, "#{controlGruposViaticos}", ControlGruposViaticos.class);
-//            controlGruposViaticos.recibirParametros(mapParaEnviar);
-//            controlGruposViaticos.recibirPaginaEntrante(pagActual);
-//         } else if(){}
-         if (pag.equals("atras")) {
+      String pagActual = "cargo";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -352,7 +333,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          //}
       }
       limpiarListasValor();
-      
    }
 
    public void recibirParametros(Map<String, Object> map) {
@@ -368,7 +348,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    public void inicializarCosas() {
       lovEmpresas = administrarCargos.listaEmpresas();
-
       if (lovEmpresas.size() > 0) {
          System.out.println("listaEmpresas : " + lovEmpresas);
          empresaActual = lovEmpresas.get(0);

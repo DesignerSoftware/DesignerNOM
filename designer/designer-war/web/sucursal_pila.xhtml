@@ -263,7 +263,7 @@
 
                     <p:dialog header="Buscar Empresas" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" modal="true" style="">
-                        <p:dataTable id="lovEmpresas" style=" width: 330px;" var="empresa" value="#{controlSucursalesPila.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresas" style=" width: 330px;" var="empresa" value="#{controlSucursalesPila.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlSucursalesPila.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="350" scrollHeight="250"
                                      filteredValue="#{controlSucursalesPila.filtradoListaEmpresas}" emptyMessage="No se encontraron resultados con el criterio de búsqueda.">              
                             <p:ajax event="rowSelect" listener="#{controlSucursalesPila.activarAceptar()}" update=":formularioDialogos:aceptarE"/>

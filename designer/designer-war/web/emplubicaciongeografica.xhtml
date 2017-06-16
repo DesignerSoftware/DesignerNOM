@@ -163,7 +163,7 @@
                   <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                   <p:dialog header="#{msg['ubicacionesU']}" widgetVar="UbicacionesGeograficasDialogo" draggable="true" resizable="false" closable="false" id="UbicacionesGeograficasDialogo"  
                             showEffect="fade" hideEffect="fade" width="510" modal="true">
-                     <p:dataTable id="lovUbicaciones" var="ubicaciones" value="#{controlVigenciasUbicaciones.listaUbicaciones}" rowKey="#{ubicaciones.secuencia}"
+                     <p:dataTable id="lovUbicaciones" var="ubicaciones" value="#{controlVigenciasUbicaciones.lovUbicaciones}" rowKey="#{ubicaciones.secuencia}"
                                   selection="#{controlVigenciasUbicaciones.ubicacionSelecionada}" selectionMode="single" widgetVar="lovUbicaciones" scrollable="true" scrollWidth="486" scrollHeight="250"
                                   filteredValue="#{controlVigenciasUbicaciones.filtradoUbicaciones}" emptyMessage="#{msg['lovvacio']}">              
 

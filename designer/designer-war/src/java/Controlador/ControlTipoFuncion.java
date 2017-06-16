@@ -8,7 +8,6 @@ package Controlador;
 import Entidades.Operandos;
 import Entidades.TiposFunciones;
 import Exportar.ExportarPDF;
-import Exportar.ExportarPDFTablasAnchas;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarRastrosInterface;
 import InterfaceAdministrar.AdministrarTiposFuncionesInterface;
@@ -54,7 +53,7 @@ public class ControlTipoFuncion implements Serializable {
    private TiposFunciones tipoFuncionSeleccionada;
    //L.O.V INFOREPORTES
    private List<TiposFunciones> lovTiposFunciones;
-   private List<TiposFunciones> lovfiltradosTiposFunciones;
+   private List<TiposFunciones> filtrarLovFunciones;
    private TiposFunciones tipoFuncionLovSeleccionada;
    //editar celda
    private TiposFunciones editarTiposFunciones;
@@ -105,7 +104,7 @@ public class ControlTipoFuncion implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovTiposFunciones = null;
    }
 
    @PostConstruct
@@ -138,37 +137,19 @@ public class ControlTipoFuncion implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "tipofuncion";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "tipofuncion";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -177,7 +158,6 @@ String pagActual = "tipofuncion";
          //}
       }
       limpiarListasValor();
-
    }
 
    //UBICACION CELDA

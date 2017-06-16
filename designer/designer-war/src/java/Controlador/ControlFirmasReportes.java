@@ -74,19 +74,19 @@ public class ControlFirmasReportes implements Serializable {
    private String backupSubtituloFirma;
    //-------------------------------
    private String backupEmpresas;
-   private List<Empresas> listaEmpresas;
+   private List<Empresas> lovEmpresas;
    private List<Empresas> filtradoEmpresas;
    private Empresas empresaSeleccionado;
    private String nuevoYduplicarCompletarEmpresa;
    //---------------------------------
    private String backupPersona;
-   private List<Personas> listaPersonas;
+   private List<Personas> lovPersonas;
    private List<Personas> filtradoPersonas;
    private Personas personaSeleccionado;
    private String nuevoYduplicarCompletarPersona;
    //--------------------------------------
    private String backupCargo;
-   private List<Cargos> listaCargos;
+   private List<Cargos> lovCargos;
    private List<Cargos> filtradoCargos;
    private Cargos cargoSeleccionado;
    private String nuevoYduplicarCompletarCargo;
@@ -113,11 +113,11 @@ public class ControlFirmasReportes implements Serializable {
       duplicarFirmasReportes.setEmpresa(new Empresas());
       duplicarFirmasReportes.setPersonaFirma(new Personas());
       duplicarFirmasReportes.setCargo(new Cargos());
-      listaEmpresas = null;
+      lovEmpresas = null;
       filtradoEmpresas = null;
-      listaPersonas = null;
+      lovPersonas = null;
       filtradoPersonas = null;
-      listaCargos = null;
+      lovCargos = null;
       filtradoCargos = null;
       guardado = true;
       tamano = 270;
@@ -140,37 +140,19 @@ public class ControlFirmasReportes implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "firmareporte";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "firmareporte";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -181,8 +163,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      lovCargos = null;
+      lovEmpresas = null;
+      lovPersonas = null;
    }
 
    @PostConstruct
@@ -372,7 +356,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          //CERRAR FILTRADO
@@ -976,8 +961,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                listFirmasReportes.get(indice).getEmpresa().setNombre(backupEmpresas);
             }
 
-            for (int i = 0; i < listaEmpresas.size(); i++) {
-               if (listaEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovEmpresas.size(); i++) {
+               if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -985,12 +970,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listFirmasReportes.get(indice).setEmpresa(listaEmpresas.get(indiceUnicoElemento));
+                  listFirmasReportes.get(indice).setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                } else {
-                  filtrarFirmasReportes.get(indice).setEmpresa(listaEmpresas.get(indiceUnicoElemento));
+                  filtrarFirmasReportes.get(indice).setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                }
-               listaEmpresas.clear();
-               listaEmpresas = null;
+               lovEmpresas.clear();
+               lovEmpresas = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -1057,8 +1042,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                listFirmasReportes.get(indice).getPersonaFirma().setNombre(backupPersona);
             }
 
-            for (int i = 0; i < listaPersonas.size(); i++) {
-               if (listaPersonas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovPersonas.size(); i++) {
+               if (lovPersonas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1066,12 +1051,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listFirmasReportes.get(indice).setPersonaFirma(listaPersonas.get(indiceUnicoElemento));
+                  listFirmasReportes.get(indice).setPersonaFirma(lovPersonas.get(indiceUnicoElemento));
                } else {
-                  filtrarFirmasReportes.get(indice).setPersonaFirma(listaPersonas.get(indiceUnicoElemento));
+                  filtrarFirmasReportes.get(indice).setPersonaFirma(lovPersonas.get(indiceUnicoElemento));
                }
-               listaEmpresas.clear();
-               listaEmpresas = null;
+               lovEmpresas.clear();
+               lovEmpresas = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -1138,8 +1123,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                listFirmasReportes.get(indice).getCargo().setNombre(backupCargo);
             }
 
-            for (int i = 0; i < listaCargos.size(); i++) {
-               if (listaCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCargos.size(); i++) {
+               if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -1147,12 +1132,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listFirmasReportes.get(indice).setCargo(listaCargos.get(indiceUnicoElemento));
+                  listFirmasReportes.get(indice).setCargo(lovCargos.get(indiceUnicoElemento));
                } else {
-                  filtrarFirmasReportes.get(indice).setCargo(listaCargos.get(indiceUnicoElemento));
+                  filtrarFirmasReportes.get(indice).setCargo(lovCargos.get(indiceUnicoElemento));
                }
-               listaEmpresas.clear();
-               listaEmpresas = null;
+               lovEmpresas.clear();
+               lovEmpresas = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -1307,18 +1292,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCiudadCompletar: " + nuevoYduplicarCompletarEmpresa);
             nuevoFirmasReportes.getEmpresa().setNombre(nuevoYduplicarCompletarEmpresa);
-            getListaEmpresas();
-            for (int i = 0; i < listaEmpresas.size(); i++) {
-               if (listaEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            getLovEmpresas();
+            for (int i = 0; i < lovEmpresas.size(); i++) {
+               if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoFirmasReportes.setEmpresa(listaEmpresas.get(indiceUnicoElemento));
-               listaEmpresas = null;
-               getListaEmpresas();
+               nuevoFirmasReportes.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
+               lovEmpresas = null;
+               getLovEmpresas();
                System.err.println("NORMA LABORAL GUARDADA " + nuevoFirmasReportes.getEmpresa().getNombre());
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
@@ -1342,18 +1327,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarPersona);
             nuevoFirmasReportes.getPersonaFirma().setNombre(nuevoYduplicarCompletarPersona);
-            getListaEmpresas();
-            for (int i = 0; i < listaPersonas.size(); i++) {
-               if (listaPersonas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            getLovEmpresas();
+            for (int i = 0; i < lovPersonas.size(); i++) {
+               if (lovPersonas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoFirmasReportes.setPersonaFirma(listaPersonas.get(indiceUnicoElemento));
-               listaEmpresas = null;
-               getListaEmpresas();
+               nuevoFirmasReportes.setPersonaFirma(lovPersonas.get(indiceUnicoElemento));
+               lovEmpresas = null;
+               getLovEmpresas();
                System.err.println("PERSONA GUARDADA :-----> " + nuevoFirmasReportes.getPersonaFirma().getNombre());
             } else {
                RequestContext.getCurrentInstance().update("form:personasDialogo");
@@ -1377,18 +1362,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarCargo);
             nuevoFirmasReportes.getCargo().setNombre(nuevoYduplicarCompletarCargo);
-            getListaEmpresas();
-            for (int i = 0; i < listaCargos.size(); i++) {
-               if (listaCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            getLovEmpresas();
+            for (int i = 0; i < lovCargos.size(); i++) {
+               if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoFirmasReportes.setCargo(listaCargos.get(indiceUnicoElemento));
-               listaEmpresas = null;
-               getListaEmpresas();
+               nuevoFirmasReportes.setCargo(lovCargos.get(indiceUnicoElemento));
+               lovEmpresas = null;
+               getLovEmpresas();
                System.err.println("CARGO GUARDADA :-----> " + nuevoFirmasReportes.getCargo().getNombre());
             } else {
                RequestContext.getCurrentInstance().update("form:cargosDialogo");
@@ -1457,17 +1442,17 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
             System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarEmpresa);
             duplicarFirmasReportes.getEmpresa().setNombre(nuevoYduplicarCompletarEmpresa);
-            for (int i = 0; i < listaEmpresas.size(); i++) {
-               if (listaEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovEmpresas.size(); i++) {
+               if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarFirmasReportes.setEmpresa(listaEmpresas.get(indiceUnicoElemento));
-               listaEmpresas = null;
-               getListaEmpresas();
+               duplicarFirmasReportes.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
+               lovEmpresas = null;
+               getLovEmpresas();
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
@@ -1501,17 +1486,17 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
             System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarPersona);
             duplicarFirmasReportes.getPersonaFirma().setNombre(nuevoYduplicarCompletarPersona);
-            for (int i = 0; i < listaPersonas.size(); i++) {
-               if (listaPersonas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovPersonas.size(); i++) {
+               if (lovPersonas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarFirmasReportes.setPersonaFirma(listaPersonas.get(indiceUnicoElemento));
-               listaPersonas = null;
-               getListaEmpresas();
+               duplicarFirmasReportes.setPersonaFirma(lovPersonas.get(indiceUnicoElemento));
+               lovPersonas = null;
+               getLovEmpresas();
             } else {
                RequestContext.getCurrentInstance().update("form:personasDialogo");
                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
@@ -1545,17 +1530,17 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
             System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarCargo);
             duplicarFirmasReportes.getCargo().setNombre(nuevoYduplicarCompletarCargo);
-            for (int i = 0; i < listaCargos.size(); i++) {
-               if (listaCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCargos.size(); i++) {
+               if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarFirmasReportes.setCargo(listaCargos.get(indiceUnicoElemento));
-               listaCargos = null;
-               getListaCargos();
+               duplicarFirmasReportes.setCargo(lovCargos.get(indiceUnicoElemento));
+               lovCargos = null;
+               getLovCargos();
             } else {
                RequestContext.getCurrentInstance().update("form:cargosDialogo");
                RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
@@ -2176,23 +2161,23 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.tamano = tamano;
    }
 
-   public List<Empresas> getListaEmpresas() {
-      if (listaEmpresas == null) {
-         listaEmpresas = administrarFirmasReportes.consultarLOVEmpresas();
+   public List<Empresas> getLovEmpresas() {
+      if (lovEmpresas == null) {
+         lovEmpresas = administrarFirmasReportes.consultarLOVEmpresas();
       }
       RequestContext context = RequestContext.getCurrentInstance();
 
-      if (listaEmpresas == null || listaEmpresas.isEmpty()) {
+      if (lovEmpresas == null || lovEmpresas.isEmpty()) {
          infoLOVEmpresa = "Cantidad de registros: 0 ";
       } else {
-         infoLOVEmpresa = "Cantidad de registros: " + listaEmpresas.size();
+         infoLOVEmpresa = "Cantidad de registros: " + lovEmpresas.size();
       }
       RequestContext.getCurrentInstance().update("form:infoLOVEmpresa");
-      return listaEmpresas;
+      return lovEmpresas;
    }
 
-   public void setListaEmpresas(List<Empresas> listaEmpresas) {
-      this.listaEmpresas = listaEmpresas;
+   public void setLovEmpresas(List<Empresas> lovEmpresas) {
+      this.lovEmpresas = lovEmpresas;
    }
 
    public List<Empresas> getFiltradoEmpresas() {
@@ -2211,23 +2196,23 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.empresaSeleccionado = empresaSeleccionado;
    }
 
-   public List<Personas> getListaPersonas() {
-      if (listaPersonas == null) {
-         listaPersonas = administrarFirmasReportes.consultarLOVPersonas();
+   public List<Personas> getLovPersonas() {
+      if (lovPersonas == null) {
+         lovPersonas = administrarFirmasReportes.consultarLOVPersonas();
       }
       RequestContext context = RequestContext.getCurrentInstance();
 
-      if (listaPersonas == null || listaPersonas.isEmpty()) {
+      if (lovPersonas == null || lovPersonas.isEmpty()) {
          infoLOVPersona = "Cantidad de registros: 0 ";
       } else {
-         infoLOVPersona = "Cantidad de registros: " + listaPersonas.size();
+         infoLOVPersona = "Cantidad de registros: " + lovPersonas.size();
       }
       RequestContext.getCurrentInstance().update("form:infoLOVPersona");
-      return listaPersonas;
+      return lovPersonas;
    }
 
-   public void setListaPersonas(List<Personas> listaPersonas) {
-      this.listaPersonas = listaPersonas;
+   public void setLovPersonas(List<Personas> lovPersonas) {
+      this.lovPersonas = lovPersonas;
    }
 
    public List<Personas> getFiltradoPersonas() {
@@ -2246,23 +2231,23 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.personaSeleccionado = personaSeleccionado;
    }
 
-   public List<Cargos> getListaCargos() {
-      if (listaCargos == null) {
-         listaCargos = administrarFirmasReportes.consultarLOVCargos();
+   public List<Cargos> getLovCargos() {
+      if (lovCargos == null) {
+         lovCargos = administrarFirmasReportes.consultarLOVCargos();
       }
       RequestContext context = RequestContext.getCurrentInstance();
 
-      if (listaCargos == null || listaCargos.isEmpty()) {
+      if (lovCargos == null || lovCargos.isEmpty()) {
          infoLOVCargo = "Cantidad de registros: 0 ";
       } else {
-         infoLOVCargo = "Cantidad de registros: " + listaCargos.size();
+         infoLOVCargo = "Cantidad de registros: " + lovCargos.size();
       }
       RequestContext.getCurrentInstance().update("form:infoLOVCargo");
-      return listaCargos;
+      return lovCargos;
    }
 
-   public void setListaCargos(List<Cargos> listaCargos) {
-      this.listaCargos = listaCargos;
+   public void setLovCargos(List<Cargos> lovCargos) {
+      this.lovCargos = lovCargos;
    }
 
    public List<Cargos> getFiltradoCargos() {

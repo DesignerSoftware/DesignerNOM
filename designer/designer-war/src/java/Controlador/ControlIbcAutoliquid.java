@@ -53,9 +53,9 @@ public class ControlIbcAutoliquid implements Serializable {
    private TiposEntidades tipoEntidadActual;
    private int registroActual;
    //
-   private List<Procesos> listProcesos;
-   private List<Procesos> filtrarListProcesos;
-   private Procesos procesoSeleccionado;
+   private List<Procesos> lovProcesos;
+   private List<Procesos> filtrarLovProcesos;
+   private Procesos procesoLovSeleccionado;
    //
    private int tipoActualizacion;
    private int bandera, banderaTE;
@@ -105,7 +105,7 @@ public class ControlIbcAutoliquid implements Serializable {
       altoTablaTipoE = "95";
       empleado = new Empleados();
       registroActual = 0;
-      listProcesos = null;
+      lovProcesos = null;
       tipoEntidadActual = new TiposEntidades();
       listTiposEntidades = null;
       nombreTablaRastro = "";
@@ -161,37 +161,19 @@ public class ControlIbcAutoliquid implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "ibcautoliquid";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "ibcautoliquid";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -203,7 +185,7 @@ String pagActual = "ibcautoliquid";
    }
 
    public void limpiarListasValor() {
-
+      lovProcesos = null;
    }
 
    @PostConstruct
@@ -362,17 +344,17 @@ String pagActual = "ibcautoliquid";
          if (!valorConfirmar.isEmpty()) {
             ibcsTablaSeleccionada.getProceso().setDescripcion(proceso);
 
-            for (int i = 0; i < listProcesos.size(); i++) {
-               if (listProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovProcesos.size(); i++) {
+               if (lovProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               ibcsTablaSeleccionada.setProceso(listProcesos.get(indiceUnicoElemento));
+               ibcsTablaSeleccionada.setProceso(lovProcesos.get(indiceUnicoElemento));
 
-               listProcesos.clear();
-               getListProcesos();
+               lovProcesos.clear();
+               getLovProcesos();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:ProcesosDialogo");
@@ -381,8 +363,8 @@ String pagActual = "ibcautoliquid";
             }
          } else {
             coincidencias = 1;
-            listProcesos.clear();
-            getListProcesos();
+            lovProcesos.clear();
+            getLovProcesos();
             ibcsTablaSeleccionada.setProceso(new Procesos());
 
          }
@@ -811,22 +793,22 @@ String pagActual = "ibcautoliquid";
             } else if (tipoNuevo == 2) {
                duplicarIBC.getProceso().setDescripcion(proceso);
             }
-            for (int i = 0; i < listProcesos.size(); i++) {
-               if (listProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovProcesos.size(); i++) {
+               if (lovProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevoIBC.setProceso(listProcesos.get(indiceUnicoElemento));
+                  nuevoIBC.setProceso(lovProcesos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoIBCS");
                } else if (tipoNuevo == 2) {
-                  duplicarIBC.setProceso(listProcesos.get(indiceUnicoElemento));
+                  duplicarIBC.setProceso(lovProcesos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicaProcesoIBCS");
                }
-               listProcesos.clear();
-               getListProcesos();
+               lovProcesos.clear();
+               getLovProcesos();
             } else {
                RequestContext.getCurrentInstance().update("form:ProcesosDialogo");
                RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
@@ -838,8 +820,8 @@ String pagActual = "ibcautoliquid";
                }
             }
          } else {
-            listProcesos.clear();
-            getListProcesos();
+            lovProcesos.clear();
+            getLovProcesos();
             if (tipoNuevo == 1) {
                nuevoIBC.setProceso(new Procesos());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoIBCS");
@@ -858,7 +840,7 @@ String pagActual = "ibcautoliquid";
    public void actualizarProceso() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         ibcsTablaSeleccionada.setProceso(procesoSeleccionado);
+         ibcsTablaSeleccionada.setProceso(procesoLovSeleccionado);
          if (!listIbcsAutoliquidacionesCrear.contains(ibcsTablaSeleccionada)) {
             if (listIbcsAutoliquidacionesModificar.isEmpty()) {
                listIbcsAutoliquidacionesModificar.add(ibcsTablaSeleccionada);
@@ -875,14 +857,14 @@ String pagActual = "ibcautoliquid";
          permitirIndex = true;
          RequestContext.getCurrentInstance().update("form:datosIBCS");
       } else if (tipoActualizacion == 1) {
-         nuevoIBC.setProceso(procesoSeleccionado);
+         nuevoIBC.setProceso(procesoLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoIBCS");
       } else if (tipoActualizacion == 2) {
-         duplicarIBC.setProceso(procesoSeleccionado);
+         duplicarIBC.setProceso(procesoLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicaProcesoIBCS");
       }
-      filtrarListProcesos = null;
-      procesoSeleccionado = null;
+      filtrarLovProcesos = null;
+      procesoLovSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;/*
          * RequestContext.getCurrentInstance().update("form:ProcesosDialogo");
@@ -894,8 +876,8 @@ String pagActual = "ibcautoliquid";
    }
 
    public void cancelarCambioProceso() {
-      filtrarListProcesos = null;
-      procesoSeleccionado = null;
+      filtrarLovProcesos = null;
+      procesoLovSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
       permitirIndex = true;
@@ -1078,7 +1060,7 @@ String pagActual = "ibcautoliquid";
    }
 
    public void eventoFiltrarProceso() {
-      modificarInfoRegistroProcesos(filtrarListProcesos.size());
+      modificarInfoRegistroProcesos(filtrarLovProcesos.size());
       RequestContext.getCurrentInstance().update("form:infoRegistroProceso");
    }
 
@@ -1125,9 +1107,9 @@ String pagActual = "ibcautoliquid";
    }
 
    public void contarRegistrosProceso() {
-      if (listProcesos != null) {
-         if (listProcesos.size() > 0) {
-            modificarInfoRegistroProcesos(listProcesos.size());
+      if (lovProcesos != null) {
+         if (lovProcesos.size() > 0) {
+            modificarInfoRegistroProcesos(lovProcesos.size());
          } else {
             modificarInfoRegistroProcesos(0);
          }
@@ -1211,31 +1193,31 @@ String pagActual = "ibcautoliquid";
       this.tipoEntidadActual = tipoEntidadActual;
    }
 
-   public List<Procesos> getListProcesos() {
-      if (listProcesos == null) {
-         listProcesos = administrarIBCAuto.listProcesos();
+   public List<Procesos> getLovProcesos() {
+      if (lovProcesos == null) {
+         lovProcesos = administrarIBCAuto.listProcesos();
       }
-      return listProcesos;
+      return lovProcesos;
    }
 
-   public void setListProcesos(List<Procesos> listProcesos) {
-      this.listProcesos = listProcesos;
+   public void setLovProcesos(List<Procesos> lovProcesos) {
+      this.lovProcesos = lovProcesos;
    }
 
-   public List<Procesos> getFiltrarListProcesos() {
-      return filtrarListProcesos;
+   public List<Procesos> getFiltrarLovProcesos() {
+      return filtrarLovProcesos;
    }
 
-   public void setFiltrarListProcesos(List<Procesos> filtrarListProcesos) {
-      this.filtrarListProcesos = filtrarListProcesos;
+   public void setFiltrarLovProcesos(List<Procesos> filtrarLovProcesos) {
+      this.filtrarLovProcesos = filtrarLovProcesos;
    }
 
-   public Procesos getProcesoSeleccionado() {
-      return procesoSeleccionado;
+   public Procesos getProcesoLovSeleccionado() {
+      return procesoLovSeleccionado;
    }
 
-   public void setProcesoSeleccionado(Procesos procesoSeleccionado) {
-      this.procesoSeleccionado = procesoSeleccionado;
+   public void setProcesoLovSeleccionado(Procesos procesoLovSeleccionado) {
+      this.procesoLovSeleccionado = procesoLovSeleccionado;
    }
 
    public List<IbcsAutoliquidaciones> getListIbcsAutoliquidacionesModificar() {

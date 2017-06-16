@@ -162,11 +162,6 @@ public class ControlDetalleEmpresa implements Serializable {
       }
    }
 
-//   public void recibirPaginaEntrante(String pagina) {
-//      paginaAnterior = pagina;
-//      //inicializarCosas(); Inicializar cosas de ser necesario
-//   }
-
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");

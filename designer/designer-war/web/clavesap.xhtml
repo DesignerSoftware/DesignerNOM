@@ -167,7 +167,7 @@
 
                         <p:dialog header="Claves S.A.P" widgetVar="clavesajustesDialogo" draggable="true" resizable="false" closable="false" id="clavesajustesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                            <p:dataTable id="lovClavesSap" style=" width: 430px;" var="tpoindice" value="#{controlClavesSap.listaClavesSap}" rowKey="#{tpoindice.secuencia}"
+                            <p:dataTable id="lovClavesSap" style=" width: 430px;" var="tpoindice" value="#{controlClavesSap.lovClavesSap}" rowKey="#{tpoindice.secuencia}"
                                          selection="#{controlClavesSap.claveAjusteSeleccionada}" selectionMode="single" widgetVar="lovClavesSap" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlClavesSap.filtradoClavesSap}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlClavesSap.activarAceptar()}" update=":form:aceptarS"/>

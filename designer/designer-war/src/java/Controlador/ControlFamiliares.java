@@ -15,10 +15,7 @@ import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
 //import InterfaceAdministrar.AdministrarCiudadesInterface;
 import InterfaceAdministrar.AdministrarFamiliaresInterface;
-import InterfaceAdministrar.AdministrarPersonaIndividualInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
-import InterfaceAdministrar.AdministrarTiposDocumentosInterface;
-import InterfaceAdministrar.AdministrarTiposFamiliaresInterface;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -150,37 +147,19 @@ public class ControlFamiliares implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplfamiliares";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplfamiliares";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -192,7 +171,10 @@ String pagActual = "emplfamiliares";
    }
 
    public void limpiarListasValor() {
-
+      lovCiudades = null;
+      lovPersonas = null;
+      lovTiposDocumentos = null;
+      lovTiposFamiliares = null;
    }
 
    @PostConstruct
@@ -219,12 +201,8 @@ String pagActual = "emplfamiliares";
             familiarSeleccionado = listaFamiliares.get(0);
          }
       }
-
    }
 
-   public String retornarPagina() {
-      return paginaAnterior;
-   }
 
    public void cambiarIndice(Familiares familiar, int celda) {
       if (permitirIndex == true) {
@@ -339,7 +317,6 @@ String pagActual = "emplfamiliares";
             }
             if (guardado == true) {
                guardado = false;
-               RequestContext context = RequestContext.getCurrentInstance();
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          }
@@ -352,7 +329,6 @@ String pagActual = "emplfamiliares";
          if (guardado == true) {
             guardado = false;
             deshabilitarBotonLov();
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
@@ -361,7 +337,6 @@ String pagActual = "emplfamiliares";
    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("TIPO")) {
          if (tipoNuevo == 1) {
             nuevoFamiliar.getTipofamiliar().setTipo(nuevoFamiliar.getTipofamiliar().getTipo());

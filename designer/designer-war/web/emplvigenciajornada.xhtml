@@ -322,7 +322,7 @@
                   <!-- Dialogo Jornadas Laborales -->
                   <p:dialog header="#{msg['jornadaJ']}" widgetVar="JornadaLaboralDialogo" draggable="true" resizable="false" closable="false" id="JornadaLaboralDialogo"  
                             showEffect="fade" hideEffect="fade" width="410" modal="true">
-                     <p:dataTable id="lovJornadaLaboral" var="jLaboral" value="#{controlVigenciaJornada.listJornadasLaborales}" rowKey="#{jLaboral.secuencia}"
+                     <p:dataTable id="lovJornadaLaboral" var="jLaboral" value="#{controlVigenciaJornada.lovJornadasLaborales}" rowKey="#{jLaboral.secuencia}"
                                   selection="#{controlVigenciaJornada.jornadaLaboralSeleccionada}" selectionMode="single" widgetVar="lovJornadaLaboral" scrollable="true" scrollWidth="383" scrollHeight="170"
                                   filteredValue="#{controlVigenciaJornada.filtrarJornadasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -362,7 +362,7 @@
                   <!-- Dialogo Tipo Descanso-->
                   <p:dialog header="#{msg['descripcionD']}" widgetVar="TiposDescansosDialogo" draggable="true" resizable="false" closable="false" id="TiposDescansosDialogo"  
                             showEffect="fade" hideEffect="fade" width="410" modal="true">
-                     <p:dataTable id="lovTipoDescanso"  var="tDescanso" value="#{controlVigenciaJornada.listTiposDescansos}" rowKey="#{tDescanso.secuencia}"
+                     <p:dataTable id="lovTipoDescanso"  var="tDescanso" value="#{controlVigenciaJornada.lovTiposDescansos}" rowKey="#{tDescanso.secuencia}"
                                   selection="#{controlVigenciaJornada.tipoDescansoSeleccionado}" selectionMode="single" widgetVar="lovTipoDescanso" scrollable="true" scrollWidth="383" scrollHeight="170"
                                   filteredValue="#{controlVigenciaJornada.filtradoTiposDescansos}" emptyMessage="#{msg['lovvacio']}">              
 

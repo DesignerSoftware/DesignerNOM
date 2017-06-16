@@ -1,7 +1,6 @@
 package Controlador;
 
 import Entidades.Formulas;
-import Entidades.TiposFormulas;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarFormulaInterface;
@@ -37,7 +36,7 @@ public class ControlFormula implements Serializable {
    //Parametros que llegan
    private List<Formulas> listaFormulas;
    private List<Formulas> filtradoListaFormulas;
-   private List<Formulas> listaFormulasLOV;
+   private List<Formulas> lovFormulas;
    private List<Formulas> filtradoListaFormulasLOV;
    private Formulas formulaSeleccionadaLOV;
    private Formulas formulaSeleccionada;
@@ -135,6 +134,7 @@ public class ControlFormula implements Serializable {
    }
 
    public void limpiarListasValor() {
+      lovFormulas = null;
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -167,7 +167,6 @@ public class ControlFormula implements Serializable {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       String pagActual = "formula";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -183,11 +182,11 @@ public class ControlFormula implements Serializable {
          }
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -325,13 +324,11 @@ public class ControlFormula implements Serializable {
       unaVez = true;
 //      regSolucion = -1;
       nombreLargoMientras = "0";
-      RequestContext context = RequestContext.getCurrentInstance();
       if (quien == 0) {
          if (guardado) {
             activoDetalleFormula = true;
-
-            listaFormulasLOV = null;
-            getListaFormulasLOV();
+            lovFormulas = null;
+            getLovFormulas();
             contarRegistrosFormulasLOV();
             RequestContext.getCurrentInstance().update("formularioDialogos:FormulasDialogo");
             RequestContext.getCurrentInstance().execute("PF('FormulasDialogo').show()");
@@ -342,8 +339,8 @@ public class ControlFormula implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
          }
       } else {
-         listaFormulasLOV = null;
-         getListaFormulasLOV();
+         lovFormulas = null;
+         getLovFormulas();
          contarRegistrosFormulasLOV();
          RequestContext.getCurrentInstance().update("formularioDialogos:FormulasDialogo");
          RequestContext.getCurrentInstance().execute("PF('FormulasDialogo').show()");
@@ -365,8 +362,8 @@ public class ControlFormula implements Serializable {
          activoDetalleFormula = true;
 
          listaFormulas.clear();
-         for (int i = 0; i < listaFormulasLOV.size(); i++) {
-            listaFormulas.add(listaFormulasLOV.get(i));
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            listaFormulas.add(lovFormulas.get(i));
          }
          formulaSeleccionada = null;
          RequestContext.getCurrentInstance().update("form:mostrarTodos");
@@ -1033,15 +1030,15 @@ public class ControlFormula implements Serializable {
       this.filtradoListaFormulas = filtradoListaFormulas;
    }
 
-   public List<Formulas> getListaFormulasLOV() {
-      if (listaFormulasLOV == null) {
-         listaFormulasLOV = administrarFormula.formulas();
+   public List<Formulas> getLovFormulas() {
+      if (lovFormulas == null) {
+         lovFormulas = administrarFormula.formulas();
       }
-      return listaFormulasLOV;
+      return lovFormulas;
    }
 
-   public void setListaFormulasLOV(List<Formulas> listaFormulasLOV) {
-      this.listaFormulasLOV = listaFormulasLOV;
+   public void setLovFormulas(List<Formulas> lovFormulas) {
+      this.lovFormulas = lovFormulas;
    }
 
    public List<Formulas> getFiltradoListaFormulasLOV() {

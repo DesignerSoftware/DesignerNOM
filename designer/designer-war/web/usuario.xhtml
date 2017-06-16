@@ -405,7 +405,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVUsuariosAlias" style="width: 330px;" var="aliasU" value="#{controlUsuarios.lovUsuarioAlias}" rowKey="#{aliasU.secuencia}"
                                      selection="#{controlUsuarios.usuarioAliasSeleccionado}" selectionMode="single" widgetVar="LOVUsuariosAlias" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuarios.lovfiltrarUsuarioAlias}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuarios.filtrarLovUsuarioAlias}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarAU"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuarios.asignarAliasClon()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosAlias()}" process="@this"/>
@@ -432,7 +432,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPersonas" style="width: 330px;" var="personas" value="#{controlUsuarios.lovPersonas}" rowKey="#{personas.secuencia}"
                                      selection="#{controlUsuarios.personasSeleccionado}" selectionMode="single" widgetVar="LOVPersonas" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuarios.lovFiltradoPersonas}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuarios.filtrarLovPersonas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarPS"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuarios.actualizarPersonas()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosPersonas()}" process="@this"/>
@@ -459,7 +459,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPerfiles" style="width: 330px;" var="perfiles" value="#{controlUsuarios.lovPerfiles}" rowKey="#{perfiles.secuencia}"
                                      selection="#{controlUsuarios.perfilesSeleccionado}" selectionMode="single" widgetVar="LOVPerfiles" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuarios.lovFiltradoPerfiles}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuarios.filtrarLovPerfiles}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarPF"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuarios.actualizarPerfiles()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosPerfiles()}" process="@this"/>
@@ -486,7 +486,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPantallas" style="width: 330px;" var="pantallas" value="#{controlUsuarios.lovPantallas}" rowKey="#{pantallas.secuencia}"
                                      selection="#{controlUsuarios.pantallasSeleccionado}" selectionMode="single" widgetVar="LOVPantallas" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuarios.lovFiltradoPantallas}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuarios.filtrarLovPantallas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarPT"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuarios.actualizarPantallas()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosPantallas()}" process="@this"/>
@@ -637,7 +637,7 @@
                         <p:dataTable id="lovCiudadDocumento" var="ciudadDIP" value="#{controlUsuarios.lovCiudadDocumento}" rowKey="#{ciudadDIP.secuencia}"
                                      selection="#{controlUsuarios.ciudadSeleccionada}" scrollWidth="390" selectionMode="single" widgetVar="lovCiudadDocumento"
                                      scrollable="true" scrollHeight="250"
-                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlUsuarios.lovCiudadDocumentoFiltrar}" liveScroll="true" scrollRows="50">
+                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlUsuarios.filtrarCiudadDocumentoLov}" liveScroll="true" scrollRows="50">
 
                             <p:ajax event="filter" listener="#{controlUsuarios.contarRegistroCiudades()}"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuarios.actualizarCiudadDocumento()}" process="@this"/>
@@ -672,7 +672,7 @@
                         <p:dataTable id="lovCiudadNacimiento" var="ciudadDIP" value="#{controlUsuarios.lovCiudades}" rowKey="#{ciudadDIP.secuencia}"
                                      selection="#{controlUsuarios.ciudadSeleccionada}" scrollWidth="380" selectionMode="single"
                                      widgetVar="lovCiudadNacimiento" scrollable="true" scrollHeight="250"
-                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlUsuarios.lovCiudadesFiltrar}"
+                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlUsuarios.filtrarLovCiudades}"
                                      liveScroll="true" scrollRows="50">
 
                             <p:ajax event="filter" listener="#{controlUsuarios.contarRegistroCiudadNacimiento()}"/> 
@@ -704,7 +704,7 @@
                               showEffect="fade" hideEffect="fade" width="410">
                         <p:dataTable id="lovTipoDocumento" var="tipoDIP" value="#{controlUsuarios.lovTiposDocumentos}" rowKey="#{tipoDIP.secuencia}"
                                      selection="#{controlUsuarios.tipoDocumentoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoDocumento" scrollable="true" scrollHeight="200"
-                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlUsuarios.lovTiposDocumentosFiltrar}">
+                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlUsuarios.filtrarTiposDocumentosLov}">
 
                             <p:ajax event="filter" listener="#{controlUsuarios.contarRegistrosTipoDocumento()}"/>
                             <p:ajax event="rowDblselect" immediate="true" listener="#{controlUsuarios.actualizarTipoDocumento()}"  process="@this"/>

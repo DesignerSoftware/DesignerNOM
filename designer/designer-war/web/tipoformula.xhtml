@@ -234,9 +234,9 @@
                <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="true" resizable="false" id="formulasDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="520">
 
-                  <p:dataTable  id="LOVFormulas" var="formulas" value="#{controlTipoFormula.lovListaFormulas}"
+                  <p:dataTable  id="LOVFormulas" var="formulas" value="#{controlTipoFormula.lovFormulas}"
                                 scrollable="true" scrollHeight="200" scrollWidth="500" widgetVar="LOVFormulas" 
-                                filteredValue="#{controlTipoFormula.lovFiltradosListaFormulas}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlTipoFormula.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{formulas.secuencia}" selection="#{controlTipoFormula.seleccionFormulas}" selectionMode="single">
                      
                      <p:ajax event="rowSelect" listener="#{controlTipoFormula.activarAceptar()}" update=":formularioDialogos:aceptarF"/>

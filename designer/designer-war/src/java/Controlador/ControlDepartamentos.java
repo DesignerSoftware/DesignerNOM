@@ -60,9 +60,9 @@ public class ControlDepartamentos implements Serializable {
    private String mensajeValidacion;
    private int tamano;
    private String paises;
-   private List<Paises> listaPaises;
-   private List<Paises> filtradoPaises;
-   private Paises paisSeleccionado;
+   private List<Paises> lovPaises;
+   private List<Paises> filtrarLovPaises;
+   private Paises paislovSeleccionado;
    private String nuevoYduplicarCompletarPais;
    private String infoRegistro;
    private String paginaAnterior = "nominaf";
@@ -80,25 +80,13 @@ public class ControlDepartamentos implements Serializable {
       nuevoDepartamentos.setPais(new Paises());
       duplicarDepartamentos = new Departamentos();
       duplicarDepartamentos.setPais(new Paises());
-      listaPaises = null;
-      filtradoPaises = null;
+      lovPaises = null;
+      filtrarLovPaises = null;
       guardado = true;
       tamano = 320;
       aceptar = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
       activarLov = true;
-   }
-
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      listDepartamentos = null;
-      getListDepartamentos();
-      if (listDepartamentos != null) {
-         if (!listDepartamentos.isEmpty()) {
-            departamentoSeleccionado = listDepartamentos.get(0);
-         }
-      }
-      //inicializarCosas(); Inicializar cosas de ser necesario
    }
 
    public void recibirParametros(Map<String, Object> map) {
@@ -111,31 +99,13 @@ public class ControlDepartamentos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "departamento";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "departamento";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -153,7 +123,7 @@ String pagActual = "departamento";
    }
 
    public void limpiarListasValor() {
-
+      lovPaises = null;
    }
 
    @PostConstruct
@@ -163,6 +133,13 @@ String pagActual = "departamento";
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarDepartamentos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
+         listDepartamentos = null;
+         getListDepartamentos();
+         if (listDepartamentos != null) {
+            if (!listDepartamentos.isEmpty()) {
+               departamentoSeleccionado = listDepartamentos.get(0);
+            }
+         }
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
@@ -199,8 +176,8 @@ String pagActual = "departamento";
       departamentoSeleccionado = departamento;
       tipoActualizacion = LND;
       if (dig == 2) {
-         listaPaises = null;
-         getListaPaises();
+         lovPaises = null;
+         getLovPaises();
          RequestContext.getCurrentInstance().update("form:paisesDialogo");
          RequestContext.getCurrentInstance().execute("PF('paisesDialogo').show()");
       }
@@ -213,8 +190,8 @@ String pagActual = "departamento";
    public void listaValoresBoton() {
       if (departamentoSeleccionado != null) {
          if (cualCelda == 2) {
-            listaPaises = null;
-            getListaPaises();
+            lovPaises = null;
+            getLovPaises();
             RequestContext.getCurrentInstance().update("form:paisesDialogo");
             RequestContext.getCurrentInstance().execute("PF('paisesDialogo').show()");
          }
@@ -313,7 +290,7 @@ String pagActual = "departamento";
 
    public void actualizarPais() {
       if (tipoActualizacion == 0) {
-         departamentoSeleccionado.setPais(paisSeleccionado);
+         departamentoSeleccionado.setPais(paislovSeleccionado);
          if (!crearDepartamentos.contains(departamentoSeleccionado)) {
             if (modificarDepartamentos.isEmpty()) {
                modificarDepartamentos.add(departamentoSeleccionado);
@@ -328,14 +305,14 @@ String pagActual = "departamento";
          RequestContext.getCurrentInstance().update("form:datosDepartamentos");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else if (tipoActualizacion == 1) {
-         nuevoDepartamentos.setPais(paisSeleccionado);
+         nuevoDepartamentos.setPais(paislovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPais");
       } else if (tipoActualizacion == 2) {
-         duplicarDepartamentos.setPais(paisSeleccionado);
+         duplicarDepartamentos.setPais(paislovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPais");
       }
-      filtradoPaises = null;
-      paisSeleccionado = null;
+      filtrarLovPaises = null;
+      paislovSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
       cualCelda = -1;
@@ -349,8 +326,8 @@ String pagActual = "departamento";
    }
 
    public void cancelarCambioPais() {
-      filtradoPaises = null;
-      paisSeleccionado = null;
+      filtrarLovPaises = null;
+      paislovSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
       permitirIndex = true;
@@ -798,31 +775,31 @@ String pagActual = "departamento";
    }
    private String infoRegistroPaises;
 
-   public List<Paises> getListaPaises() {
-      if (listaPaises == null) {
-         listaPaises = administrarDepartamentos.consultarLOVPaises();
+   public List<Paises> getLovPaises() {
+      if (lovPaises == null) {
+         lovPaises = administrarDepartamentos.consultarLOVPaises();
       }
-      return listaPaises;
+      return lovPaises;
    }
 
-   public void setListaPaises(List<Paises> listaPaises) {
-      this.listaPaises = listaPaises;
+   public void setLovPaises(List<Paises> lovPaises) {
+      this.lovPaises = lovPaises;
    }
 
-   public List<Paises> getFiltradoPaises() {
-      return filtradoPaises;
+   public List<Paises> getFiltrarLovPaises() {
+      return filtrarLovPaises;
    }
 
-   public void setFiltradoPaises(List<Paises> filtradoPaises) {
-      this.filtradoPaises = filtradoPaises;
+   public void setFiltrarLovPaises(List<Paises> filtrarLovPaises) {
+      this.filtrarLovPaises = filtrarLovPaises;
    }
 
-   public Paises getPaisSeleccionado() {
-      return paisSeleccionado;
+   public Paises getPaislovSeleccionado() {
+      return paislovSeleccionado;
    }
 
-   public void setPaisSeleccionado(Paises paisSeleccionado) {
-      this.paisSeleccionado = paisSeleccionado;
+   public void setPaislovSeleccionado(Paises paislovSeleccionado) {
+      this.paislovSeleccionado = paislovSeleccionado;
    }
 
    public Departamentos getDepartamentoSeleccionado() {

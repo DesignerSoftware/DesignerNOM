@@ -63,8 +63,8 @@ public class ControlIdiomas implements Serializable {
    private String mensajeValidacion;
    //filtrado table
    private int tamano;
-   private Integer backupCodigo;
-   private String backupDescripcion;
+//   private Integer backupCodigo;
+//   private String backupDescripcion;
    private String infoRegistro;
    private DataTable tablaC;
    private boolean activarLov;
@@ -164,13 +164,13 @@ String pagActual = "idioma";
          idiomaSeleccionado = idioma;
          cualCelda = celda;
          idiomaSeleccionado.getSecuencia();
-         if (tipoLista == 0) {
-            backupCodigo = idiomaSeleccionado.getCodigo();
-            backupDescripcion = idiomaSeleccionado.getNombre();
-         } else if (tipoLista == 1) {
-            backupCodigo = idiomaSeleccionado.getCodigo();
-            backupDescripcion = idiomaSeleccionado.getNombre();
-         }
+//         if (tipoLista == 0) {
+//            backupCodigo = idiomaSeleccionado.getCodigo();
+//            backupDescripcion = idiomaSeleccionado.getNombre();
+//         } else if (tipoLista == 1) {
+//            backupCodigo = idiomaSeleccionado.getCodigo();
+//            backupDescripcion = idiomaSeleccionado.getNombre();
+//         }
       }
    }
 

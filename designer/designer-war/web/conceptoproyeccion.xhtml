@@ -126,7 +126,7 @@
 
                         <p:dialog header="Conceptos" widgetVar="conceptosDialogo" draggable="true" resizable="false" closable="false" id="conceptosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true">
-                            <p:dataTable id="lovCiudades" style=" width: 430px;" var="personaCiudades" value="#{controlConceptosProyecciones.listaConceptos}" rowKey="#{personaCiudades.secuencia}"
+                            <p:dataTable id="lovCiudades" style=" width: 430px;" var="personaCiudades" value="#{controlConceptosProyecciones.lovConceptos}" rowKey="#{personaCiudades.secuencia}"
                                          selection="#{controlConceptosProyecciones.conceptoSeleccionado}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="450" scrollHeight="280"
                                          filteredValue="#{controlConceptosProyecciones.filtradoConceptos}" emptyMessage="No se encontrarón resultados para la búsqueda">              
                                 <p:ajax event="rowSelect" listener="#{controlConceptosProyecciones.activarAceptar()}" update=":form:aceptarCar"/>

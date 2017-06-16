@@ -50,7 +50,7 @@ public class ControlConceptoJuridico implements Serializable {
    private List<ConceptosJuridicos> filtrarListConceptosJuridicos;
    private ConceptosJuridicos conceptoTablaSeleccionado;
    //
-   private List<Empresas> listEmpresas;
+   private List<Empresas> lovEmpresas;
    private List<Empresas> filtrarListEmpresas;
    private Empresas empresaActual;
    private Empresas empresita;
@@ -100,7 +100,7 @@ public class ControlConceptoJuridico implements Serializable {
       indexAux = 0;
       backUpEmpresaActual = new Empresas();
       empresaActual = new Empresas();
-      listEmpresas = null;
+      lovEmpresas = null;
       nombreTablaRastro = "";
       backUp = null;
       msnConfirmarRastro = "";
@@ -151,37 +151,19 @@ public class ControlConceptoJuridico implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "conceptojuridico";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "conceptojuridico";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -193,7 +175,7 @@ String pagActual = "conceptojuridico";
    }
 
    public void limpiarListasValor() {
-
+      lovEmpresas = null;
    }
 
    @PostConstruct
@@ -319,12 +301,11 @@ String pagActual = "conceptojuridico";
    /**
     * Metodo de guardado general para la pagina
     */
-   
    public void guardaYSalir() {
       guardadoGeneral();
       salir();
    }
-   
+
    public void guardadoGeneral() {
       if (cambiosConceptos == true) {
          guardarCambiosConcepto();
@@ -815,7 +796,7 @@ String pagActual = "conceptojuridico";
       index = -1;
       secRegistroConcepto = null;
       listConceptosJuridicos = null;
-      listEmpresas = null;
+      lovEmpresas = null;
       empresaActual = null;
       k = 0;
       empresita = null;
@@ -1178,22 +1159,22 @@ String pagActual = "conceptojuridico";
       this.nombreTablaRastro = nombreTablaRastro;
    }
 
-   public List<Empresas> getListEmpresas() {
-      if (listEmpresas == null) {
-         listEmpresas = administrarConceptoJuridico.consultarEmpresas();
-         if (listEmpresas != null) {
-            int tam = listEmpresas.size();
+   public List<Empresas> getLovEmpresas() {
+      if (lovEmpresas == null) {
+         lovEmpresas = administrarConceptoJuridico.consultarEmpresas();
+         if (lovEmpresas != null) {
+            int tam = lovEmpresas.size();
             if (tam > 0) {
-               empresaActual = listEmpresas.get(0);
+               empresaActual = lovEmpresas.get(0);
             }
             backUpEmpresaActual = empresaActual;
          }
       }
-      return listEmpresas;
+      return lovEmpresas;
    }
 
-   public void setListEmpresas(List<Empresas> listEmpresas) {
-      this.listEmpresas = listEmpresas;
+   public void setLovEmpresas(List<Empresas> lovEmpresas) {
+      this.lovEmpresas = lovEmpresas;
    }
 
    public List<Empresas> getFiltrarListEmpresas() {
@@ -1205,7 +1186,7 @@ String pagActual = "conceptojuridico";
    }
 
    public Empresas getEmpresaActual() {
-      getListEmpresas();
+      getLovEmpresas();
       empresita = empresaActual;
       return empresaActual;
    }
@@ -1290,9 +1271,9 @@ String pagActual = "conceptojuridico";
    }
 
    public String getInfoRegistroEmpresa() {
-      getListEmpresas();
-      if (listEmpresas != null) {
-         infoRegistroEmpresa = "Cantidad de registros : " + listEmpresas.size();
+      getLovEmpresas();
+      if (lovEmpresas != null) {
+         infoRegistroEmpresa = "Cantidad de registros : " + lovEmpresas.size();
       } else {
          infoRegistroEmpresa = "Cantidad de registros : 0";
       }

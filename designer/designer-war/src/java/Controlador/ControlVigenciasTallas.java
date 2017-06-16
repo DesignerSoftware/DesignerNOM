@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -55,7 +54,7 @@ public class ControlVigenciasTallas implements Serializable {
    private VigenciasTallas editarVigenciaTalla;
    private VigenciasTallas vigenciaTallaSeleccionada;
    //lov
-   private List<TiposTallas> listaTiposTallas;
+   private List<TiposTallas> lovTiposTallas;
    private List<TiposTallas> filtradoTiposTallas;
    private TiposTallas tipoTallaSeleccionado;
    //otros
@@ -93,7 +92,7 @@ public class ControlVigenciasTallas implements Serializable {
       duplicarVigenciaTalla.setTipoTalla(new TiposTallas());
       duplicarVigenciaTalla.setEmpleado(new Empleados());
       empleadoSeleccionado = null;
-      listaTiposTallas = null;
+      lovTiposTallas = null;
       filtradoTiposTallas = null;
       tipoLista = 0;
       tamano = 290;
@@ -104,7 +103,7 @@ public class ControlVigenciasTallas implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovTiposTallas = null;
    }
 
    @PostConstruct
@@ -135,37 +134,19 @@ public class ControlVigenciasTallas implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "vigenciatalla";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "vigenciatalla";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -242,8 +223,8 @@ String pagActual = "vigenciatalla";
       vigenciaTallaSeleccionada = vigenciaT;
       tipoActualizacion = LND;
       if (dig == 1) {
-         listaTiposTallas = null;
-         getListaTiposTallas();
+         lovTiposTallas = null;
+         getLovTiposTallas();
          contarRegistrosTiposTallas();
          RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
          RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
@@ -258,8 +239,8 @@ String pagActual = "vigenciatalla";
    public void listaValoresBoton() {
       if (vigenciaTallaSeleccionada != null) {
          if (cualCelda == 4) {
-            listaTiposTallas = null;
-            getListaTiposTallas();
+            lovTiposTallas = null;
+            getLovTiposTallas();
             contarRegistrosTiposTallas();
             RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
             RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
@@ -793,15 +774,15 @@ String pagActual = "vigenciatalla";
       this.secuenciaEmpleado = secuenciaPersona;
    }
 
-   public List<TiposTallas> getListaTiposTallas() {
-      if (listaTiposTallas == null) {
-         listaTiposTallas = administrarVigenciasTallas.consultarLOVTiposTallas();
+   public List<TiposTallas> getLovTiposTallas() {
+      if (lovTiposTallas == null) {
+         lovTiposTallas = administrarVigenciasTallas.consultarLOVTiposTallas();
       }
-      return listaTiposTallas;
+      return lovTiposTallas;
    }
 
-   public void setListaTiposTallas(List<TiposTallas> listaTiposTallas) {
-      this.listaTiposTallas = listaTiposTallas;
+   public void setLovTiposTallas(List<TiposTallas> lovTiposTallas) {
+      this.lovTiposTallas = lovTiposTallas;
    }
 
    public List<TiposTallas> getFiltradoTiposTallas() {

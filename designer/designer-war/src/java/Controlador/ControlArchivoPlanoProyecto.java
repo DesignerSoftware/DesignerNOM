@@ -24,7 +24,6 @@ import java.io.OutputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    private boolean cargue;
    //REVERSAR 
    private String documentoSoporteReversar;
-   private List<String> documentosSoporteCargados;
+   private List<String> lovdocumentosSoporteCargados;
    private List<String> filtradoDocumentosSoporteCargados;
    private String seleccionDocumentosSoporteCargado;
    private int resultado;
@@ -129,7 +128,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       botones = false;
       cargue = true;
       guardado = true;
-      documentosSoporteCargados = null;
+      lovdocumentosSoporteCargados = null;
       documentosSoportes = null;
       documentosEscogidos = new ArrayList<String>();
       resultadoProceso = new ResultadoBorrarTodoNovedades();
@@ -188,6 +187,11 @@ public class ControlArchivoPlanoProyecto implements Serializable {
          //   pag = "rastrotabla";
          //}
       }
+      limpiarListasValor();
+   }
+
+   public void limpiarListasValor() {
+      lovdocumentosSoporteCargados = null;
    }
 
    public void salir() {
@@ -804,22 +808,22 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
-      documentosSoporteCargados = null;
-      getDocumentosSoporteCargados();
-      hs.addAll(documentosSoporteCargados);
-      documentosSoporteCargados.clear();
-      documentosSoporteCargados.addAll(hs);
-      for (int i = 0; i < documentosSoporteCargados.size(); i++) {
-         if (documentosSoporteCargados.get(i).startsWith(documentoSoporteReversar.toUpperCase())) {
+      lovdocumentosSoporteCargados = null;
+      getLovdocumentosSoporteCargados();
+      hs.addAll(lovdocumentosSoporteCargados);
+      lovdocumentosSoporteCargados.clear();
+      lovdocumentosSoporteCargados.addAll(hs);
+      for (int i = 0; i < lovdocumentosSoporteCargados.size(); i++) {
+         if (lovdocumentosSoporteCargados.get(i).startsWith(documentoSoporteReversar.toUpperCase())) {
             indiceUnicoElemento = i;
             coincidencias++;
          }
       }
 
       if (coincidencias == 1) {
-         documentoSoporteReversar = documentosSoporteCargados.get(indiceUnicoElemento);
-         documentosSoporteCargados = null;
-         getDocumentosSoporteCargados();
+         documentoSoporteReversar = lovdocumentosSoporteCargados.get(indiceUnicoElemento);
+         lovdocumentosSoporteCargados = null;
+         getLovdocumentosSoporteCargados();
       } else {
          documentoSoporteReversar = null;
          context.update("formDialogos:documentoSoporteDialogo");
@@ -831,7 +835,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    //LOV DOCUMENTOS SOPORTE
    public void seleccionarDocumentoSoporte() {
       filtradoDocumentosSoporteCargados = null;
-      documentosSoporteCargados = null;
+      lovdocumentosSoporteCargados = null;
       aceptar = true;
       documentoSoporteReversar = seleccionDocumentosSoporteCargado;
       seleccionDocumentosSoporteCargado = null;
@@ -844,7 +848,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void cancelarSeleccionDocumentoSoporte() {
       filtradoDocumentosSoporteCargados = null;
-      documentosSoporteCargados = null;
+      lovdocumentosSoporteCargados = null;
       seleccionDocumentosSoporteCargado = null;
       aceptar = true;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -855,7 +859,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void llamarDialogoDocumentoSoporte() {
       RequestContext context = RequestContext.getCurrentInstance();
-      documentosSoporteCargados = null;
+      lovdocumentosSoporteCargados = null;
       context.update("formDialogos:lovDocumentoSoporte");
       context.execute("PF('documentoSoporteDialogo').show()");
    }
@@ -904,14 +908,14 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void confirmarReversar() {
       RequestContext context = RequestContext.getCurrentInstance();
-      documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
-      hs.addAll(documentosSoporteCargados);
-      documentosSoporteCargados.clear();
-      documentosSoporteCargados.addAll(hs);
+      lovdocumentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      hs.addAll(lovdocumentosSoporteCargados);
+      lovdocumentosSoporteCargados.clear();
+      lovdocumentosSoporteCargados.addAll(hs);
       hs.clear();
       int existeDocumento = 0;
-      for (int i = 0; i < documentosSoporteCargados.size(); i++) {
-         if (documentosSoporteCargados.get(i).equals(documentoSoporteReversar)) {
+      for (int i = 0; i < lovdocumentosSoporteCargados.size(); i++) {
+         if (lovdocumentosSoporteCargados.get(i).equals(documentoSoporteReversar)) {
             existeDocumento++;
          }
       }
@@ -1042,17 +1046,17 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       this.documentoSoporteReversar = documentoSoporteReversar;
    }
 
-   public List<String> getDocumentosSoporteCargados() {
-      documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
-      hs.addAll(documentosSoporteCargados);
-      documentosSoporteCargados.clear();
-      documentosSoporteCargados.addAll(hs);
+   public List<String> getLovdocumentosSoporteCargados() {
+      lovdocumentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      hs.addAll(lovdocumentosSoporteCargados);
+      lovdocumentosSoporteCargados.clear();
+      lovdocumentosSoporteCargados.addAll(hs);
       hs.clear();
-      return documentosSoporteCargados;
+      return lovdocumentosSoporteCargados;
    }
 
-   public void setDocumentosSoporteCargados(List<String> documentosSoporteCargados) {
-      this.documentosSoporteCargados = documentosSoporteCargados;
+   public void setLovdocumentosSoporteCargados(List<String> lovdocumentosSoporteCargados) {
+      this.lovdocumentosSoporteCargados = lovdocumentosSoporteCargados;
    }
 
    public List<String> getFiltradoDocumentosSoporteCargados() {
@@ -1080,9 +1084,9 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    public DualListModel<String> getDocumentosSoportes() {
-      documentosSoporteCargados = null;
-      getDocumentosSoporteCargados();
-      documentosSoportes = new DualListModel<String>(documentosSoporteCargados, documentosEscogidos);
+      lovdocumentosSoporteCargados = null;
+      getLovdocumentosSoporteCargados();
+      documentosSoportes = new DualListModel<String>(lovdocumentosSoporteCargados, documentosEscogidos);
       return documentosSoportes;
    }
 

@@ -20,7 +20,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -34,7 +33,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
-import org.primefaces.component.panel.Panel;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -54,7 +52,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    private List<VigenciasTiposTrabajadores> filtrarVTT;
    private VigenciasTiposTrabajadores vigenciaTTSeleccionada;
    //Tipos Trabajadores
-   private List<TiposTrabajadores> listaTiposTrabajadores;
+   private List<TiposTrabajadores> lovTiposTrabajadores;
    private TiposTrabajadores tipoTrabajadorSeleccionado;
    private List<TiposTrabajadores> filtradoTiposTrabajadores;
    private Empleados empleado;
@@ -86,7 +84,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    private VigenciasTiposTrabajadores duplicarVTT;
    //elementos retirados
    private Retirados retiroVigencia;
-   private List<MotivosRetiros> motivosRetiros;
+   private List<MotivosRetiros> lovMotivosRetiros;
    private List<MotivosRetiros> filtradoMotivosRetiros;
    private MotivosRetiros motivoRetiroSeleccionado;
    private boolean indexRetiro;
@@ -101,14 +99,14 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    private boolean banderaLimpiarRetiro;
    private boolean banderaEliminarRetiro;
    //elementos pensionados
-   private List<Pensionados> listaPensionados;
+   private List<Pensionados> lovPensionados;
    private Pensionados pensionVigencia;
    private Pensionados pensionadoSeleccionado;
-   private List<Personas> listaPersonas;
+   private List<Personas> lovPersonas;
    private Personas personaSeleccionada;
-   private List<ClasesPensiones> clasesPensiones;
+   private List<ClasesPensiones> lovclasesPensiones;
    private ClasesPensiones clasesPensionesSeleccionada;
-   private List<TiposPensionados> tiposPensionados;
+   private List<TiposPensionados> lovTiposPensionados;
    private TiposPensionados tiposPensionadosSeleccionada;
    private Pensionados pensionCopia;
    //bandera Editar o crear pension
@@ -153,8 +151,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Constructo del Controlador
     */
    public ControlVigenciaTipoTrabajador() {
-//        listaPensionados = new ArrayList<Pensionados>();
-      listaPensionados = null;
+//        lovPensionados = new ArrayList<Pensionados>();
+      lovPensionados = null;
       pensionadoSeleccionado = new Pensionados();
       //
       pensionVigencia = new Pensionados();
@@ -165,15 +163,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       pensionVigencia.setTutor(new Personas());
       //
       //listaPersonas = new ArrayList<Personas>();
-      listaPersonas = null;
+      lovPersonas = null;
       personaSeleccionada = new Personas();
       //
       //clasesPensiones = new ArrayList<ClasesPensiones>();
-      clasesPensiones = null;
+      lovclasesPensiones = null;
       clasesPensionesSeleccionada = new ClasesPensiones();
       //
       //tiposPensionados = new ArrayList<TiposPensionados>();
-      tiposPensionados = null;
+      lovTiposPensionados = null;
       tiposPensionadosSeleccionada = new TiposPensionados();
 
       operacionPension = false;
@@ -190,13 +188,13 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       retiroVigencia.setMotivoretiro(new MotivosRetiros());
       //
       //motivosRetiros = new ArrayList<MotivosRetiros>();
-      motivosRetiros = null;
+      lovMotivosRetiros = null;
       motivoRetiroSeleccionado = new MotivosRetiros();
       //
       listaVigenciasTT = null;
       //
       //listaTiposTrabajadores = new ArrayList<TiposTrabajadores>();
-      listaTiposTrabajadores = null;
+      lovTiposTrabajadores = null;
       empleado = new Empleados();
       //Otros
       aceptar = true;
@@ -242,10 +240,12 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listaPensionados = null;
-      listaPersonas = null;
-      listaTiposTrabajadores = null;
-      clasesPensiones = null;
+      lovPensionados = null;
+      lovPersonas = null;
+      lovTiposTrabajadores = null;
+      lovclasesPensiones = null;
+      lovMotivosRetiros = null;
+      lovTiposPensionados = null;
    }
 
    @PostConstruct
@@ -276,15 +276,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-       */
       String pagActual = "emplvigenciatipotrabajador";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -292,11 +284,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -462,21 +454,21 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          RequestContext.getCurrentInstance().update("form:listaValores");
          vigenciaTTSeleccionada.getTipotrabajador().setNombre(tipoTrabajador);
 
-         for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
-            if (listaTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
+            if (lovTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaTTSeleccionada.setTipotrabajador(listaTiposTrabajadores.get(indiceUnicoElemento));
+            vigenciaTTSeleccionada.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
 
-            listaTiposTrabajadores.clear();
-            getListaTiposTrabajadores();
+            lovTiposTrabajadores.clear();
+            getLovTiposTrabajadores();
          } else {
             permitirIndex = false;
             contarRegistros();
-            // modificarInfoRegistroTipoTrabajador(listaTiposTrabajadores.size());
+            // modificarInfoRegistroTipoTrabajador(lovTiposTrabajadores.size());
             RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             tipoActualizacion = 0;
@@ -524,22 +516,22 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          } else if (tipoNuevo == 2) {
             duplicarVTT.getTipotrabajador().setNombre(tipoTrabajador);
          }
-         for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
-            if (listaTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
+            if (lovTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setTipotrabajador(listaTiposTrabajadores.get(indiceUnicoElemento));
+               nuevaVigencia.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoTrabajador");
             } else if (tipoNuevo == 2) {
-               duplicarVTT.setTipotrabajador(listaTiposTrabajadores.get(indiceUnicoElemento));
+               duplicarVTT.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoTrabajador");
             }
-            listaTiposTrabajadores.clear();
-            getListaTiposTrabajadores();
+            lovTiposTrabajadores.clear();
+            getLovTiposTrabajadores();
          } else {
             RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
@@ -1140,11 +1132,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       cambioPension = false;
       cambioRetiros = false;
       //tiposPensionados = null;        
-      clasesPensiones = null;
-      listaPersonas = null;
-      listaPensionados = null;
-      motivosRetiros = null;
-      listaTiposTrabajadores = null;
+      lovclasesPensiones = null;
+      lovPersonas = null;
+      lovPensionados = null;
+      lovMotivosRetiros = null;
+      lovTiposTrabajadores = null;
       limpiarListasValor();
       navegar("atras");
    }
@@ -1319,7 +1311,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 //                motivoRetiroSeleccionado = null;
 //                activarLOV = true;
 //                RequestContext.getCurrentInstance().update("form:listaValores");
-//                modificarInfoRegistroMotivoRetiros(motivosRetiros.size());
+//                modificarInfoRegistroMotivoRetiros(lovMotivosRetiros.size());
 //                //    dialogoRetiros();
 //                RequestContext.getCurrentInstance().update("formLovs:RetirosDialogo");
 //                RequestContext.getCurrentInstance().execute("PF('RetirosDialogo').show()");
@@ -1536,7 +1528,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    public void cargarRetiro() {
       k++;
       l = BigInteger.valueOf(k);
-      getMotivosRetiros();
+      getLovMotivosRetiros();
       retiroVigencia = administrarVigenciasTiposTrabajadores.retiroPorSecuenciaVigencia(vigenciaTTSeleccionada.getSecuencia());
       if (retiroVigencia.getSecuencia() == null) {
          operacionRetiro = true;
@@ -1781,7 +1773,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    public void dialogoRetiros() {
       RequestContext context = RequestContext.getCurrentInstance();
       contarRegistrosMotivosRetiros();
-      System.out.println("dialogoRetiros.Motivosretiros: " + motivosRetiros);
+      System.out.println("dialogoRetiros.Motivosretiros: " + lovMotivosRetiros);
       context.reset("formLovs:RetirosDialogo");
       RequestContext.getCurrentInstance().execute("PF('RetirosDialogo').show()");
    }
@@ -1803,7 +1795,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       /*
          *
        */
-      getMotivosRetiros();
+      getLovMotivosRetiros();
 
 //        RequestContext.getCurrentInstance().update("form:RetirosDialogo");
 //        RequestContext.getCurrentInstance().update("form:lovMotivosRetiros");
@@ -1817,7 +1809,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Cancela la seleccion del motivo retiro
     */
    public void cancelarMotivoRetiro() {
-      System.out.println("cancelarMotivoRetiro.Motivosretiros: " + motivosRetiros);
+      System.out.println("cancelarMotivoRetiro.Motivosretiros: " + lovMotivosRetiros);
       motivoRetiroSeleccionado = null;
       filtradoMotivosRetiros = null;
       aceptar = true;
@@ -1852,7 +1844,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       aceptar = true;
       clasesPensionesFiltrado = null;
       clasesPensionesSeleccionada = null;
-      getClasesPensiones();
+      getLovclasesPensiones();
 
       RequestContext.getCurrentInstance().update("formLovs:clasePensionDialogo");
       RequestContext.getCurrentInstance().update("formLovs:lovClasePension");
@@ -1901,7 +1893,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       aceptar = true;
       tiposPensionadosSeleccionada = null;
       tiposPensionadosFiltrado = null;
-      getTiposPensionados();
+      getLovTiposPensionados();
       /*
          * RequestContext.getCurrentInstance().update("form:tipoPensionadoDialogo");
          * RequestContext.getCurrentInstance().update("form:lovTipoPensionado");
@@ -1950,7 +1942,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       aceptar = true;
       pensionadoSeleccionado = null;
       pensionadosFiltrado = null;
-      getListaPensionados();
+      getLovPensionados();
       /*
          * RequestContext.getCurrentInstance().update("form:causaBientesDialogo");
          * RequestContext.getCurrentInstance().update("form:lovCausaBientes");
@@ -1999,7 +1991,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       aceptar = true;
       personasFiltrado = null;
       personaSeleccionada = null;
-      getListaPersonas();
+      getLovPersonas();
       /*
          * RequestContext.getCurrentInstance().update("form:tutorDialogo"); RequestContext.getCurrentInstance().update("form:lovTutor");
          * RequestContext.getCurrentInstance().update("form:aceptarT");
@@ -2355,15 +2347,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       return aceptar;
    }
 
-   public List<TiposTrabajadores> getListaTiposTrabajadores() {
-      if (listaTiposTrabajadores == null) {
-         listaTiposTrabajadores = administrarVigenciasTiposTrabajadores.tiposTrabajadores();
+   public List<TiposTrabajadores> getLovTiposTrabajadores() {
+      if (lovTiposTrabajadores == null) {
+         lovTiposTrabajadores = administrarVigenciasTiposTrabajadores.tiposTrabajadores();
       }
-      return listaTiposTrabajadores;
+      return lovTiposTrabajadores;
    }
 
-   public void setListaTiposTrabajadores(List<TiposTrabajadores> listaTiposTrabajadores) {
-      this.listaTiposTrabajadores = listaTiposTrabajadores;
+   public void setLovTiposTrabajadores(List<TiposTrabajadores> lovTiposTrabajadores) {
+      this.lovTiposTrabajadores = lovTiposTrabajadores;
    }
 
    public List<TiposTrabajadores> getFiltradoTiposTrabajadores() {
@@ -2406,15 +2398,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       this.retiroVigencia = retiroVigencia;
    }
 
-   public List<MotivosRetiros> getMotivosRetiros() {
-      if (motivosRetiros == null) {
-         motivosRetiros = administrarVigenciasTiposTrabajadores.motivosRetiros();
+   public List<MotivosRetiros> getLovMotivosRetiros() {
+      if (lovMotivosRetiros == null) {
+         lovMotivosRetiros = administrarVigenciasTiposTrabajadores.motivosRetiros();
       }
-      return motivosRetiros;
+      return lovMotivosRetiros;
    }
 
-   public void setMotivosRetiros(List<MotivosRetiros> motivosRetiros) {
-      this.motivosRetiros = motivosRetiros;
+   public void setLovMotivosRetiros(List<MotivosRetiros> lovMotivosRetiros) {
+      this.lovMotivosRetiros = lovMotivosRetiros;
    }
 
    public MotivosRetiros getMotivoRetiroSeleccionado() {
@@ -2425,15 +2417,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       this.motivoRetiroSeleccionado = motivoRetiroSeleccionado;
    }
 
-   public List<Pensionados> getListaPensionados() {
-      if (listaPensionados == null) {
-         listaPensionados = administrarVigenciasTiposTrabajadores.listaPensionados();
+   public List<Pensionados> getLovPensionados() {
+      if (lovPensionados == null) {
+         lovPensionados = administrarVigenciasTiposTrabajadores.listaPensionados();
       }
-      return listaPensionados;
+      return lovPensionados;
    }
 
-   public void setListaPensionados(List<Pensionados> listaPensionados) {
-      this.listaPensionados = listaPensionados;
+   public void setLovPensionados(List<Pensionados> lovPensionados) {
+      this.lovPensionados = lovPensionados;
    }
 
    public Pensionados getPensionVigencia() {
@@ -2444,15 +2436,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       this.pensionVigencia = pensionVigencia;
    }
 
-   public List<Personas> getListaPersonas() {
-      if (listaPersonas == null) {
-         listaPersonas = administrarVigenciasTiposTrabajadores.listaPersonas();
+   public List<Personas> getLovPersonas() {
+      if (lovPersonas == null) {
+         lovPersonas = administrarVigenciasTiposTrabajadores.listaPersonas();
       }
-      return listaPersonas;
+      return lovPersonas;
    }
 
-   public void setListaPersonas(List<Personas> listaPersonas) {
-      this.listaPersonas = listaPersonas;
+   public void setLovPersonas(List<Personas> lovPersonas) {
+      this.lovPersonas = lovPersonas;
    }
 
    public Personas getPersonaSeleccionada() {
@@ -2463,15 +2455,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       this.personaSeleccionada = personaSeleccionada;
    }
 
-   public List<ClasesPensiones> getClasesPensiones() {
-      if (clasesPensiones == null) {
-         clasesPensiones = administrarVigenciasTiposTrabajadores.clasesPensiones();
+   public List<ClasesPensiones> getLovclasesPensiones() {
+      if (lovclasesPensiones == null) {
+         lovclasesPensiones = administrarVigenciasTiposTrabajadores.clasesPensiones();
       }
-      return clasesPensiones;
+      return lovclasesPensiones;
    }
 
-   public void setClasesPensiones(List<ClasesPensiones> clasesPensiones) {
-      this.clasesPensiones = clasesPensiones;
+   public void setLovclasesPensiones(List<ClasesPensiones> lovclasesPensiones) {
+      this.lovclasesPensiones = lovclasesPensiones;
    }
 
    public ClasesPensiones getClasesPensionesSeleccionada() {
@@ -2482,15 +2474,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       this.clasesPensionesSeleccionada = clasesPensionesSeleccionada;
    }
 
-   public List<TiposPensionados> getTiposPensionados() {
-      if (tiposPensionados == null) {
-         tiposPensionados = administrarVigenciasTiposTrabajadores.tiposPensionados();
+   public List<TiposPensionados> getLovTiposPensionados() {
+      if (lovTiposPensionados == null) {
+         lovTiposPensionados = administrarVigenciasTiposTrabajadores.tiposPensionados();
       }
-      return tiposPensionados;
+      return lovTiposPensionados;
    }
 
-   public void setTiposPensionados(List<TiposPensionados> tiposPensionados) {
-      this.tiposPensionados = tiposPensionados;
+   public void setLovTiposPensionados(List<TiposPensionados> lovTiposPensionados) {
+      this.lovTiposPensionados = lovTiposPensionados;
    }
 
    public TiposPensionados getTiposPensionadosSeleccionada() {

@@ -50,12 +50,12 @@ public class ControlTipoCotizante implements Serializable {
    private List<DetallesTiposCotizantes> filtradosListaDetallesTiposCotizantes;
    private DetallesTiposCotizantes detalleTipoCotizanteSeleccionado;
    //L.O.V ListaEntidades
-   private List<TiposEntidades> lovListaTiposEntidades;
-   private List<TiposEntidades> filtradoslovListaTiposEntidades;
+   private List<TiposEntidades> lovTiposEntidades;
+   private List<TiposEntidades> filtrarLovTiposEntidades;
    private TiposEntidades seleccionTiposEntidades;
    //L.O.V LISTA TIPOS COTIZANTES
-   private List<TiposCotizantes> lovListaTiposCotizantes;
-   private List<TiposCotizantes> lovFiltradosListaTiposCotizantes;
+   private List<TiposCotizantes> lovTiposCotizantes;
+   private List<TiposCotizantes> filtrarLovTiposCotizantes;
    private TiposCotizantes lovTipoCotizanteSeleccionado;
    //OTROS
    private boolean aceptar;
@@ -166,37 +166,19 @@ public class ControlTipoCotizante implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "tipocotizante";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "tipocotizante";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -208,7 +190,8 @@ String pagActual = "tipocotizante";
    }
 
    public void limpiarListasValor() {
-
+      lovTiposCotizantes = null;
+      lovTiposEntidades = null;
    }
 
    @PostConstruct
@@ -973,16 +956,16 @@ String pagActual = "tipocotizante";
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("COTIZANTE")) {
 
-         for (int i = 0; i < lovListaTiposCotizantes.size(); i++) {
-            if (lovListaTiposCotizantes.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposCotizantes.size(); i++) {
+            if (lovTiposCotizantes.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            clonarTipoCotizante = lovListaTiposCotizantes.get(indiceUnicoElemento);
-            lovListaTiposCotizantes.clear();
-            getLovListaTiposCotizantes();
+            clonarTipoCotizante = lovTiposCotizantes.get(indiceUnicoElemento);
+            lovTiposCotizantes.clear();
+            getLovTiposCotizantes();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:tiposCotizantesDialogo");
@@ -1073,7 +1056,7 @@ String pagActual = "tipocotizante";
    }
 
    public void cancelarCambioLovTipoCotizante() {
-      lovFiltradosListaTiposCotizantes = null;
+      filtrarLovTiposCotizantes = null;
       lovTipoCotizanteSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
@@ -1113,7 +1096,7 @@ String pagActual = "tipocotizante";
          duplicarRegistroDetalleTipoCotizante.setTipoentidad(seleccionTiposEntidades);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroDetalleTipoCotizante");
       }
-      filtradoslovListaTiposEntidades = null;
+      filtrarLovTiposEntidades = null;
       seleccionTiposEntidades = null;
       aceptar = true;
       tipoActualizacion = -1;
@@ -1127,7 +1110,7 @@ String pagActual = "tipocotizante";
    }
 
    public void cancelarCambioTipoEntidad() {
-      filtradoslovListaTiposEntidades = null;
+      filtrarLovTiposEntidades = null;
       seleccionTiposEntidades = null;
       aceptar = true;
       tipoActualizacion = -1;
@@ -1152,22 +1135,22 @@ String pagActual = "tipocotizante";
          } else if (tipoNuevo == 2) {
             duplicarRegistroDetalleTipoCotizante.getTipoentidad().setNombre(detalleTipoCotizanteSeleccionado.getTipoentidad().getNombre());
          }
-         for (int i = 0; i < lovListaTiposEntidades.size(); i++) {
-            if (lovListaTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposEntidades.size(); i++) {
+            if (lovTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoRegistroDetalleTipoCotizante.setTipoentidad(lovListaTiposEntidades.get(indiceUnicoElemento));
+               nuevoRegistroDetalleTipoCotizante.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEntidad");
             } else if (tipoNuevo == 2) {
-               duplicarRegistroDetalleTipoCotizante.setTipoentidad(lovListaTiposEntidades.get(indiceUnicoElemento));
+               duplicarRegistroDetalleTipoCotizante.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEntidad");
             }
-            lovListaTiposEntidades.clear();
-            getLovListaTiposEntidades();
+            lovTiposEntidades.clear();
+            getLovTiposEntidades();
 
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -1388,23 +1371,23 @@ String pagActual = "tipocotizante";
       this.filtradosListaTiposCotizantes = filtradosListaTiposCotizantes;
    }
 
-   public List<TiposEntidades> getLovListaTiposEntidades() {
-      if (lovListaTiposEntidades == null) {
-         lovListaTiposEntidades = administrarDetallesTiposCotizantes.lovTiposEntidades();
+   public List<TiposEntidades> getLovTiposEntidades() {
+      if (lovTiposEntidades == null) {
+         lovTiposEntidades = administrarDetallesTiposCotizantes.lovTiposEntidades();
       }
-      return lovListaTiposEntidades;
+      return lovTiposEntidades;
    }
 
-   public void setLovListaTiposEntidades(List<TiposEntidades> listaTiposEntidades) {
-      this.lovListaTiposEntidades = listaTiposEntidades;
+   public void setLovTiposEntidades(List<TiposEntidades> listaTiposEntidades) {
+      this.lovTiposEntidades = listaTiposEntidades;
    }
 
-   public List<TiposEntidades> getFiltradoslovListaTiposEntidades() {
-      return filtradoslovListaTiposEntidades;
+   public List<TiposEntidades> getFiltrarLovTiposEntidades() {
+      return filtrarLovTiposEntidades;
    }
 
-   public void setFiltradoslovListaTiposEntidades(List<TiposEntidades> filtradoslovListaTiposEntidades) {
-      this.filtradoslovListaTiposEntidades = filtradoslovListaTiposEntidades;
+   public void setFiltrarLovTiposEntidades(List<TiposEntidades> filtrarLovTiposEntidades) {
+      this.filtrarLovTiposEntidades = filtrarLovTiposEntidades;
    }
 
    public TiposEntidades getSeleccionTiposEntidades() {
@@ -1532,23 +1515,23 @@ String pagActual = "tipocotizante";
       this.clonarTipoCotizante = clonarTipoCotizante;
    }
 
-   public List<TiposCotizantes> getLovListaTiposCotizantes() {
-      if (lovListaTiposCotizantes == null) {
-         lovListaTiposCotizantes = administrarTiposCotizantes.tiposCotizantes();
+   public List<TiposCotizantes> getLovTiposCotizantes() {
+      if (lovTiposCotizantes == null) {
+         lovTiposCotizantes = administrarTiposCotizantes.tiposCotizantes();
       }
-      return lovListaTiposCotizantes;
+      return lovTiposCotizantes;
    }
 
-   public void setLovListaTiposCotizantes(List<TiposCotizantes> lovListaTiposCotizantes) {
-      this.lovListaTiposCotizantes = lovListaTiposCotizantes;
+   public void setLovTiposCotizantes(List<TiposCotizantes> lovTiposCotizantes) {
+      this.lovTiposCotizantes = lovTiposCotizantes;
    }
 
-   public List<TiposCotizantes> getLovFiltradosListaTiposCotizantes() {
-      return lovFiltradosListaTiposCotizantes;
+   public List<TiposCotizantes> getFiltrarLovTiposCotizantes() {
+      return filtrarLovTiposCotizantes;
    }
 
-   public void setLovFiltradosListaTiposCotizantes(List<TiposCotizantes> lovFiltradosListaTiposCotizantes) {
-      this.lovFiltradosListaTiposCotizantes = lovFiltradosListaTiposCotizantes;
+   public void setFiltrarLovTiposCotizantes(List<TiposCotizantes> filtrarLovTiposCotizantes) {
+      this.filtrarLovTiposCotizantes = filtrarLovTiposCotizantes;
    }
 
    public TiposCotizantes getLovTipoCotizanteSeleccionado() {

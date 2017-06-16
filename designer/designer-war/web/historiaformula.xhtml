@@ -602,9 +602,9 @@
                <p:dialog header="Operandos" widgetVar="OperandoDialogo" draggable="true" resizable="false" closable="false" id="OperandoDialogo"  
                          showEffect="fade" hideEffect="fade" width="725" modal="true" style="font-size: 11px;">
 
-                  <p:dataTable id="lovOperando" var="operando" value="#{controlHistoriaFormula.listOperandos}" rowKey="#{operando.secuencia}"
+                  <p:dataTable id="lovOperando" var="operando" value="#{controlHistoriaFormula.lovOperandos}" rowKey="#{operando.secuencia}"
                                selection="#{controlHistoriaFormula.operandoSeleccionado}" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" scrollWidth="710"
-                               filteredValue="#{controlHistoriaFormula.filtrarListOperandos}" emptyMessage="No se encontrarón resultados para la búsqueda">  
+                               filteredValue="#{controlHistoriaFormula.filtrarLovOperandos}" emptyMessage="No se encontrarón resultados para la búsqueda">  
 
                      <p:ajax event="filter" listener="#{controlHistoriaFormula.contarRegistrosOpdo()}"/>
                      <p:ajax event="rowSelect" listener="#{controlHistoriaFormula.activarAceptar()}" update=":formularioDialogos:aceptarOperando"/>
@@ -655,9 +655,9 @@
                <p:dialog header="Operadores" widgetVar="OperadorDialogo" draggable="true" resizable="false" closable="false" id="OperadorDialogo"  
                          showEffect="fade" hideEffect="fade" width="475" modal="true" style="font-size: 11px;">
 
-                  <p:dataTable id="lovOperador" var="operador" value="#{controlHistoriaFormula.listOperadores}" rowKey="#{operador.secuencia}"
+                  <p:dataTable id="lovOperador" var="operador" value="#{controlHistoriaFormula.lovOperadores}" rowKey="#{operador.secuencia}"
                                selection="#{controlHistoriaFormula.operadorSeleccionado}" selectionMode="single" widgetVar="lovOperador" scrollable="true" scrollHeight="200" scrollWidth="450"
-                               filteredValue="#{controlHistoriaFormula.filtrarListOperadores}" emptyMessage="No se encontrarón resultados para la búsqueda">              
+                               filteredValue="#{controlHistoriaFormula.filtrarLovOperadores}" emptyMessage="No se encontrarón resultados para la búsqueda">              
 
                      <p:ajax event="filter" listener="#{controlHistoriaFormula.contarRegistrosOpor()}"/>
                      <p:ajax event="rowSelect" listener="#{controlHistoriaFormula.activarAceptar()}" update=":formularioDialogos:aceptarOperador"/>

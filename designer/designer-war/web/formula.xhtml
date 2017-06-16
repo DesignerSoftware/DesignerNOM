@@ -423,7 +423,7 @@
                <p:dialog header="#{msg['formulasF']}" widgetVar="FormulasDialogo" draggable="true" resizable="false" closable="false" id="FormulasDialogo"  
                          showEffect="fade" hideEffect="fade" width="541" modal="true">
 
-                  <p:dataTable id="lovFormulas" var="formulaLOV" value="#{controlFormula.listaFormulasLOV}" rowKey="#{formulaLOV.secuencia}"
+                  <p:dataTable id="lovFormulas" var="formulaLOV" value="#{controlFormula.lovFormulas}" rowKey="#{formulaLOV.secuencia}"
                                selection="#{controlFormula.formulaSeleccionadaLOV}" selectionMode="single" widgetVar="lovFormulas" scrollable="true" scrollWidth="525" scrollHeight="250"
                                filteredValue="#{controlFormula.filtradoListaFormulasLOV}" emptyMessage="#{msg['lovvacio']}">              
 

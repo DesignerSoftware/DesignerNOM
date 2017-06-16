@@ -168,7 +168,7 @@
 
                         <p:dialog header="Empresas" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="450" modal="true" style="">
-                            <p:dataTable id="lovTiposFamiliares" style=" width: 410px;" var="tipofamiliar" value="#{controlFirmasReportes.listaEmpresas}" rowKey="#{tipofamiliar.secuencia}"
+                            <p:dataTable id="lovTiposFamiliares" style=" width: 410px;" var="tipofamiliar" value="#{controlFirmasReportes.lovEmpresas}" rowKey="#{tipofamiliar.secuencia}"
                                          selection="#{controlFirmasReportes.empresaSeleccionado}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="430" scrollHeight="280"
                                          filteredValue="#{controlFirmasReportes.filtradoEmpresas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlFirmasReportes.activarAceptar()}" update=":form:aceptarS"/>
@@ -201,7 +201,7 @@
 
                         <p:dialog header="Personas" widgetVar="personasDialogo" draggable="true" resizable="false" closable="false" id="personasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="450" modal="true" style="">
-                            <p:dataTable id="lovPersonas" style=" width: 410px;" var="personaFirmas" value="#{controlFirmasReportes.listaPersonas}" rowKey="#{personaFirmas.secuencia}"
+                            <p:dataTable id="lovPersonas" style=" width: 410px;" var="personaFirmas" value="#{controlFirmasReportes.lovPersonas}" rowKey="#{personaFirmas.secuencia}"
                                          selection="#{controlFirmasReportes.personaSeleccionado}" selectionMode="single" widgetVar="lovPersonas" scrollable="true" scrollWidth="430" scrollHeight="280"
                                          filteredValue="#{controlFirmasReportes.filtradoPersonas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlFirmasReportes.activarAceptar()}" update=":form:aceptarPer"/>
@@ -235,7 +235,7 @@
 
                         <p:dialog header="Cargos" widgetVar="cargosDialogo" draggable="true" resizable="false" closable="false" id="cargosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="450" modal="true" style="">
-                            <p:dataTable id="lovCargos" style=" width: 410px;" var="personaCargos" value="#{controlFirmasReportes.listaCargos}" rowKey="#{personaCargos.secuencia}"
+                            <p:dataTable id="lovCargos" style=" width: 410px;" var="personaCargos" value="#{controlFirmasReportes.lovCargos}" rowKey="#{personaCargos.secuencia}"
                                          selection="#{controlFirmasReportes.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargos" scrollable="true" scrollWidth="430" scrollHeight="280"
                                          filteredValue="#{controlFirmasReportes.filtradoCargos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlFirmasReportes.activarAceptar()}" update=":form:aceptarCar"/>

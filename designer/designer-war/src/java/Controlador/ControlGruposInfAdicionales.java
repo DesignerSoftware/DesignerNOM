@@ -63,8 +63,8 @@ public class ControlGruposInfAdicionales implements Serializable {
    private String mensajeValidacion;
    //filtrado table
    private int tamano;
-   private Integer backupCodigo;
-   private String backupDescripcion;
+//   private Integer backupCodigo;
+//   private String backupDescripcion;
    private String infoRegistro;
    private DataTable tablaC;
    private boolean activarLov;
@@ -101,37 +101,19 @@ public class ControlGruposInfAdicionales implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "grupoinfadicional";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "grupoinfadicional";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -183,13 +165,13 @@ String pagActual = "grupoinfadicional";
          deshabilitarBotonLov();
          if (tipoLista == 0) {
             deshabilitarBotonLov();
-            backupCodigo = grupoInfAdSeleccionado.getCodigo();
-            backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
+//            backupCodigo = grupoInfAdSeleccionado.getCodigo();
+//            backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
             backUpEstado = grupoInfAdSeleccionado.getEstado();
          } else if (tipoLista == 1) {
             deshabilitarBotonLov();
-            backupCodigo = grupoInfAdSeleccionado.getCodigo();
-            backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
+//            backupCodigo = grupoInfAdSeleccionado.getCodigo();
+//            backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
             backUpEstado = grupoInfAdSeleccionado.getEstado();
          }
       }

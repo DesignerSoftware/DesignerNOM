@@ -334,8 +334,8 @@
                     <p:dialog header="Usuarios" widgetVar="usuariosDialogo" draggable="true" resizable="false" closable="false" id="usuariosDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVUsuarios" style="width: 330px;" var="usu" value="#{controlUsuariosEstructuras.lovUsuarios}" rowKey="#{usu.secuencia}"
-                                     selection="#{controlUsuariosEstructuras.lovUsuarioSeleccionado}" selectionMode="single" widgetVar="LOVUsuarios" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosEstructuras.lovUsuariosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                                     selection="#{controlUsuariosEstructuras.usuarioLovSeleccionado}" selectionMode="single" widgetVar="LOVUsuarios" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosEstructuras.filtrarlovusuarios}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosEstructuras.activarAceptar()}" update=":formularioDialogos:aceptarAU"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosEstructuras.actualizarUsuario()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosUsuarios()}" process="@this"/>
@@ -362,8 +362,8 @@
                     <p:dialog header="Empresas" widgetVar="empresasDialogo" draggable="true" resizable="false" closable="false" id="empresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVEmpresas" style="width: 330px;" var="emp" value="#{controlUsuariosEstructuras.lovEmpresas}" rowKey="#{emp.secuencia}"
-                                     selection="#{controlUsuariosEstructuras.lovEmpresaSeleccionado}" selectionMode="single" widgetVar="LOVEmpresas" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosEstructuras.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                                     selection="#{controlUsuariosEstructuras.empresalovSeleccionado}" selectionMode="single" widgetVar="LOVEmpresas" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosEstructuras.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosEstructuras.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosEstructuras.actualizarEmpresa()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosEmpresas()}" process="@this"/>
@@ -390,8 +390,8 @@
                     <p:dialog header="Estructuras" widgetVar="estructurasDialogo" draggable="true" resizable="false" closable="false" id="estructurasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVEstructura" style="width: 330px;" var="estru" value="#{controlUsuariosEstructuras.lovEstructuras}" rowKey="#{estru.secuencia}"
-                                     selection="#{controlUsuariosEstructuras.lovEstructuraSeleccionado}" selectionMode="single" widgetVar="LOVEstructura" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosEstructuras.lovEstructurasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                                     selection="#{controlUsuariosEstructuras.estructuralovSeleccionado}" selectionMode="single" widgetVar="LOVEstructura" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosEstructuras.filtrarlovEstructuras}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosEstructuras.activarAceptar()}" update=":formularioDialogos:aceptarES"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosEstructuras.actualizarEstructuras()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosEstructuras()}" process="@this"/>
@@ -417,8 +417,8 @@
                     <p:dialog header="Vistas" widgetVar="vistasDialogo" draggable="true" resizable="false" closable="false" id="vistasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVVistas" style="width: 330px;" var="usuv" value="#{controlUsuariosEstructuras.lovUsuariosVistas}" rowKey="#{usuv.secuencia}"
-                                     selection="#{controlUsuariosEstructuras.lovUsuarioFiltroSeleccionado}" selectionMode="single" widgetVar="LOVVistas" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosEstructuras.lovUsuariosVistasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                                     selection="#{controlUsuariosEstructuras.usuarioVistaLovSeleccionado}" selectionMode="single" widgetVar="LOVVistas" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosEstructuras.filtrarLovUsuariosVistas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosEstructuras.activarAceptar()}" update=":formularioDialogos:aceptarV"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosEstructuras.actualizarVista()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuariosEstructuras.contarRegistrosLovVistas()}" process="@this"/>

@@ -60,14 +60,14 @@ public class ControlVigenciasFormasPagos implements Serializable {
    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
    private BigInteger l;
    private boolean aceptar, guardado;
-//lista estados de valores
-   private List<Sucursales> listaSucursales;
+//lista de valores
+   private List<Sucursales> lovSucursales;
    private List<Sucursales> filtradoSucursales;
    private Sucursales sucursalSeleccionada;
-   private List<Periodicidades> listaPeriodicidades;
+   private List<Periodicidades> lovPeriodicidades;
    private List<Periodicidades> filtradoPeriodicidades;
    private Periodicidades PeriodicidadSeleccionada;
-   private List<MetodosPagos> listaMetodosPagos;
+   private List<MetodosPagos> lovMetodosPagos;
    private List<MetodosPagos> filtradoMetodosPagos;
    private MetodosPagos metodoPagoSeleccionado;
    //Variables Autompletar
@@ -91,9 +91,9 @@ public class ControlVigenciasFormasPagos implements Serializable {
       crearVFP = new ArrayList();
       modificarVFP = new ArrayList();
       borrarVFP = new ArrayList();
-      listaSucursales = null;
-      listaPeriodicidades = null;
-      listaMetodosPagos = null;
+      lovSucursales = null;
+      lovPeriodicidades = null;
+      lovMetodosPagos = null;
       //
       permitirIndex = true;
       vigenciaSeleccionada = null;
@@ -109,13 +109,12 @@ public class ControlVigenciasFormasPagos implements Serializable {
       aceptar = true;
       activarLOV = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
-
    }
 
    public void limpiarListasValor() {
-      listaSucursales = null;
-      listaPeriodicidades = null;
-      listaMetodosPagos = null;
+      lovSucursales = null;
+      lovPeriodicidades = null;
+      lovMetodosPagos = null;
    }
 
    @PostConstruct
@@ -146,37 +145,19 @@ public class ControlVigenciasFormasPagos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigenciaformapago";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigenciaformapago";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -458,17 +439,17 @@ String pagActual = "emplvigenciaformapago";
          if (!valorConfirmar.isEmpty()) {
             if (!vigenciaSeleccionada.getSucursal().getNombre().equals("")) {
                vigenciaSeleccionada.getSucursal().setNombre(backUpSucursales);
-               for (int i = 0; i < listaSucursales.size(); i++) {
-                  if (listaSucursales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+               for (int i = 0; i < lovSucursales.size(); i++) {
+                  if (lovSucursales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                      indiceUnicoElemento = i;
                      coincidencias++;
                   }
                }
 
                if (coincidencias == 1) {
-                  vigenciaSeleccionada.setSucursal(listaSucursales.get(indiceUnicoElemento));
-                  listaSucursales.clear();
-                  getListaSucursales();
+                  vigenciaSeleccionada.setSucursal(lovSucursales.get(indiceUnicoElemento));
+                  lovSucursales.clear();
+                  getLovSucursales();
                   //getListaTiposFamiliares();
 
                } else {
@@ -500,8 +481,8 @@ String pagActual = "emplvigenciaformapago";
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
          } else {
-            listaSucursales.clear();
-            getListaSucursales();
+            lovSucursales.clear();
+            getLovSucursales();
             vigenciaSeleccionada.setSucursal(new Sucursales());
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormasPagos");
          }
@@ -513,17 +494,17 @@ String pagActual = "emplvigenciaformapago";
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
          vigenciaSeleccionada.getFormapago().setNombre(periodicidad);
-         for (int i = 0; i < listaPeriodicidades.size(); i++) {
-            if (listaPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPeriodicidades.size(); i++) {
+            if (lovPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setFormapago(listaPeriodicidades.get(indiceUnicoElemento));
-            listaPeriodicidades.clear();
-            listaPeriodicidades = null;
-            getListaPeriodicidades();
+            vigenciaSeleccionada.setFormapago(lovPeriodicidades.get(indiceUnicoElemento));
+            lovPeriodicidades.clear();
+            lovPeriodicidades = null;
+            getLovPeriodicidades();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:periodicidadesDialogo");
@@ -535,17 +516,17 @@ String pagActual = "emplvigenciaformapago";
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
          vigenciaSeleccionada.getMetodopago().setDescripcion(metodosPagos);
-         for (int i = 0; i < listaMetodosPagos.size(); i++) {
-            if (listaMetodosPagos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMetodosPagos.size(); i++) {
+            if (lovMetodosPagos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setMetodopago(listaMetodosPagos.get(indiceUnicoElemento));
-            listaMetodosPagos.clear();
-            listaMetodosPagos = null;
-            getListaMetodosPagos();
+            vigenciaSeleccionada.setMetodopago(lovMetodosPagos.get(indiceUnicoElemento));
+            lovMetodosPagos.clear();
+            lovMetodosPagos = null;
+            getLovMetodosPagos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:metodosPagosialogo");
@@ -1032,22 +1013,22 @@ String pagActual = "emplvigenciaformapago";
             } else if (tipoNuevo == 2) {
                duplicarVigenciaFormasPago.getSucursal().setNombre(nuevoNombreSucursal);
             }
-            for (int i = 0; i < listaSucursales.size(); i++) {
-               if (listaSucursales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovSucursales.size(); i++) {
+               if (lovSucursales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigenciaFormasPago.setSucursal(listaSucursales.get(indiceUnicoElemento));
+                  nuevaVigenciaFormasPago.setSucursal(lovSucursales.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
                } else if (tipoNuevo == 2) {
-                  duplicarVigenciaFormasPago.setSucursal(listaSucursales.get(indiceUnicoElemento));
+                  duplicarVigenciaFormasPago.setSucursal(lovSucursales.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreSucursal");
                }
-               listaSucursales.clear();
-               getListaSucursales();
+               lovSucursales.clear();
+               getLovSucursales();
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
@@ -1059,8 +1040,8 @@ String pagActual = "emplvigenciaformapago";
                }
             }
          } else {
-            listaSucursales.clear();
-            getListaSucursales();
+            lovSucursales.clear();
+            getLovSucursales();
             if (tipoNuevo == 1) {
                nuevaVigenciaFormasPago.setSucursal(new Sucursales());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
@@ -1076,23 +1057,23 @@ String pagActual = "emplvigenciaformapago";
          } else if (tipoNuevo == 2) {
             duplicarVigenciaFormasPago.getFormapago().setNombre(nuevoNombrePeriodicidad);
          }
-         for (int i = 0; i < listaPeriodicidades.size(); i++) {
-            if (listaPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPeriodicidades.size(); i++) {
+            if (lovPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaFormasPago.setFormapago(listaPeriodicidades.get(indiceUnicoElemento));
+               nuevaVigenciaFormasPago.setFormapago(lovPeriodicidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormaPago");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaFormasPago.setFormapago(listaPeriodicidades.get(indiceUnicoElemento));
+               duplicarVigenciaFormasPago.setFormapago(lovPeriodicidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormaPago");
             }
-            listaSucursales.clear();
-            listaSucursales = null;
-            getListaSucursales();
+            lovSucursales.clear();
+            lovSucursales = null;
+            getLovSucursales();
          } else {
             RequestContext.getCurrentInstance().update("form:periodicidadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('periodicidadesDialogo').show()");
@@ -1110,23 +1091,23 @@ String pagActual = "emplvigenciaformapago";
          } else if (tipoNuevo == 2) {
             duplicarVigenciaFormasPago.getMetodopago().setDescripcion(nuevoNombreMetodoPago);
          }
-         for (int i = 0; i < listaMetodosPagos.size(); i++) {
-            if (listaMetodosPagos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMetodosPagos.size(); i++) {
+            if (lovMetodosPagos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaFormasPago.setMetodopago(listaMetodosPagos.get(indiceUnicoElemento));
+               nuevaVigenciaFormasPago.setMetodopago(lovMetodosPagos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMetodoPago");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaFormasPago.setMetodopago(listaMetodosPagos.get(indiceUnicoElemento));
+               duplicarVigenciaFormasPago.setMetodopago(lovMetodosPagos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMetodoPago");
             }
-            listaSucursales.clear();
-            listaSucursales = null;
-            getListaSucursales();
+            lovSucursales.clear();
+            lovSucursales = null;
+            getLovSucursales();
          } else {
             RequestContext.getCurrentInstance().update("form:metodosPagosialogo");
             RequestContext.getCurrentInstance().execute("PF('metodosPagosialogo').show()");
@@ -1460,16 +1441,16 @@ String pagActual = "emplvigenciaformapago";
    }
    private String infoRegistroSucursales;
 
-   public List<Sucursales> getListaSucursales() {
+   public List<Sucursales> getLovSucursales() {
 
-      if (listaSucursales == null) {
-         listaSucursales = administrarEmplVigenciasFormasPagos.consultarLOVSucursales();
+      if (lovSucursales == null) {
+         lovSucursales = administrarEmplVigenciasFormasPagos.consultarLOVSucursales();
       }
-      return listaSucursales;
+      return lovSucursales;
    }
 
-   public void setListaSucursales(List<Sucursales> listaSucursales) {
-      this.listaSucursales = listaSucursales;
+   public void setLovSucursales(List<Sucursales> lovSucursales) {
+      this.lovSucursales = lovSucursales;
    }
 
    public List<Sucursales> getFiltradoSucursales() {
@@ -1489,16 +1470,16 @@ String pagActual = "emplvigenciaformapago";
    }
    private String infoRegistroPeriodicidades;
 
-   public List<Periodicidades> getListaPeriodicidades() {
+   public List<Periodicidades> getLovPeriodicidades() {
 
-      if (listaPeriodicidades == null) {
-         listaPeriodicidades = administrarEmplVigenciasFormasPagos.consultarLOVPerdiocidades();
+      if (lovPeriodicidades == null) {
+         lovPeriodicidades = administrarEmplVigenciasFormasPagos.consultarLOVPerdiocidades();
       }
-      return listaPeriodicidades;
+      return lovPeriodicidades;
    }
 
-   public void setListaPeriodicidades(List<Periodicidades> listaPeriodicidades) {
-      this.listaPeriodicidades = listaPeriodicidades;
+   public void setLovPeriodicidades(List<Periodicidades> lovPeriodicidades) {
+      this.lovPeriodicidades = lovPeriodicidades;
    }
 
    public List<Periodicidades> getFiltradoPeriodicidades() {
@@ -1517,15 +1498,15 @@ String pagActual = "emplvigenciaformapago";
       this.PeriodicidadSeleccionada = PeriodicidadSeleccionada;
    }
 
-   public List<MetodosPagos> getListaMetodosPagos() {
-      if (listaMetodosPagos == null) {
-         listaMetodosPagos = administrarEmplVigenciasFormasPagos.consultarLOVMetodosPagos();
+   public List<MetodosPagos> getLovMetodosPagos() {
+      if (lovMetodosPagos == null) {
+         lovMetodosPagos = administrarEmplVigenciasFormasPagos.consultarLOVMetodosPagos();
       }
-      return listaMetodosPagos;
+      return lovMetodosPagos;
    }
 
-   public void setListaMetodosPagos(List<MetodosPagos> listaMetodosPagos) {
-      this.listaMetodosPagos = listaMetodosPagos;
+   public void setLovMetodosPagos(List<MetodosPagos> lovMetodosPagos) {
+      this.lovMetodosPagos = lovMetodosPagos;
    }
 
    public List<MetodosPagos> getFiltradoMetodosPagos() {

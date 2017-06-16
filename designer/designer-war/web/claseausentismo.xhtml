@@ -145,7 +145,7 @@
 
                   <p:dialog header="#{msg['tipoAusentismo']}" widgetVar="tiposAusentismosDialogo" draggable="true" resizable="false" closable="false" id="tiposAusentismosDialogo"  
                             showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                     <p:dataTable id="lovTiposausentismos" style=" width: 430px;" var="personaFirmas" value="#{controlClasesAusentismos.listaTiposausentismos}" rowKey="#{personaFirmas.secuencia}"
+                     <p:dataTable id="lovTiposausentismos" style=" width: 430px;" var="personaFirmas" value="#{controlClasesAusentismos.lovTiposausentismos}" rowKey="#{personaFirmas.secuencia}"
                                   selection="#{controlClasesAusentismos.tipoSeleccionado}" selectionMode="single" widgetVar="lovTiposausentismos" scrollable="true" scrollWidth="450" scrollHeight="280"
                                   filteredValue="#{controlClasesAusentismos.filtradoTiposausentismos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                         <p:ajax event="rowSelect" listener="#{controlClasesAusentismos.activarAceptar()}" update=":form:aceptarPer"/>

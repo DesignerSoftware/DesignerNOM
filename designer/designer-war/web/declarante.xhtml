@@ -387,9 +387,9 @@
                <!-- DIALOGO L.O.V RETENCIONES MINIMAS-->
                <p:dialog header="#{msg['retencionesR']}"  widgetVar="minimasDialogo" draggable="true" resizable="false" closable="false" id="minimasDialogo"  
                          showEffect="fade" hideEffect="fade" width="470" modal="true">
-                  <p:dataTable id="LOVMinimas" style=" width: 430px;" var="m" rowKey="#{m.id}"  value="#{controlDeclarantes.lovlistaRetenciones}" 
-                               selection="#{controlDeclarantes.retencionesSeleccionado}" selectionMode="single" widgetVar="LOVMinimas" scrollable="true" scrollWidth="445" scrollHeight="250"
-                               filteredValue="#{controlDeclarantes.lovfiltradoslistaRetenciones}" emptyMessage="#{msg['lovvacio']}">              
+                  <p:dataTable id="LOVMinimas" style=" width: 430px;" var="m" rowKey="#{m.id}"  value="#{controlDeclarantes.lovRetenciones}" 
+                               selection="#{controlDeclarantes.retencionesLovSeleccionado}" selectionMode="single" widgetVar="LOVMinimas" scrollable="true" scrollWidth="445" scrollHeight="250"
+                               filteredValue="#{controlDeclarantes.filtroLovRetenciones}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="rowSelect" listener="#{controlDeclarantes.activarAceptar()}" update=":formularioDialogos:aceptarM"/>
                      <p:ajax event="rowDblselect" listener="#{controlDeclarantes.actualizarRetenciones()}" process="@this"/>

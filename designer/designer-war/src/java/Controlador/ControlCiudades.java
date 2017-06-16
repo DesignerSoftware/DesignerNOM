@@ -46,7 +46,7 @@ public class ControlCiudades implements Serializable {
    private List<Ciudades> filtradoListaCiudades;
    private Ciudades ciudadSeleccionada;
    //Listas
-   private List<Departamentos> listaDepartamentos;
+   private List<Departamentos> lovDepartamentos;
    private List<Departamentos> filtradoListaDepatartamentos;
    private Departamentos seleccionDepartamento;
    //Otros
@@ -98,7 +98,7 @@ public class ControlCiudades implements Serializable {
       listaCiudadesCrear = new ArrayList<Ciudades>();
       listaCiudadesModificar = new ArrayList<Ciudades>();
       //INICIALIZAR LOVS
-      listaDepartamentos = null;
+      lovDepartamentos = null;
       //editar
       editarCiudad = new Ciudades();
       aceptarEditar = true;
@@ -118,8 +118,8 @@ public class ControlCiudades implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      lovDepartamentos = null;
    }
 
    @PostConstruct
@@ -159,37 +159,19 @@ public class ControlCiudades implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "ciudad";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "ciudad";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -202,7 +184,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    public void asignarIndex(Ciudades ciudad) {
       ciudadSeleccionada = ciudad;
-      RequestContext context = RequestContext.getCurrentInstance();
       tipoActualizacion = 0;
       contarRegistroDep();
       activarBotonLOV();
@@ -216,7 +197,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       } else if (tipoN == 2) {
          tipoActualizacion = 2;
       }
-      RequestContext context = RequestContext.getCurrentInstance();
       contarRegistroDep();
       RequestContext.getCurrentInstance().update("formularioDialogos:departamentosDialogo");
       RequestContext.getCurrentInstance().execute("PF('departamentosDialogo').show()");
@@ -331,14 +311,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       } else if (confirmarCambio.equalsIgnoreCase("DEPARTAMENTOS")) {
          ciudadSeleccionada.getDepartamento().setNombre(Departamento);
 
-         for (int i = 0; i < listaDepartamentos.size(); i++) {
-            if (listaDepartamentos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovDepartamentos.size(); i++) {
+            if (lovDepartamentos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            ciudadSeleccionada.setDepartamento(listaDepartamentos.get(indiceUnicoElemento));
+            ciudadSeleccionada.setDepartamento(lovDepartamentos.get(indiceUnicoElemento));
             activarBotonLOV();
          } else {
             permitirIndex = false;
@@ -536,22 +516,22 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       } else if (tipoNuevo == 2) {
          duplicarCiudad.getDepartamento().setNombre(Departamento);
       }
-      for (int i = 0; i < listaDepartamentos.size(); i++) {
-         if (listaDepartamentos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+      for (int i = 0; i < lovDepartamentos.size(); i++) {
+         if (lovDepartamentos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
             indiceUnicoElemento = i;
             coincidencias++;
          }
       }
       if (coincidencias == 1) {
          if (tipoNuevo == 1) {
-            nuevaCiudad.setDepartamento(listaDepartamentos.get(indiceUnicoElemento));
+            nuevaCiudad.setDepartamento(lovDepartamentos.get(indiceUnicoElemento));
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDepartamento");
          } else if (tipoNuevo == 2) {
-            duplicarCiudad.setDepartamento(listaDepartamentos.get(indiceUnicoElemento));
+            duplicarCiudad.setDepartamento(lovDepartamentos.get(indiceUnicoElemento));
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDepartamento");
          }
-         listaDepartamentos.clear();
-         getListaDepartamentos();
+         lovDepartamentos.clear();
+         getLovDepartamentos();
       } else {
          RequestContext.getCurrentInstance().update("form:departamentosDialogo");
          RequestContext.getCurrentInstance().execute("PF('departamentosDialogo').show()");
@@ -600,7 +580,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restablecerTabla();
       }
@@ -847,15 +828,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.filtradoListaCiudades = filtradoListaCiudades;
    }
 
-   public List<Departamentos> getListaDepartamentos() {
-      if (listaDepartamentos == null) {
-         listaDepartamentos = administrarDepartamentos.consultarDepartamentos();
+   public List<Departamentos> getLovDepartamentos() {
+      if (lovDepartamentos == null) {
+         lovDepartamentos = administrarDepartamentos.consultarDepartamentos();
       }
-      return listaDepartamentos;
+      return lovDepartamentos;
    }
 
-   public void setListaDepartamentos(List<Departamentos> listaDepartamentos) {
-      this.listaDepartamentos = listaDepartamentos;
+   public void setLovDepartamentos(List<Departamentos> lovDepartamentos) {
+      this.lovDepartamentos = lovDepartamentos;
    }
 
    public List<Departamentos> getFiltradoListaDepatartamentos() {

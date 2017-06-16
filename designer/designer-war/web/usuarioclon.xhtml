@@ -369,7 +369,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="350" modal="true">
                         <p:dataTable id="LOVUsuariosAlias" style="width: 330px;" var="aliasU" value="#{controlUsuariosClon.lovUsuarioAlias}" rowKey="#{aliasU.secuencia}"
                                      selection="#{controlUsuariosClon.usuariosSeleccionado}" selectionMode="single" widgetVar="LOVUsuariosAlias" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosClon.lovfiltrarUsuarioAlias}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuariosClon.filtrarLovUsuarioAlias}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosClon.activarAceptar()}" update=":formularioDialogos:aceptarAU"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.asignarAliasClon()}" process="@this"/>
                             <f:facet name="header">  
@@ -396,7 +396,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="350" modal="true">
                         <p:dataTable id="LOVPersonas" style="width: 330px;" var="personas" value="#{controlUsuariosClon.lovPersonas}" rowKey="#{personas.secuencia}"
                                      selection="#{controlUsuariosClon.personasSeleccionado}" selectionMode="single" widgetVar="LOVPersonas" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosClon.lovFiltradoPersonas}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuariosClon.filtrarLovPersonas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosClon.activarAceptar()}" update=":formularioDialogos:aceptarPS"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.actualizarPersonas()}" process="@this"/>
                             <f:facet name="header">  
@@ -423,7 +423,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="350" modal="true">
                         <p:dataTable id="LOVPerfiles" style="width: 330px;" var="perfiles" value="#{controlUsuariosClon.lovPerfiles}" rowKey="#{perfiles.secuencia}"
                                      selection="#{controlUsuariosClon.perfilesSeleccionado}" selectionMode="single" widgetVar="LOVPerfiles" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosClon.lovFiltradoPerfiles}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuariosClon.filtrarLovPerfiles}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosClon.activarAceptar()}" update=":formularioDialogos:aceptarPF"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.actualizarPerfiles()}" process="@this"/>
                             <f:facet name="header">  
@@ -450,7 +450,7 @@
                               showEffect="fade" hideEffect="fade" width="380" height="350" modal="true">
                         <p:dataTable id="LOVPantallas" style="width: 330px;" var="pantallas" value="#{controlUsuariosClon.lovPantallas}" rowKey="#{pantallas.secuencia}"
                                      selection="#{controlUsuariosClon.pantallasSeleccionado}" selectionMode="single" widgetVar="LOVPantallas" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosClon.lovFiltradoPantallas}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlUsuariosClon.filtrarLovPantallas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosClon.activarAceptar()}" update=":formularioDialogos:aceptarPT"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosClon.actualizarPantallas()}" process="@this"/>
                             <f:facet name="header">  

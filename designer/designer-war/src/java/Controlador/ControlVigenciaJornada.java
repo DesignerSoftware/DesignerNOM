@@ -43,11 +43,11 @@ public class ControlVigenciaJornada implements Serializable {
    private List<VigenciasJornadas> filtrarVJ;
    private VigenciasJornadas vigenciaJornadaSeleccionada;
    //Tipos Descansos
-   private List<TiposDescansos> listTiposDescansos;
+   private List<TiposDescansos> lovTiposDescansos;
    private TiposDescansos tipoDescansoSeleccionado;
    private List<TiposDescansos> filtrarTiposDescansos;
    //Jornadas Laborales
-   private List<JornadasLaborales> listJornadasLaborales;
+   private List<JornadasLaborales> lovJornadasLaborales;
    private JornadasLaborales jornadaLaboralSeleccionada;
    private List<JornadasLaborales> filtrarJornadasLaborales;
    //Empleado
@@ -153,8 +153,8 @@ public class ControlVigenciaJornada implements Serializable {
       msnConfirmarRastroHistorico = "";
       nombreTablaRastro = "";
 
-      listTiposDescansos = null;
-      listJornadasLaborales = null;
+      lovTiposDescansos = null;
+      lovJornadasLaborales = null;
 
       listVigenciasJornadas = null;
       listVigenciasCompensacionesTiempo = null;
@@ -220,8 +220,8 @@ public class ControlVigenciaJornada implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listJornadasLaborales = null;
-      listTiposDescansos = null;
+      lovJornadasLaborales = null;
+      lovTiposDescansos = null;
    }
 
    @PostConstruct
@@ -252,15 +252,7 @@ public class ControlVigenciaJornada implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-       */
       String pagActual = "emplvigenciajornada";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -268,11 +260,11 @@ public class ControlVigenciaJornada implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -406,14 +398,14 @@ public class ControlVigenciaJornada implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             vigenciaJornadaSeleccionada.getJornadatrabajo().setDescripcion(nombreJornada);
 
-            for (int i = 0; i < listJornadasLaborales.size(); i++) {
-               if (listJornadasLaborales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovJornadasLaborales.size(); i++) {
+               if (lovJornadasLaborales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               vigenciaJornadaSeleccionada.setJornadatrabajo(listJornadasLaborales.get(indiceUnicoElemento));
+               vigenciaJornadaSeleccionada.setJornadatrabajo(lovJornadasLaborales.get(indiceUnicoElemento));
 
             } else {
                permitirIndex = false;
@@ -438,14 +430,14 @@ public class ControlVigenciaJornada implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             vigenciaJornadaSeleccionada.getTipodescanso().setDescripcion(nombreTipoDescanso);
 
-            for (int i = 0; i < listTiposDescansos.size(); i++) {
-               if (listTiposDescansos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposDescansos.size(); i++) {
+               if (lovTiposDescansos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               vigenciaJornadaSeleccionada.setTipodescanso(listTiposDescansos.get(indiceUnicoElemento));
+               vigenciaJornadaSeleccionada.setTipodescanso(lovTiposDescansos.get(indiceUnicoElemento));
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:TiposDescansosDialogo");
@@ -591,21 +583,21 @@ public class ControlVigenciaJornada implements Serializable {
             } else if (tipoNuevo == 2) {
                duplicarVJ.getJornadatrabajo().setDescripcion(nombreJornada);
             }
-            for (int i = 0; i < listJornadasLaborales.size(); i++) {
-               if (listJornadasLaborales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovJornadasLaborales.size(); i++) {
+               if (lovJornadasLaborales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigencia.setJornadatrabajo(listJornadasLaborales.get(indiceUnicoElemento));
+                  nuevaVigencia.setJornadatrabajo(lovJornadasLaborales.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaJornadaLaboral");
                } else if (tipoNuevo == 2) {
-                  duplicarVJ.setJornadatrabajo(listJornadasLaborales.get(indiceUnicoElemento));
+                  duplicarVJ.setJornadatrabajo(lovJornadasLaborales.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarJornadaLaboral");
                }
-               listJornadasLaborales.clear();
+               lovJornadasLaborales.clear();
             } else {
                RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
                RequestContext.getCurrentInstance().update("form:lovJornadaLaboral");
@@ -618,7 +610,7 @@ public class ControlVigenciaJornada implements Serializable {
                }
             }
          } else {
-            listJornadasLaborales.clear();
+            lovJornadasLaborales.clear();
             if (tipoNuevo == 1) {
                nuevaVigencia.setJornadatrabajo(new JornadasLaborales());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaJornadaLaboral");
@@ -635,21 +627,21 @@ public class ControlVigenciaJornada implements Serializable {
             } else if (tipoNuevo == 2) {
                duplicarVJ.getTipodescanso().setDescripcion(nombreTipoDescanso);
             }
-            for (int i = 0; i < listTiposDescansos.size(); i++) {
-               if (listTiposDescansos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposDescansos.size(); i++) {
+               if (lovTiposDescansos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigencia.setTipodescanso(listTiposDescansos.get(indiceUnicoElemento));
+                  nuevaVigencia.setTipodescanso(lovTiposDescansos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoDescanso");
                } else if (tipoNuevo == 2) {
-                  duplicarVJ.setTipodescanso(listTiposDescansos.get(indiceUnicoElemento));
+                  duplicarVJ.setTipodescanso(lovTiposDescansos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDescanso");
                }
-               listTiposDescansos.clear();
+               lovTiposDescansos.clear();
             } else {
                RequestContext.getCurrentInstance().update("form:TiposDescansosDialogo");
                RequestContext.getCurrentInstance().execute("PF('TiposDescansosDialogo').show()");
@@ -661,7 +653,7 @@ public class ControlVigenciaJornada implements Serializable {
                }
             }
          } else {
-            listTiposDescansos.clear();
+            lovTiposDescansos.clear();
             if (tipoNuevo == 1) {
                nuevaVigencia.setTipodescanso(new TiposDescansos());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoDescanso");
@@ -2412,15 +2404,13 @@ public class ControlVigenciaJornada implements Serializable {
          //Dialogo para seleccionar el rastro Historico de la tabla deseada
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
-      {
-         if (vigenciaTiempoSeleccionada != null) {
+       if (vigenciaTiempoSeleccionada != null) {
             verificarRastroVigenciaCompensacionTiempo();
          } else if (vigenciaDineroSeleccionada != null) {
             verificarRastroVigenciaCompensacionDinero();
          } else if (vigenciaJornadaSeleccionada != null) {
             verificarRastroVigenciaJornada();
          }
-      }
    }
 
    public void verificarRastroVigenciaJornada() {
@@ -2655,26 +2645,26 @@ public class ControlVigenciaJornada implements Serializable {
       this.filtrarVJ = filtrarVJ;
    }
 
-   public List<TiposDescansos> getListTiposDescansos() {
-      if (listTiposDescansos == null) {
-         listTiposDescansos = administrarVigenciasJornadas.tiposDescansos();
+   public List<TiposDescansos> getLovTiposDescansos() {
+      if (lovTiposDescansos == null) {
+         lovTiposDescansos = administrarVigenciasJornadas.tiposDescansos();
       }
-      return listTiposDescansos;
+      return lovTiposDescansos;
    }
 
-   public void setListTiposDescansos(List<TiposDescansos> tiposDescansos) {
-      this.listTiposDescansos = tiposDescansos;
+   public void setLovTiposDescansos(List<TiposDescansos> tiposDescansos) {
+      this.lovTiposDescansos = tiposDescansos;
    }
 
-   public List<JornadasLaborales> getListJornadasLaborales() {
-      if (listJornadasLaborales == null) {
-         listJornadasLaborales = administrarVigenciasJornadas.jornadasLaborales();
+   public List<JornadasLaborales> getLovJornadasLaborales() {
+      if (lovJornadasLaborales == null) {
+         lovJornadasLaborales = administrarVigenciasJornadas.jornadasLaborales();
       }
-      return listJornadasLaborales;
+      return lovJornadasLaborales;
    }
 
-   public void setListJornadasLaborales(List<JornadasLaborales> jornadasLaborales) {
-      this.listJornadasLaborales = jornadasLaborales;
+   public void setLovJornadasLaborales(List<JornadasLaborales> jornadasLaborales) {
+      this.lovJornadasLaborales = jornadasLaborales;
    }
 
    public JornadasLaborales getJornadaLaboralSeleccionada() {

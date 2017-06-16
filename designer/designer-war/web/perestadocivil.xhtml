@@ -135,7 +135,7 @@
 
                   <p:dialog header="Estados Civiles" widgetVar="EstadoCivilDialogo" draggable="true" resizable="false" closable="false" id="EstadoCivilDialogo"  
                             showEffect="fade" hideEffect="fade" width="470" modal="true">
-                     <p:dataTable id="lovTiposFamiliares"  var="estadocivil" value="#{controlVigenciasEstadosCiviles.listaEstadosCiviles}" rowKey="#{estadocivil.secuencia}"
+                     <p:dataTable id="lovTiposFamiliares"  var="estadocivil" value="#{controlVigenciasEstadosCiviles.lovEstadosCiviles}" rowKey="#{estadocivil.secuencia}"
                                   selection="#{controlVigenciasEstadosCiviles.vigenciaEstadoCivilSeleccionada}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="445" scrollHeight="250"
                                   filteredValue="#{controlVigenciasEstadosCiviles.filtradoEstadosCiviles}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">
                         <p:ajax event="rowSelect" listener="#{controlVigenciasEstadosCiviles.activarAceptar()}" update=":form:aceptarS"/>

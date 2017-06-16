@@ -77,7 +77,6 @@ public class ControlBancos implements Serializable {
       cualCelda = -1;
       bancoSeleccionado = null;
       activarLov = true;
-
       paginaAnterior = "nominaf";
       mapParametros = new LinkedHashMap<String, Object>();
       mapParametros.put("paginaAnterior", paginaAnterior);

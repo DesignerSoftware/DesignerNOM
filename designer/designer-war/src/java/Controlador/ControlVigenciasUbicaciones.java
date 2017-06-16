@@ -13,7 +13,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -40,7 +39,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
    //Vigencias Cargos
    private List<VigenciasUbicaciones> vigenciasUbicaciones;
    private List<VigenciasUbicaciones> filtrarVU;
-   private List<UbicacionesGeograficas> listaUbicaciones;
+   private List<UbicacionesGeograficas> lovUbicaciones;
    private VigenciasUbicaciones vigenciaSeleccionada;
    private UbicacionesGeograficas UbicacionSelecionada;
    private List<UbicacionesGeograficas> filtradoUbicaciones;
@@ -87,7 +86,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
    public ControlVigenciasUbicaciones() {
       vigenciasUbicaciones = null;
-      listaUbicaciones = new ArrayList<UbicacionesGeograficas>();
+      lovUbicaciones = new ArrayList<UbicacionesGeograficas>();
       empleado = new Empleados();
       //UbicacionSelecionada = new UbicacionesGeograficas();
       UbicacionSelecionada = null;
@@ -120,7 +119,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listaUbicaciones = null;
+      lovUbicaciones = null;
    }
 
    @PostConstruct
@@ -234,16 +233,16 @@ public class ControlVigenciasUbicaciones implements Serializable {
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
          vigenciaSeleccionada.getUbicacion().setDescripcion(ubicacion);
-         for (int i = 0; i < listaUbicaciones.size(); i++) {
-            if (listaUbicaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovUbicaciones.size(); i++) {
+            if (lovUbicaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setUbicacion(listaUbicaciones.get(indiceUnicoElemento));
-            listaUbicaciones.clear();
-            getListaUbicaciones();
+            vigenciaSeleccionada.setUbicacion(lovUbicaciones.get(indiceUnicoElemento));
+            lovUbicaciones.clear();
+            getLovUbicaciones();
          } else {
             permitirIndex = false;
             getInfoRegistroUbicacion();
@@ -322,24 +321,24 @@ public class ControlVigenciasUbicaciones implements Serializable {
          } else if (tipoNuevo == 2) {
             duplicarVU.getUbicacion().setDescripcion(ubicacion);
          }
-         for (int i = 0; i < listaUbicaciones.size(); i++) {
-            if (listaUbicaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovUbicaciones.size(); i++) {
+            if (lovUbicaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setUbicacion(listaUbicaciones.get(indiceUnicoElemento));
+               nuevaVigencia.setUbicacion(lovUbicaciones.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDescripcion");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
             } else if (tipoNuevo == 2) {
-               duplicarVU.setUbicacion(listaUbicaciones.get(indiceUnicoElemento));
+               duplicarVU.setUbicacion(lovUbicaciones.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcion");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
             }
-            listaUbicaciones.clear();
-            getListaUbicaciones();
+            lovUbicaciones.clear();
+            getLovUbicaciones();
          } else {
             RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
             RequestContext.getCurrentInstance().execute("PF('UbicacionesGeograficasDialogo').show()");
@@ -860,16 +859,16 @@ public class ControlVigenciasUbicaciones implements Serializable {
       return aceptar;
    }
 
-   public List<UbicacionesGeograficas> getListaUbicaciones() {
-      if (listaUbicaciones == null || listaUbicaciones.isEmpty()) {
+   public List<UbicacionesGeograficas> getLovUbicaciones() {
+      if (lovUbicaciones == null || lovUbicaciones.isEmpty()) {
          System.out.println("Aviso " + this.getClass().getName() + " getListaUbicaciones() va a traer la lista de Ubicaciones");
-         listaUbicaciones = administrarVigenciasUbicaciones.ubicacionesGeograficas();
+         lovUbicaciones = administrarVigenciasUbicaciones.ubicacionesGeograficas();
       }
-      return listaUbicaciones;
+      return lovUbicaciones;
    }
 
-   public void setListaUbicaciones(List<UbicacionesGeograficas> listaUbicaciones) {
-      this.listaUbicaciones = listaUbicaciones;
+   public void setLovUbicaciones(List<UbicacionesGeograficas> lovUbicaciones) {
+      this.lovUbicaciones = lovUbicaciones;
    }
 
    public UbicacionesGeograficas getUbicacionSelecionada() {

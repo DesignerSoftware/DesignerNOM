@@ -173,7 +173,7 @@
 
                         <p:dialog header="Tipo Talla" widgetVar="tipostallasDialogo" draggable="true" resizable="false" closable="false" id="tipostallasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="480" modal="true" style="">
-                            <p:dataTable id="lovTiposTallas" style=" width: 430px;" var="tipotallita" value="#{controlVigenciasTallas.listaTiposTallas}" rowKey="#{tipotallita.secuencia}"
+                            <p:dataTable id="lovTiposTallas" style=" width: 430px;" var="tipotallita" value="#{controlVigenciasTallas.lovTiposTallas}" rowKey="#{tipotallita.secuencia}"
                                          selection="#{controlVigenciasTallas.tipoFamiliarSeleccionado}" selectionMode="single" widgetVar="lovTiposTallas" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlVigenciasTallas.filtradoTiposTallas}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasTallas.activarAceptar()}" update=":form:aceptarS"/>

@@ -70,7 +70,7 @@ public class ControlClasesAusentismos implements Serializable {
    private String backupPais;
    //---------------------------------
    private String backupCiudad;
-   private List<Tiposausentismos> listaTiposausentismos;
+   private List<Tiposausentismos> lovTiposausentismos;
    private List<Tiposausentismos> filtradoTiposausentismos;
    private Tiposausentismos centrocostoSeleccionado;
    private String nuevoYduplicarCompletarPersona;
@@ -91,7 +91,7 @@ public class ControlClasesAusentismos implements Serializable {
       nuevoClasesAusentismos.setTipo(new Tiposausentismos());
       duplicarClasesAusentismos = new Clasesausentismos();
       duplicarClasesAusentismos.setTipo(new Tiposausentismos());
-      listaTiposausentismos = null;
+      lovTiposausentismos = null;
       filtradoTiposausentismos = null;
       guardado = true;
       aceptar = true;
@@ -103,8 +103,8 @@ public class ControlClasesAusentismos implements Serializable {
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       getListClasesAusentismos();
-      listaTiposausentismos = null;
-      getListaTiposausentismos();
+      lovTiposausentismos = null;
+      getLovTiposausentismos();
       if (listClasesAusentismos != null) {
          if (!listClasesAusentismos.isEmpty()) {
             clasesAusentismoSeleccionado = listClasesAusentismos.get(0);
@@ -116,8 +116,8 @@ public class ControlClasesAusentismos implements Serializable {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       getListClasesAusentismos();
-      listaTiposausentismos = null;
-      getListaTiposausentismos();
+      lovTiposausentismos = null;
+      getLovTiposausentismos();
       if (listClasesAusentismos != null) {
          if (!listClasesAusentismos.isEmpty()) {
             clasesAusentismoSeleccionado = listClasesAusentismos.get(0);
@@ -129,37 +129,19 @@ public class ControlClasesAusentismos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "claseausentismo";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "claseausentismo";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -171,7 +153,7 @@ String pagActual = "claseausentismo";
    }
 
    public void limpiarListasValor() {
-
+      lovTiposausentismos = null;
    }
 
    @PostConstruct
@@ -443,13 +425,15 @@ String pagActual = "claseausentismo";
                //                                contador++;
                //                            }
                //                        }
-                if (contador > 0) {
+               {
+                  if (contador > 0) {
                      mensajeValidacion = "CODIGOS REPETIDOS";
                      banderita = false;
                      clasesAusentismoSeleccionado.setCodigo(backupCodigo);
                   } else {
                      banderita = true;
                   }
+               }
                if (clasesAusentismoSeleccionado.getDescripcion().isEmpty()) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                   banderita1 = false;
@@ -493,13 +477,15 @@ String pagActual = "claseausentismo";
                //                                contador++;
                //                            }
                //                        }
-                if (contador > 0) {
+               {
+                  if (contador > 0) {
                      mensajeValidacion = "CODIGOS REPETIDOS";
                      banderita = false;
                      clasesAusentismoSeleccionado.setCodigo(backupCodigo);
                   } else {
                      banderita = true;
                   }
+               }
                if (clasesAusentismoSeleccionado.getDescripcion().isEmpty()) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                   banderita1 = false;
@@ -538,7 +524,8 @@ String pagActual = "claseausentismo";
             //                                contador++;
             //                            }
             //                        }
-             if (contador > 0) {
+            {
+               if (contador > 0) {
                   mensajeValidacion = "CODIGOS REPETIDOS";
                   banderita = false;
                   clasesAusentismoSeleccionado.setCodigo(backupCodigo);
@@ -546,6 +533,7 @@ String pagActual = "claseausentismo";
                } else {
                   banderita = true;
                }
+            }
 
             if (clasesAusentismoSeleccionado.getDescripcion().isEmpty()) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -635,8 +623,8 @@ String pagActual = "claseausentismo";
                clasesAusentismoSeleccionado.getTipo().setDescripcion(backupTipo);
             }
 
-            for (int i = 0; i < listaTiposausentismos.size(); i++) {
-               if (listaTiposausentismos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposausentismos.size(); i++) {
+               if (lovTiposausentismos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -644,12 +632,12 @@ String pagActual = "claseausentismo";
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  clasesAusentismoSeleccionado.setTipo(listaTiposausentismos.get(indiceUnicoElemento));
+                  clasesAusentismoSeleccionado.setTipo(lovTiposausentismos.get(indiceUnicoElemento));
                } else {
-                  clasesAusentismoSeleccionado.setTipo(listaTiposausentismos.get(indiceUnicoElemento));
+                  clasesAusentismoSeleccionado.setTipo(lovTiposausentismos.get(indiceUnicoElemento));
                }
-               listaTiposausentismos.clear();
-               listaTiposausentismos = null;
+               lovTiposausentismos.clear();
+               lovTiposausentismos = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -805,17 +793,17 @@ String pagActual = "claseausentismo";
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarPersona);
             nuevoClasesAusentismos.getTipo().setDescripcion(nuevoYduplicarCompletarPersona);
-            getListaTiposausentismos();
-            for (int i = 0; i < listaTiposausentismos.size(); i++) {
-               if (listaTiposausentismos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            getLovTiposausentismos();
+            for (int i = 0; i < lovTiposausentismos.size(); i++) {
+               if (lovTiposausentismos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoClasesAusentismos.setTipo(listaTiposausentismos.get(indiceUnicoElemento));
-               listaTiposausentismos = null;
+               nuevoClasesAusentismos.setTipo(lovTiposausentismos.get(indiceUnicoElemento));
+               lovTiposausentismos = null;
                System.err.println("PERSONA GUARDADA :-----> " + nuevoClasesAusentismos.getTipo().getDescripcion());
             } else {
                RequestContext.getCurrentInstance().update("form:tiposAusentismosDialogo");
@@ -870,16 +858,16 @@ String pagActual = "claseausentismo";
             System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
             System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarPersona);
             duplicarClasesAusentismos.getTipo().setDescripcion(nuevoYduplicarCompletarPersona);
-            for (int i = 0; i < listaTiposausentismos.size(); i++) {
-               if (listaTiposausentismos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposausentismos.size(); i++) {
+               if (lovTiposausentismos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarClasesAusentismos.setTipo(listaTiposausentismos.get(indiceUnicoElemento));
-               listaTiposausentismos = null;
+               duplicarClasesAusentismos.setTipo(lovTiposausentismos.get(indiceUnicoElemento));
+               lovTiposausentismos = null;
             } else {
                RequestContext.getCurrentInstance().update("form:tiposAusentismosDialogo");
                RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
@@ -1382,15 +1370,15 @@ String pagActual = "claseausentismo";
       this.tamano = tamano;
    }
 
-   public List<Tiposausentismos> getListaTiposausentismos() {
-      if (listaTiposausentismos == null) {
-         listaTiposausentismos = administrarClasesAusentismos.consultarLOVTiposAusentismos();
+   public List<Tiposausentismos> getLovTiposausentismos() {
+      if (lovTiposausentismos == null) {
+         lovTiposausentismos = administrarClasesAusentismos.consultarLOVTiposAusentismos();
       }
-      return listaTiposausentismos;
+      return lovTiposausentismos;
    }
 
-   public void setListaTiposausentismos(List<Tiposausentismos> listaTiposausentismos) {
-      this.listaTiposausentismos = listaTiposausentismos;
+   public void setLovTiposausentismos(List<Tiposausentismos> lovTiposausentismos) {
+      this.lovTiposausentismos = lovTiposausentismos;
    }
 
    public List<Tiposausentismos> getFiltradoTiposausentismos() {

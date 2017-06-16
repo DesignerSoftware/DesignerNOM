@@ -167,7 +167,10 @@ public class ControlConcepto implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovConceptosEmpresa = null;
+      lovEmpresas = null;
+      lovTerceros = null;
+      lovUnidades = null;
    }
 
    @PostConstruct
@@ -184,7 +187,6 @@ public class ControlConcepto implements Serializable {
    }
 
    public void cambiarEstado() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (guardado) {
          if (bandera == 1) {
             cargarTablaDefault();

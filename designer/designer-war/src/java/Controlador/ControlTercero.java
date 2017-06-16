@@ -59,15 +59,15 @@ public class ControlTercero implements Serializable {
    //
    private Empresas empresaSeleccionada;
    //private Empresas empresaSeleccionada;
-   private List<Empresas> listEmpresas;
+   private List<Empresas> lovEmpresas;
    private List<Empresas> filtrarListEmpresas;
    private Empresas empresaActual;
    //
-   private List<Ciudades> listCiudades;
+   private List<Ciudades> lovCiudades;
    private List<Ciudades> filtrarListCiudades;
    private Ciudades ciudadSeleccionada;
    //
-   private List<Terceros> listTerceroConsolidador;
+   private List<Terceros> lovTerceroConsolidador;
    private List<Terceros> filtrarListTerceroConsolidador;
    private Terceros terceroCSeleccionado;
    //
@@ -133,11 +133,11 @@ public class ControlTercero implements Serializable {
       listTercerosLOV = null;
       listTerceros = null;
       editarTerceroSucursal = new TercerosSucursales();
-      listCiudades = null;
-      listTerceroConsolidador = null;
+      lovCiudades = null;
+      lovTerceroConsolidador = null;
       empresaSeleccionada = new Empresas();
       empresaActual = new Empresas();
-      listEmpresas = null;
+      lovEmpresas = null;
       listTercerosSucursales = null;
       nombreTablaRastro = "";
       backUp = null;
@@ -187,7 +187,9 @@ public class ControlTercero implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovCiudades = null;
+      lovEmpresas = null;
+      lovTerceroConsolidador = null;
    }
 
    @PostConstruct
@@ -205,10 +207,10 @@ public class ControlTercero implements Serializable {
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      listEmpresas = administrarTercero.listEmpresas();
-      int tam = listEmpresas.size();
+      lovEmpresas = administrarTercero.listEmpresas();
+      int tam = lovEmpresas.size();
       if (tam > 0) {
-         empresaActual = listEmpresas.get(0);
+         empresaActual = lovEmpresas.get(0);
          empresaSeleccionada = empresaActual;
          listTerceros = null;
          getListTerceros();
@@ -224,10 +226,10 @@ public class ControlTercero implements Serializable {
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      listEmpresas = administrarTercero.listEmpresas();
-      int tam = listEmpresas.size();
+      lovEmpresas = administrarTercero.listEmpresas();
+      int tam = lovEmpresas.size();
       if (tam > 0) {
-         empresaActual = listEmpresas.get(0);
+         empresaActual = lovEmpresas.get(0);
          empresaSeleccionada = empresaActual;
          listTerceros = null;
          getListTerceros();
@@ -260,11 +262,11 @@ public class ControlTercero implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -327,17 +329,17 @@ public class ControlTercero implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             terceroTablaSeleccionado.getTerceroconsolidador().setNombre(terceroConsolidador);
 
-            for (int i = 0; i < listTerceroConsolidador.size(); i++) {
-               if (listTerceroConsolidador.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTerceroConsolidador.size(); i++) {
+               if (lovTerceroConsolidador.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               terceroTablaSeleccionado.setTerceroconsolidador(listTerceroConsolidador.get(indiceUnicoElemento));
+               terceroTablaSeleccionado.setTerceroconsolidador(lovTerceroConsolidador.get(indiceUnicoElemento));
 
-               listTerceroConsolidador.clear();
-               getListTerceroConsolidador();
+               lovTerceroConsolidador.clear();
+               getLovTerceroConsolidador();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:TerceroDialogo");
@@ -348,8 +350,8 @@ public class ControlTercero implements Serializable {
             coincidencias = 1;
             terceroTablaSeleccionado.setTerceroconsolidador(new Terceros());
 
-            listTerceroConsolidador.clear();
-            getListTerceroConsolidador();
+            lovTerceroConsolidador.clear();
+            getLovTerceroConsolidador();
          }
       }
       if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
@@ -357,17 +359,17 @@ public class ControlTercero implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             terceroTablaSeleccionado.getCiudad().setNombre(ciudad);
 
-            for (int i = 0; i < listCiudades.size(); i++) {
-               if (listCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               terceroTablaSeleccionado.setCiudad(listCiudades.get(indiceUnicoElemento));
+               terceroTablaSeleccionado.setCiudad(lovCiudades.get(indiceUnicoElemento));
 
-               listCiudades.clear();
-               getListCiudades();
+               lovCiudades.clear();
+               getLovCiudades();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:CiudadDialogo");
@@ -378,8 +380,8 @@ public class ControlTercero implements Serializable {
             coincidencias = 1;
             terceroTablaSeleccionado.setCiudad(new Ciudades());
 
-            listCiudades.clear();
-            getListCiudades();
+            lovCiudades.clear();
+            getLovCiudades();
          }
       }
       if (coincidencias == 1) {
@@ -434,17 +436,17 @@ public class ControlTercero implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             terceroSucursalTablaSeleccionado.getCiudad().setNombre(ciudadTS);
 
-            for (int i = 0; i < listCiudades.size(); i++) {
-               if (listCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               terceroSucursalTablaSeleccionado.setCiudad(listCiudades.get(indiceUnicoElemento));
+               terceroSucursalTablaSeleccionado.setCiudad(lovCiudades.get(indiceUnicoElemento));
 
-               listCiudades.clear();
-               getListCiudades();
+               lovCiudades.clear();
+               getLovCiudades();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:CiudadTSDialogo");
@@ -455,8 +457,8 @@ public class ControlTercero implements Serializable {
             coincidencias = 1;
             terceroSucursalTablaSeleccionado.setCiudad(new Ciudades());
 
-            listCiudades.clear();
-            getListCiudades();
+            lovCiudades.clear();
+            getLovCiudades();
          }
       }
       if (coincidencias == 1) {
@@ -1432,22 +1434,22 @@ public class ControlTercero implements Serializable {
             } else if (tipoNuevo == 2) {
                duplicarTercero.getTerceroconsolidador().setNombre(terceroConsolidador);
             }
-            for (int i = 0; i < listTerceroConsolidador.size(); i++) {
-               if (listTerceroConsolidador.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTerceroConsolidador.size(); i++) {
+               if (lovTerceroConsolidador.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevoTercero.setTerceroconsolidador(listTerceroConsolidador.get(indiceUnicoElemento));
+                  nuevoTercero.setTerceroconsolidador(lovTerceroConsolidador.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTerceroCT");
                } else if (tipoNuevo == 2) {
-                  duplicarTercero.setTerceroconsolidador(listTerceroConsolidador.get(indiceUnicoElemento));
+                  duplicarTercero.setTerceroconsolidador(lovTerceroConsolidador.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroCT");
                }
-               listTerceroConsolidador.clear();
-               getListTerceroConsolidador();
+               lovTerceroConsolidador.clear();
+               getLovTerceroConsolidador();
             } else {
                RequestContext.getCurrentInstance().update("form:TerceroDialogo");
                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
@@ -1466,8 +1468,8 @@ public class ControlTercero implements Serializable {
                duplicarTercero.setTerceroconsolidador(new Terceros());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroCT");
             }
-            listTerceroConsolidador.clear();
-            getListTerceroConsolidador();
+            lovTerceroConsolidador.clear();
+            getLovTerceroConsolidador();
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
          if (!valorConfirmar.isEmpty()) {
@@ -1476,22 +1478,22 @@ public class ControlTercero implements Serializable {
             } else if (tipoNuevo == 2) {
                duplicarTercero.getCiudad().setNombre(ciudad);
             }
-            for (int i = 0; i < listCiudades.size(); i++) {
-               if (listCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevoTercero.setCiudad(listCiudades.get(indiceUnicoElemento));
+                  nuevoTercero.setCiudad(lovCiudades.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoAT");
                } else if (tipoNuevo == 2) {
-                  duplicarTercero.setCiudad(listCiudades.get(indiceUnicoElemento));
+                  duplicarTercero.setCiudad(lovCiudades.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoAT");
                }
-               listCiudades.clear();
-               getListCiudades();
+               lovCiudades.clear();
+               getLovCiudades();
             } else {
                RequestContext.getCurrentInstance().update("form:CiudadDialogo");
                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
@@ -1510,8 +1512,8 @@ public class ControlTercero implements Serializable {
                duplicarTercero.setCiudad(new Ciudades());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoAT");
             }
-            listCiudades.clear();
-            getListCiudades();
+            lovCiudades.clear();
+            getLovCiudades();
          }
       }
    }
@@ -1527,22 +1529,22 @@ public class ControlTercero implements Serializable {
             } else if (tipoNuevo == 2) {
                duplicarTerceroSucursal.getCiudad().setNombre(ciudadTS);
             }
-            for (int i = 0; i < listCiudades.size(); i++) {
-               if (listCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevoTerceroSucursal.setCiudad(listCiudades.get(indiceUnicoElemento));
+                  nuevoTerceroSucursal.setCiudad(lovCiudades.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadTS");
                } else if (tipoNuevo == 2) {
-                  duplicarTerceroSucursal.setCiudad(listCiudades.get(indiceUnicoElemento));
+                  duplicarTerceroSucursal.setCiudad(lovCiudades.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadTS");
                }
-               listCiudades.clear();
-               getListCiudades();
+               lovCiudades.clear();
+               getLovCiudades();
             } else {
                RequestContext.getCurrentInstance().update("form:CiudadTSDialogo");
                RequestContext.getCurrentInstance().execute("PF('CiudadTSDialogo').show()");
@@ -1561,8 +1563,8 @@ public class ControlTercero implements Serializable {
                duplicarTerceroSucursal.setCiudad(new Ciudades());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadTS");
             }
-            listCiudades.clear();
-            getListCiudades();
+            lovCiudades.clear();
+            getLovCiudades();
          }
       }
    }
@@ -1908,13 +1910,11 @@ public class ControlTercero implements Serializable {
          //Dialogo para seleccionar el rastro Historico de la tabla deseada
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
-      {
-         if (terceroSucursalTablaSeleccionado != null) {
+       if (terceroSucursalTablaSeleccionado != null) {
             verificarRastroTercerosSucursales();
          } else if (terceroTablaSeleccionado != null) {
             verificarRastroTerceros();
          }
-      }
    }
 
    //Verificar Rastro Vigencia Terceros
@@ -2306,13 +2306,13 @@ public class ControlTercero implements Serializable {
       this.filtrarListTercerosSucursales = filtrarListTercerosSucursales;
    }
 
-   public List<Empresas> getListEmpresas() {
-      listEmpresas = administrarTercero.listEmpresas();
-      return listEmpresas;
+   public List<Empresas> getLovEmpresas() {
+      lovEmpresas = administrarTercero.listEmpresas();
+      return lovEmpresas;
    }
 
-   public void setListEmpresas(List<Empresas> listEmpresas) {
-      this.listEmpresas = listEmpresas;
+   public void setLovEmpresas(List<Empresas> lovEmpresas) {
+      this.lovEmpresas = lovEmpresas;
    }
 
    public List<Empresas> getFiltrarListEmpresas() {
@@ -2339,15 +2339,15 @@ public class ControlTercero implements Serializable {
       this.empresaSeleccionada = empresaSeleccionada;
    }
 
-   public List<Ciudades> getListCiudades() {
-      if (listCiudades == null) {
-         listCiudades = administrarTercero.listCiudades();
+   public List<Ciudades> getLovCiudades() {
+      if (lovCiudades == null) {
+         lovCiudades = administrarTercero.listCiudades();
       }
-      return listCiudades;
+      return lovCiudades;
    }
 
-   public void setListCiudades(List<Ciudades> listCiudades) {
-      this.listCiudades = listCiudades;
+   public void setLovCiudades(List<Ciudades> lovCiudades) {
+      this.lovCiudades = lovCiudades;
    }
 
    public List<Ciudades> getFiltrarListCiudades() {
@@ -2366,15 +2366,15 @@ public class ControlTercero implements Serializable {
       this.ciudadSeleccionada = ciudadSeleccionada;
    }
 
-   public List<Terceros> getListTerceroConsolidador() {
+   public List<Terceros> getLovTerceroConsolidador() {
       if (empresaActual.getSecuencia() != null) {
-         listTerceroConsolidador = administrarTercero.obtenerListTerceros(empresaActual.getSecuencia());
+         lovTerceroConsolidador = administrarTercero.obtenerListTerceros(empresaActual.getSecuencia());
       }
-      return listTerceroConsolidador;
+      return lovTerceroConsolidador;
    }
 
-   public void setListTerceroConsolidador(List<Terceros> listTerceroConsolidador) {
-      this.listTerceroConsolidador = listTerceroConsolidador;
+   public void setLovTerceroConsolidador(List<Terceros> lovTerceroConsolidador) {
+      this.lovTerceroConsolidador = lovTerceroConsolidador;
    }
 
    public List<Terceros> getFiltrarListTerceroConsolidador() {

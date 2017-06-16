@@ -193,7 +193,7 @@
                   <!-- DIALOGO L.O.V ESTATICO CONTRATOS -->
                   <p:dialog header="#{msg['legislacionL']}" widgetVar="ContratosDialogo" draggable="true" resizable="false" closable="false" id="ContratosDialogo"  
                             showEffect="fade" hideEffect="fade" width="460" modal="true">
-                     <p:dataTable id="lovContratos" var="contratos" value="#{controlVigenciasContratos.listaContratos}" rowKey="#{contratos.secuencia}"
+                     <p:dataTable id="lovContratos" var="contratos" value="#{controlVigenciasContratos.lovContratos}" rowKey="#{contratos.secuencia}"
                                   selection="#{controlVigenciasContratos.contratoSelecionado}" selectionMode="single" widgetVar="lovContratos" scrollable="true" scrollWidth="445" scrollHeight="210"
                                   filteredValue="#{controlVigenciasContratos.filtradoContratos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -233,7 +233,7 @@
                   <!-- DIALOGO L.O.V ESTATICO TIPOSCONTRATOS -->
                   <p:dialog header="#{msg['tipocontratoT']}" widgetVar="TiposContratoDialogo" draggable="true" resizable="false" closable="false" id="TiposContratoDialogo"  
                             showEffect="fade" hideEffect="fade" width="460" modal="true">
-                     <p:dataTable id="lovTiposContratos"  var="tiposContratos" value="#{controlVigenciasContratos.listaTiposContratos}" rowKey="#{tiposContratos.secuencia}"
+                     <p:dataTable id="lovTiposContratos"  var="tiposContratos" value="#{controlVigenciasContratos.lovTiposContratos}" rowKey="#{tiposContratos.secuencia}"
                                   selection="#{controlVigenciasContratos.tipoContratoSelecionado}" selectionMode="single" widgetVar="lovTiposContratos" scrollable="true" scrollWidth="445" scrollHeight="210"
                                   filteredValue="#{controlVigenciasContratos.filtradoTiposContratos}" emptyMessage="#{msg['lovvacio']}">              
 

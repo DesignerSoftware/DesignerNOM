@@ -21,7 +21,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
-import Entidades.TiposConstantes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -53,8 +52,8 @@ public class ControlTipoFormula implements Serializable {
    private List<TiposFormulas> filtradosListaTiposFormulas;
    private TiposFormulas tipoFormulaSeleccionada;
    //L.O.V INFOREPORTES
-   private List<TiposFormulas> lovlistaTiposFormulas;
-   private List<TiposFormulas> lovfiltradoslistaTiposFormulas;
+   private List<TiposFormulas> lovTiposFormulas;
+   private List<TiposFormulas> filtradoslovTiposFormulas;
    private TiposFormulas tipoFormulaLovSeleccionada;
    //editar celda
    private TiposFormulas editarTiposFormulas;
@@ -85,8 +84,8 @@ public class ControlTipoFormula implements Serializable {
    private String altoTabla;
    private boolean cambiosPagina;
    //L.O.V FORMULAS
-   private List<Formulas> lovListaFormulas;
-   private List<Formulas> lovFiltradosListaFormulas;
+   private List<Formulas> lovFormulas;
+   private List<Formulas> filtrarLovFormulas;
    private Formulas seleccionFormulas;
    //Enviar a Formulas
    private String paginaAnterior = "nominaf";
@@ -97,7 +96,7 @@ public class ControlTipoFormula implements Serializable {
       cambiosPagina = true;
       nuevoTipoFormula = new TiposFormulas();
       nuevoTipoFormula.setFechainicial(new Date());
-      lovListaFormulas = null;
+      lovFormulas = null;
       aceptar = true;
       tipoFormulaSeleccionada = null;
       guardado = true;
@@ -111,7 +110,8 @@ public class ControlTipoFormula implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovFormulas = null;
+      lovTiposFormulas = null;
    }
 
    @PostConstruct
@@ -164,11 +164,11 @@ public class ControlTipoFormula implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -216,9 +216,9 @@ public class ControlTipoFormula implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            tipoFormulaSeleccionada.setFormula(lovListaFormulas.get(indiceUnicoElemento));
-            lovListaFormulas.clear();
-            getLovListaFormulas();
+            tipoFormulaSeleccionada.setFormula(lovFormulas.get(indiceUnicoElemento));
+            lovFormulas.clear();
+            getLovFormulas();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:formulasDialogo");
             RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
@@ -291,24 +291,24 @@ public class ControlTipoFormula implements Serializable {
          } else if (tipoNuevo == 2) {
             duplicarTipoFormula.getFormula().setNombrelargo(formula);
          }
-         for (int i = 0; i < lovListaFormulas.size(); i++) {
-            if (lovListaFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            if (lovFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoTipoFormula.setFormula(lovListaFormulas.get(indiceUnicoElemento));
+               nuevoTipoFormula.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormula");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoEstado");
             } else if (tipoNuevo == 2) {
-               duplicarTipoFormula.setFormula(lovListaFormulas.get(indiceUnicoElemento));
+               duplicarTipoFormula.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormula");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEstado");
             }
-            lovListaFormulas.clear();
-            getLovListaFormulas();
+            lovFormulas.clear();
+            getLovFormulas();
          } else {
             RequestContext.getCurrentInstance().update("form:formulasDialogo");
             RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
@@ -585,7 +585,7 @@ public class ControlTipoFormula implements Serializable {
    }
 
    public void cancelarCambioFormulas() {
-      lovFiltradosListaFormulas = null;
+      filtrarLovFormulas = null;
       seleccionFormulas = null;
       aceptar = true;
       tipoActualizacion = -1;
@@ -597,7 +597,7 @@ public class ControlTipoFormula implements Serializable {
    }
 
    public boolean hayTraslaposFechas(Date fecha1Ini, Date fecha1Fin, Date fecha2Ini, Date fecha2Fin) {
-      System.out.println("ControlTipoFormula.hayTraslaposFechas() fecha1Ini: " + fecha1Ini + ", fecha1Fin: " + fecha1Fin +", fecha2Ini: " + fecha2Ini + ", fecha2Fin: " + fecha2Fin);
+      System.out.println("ControlTipoFormula.hayTraslaposFechas() fecha1Ini: " + fecha1Ini + ", fecha1Fin: " + fecha1Fin + ", fecha2Ini: " + fecha2Ini + ", fecha2Fin: " + fecha2Fin);
       boolean hayTraslapos;
       if ((fecha1Fin.after(fecha2Fin) && fecha1Ini.before(fecha2Fin))
               || (fecha1Ini.before(fecha2Ini) && fecha1Fin.after(fecha2Ini))
@@ -843,23 +843,23 @@ public class ControlTipoFormula implements Serializable {
       this.duplicarTipoFormula = duplicarTipoFormula;
    }
 
-   public List<Formulas> getLovListaFormulas() {
-      if (lovListaFormulas == null) {
-         lovListaFormulas = administrarTiposFormulas.lovFormulas();
+   public List<Formulas> getLovFormulas() {
+      if (lovFormulas == null) {
+         lovFormulas = administrarTiposFormulas.lovFormulas();
       }
-      return lovListaFormulas;
+      return lovFormulas;
    }
 
-   public void setLovListaFormulas(List<Formulas> lovListaFormulas) {
-      this.lovListaFormulas = lovListaFormulas;
+   public void setLovFormulas(List<Formulas> lovFormulas) {
+      this.lovFormulas = lovFormulas;
    }
 
-   public List<Formulas> getLovFiltradosListaFormulas() {
-      return lovFiltradosListaFormulas;
+   public List<Formulas> getFiltrarLovFormulas() {
+      return filtrarLovFormulas;
    }
 
-   public void setLovFiltradosListaFormulas(List<Formulas> lovFiltradosListaFormulas) {
-      this.lovFiltradosListaFormulas = lovFiltradosListaFormulas;
+   public void setFiltrarLovFormulas(List<Formulas> filtrarLovFormulas) {
+      this.filtrarLovFormulas = filtrarLovFormulas;
    }
 
    public Formulas getSeleccionFormulas() {

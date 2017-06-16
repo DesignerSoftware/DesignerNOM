@@ -122,7 +122,7 @@
 
                         <p:dialog header="Conceptos" widgetVar="conceptosDialogo" draggable="true" resizable="false" closable="false" id="conceptosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                            <p:dataTable id="lovConceptos" style=" width: 430px;" var="conceptodd" value="#{controlConceptosRetroactivos.listaConceptos}" rowKey="#{conceptodd.secuencia}"
+                            <p:dataTable id="lovConceptos" style=" width: 430px;" var="conceptodd" value="#{controlConceptosRetroactivos.lovConceptos}" rowKey="#{conceptodd.secuencia}"
                                          selection="#{controlConceptosRetroactivos.conceptoSeleccionado}" selectionMode="single" widgetVar="lovConceptos" scrollable="true" scrollWidth="450" scrollHeight="300"
                                          filteredValue="#{controlConceptosRetroactivos.filtradoConceptos}" emptyMessage="No se encontrarón resultados para la búsqueda">              
                                 <p:ajax event="rowSelect" listener="#{controlConceptosRetroactivos.activarAceptar()}" update=":form:aceptarPer"/>
@@ -151,7 +151,7 @@
 
                         <p:dialog header="Conceptos Retroactivos" widgetVar="conceptosRetroDialogo" draggable="true" resizable="false" closable="false" id="conceptosRetroDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true">
-                            <p:dataTable id="lovConceptosRetro" style=" width: 430px;" var="conceptoretroactivo" value="#{controlConceptosRetroactivos.listaConceptosRetro}" rowKey="#{conceptoretroactivo.secuencia}"
+                            <p:dataTable id="lovConceptosRetro" style=" width: 430px;" var="conceptoretroactivo" value="#{controlConceptosRetroactivos.lovConceptosRetro}" rowKey="#{conceptoretroactivo.secuencia}"
                                          selection="#{controlConceptosRetroactivos.conceptoRetroActivoSeleccionado}" selectionMode="single" widgetVar="lovConceptosRetro" scrollable="true" scrollWidth="450" scrollHeight="280"
                                          filteredValue="#{controlConceptosRetroactivos.filtradoConceptosRetro}" emptyMessage="No se encontrarón resultados para la búsqueda">              
                                 <p:ajax event="rowSelect" listener="#{controlConceptosRetroactivos.activarAceptar()}" update=":form:aceptarCar"/>

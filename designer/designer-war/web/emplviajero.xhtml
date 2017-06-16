@@ -145,7 +145,7 @@
 
                   <p:dialog header="#{msg['tipoViajeroM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                             showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                     <p:dataTable id="lovTiposViajeros"  var="tipoviajeroD" value="#{controlVigenciasViajeros.listaTiposviajeros}" rowKey="#{tipoviajeroD.secuencia}"
+                     <p:dataTable id="lovTiposViajeros"  var="tipoviajeroD" value="#{controlVigenciasViajeros.lovTiposviajeros}" rowKey="#{tipoviajeroD.secuencia}"
                                   selection="#{controlVigenciasViajeros.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovTiposViajeros" scrollable="true" scrollWidth="445" scrollHeight="250"
                                   filteredValue="#{controlVigenciasViajeros.filtradoTiposviajeros}" emptyMessage="#{msg['lovvacio']}">              
 

@@ -100,7 +100,7 @@
                            <legend style="font-size: 11px; color: blue;"><strong>#{msg['cargo']}</strong></legend>
 
                            <p:tabView style="position: relative; top: -4px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesCosto" widgetVar="opcionesCosto" dir="ltr"
-                          >
+                                      >
 
                               <p:ajax event="tabChange" update="@this"/>
 
@@ -1861,18 +1861,15 @@
 
                   </fieldset>
 
-                  <p:commandButton id="detalles" style="position: relative; left: 801px; top: 308px; font-size: 11px;
-                                   background-size: 100% 100% !important; border-radius: 7px;
-                                   background-repeat: no-repeat !important;
-                                   font-family: Arial, Helvetica, sans-serif; width: 40px; height: 40px; background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
-                                   value="" actionListener="#{controlBusquedaAvanzada.dialogoListaColumnas()}"/>
+                  <p:commandButton id="detalles" style="position: relative; left: 801px; top: 308px; font-size: 11px; background-size: 100% 100% !important;
+                                   border-radius: 7px; background-repeat: no-repeat !important; font-family: Arial, Helvetica, sans-serif; width: 40px; height: 40px;
+                                   background-image: url(Imagenes/Iconos/nuevoRegistro.png);" value="" actionListener="#{controlBusquedaAvanzada.dialogoListaColumnas()}"
+                                   update=":formularioDialogos:detallesBusquedaDialogo, :formularioDialogos:detallesBusqueda"/>
                   <p:tooltip style="font-size: 12px;" for="detalles" value="#{msg['textDetalles']}"/>
 
-                  <p:commandButton id="btnbuscar" style="position: relative; left: 760px; top: 363px; font-size: 11px;
-                                   background-size: 100% 100% !important; border-radius: 7px;
-                                   background-repeat: no-repeat !important;
-                                   font-family: Arial, Helvetica, sans-serif; width: 40px; height: 40px; background-image: url(Imagenes/Iconos/lupa.png);"
-                                   value="" process="@this" actionListener="#{controlBusquedaAvanzada.ejecutarBusqueda()}" update=":form:resultadoBusqueda"/>
+                  <p:commandButton id="btnbuscar" style="position: relative; left: 760px; top: 363px; font-size: 11px; background-size: 100% 100% !important;
+                                   border-radius: 7px; background-repeat: no-repeat !important; font-family: Arial, Helvetica, sans-serif; width: 40px; height: 40px;
+                                   background-image: url(Imagenes/Iconos/lupa.png);" value="" process="@this" actionListener="#{controlBusquedaAvanzada.ejecutarBusqueda()}" update=":form:resultadoBusqueda"/>
                   <p:tooltip style="font-size: 12px;" for="btnbuscar" value="#{msg['textEjecutar']}"/>
 
                   <p:commandButton class="cssBotonLargo" style="position: absolute; left: 10px; top: 501px;" actionListener="#{controlBusquedaAvanzada.validarAnadirAParametros()}"

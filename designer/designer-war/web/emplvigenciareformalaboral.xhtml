@@ -150,7 +150,7 @@
                         <!-- DIALOGO L.O.V ESTATICO REFORMAS LABORALES -->
                         <p:dialog header="#{msg['nombreRL']}" widgetVar="ReformasLaboralesDialogo" draggable="true" resizable="false" closable="false" id="ReformasLaboralesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="460" modal="true">
-                            <p:dataTable id="lovReformasLaborales"  var="reformasLaborales" value="#{controlVigenciasReformasLaborales.listaReformasLaborales}" rowKey="#{reformasLaborales.secuencia}"
+                            <p:dataTable id="lovReformasLaborales"  var="reformasLaborales" value="#{controlVigenciasReformasLaborales.lovReformasLaborales}" rowKey="#{reformasLaborales.secuencia}"
                                          selection="#{controlVigenciasReformasLaborales.reformaLaboralSelecionada}" selectionMode="single" widgetVar="lovReformasLaborales" scrollable="true" scrollWidth="445" scrollHeight="170"
                                          filteredValue="#{controlVigenciasReformasLaborales.filtradoReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
                                 

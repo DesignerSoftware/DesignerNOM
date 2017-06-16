@@ -86,12 +86,12 @@ public class ControlHistoriaFormula implements Serializable {
    private boolean nodo1_1RO, nodo2_1RO, nodo3_1RO, nodo4_1RO, nodo5_1RO, nodo6_1RO, nodo7_1RO, nodo8_1RO, nodo9_1RO, nodo10_1RO, nodo11_1RO, nodo12_1RO, nodo13_1RO, nodo14_1RO, nodo15_1RO, nodo16_1RO;
    //////Operadores//////////
    private Operadores operadorSeleccionado;
-   private List<Operadores> listOperadores;
-   private List<Operadores> filtrarListOperadores;
+   private List<Operadores> lovOperadores;
+   private List<Operadores> filtrarLovOperadores;
    //////Operandos//////////
    private Operandos operandoSeleccionado;
-   private List<Operandos> listOperandos;
-   private List<Operandos> filtrarListOperandos;
+   private List<Operandos> lovOperandos;
+   private List<Operandos> filtrarLovOperandos;
    /////////////////////
    private int indexNodoSeleecionado;
    private String auxNodoSeleccionado;
@@ -132,8 +132,8 @@ public class ControlHistoriaFormula implements Serializable {
       listNodosBorrar = new ArrayList<Nodos>();
       listNodosModificar = new ArrayList<Nodos>();
       actualizacionNodo = -1;
-      listOperadores = null;
-      listOperandos = null;
+      lovOperadores = null;
+      lovOperandos = null;
       operandoSeleccionado = new Operandos();
       operadorSeleccionado = new Operadores();
       nodo1 = "";
@@ -279,37 +279,19 @@ public class ControlHistoriaFormula implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "historiaformula";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "historiaformula";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -318,10 +300,11 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          //}
       }
       limpiarListasValor();
-      
    }
 
    public void limpiarListasValor() {
+      lovOperadores = null;
+      lovOperandos = null;
    }
 
    public boolean validarSolapamientoFechas(int i) {
@@ -1966,7 +1949,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
       }
 
-      filtrarListOperandos = null;
+      filtrarLovOperandos = null;
       operandoSeleccionado = new Operandos();
       aceptar = true;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -1978,7 +1961,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void cancelarCambioOperando() {
-      filtrarListOperandos = null;
+      filtrarLovOperandos = null;
       operandoSeleccionado = new Operandos();
       RequestContext context = RequestContext.getCurrentInstance();
       aceptar = true;
@@ -2038,7 +2021,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
       }
 
-      filtrarListOperadores = null;
+      filtrarLovOperadores = null;
       operadorSeleccionado = new Operadores();
       aceptar = true;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -2049,7 +2032,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void cancelarCambioOperador() {
-      filtrarListOperadores = null;
+      filtrarLovOperadores = null;
       operadorSeleccionado = new Operadores();
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formularioDialogos:lovOperador:globalFilter");
@@ -2093,15 +2076,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       int indiceUnicoElemento = 0;
       if (tipoCambio == 0) {
          listNodosHistoriaFormula.get(indexNodoSeleecionado).getOperando().setDescripcion(auxNodoSeleccionado);
-         for (int i = 0; i < listOperandos.size(); i++) {
-            if (listOperandos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovOperandos.size(); i++) {
+            if (lovOperandos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            listNodosHistoriaFormula.get(indexNodoSeleecionado).setOperando(listOperandos.get(indiceUnicoElemento));
-//            listOperandos.clear();
+            listNodosHistoriaFormula.get(indexNodoSeleecionado).setOperando(lovOperandos.get(indiceUnicoElemento));
+//            lovOperandos.clear();
 //            getListOperandos();
          } else {
             RequestContext.getCurrentInstance().update("form:OperandoDialogo");
@@ -2111,15 +2094,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       }
       if (tipoCambio == 1) {
          listNodosHistoriaFormula.get(indexNodoSeleecionado).getOperador().setSigno(auxNodoSeleccionado);
-         for (int i = 0; i < listOperadores.size(); i++) {
-            if (listOperadores.get(i).getSigno().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovOperadores.size(); i++) {
+            if (lovOperadores.get(i).getSigno().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            listNodosHistoriaFormula.get(indexNodoSeleecionado).setOperador(listOperadores.get(indiceUnicoElemento));
-//            listOperadores.clear();
+            listNodosHistoriaFormula.get(indexNodoSeleecionado).setOperador(lovOperadores.get(indiceUnicoElemento));
+//            lovOperadores.clear();
 //            getListOperadores();
          } else {
             RequestContext.getCurrentInstance().update("form:OperadorDialogo");
@@ -3012,42 +2995,42 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.operadorSeleccionado = operadorSeleccionado;
    }
 
-   public List<Operadores> getListOperadores() {
-      if (listOperadores == null) {
-         listOperadores = administrarHistoriaFormula.listOperadores();
+   public List<Operadores> getLovOperadores() {
+      if (lovOperadores == null) {
+         lovOperadores = administrarHistoriaFormula.listOperadores();
       }
-      return listOperadores;
+      return lovOperadores;
    }
 
-   public void setListOperadores(List<Operadores> listOperadores) {
-      this.listOperadores = listOperadores;
+   public void setLovOperadores(List<Operadores> lovOperadores) {
+      this.lovOperadores = lovOperadores;
    }
 
-   public List<Operandos> getListOperandos() {
-      if (listOperandos == null) {
-         listOperandos = administrarHistoriaFormula.listOperandos();
+   public List<Operandos> getLovOperandos() {
+      if (lovOperandos == null) {
+         lovOperandos = administrarHistoriaFormula.listOperandos();
       }
-      return listOperandos;
+      return lovOperandos;
    }
 
-   public void setListOperandos(List<Operandos> listOperandos) {
-      this.listOperandos = listOperandos;
+   public void setLovOperandos(List<Operandos> lovOperandos) {
+      this.lovOperandos = lovOperandos;
    }
 
-   public List<Operadores> getFiltrarListOperadores() {
-      return filtrarListOperadores;
+   public List<Operadores> getFiltrarLovOperadores() {
+      return filtrarLovOperadores;
    }
 
-   public void setFiltrarListOperadores(List<Operadores> filtrarListOperadores) {
-      this.filtrarListOperadores = filtrarListOperadores;
+   public void setFiltrarLovOperadores(List<Operadores> filtrarLovOperadores) {
+      this.filtrarLovOperadores = filtrarLovOperadores;
    }
 
-   public List<Operandos> getFiltrarListOperandos() {
-      return filtrarListOperandos;
+   public List<Operandos> getFiltrarLovOperandos() {
+      return filtrarLovOperandos;
    }
 
-   public void setFiltrarListOperandos(List<Operandos> filtrarListOperandos) {
-      this.filtrarListOperandos = filtrarListOperandos;
+   public void setFiltrarLovOperandos(List<Operandos> filtrarLovOperandos) {
+      this.filtrarLovOperandos = filtrarLovOperandos;
    }
 
    public List<Nodos> getListNodosCrear() {

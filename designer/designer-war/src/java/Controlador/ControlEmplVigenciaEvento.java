@@ -50,7 +50,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
    private List<VigenciasEventos> filtrarListVigenciasEventos;
    private VigenciasEventos vigenciaTablaSeleccionada;
 
-   private List<Eventos> listEventos;
+   private List<Eventos> lovEventos;
    private Eventos eventoSeleccionado;
    private List<Eventos> filtrarListEventos;
    private int tipoActualizacion;
@@ -91,7 +91,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
    public ControlEmplVigenciaEvento() {
       altoTabla = "272";
       listVigenciasEventos = null;
-      listEventos = null;
+      lovEventos = null;
       //Otros
       aceptar = true;
       //borrar aficiones
@@ -133,37 +133,19 @@ public class ControlEmplVigenciaEvento implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigenciaevento";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigenciaevento";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -175,7 +157,7 @@ String pagActual = "emplvigenciaevento";
    }
 
    public void limpiarListasValor() {
-      listEventos = null;
+      lovEventos = null;
    }
 
    @PostConstruct
@@ -193,7 +175,7 @@ String pagActual = "emplvigenciaevento";
 
    public void recibirEmpleado(BigInteger secuencia) {
       listVigenciasEventos = null;
-      listEventos = null;
+      lovEventos = null;
       empleado = administrarEmplVigenciaEvento.empleadoActual(secuencia);
       getListVigenciasEventos();
       deshabilitarBotonLov();
@@ -243,20 +225,20 @@ String pagActual = "emplvigenciaevento";
          } else {
             vigenciaTablaSeleccionada.getEvento().setDescripcion(evento);
          }
-         for (int i = 0; i < listEventos.size(); i++) {
-            if (listEventos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovEventos.size(); i++) {
+            if (lovEventos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               vigenciaTablaSeleccionada.setEvento(listEventos.get(indiceUnicoElemento));
+               vigenciaTablaSeleccionada.setEvento(lovEventos.get(indiceUnicoElemento));
             } else {
-               vigenciaTablaSeleccionada.setEvento(listEventos.get(indiceUnicoElemento));
+               vigenciaTablaSeleccionada.setEvento(lovEventos.get(indiceUnicoElemento));
             }
-            listEventos.clear();
-            getListEventos();
+            lovEventos.clear();
+            getLovEventos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:EventosDialogo");
@@ -314,22 +296,22 @@ String pagActual = "emplvigenciaevento";
          } else if (tipoNuevo == 2) {
             duplicarVigenciaEvento.getEvento().setDescripcion(evento);
          }
-         for (int i = 0; i < listEventos.size(); i++) {
-            if (listEventos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovEventos.size(); i++) {
+            if (lovEventos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaEvento.setEvento(listEventos.get(indiceUnicoElemento));
+               nuevaVigenciaEvento.setEvento(lovEventos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaEvento.setEvento(listEventos.get(indiceUnicoElemento));
+               duplicarVigenciaEvento.setEvento(lovEventos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
             }
-            listEventos.clear();
-            getListEventos();
+            lovEventos.clear();
+            getLovEventos();
          } else {
             RequestContext.getCurrentInstance().update("form:EventosDialogo");
             RequestContext.getCurrentInstance().execute("PF('EventosDialogo').show()");
@@ -1088,13 +1070,13 @@ String pagActual = "emplvigenciaevento";
       return aceptar;
    }
 
-   public List<Eventos> getListEventos() {
-      listEventos = administrarEmplVigenciaEvento.listEventos();
-      return listEventos;
+   public List<Eventos> getLovEventos() {
+      lovEventos = administrarEmplVigenciaEvento.listEventos();
+      return lovEventos;
    }
 
-   public void setListEventos(List<Eventos> setListEventos) {
-      this.listEventos = setListEventos;
+   public void setLovEventos(List<Eventos> setListEventos) {
+      this.lovEventos = setListEventos;
    }
 
    public List<Eventos> getFiltrarListEventos() {

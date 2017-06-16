@@ -69,7 +69,7 @@ public class ControlConceptosProyecciones implements Serializable {
 
    //--------------------------------------
    private String backupConcepto;
-   private List<Conceptos> listaConceptos;
+   private List<Conceptos> lovConceptos;
    private List<Conceptos> filtradoConceptos;
    private Conceptos conceptoSeleccionado;
    private String nuevoYduplicarCompletarCargo;
@@ -87,14 +87,13 @@ public class ControlConceptosProyecciones implements Serializable {
       nuevoConceptosProyecciones.setConcepto(new Conceptos());
       duplicarConceptosProyecciones = new ConceptosProyecciones();
       duplicarConceptosProyecciones.setConcepto(new Conceptos());
-      listaConceptos = null;
+      lovConceptos = null;
       filtradoConceptos = null;
       guardado = true;
       tamano = 270;
       aceptar = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
-
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
@@ -111,37 +110,19 @@ public class ControlConceptosProyecciones implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "conceptoproyeccion";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "conceptoproyeccion";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -152,8 +133,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      lovConceptos = null;
    }
 
    @PostConstruct
@@ -286,7 +267,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
@@ -588,8 +570,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                listConceptosProyecciones.get(indice).getConcepto().setDescripcion(backupConcepto);
             }
 
-            for (int i = 0; i < listaConceptos.size(); i++) {
-               if (listaConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptos.size(); i++) {
+               if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -597,12 +579,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listConceptosProyecciones.get(indice).setConcepto(listaConceptos.get(indiceUnicoElemento));
+                  listConceptosProyecciones.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
                } else {
-                  filtrarConceptosProyecciones.get(indice).setConcepto(listaConceptos.get(indiceUnicoElemento));
+                  filtrarConceptosProyecciones.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
                }
-               listaConceptos.clear();
-               listaConceptos = null;
+               lovConceptos.clear();
+               lovConceptos = null;
                //getListaTiposFamiliares();
 
             } else {
@@ -745,16 +727,16 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarCargo);
             nuevoConceptosProyecciones.getConcepto().setDescripcion(nuevoYduplicarCompletarCargo);
-            for (int i = 0; i < listaConceptos.size(); i++) {
-               if (listaConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptos.size(); i++) {
+               if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoConceptosProyecciones.setConcepto(listaConceptos.get(indiceUnicoElemento));
-               listaConceptos = null;
+               nuevoConceptosProyecciones.setConcepto(lovConceptos.get(indiceUnicoElemento));
+               lovConceptos = null;
                System.err.println("CONCEPTOS GUARDADA :-----> " + nuevoConceptosProyecciones.getConcepto().getDescripcion());
             } else {
                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
@@ -811,17 +793,17 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
             System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarCargo);
             duplicarConceptosProyecciones.getConcepto().setDescripcion(nuevoYduplicarCompletarCargo);
-            for (int i = 0; i < listaConceptos.size(); i++) {
-               if (listaConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovConceptos.size(); i++) {
+               if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarConceptosProyecciones.setConcepto(listaConceptos.get(indiceUnicoElemento));
-               listaConceptos = null;
-               getListaConceptos();
+               duplicarConceptosProyecciones.setConcepto(lovConceptos.get(indiceUnicoElemento));
+               lovConceptos = null;
+               getLovConceptos();
             } else {
                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
@@ -1280,23 +1262,23 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    private String infoRegistroConceptos;
 
-   public List<Conceptos> getListaConceptos() {
-      if (listaConceptos == null) {
-         listaConceptos = administrarConceptosProyecciones.consultarLOVConceptos();
+   public List<Conceptos> getLovConceptos() {
+      if (lovConceptos == null) {
+         lovConceptos = administrarConceptosProyecciones.consultarLOVConceptos();
       }
 
       RequestContext context = RequestContext.getCurrentInstance();
-      if (listaConceptos == null || listaConceptos.isEmpty()) {
+      if (lovConceptos == null || lovConceptos.isEmpty()) {
          infoRegistroConceptos = "Cantidad de registros: 0 ";
       } else {
-         infoRegistroConceptos = "Cantidad de registros: " + listaConceptos.size();
+         infoRegistroConceptos = "Cantidad de registros: " + lovConceptos.size();
       }
       RequestContext.getCurrentInstance().update("form:infoRegistroConceptos");
-      return listaConceptos;
+      return lovConceptos;
    }
 
-   public void setListaConceptos(List<Conceptos> listaConceptos) {
-      this.listaConceptos = listaConceptos;
+   public void setLovConceptos(List<Conceptos> lovConceptos) {
+      this.lovConceptos = lovConceptos;
    }
 
    public List<Conceptos> getFiltradoConceptos() {

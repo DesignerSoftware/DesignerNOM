@@ -249,7 +249,7 @@
 
                         <p:dialog header="#{msg['aficionM']}" widgetVar="AficionesDialogo" draggable="true" resizable="false" closable="false" id="AficionesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="445" modal="true">
-                            <p:dataTable id="lovAficiones"  var="aficion" value="#{controlVigenciaAficion.listAficiones}" rowKey="#{aficion.secuencia}"
+                            <p:dataTable id="lovAficiones"  var="aficion" value="#{controlVigenciaAficion.lovAficiones}" rowKey="#{aficion.secuencia}"
                                          selection="#{controlVigenciaAficion.aficionSeleccionada}" selectionMode="single" widgetVar="lovAficiones" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlVigenciaAficion.filtrarListAficiones}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaAficion.activarAceptar()}" update=":form:aceptarA"/>

@@ -552,7 +552,7 @@
 
                <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                          showEffect="fade" hideEffect="fade" width="435" modal="true">
-                  <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" var="tercero" value="#{controlTercero.listTerceroConsolidador}" rowKey="#{tercero.secuencia}"
+                  <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" var="tercero" value="#{controlTercero.lovTerceroConsolidador}" rowKey="#{tercero.secuencia}"
                                selection="#{controlTercero.terceroCSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="416" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListTerceroConsolidador}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -587,7 +587,7 @@
 
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
                          showEffect="fade" hideEffect="fade" width="520" modal="true">
-                  <p:dataTable id="lovCiudad" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
+                  <p:dataTable id="lovCiudad" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.lovCiudades}" rowKey="#{ciudad.secuencia}"
                                selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="490" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -628,7 +628,7 @@
 
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadTSDialogo" draggable="true" resizable="false" closable="false" id="CiudadTSDialogo"  
                          showEffect="fade" hideEffect="fade" width="520" modal="true">
-                  <p:dataTable id="lovCiudadTS" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
+                  <p:dataTable id="lovCiudadTS" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.lovCiudades}" rowKey="#{ciudad.secuencia}"
                                selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadTS" scrollable="true" scrollWidth="490" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -1061,7 +1061,7 @@
                <!-- LOV EMPRESAS -->
                <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                          showEffect="fade" hideEffect="fade" width="441" modal="true">
-                  <p:dataTable id="lovEmpresas" var="empresa" value="#{controlTercero.listEmpresas}" rowKey="#{empresa.secuencia}"
+                  <p:dataTable id="lovEmpresas" var="empresa" value="#{controlTercero.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                selection="#{controlTercero.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}">              
 

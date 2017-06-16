@@ -46,11 +46,11 @@ public class ControlVigenciasContratos implements Serializable {
    private List<VigenciasContratos> filtrarVC;
    private VigenciasContratos vigenciaSeleccionada;
    //Contratos
-   private List<Contratos> listaContratos;
+   private List<Contratos> lovContratos;
    private Contratos contratoSelecionado;
    private List<Contratos> filtradoContratos;
    //Tipos Contratos
-   private List<TiposContratos> listaTiposContratos;
+   private List<TiposContratos> lovTiposContratos;
    private TiposContratos tipoContratoSelecionado;
    private List<TiposContratos> filtradoTiposContratos;
    private Empleados empleado;
@@ -98,8 +98,8 @@ public class ControlVigenciasContratos implements Serializable {
 
    public ControlVigenciasContratos() {
       vigenciasContratos = null;
-      listaContratos = null;
-      listaTiposContratos = null;
+      lovContratos = null;
+      lovTiposContratos = null;
       empleado = new Empleados();
       //Otros
       aceptar = true;
@@ -129,8 +129,8 @@ public class ControlVigenciasContratos implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listaContratos = null;
-      listaTiposContratos = null;
+      lovContratos = null;
+      lovTiposContratos = null;
    }
 
    @PostConstruct
@@ -161,37 +161,19 @@ public class ControlVigenciasContratos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "empllegislacionlaboral";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "empllegislacionlaboral";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -341,17 +323,17 @@ String pagActual = "empllegislacionlaboral";
       if (confirmarCambio.equalsIgnoreCase("LEGISLACIONLABORAL")) {
          vigenciaSeleccionada.getContrato().setDescripcion(legislacionLaboral);
 
-         for (int i = 0; i < listaContratos.size(); i++) {
-            if (listaContratos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovContratos.size(); i++) {
+            if (lovContratos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaSeleccionada.setContrato(listaContratos.get(indiceUnicoElemento));
+            vigenciaSeleccionada.setContrato(lovContratos.get(indiceUnicoElemento));
 
-            listaContratos.clear();
-            getListaContratos();
+            lovContratos.clear();
+            getLovContratos();
          } else {
             permitirIndex = false;
             getInfoRegistroContrato();
@@ -363,17 +345,17 @@ String pagActual = "empllegislacionlaboral";
          if (!valorConfirmar.isEmpty()) {
             vigenciaSeleccionada.getTipocontrato().setNombre(tipoContrato);
 
-            for (int i = 0; i < listaTiposContratos.size(); i++) {
-               if (listaTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposContratos.size(); i++) {
+               if (lovTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               vigenciaSeleccionada.setTipocontrato(listaTiposContratos.get(indiceUnicoElemento));
+               vigenciaSeleccionada.setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
 
-               listaTiposContratos.clear();
-               getListaTiposContratos();
+               lovTiposContratos.clear();
+               getLovTiposContratos();
             } else {
                permitirIndex = false;
                getInfoRegistroTipoContrato();
@@ -382,8 +364,8 @@ String pagActual = "empllegislacionlaboral";
                tipoActualizacion = 0;
             }
          } else {
-            listaTiposContratos.clear();
-            getListaTiposContratos();
+            lovTiposContratos.clear();
+            getLovTiposContratos();
             vigenciaSeleccionada.setTipocontrato(new TiposContratos());
 
             if (guardado) {
@@ -444,22 +426,22 @@ String pagActual = "empllegislacionlaboral";
          } else if (tipoNuevo == 2) {
             duplicarVC.getContrato().setDescripcion(tipoContrato);
          }
-         for (int i = 0; i < listaContratos.size(); i++) {
-            if (listaContratos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovContratos.size(); i++) {
+            if (lovContratos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setContrato(listaContratos.get(indiceUnicoElemento));
+               nuevaVigencia.setContrato(lovContratos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCentroCosto");
             } else if (tipoNuevo == 2) {
-               duplicarVC.setContrato(listaContratos.get(indiceUnicoElemento));
+               duplicarVC.setContrato(lovContratos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCentroCosto");
             }
-            listaContratos.clear();
-            getListaContratos();
+            lovContratos.clear();
+            getLovContratos();
          } else {
             RequestContext.getCurrentInstance().update("form:ContratosDialogo");
             RequestContext.getCurrentInstance().execute("PF('ContratosDialogo').show()");
@@ -477,22 +459,22 @@ String pagActual = "empllegislacionlaboral";
             } else if (tipoNuevo == 2) {
                duplicarVC.getTipocontrato().setNombre(tipoContrato);
             }
-            for (int i = 0; i < listaTiposContratos.size(); i++) {
-               if (listaTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposContratos.size(); i++) {
+               if (lovTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigencia.setTipocontrato(listaTiposContratos.get(indiceUnicoElemento));
+                  nuevaVigencia.setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoContrato");
                } else if (tipoNuevo == 2) {
-                  duplicarVC.setTipocontrato(listaTiposContratos.get(indiceUnicoElemento));
+                  duplicarVC.setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoContrato");
                }
-               listaTiposContratos.clear();
-               getListaTiposContratos();
+               lovTiposContratos.clear();
+               getLovTiposContratos();
             } else {
                RequestContext.getCurrentInstance().update("form:TiposContratoDialogo");
                RequestContext.getCurrentInstance().execute("PF('TiposContratoDialogo').show()");
@@ -505,8 +487,8 @@ String pagActual = "empllegislacionlaboral";
             }
          }
       } else {
-         listaTiposContratos.clear();
-         getListaTiposContratos();
+         lovTiposContratos.clear();
+         getLovTiposContratos();
          if (tipoNuevo == 1) {
             nuevaVigencia.setTipocontrato(new TiposContratos());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoContrato");
@@ -1263,15 +1245,15 @@ String pagActual = "empllegislacionlaboral";
     *
     * @return listTC Lista Tipos Contratos
     */
-   public List<Contratos> getListaContratos() {
-      if (listaContratos == null) {
-         listaContratos = administrarVigenciasContratos.contratos();
+   public List<Contratos> getLovContratos() {
+      if (lovContratos == null) {
+         lovContratos = administrarVigenciasContratos.contratos();
       }
-      return listaContratos;
+      return lovContratos;
    }
 
-   public void setListaContratos(List<Contratos> listaContratos) {
-      this.listaContratos = listaContratos;
+   public void setLovContratos(List<Contratos> lovContratos) {
+      this.lovContratos = lovContratos;
    }
 
    public List<Contratos> getFiltradoContratos() {
@@ -1288,15 +1270,15 @@ String pagActual = "empllegislacionlaboral";
     *
     * @return listTC Lista Tipos Contratos
     */
-   public List<TiposContratos> getListaTiposContratos() {
-      if (listaTiposContratos == null) {
-         listaTiposContratos = administrarVigenciasContratos.tiposContratos();
+   public List<TiposContratos> getLovTiposContratos() {
+      if (lovTiposContratos == null) {
+         lovTiposContratos = administrarVigenciasContratos.tiposContratos();
       }
-      return listaTiposContratos;
+      return lovTiposContratos;
    }
 
-   public void setListaTiposContratos(List<TiposContratos> listaTiposContratos) {
-      this.listaTiposContratos = listaTiposContratos;
+   public void setLovTiposContratos(List<TiposContratos> lovTiposContratos) {
+      this.lovTiposContratos = lovTiposContratos;
    }
 
    public List<TiposContratos> getFiltradoTiposContratos() {

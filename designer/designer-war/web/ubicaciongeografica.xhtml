@@ -311,7 +311,7 @@
                   <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                   <p:dialog header="Ciudades" widgetVar="ciudadesDialogo" draggable="true" resizable="false" closable="false" id="ciudadesDialogo"  
                             showEffect="fade" hideEffect="fade" width="492" modal="true" style="">
-                     <p:dataTable id="lovCiudades" style=" width: 480px;" var="ciudades" value="#{controlUbicacionesGeograficas.listaCiudades}" rowKey="#{ciudades.secuencia}"
+                     <p:dataTable id="lovCiudades" style=" width: 480px;" var="ciudades" value="#{controlUbicacionesGeograficas.lovCiudades}" rowKey="#{ciudades.secuencia}"
                                   selection="#{controlUbicacionesGeograficas.ciudadesSeleccionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="460" scrollHeight="250"
                                   filteredValue="#{controlUbicacionesGeograficas.filtradoCiudades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                         <p:ajax event="rowSelect" listener="#{controlUbicacionesGeograficas.activarAceptar()}" update=":form:aceptarTCC"/>
@@ -350,7 +350,7 @@
 
                   <p:dialog header="Sucursales Pila" widgetVar="sucursalesPilaDialogo" draggable="true" resizable="false" closable="false" id="sucursalesPilaDialogo"  
                             showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
-                     <p:dataTable id="lovSucursalesPila" style=" width: 400px;" var="sucursalPila" value="#{controlUbicacionesGeograficas.listaSucursalesPilas}" rowKey="#{sucursalPila.secuencia}"
+                     <p:dataTable id="lovSucursalesPila" style=" width: 400px;" var="sucursalPila" value="#{controlUbicacionesGeograficas.lovSucursalesPilas}" rowKey="#{sucursalPila.secuencia}"
                                   selection="#{controlUbicacionesGeograficas.sucursalesPilasSeleccionada}" selectionMode="single" widgetVar="lovSucursalesPila" scrollable="true" scrollWidth="420" scrollHeight="250"
                                   filteredValue="#{controlUbicacionesGeograficas.filtradoSucursalesPilas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                         <p:ajax event="rowSelect" listener="#{controlUbicacionesGeograficas.activarAceptar()}" update=":form:aceptarSP"/>
@@ -661,7 +661,7 @@
                <!-- LOV EMPRESAS -->
                <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                          showEffect="fade" hideEffect="fade" width="360" modal="true" style="">
-                  <p:dataTable id="lovEmpresas" style=" width: 310px;" var="empresa" value="#{controlUbicacionesGeograficas.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                  <p:dataTable id="lovEmpresas" style=" width: 310px;" var="empresa" value="#{controlUbicacionesGeograficas.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                selection="#{controlUbicacionesGeograficas.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="330" scrollHeight="250"
                                filteredValue="#{controlUbicacionesGeograficas.filtradoListaEmpresas}" emptyMessage="No se encontraron resultados con el criterio de búsqueda.">              
                      <p:ajax event="rowSelect" listener="#{controlUbicacionesGeograficas.activarAceptar()}" update=":formularioDialogos:aceptarE"/>

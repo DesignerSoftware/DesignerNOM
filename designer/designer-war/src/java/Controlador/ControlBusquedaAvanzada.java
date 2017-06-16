@@ -724,14 +724,7 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-       */
       String pagActual = "busquedaavanzada";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -739,11 +732,11 @@ public class ControlBusquedaAvanzada implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -755,6 +748,41 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    public void limpiarListasValor() {
+      lovCargos = null;
+      lovCiudades = null;
+      lovColumnasEscenarios = null;
+      lovContratos = null;
+      lovCursos = null;
+      lovEstadosAfiliaciones = null;
+      lovEstadosCiviles = null;
+      lovEstructuras = null;
+      lovFormasPagos = null;
+      lovIdiomas = null;
+      lovIndicadores = null;
+      lovInstituciones = null;
+      lovJefe = null;
+      lovJornadasLaborales = null;
+      lovMotivosCargos = null;
+      lovMotivosContratos = null;
+      lovMotivosLocalizaciones = null;
+      lovMotivosMvrs = null;
+      lovMotivosRetiros = null;
+      lovMotivosSueldos = null;
+      lovNormasLaborales = null;
+      lovPapeles = null;
+      lovProfesiones = null;
+      lovProyectos = null;
+      lovReformasLaborales = null;
+      lovRoles = null;
+      lovSectoresEconomicos = null;
+      lovSucursales = null;
+      lovTercerosSucursales = null;
+      lovTiposContratos = null;
+      lovTiposEntidades = null;
+      lovTiposIndicadores = null;
+      lovTiposSueldos = null;
+      lovTiposTrabajadores = null;
+      lovUbicaciones = null;
    }
 
    public void salir() {

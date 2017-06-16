@@ -49,12 +49,12 @@ public class ControlDependenciaOperando implements Serializable {
    private List<DependenciasOperandos> listaDependenciasOperandos;
    private List<DependenciasOperandos> filtradosListaDependenciasOperandos;
    //L.O.V INFOREPORTES
-   private List<DependenciasOperandos> lovlistaDependenciasOperandos;
-   private List<DependenciasOperandos> lovfiltradoslistaDependenciasOperandos;
-   private DependenciasOperandos operandosSeleccionado;
+   private List<DependenciasOperandos> lovDependenciasOperandos;
+   private List<DependenciasOperandos> filtrarlovDependenciasOperandos;
+   private DependenciasOperandos operandosLovSeleccionado;
    //editar celda
    private DependenciasOperandos editarDependenciasOperandos;
-   private boolean cambioEditor, aceptarEditar;
+   private boolean aceptarEditar;
    private int cualCelda, tipoLista;
    //OTROS
    private boolean aceptar;
@@ -64,7 +64,7 @@ public class ControlDependenciaOperando implements Serializable {
    private boolean permitirIndex;
    //RASTROS
    private BigInteger secRegistro;
-   private boolean guardado, guardarOk;
+   private boolean guardado;
    //Crear Novedades
    private List<DependenciasOperandos> listaDependenciasOperandosCrear;
    public DependenciasOperandos nuevoDependenciaOperando;
@@ -84,8 +84,8 @@ public class ControlDependenciaOperando implements Serializable {
    private String altoTabla;
    private boolean cambiosPagina;
    //L.O.V OPERANDOS
-   private List<Operandos> lovListaOperandos;
-   private List<Operandos> lovFiltradosListaOperandos;
+   private List<Operandos> lovOperandos;
+   private List<Operandos> filtrarLovOperandos;
    private Operandos seleccionOperandos;
    private String nombre;
    private String paginaAnterior = "nominaf";
@@ -105,13 +105,8 @@ public class ControlDependenciaOperando implements Serializable {
       listaDependenciasOperandosModificar = new ArrayList<DependenciasOperandos>();
       altoTabla = "245";
       duplicarDependenciaOperando = new DependenciasOperandos();
-      lovListaOperandos = null;
+      lovOperandos = null;
       mapParametros.put("paginaAnterior", paginaAnterior);
-   }
-
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
    }
 
    public void recibirParametros(Map<String, Object> map) {
@@ -124,37 +119,19 @@ public class ControlDependenciaOperando implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "dependenciaoperando";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "dependenciaoperando";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -166,7 +143,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void limpiarListasValor() {
-
+      lovDependenciasOperandos = null;
+      lovOperandos = null;
    }
 
    @PostConstruct
@@ -258,12 +236,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listaDependenciasOperandos.get(indice).setOperando(lovListaOperandos.get(indiceUnicoElemento));
+               listaDependenciasOperandos.get(indice).setOperando(lovOperandos.get(indiceUnicoElemento));
             } else {
-               filtradosListaDependenciasOperandos.get(indice).setOperando(lovListaOperandos.get(indiceUnicoElemento));
+               filtradosListaDependenciasOperandos.get(indice).setOperando(lovOperandos.get(indiceUnicoElemento));
             }
-            lovListaOperandos.clear();
-            getLovListaOperandos();
+            lovOperandos.clear();
+            getLovOperandos();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
@@ -371,7 +349,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       listaDependenciasOperandosBorrar.clear();
       listaDependenciasOperandosCrear.clear();
       listaDependenciasOperandosModificar.clear();
-      lovListaOperandos.clear();
+      lovOperandos.clear();
       index = -1;
       secRegistro = null;
       k = 0;
@@ -467,26 +445,26 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarDependenciaOperando.getOperando().setNombre(Operando);
          }
-         for (int i = 0; i < lovListaOperandos.size(); i++) {
-            if (lovListaOperandos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovOperandos.size(); i++) {
+            if (lovOperandos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoDependenciaOperando.setOperando(lovListaOperandos.get(indiceUnicoElemento));
+               nuevoDependenciaOperando.setOperando(lovOperandos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombre");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigo");
 
             } else if (tipoNuevo == 2) {
-               duplicarDependenciaOperando.setOperando(lovListaOperandos.get(indiceUnicoElemento));
+               duplicarDependenciaOperando.setOperando(lovOperandos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombre");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
 
             }
-            lovListaOperandos.clear();
-            getLovListaOperandos();
+            lovOperandos.clear();
+            getLovOperandos();
          } else {
             RequestContext.getCurrentInstance().update("form:operandosDialogo");
             RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
@@ -668,7 +646,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void cancelarCambioOperandos() {
-      lovFiltradosListaOperandos = null;
+      filtrarLovOperandos = null;
       seleccionOperandos = null;
       aceptar = true;
       index = -1;
@@ -791,7 +769,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          //CERRAR FILTRADO
          altoTabla = "245";
@@ -811,7 +790,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       listaDependenciasOperandosBorrar.clear();
       listaDependenciasOperandosCrear.clear();
       listaDependenciasOperandosModificar.clear();
-      lovListaOperandos.clear();
+      lovOperandos.clear();
       index = -1;
       secRegistro = null;
       k = 0;
@@ -991,23 +970,23 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.duplicarDependenciaOperando = duplicarDependenciaOperando;
    }
 
-   public List<Operandos> getLovListaOperandos() {
-      if (lovListaOperandos == null) {
-         lovListaOperandos = administrarDependenciasOperandos.buscarOperandos();
+   public List<Operandos> getLovOperandos() {
+      if (lovOperandos == null) {
+         lovOperandos = administrarDependenciasOperandos.buscarOperandos();
       }
-      return lovListaOperandos;
+      return lovOperandos;
    }
 
-   public void setLovListaOperandos(List<Operandos> lovListaOperandos) {
-      this.lovListaOperandos = lovListaOperandos;
+   public void setLovOperandos(List<Operandos> lovOperandos) {
+      this.lovOperandos = lovOperandos;
    }
 
-   public List<Operandos> getLovFiltradosListaOperandos() {
-      return lovFiltradosListaOperandos;
+   public List<Operandos> getFiltrarLovOperandos() {
+      return filtrarLovOperandos;
    }
 
-   public void setLovFiltradosListaOperandos(List<Operandos> lovFiltradosListaOperandos) {
-      this.lovFiltradosListaOperandos = lovFiltradosListaOperandos;
+   public void setFiltrarLovOperandos(List<Operandos> filtrarLovOperandos) {
+      this.filtrarLovOperandos = filtrarLovOperandos;
    }
 
    public Operandos getSeleccionOperandos() {

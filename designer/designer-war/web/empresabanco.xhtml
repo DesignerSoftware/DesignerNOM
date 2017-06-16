@@ -154,7 +154,7 @@
 
                         <p:dialog header="Empresas" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
-                            <p:dataTable id="lovTiposFamiliares" style=" width: 400px;" var="tipofamiliar" value="#{controlEmpresasBancos.listaEmpresas}" rowKey="#{tipofamiliar.secuencia}"
+                            <p:dataTable id="lovTiposFamiliares" style=" width: 400px;" var="tipofamiliar" value="#{controlEmpresasBancos.lovEmpresas}" rowKey="#{tipofamiliar.secuencia}"
                                          selection="#{controlEmpresasBancos.empresaSeleccionado}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="420" scrollHeight="280"
                                          filteredValue="#{controlEmpresasBancos.filtradoEmpresas}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlEmpresasBancos.activarAceptar()}" update=":form:aceptarS"/>
@@ -187,7 +187,7 @@
 
                         <p:dialog header="BANCOS" widgetVar="personasDialogo" draggable="true" resizable="false" closable="false" id="personasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
-                            <p:dataTable id="lovBancos" style=" width: 400px;" var="personaFirmas" value="#{controlEmpresasBancos.listaBancos}" rowKey="#{personaFirmas.secuencia}"
+                            <p:dataTable id="lovBancos" style=" width: 400px;" var="personaFirmas" value="#{controlEmpresasBancos.lovBancos}" rowKey="#{personaFirmas.secuencia}"
                                          selection="#{controlEmpresasBancos.bancoSeleccionado}" selectionMode="single" widgetVar="lovBancos" scrollable="true" scrollWidth="420" scrollHeight="280"
                                          filteredValue="#{controlEmpresasBancos.filtradoBancos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlEmpresasBancos.activarAceptar()}" update=":form:aceptarPer"/>
@@ -222,7 +222,7 @@
 
                         <p:dialog header="Ciudades" widgetVar="cargosDialogo" draggable="true" resizable="false" closable="false" id="cargosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="460" height="450" modal="true" style="">
-                            <p:dataTable id="lovCiudades" var="personaCiudades" value="#{controlEmpresasBancos.listaCiudades}" rowKey="#{personaCiudades.secuencia}"
+                            <p:dataTable id="lovCiudades" var="personaCiudades" value="#{controlEmpresasBancos.lovCiudades}" rowKey="#{personaCiudades.secuencia}"
                                          selection="#{controlEmpresasBancos.ciudadSeleccionado}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="435" scrollHeight="315"
                                          filteredValue="#{controlEmpresasBancos.filtradoCiudades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlEmpresasBancos.activarAceptar()}" update=":form:aceptarCar"/>

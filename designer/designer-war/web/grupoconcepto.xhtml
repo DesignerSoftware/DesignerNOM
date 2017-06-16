@@ -520,9 +520,9 @@
                <p:dialog header="#{msg['gruposconceptosGC']}" widgetVar="gruposConceptosDialogo" draggable="true" resizable="false" id="gruposConceptosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="625">
 
-                  <p:dataTable id="LOVGrupos" var="g" value="#{controlGrupoConcepto.lovlistaGruposConceptos}"
+                  <p:dataTable id="LOVGrupos" var="g" value="#{controlGrupoConcepto.lovGruposConceptos}"
                                scrollable="true" scrollHeight="200" scrollWidth="600" widgetVar="LOVGrupos"
-                               filteredValue="#{controlGrupoConcepto.lovfiltradoListaGruposConceptos}" emptyMessage="#{msg['lovvacio']}"
+                               filteredValue="#{controlGrupoConcepto.filtrarlovGruposConceptos}" emptyMessage="#{msg['lovvacio']}"
                                rowKey="#{g.secuencia}" selection="#{controlGrupoConcepto.gruposSeleccionado}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlGrupoConcepto.contarRegistrosLOVGrupos()}"/>
@@ -562,10 +562,10 @@
                <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="725">
 
-                  <p:dataTable  id="LOVConceptos" var="con" value="#{controlGrupoConcepto.lovlistaConceptos}"
+                  <p:dataTable  id="LOVConceptos" var="con" value="#{controlGrupoConcepto.lovConceptos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="700" widgetVar="LOVConceptos" 
-                                filteredValue="#{controlGrupoConcepto.lovfiltradoListaConceptos}" emptyMessage="#{msg['lovvacio']}"
-                                rowKey="#{con.secuencia}" selection="#{controlGrupoConcepto.conceptoSeleccionado}" selectionMode="single">
+                                filteredValue="#{controlGrupoConcepto.filtrarLovConceptos}" emptyMessage="#{msg['lovvacio']}"
+                                rowKey="#{con.secuencia}" selection="#{controlGrupoConcepto.conceptoLovSeleccionado}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlGrupoConcepto.contarRegistrosLOVConceptos()}"/>
                      <p:ajax event="rowSelect" listener="#{controlGrupoConcepto.activarAceptar()}" update=":formularioDialogos:aceptarC"/>

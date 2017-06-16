@@ -73,7 +73,7 @@ public class ControlActualizarConceptos implements Serializable {
    //autocompletar
    private String backUpClaveDebito;
    private String backUpClaveCredito;
-   private List<ClavesSap> listaClavesSap;
+   private List<ClavesSap> lovClavesSap;
    private List<ClavesSap> filtradoClavesSap;
    private ClavesSap claveSapDebito;
    private ClavesSap claveSapCredito;
@@ -86,7 +86,7 @@ public class ControlActualizarConceptos implements Serializable {
 
    private Empresas empresaSeleccionada;
    private Empresas empresaSeleccionadaMostrar;
-   private List<Empresas> listaEmpresas;
+   private List<Empresas> lovEmpresas;
    private List<Empresas> filtradoEmpresas;
    private String infoRegistroEmpresas;
    private String paginaAnterior = "nominaf";
@@ -100,16 +100,14 @@ public class ControlActualizarConceptos implements Serializable {
       guardado = true;
       editarConceptos = new Conceptos();
       nuevoConceptos = new Conceptos();
-//        secuenciaEmpresa = new BigInteger("11197246");
       secuenciaEmpresa = null;
-      listaClavesSap = null;
+      lovClavesSap = null;
       filtradoClavesSap = null;
       tipoLista = 0;
       tamano = 270;
       aceptar = true;
       mostrartodos = true;
       buscarConceptos = false;
-
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -128,12 +126,6 @@ public class ControlActualizarConceptos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-       */
       String pagActual = "actualizarconcepto";
       if (pag.equals("atras")) {
          pag = paginaAnterior;
@@ -142,11 +134,11 @@ public class ControlActualizarConceptos implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -158,7 +150,8 @@ public class ControlActualizarConceptos implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovClavesSap = null;
+      lovEmpresas = null;
    }
 
    @PostConstruct
@@ -181,7 +174,7 @@ public class ControlActualizarConceptos implements Serializable {
       }
       this.secuenciaEmpresa = secEmpresa;
       getEmpresaSeleccionada();
-      getListaEmpresas();
+      getLovEmpresas();
       System.out.println("Empresa seleccionada : " + empresaSeleccionada.getNombre());
       getListConceptos();
    }
@@ -667,8 +660,8 @@ public class ControlActualizarConceptos implements Serializable {
                filtrarConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
             }
 
-            for (int i = 0; i < listaClavesSap.size(); i++) {
-               if (listaClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovClavesSap.size(); i++) {
+               if (lovClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -676,13 +669,13 @@ public class ControlActualizarConceptos implements Serializable {
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listConceptos.get(indice).setClavecontabledebito(listaClavesSap.get(indiceUnicoElemento));
+                  listConceptos.get(indice).setClavecontabledebito(lovClavesSap.get(indiceUnicoElemento));
                } else {
-                  filtrarConceptos.get(indice).setClavecontabledebito(listaClavesSap.get(indiceUnicoElemento));
+                  filtrarConceptos.get(indice).setClavecontabledebito(lovClavesSap.get(indiceUnicoElemento));
                }
-               listaClavesSap.clear();
-               listaClavesSap = null;
-               getListaClavesSap();
+               lovClavesSap.clear();
+               lovClavesSap = null;
+               getLovClavesSap();
 
             } else {
                permitirIndex = false;
@@ -742,8 +735,8 @@ public class ControlActualizarConceptos implements Serializable {
                filtrarConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
             }
 
-            for (int i = 0; i < listaClavesSap.size(); i++) {
-               if (listaClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovClavesSap.size(); i++) {
+               if (lovClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -751,13 +744,13 @@ public class ControlActualizarConceptos implements Serializable {
 
             if (coincidencias == 1) {
                if (tipoLista == 0) {
-                  listConceptos.get(indice).setClavecontablecredito(listaClavesSap.get(indiceUnicoElemento));
+                  listConceptos.get(indice).setClavecontablecredito(lovClavesSap.get(indiceUnicoElemento));
                } else {
-                  filtrarConceptos.get(indice).setClavecontablecredito(listaClavesSap.get(indiceUnicoElemento));
+                  filtrarConceptos.get(indice).setClavecontablecredito(lovClavesSap.get(indiceUnicoElemento));
                }
-               listaClavesSap.clear();
-               listaClavesSap = null;
-               getListaClavesSap();
+               lovClavesSap.clear();
+               lovClavesSap = null;
+               getLovClavesSap();
 
             } else {
                permitirIndex = false;
@@ -1185,7 +1178,7 @@ public class ControlActualizarConceptos implements Serializable {
 
    public void cancelarCambioEmpresa() {
       filtradoEmpresas = null;
-      listaEmpresas = null;
+      lovEmpresas = null;
       index = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formularioDialogos:lovEmpresas:globalFilter");
@@ -1422,25 +1415,25 @@ public class ControlActualizarConceptos implements Serializable {
    }
    private String infoRegistroClaveSapCredito;
 
-   public List<ClavesSap> getListaClavesSap() {
-      if (listaClavesSap == null) {
-         listaClavesSap = administrarConceptos.consultarLOVClavesSap();
+   public List<ClavesSap> getLovClavesSap() {
+      if (lovClavesSap == null) {
+         lovClavesSap = administrarConceptos.consultarLOVClavesSap();
       }
       RequestContext context = RequestContext.getCurrentInstance();
-      if (listaClavesSap == null || listaClavesSap.isEmpty()) {
+      if (lovClavesSap == null || lovClavesSap.isEmpty()) {
          infoRegistroClaveSapDebito = "Cantidad de registros: 0 ";
          infoRegistroClaveSapCredito = "Cantidad de registros: 0 ";
       } else {
-         infoRegistroClaveSapDebito = "Cantidad de registros: " + listaClavesSap.size();
-         infoRegistroClaveSapCredito = "Cantidad de registros: " + listaClavesSap.size();
+         infoRegistroClaveSapDebito = "Cantidad de registros: " + lovClavesSap.size();
+         infoRegistroClaveSapCredito = "Cantidad de registros: " + lovClavesSap.size();
       }
       RequestContext.getCurrentInstance().update("form:infoRegistroClaveSapDebito");
       RequestContext.getCurrentInstance().update("form:infoRegistroClaveSapCredito");
-      return listaClavesSap;
+      return lovClavesSap;
    }
 
-   public void setListaClavesSap(List<ClavesSap> listaClavesSap) {
-      this.listaClavesSap = listaClavesSap;
+   public void setLovClavesSap(List<ClavesSap> lovClavesSap) {
+      this.lovClavesSap = lovClavesSap;
    }
 
    public List<ClavesSap> getFiltradoClavesSap() {
@@ -1540,7 +1533,7 @@ public class ControlActualizarConceptos implements Serializable {
    }
 
    public Empresas getEmpresaSeleccionada() {
-      getListaEmpresas();
+      getLovEmpresas();
       return empresaSeleccionada;
    }
 
@@ -1548,24 +1541,24 @@ public class ControlActualizarConceptos implements Serializable {
       this.empresaSeleccionada = empresaSeleccionada;
    }
 
-   public List<Empresas> getListaEmpresas() {
+   public List<Empresas> getLovEmpresas() {
       //if (secuenciaEmpresa == null) {
-      /*  if (listaEmpresas == null) {
-         listaEmpresas = administrarConceptos.consultarEmpresas();
-         empresaSeleccionada = listaEmpresas.get(0);
+      /*  if (lovEmpresas == null) {
+         lovEmpresas = administrarConceptos.consultarEmpresas();
+         empresaSeleccionada = lovEmpresas.get(0);
          }*/
       //} else {
-      if (listaEmpresas == null) {
-         listaEmpresas = administrarConceptos.consultarEmpresaPorSecuencia(secuenciaEmpresa);
-         System.out.println("ControlActualizarConceptos getListaEmpresas Tamaño listaEmpresas : " + listaEmpresas.size());
-         empresaSeleccionada = listaEmpresas.get(0);
+      if (lovEmpresas == null) {
+         lovEmpresas = administrarConceptos.consultarEmpresaPorSecuencia(secuenciaEmpresa);
+         System.out.println("ControlActualizarConceptos getListaEmpresas Tamaño listaEmpresas : " + lovEmpresas.size());
+         empresaSeleccionada = lovEmpresas.get(0);
       }
 
-      return listaEmpresas;
+      return lovEmpresas;
    }
 
-   public void setListaEmpresas(List<Empresas> listaEmpresas) {
-      this.listaEmpresas = listaEmpresas;
+   public void setLovEmpresas(List<Empresas> lovEmpresas) {
+      this.lovEmpresas = lovEmpresas;
    }
 
    public List<Empresas> getFiltradoEmpresas() {

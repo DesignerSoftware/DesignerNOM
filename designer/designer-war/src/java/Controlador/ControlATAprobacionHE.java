@@ -16,7 +16,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -169,7 +168,8 @@ public class ControlATAprobacionHE implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovEmpleados = null;
+      lovEstructuras = null;
    }
 
    @PostConstruct
@@ -202,15 +202,7 @@ public class ControlATAprobacionHE implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      }else {
-       */
       String pagActual = "ataprobacionhe";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -238,7 +230,6 @@ public class ControlATAprobacionHE implements Serializable {
    }
 
    public void pruebaRemota() {
-      RequestContext context = RequestContext.getCurrentInstance();
       int tam = 0;
       if (tipoListaCabecera == 0) {
          tam = listaEersCabeceras.size();

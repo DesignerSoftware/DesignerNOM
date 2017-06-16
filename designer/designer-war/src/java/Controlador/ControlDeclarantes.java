@@ -54,7 +54,7 @@ public class ControlDeclarantes implements Serializable {
    private BigInteger Minima;
    private String altoScrollDeclarantes;
    private List<Declarantes> listaDeclarantesModificar;
-   private boolean guardado, guardarOk;
+   private boolean guardado;
    public Declarantes nuevoDeclarante;
    private List<Declarantes> listaDeclarantesCrear;
    private BigInteger l;
@@ -66,9 +66,9 @@ public class ControlDeclarantes implements Serializable {
    private boolean cambioEditor, aceptarEditar;
    private Declarantes duplicarDeclarante;
    private boolean cambiosPagina;
-   private List<TarifaDeseo> lovlistaRetenciones;
-   private List<TarifaDeseo> lovfiltradoslistaRetenciones;
-   private TarifaDeseo retencionesSeleccionado;
+   private List<TarifaDeseo> lovRetenciones;
+   private List<TarifaDeseo> filtroLovRetenciones;
+   private TarifaDeseo retencionesLovSeleccionado;
    private Date fechaFinal;
    private Date fechaInicial;
    private Date fechaParametro;
@@ -114,37 +114,19 @@ public class ControlDeclarantes implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "declarante";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "declarante";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -156,7 +138,7 @@ String pagActual = "declarante";
    }
 
    public void limpiarListasValor() {
-
+      lovRetenciones = null;
    }
 
    @PostConstruct
@@ -176,7 +158,7 @@ String pagActual = "declarante";
       RequestContext context = RequestContext.getCurrentInstance();
       List<RetencionesMinimas> listaRetenciones = administrarDeclarantes.retencionesMinimasLista();
       RetencionesMinimas seleccionado = new RetencionesMinimas();
-      System.out.println("retencionesSeleccionado.getSecuenciaRetencion() : " + retencionesSeleccionado.getSecuenciaRetencion());
+      System.out.println("retencionesSeleccionado.getSecuenciaRetencion() : " + retencionesLovSeleccionado.getSecuenciaRetencion());
       System.out.println("listaRetenciones : " + listaRetenciones.size());
       for (int j = 0; j < listaRetenciones.size(); j++) {
          System.out.println("listaRetenciones : " + listaRetenciones.get(j).getSecuencia());
@@ -184,7 +166,7 @@ String pagActual = "declarante";
       for (int i = 0; i < listaRetenciones.size(); i++) {
          BigInteger secuencia = new BigInteger(listaRetenciones.get(i).getSecuencia().toString());
          System.out.println("secuencia : " + secuencia);
-         if (secuencia.equals(retencionesSeleccionado.getSecuenciaRetencion())) {
+         if (secuencia.equals(retencionesLovSeleccionado.getSecuenciaRetencion())) {
             seleccionado = listaRetenciones.get(i);
             break;
          }
@@ -212,7 +194,7 @@ String pagActual = "declarante";
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDeclarante");
       }
       filtradoListaDeclarantes = null;
-      retencionesSeleccionado = null;
+      retencionesLovSeleccionado = null;
       aceptar = true;
       declaranteSeleccionado = null;
       tipoActualizacion = -1;
@@ -228,8 +210,8 @@ String pagActual = "declarante";
       if (declaranteSeleccionado != null) {
          RequestContext context = RequestContext.getCurrentInstance();
          if (cualCelda == 3) {
-            lovlistaRetenciones = null;
-            getLovlistaRetenciones();
+            lovRetenciones = null;
+            getLovRetenciones();
             contarRegistrosLov();
             RequestContext.getCurrentInstance().update("formularioDialogos:minimasDialogo");
             RequestContext.getCurrentInstance().execute("PF('minimasDialogo').show()");
@@ -297,15 +279,15 @@ String pagActual = "declarante";
       } else if (confirmarCambio.equalsIgnoreCase("MINIMA")) {
          declaranteSeleccionado.getRetencionminima().setRetencion(Minima);
 
-         for (int i = 0; i < lovlistaRetenciones.size(); i++) {
-            if ((lovlistaRetenciones.get(i).getRetencion().toString()).startsWith(valorConfirmar.toString().toUpperCase())) {
+         for (int i = 0; i < lovRetenciones.size(); i++) {
+            if ((lovRetenciones.get(i).getRetencion().toString()).startsWith(valorConfirmar.toString().toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             List<RetencionesMinimas> listaRetenciones = administrarDeclarantes.retencionesMinimasLista();
-            TarifaDeseo ratifa = lovlistaRetenciones.get(indiceUnicoElemento);
+            TarifaDeseo ratifa = lovRetenciones.get(indiceUnicoElemento);
             RetencionesMinimas seleccionado = new RetencionesMinimas();
             for (int i = 0; i < listaRetenciones.size(); i++) {
                if (listaRetenciones.get(i).getSecuencia().equals(ratifa.getSecuenciaRetencion())) {
@@ -314,8 +296,8 @@ String pagActual = "declarante";
                }
             }
             declaranteSeleccionado.setRetencionminima(seleccionado);
-            lovlistaRetenciones.clear();
-            getLovlistaRetenciones();
+            lovRetenciones.clear();
+            getLovRetenciones();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:minimasDialogo");
@@ -434,8 +416,8 @@ String pagActual = "declarante";
       tipoActualizacion = LND;
 
       if (dlg == 0) {
-         lovlistaRetenciones = null;
-         getLovlistaRetenciones();
+         lovRetenciones = null;
+         getLovRetenciones();
          contarRegistrosLov();
          RequestContext.getCurrentInstance().update("formularioDialogos:minimasDialogo");
          RequestContext.getCurrentInstance().execute("PF('minimasDialogo').show()");
@@ -473,8 +455,8 @@ String pagActual = "declarante";
    }
 
    public void cancelarCambioDeclarantes() {
-      lovfiltradoslistaRetenciones = null;
-      retencionesSeleccionado = null;
+      filtroLovRetenciones = null;
+      retencionesLovSeleccionado = null;
       aceptar = true;
       declaranteSeleccionado = null;
       tipoActualizacion = -1;
@@ -575,15 +557,15 @@ String pagActual = "declarante";
          } else if (tipoNuevo == 2) {
             duplicarDeclarante.getRetencionminima().setRetencion(Minima);
          }
-         for (int i = 0; i < lovlistaRetenciones.size(); i++) {
-            if ((lovlistaRetenciones.get(i).getRetencion().toString()).startsWith(valorConfirmar.toString().toUpperCase())) {
+         for (int i = 0; i < lovRetenciones.size(); i++) {
+            if ((lovRetenciones.get(i).getRetencion().toString()).startsWith(valorConfirmar.toString().toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             List<RetencionesMinimas> listaRetenciones = administrarDeclarantes.retencionesMinimasLista();
-            TarifaDeseo ratifa = lovlistaRetenciones.get(indiceUnicoElemento);
+            TarifaDeseo ratifa = lovRetenciones.get(indiceUnicoElemento);
             RetencionesMinimas seleccionado = new RetencionesMinimas();
             for (int i = 0; i < listaRetenciones.size(); i++) {
                if (listaRetenciones.get(i).getSecuencia().equals(ratifa.getSecuenciaRetencion())) {
@@ -598,8 +580,8 @@ String pagActual = "declarante";
                duplicarDeclarante.setRetencionminima(seleccionado);
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTarifaDeseo");
             }
-            lovlistaRetenciones.clear();
-            getLovlistaRetenciones();
+            lovRetenciones.clear();
+            getLovRetenciones();
          } else {
             RequestContext.getCurrentInstance().update("form:minimasDialogo");
             RequestContext.getCurrentInstance().execute("PF('minimasDialogo').show()");
@@ -984,31 +966,31 @@ String pagActual = "declarante";
       this.duplicarDeclarante = duplicarDeclarante;
    }
 
-   public List<TarifaDeseo> getLovlistaRetenciones() {
-      if (lovlistaRetenciones == null) {
-         lovlistaRetenciones = administrarDeclarantes.retencionesMinimas();
+   public List<TarifaDeseo> getLovRetenciones() {
+      if (lovRetenciones == null) {
+         lovRetenciones = administrarDeclarantes.retencionesMinimas();
       }
-      return lovlistaRetenciones;
+      return lovRetenciones;
    }
 
-   public void setLovlistaRetenciones(List<TarifaDeseo> lovlistaRetenciones) {
-      this.lovlistaRetenciones = lovlistaRetenciones;
+   public void setLovRetenciones(List<TarifaDeseo> lovRetenciones) {
+      this.lovRetenciones = lovRetenciones;
    }
 
-   public List<TarifaDeseo> getLovfiltradoslistaRetenciones() {
-      return lovfiltradoslistaRetenciones;
+   public List<TarifaDeseo> getFiltroLovRetenciones() {
+      return filtroLovRetenciones;
    }
 
-   public void setLovfiltradoslistaRetenciones(List<TarifaDeseo> lovfiltradoslistaRetenciones) {
-      this.lovfiltradoslistaRetenciones = lovfiltradoslistaRetenciones;
+   public void setFiltroLovRetenciones(List<TarifaDeseo> filtroLovRetenciones) {
+      this.filtroLovRetenciones = filtroLovRetenciones;
    }
 
-   public TarifaDeseo getRetencionesSeleccionado() {
-      return retencionesSeleccionado;
+   public TarifaDeseo getRetencionesLovSeleccionado() {
+      return retencionesLovSeleccionado;
    }
 
-   public void setRetencionesSeleccionado(TarifaDeseo retencionesSeleccionado) {
-      this.retencionesSeleccionado = retencionesSeleccionado;
+   public void setRetencionesLovSeleccionado(TarifaDeseo retencionesLovSeleccionado) {
+      this.retencionesLovSeleccionado = retencionesLovSeleccionado;
    }
 
    public String getMensajeValidacion() {

@@ -55,15 +55,15 @@ public class ControlAusentismos implements Serializable {
    @EJB
    AdministrarRastrosInterface administrarRastros;
    //LISTA FICTI PORCENTAJES
-   private List<String> listaPorcentaje;
+   private List<String> lovPorcentaje;
    private List<String> filtradosListaPorcentajes;
    private String seleccionPorcentajes;
    //LISTA FICTI IBCS
-   private List<Ibcs> listaIBCS;
+   private List<Ibcs> lovIBCS;
    private List<Ibcs> filtradosListaIBCS;
    private Ibcs seleccionIBCS;
    //LISTA FICTI FORMA LIQUIDACION
-   private List<String> listaForma;
+   private List<String> lovForma;
    private List<String> filtradosListaForma;
    private String seleccionForma;
    //SECUENCIA DEL EMPLEADO
@@ -188,22 +188,22 @@ public class ControlAusentismos implements Serializable {
       Relacion = null;
       Prorroga = null;
       lovProrrogas = null;
-      listaIBCS = null;
+      lovIBCS = null;
       lovAccidentes = null;
       lovDiagnosticos = null;
-      listaPorcentaje = new ArrayList<String>();
-      listaPorcentaje.add("50");
-      listaPorcentaje.add("66.6666");
-      listaPorcentaje.add("80");
-      listaPorcentaje.add("100");
-      listaForma = new ArrayList<String>();
-      listaForma.add("BASICO");
-      listaForma.add("IBC MES ANTERIOR");
-      listaForma.add("IBC MES ENERO");
-      listaForma.add("IBC MES INCAPACIDAD");
-      listaForma.add("PROMEDIO ACUMULADOS 12 MESES");
-      listaForma.add("PROMEDIO IBC 12 MESES");
-      listaForma.add("PROMEDIO IBC 6 MESES");
+      lovPorcentaje = new ArrayList<String>();
+      lovPorcentaje.add("50");
+      lovPorcentaje.add("66.6666");
+      lovPorcentaje.add("80");
+      lovPorcentaje.add("100");
+      lovForma = new ArrayList<String>();
+      lovForma.add("BASICO");
+      lovForma.add("IBC MES ANTERIOR");
+      lovForma.add("IBC MES ENERO");
+      lovForma.add("IBC MES INCAPACIDAD");
+      lovForma.add("PROMEDIO ACUMULADOS 12 MESES");
+      lovForma.add("PROMEDIO IBC 12 MESES");
+      lovForma.add("PROMEDIO IBC 6 MESES");
       permitirIndex = true;
       listaAusentismos = null;
       lovEmpleados = null;
@@ -277,6 +277,9 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void limpiarListasValor() {
+      lovForma = null;
+      lovIBCS = null;
+      lovPorcentaje = null;
       lovAccidentes = null;
       lovCausasAusentismos = null;
       lovClasesAusentismos = null;
@@ -376,7 +379,7 @@ public class ControlAusentismos implements Serializable {
          RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
          RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').show()");
       } else if (dlg == 5) {
-         listaIBCS = null;
+         lovIBCS = null;
          cargarListaIBC();
          contarRegistroBase();
          RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
@@ -1240,16 +1243,16 @@ public class ControlAusentismos implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("PORCENTAJE")) {
          ausentismoSeleccionado.setPorcentajeindividual(new BigDecimal(Porcentaje));
 
-         for (int i = 0; i < listaPorcentaje.size(); i++) {
-            if ((listaPorcentaje.get(i)).toString().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPorcentaje.size(); i++) {
+            if ((lovPorcentaje.get(i)).toString().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            ausentismoSeleccionado.setPorcentajeindividual(new BigDecimal(listaPorcentaje.get(indiceUnicoElemento)));
-            listaPorcentaje.clear();
-            getListaPorcentaje();
+            ausentismoSeleccionado.setPorcentajeindividual(new BigDecimal(lovPorcentaje.get(indiceUnicoElemento)));
+            lovPorcentaje.clear();
+            getLovPorcentaje();
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -1261,16 +1264,16 @@ public class ControlAusentismos implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("BASE")) {
          ausentismoSeleccionado.setBaseliquidacion(new BigInteger(BaseLiquidacion));
 
-         for (int i = 0; i < listaIBCS.size(); i++) {
-            if ((listaIBCS.get(i)).toString().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovIBCS.size(); i++) {
+            if ((lovIBCS.get(i)).toString().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            ausentismoSeleccionado.setBaseliquidacion(listaIBCS.get(indiceUnicoElemento).getSecuencia());
-            listaIBCS.clear();
-            getListaIBCS();
+            ausentismoSeleccionado.setBaseliquidacion(lovIBCS.get(indiceUnicoElemento).getSecuencia());
+            lovIBCS.clear();
+            getLovIBCS();
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -1282,16 +1285,16 @@ public class ControlAusentismos implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("FORMA")) {
          ausentismoSeleccionado.setFormaliquidacion(Forma);
 
-         for (int i = 0; i < listaForma.size(); i++) {
-            if ((listaForma.get(i)).startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovForma.size(); i++) {
+            if ((lovForma.get(i)).startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            ausentismoSeleccionado.setFormaliquidacion(listaForma.get(indiceUnicoElemento));
-            listaForma.clear();
-            getListaForma();
+            ausentismoSeleccionado.setFormaliquidacion(lovForma.get(indiceUnicoElemento));
+            lovForma.clear();
+            getLovForma();
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -1849,22 +1852,22 @@ public class ControlAusentismos implements Serializable {
             duplicarAusentismo.setPorcentajeindividual(new BigDecimal(Porcentaje));
          }
 
-         for (int i = 0; i < listaPorcentaje.size(); i++) {
-            if (listaPorcentaje.get(i).startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPorcentaje.size(); i++) {
+            if (lovPorcentaje.get(i).startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoAusentismo.setPorcentajeindividual(new BigDecimal(listaPorcentaje.get(indiceUnicoElemento)));
+               nuevoAusentismo.setPorcentajeindividual(new BigDecimal(lovPorcentaje.get(indiceUnicoElemento)));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPorcentaje");
             } else if (tipoNuevo == 2) {
-               duplicarAusentismo.setPorcentajeindividual(new BigDecimal(listaPorcentaje.get(indiceUnicoElemento)));
+               duplicarAusentismo.setPorcentajeindividual(new BigDecimal(lovPorcentaje.get(indiceUnicoElemento)));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPorcentaje");
             }
-            listaPorcentaje.clear();
-            getListaPorcentaje();
+            lovPorcentaje.clear();
+            getLovPorcentaje();
          } else {
             RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
             RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').show()");
@@ -1882,22 +1885,22 @@ public class ControlAusentismos implements Serializable {
             duplicarAusentismo.setBaseliquidacion(new BigInteger(BaseLiquidacion));
          }
 
-         for (int i = 0; i < listaIBCS.size(); i++) {
-            if (listaIBCS.get(i).getValor().toString().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovIBCS.size(); i++) {
+            if (lovIBCS.get(i).getValor().toString().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoAusentismo.setBaseliquidacion(listaIBCS.get(indiceUnicoElemento).getValor().toBigInteger());
+               nuevoAusentismo.setBaseliquidacion(lovIBCS.get(indiceUnicoElemento).getValor().toBigInteger());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIBCS");
             } else if (tipoNuevo == 2) {
-               duplicarAusentismo.setBaseliquidacion(listaIBCS.get(indiceUnicoElemento).getValor().toBigInteger());
+               duplicarAusentismo.setBaseliquidacion(lovIBCS.get(indiceUnicoElemento).getValor().toBigInteger());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIBCS");
             }
-            listaIBCS.clear();
-            getListaIBCS();
+            lovIBCS.clear();
+            getLovIBCS();
          } else {
             RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
             RequestContext.getCurrentInstance().execute("PF('ibcsDialogo').show()");
@@ -1915,22 +1918,22 @@ public class ControlAusentismos implements Serializable {
             duplicarAusentismo.setFormaliquidacion(Forma);
          }
 
-         for (int i = 0; i < listaForma.size(); i++) {
-            if (listaForma.get(i).startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovForma.size(); i++) {
+            if (lovForma.get(i).startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoAusentismo.setFormaliquidacion(listaForma.get(indiceUnicoElemento));
+               nuevoAusentismo.setFormaliquidacion(lovForma.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaForma");
             } else if (tipoNuevo == 2) {
-               duplicarAusentismo.setFormaliquidacion(listaForma.get(indiceUnicoElemento));
+               duplicarAusentismo.setFormaliquidacion(lovForma.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarForma");
             }
-            listaForma.clear();
-            getListaForma();
+            lovForma.clear();
+            getLovForma();
          } else {
             RequestContext.getCurrentInstance().update("formLoVFormas:formasDialogo");
             RequestContext.getCurrentInstance().execute("PF('formasDialogo').show()");
@@ -2955,8 +2958,8 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void cargarListaIBC() {
-      if (listaIBCS == null) {
-         listaIBCS = administrarAusentismos.empleadosIBCS(secuenciaEmpleado);
+      if (lovIBCS == null) {
+         lovIBCS = administrarAusentismos.empleadosIBCS(secuenciaEmpleado);
       }
    }
 
@@ -3176,12 +3179,12 @@ public class ControlAusentismos implements Serializable {
       this.filtradolovCausaAusentismo = filtradolovCausaAusentismo;
    }
 
-   public List<String> getListaPorcentaje() {
-      return listaPorcentaje;
+   public List<String> getLovPorcentaje() {
+      return lovPorcentaje;
    }
 
-   public void setListaPorcentaje(List<String> listaPorcentaje) {
-      this.listaPorcentaje = listaPorcentaje;
+   public void setLovPorcentaje(List<String> lovPorcentaje) {
+      this.lovPorcentaje = lovPorcentaje;
    }
 
    public List<String> getFiltradosListaPorcentajes() {
@@ -3208,12 +3211,12 @@ public class ControlAusentismos implements Serializable {
       this.secuenciaEmpleado = secuenciaEmpleado;
    }
 
-   public List<Ibcs> getListaIBCS() {
-      return listaIBCS;
+   public List<Ibcs> getLovIBCS() {
+      return lovIBCS;
    }
 
-   public void setListaIBCS(List<Ibcs> listaIBCS) {
-      this.listaIBCS = listaIBCS;
+   public void setLovIBCS(List<Ibcs> lovIBCS) {
+      this.lovIBCS = lovIBCS;
    }
 
    public List<Ibcs> getFiltradosListaIBCS() {
@@ -3232,12 +3235,12 @@ public class ControlAusentismos implements Serializable {
       this.seleccionIBCS = seleccionIBCS;
    }
 
-   public List<String> getListaForma() {
-      return listaForma;
+   public List<String> getLovForma() {
+      return lovForma;
    }
 
-   public void setListaForma(List<String> listaForma) {
-      this.listaForma = listaForma;
+   public void setLovForma(List<String> lovForma) {
+      this.lovForma = lovForma;
    }
 
    public List<String> getFiltradosListaForma() {

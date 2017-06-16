@@ -368,7 +368,7 @@
                   <!-- DIALOGO L.O.V ESTATICO DE MOTIVOS CAMBIOS CARGOS -->
                   <p:dialog header="#{msg['motivosM']}" widgetVar="dlgMotivos" draggable="true" resizable="false" closable="false" id="dlgMotivos"  
                             showEffect="fade" hideEffect="fade" width="430" modal="true">
-                     <p:dataTable id="motivosCambCargo" var="mot" value="#{controlVigenciasCargos.motivosCambiosCargos}" rowKey="#{mot.secuencia}"
+                     <p:dataTable id="motivosCambCargo" var="mot" value="#{controlVigenciasCargos.lovMotivosCambiosCargos}" rowKey="#{mot.secuencia}"
                                   selection="#{controlVigenciasCargos.motivoSeleccionado}" selectionMode="single" widgetVar="motivosCambCargo" scrollable="true" scrollWidth="410" scrollHeight="250"
                                   filteredValue="#{controlVigenciasCargos.filterMotivos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -482,7 +482,7 @@
                   <!-- DIALOGO DE EMPLEADO JEFE-->
                   <p:dialog id="dialogoEmpleadoJefe" header="#{msg['empleadosEJ']}" widgetVar="dialogoEmpleadoJefe"  resizable="false" 
                             draggable="true" modal="true" width="745" closable="false">  
-                     <p:dataTable  id="lvEmpleadoJefe" var="item" value="#{controlVigenciasCargos.actualesTiposTrabajadores}"
+                     <p:dataTable  id="lvEmpleadoJefe" var="item" value="#{controlVigenciasCargos.lovActualesTiposTrabajadores}"
                                    scrollable="true" scrollHeight="162" scrollWidth="720" widgetVar="lvEmpleadoJefe" 
                                    filteredValue="#{controlVigenciasCargos.filtradoActualesTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}"
                                    rowKey="#{item.rfEmpleado}" selection="#{controlVigenciasCargos.tiposTrabajadorJefeSeleccionado}" selectionMode="single">

@@ -177,9 +177,9 @@
 
                   <p:dialog header="#{msg['parentesco']}" widgetVar="tipoFamiliarDialogo" draggable="true" resizable="false" closable="false" id="tipoFamiliarDialogo"  
                             showEffect="fade" hideEffect="fade" width="480" modal="true">
-                     <p:dataTable id="lovTiposFamiliares" style=" width: 430px;" var="tipofamiliar" value="#{controlHvReferencias1.listaTiposFamiliares}" rowKey="#{tipofamiliar.secuencia}"
-                                  selection="#{controlHvReferencias1.tipoFamiliarSeleccionado}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="450" scrollHeight="250"
-                                  filteredValue="#{controlHvReferencias1.filtradoTiposFamiliares}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                     <p:dataTable id="lovTiposFamiliares" style=" width: 430px;" var="tipofamiliar" value="#{controlHvReferencias1.lovTiposFamiliares}" rowKey="#{tipofamiliar.secuencia}"
+                                  selection="#{controlHvReferencias1.tipoFamiliarLovSeleccionado}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="450" scrollHeight="250"
+                                  filteredValue="#{controlHvReferencias1.filtrarLovTiposFamiliares}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                         <p:ajax event="rowSelect" listener="#{controlHvReferencias1.activarAceptar()}" update=":form:aceptarS"/>
                         <p:ajax event="rowDblselect" listener="#{controlHvReferencias1.actualizarTipoFamiliar()}" process="@this"/>
                         <f:facet name="header">  

@@ -47,11 +47,11 @@ public class ControlEmplVigenciaIndicador implements Serializable {
    private List<VigenciasIndicadores> filtrarListVigenciasIndicadores;
    private VigenciasIndicadores vigenciaTablaSeleccionada;
    //TiposIndicadores
-   private List<TiposIndicadores> listTiposIndicadores;
+   private List<TiposIndicadores> lovTiposIndicadores;
    private TiposIndicadores tipoIndicadorSeleccionado;
    private List<TiposIndicadores> filtrarListTiposIndicadores;
    //Indicadores
-   private List<Indicadores> listIndicadores;
+   private List<Indicadores> lovIndicadores;
    private Indicadores indicadorSeleccionado;
    private List<Indicadores> filtrarListIndicadores;
    //Tipo Actualizacion
@@ -112,8 +112,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
       permitirIndexV = true;
       vigenciaTablaSeleccionada = null;
       cualCelda = -1;
-      listIndicadores = null;
-      listTiposIndicadores = null;
+      lovIndicadores = null;
+      lovTiposIndicadores = null;
       nuevaVigencia = new VigenciasIndicadores();
       nuevaVigencia.setIndicador(new Indicadores());
       nuevaVigencia.setTipoindicador(new TiposIndicadores());
@@ -136,37 +136,19 @@ public class ControlEmplVigenciaIndicador implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigenciaindicador";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigenciaindicador";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -178,7 +160,8 @@ String pagActual = "emplvigenciaindicador";
    }
 
    public void limpiarListasValor() {
-
+      lovIndicadores = null;
+      lovTiposIndicadores = null;
    }
 
    @PostConstruct
@@ -327,7 +310,8 @@ String pagActual = "emplvigenciaindicador";
          }
       } else //            int ind = listVigenciasIndicadores.indexOf(vigenciaTablaSeleccionada);
       //            vigenciaTablaSeleccionada = ind;
-       if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
+      {
+         if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
             if (listVigenciaIndicadorModificar.isEmpty()) {
                listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
             } else if (!listVigenciaIndicadorModificar.contains(vigenciaTablaSeleccionada)) {
@@ -338,6 +322,7 @@ String pagActual = "emplvigenciaindicador";
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          }
+      }
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosVigencia");
 
@@ -371,22 +356,22 @@ String pagActual = "emplvigenciaindicador";
             } else if (tipoNuevo == 2) {
                duplicarVigenciaIndicador.getTipoindicador().setDescripcion(tipos);
             }
-            for (int i = 0; i < listTiposIndicadores.size(); i++) {
-               if (listTiposIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposIndicadores.size(); i++) {
+               if (lovTiposIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigencia.setTipoindicador(listTiposIndicadores.get(indiceUnicoElemento));
+                  nuevaVigencia.setTipoindicador(lovTiposIndicadores.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoIndicadorV");
                } else if (tipoNuevo == 2) {
-                  duplicarVigenciaIndicador.setTipoindicador(listTiposIndicadores.get(indiceUnicoElemento));
+                  duplicarVigenciaIndicador.setTipoindicador(lovTiposIndicadores.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoV");
                }
-               listTiposIndicadores = null;
-               getListTiposIndicadores();
+               lovTiposIndicadores = null;
+               getLovTiposIndicadores();
             } else {
                RequestContext.getCurrentInstance().update("form:TiposDialogo");
                RequestContext.getCurrentInstance().execute("PF('TiposDialogo').show()");
@@ -398,8 +383,8 @@ String pagActual = "emplvigenciaindicador";
                }
             }
          } else {
-            listTiposIndicadores = null;
-            getListTiposIndicadores();
+            lovTiposIndicadores = null;
+            getLovTiposIndicadores();
             if (tipoNuevo == 1) {
                nuevaVigencia.setTipoindicador(new TiposIndicadores());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoIndicadorV");
@@ -414,8 +399,8 @@ String pagActual = "emplvigenciaindicador";
          } else if (tipoNuevo == 2) {
             duplicarVigenciaIndicador.getIndicador().setDescripcion(indicador);
          }
-         for (int i = 0; i < listIndicadores.size(); i++) {
-            if (listIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovIndicadores.size(); i++) {
+            if (lovIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -423,14 +408,14 @@ String pagActual = "emplvigenciaindicador";
 
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setIndicador(listIndicadores.get(indiceUnicoElemento));
+               nuevaVigencia.setIndicador(lovIndicadores.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaIndicadorV");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaIndicador.setIndicador(listIndicadores.get(indiceUnicoElemento));
+               duplicarVigenciaIndicador.setIndicador(lovIndicadores.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIndicadorV");
             }
-            listIndicadores = null;
-            getListIndicadores();
+            lovIndicadores = null;
+            getLovIndicadores();
          } else {
             RequestContext.getCurrentInstance().update("form:IndicadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('IndicadorDialogo').show()");
@@ -535,8 +520,8 @@ String pagActual = "emplvigenciaindicador";
          filtrarListVigenciasIndicadores = null;
          tipoLista = 0;
       }
-      listIndicadores = null;
-      listTiposIndicadores = null;
+      lovIndicadores = null;
+      lovTiposIndicadores = null;
       listVigenciaIndicadorBorrar.clear();
       listVigenciaIndicadorCrear.clear();
       listVigenciaIndicadorModificar.clear();
@@ -1165,18 +1150,18 @@ String pagActual = "emplvigenciaindicador";
       this.filtrarListVigenciasIndicadores = setFiltrarListVigenciasIndicadores;
    }
 
-   public List<TiposIndicadores> getListTiposIndicadores() {
+   public List<TiposIndicadores> getLovTiposIndicadores() {
       try {
-         listTiposIndicadores = administrarEmplVigenciaIndicador.listTiposIndicadores();
-         return listTiposIndicadores;
+         lovTiposIndicadores = administrarEmplVigenciaIndicador.listTiposIndicadores();
+         return lovTiposIndicadores;
       } catch (Exception e) {
          System.out.println("Error getListTiposIndicadores " + e.toString());
          return null;
       }
    }
 
-   public void setListTiposIndicadores(List<TiposIndicadores> setListTiposIndicadores) {
-      this.listTiposIndicadores = setListTiposIndicadores;
+   public void setLovTiposIndicadores(List<TiposIndicadores> setListTiposIndicadores) {
+      this.lovTiposIndicadores = setListTiposIndicadores;
    }
 
    public TiposIndicadores getTipoIndicadorSeleccionado() {
@@ -1195,18 +1180,18 @@ String pagActual = "emplvigenciaindicador";
       this.filtrarListTiposIndicadores = setFiltrarListTiposIndicadores;
    }
 
-   public List<Indicadores> getListIndicadores() {
+   public List<Indicadores> getLovIndicadores() {
       try {
-         listIndicadores = administrarEmplVigenciaIndicador.listIndicadores();
-         return listIndicadores;
+         lovIndicadores = administrarEmplVigenciaIndicador.listIndicadores();
+         return lovIndicadores;
       } catch (Exception e) {
          System.out.println("Error getListIndicadores " + e.toString());
          return null;
       }
    }
 
-   public void setListIndicadores(List<Indicadores> setListIndicadores) {
-      this.listIndicadores = setListIndicadores;
+   public void setLovIndicadores(List<Indicadores> setListIndicadores) {
+      this.lovIndicadores = setListIndicadores;
    }
 
    public Indicadores getIndicadorSeleccionado() {

@@ -377,7 +377,7 @@
                <!-- DIALOGO L.O.V ESTATICO DE CIUDADES -->
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesDialogo" draggable="true" resizable="false" closable="false" id="ciudadesDialogo"  
                          showEffect="fade" hideEffect="fade" width="460" height="450" modal="true">
-                  <p:dataTable id="lovCiudades" var="ItemCiudad" value="#{controlVigenciasTiposContratos.listaCiudades}" rowKey="#{ItemCiudad.secuencia}"
+                  <p:dataTable id="lovCiudades" var="ItemCiudad" value="#{controlVigenciasTiposContratos.lovCiudades}" rowKey="#{ItemCiudad.secuencia}"
                                selection="#{controlVigenciasTiposContratos.ciudadSelecionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="435" scrollHeight="315"
                                filteredValue="#{controlVigenciasTiposContratos.filtradoCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -423,7 +423,7 @@
                <!-- DIALOGO L.O.V ESTATICO DE TIPOS CONTRATO -->
                <p:dialog header="#{msg['tiposT']}" widgetVar="TiposContratoDialogo" draggable="true" resizable="false" closable="false" id="TiposContratoDialogo"  
                          showEffect="fade" hideEffect="fade" width="420" modal="true">
-                  <p:dataTable id="lovTiposContrato" var="TiposC" value="#{controlVigenciasTiposContratos.listaTiposContratos}" rowKey="#{TiposC.secuencia}"
+                  <p:dataTable id="lovTiposContrato" var="TiposC" value="#{controlVigenciasTiposContratos.lovTiposContratos}" rowKey="#{TiposC.secuencia}"
                                selection="#{controlVigenciasTiposContratos.tipoContratoSelecionado}" selectionMode="single" widgetVar="lovTiposContrato" scrollable="true" scrollWidth="395" scrollHeight="250"
                                filteredValue="#{controlVigenciasTiposContratos.filtradoTiposContrato}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -463,7 +463,7 @@
                <!-- DIALOGO L.O.V ESTATICO DE MOTIVOS CONTRATO -->
                <p:dialog header="#{msg['motivosM']}" widgetVar="MotivosContratoDialogo" draggable="true" resizable="false" closable="false" id="MotivosContratoDialogo"  
                          showEffect="fade" hideEffect="fade" width="380"  modal="true">
-                  <p:dataTable id="lovMotivosContrato" var="MotivosC" value="#{controlVigenciasTiposContratos.listaMotivosContratos}" rowKey="#{MotivosC.secuencia}"
+                  <p:dataTable id="lovMotivosContrato" var="MotivosC" value="#{controlVigenciasTiposContratos.lovMotivosContratos}" rowKey="#{MotivosC.secuencia}"
                                selection="#{controlVigenciasTiposContratos.motivoContratoSelecionado}" selectionMode="single" widgetVar="lovMotivosContrato" scrollable="true" scrollWidth="355" scrollHeight="250"
                                filteredValue="#{controlVigenciasTiposContratos.filtradoMotivoContrato}" emptyMessage="#{msg['lovvacio']}">              
 

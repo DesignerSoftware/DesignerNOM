@@ -162,9 +162,9 @@
                <p:dialog header="#{msg['operandosO']}" widgetVar="operandosDialogo" draggable="true" resizable="false" id="operandosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="520" height="350" style="font-size: 12px">
 
-                  <p:dataTable  id="LOVOperandos" style="font-size: 11px; width: 480px;" var="operandos" value="#{controlDependenciaOperando.lovListaOperandos}"
+                  <p:dataTable  id="LOVOperandos" style="font-size: 11px; width: 480px;" var="operandos" value="#{controlDependenciaOperando.lovOperandos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="500" widgetVar="LOVOperandos" 
-                                filteredValue="#{controlDependenciaOperando.lovFiltradosListaOperandos}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlDependenciaOperando.filtrarLovOperandos}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{operandos.secuencia}" selection="#{controlDependenciaOperando.seleccionOperandos}" selectionMode="single">
                      <p:ajax event="rowSelect" listener="#{controlDependenciaOperando.activarAceptar()}" update=":formularioDialogos:aceptarO"/>
                      <p:ajax event="rowDblselect" listener="#{controlDependenciaOperando.actualizarOperando()}" process="@this"/>

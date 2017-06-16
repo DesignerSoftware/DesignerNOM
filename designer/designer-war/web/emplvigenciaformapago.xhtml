@@ -238,7 +238,7 @@
 
                   <p:dialog header="#{msg['sucursalM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                             showEffect="fade" hideEffect="fade" width="465" modal="true" style="">
-                     <p:dataTable id="lovSucursales" var="sucursal" value="#{controlVigenciasFormasPagos.listaSucursales}" rowKey="#{sucursal.secuencia}"
+                     <p:dataTable id="lovSucursales" var="sucursal" value="#{controlVigenciasFormasPagos.lovSucursales}" rowKey="#{sucursal.secuencia}"
                                   selection="#{controlVigenciasFormasPagos.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="450" scrollHeight="250"
                                   filteredValue="#{controlVigenciasFormasPagos.filtradoSucursales}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -281,7 +281,7 @@
 
                   <p:dialog header="#{msg['formaPagoM']}" widgetVar="periodicidadesDialogo" draggable="true" resizable="false" closable="false" id="periodicidadesDialogo"  
                             showEffect="fade" hideEffect="fade" width="400" modal="true" style="">
-                     <p:dataTable id="lovperiodicidades" var="periodicidades" value="#{controlVigenciasFormasPagos.listaPeriodicidades}" rowKey="#{periodicidades.secuencia}"
+                     <p:dataTable id="lovperiodicidades" var="periodicidades" value="#{controlVigenciasFormasPagos.lovPeriodicidades}" rowKey="#{periodicidades.secuencia}"
                                   selection="#{controlVigenciasFormasPagos.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovperiodicidades" scrollable="true" scrollWidth="380" scrollHeight="200"
                                   filteredValue="#{controlVigenciasFormasPagos.filtradoPeriodicidades}" emptyMessage="#{msg['lovvacio']}">  
 
@@ -323,7 +323,7 @@
 
                   <p:dialog header="#{msg['metodoPagoM']}" widgetVar="metodosPagosialogo" draggable="true" resizable="false" closable="false" id="metodosPagosialogo"  
                             showEffect="fade" hideEffect="fade" width="390"  modal="true" style="">
-                     <p:dataTable id="lovmetodospagos" var="metodospagos" value="#{controlVigenciasFormasPagos.listaMetodosPagos}" rowKey="#{metodospagos.secuencia}"
+                     <p:dataTable id="lovmetodospagos" var="metodospagos" value="#{controlVigenciasFormasPagos.lovMetodosPagos}" rowKey="#{metodospagos.secuencia}"
                                   selection="#{controlVigenciasFormasPagos.metodoPagoSeleccionado}" selectionMode="single" widgetVar="lovmetodospagos" scrollable="true" scrollWidth="370" scrollHeight="90"
                                   filteredValue="#{controlVigenciasFormasPagos.filtradoMetodosPagos }" emptyMessage="#{msg['lovvacio']}"> 
 

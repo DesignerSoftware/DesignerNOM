@@ -369,7 +369,7 @@
                <!-- DIALOGO L.O.V ESTATICO TIPOS TRABAJADORES -->
                <p:dialog header="#{msg['tipotrabajadorT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                          showEffect="fade" hideEffect="fade" width="610"  modal="true">
-                  <p:dataTable id="lovTipoTrabajador" var="tipoTrabajador" value="#{controlVigenciaTipoTrabajador.listaTiposTrabajadores}" rowKey="#{tipoTrabajador.secuencia}"
+                  <p:dataTable id="lovTipoTrabajador" var="tipoTrabajador" value="#{controlVigenciaTipoTrabajador.lovTiposTrabajadores}" rowKey="#{tipoTrabajador.secuencia}"
                                selection="#{controlVigenciaTipoTrabajador.tipoTrabajadorSeleccionado}" scrollWidth="588" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="250"
                                filteredValue="#{controlVigenciaTipoTrabajador.filtradoTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">
 
@@ -414,7 +414,7 @@
                <!-- DIALOGO MOTIVOS RETIROS -->
                <p:dialog header="#{msg['motivoM']}" widgetVar="RetirosDialogo" draggable="true" resizable="false" closable="false" id="RetirosDialogo"  
                          showEffect="fade" hideEffect="fade" width="410" modal="true">
-                  <p:dataTable id="lovMotivosRetiros" var="motivosRetiros" value="#{controlVigenciaTipoTrabajador.motivosRetiros}" rowKey="#{motivosRetiros.secuencia}"
+                  <p:dataTable id="lovMotivosRetiros" var="motivosRetiros" value="#{controlVigenciaTipoTrabajador.lovMotivosRetiros}" rowKey="#{motivosRetiros.secuencia}"
                                selection="#{controlVigenciaTipoTrabajador.motivoRetiroSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMotivosRetiros" scrollable="true" scrollHeight="250"
                                emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlVigenciaTipoTrabajador.filtradoMotivosRetiros}">
 
@@ -452,7 +452,7 @@
                <!-- DIALOGO CLASE PENSION -->
                <p:dialog header="#{msg['claseCP']}" widgetVar="clasePensionDialogo" draggable="true" resizable="false" closable="false" id="clasePensionDialogo"  
                          showEffect="fade" hideEffect="fade" width="460" modal="true">
-                  <p:dataTable id="lovClasePension" var="clasePension" value="#{controlVigenciaTipoTrabajador.clasesPensiones}" rowKey="#{clasePension.secuencia}"
+                  <p:dataTable id="lovClasePension" var="clasePension" value="#{controlVigenciaTipoTrabajador.lovclasesPensiones}" rowKey="#{clasePension.secuencia}"
                                selection="#{controlVigenciaTipoTrabajador.clasesPensionesSeleccionada}" selectionMode="single" widgetVar="lovClasePension" scrollable="true" scrollWidth="445" scrollHeight="250"
                                filteredValue="#{controlVigenciaTipoTrabajador.clasesPensionesFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -492,7 +492,7 @@
                <!-- DIALOGO TIPO PENSIONADO -->
                <p:dialog header="#{msg['tipopensionadoTP']}" widgetVar="tipoPensionadoDialogo" draggable="true" resizable="false" closable="false" id="tipoPensionadoDialogo"  
                          showEffect="fade" hideEffect="fade" width="380" modal="true">
-                  <p:dataTable id="lovTipoPensionado" var="tipoPensionado" value="#{controlVigenciaTipoTrabajador.tiposPensionados}" rowKey="#{tipoPensionado.secuencia}"
+                  <p:dataTable id="lovTipoPensionado" var="tipoPensionado" value="#{controlVigenciaTipoTrabajador.lovTiposPensionados}" rowKey="#{tipoPensionado.secuencia}"
                                selection="#{controlVigenciaTipoTrabajador.tiposPensionadosSeleccionada}" selectionMode="single" widgetVar="lovTipoPensionado" scrollable="true"
                                scrollWidth="358" scrollHeight="250" filteredValue="#{controlVigenciaTipoTrabajador.tiposPensionadosFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -531,7 +531,7 @@
                <!-- DIALOGO CAUSABIENTES -->
                <p:dialog header="#{msg['empleadosCB']}" widgetVar="causaBientesDialogo" draggable="true" resizable="false" closable="false" id="causaBientesDialogo"  
                          showEffect="fade" hideEffect="fade" width="460" modal="true">
-                  <p:dataTable id="lovCausaBientes" var="causaBiente" value="#{controlVigenciaTipoTrabajador.listaPensionados}" rowKey="#{causaBiente.secuencia}"
+                  <p:dataTable id="lovCausaBientes" var="causaBiente" value="#{controlVigenciaTipoTrabajador.lovPensionados}" rowKey="#{causaBiente.secuencia}"
                                selection="#{controlVigenciaTipoTrabajador.pensionadoSeleccionado}" selectionMode="single" widgetVar="lovCausaBientes" scrollable="true" scrollWidth="438" scrollHeight="250"
                                filteredValue="#{controlVigenciaTipoTrabajador.tiposPensionadosFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -570,7 +570,7 @@
                <!-- DIALOGO TUTOR -->
                <p:dialog header="#{msg['personasTU']}" widgetVar="tutorDialogo" draggable="true" resizable="false" closable="false" id="tutorDialogo"  
                          showEffect="fade" hideEffect="fade" width="460" modal="true">
-                  <p:dataTable id="lovTutor" var="tutor" value="#{controlVigenciaTipoTrabajador.listaPersonas}" rowKey="#{tutor.secuencia}"
+                  <p:dataTable id="lovTutor" var="tutor" value="#{controlVigenciaTipoTrabajador.lovPersonas}" rowKey="#{tutor.secuencia}"
                                selection="#{controlVigenciaTipoTrabajador.personaSeleccionada}" selectionMode="single" widgetVar="lovTutor" scrollable="true" scrollWidth="445" scrollHeight="250"
                                filteredValue="#{controlVigenciaTipoTrabajador.personasFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 

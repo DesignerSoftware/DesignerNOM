@@ -49,7 +49,7 @@ public class ControlVigenciaAficion implements Serializable {
    private List<VigenciasAficiones> filtrarListVigenciasAficiones;
    private VigenciasAficiones vigenciaTablaSeleccionada;
 
-   private List<Aficiones> listAficiones;
+   private List<Aficiones> lovAficiones;
    private Aficiones aficionSeleccionada;
    private List<Aficiones> filtrarListAficiones;
    private int tipoActualizacion;
@@ -90,7 +90,7 @@ public class ControlVigenciaAficion implements Serializable {
    public ControlVigenciaAficion() {
       altoTabla = "300";
       listVigenciasAficiones = null;
-      listAficiones = null;
+      lovAficiones = null;
       //Otros
       aceptar = true;
       //borrar aficiones
@@ -117,7 +117,7 @@ public class ControlVigenciaAficion implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listAficiones = null;
+      lovAficiones = null;
    }
 
    @PostConstruct
@@ -148,37 +148,19 @@ public class ControlVigenciaAficion implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "vigenciaaficion";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "vigenciaaficion";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -191,7 +173,7 @@ String pagActual = "vigenciaaficion";
 
    public void recibirEmpleado(BigInteger secuencia) {
       listVigenciasAficiones = null;
-      listAficiones = null;
+      lovAficiones = null;
       empleado = administrarVigenciaAficion.empleadoActual(secuencia);
       getListVigenciasAficiones();
       if (listVigenciasAficiones != null) {
@@ -346,20 +328,20 @@ String pagActual = "vigenciaaficion";
          } else {
             vigenciaTablaSeleccionada.getAficion().setDescripcion(aficion);
          }
-         for (int i = 0; i < listAficiones.size(); i++) {
-            if (listAficiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovAficiones.size(); i++) {
+            if (lovAficiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               vigenciaTablaSeleccionada.setAficion(listAficiones.get(indiceUnicoElemento));
+               vigenciaTablaSeleccionada.setAficion(lovAficiones.get(indiceUnicoElemento));
             } else {
-               vigenciaTablaSeleccionada.setAficion(listAficiones.get(indiceUnicoElemento));
+               vigenciaTablaSeleccionada.setAficion(lovAficiones.get(indiceUnicoElemento));
             }
-            listAficiones.clear();
-            getListAficiones();
+            lovAficiones.clear();
+            getLovAficiones();
          } else {
             permitirIndex = false;
             getInfoRegistroAficion();
@@ -418,22 +400,22 @@ String pagActual = "vigenciaaficion";
          } else if (tipoNuevo == 2) {
             duplicarVigenciaAficion.getAficion().setDescripcion(aficion);
          }
-         for (int i = 0; i < listAficiones.size(); i++) {
-            if (listAficiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovAficiones.size(); i++) {
+            if (lovAficiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaAficion.setAficion(listAficiones.get(indiceUnicoElemento));
+               nuevaVigenciaAficion.setAficion(lovAficiones.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
             } else if (tipoNuevo == 2) {
-               duplicarVigenciaAficion.setAficion(listAficiones.get(indiceUnicoElemento));
+               duplicarVigenciaAficion.setAficion(lovAficiones.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
             }
-            listAficiones.clear();
-            getListAficiones();
+            lovAficiones.clear();
+            getLovAficiones();
          } else {
             RequestContext.getCurrentInstance().update("form:AficionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
@@ -1138,13 +1120,13 @@ String pagActual = "vigenciaaficion";
       return aceptar;
    }
 
-   public List<Aficiones> getListAficiones() {
-      listAficiones = administrarVigenciaAficion.listAficiones();
-      return listAficiones;
+   public List<Aficiones> getLovAficiones() {
+      lovAficiones = administrarVigenciaAficion.listAficiones();
+      return lovAficiones;
    }
 
-   public void setListAficiones(List<Aficiones> setListAficiones) {
-      this.listAficiones = setListAficiones;
+   public void setLovAficiones(List<Aficiones> setListAficiones) {
+      this.lovAficiones = setListAficiones;
    }
 
    public List<Aficiones> getFiltrarListAficiones() {

@@ -187,7 +187,7 @@
 
                   <p:dialog header="Tipo Indicador" widgetVar="TiposDialogo" draggable="true" resizable="false" closable="false" id="TiposDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovTipos"  var="tipo" value="#{controlEmplVigenciaIndicador.listTiposIndicadores}" rowKey="#{tipo.secuencia}"
+                     <p:dataTable id="lovTipos"  var="tipo" value="#{controlEmplVigenciaIndicador.lovTiposIndicadores}" rowKey="#{tipo.secuencia}"
                                   selection="#{controlEmplVigenciaIndicador.tipoIndicadorSeleccionado}" selectionMode="single" widgetVar="lovTipos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                   filteredValue="#{controlEmplVigenciaIndicador.filtrarListTiposIndicadores}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlEmplVigenciaIndicador.activarAceptar()}" update=":form:aceptarT"/>
@@ -216,7 +216,7 @@
 
                   <p:dialog header="Indicadores" widgetVar="IndicadorDialogo" draggable="true" resizable="false" closable="false" id="IndicadorDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovIndicador"  var="indicador" value="#{controlEmplVigenciaIndicador.listIndicadores}" rowKey="#{indicador.secuencia}"
+                     <p:dataTable id="lovIndicador"  var="indicador" value="#{controlEmplVigenciaIndicador.lovIndicadores}" rowKey="#{indicador.secuencia}"
                                   selection="#{controlEmplVigenciaIndicador.indicadorSeleccionado}" selectionMode="single" widgetVar="lovIndicador" scrollable="true" scrollWidth="416" scrollHeight="250"
                                   filteredValue="#{controlEmplVigenciaIndicador.filtrarListIndicadores}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlEmplVigenciaIndicador.activarAceptar()}" update=":form:aceptarI"/>

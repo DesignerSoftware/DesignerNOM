@@ -291,7 +291,7 @@
                <!-- DIALOGO L.O.V ESTATICO DE DEPARTAMENTOS -->
                <p:dialog header="#{msg['departamentos']}" widgetVar="departamentosDialogo" draggable="true" resizable="false" closable="false" id="departamentosDialogo"  
                          showEffect="fade" hideEffect="fade" width="380" modal="true">
-                  <p:dataTable id="LOVDepartamentos" var="departamentos" value="#{controlCiudades.listaDepartamentos}" rowKey="#{departamentos.secuencia}"
+                  <p:dataTable id="LOVDepartamentos" var="departamentos" value="#{controlCiudades.lovDepartamentos}" rowKey="#{departamentos.secuencia}"
                                selection="#{controlCiudades.seleccionDepartamento}" selectionMode="single" widgetVar="LOVDepartamentos" scrollable="true" scrollHeight="200" scrollWidth="355"
                                filteredValue="#{controlCiudades.filtradoListaDepatartamentos}" emptyMessage="#{msg['lovvacio']}">              
 

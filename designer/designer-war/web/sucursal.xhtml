@@ -146,7 +146,7 @@
 
                         <p:dialog header="#{msg['bancoD']}" widgetVar="bancosDialogo" draggable="true" resizable="false" closable="false" id="bancosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                            <p:dataTable id="lovBancos" style=" width: 430px;" var="personaFirmas" value="#{controlSucursales.listaBancos}" rowKey="#{personaFirmas.secuencia}"
+                            <p:dataTable id="lovBancos" style=" width: 430px;" var="personaFirmas" value="#{controlSucursales.lovBancos}" rowKey="#{personaFirmas.secuencia}"
                                          selection="#{controlSucursales.bancoSeleccionado}" selectionMode="single" widgetVar="lovBancos" scrollable="true" scrollWidth="450" scrollHeight="300"
                                          filteredValue="#{controlSucursales.filtradoBancos}" emptyMessage="#{msg['lovvacioD']}">              
                                 <p:ajax event="rowSelect" listener="#{controlSucursales.activarAceptar()}" update=":form:aceptarPer"/>
@@ -179,7 +179,7 @@
 
                         <p:dialog header="Ciudades" widgetVar="ciudadesDialogo" draggable="true" resizable="false" closable="false" id="ciudadesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="480" modal="true">
-                            <p:dataTable id="lovCiudades" style=" width: 430px;" var="personaCiudades" value="#{controlSucursales.listaCiudades}" rowKey="#{personaCiudades.secuencia}"
+                            <p:dataTable id="lovCiudades" style=" width: 430px;" var="personaCiudades" value="#{controlSucursales.lovCiudades}" rowKey="#{personaCiudades.secuencia}"
                                          selection="#{controlSucursales.ciudadSeleccionado}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="450" scrollHeight="280"
                                          filteredValue="#{controlSucursales.filtradoCiudades}" emptyMessage="#{msg['lovvacioD']}">              
                                 <p:ajax event="rowSelect" listener="#{controlSucursales.activarAceptar()}" update=":form:aceptarCar"/>

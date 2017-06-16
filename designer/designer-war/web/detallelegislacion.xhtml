@@ -211,7 +211,6 @@
                                     </f:facet>
                                 </p:column>
 
-
                                 <p:column headerText="#{msg['nit']}" sortBy="#{infoC.tercero.strNit}" filterBy="#{infoC.tercero.strNit}" filterMatchMode="contains" 
                                           style="font-size: 11px;"   id="formulaNit" width="100" filterStyle="display: none; visibility: hidden">                                  
                                     <p:cellEditor>  
@@ -289,7 +288,7 @@
 
                     <p:dialog header="#{msg['tituloLovFormula']}" widgetVar="FormulaDialogo" draggable="true" resizable="false" closable="false" id="FormulaDialogo"  
                               showEffect="fade" hideEffect="fade" width="720" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovFormula" style="font-size: 11px; width: 700px;" var="formula" value="#{controlDetalleLegislacion.listFormulas}" rowKey="#{formula.secuencia}"
+                        <p:dataTable id="lovFormula" style="font-size: 11px; width: 700px;" var="formula" value="#{controlDetalleLegislacion.lovFormulas}" rowKey="#{formula.secuencia}"
                                      selection="#{controlDetalleLegislacion.formulaSeleccionada}" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollWidth="700" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListFormulas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarF"/>
@@ -331,7 +330,7 @@
 
                     <p:dialog header="#{msg['tituloLovPeriodicidad']}" widgetVar="PeriodicidadDialogo" draggable="true" resizable="false" closable="false" id="PeriodicidadDialogo"  
                               showEffect="fade" hideEffect="fade" width="510" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovPeriodicidad" style="font-size: 11px; width: 490px;" var="periodicidad" value="#{controlDetalleLegislacion.listPeriodicidades}" rowKey="#{periodicidad.secuencia}"
+                        <p:dataTable id="lovPeriodicidad" style="font-size: 11px; width: 490px;" var="periodicidad" value="#{controlDetalleLegislacion.lovPeriodicidades}" rowKey="#{periodicidad.secuencia}"
                                      selection="#{controlDetalleLegislacion.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovPeriodicidad" scrollable="true" scrollWidth="495" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListPeriodicidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarP"/>
@@ -355,8 +354,8 @@
 
                     <p:dialog header="#{msg['tituloLovTercero']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="525" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovTercero" style="font-size: 11px; width: 510px;" var="tercero" value="#{controlDetalleLegislacion.listTerceros}" rowKey="#{tercero.secuencia}"
-                                     selection="#{controlDetalleLegislacion.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="510" scrollHeight="250"
+                        <p:dataTable id="lovTercero" style="font-size: 11px; width: 510px;" var="tercero" value="#{controlDetalleLegislacion.lovTerceros}" rowKey="#{tercero.secuencia}"
+                                     selection="#{controlDetalleLegislacion.terceroLovSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="510" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListTerceros}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlDetalleLegislacion.actualizarTercero()}" process="@this"/>
@@ -385,7 +384,7 @@
 
                     <p:dialog header="#{msg['tituloLovFormula']}" widgetVar="BuscarFormulaDialogo" draggable="true" resizable="false" closable="false" id="BuscarFormulaDialogo"  
                               showEffect="fade" hideEffect="fade" width="720" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovBuscarFormula" style="font-size: 11px; width: 700px;" var="buscarF" value="#{controlDetalleLegislacion.listFormulasContratos}" rowKey="#{buscarF.secuencia}"
+                        <p:dataTable id="lovBuscarFormula" style="font-size: 11px; width: 700px;" var="buscarF" value="#{controlDetalleLegislacion.lovFormulasContratos}" rowKey="#{buscarF.secuencia}"
                                      selection="#{controlDetalleLegislacion.formulaContratosSeleccionado}" selectionMode="single" widgetVar="lovBuscarFormula" scrollable="true" scrollWidth="705" scrollHeight="250"
                                      filteredValue="#{controlDetalleLegislacion.filtrarListFormulasContratos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlDetalleLegislacion.activarAceptar()}" update=":form:aceptarBF"/>
@@ -727,7 +726,7 @@
 
                 <h:form id="formExportarFormula">
                     <p:dataTable id="datosFormulaContratosExportar" var="infoEXP" style="visibility: hidden; display: none;"                           
-                                 value="#{controlDetalleLegislacion.listFormulasContratos}"> 
+                                 value="#{controlDetalleLegislacion.lovFormulasContratos}"> 
 
                         <p:column headerText="#{msg['fechaIniXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['fechaIniX']}"/> </f:facet> 

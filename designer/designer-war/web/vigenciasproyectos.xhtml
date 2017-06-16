@@ -326,7 +326,7 @@
                <p:dialog header="#{msg['proyectosP']}" widgetVar="proyectosDialogo" draggable="true" resizable="false" id="proyectosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="347"  height="270">
 
-                  <p:dataTable  id="LOVProyectos"  var="proyectos" value="#{controlVigenciasProyectos.listaProyectos}"
+                  <p:dataTable  id="LOVProyectos"  var="proyectos" value="#{controlVigenciasProyectos.lovProyectos}"
                                 scrollable="true" scrollHeight="145" scrollWidth="315" widgetVar="LOVProyectos" 
                                 filteredValue="#{controlVigenciasProyectos.filtradoslistaProyectos}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{proyectos.secuencia}" selection="#{controlVigenciasProyectos.seleccionProyectos}" selectionMode="single">
@@ -359,7 +359,7 @@
                <p:dialog header="#{msg['rolesR']}" widgetVar="pryRolesDialogo" draggable="true" resizable="false" id="pryRolesDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="347">
 
-                  <p:dataTable  id="LOVPryRoles"  var="pryroles" value="#{controlVigenciasProyectos.listaPryRoles}"
+                  <p:dataTable  id="LOVPryRoles"  var="pryroles" value="#{controlVigenciasProyectos.lovPryRoles}"
                                 scrollable="true" scrollHeight="138" scrollWidth="318" widgetVar="LOVPryRoles" 
                                 filteredValue="#{controlVigenciasProyectos.filtradoslistaPryRoles}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{pryroles.secuencia}" selection="#{controlVigenciasProyectos.seleccionPryRoles}" selectionMode="single">
@@ -392,7 +392,7 @@
                <p:dialog header="#{msg['cargosC']}" widgetVar="cargosDialogo" draggable="true" resizable="false" id="cargosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="347" height="370">
 
-                  <p:dataTable  id="LOVCargos"  var="cargos" value="#{controlVigenciasProyectos.listaCargos}"
+                  <p:dataTable  id="LOVCargos"  var="cargos" value="#{controlVigenciasProyectos.lovCargos}"
                                 scrollable="true" scrollHeight="235" scrollWidth="318" widgetVar="LOVCargos" 
                                 filteredValue="#{controlVigenciasProyectos.filtradoslistaCargos}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{cargos.secuencia}" selection="#{controlVigenciasProyectos.seleccionCargos}" selectionMode="single">

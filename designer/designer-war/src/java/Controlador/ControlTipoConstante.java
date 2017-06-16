@@ -52,7 +52,7 @@ public class ControlTipoConstante implements Serializable {
    private TiposConstantes tipoConstanteSeleccionada;
    //L.O.V INFOREPORTES
    private List<TiposConstantes> lovlistaTiposConstantes;
-   private List<TiposConstantes> lovfiltradoslistaTiposConstantes;
+   private List<TiposConstantes> filtradosLovTiposConstantes;
    private TiposConstantes tipoConstanteLovSeleccionado;
    //editar celda
    private TiposConstantes editarTiposConstantes;
@@ -117,7 +117,7 @@ public class ControlTipoConstante implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovlistaTiposConstantes = null;
    }
 
    @PostConstruct
@@ -156,31 +156,22 @@ public class ControlTipoConstante implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
          
       } else {
-         */
-String pagActual = "tipoconstante";
-         
-         
-         
+       */
+      String pagActual = "tipoconstante";
 
-
-         //           controlRastro.recibirDatosTabla(tipoConctanteSeleccionada.getSecuencia(), "Conceptos", pagActual);
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      //           controlRastro.recibirDatosTabla(tipoConctanteSeleccionada.getSecuencia(), "Conceptos", pagActual);
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -189,7 +180,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          //}
       }
       limpiarListasValor();
-      
+
    }
 
    //UBICACION CELDA

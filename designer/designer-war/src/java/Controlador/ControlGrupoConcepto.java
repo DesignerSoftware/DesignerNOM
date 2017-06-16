@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Conceptos;
 import Entidades.GruposConceptos;
 import Entidades.VigenciasGruposConceptos;
@@ -19,9 +18,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -58,12 +55,12 @@ public class ControlGrupoConcepto implements Serializable {
    private List<VigenciasGruposConceptos> filtradoListaVigenciasGruposConceptos;
    private VigenciasGruposConceptos vigenciaGrupoCSeleccionado;
    //LOVLista Conceptos(Abajo)
-   private List<Conceptos> lovlistaConceptos;
-   private List<Conceptos> lovfiltradoListaConceptos;
-   private Conceptos conceptoSeleccionado;
+   private List<Conceptos> lovConceptos;
+   private List<Conceptos> filtrarLovConceptos;
+   private Conceptos conceptoLovSeleccionado;
    //LOV GRUPOS CONCEPTOS
-   private List<GruposConceptos> lovlistaGruposConceptos;
-   private List<GruposConceptos> lovfiltradoListaGruposConceptos;
+   private List<GruposConceptos> lovGruposConceptos;
+   private List<GruposConceptos> filtrarlovGruposConceptos;
    private GruposConceptos gruposSeleccionado;
 
    private String infoRegistro, infoRegistroVigencias, infoRegistroLOVConceptos, infoRegistroLOVGruposC;
@@ -154,7 +151,8 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovConceptos = null;
+      lovGruposConceptos = null;
    }
 
    @PostConstruct
@@ -191,7 +189,7 @@ public class ControlGrupoConcepto implements Serializable {
    public void actualizarConceptos() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         vigenciaGrupoCSeleccionado.setConcepto(conceptoSeleccionado);
+         vigenciaGrupoCSeleccionado.setConcepto(conceptoLovSeleccionado);
          if (!listaVigenciasGruposConceptosCrear.contains(vigenciaGrupoCSeleccionado)) {
             if (listaVigenciasGruposConceptosModificar.isEmpty()) {
                listaVigenciasGruposConceptosModificar.add(vigenciaGrupoCSeleccionado);
@@ -207,16 +205,16 @@ public class ControlGrupoConcepto implements Serializable {
          permitirIndex = true;
          RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
       } else if (tipoActualizacion == 1) {
-         nuevoVigenciasGruposConceptos.setConcepto(conceptoSeleccionado);
+         nuevoVigenciasGruposConceptos.setConcepto(conceptoLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigoV");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDescripcionV");
       } else if (tipoActualizacion == 2) {
-         duplicarVigenciaGruposConceptos.setConcepto(conceptoSeleccionado);
+         duplicarVigenciaGruposConceptos.setConcepto(conceptoLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoV");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcionV");
       }
-      lovfiltradoListaConceptos = null;
-      conceptoSeleccionado = null;
+      filtrarLovConceptos = null;
+      conceptoLovSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
       cualCelda = -1;
@@ -227,8 +225,8 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public void cancelarCambioConceptos() {
-      lovfiltradoListaConceptos = null;
-      conceptoSeleccionado = null;
+      filtrarLovConceptos = null;
+      conceptoLovSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
       cualCelda = -1;
@@ -676,7 +674,6 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public void salir() {
-      limpiarListasValor();
       if (bandera == 1) {
          restaurarTablas();
       }
@@ -948,18 +945,18 @@ public class ControlGrupoConcepto implements Serializable {
       } else if (tipoNuevo == 2) {
          duplicarVigenciaGruposConceptos.getConcepto().setCodigoSTR(codigo);
       }
-      for (int i = 0; i < lovlistaConceptos.size(); i++) {
-         if (lovlistaConceptos.get(i).getCodigoSTR().startsWith(valorConfirmar.toUpperCase())) {
+      for (int i = 0; i < lovConceptos.size(); i++) {
+         if (lovConceptos.get(i).getCodigoSTR().startsWith(valorConfirmar.toUpperCase())) {
             indiceUnicoElemento = i;
             coincidencias++;
          }
       }
       if (coincidencias == 1) {
          if (tipoNuevo == 1) {
-            nuevoVigenciasGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
+            nuevoVigenciasGruposConceptos.setConcepto(lovConceptos.get(indiceUnicoElemento));
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoVigenciaGrupoConcepto");
          } else if (tipoNuevo == 2) {
-            duplicarVigenciaGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
+            duplicarVigenciaGruposConceptos.setConcepto(lovConceptos.get(indiceUnicoElemento));
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaGrupoConcepto");
          }
       } else {
@@ -1157,7 +1154,7 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public void cancelarCambioGruposConceptos() {
-      lovfiltradoListaGruposConceptos = null;
+      filtrarlovGruposConceptos = null;
       gruposSeleccionado = null;
       aceptar = true;
       tipoActualizacion = -1;
@@ -1215,14 +1212,14 @@ public class ControlGrupoConcepto implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("CONCEPTO")) { //Va la lista de valores de Conceptos con el query re ficti
          vigenciaGrupoCSeleccionado.getConcepto().setCodigoSTR(codigo);
 
-         for (int i = 0; i < lovlistaConceptos.size(); i++) {
-            if (lovlistaConceptos.get(i).getCodigoSTR().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovConceptos.size(); i++) {
+            if (lovConceptos.get(i).getCodigoSTR().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaGrupoCSeleccionado.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
+            vigenciaGrupoCSeleccionado.setConcepto(lovConceptos.get(indiceUnicoElemento));
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -1459,48 +1456,40 @@ public class ControlGrupoConcepto implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior);
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "grupoconcepto";
+      String pagActual = "grupoconcepto";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
 //         mapParametros.put("paginaAnterior", pagActual);
 //         mas Parametros
-         if (pag.equals("rastrotablaGC")) {
-            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            controlRastro.recibirDatosTabla(grupoConceptoSeleccionado.getSecuencia(), "GruposConceptos", pagActual);
-            pag = "rastrotabla";
-         } else if (pag.equals("rastrotablaHGC")) {
-            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            controlRastro.historicosTabla("GruposConceptos", pagActual);
-            pag = "rastrotabla";
-         } else if (pag.equals("rastrotablaVGC")) {
-            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            controlRastro.recibirDatosTabla(vigenciaGrupoCSeleccionado.getSecuencia(), "VigenciasGruposConceptos", pagActual);
-            pag = "rastrotabla";
-         } else if (pag.equals("rastrotablaHVGC")) {
-            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            controlRastro.historicosTabla("VigenciasGruposConceptos", pagActual);
-            pag = "rastrotabla";
-         }
-         if (pag.equals("atras")) {
+      if (pag.equals("rastrotablaGC")) {
+         ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         controlRastro.recibirDatosTabla(grupoConceptoSeleccionado.getSecuencia(), "GruposConceptos", pagActual);
+         pag = "rastrotabla";
+      } else if (pag.equals("rastrotablaHGC")) {
+         ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         controlRastro.historicosTabla("GruposConceptos", pagActual);
+         pag = "rastrotabla";
+      } else if (pag.equals("rastrotablaVGC")) {
+         ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         controlRastro.recibirDatosTabla(vigenciaGrupoCSeleccionado.getSecuencia(), "VigenciasGruposConceptos", pagActual);
+         pag = "rastrotabla";
+      } else if (pag.equals("rastrotablaHVGC")) {
+         ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         controlRastro.historicosTabla("VigenciasGruposConceptos", pagActual);
+         pag = "rastrotabla";
+      }
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoLovSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //     controlRastro.historicosTabla("Conceptos", pagActual);
@@ -1682,51 +1671,51 @@ String pagActual = "grupoconcepto";
       this.cambiosPagina = cambiosPagina;
    }
 
-   public List<Conceptos> getLovlistaConceptos() {
-      if (lovlistaConceptos == null) {
-         lovlistaConceptos = administrarGruposConceptos.lovConceptos();
+   public List<Conceptos> getLovConceptos() {
+      if (lovConceptos == null) {
+         lovConceptos = administrarGruposConceptos.lovConceptos();
       }
 
-      return lovlistaConceptos;
+      return lovConceptos;
    }
 
-   public void setLovlistaConceptos(List<Conceptos> lovlistaConceptos) {
-      this.lovlistaConceptos = lovlistaConceptos;
+   public void setLovConceptos(List<Conceptos> lovConceptos) {
+      this.lovConceptos = lovConceptos;
    }
 
-   public List<Conceptos> getLovfiltradoListaConceptos() {
-      return lovfiltradoListaConceptos;
+   public List<Conceptos> getFiltrarLovConceptos() {
+      return filtrarLovConceptos;
    }
 
-   public void setLovfiltradoListaConceptos(List<Conceptos> lovfiltradoListaConceptos) {
-      this.lovfiltradoListaConceptos = lovfiltradoListaConceptos;
+   public void setFiltrarLovConceptos(List<Conceptos> filtrarLovConceptos) {
+      this.filtrarLovConceptos = filtrarLovConceptos;
    }
 
-   public Conceptos getConceptoSeleccionado() {
-      return conceptoSeleccionado;
+   public Conceptos getConceptoLovSeleccionado() {
+      return conceptoLovSeleccionado;
    }
 
-   public void setConceptoSeleccionado(Conceptos conceptoSeleccionado) {
-      this.conceptoSeleccionado = conceptoSeleccionado;
+   public void setConceptoLovSeleccionado(Conceptos conceptoLovSeleccionado) {
+      this.conceptoLovSeleccionado = conceptoLovSeleccionado;
    }
 
-   public List<GruposConceptos> getLovlistaGruposConceptos() {
-      if (lovlistaGruposConceptos == null) {
-         lovlistaGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
+   public List<GruposConceptos> getLovGruposConceptos() {
+      if (lovGruposConceptos == null) {
+         lovGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
       }
-      return lovlistaGruposConceptos;
+      return lovGruposConceptos;
    }
 
-   public void setLovlistaGruposConceptos(List<GruposConceptos> lovlistaGruposConceptos) {
-      this.lovlistaGruposConceptos = lovlistaGruposConceptos;
+   public void setLovGruposConceptos(List<GruposConceptos> lovGruposConceptos) {
+      this.lovGruposConceptos = lovGruposConceptos;
    }
 
-   public List<GruposConceptos> getLovfiltradoListaGruposConceptos() {
-      return lovfiltradoListaGruposConceptos;
+   public List<GruposConceptos> getFiltrarlovGruposConceptos() {
+      return filtrarlovGruposConceptos;
    }
 
-   public void setLovfiltradoListaGruposConceptos(List<GruposConceptos> lovfiltradoListaGruposConceptos) {
-      this.lovfiltradoListaGruposConceptos = lovfiltradoListaGruposConceptos;
+   public void setFiltrarlovGruposConceptos(List<GruposConceptos> filtrarlovGruposConceptos) {
+      this.filtrarlovGruposConceptos = filtrarlovGruposConceptos;
    }
 
    public GruposConceptos getGruposSeleccionado() {

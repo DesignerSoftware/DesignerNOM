@@ -25,95 +25,78 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class controlBienestar implements Serializable {
 
-    @EJB
-    AdministrarRastrosInterface administrarRastros;
+   @EJB
+   AdministrarRastrosInterface administrarRastros;
 
-    private String paginaAnterior;
-    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private String paginaAnterior;
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-    public controlBienestar() {
-        paginaAnterior = "nominaf";
-        mapParametros.put("paginaAnterior", paginaAnterior);
-    }
+   public controlBienestar() {
+      paginaAnterior = "nominaf";
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
 
    public void limpiarListasValor() {
 
    }
 
    @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarRastros.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
 
-    public void recibirPaginaEntrante(String pagina) {
-        paginaAnterior = pagina;
-        //inicializarCosas(); Inicializar cosas de ser necesario
-    }
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
-    public void recibirParametros(Map<String, Object> map) {
-        mapParametros = map;
-        paginaAnterior = (String) mapParametros.get("paginaAnterior");
-        //inicializarCosas(); Inicializar cosas de ser necesario
-    }
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
-    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
-         
-        } else {
-            */
-String pagActual = "bienestar";
-            
-            
-            
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      String pagActual = "bienestar";
 
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-        }
-        limpiarListasValor();
-    }
+      }
+      limpiarListasValor();
+   }
 
-    public void recibirAtras(String atras) {
-        paginaAnterior = atras;
-        System.out.println("ControlBienestar pagina anterior : " + paginaAnterior);
-    }
+   public void recibirAtras(String atras) {
+      paginaAnterior = atras;
+      System.out.println("ControlBienestar pagina anterior : " + paginaAnterior);
+   }
 
-    public String redireccionarAtras() {
-        return paginaAnterior;
-    }
+   public String redireccionarAtras() {
+      return paginaAnterior;
+   }
 }

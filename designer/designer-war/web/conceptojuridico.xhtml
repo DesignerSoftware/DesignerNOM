@@ -163,7 +163,7 @@
                     <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="391" modal="true">
 
-                        <p:dataTable id="lovEmpresas" style="width: 355px;" var="empresa" value="#{controlConceptoJuridico.listEmpresas}" rowKey="#{empresa.nombre}"
+                        <p:dataTable id="lovEmpresas" style="width: 355px;" var="empresa" value="#{controlConceptoJuridico.lovEmpresas}" rowKey="#{empresa.nombre}"
                                      selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="371" scrollHeight="250"
                                      filteredValue="#{controlConceptoJuridico.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}"
                                      selection="#{controlConceptoJuridico.empresita}">              

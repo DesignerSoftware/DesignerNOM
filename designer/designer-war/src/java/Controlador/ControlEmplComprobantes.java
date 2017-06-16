@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -151,7 +150,6 @@ public class ControlEmplComprobantes implements Serializable {
    //
    private Date auxFechaEntregadoComprobante;
 
-   private DataTable tabla1, tabla2;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
@@ -235,31 +233,13 @@ public class ControlEmplComprobantes implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplcomprobante";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplcomprobante";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -277,7 +257,10 @@ String pagActual = "emplcomprobante";
    }
 
    public void limpiarListasValor() {
-
+      lovCentrosCostos = null;
+      lovCuentas = null;
+      lovProcesos = null;
+      lovTerceros = null;
    }
 
    @PostConstruct
@@ -2189,7 +2172,7 @@ String pagActual = "emplcomprobante";
       guardarCambios();
       salir();
    }
-   
+
    //GUARDAR
    public void guardarCambios() {
       System.out.println("guardarCambios() guardado : " + guardado);

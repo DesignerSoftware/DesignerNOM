@@ -54,7 +54,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
    public VigenciasNormasEmpleados nuevaVigenciaNormasEmpleados;
    private VigenciasNormasEmpleados editarVNE;
    private VigenciasNormasEmpleados duplicarVNE;
-   private List<NormasLaborales> listaNormasLaborales;
+   private List<NormasLaborales> lovNormasLaborales;
    private NormasLaborales normaLaboralSelecionada;
    private List<NormasLaborales> filtradoNormasLaborales;
    private BigInteger secuenciaEmpleado;
@@ -78,7 +78,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
 
    public ControlVigenciasNormasEmpleado() {
       vigenciasNormasEmpleado = null;
-      listaNormasLaborales = new ArrayList<NormasLaborales>();
+      lovNormasLaborales = new ArrayList<NormasLaborales>();
       empleado = new Empleados();
       normaLaboralSelecionada = new NormasLaborales();
       //Otros
@@ -108,7 +108,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listaNormasLaborales = null;
+      lovNormasLaborales = null;
    }
 
    @PostConstruct
@@ -138,37 +138,19 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "vigencianormasempleado";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "vigencianormasempleado";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -488,7 +470,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    //SALIR
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          vneFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneFecha");
          vneFecha.setFilterStyle("display: none; visibility: hidden;");
@@ -664,13 +647,13 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.empleado = empleado;
    }
 
-   public List<NormasLaborales> getListaNormasLaborales() {
-//        listaNormasLaborales = administrarVigenciaNormaLaboral.normasLaborales();
-      return listaNormasLaborales;
+   public List<NormasLaborales> getLovNormasLaborales() {
+//        lovNormasLaborales = administrarVigenciaNormaLaboral.normasLaborales();
+      return lovNormasLaborales;
    }
 
-   public void setListaNormasLaborales(List<NormasLaborales> listaNormasLaborales) {
-      this.listaNormasLaborales = listaNormasLaborales;
+   public void setLovNormasLaborales(List<NormasLaborales> lovNormasLaborales) {
+      this.lovNormasLaborales = lovNormasLaborales;
    }
 
    public NormasLaborales getNormaLaboralSelecionada() {

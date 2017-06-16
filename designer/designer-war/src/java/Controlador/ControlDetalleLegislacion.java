@@ -45,21 +45,21 @@ public class ControlDetalleLegislacion implements Serializable {
    //
    private List<Formulascontratos> listFormulasContratosDetalle;
    private List<Formulascontratos> filtrarListFormulasContratosDetalle;
-   private List<Formulascontratos> listFormulasContratos;
+   private List<Formulascontratos> lovFormulasContratos;
    private List<Formulascontratos> filtrarListFormulasContratos;
    private Contratos contratoActual;
    private Formulascontratos formulaContratoActual;
    private Formulascontratos formulaContratosSeleccionado;
    //
-   private List<Terceros> listTerceros;
+   private List<Terceros> lovTerceros;
    private List<Terceros> filtrarListTerceros;
-   private Terceros terceroSeleccionado;
+   private Terceros terceroLovSeleccionado;
    //
-   private List<Periodicidades> listPeriodicidades;
+   private List<Periodicidades> lovPeriodicidades;
    private List<Periodicidades> filtrarListPeriodicidades;
    private Periodicidades periodicidadSeleccionada;
    //
-   private List<Formulas> listFormulas;
+   private List<Formulas> lovFormulas;
    private List<Formulas> filtrarListFormulas;
    private Formulas formulaSeleccionada;
    //
@@ -72,7 +72,7 @@ public class ControlDetalleLegislacion implements Serializable {
    private boolean aceptar;
    private int index;
    private List<Formulascontratos> listFormulasContratosModificar;
-   private boolean guardado, guardarOk;
+   private boolean guardado;
    public Formulascontratos nuevoFormulaContrato;
    private List<Formulascontratos> listFormulasContratosCrear;
    private BigInteger l;
@@ -102,12 +102,12 @@ public class ControlDetalleLegislacion implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlDetalleLegislacion() {
-      listFormulasContratos = null;
+      lovFormulasContratos = null;
       fechaParametro = new Date(1, 1, 0);
       formulaContratoActual = new Formulascontratos();
       indexAux = 0;
-      listTerceros = null;
-      listPeriodicidades = null;
+      lovTerceros = null;
+      lovPeriodicidades = null;
       backUpContratoActual = new Contratos();
       nombreTablaRastro = "";
       backUp = null;
@@ -164,37 +164,19 @@ public class ControlDetalleLegislacion implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "detallelegislacion";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "detallelegislacion";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -205,8 +187,11 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      lovFormulas = null;
+      lovFormulasContratos = null;
+      lovPeriodicidades = null;
+      lovTerceros = null;
    }
 
    @PostConstruct
@@ -228,7 +213,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       listFormulasContratosDetalle = null;
       contratoActual = administrarDetalleLegislacion.consultarContrato(secuencia);
       getListFormulasContratosDetalle();
-      listFormulasContratos = null;
+      lovFormulasContratos = null;
       FacesContext fc = FacesContext.getCurrentInstance();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleLegislacion");
    }
@@ -388,20 +373,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else {
             filtrarListFormulasContratosDetalle.get(indice).getFormula().setNombrelargo(nombreLargo);
          }
-         for (int i = 0; i < listFormulas.size(); i++) {
-            if (listFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            if (lovFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listFormulasContratosDetalle.get(indice).setFormula(listFormulas.get(indiceUnicoElemento));
+               listFormulasContratosDetalle.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
             } else {
-               filtrarListFormulasContratosDetalle.get(indice).setFormula(listFormulas.get(indiceUnicoElemento));
+               filtrarListFormulasContratosDetalle.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
             }
-            listFormulas.clear();
-            getListFormulas();
+            lovFormulas.clear();
+            getLovFormulas();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:FormulaDialogo");
@@ -415,20 +400,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else {
             filtrarListFormulasContratosDetalle.get(indice).getFormula().setNombrecorto(nombreCorto);
          }
-         for (int i = 0; i < listFormulas.size(); i++) {
-            if (listFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            if (lovFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listFormulasContratosDetalle.get(indice).setFormula(listFormulas.get(indiceUnicoElemento));
+               listFormulasContratosDetalle.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
             } else {
-               filtrarListFormulasContratosDetalle.get(indice).setFormula(listFormulas.get(indiceUnicoElemento));
+               filtrarListFormulasContratosDetalle.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
             }
-            listFormulas.clear();
-            getListFormulas();
+            lovFormulas.clear();
+            getLovFormulas();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:FormulaDialogo");
@@ -442,20 +427,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else {
             filtrarListFormulasContratosDetalle.get(indice).getFormula().setEstado(estado);
          }
-         for (int i = 0; i < listFormulas.size(); i++) {
-            if (listFormulas.get(i).getEstado().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            if (lovFormulas.get(i).getEstado().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listFormulasContratosDetalle.get(indice).setFormula(listFormulas.get(indiceUnicoElemento));
+               listFormulasContratosDetalle.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
             } else {
-               filtrarListFormulasContratosDetalle.get(indice).setFormula(listFormulas.get(indiceUnicoElemento));
+               filtrarListFormulasContratosDetalle.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
             }
-            listTerceros.clear();
-            getListFormulas();
+            lovTerceros.clear();
+            getLovFormulas();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:FormulaDialogo");
@@ -469,20 +454,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else {
             filtrarListFormulasContratosDetalle.get(indice).getPeriodicidad().setNombre(periodicidad);
          }
-         for (int i = 0; i < listPeriodicidades.size(); i++) {
-            if (listPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPeriodicidades.size(); i++) {
+            if (lovPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listFormulasContratosDetalle.get(indice).setPeriodicidad(listPeriodicidades.get(indiceUnicoElemento));
+               listFormulasContratosDetalle.get(indice).setPeriodicidad(lovPeriodicidades.get(indiceUnicoElemento));
             } else {
-               filtrarListFormulasContratosDetalle.get(indice).setPeriodicidad(listPeriodicidades.get(indiceUnicoElemento));
+               filtrarListFormulasContratosDetalle.get(indice).setPeriodicidad(lovPeriodicidades.get(indiceUnicoElemento));
             }
-            listPeriodicidades.clear();
-            getListPeriodicidades();
+            lovPeriodicidades.clear();
+            getLovPeriodicidades();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:PeriodicidadDialogo");
@@ -496,20 +481,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else {
             filtrarListFormulasContratosDetalle.get(indice).getTercero().setStrNit(nit);
          }
-         for (int i = 0; i < listTerceros.size(); i++) {
-            if (listTerceros.get(i).getStrNit().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTerceros.size(); i++) {
+            if (lovTerceros.get(i).getStrNit().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listFormulasContratosDetalle.get(indice).setTercero(listTerceros.get(indiceUnicoElemento));
+               listFormulasContratosDetalle.get(indice).setTercero(lovTerceros.get(indiceUnicoElemento));
             } else {
-               filtrarListFormulasContratosDetalle.get(indice).setTercero(listTerceros.get(indiceUnicoElemento));
+               filtrarListFormulasContratosDetalle.get(indice).setTercero(lovTerceros.get(indiceUnicoElemento));
             }
-            listTerceros.clear();
-            getListTerceros();
+            lovTerceros.clear();
+            getLovTerceros();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:TerceroDialogo");
@@ -523,20 +508,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else {
             filtrarListFormulasContratosDetalle.get(indice).getTercero().setNombre(tercero);
          }
-         for (int i = 0; i < listTerceros.size(); i++) {
-            if (listTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTerceros.size(); i++) {
+            if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listFormulasContratosDetalle.get(indice).setTercero(listTerceros.get(indiceUnicoElemento));
+               listFormulasContratosDetalle.get(indice).setTercero(lovTerceros.get(indiceUnicoElemento));
             } else {
-               filtrarListFormulasContratosDetalle.get(indice).setTercero(listTerceros.get(indiceUnicoElemento));
+               filtrarListFormulasContratosDetalle.get(indice).setTercero(lovTerceros.get(indiceUnicoElemento));
             }
-            listTerceros.clear();
-            getListTerceros();
+            lovTerceros.clear();
+            getLovTerceros();
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:TerceroDialogo");
@@ -743,18 +728,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       secRegistroFormulaContrato = null;
       k = 0;
       listFormulasContratosDetalle = null;
-      listPeriodicidades = null;
-      listTerceros = null;
-      listFormulas = null;
+      lovPeriodicidades = null;
+      lovTerceros = null;
+      lovFormulas = null;
       guardado = true;
       aceptar = true;
       cambiosFormulaContrato = false;
-      listFormulasContratos = null;
-      getListFormulasContratos();
-      getListFormulas();
+      lovFormulasContratos = null;
+      getLovFormulasContratos();
+      getLovFormulas();
       getListFormulasContratosModificar();
-      getListPeriodicidades();
-      getListTerceros();
+      getLovPeriodicidades();
+      getLovTerceros();
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
    }
@@ -1166,7 +1151,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          formulaFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaContrato:formulaFechaInicial");
          formulaFechaInicial.setFilterStyle("display: none; visibility: hidden;");
@@ -1202,7 +1188,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       listFormulasContratosDetalle = null;
       k = 0;
       listFormulasContratosDetalle = null;
-      listFormulasContratos = null;
+      lovFormulasContratos = null;
       guardado = true;
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
@@ -1339,28 +1325,28 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarFormulaContrato.getFormula().setNombrelargo(nombreLargo);
          }
-         for (int i = 0; i < listFormulas.size(); i++) {
-            if (listFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            if (lovFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFormulaContrato.setFormula(listFormulas.get(indiceUnicoElemento));
+               nuevoFormulaContrato.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreLargo");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreCorto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaEstado");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaObservacion");
             } else if (tipoNuevo == 2) {
-               duplicarFormulaContrato.setFormula(listFormulas.get(indiceUnicoElemento));
+               duplicarFormulaContrato.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNombreLargo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNombreCorto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaEstado");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaObservacion");
             }
-            listFormulas.clear();
-            getListFormulas();
+            lovFormulas.clear();
+            getLovFormulas();
          } else {
             RequestContext.getCurrentInstance().update("form:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
@@ -1377,28 +1363,28 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarFormulaContrato.getFormula().setNombrecorto(nombreCorto);
          }
-         for (int i = 0; i < listFormulas.size(); i++) {
-            if (listFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            if (lovFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFormulaContrato.setFormula(listFormulas.get(indiceUnicoElemento));
+               nuevoFormulaContrato.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreLargo");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreCorto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaEstado");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaObservacion");
             } else if (tipoNuevo == 2) {
-               duplicarFormulaContrato.setFormula(listFormulas.get(indiceUnicoElemento));
+               duplicarFormulaContrato.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNombreLargo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNombreCorto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaEstado");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaObservacion");
             }
-            listFormulas.clear();
-            getListFormulas();
+            lovFormulas.clear();
+            getLovFormulas();
          } else {
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
@@ -1415,28 +1401,28 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarFormulaContrato.getFormula().setEstado(estado);
          }
-         for (int i = 0; i < listFormulas.size(); i++) {
-            if (listFormulas.get(i).getEstado().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovFormulas.size(); i++) {
+            if (lovFormulas.get(i).getEstado().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFormulaContrato.setFormula(listFormulas.get(indiceUnicoElemento));
+               nuevoFormulaContrato.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreLargo");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreCorto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaEstado");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaObservacion");
             } else if (tipoNuevo == 2) {
-               duplicarFormulaContrato.setFormula(listFormulas.get(indiceUnicoElemento));
+               duplicarFormulaContrato.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNombreLargo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNombreCorto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaEstado");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaObservacion");
             }
-            listFormulas.clear();
-            getListFormulas();
+            lovFormulas.clear();
+            getLovFormulas();
          } else {
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
@@ -1453,22 +1439,22 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarFormulaContrato.getPeriodicidad().setNombre(periodicidad);
          }
-         for (int i = 0; i < listPeriodicidades.size(); i++) {
-            if (listPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovPeriodicidades.size(); i++) {
+            if (lovPeriodicidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFormulaContrato.setPeriodicidad(listPeriodicidades.get(indiceUnicoElemento));
+               nuevoFormulaContrato.setPeriodicidad(lovPeriodicidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaPeriodicidad");
             } else if (tipoNuevo == 2) {
-               duplicarFormulaContrato.setPeriodicidad(listPeriodicidades.get(indiceUnicoElemento));
+               duplicarFormulaContrato.setPeriodicidad(lovPeriodicidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaPeriodicidad");
             }
-            listPeriodicidades.clear();
-            getListPeriodicidades();
+            lovPeriodicidades.clear();
+            getLovPeriodicidades();
          } else {
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
@@ -1485,24 +1471,24 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarFormulaContrato.getTercero().setStrNit(nit);
          }
-         for (int i = 0; i < listTerceros.size(); i++) {
-            if (listTerceros.get(i).getStrNit().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTerceros.size(); i++) {
+            if (lovTerceros.get(i).getStrNit().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFormulaContrato.setTercero(listTerceros.get(indiceUnicoElemento));
+               nuevoFormulaContrato.setTercero(lovTerceros.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNit");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaTercero");
             } else if (tipoNuevo == 2) {
-               duplicarFormulaContrato.setTercero(listTerceros.get(indiceUnicoElemento));
+               duplicarFormulaContrato.setTercero(lovTerceros.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNit");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaTercero");
             }
-            listTerceros.clear();
-            getListTerceros();
+            lovTerceros.clear();
+            getLovTerceros();
          } else {
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
@@ -1519,24 +1505,24 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          } else if (tipoNuevo == 2) {
             duplicarFormulaContrato.getTercero().setNombre(tercero);
          }
-         for (int i = 0; i < listTerceros.size(); i++) {
-            if (listTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTerceros.size(); i++) {
+            if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFormulaContrato.setTercero(listTerceros.get(indiceUnicoElemento));
+               nuevoFormulaContrato.setTercero(lovTerceros.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNit");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaTercero");
             } else if (tipoNuevo == 2) {
-               duplicarFormulaContrato.setTercero(listTerceros.get(indiceUnicoElemento));
+               duplicarFormulaContrato.setTercero(lovTerceros.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNit");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaTercero");
             }
-            listTerceros.clear();
-            getListTerceros();
+            lovTerceros.clear();
+            getLovTerceros();
          } else {
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
@@ -1632,7 +1618,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          if (tipoLista == 0) {
-            listFormulasContratosDetalle.get(index).setTercero(terceroSeleccionado);
+            listFormulasContratosDetalle.get(index).setTercero(terceroLovSeleccionado);
             if (!listFormulasContratosCrear.contains(listFormulasContratosDetalle.get(index))) {
                if (listFormulasContratosModificar.isEmpty()) {
                   listFormulasContratosModificar.add(listFormulasContratosDetalle.get(index));
@@ -1641,7 +1627,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                }
             }
          } else {
-            filtrarListFormulasContratosDetalle.get(index).setTercero(terceroSeleccionado);
+            filtrarListFormulasContratosDetalle.get(index).setTercero(terceroLovSeleccionado);
             if (!listFormulasContratosCrear.contains(filtrarListFormulasContratosDetalle.get(index))) {
                if (listFormulasContratosModificar.isEmpty()) {
                   listFormulasContratosModificar.add(filtrarListFormulasContratosDetalle.get(index));
@@ -1658,16 +1644,16 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
          RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
       } else if (tipoActualizacion == 1) {
-         nuevoFormulaContrato.setTercero(terceroSeleccionado);
+         nuevoFormulaContrato.setTercero(terceroLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNit");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaTercero");
       } else if (tipoActualizacion == 2) {
-         duplicarFormulaContrato.setTercero(terceroSeleccionado);
+         duplicarFormulaContrato.setTercero(terceroLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaNit");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicaFormulaTercero");
       }
       filtrarListTerceros = null;
-      terceroSeleccionado = null;
+      terceroLovSeleccionado = null;
       aceptar = true;
       index = -1;
       secRegistroFormulaContrato = null;
@@ -1680,7 +1666,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    public void cancelarCambioTercero() {
       filtrarListTerceros = null;
-      terceroSeleccionado = null;
+      terceroLovSeleccionado = null;
       aceptar = true;
       index = -1;
       secRegistroFormulaContrato = null;
@@ -2087,15 +2073,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.backUpContratoActual = setBackUpContratoActual;
    }
 
-   public List<Terceros> getListTerceros() {
-      if (listTerceros == null) {
-         listTerceros = administrarDetalleLegislacion.consultarLOVTerceros();
+   public List<Terceros> getLovTerceros() {
+      if (lovTerceros == null) {
+         lovTerceros = administrarDetalleLegislacion.consultarLOVTerceros();
       }
-      return listTerceros;
+      return lovTerceros;
    }
 
-   public void setListTerceros(List<Terceros> setListTerceros) {
-      this.listTerceros = setListTerceros;
+   public void setLovTerceros(List<Terceros> setListTerceros) {
+      this.lovTerceros = setListTerceros;
    }
 
    public List<Terceros> getFiltrarListTerceros() {
@@ -2106,12 +2092,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.filtrarListTerceros = filtrar;
    }
 
-   public Terceros getTerceroSeleccionado() {
-      return terceroSeleccionado;
+   public Terceros getTerceroLovSeleccionado() {
+      return terceroLovSeleccionado;
    }
 
-   public void setTerceroSeleccionado(Terceros seleccionado) {
-      this.terceroSeleccionado = seleccionado;
+   public void setTerceroLovSeleccionado(Terceros seleccionado) {
+      this.terceroLovSeleccionado = seleccionado;
    }
 
    public Formulascontratos getFormulaContratoActual() {
@@ -2138,15 +2124,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.formulaContratosSeleccionado = formulaContratosSeleccionado;
    }
 
-   public List<Periodicidades> getListPeriodicidades() {
-      if (listPeriodicidades == null) {
-         listPeriodicidades = administrarDetalleLegislacion.consultarLOVPeriodicidades();
+   public List<Periodicidades> getLovPeriodicidades() {
+      if (lovPeriodicidades == null) {
+         lovPeriodicidades = administrarDetalleLegislacion.consultarLOVPeriodicidades();
       }
-      return listPeriodicidades;
+      return lovPeriodicidades;
    }
 
-   public void setListPeriodicidades(List<Periodicidades> listPeriodicidades) {
-      this.listPeriodicidades = listPeriodicidades;
+   public void setLovPeriodicidades(List<Periodicidades> lovPeriodicidades) {
+      this.lovPeriodicidades = lovPeriodicidades;
    }
 
    public List<Periodicidades> getFiltrarListPeriodicidades() {
@@ -2165,15 +2151,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.periodicidadSeleccionada = periodicidadSeleccionada;
    }
 
-   public List<Formulas> getListFormulas() {
-      if (listFormulas == null) {
-         listFormulas = administrarDetalleLegislacion.consultarLOVFormulas();
+   public List<Formulas> getLovFormulas() {
+      if (lovFormulas == null) {
+         lovFormulas = administrarDetalleLegislacion.consultarLOVFormulas();
       }
-      return listFormulas;
+      return lovFormulas;
    }
 
-   public void setListFormulas(List<Formulas> listFormulas) {
-      this.listFormulas = listFormulas;
+   public void setLovFormulas(List<Formulas> lovFormulas) {
+      this.lovFormulas = lovFormulas;
    }
 
    public List<Formulas> getFiltrarListFormulas() {
@@ -2192,15 +2178,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.formulaSeleccionada = formulaSeleccionada;
    }
 
-   public List<Formulascontratos> getListFormulasContratos() {
-      if (listFormulasContratos == null) {
-         listFormulasContratos = administrarDetalleLegislacion.consultarListaFormulasContratosContrato(contratoActual.getSecuencia());
+   public List<Formulascontratos> getLovFormulasContratos() {
+      if (lovFormulasContratos == null) {
+         lovFormulasContratos = administrarDetalleLegislacion.consultarListaFormulasContratosContrato(contratoActual.getSecuencia());
       }
-      return listFormulasContratos;
+      return lovFormulasContratos;
    }
 
-   public void setListFormulasContratos(List<Formulascontratos> listFormulasContratos) {
-      this.listFormulasContratos = listFormulasContratos;
+   public void setLovFormulasContratos(List<Formulascontratos> lovFormulasContratos) {
+      this.lovFormulasContratos = lovFormulasContratos;
    }
 
    public List<Formulascontratos> getFiltrarListFormulasContratos() {

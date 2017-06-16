@@ -77,7 +77,6 @@ public class ControlComprobantes implements Serializable {
    private String infoRegistroEmpleado, infoRegistroComprobante, infoRegistroComprobanteEmpleador, infoRegistroComprobanteEmpleado;
    private Parametros editarParametros;
    private int tipoLista, cualCelda;
-   private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlComprobantes() {
@@ -111,18 +110,11 @@ public class ControlComprobantes implements Serializable {
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
       listaParametros = new ArrayList<Parametros>();
-      mapParametros.put("paginaAnterior", paginaAnterior);
-   }
-
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      mapParametros.put("paginaAnterior", "nominaf");
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
    }
 
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -131,8 +123,7 @@ public class ControlComprobantes implements Serializable {
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       String pagActual = "comprobante";
       if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
+         pag = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
@@ -978,7 +969,7 @@ public class ControlComprobantes implements Serializable {
          BigInteger secEmpleado = null, secProceso = null, secHistoriaFormula, secFormula = null;
          String fechaDesde = null, fechaHasta = null;
          if (tablaActual == 0) {
-            if (listaSolucionesNodosEmpleado != null && !listaSolucionesNodosEmpleado.isEmpty()) {
+            if (listaSolucionesNodosEmpleado != null || !listaSolucionesNodosEmpleado.isEmpty()) {
                secFormula = listaSolucionesNodosEmpleado.get(index).getFormula();//
                fechaDesde = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechadesde()); //
                fechaHasta = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechahasta()); //
@@ -986,7 +977,7 @@ public class ControlComprobantes implements Serializable {
                secProceso = listaSolucionesNodosEmpleado.get(index).getProceso();//
             }
          } else if (tablaActual == 1) {
-            if (listaSolucionesNodosEmpleador != null && !listaSolucionesNodosEmpleador.isEmpty()) {
+            if (listaSolucionesNodosEmpleador != null || !listaSolucionesNodosEmpleador.isEmpty()) {
                secFormula = listaSolucionesNodosEmpleador.get(index).getFormula();  //
                fechaDesde = formatoFecha.format(listaSolucionesNodosEmpleador.get(index)); // 
                fechaHasta = formatoFecha.format(listaSolucionesNodosEmpleador.get(index)); //

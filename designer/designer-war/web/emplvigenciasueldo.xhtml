@@ -402,7 +402,7 @@
                   <!-- DIALOGO L.O.V ESTATICO MOTIVO CAMBIO SUELDO -->
                   <p:dialog header="#{msg['motivoM']}" widgetVar="MotivoCambioSueldoDialogo" draggable="true" resizable="false" closable="false" id="MotivoCambioSueldoDialogo"  
                             showEffect="fade" hideEffect="fade" width="455" modal="true">
-                     <p:dataTable id="lovMotivoCambioSueldo" var="motivoCS" value="#{controlVigenciaSueldo.listMotivosCambiosSueldos}" rowKey="#{motivoCS.secuencia}"
+                     <p:dataTable id="lovMotivoCambioSueldo" var="motivoCS" value="#{controlVigenciaSueldo.lovMotivosCambiosSueldos}" rowKey="#{motivoCS.secuencia}"
                                   selection="#{controlVigenciaSueldo.motivoCambioSueldoSeleccionado}" selectionMode="single" widgetVar="lovMotivoCambioSueldo" scrollable="true" scrollHeight="200" scrollWidth="420"
                                   filteredValue="#{controlVigenciaSueldo.filtrarMotivosCambiosSueldos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -442,7 +442,7 @@
                   <!-- DIALOGO L.O.V ESTATICO TIPO SUELDO -->
                   <p:dialog header="#{msg['tiposueldoT']}" widgetVar="TipoSueldoDialogo" draggable="true" resizable="false" closable="false" id="TipoSueldoDialogo"  
                             showEffect="fade" hideEffect="fade" width="450" modal="true">
-                     <p:dataTable id="lovTipoSueldo"  var="tipoS" value="#{controlVigenciaSueldo.listTiposSueldos}" rowKey="#{tipoS.secuencia}"
+                     <p:dataTable id="lovTipoSueldo"  var="tipoS" value="#{controlVigenciaSueldo.lovTiposSueldos}" rowKey="#{tipoS.secuencia}"
                                   selection="#{controlVigenciaSueldo.tipoSueldoSeleccionado}" selectionMode="single" widgetVar="lovTipoSueldo" scrollable="true" scrollWidth="425" scrollHeight="200"
                                   filteredValue="#{controlVigenciaSueldo.filtrarTiposSueldos}" emptyMessage="#{msg['lovvacio']}">           
 
@@ -482,7 +482,7 @@
                   <!-- DIALOGO L.O.V ESTATICO TIPO ENTIDAD -->
                   <p:dialog header="#{msg['tiposentidadesTE']}" widgetVar="TipoEntidadDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovTipoEntidad" var="tipoE" value="#{controlVigenciaSueldo.listTiposEntidades}" rowKey="#{tipoE.secuencia}"
+                     <p:dataTable id="lovTipoEntidad" var="tipoE" value="#{controlVigenciaSueldo.lovTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                   selection="#{controlVigenciaSueldo.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollWidth="430" scrollHeight="200"
                                   filteredValue="#{controlVigenciaSueldo.filtrarTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -523,7 +523,7 @@
                   <!-- DIALOGO L.O.V ESTATICO TERCEROS -->
                   <p:dialog header="#{msg['terceroTER']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                             showEffect="fade" hideEffect="fade" width="645" modal="true">
-                     <p:dataTable id="lovTercero" style=" width: 600px;" var="tercero" value="#{controlVigenciaSueldo.listTerceros}" rowKey="#{tercero.secuencia}"
+                     <p:dataTable id="lovTercero" style=" width: 600px;" var="tercero" value="#{controlVigenciaSueldo.lovTerceros}" rowKey="#{tercero.secuencia}"
                                   selection="#{controlVigenciaSueldo.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="630" scrollHeight="250"
                                   filteredValue="#{controlVigenciaSueldo.filtrarTerceros}" emptyMessage="#{msg['lovvacio']}">              
 

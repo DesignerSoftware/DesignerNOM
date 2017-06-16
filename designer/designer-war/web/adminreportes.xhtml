@@ -455,7 +455,7 @@
                         <p:dataTable id="LOVInforeportes" style=" width: 330px;" var="inforeportes" value="#{controlAdminreportes.lovlistaInforeportes}" rowKey="#{inforeportes.secuencia}"
                                      selection="#{controlAdminreportes.inforeportesSeleccionado}" selectionMode="single" widgetVar="LOVInforeportes" 
                                      scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlAdminreportes.lovfiltradoslistaInforeportes}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlAdminreportes.filtrarlovInforeportes}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlAdminreportes.activarAceptar()}" update=":formularioDialogos:aceptarI"/>
                             <p:ajax event="rowDblselect" listener="#{controlAdminreportes.actualizarInforeportes()}" process="@this"/>
                             <f:facet name="header">  
@@ -486,10 +486,10 @@
                     <!-- DIALOGO L.O.V MODULOS-->
                     <p:dialog header="#{msg['modulosM']}"  widgetVar="modulosDialogo" draggable="true" resizable="false" closable="false" id="modulosDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="350" modal="true">
-                        <p:dataTable id="LOVModulos" style=" width: 330px;" var="modulo" value="#{controlAdminreportes.lovListaModulos}" rowKey="#{modulo.secuencia}"
+                        <p:dataTable id="LOVModulos" style=" width: 330px;" var="modulo" value="#{controlAdminreportes.lovModulos}" rowKey="#{modulo.secuencia}"
                                      selection="#{controlAdminreportes.moduloSeleccionado}" selectionMode="single" widgetVar="LOVModulos"
                                      scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlAdminreportes.lovFiltradoslistaModulos}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlAdminreportes.filtrarLovModulos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlAdminreportes.activarAceptar()}" update=":formularioDialogos:aceptarM"/>
                             <p:ajax event="rowDblselect" listener="#{controlAdminreportes.actualizarModulos()}" process="@this"/>
                             <f:facet name="header">  

@@ -468,7 +468,7 @@
 
                <p:dialog header="#{msg['contracuentaCT']}" widgetVar="ContracuentaDialogo" draggable="true" resizable="false" closable="false" id="ContracuentaDialogo"  
                          showEffect="fade" hideEffect="fade" width="720" modal="true">
-                  <p:dataTable id="lovContracuenta" style="width: 700px;" var="cuenta" value="#{controlCuenta.listCuentasTesoreria}" rowKey="#{cuenta.secuencia}"
+                  <p:dataTable id="lovContracuenta" style="width: 700px;" var="cuenta" value="#{controlCuenta.lovCuentasTesoreria}" rowKey="#{cuenta.secuencia}"
                                selection="#{controlCuenta.cuentaSeleccionada}" selectionMode="single" widgetVar="lovContracuenta" scrollable="true" scrollWidth="700" scrollHeight="225"
                                filteredValue="#{controlCuenta.filtrarListCuentasTesoreria}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlCuenta.activarAceptar()}" update=":form:aceptarCC"/>
@@ -507,7 +507,7 @@
 
                <p:dialog header="#{msg['rubrosRP']}" widgetVar="RubrosDialogo" draggable="true" resizable="false" closable="false" id="RubrosDialogo"  
                          showEffect="fade" hideEffect="fade" width="432" modal="true">
-                  <p:dataTable id="lovRubros" style="width: 400px;" var="rubro" value="#{controlCuenta.listRubros}" rowKey="#{rubro.secuencia}"
+                  <p:dataTable id="lovRubros" style="width: 400px;" var="rubro" value="#{controlCuenta.lovRubros}" rowKey="#{rubro.secuencia}"
                                selection="#{controlCuenta.rubroSeleccionado}" selectionMode="single" widgetVar="lovRubros" scrollable="true" scrollWidth="416" scrollHeight="225"
                                filteredValue="#{controlCuenta.filtrarListRubros}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlCuenta.activarAceptar()}" update=":form:aceptarRP"/>
@@ -542,7 +542,7 @@
 
                <p:dialog header="#{msg['cuentasC']}" widgetVar="BuscarCuentasDialogo" draggable="true" resizable="false" closable="false" id="BuscarCuentasDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
-                  <p:dataTable id="lovCuentas" style="width: 400px;" var="buscarC" value="#{controlCuenta.listCuentasTesoreria}" rowKey="#{buscarC.secuencia}"
+                  <p:dataTable id="lovCuentas" style="width: 400px;" var="buscarC" value="#{controlCuenta.lovCuentasTesoreria}" rowKey="#{buscarC.secuencia}"
                                selection="#{controlCuenta.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentas" scrollable="true" scrollWidth="416" scrollHeight="225"
                                filteredValue="#{controlCuenta.filtrarListCuentasTesoreria}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlCuenta.activarAceptar()}" update=":form:aceptarBC"/>

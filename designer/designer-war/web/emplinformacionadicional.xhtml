@@ -266,7 +266,7 @@
 
                   <p:dialog header="#{msg['gia']}" widgetVar="GrupoDialogo" draggable="true" resizable="false" closable="false" id="GrupoDialogo"  
                             showEffect="fade" hideEffect="fade" width="420" modal="true">
-                     <p:dataTable id="lovGrupo" var="grupo" value="#{controlEmplInformacionAdicional.listGruposInfAdicional}" rowKey="#{grupo.secuencia}"
+                     <p:dataTable id="lovGrupo" var="grupo" value="#{controlEmplInformacionAdicional.lovGruposInfAdicional}" rowKey="#{grupo.secuencia}"
                                   selection="#{controlEmplInformacionAdicional.grupoSelecionado}" selectionMode="single" widgetVar="lovGrupo" scrollable="true" scrollWidth="400" scrollHeight="250"
                                   filteredValue="#{controlEmplInformacionAdicional.filtrarListGruposInfAdicional}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="filter" listener="#{controlEmplInformacionAdicional.contarRegistroGrupo()}"/>

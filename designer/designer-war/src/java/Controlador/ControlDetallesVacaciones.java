@@ -49,7 +49,7 @@ public class ControlDetallesVacaciones {
    private NovedadesSistema nuevaNovedadSistema;
    private NovedadesSistema dupliacarNovedadSistema;
 //
-   private List<Vacaciones> listaPeriodos;
+   private List<Vacaciones> lovPeriodos;
    private List<Vacaciones> filtradoslistaPeriodos;
    private Vacaciones periodoSeleccionado;
 //
@@ -84,7 +84,7 @@ public class ControlDetallesVacaciones {
       nuevaNovedadSistema = new NovedadesSistema();
       dupliacarNovedadSistema = null;
       //
-      listaPeriodos = null;
+      lovPeriodos = null;
       filtradoslistaPeriodos = null;
       periodoSeleccionado = null;
       //
@@ -108,8 +108,8 @@ public class ControlDetallesVacaciones {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      lovPeriodos = null;
    }
 
    @PostConstruct
@@ -152,26 +152,16 @@ public class ControlDetallesVacaciones {
          controlListaNavegacion.quitarPagina(pagActual);
          
       } else {
-         */
-String pagActual = "detallesvacaciones";
-         
-         
-         
+       */
+      String pagActual = "detallesvacaciones";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -271,15 +261,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    //Gets y Sets
-   public List<Vacaciones> getListaPeriodos() {
-      if (listaPeriodos == null) {
-         listaPeriodos = administrarDetalleVacacion.periodosEmpleado(empleado.getSecuencia());
+   public List<Vacaciones> getLovPeriodos() {
+      if (lovPeriodos == null) {
+         lovPeriodos = administrarDetalleVacacion.periodosEmpleado(empleado.getSecuencia());
       }
-      return listaPeriodos;
+      return lovPeriodos;
    }
 
-   public void setListaPeriodos(List<Vacaciones> listaPeriodos) {
-      this.listaPeriodos = listaPeriodos;
+   public void setLovPeriodos(List<Vacaciones> lovPeriodos) {
+      this.lovPeriodos = lovPeriodos;
    }
 
    public List<NovedadesSistema> getListaNovedadesSistema() {

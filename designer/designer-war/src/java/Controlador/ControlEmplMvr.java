@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.acl.Group;
 import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -52,11 +51,11 @@ public class ControlEmplMvr implements Serializable {
    private List<OtrosCertificados> listOCertificados;
    private List<OtrosCertificados> filtrarListOtrosCertificados;
    private OtrosCertificados otroCertificadoSeleccionado;
-   private List<Motivosmvrs> listMotivosMvrs;
+   private List<Motivosmvrs> lovMotivosMvrs;
    private Motivosmvrs motivoMvrSeleccionado;
    private List<Motivosmvrs> filtrarListMotivosMvrs;
    //
-   private List<TiposCertificados> listTiposCertificados;
+   private List<TiposCertificados> lovTiposCertificados;
    private TiposCertificados tipoCertificadoSeleccionado;
    private List<TiposCertificados> filtrarListTiposCertificados;
    //Empleado
@@ -134,9 +133,9 @@ public class ControlEmplMvr implements Serializable {
       nombreTablaRastro = "";
       msnConfirmarRastro = "";
       msnConfirmarRastroHistorico = "";
-      listMotivosMvrs = null;
+      lovMotivosMvrs = null;
       empleado = new Empleados();
-      listTiposCertificados = null;
+      lovTiposCertificados = null;
       backUp = null;
       //Otros
       aceptar = true;
@@ -201,37 +200,19 @@ public class ControlEmplMvr implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplmvrs";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplmvrs";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -243,8 +224,8 @@ String pagActual = "emplmvrs";
    }
 
    public void limpiarListasValor() {
-      listMotivosMvrs = null;
-      listTiposCertificados = null;
+      lovMotivosMvrs = null;
+      lovTiposCertificados = null;
    }
 
    @PostConstruct
@@ -467,14 +448,14 @@ String pagActual = "emplmvrs";
       if (confirmarCambio.equalsIgnoreCase("MOTIVO")) {
          mvrSeleccionado.getMotivo().setNombre(motivoMvrs);
 
-         for (int i = 0; i < listMotivosMvrs.size(); i++) {
-            if (listMotivosMvrs.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosMvrs.size(); i++) {
+            if (lovMotivosMvrs.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            mvrSeleccionado.setMotivo(listMotivosMvrs.get(indiceUnicoElemento));
+            mvrSeleccionado.setMotivo(lovMotivosMvrs.get(indiceUnicoElemento));
          } else {
             permitirIndexMvrs = false;
             contarRegistrosMot();
@@ -554,14 +535,14 @@ String pagActual = "emplmvrs";
       if (confirmarCambio.equalsIgnoreCase("CERTIFICADO")) {
          otroCertificadoSeleccionado.getTipocertificado().setDescripcion(tipoCertificado);
 
-         for (int i = 0; i < listTiposCertificados.size(); i++) {
-            if (listTiposCertificados.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposCertificados.size(); i++) {
+            if (lovTiposCertificados.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            otroCertificadoSeleccionado.setTipocertificado(listTiposCertificados.get(indiceUnicoElemento));
+            otroCertificadoSeleccionado.setTipocertificado(lovTiposCertificados.get(indiceUnicoElemento));
          } else {
             permitirIndexOtrosCertificados = false;
             contarRegistrosCer();
@@ -626,18 +607,18 @@ String pagActual = "emplmvrs";
          } else if (tipoNuevo == 2) {
             duplicarMvrs.getMotivo().setNombre(motivoMvrs);
          }
-         for (int i = 0; i < listMotivosMvrs.size(); i++) {
-            if (listMotivosMvrs.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosMvrs.size(); i++) {
+            if (lovMotivosMvrs.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaMvrs.setMotivo(listMotivosMvrs.get(indiceUnicoElemento));
+               nuevaMvrs.setMotivo(lovMotivosMvrs.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoMVRS");
             } else if (tipoNuevo == 2) {
-               duplicarMvrs.setMotivo(listMotivosMvrs.get(indiceUnicoElemento));
+               duplicarMvrs.setMotivo(lovMotivosMvrs.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoMVRS");
             }
          } else {
@@ -691,18 +672,18 @@ String pagActual = "emplmvrs";
          } else if (tipoNuevo == 2) {
             duplicarOtrosCertificados.getTipocertificado().setDescripcion(tipoCertificado);
          }
-         for (int i = 0; i < listTiposCertificados.size(); i++) {
-            if (listTiposCertificados.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovTiposCertificados.size(); i++) {
+            if (lovTiposCertificados.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaOtroCertificado.setTipocertificado(listTiposCertificados.get(indiceUnicoElemento));
+               nuevaOtroCertificado.setTipocertificado(lovTiposCertificados.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCertificadoOC");
             } else if (tipoNuevo == 2) {
-               duplicarOtrosCertificados.setTipocertificado(listTiposCertificados.get(indiceUnicoElemento));
+               duplicarOtrosCertificados.setTipocertificado(lovTiposCertificados.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCertificadoOC");
             }
          } else {
@@ -2047,15 +2028,15 @@ String pagActual = "emplmvrs";
       this.filtrarListOtrosCertificados = filtrarListOtrosCertificados;
    }
 
-   public List<Motivosmvrs> getListMotivosMvrs() {
-      if (listMotivosMvrs == null) {
-         listMotivosMvrs = administrarEmplMvrs.listMotivos();
+   public List<Motivosmvrs> getLovMotivosMvrs() {
+      if (lovMotivosMvrs == null) {
+         lovMotivosMvrs = administrarEmplMvrs.listMotivos();
       }
-      return listMotivosMvrs;
+      return lovMotivosMvrs;
    }
 
-   public void setListMotivosMvrs(List<Motivosmvrs> listMotivosMvrs) {
-      this.listMotivosMvrs = listMotivosMvrs;
+   public void setLovMotivosMvrs(List<Motivosmvrs> lovMotivosMvrs) {
+      this.lovMotivosMvrs = lovMotivosMvrs;
    }
 
    public Motivosmvrs getMotivoMvrSeleccionado() {
@@ -2074,15 +2055,15 @@ String pagActual = "emplmvrs";
       this.filtrarListMotivosMvrs = filtrarListMotivosMvrs;
    }
 
-   public List<TiposCertificados> getListTiposCertificados() {
-      if (listTiposCertificados == null) {
-         listTiposCertificados = administrarEmplMvrs.listTiposCertificados();
+   public List<TiposCertificados> getLovTiposCertificados() {
+      if (lovTiposCertificados == null) {
+         lovTiposCertificados = administrarEmplMvrs.listTiposCertificados();
       }
-      return listTiposCertificados;
+      return lovTiposCertificados;
    }
 
-   public void setListTiposCertificados(List<TiposCertificados> listTiposCertificados) {
-      this.listTiposCertificados = listTiposCertificados;
+   public void setLovTiposCertificados(List<TiposCertificados> lovTiposCertificados) {
+      this.lovTiposCertificados = lovTiposCertificados;
    }
 
    public TiposCertificados getTipoCertificadoSeleccionado() {

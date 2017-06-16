@@ -70,7 +70,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
    private Empleados empleadoSeleccionado;
    //autocompletar
    private String normaLaboral;
-   private List<NormasLaborales> listaNormasLaborales;
+   private List<NormasLaborales> lovNormasLaborales;
    private List<NormasLaborales> filtradoNormasLaborales;
    private NormasLaborales normaLaboralSeleccionada;
    private String nuevoYduplicarCompletarNormaLaboral;
@@ -96,7 +96,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
       duplicarEmplVigenciaNormaLaboral = new VigenciasNormasEmpleados();
       empleadoSeleccionado = null;
       secuenciaEmpleado = null;
-      listaNormasLaborales = null;
+      lovNormasLaborales = null;
       filtradoNormasLaborales = null;
       guardado = true;
       altoTabla = "292";
@@ -122,37 +122,19 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigencianormalaboral";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigencianormalaboral";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -164,7 +146,7 @@ String pagActual = "emplvigencianormalaboral";
    }
 
    public void limpiarListasValor() {
-
+      lovNormasLaborales = null;
    }
 
    @PostConstruct
@@ -432,17 +414,17 @@ String pagActual = "emplvigencianormalaboral";
          if (!vigenciaSeleccionada.getNormalaboral().getNombre().equals("")) {
             vigenciaSeleccionada.getNormalaboral().setNombre(normaLaboral);
 
-            for (int i = 0; i < listaNormasLaborales.size(); i++) {
-               if (listaNormasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovNormasLaborales.size(); i++) {
+               if (lovNormasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
 
             if (coincidencias == 1) {
-               vigenciaSeleccionada.setNormalaboral(listaNormasLaborales.get(indiceUnicoElemento));
-               listaNormasLaborales.clear();
-               listaNormasLaborales = null;
+               vigenciaSeleccionada.setNormalaboral(lovNormasLaborales.get(indiceUnicoElemento));
+               lovNormasLaborales.clear();
+               lovNormasLaborales = null;
 
             } else {
                permitirIndex = false;
@@ -535,17 +517,17 @@ String pagActual = "emplvigencianormalaboral";
       if (confirmarCambio.equalsIgnoreCase("NORMASLABORALES")) {
          if (!nuevoEmplVigenciaNormaLaboral.getNormalaboral().getNombre().equals("")) {
             nuevoEmplVigenciaNormaLaboral.getNormalaboral().setNombre(nuevoYduplicarCompletarNormaLaboral);
-            getListaNormasLaborales();
-            for (int i = 0; i < listaNormasLaborales.size(); i++) {
-               if (listaNormasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            getLovNormasLaborales();
+            for (int i = 0; i < lovNormasLaborales.size(); i++) {
+               if (lovNormasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               nuevoEmplVigenciaNormaLaboral.setNormalaboral(listaNormasLaborales.get(indiceUnicoElemento));
-               listaNormasLaborales = null;
-               getListaNormasLaborales();
+               nuevoEmplVigenciaNormaLaboral.setNormalaboral(lovNormasLaborales.get(indiceUnicoElemento));
+               lovNormasLaborales = null;
+               getLovNormasLaborales();
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
@@ -600,16 +582,16 @@ String pagActual = "emplvigencianormalaboral";
       if (confirmarCambio.equalsIgnoreCase("NORMASLABORALES")) {
          if (!duplicarEmplVigenciaNormaLaboral.getNormalaboral().getNombre().equals("") || !duplicarEmplVigenciaNormaLaboral.getNormalaboral().getNombre().isEmpty()) {
             duplicarEmplVigenciaNormaLaboral.getNormalaboral().setNombre(nuevoYduplicarCompletarNormaLaboral);
-            for (int i = 0; i < listaNormasLaborales.size(); i++) {
-               if (listaNormasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovNormasLaborales.size(); i++) {
+               if (lovNormasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               duplicarEmplVigenciaNormaLaboral.setNormalaboral(listaNormasLaborales.get(indiceUnicoElemento));
-               listaNormasLaborales = null;
-               getListaNormasLaborales();
+               duplicarEmplVigenciaNormaLaboral.setNormalaboral(lovNormasLaborales.get(indiceUnicoElemento));
+               lovNormasLaborales = null;
+               getLovNormasLaborales();
             } else {
                RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
@@ -1019,15 +1001,15 @@ String pagActual = "emplvigencianormalaboral";
    }
    private String infoRecursoNormasLaborales;
 
-   public List<NormasLaborales> getListaNormasLaborales() {
-      if (listaNormasLaborales == null) {
-         listaNormasLaborales = administrarVigenciaNormaLaboral.lovNormasLaborales();
+   public List<NormasLaborales> getLovNormasLaborales() {
+      if (lovNormasLaborales == null) {
+         lovNormasLaborales = administrarVigenciaNormaLaboral.lovNormasLaborales();
       }
-      return listaNormasLaborales;
+      return lovNormasLaborales;
    }
 
-   public void setListaNormasLaborales(List<NormasLaborales> listaNormasLaborales) {
-      this.listaNormasLaborales = listaNormasLaborales;
+   public void setLovNormasLaborales(List<NormasLaborales> lovNormasLaborales) {
+      this.lovNormasLaborales = lovNormasLaborales;
    }
 
    public List<NormasLaborales> getFiltradoNormasLaborales() {

@@ -49,7 +49,7 @@ public class ControlSucursalesPila implements Serializable {
    private boolean permitirIndex;
    private int registrosBorrados;
    private String mensajeValidacion;
-   private List<Empresas> listaEmpresas;
+   private List<Empresas> lovEmpresas;
    private List<Empresas> filtradoListaEmpresas;
 
    private Empresas empresaSeleccionada;
@@ -86,7 +86,7 @@ public class ControlSucursalesPila implements Serializable {
 
    public ControlSucursalesPila() {
       permitirIndex = true;
-      listaEmpresas = null;
+      lovEmpresas = null;
       empresaSeleccionada = null;
       indiceEmpresaMostrada = 0;
       listSucursalesPilaPorEmpresa = null;
@@ -106,7 +106,7 @@ public class ControlSucursalesPila implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovEmpresas = null;
    }
 
    @PostConstruct
@@ -124,30 +124,30 @@ public class ControlSucursalesPila implements Serializable {
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      listaEmpresas = null;
-      getListaEmpresas();
-      if (listaEmpresas != null) {
-         if (!listaEmpresas.isEmpty()) {
-            empresaSeleccionada = listaEmpresas.get(0);
+      lovEmpresas = null;
+      getLovEmpresas();
+      if (lovEmpresas != null) {
+         if (!lovEmpresas.isEmpty()) {
+            empresaSeleccionada = lovEmpresas.get(0);
          }
       }
       listSucursalesPilaPorEmpresa = null;
-      getListaEmpresas();
+      getLovEmpresas();
 
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      listaEmpresas = null;
-      getListaEmpresas();
-      if (listaEmpresas != null) {
-         if (!listaEmpresas.isEmpty()) {
-            empresaSeleccionada = listaEmpresas.get(0);
+      lovEmpresas = null;
+      getLovEmpresas();
+      if (lovEmpresas != null) {
+         if (!lovEmpresas.isEmpty()) {
+            empresaSeleccionada = lovEmpresas.get(0);
          }
       }
       listSucursalesPilaPorEmpresa = null;
-      getListaEmpresas();
+      getLovEmpresas();
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
 
@@ -155,37 +155,19 @@ public class ControlSucursalesPila implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "sucursal_pila";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "sucursal_pila";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -726,15 +708,15 @@ String pagActual = "sucursal_pila";
    }
    private String infoRegistroEmpresas;
 
-   public List<Empresas> getListaEmpresas() {
-      if (listaEmpresas == null) {
-         listaEmpresas = administrarSucursalesPila.buscarEmpresas();
+   public List<Empresas> getLovEmpresas() {
+      if (lovEmpresas == null) {
+         lovEmpresas = administrarSucursalesPila.buscarEmpresas();
       }
-      return listaEmpresas;
+      return lovEmpresas;
    }
 
-   public void setListaEmpresas(List<Empresas> listaEmpresas) {
-      this.listaEmpresas = listaEmpresas;
+   public void setLovEmpresas(List<Empresas> lovEmpresas) {
+      this.lovEmpresas = lovEmpresas;
    }
 
    public List<Empresas> getFiltradoListaEmpresas() {

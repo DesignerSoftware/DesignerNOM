@@ -188,9 +188,9 @@
 
                   <p:dialog header="#{msg['idiomasI']}" widgetVar="IdiomasDialogo" draggable="true" resizable="false" closable="false" id="IdiomasDialogo"  
                             showEffect="fade" hideEffect="fade" width="440" modal="true">
-                     <p:dataTable id="lovIdiomas"  var="idiomas" value="#{controlIdiomaPersona.listIdiomas}" rowKey="#{idiomas.secuencia}"
-                                  selection="#{controlIdiomaPersona.idiomaSeleccionado}" selectionMode="single" widgetVar="lovIdiomas" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                  filteredValue="#{controlIdiomaPersona.filtrarListIdiomas}" emptyMessage="#{msg['lovvacio']}">              
+                     <p:dataTable id="lovIdiomas"  var="idiomas" value="#{controlIdiomaPersona.lovIdiomas}" rowKey="#{idiomas.secuencia}"
+                                  selection="#{controlIdiomaPersona.idiomaLovSeleccionado}" selectionMode="single" widgetVar="lovIdiomas" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                  filteredValue="#{controlIdiomaPersona.filtrarLovIdiomas}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlIdiomaPersona.activarAceptar()}" update=":form:aceptarI"/>
                         <p:ajax event="filter" listener="#{controlIdiomaPersona.contarRegistroIdioma()}"/>
                         <p:ajax event="rowDblselect" listener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this"/>

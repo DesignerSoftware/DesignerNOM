@@ -50,16 +50,16 @@ public class ControlCuenta implements Serializable {
    private List<Cuentas> filtrarListCuentas;
    private Cuentas cuentaTablaSeleccionada;
    //
-   private List<Empresas> listaEmpresas;
+   private List<Empresas> lovEmpresas;
    private List<Empresas> filtrarListEmpresas;
    private Empresas empresaSeleccionada;
    private Empresas empresaActual;
    //
-   private List<Rubrospresupuestales> listRubros;
+   private List<Rubrospresupuestales> lovRubros;
    private List<Rubrospresupuestales> filtrarListRubros;
    private Rubrospresupuestales rubroSeleccionado;
    //
-   private List<Cuentas> listCuentasTesoreria;
+   private List<Cuentas> lovCuentasTesoreria;
    private List<Cuentas> filtrarListCuentasTesoreria;
    private Cuentas cuentaSeleccionada;
    //
@@ -104,10 +104,10 @@ public class ControlCuenta implements Serializable {
       activoDetalle = true;
       altoTabla = "265";
       cuentaActual = null;
-      listRubros = null;
-      listCuentasTesoreria = null;
+      lovRubros = null;
+      lovCuentasTesoreria = null;
       backUpEmpresaActual = new Empresas();
-      listaEmpresas = null;
+      lovEmpresas = null;
       nombreTablaRastro = "";
       backUp = null;
       msnConfirmarRastro = "";
@@ -142,9 +142,9 @@ public class ControlCuenta implements Serializable {
       activoDetalle = true;
       listCuentas = null;
       getListEmpresas();
-      if (listaEmpresas != null) {
-         if (listaEmpresas.size() > 0) {
-            empresaActual = listaEmpresas.get(0);
+      if (lovEmpresas != null) {
+         if (lovEmpresas.size() > 0) {
+            empresaActual = lovEmpresas.get(0);
             backUpEmpresaActual = empresaActual;
          }
       }
@@ -158,9 +158,9 @@ public class ControlCuenta implements Serializable {
       activoDetalle = true;
       listCuentas = null;
       getListEmpresas();
-      if (listaEmpresas != null) {
-         if (listaEmpresas.size() > 0) {
-            empresaActual = listaEmpresas.get(0);
+      if (lovEmpresas != null) {
+         if (lovEmpresas.size() > 0) {
+            empresaActual = lovEmpresas.get(0);
             backUpEmpresaActual = empresaActual;
          }
       }
@@ -172,31 +172,13 @@ public class ControlCuenta implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "cuenta";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "cuenta";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -214,7 +196,9 @@ String pagActual = "cuenta";
    }
 
    public void limpiarListasValor() {
-
+      lovCuentasTesoreria = null;
+      lovEmpresas = null;
+      lovRubros = null;
    }
 
    @PostConstruct
@@ -225,9 +209,9 @@ String pagActual = "cuenta";
          administrarCuentas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
          getListEmpresas();
-         if (listaEmpresas != null) {
-            if (listaEmpresas.size() > 0) {
-               empresaActual = listaEmpresas.get(0);
+         if (lovEmpresas != null) {
+            if (lovEmpresas.size() > 0) {
+               empresaActual = lovEmpresas.get(0);
                backUpEmpresaActual = empresaActual;
             }
          }
@@ -245,9 +229,9 @@ String pagActual = "cuenta";
       activoDetalle = true;
       listCuentas = null;
       getListEmpresas();
-      if (listaEmpresas != null) {
-         if (listaEmpresas.size() > 0) {
-            empresaActual = listaEmpresas.get(0);
+      if (lovEmpresas != null) {
+         if (lovEmpresas.size() > 0) {
+            empresaActual = lovEmpresas.get(0);
             backUpEmpresaActual = empresaActual;
          }
       }
@@ -343,16 +327,16 @@ String pagActual = "cuenta";
       if (confirmarCambio.equalsIgnoreCase("CONTRACUENTA")) {
          if (!valorConfirmar.isEmpty()) {
             cuentaTablaSeleccionada.getContracuentatesoreria().setCodigo(cuentaTablaSeleccionada.getContracuentatesoreria().getCodigo());
-            for (int i = 0; i < listCuentasTesoreria.size(); i++) {
-               if (listCuentasTesoreria.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCuentasTesoreria.size(); i++) {
+               if (lovCuentasTesoreria.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               cuentaTablaSeleccionada.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
-               listCuentasTesoreria.clear();
-               getListCuentasTesoreria();
+               cuentaTablaSeleccionada.setContracuentatesoreria(lovCuentasTesoreria.get(indiceUnicoElemento));
+               lovCuentasTesoreria.clear();
+               getLovCuentasTesoreria();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:ContracuentaDialogo");
@@ -365,23 +349,23 @@ String pagActual = "cuenta";
             cuentaTablaSeleccionada.getContracuentatesoreria().setCodigo("");
             cuentaTablaSeleccionada.getContracuentatesoreria().setDescripcion("");
             cuentaTablaSeleccionada.getContracuentatesoreria().setEmpresa(empresaActual);
-            listCuentasTesoreria.clear();
-            getListCuentasTesoreria();
+            lovCuentasTesoreria.clear();
+            getLovCuentasTesoreria();
          }
       }
       if (confirmarCambio.equalsIgnoreCase("RUBRO")) {
          if (!valorConfirmar.isEmpty()) {
             cuentaTablaSeleccionada.getRubropresupuestal().setDescripcion(cuentaTablaSeleccionada.getRubropresupuestal().getDescripcion());
-            for (int i = 0; i < listRubros.size(); i++) {
-               if (listRubros.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovRubros.size(); i++) {
+               if (lovRubros.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               cuentaTablaSeleccionada.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
-               listRubros.clear();
-               getListRubros();
+               cuentaTablaSeleccionada.setRubropresupuestal(lovRubros.get(indiceUnicoElemento));
+               lovRubros.clear();
+               getLovRubros();
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:RubrosDialogo");
@@ -398,8 +382,8 @@ String pagActual = "cuenta";
             cuentaTablaSeleccionada.getRubropresupuestal().setPlaTipres("");
             cuentaTablaSeleccionada.getRubropresupuestal().setAreCodigo(Short.valueOf("1"));
             cuentaTablaSeleccionada.getRubropresupuestal().setGrupotipocc(new GruposTiposCC());
-            listRubros.clear();
-            getListRubros();
+            lovRubros.clear();
+            getLovRubros();
          }
       }
       if (coincidencias == 1) {
@@ -555,14 +539,14 @@ String pagActual = "cuenta";
       cuentaTablaSeleccionada = null;
       k = 0;
       listCuentas = null;
-      listCuentasTesoreria = null;
+      lovCuentasTesoreria = null;
       guardado = true;
       cambiosCuentas = false;
       cuentaActual = null;
       getListCuentas();
       contarRegistro();
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      getListCuentasTesoreria();
+      getLovCuentasTesoreria();
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:datosCuenta");
@@ -1040,7 +1024,7 @@ String pagActual = "cuenta";
 //        RequestContext.getCurrentInstance().update("form:DETALLES");
       cuentaTablaSeleccionada = null;
       listCuentas = null;
-      listaEmpresas = null;
+      lovEmpresas = null;
       empresaActual = null;
       k = 0;
       listCuentas = null;
@@ -1112,22 +1096,22 @@ String pagActual = "cuenta";
             } else if (tipoNuevo == 2) {
                duplicarCuentas.getContracuentatesoreria().setDescripcion(cuenta);
             }
-            for (int i = 0; i < listCuentasTesoreria.size(); i++) {
-               if (listCuentasTesoreria.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCuentasTesoreria.size(); i++) {
+               if (lovCuentasTesoreria.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevoCuentas.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
+                  nuevoCuentas.setContracuentatesoreria(lovCuentasTesoreria.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTerceroCT");
                } else if (tipoNuevo == 2) {
-                  duplicarCuentas.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
+                  duplicarCuentas.setContracuentatesoreria(lovCuentasTesoreria.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroCT");
                }
-               listCuentasTesoreria.clear();
-               getListCuentasTesoreria();
+               lovCuentasTesoreria.clear();
+               getLovCuentasTesoreria();
             } else {
                RequestContext.getCurrentInstance().update("form:TerceroDialogo");
                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
@@ -1146,8 +1130,8 @@ String pagActual = "cuenta";
                duplicarCuentas.setContracuentatesoreria(new Cuentas());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroCT");
             }
-            listCuentasTesoreria.clear();
-            getListCuentasTesoreria();
+            lovCuentasTesoreria.clear();
+            getLovCuentasTesoreria();
          }
       } else if (confirmarCambio.equalsIgnoreCase("RUBROS")) {
          if (!valorConfirmar.isEmpty()) {
@@ -1156,22 +1140,22 @@ String pagActual = "cuenta";
             } else if (tipoNuevo == 2) {
                duplicarCuentas.getRubropresupuestal().setDescripcion(rubroP);
             }
-            for (int i = 0; i < listRubros.size(); i++) {
-               if (listRubros.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovRubros.size(); i++) {
+               if (lovRubros.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevoCuentas.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
+                  nuevoCuentas.setRubropresupuestal(lovRubros.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoAT");
                } else if (tipoNuevo == 2) {
-                  duplicarCuentas.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
+                  duplicarCuentas.setRubropresupuestal(lovRubros.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoAT");
                }
-               listRubros.clear();
-               getListRubros();
+               lovRubros.clear();
+               getLovRubros();
             } else {
                RequestContext.getCurrentInstance().update("form:CiudadDialogo");
                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
@@ -1190,8 +1174,8 @@ String pagActual = "cuenta";
                duplicarCuentas.setRubropresupuestal(new Rubrospresupuestales());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoAT");
             }
-            listRubros.clear();
-            getListRubros();
+            lovRubros.clear();
+            getLovRubros();
          }
       }
    }
@@ -1387,7 +1371,7 @@ String pagActual = "cuenta";
    }
 
    public void dialogoSeleccionarCuenta() {
-      getListCuentasTesoreria();
+      getLovCuentasTesoreria();
       RequestContext.getCurrentInstance().update("form:BuscarCuentasDialogo");
       RequestContext.getCurrentInstance().execute("PF('BuscarCuentasDialogo').show()");
    }
@@ -1484,12 +1468,12 @@ String pagActual = "cuenta";
          aceptar = true;
          empresaActual = empresaSeleccionada;
          backUpEmpresaActual = empresaActual;
-         listCuentasTesoreria = null;
+         lovCuentasTesoreria = null;
          cuentaActual = null;
          listCuentas = null;
          getListCuentas();
          contarRegistro();
-         getListCuentasTesoreria();
+         getLovCuentasTesoreria();
          RequestContext.getCurrentInstance().update("form:nombreEmpresa");
          RequestContext.getCurrentInstance().update("form:nitEmpresa");
          RequestContext.getCurrentInstance().update("form:datosCuenta");
@@ -1705,12 +1689,12 @@ String pagActual = "cuenta";
    }
 
    public List<Empresas> getListEmpresas() {
-      listaEmpresas = administrarCuentas.consultarEmpresas();
-      return listaEmpresas;
+      lovEmpresas = administrarCuentas.consultarEmpresas();
+      return lovEmpresas;
    }
 
    public void setListEmpresas(List<Empresas> listEmpresas) {
-      this.listaEmpresas = listEmpresas;
+      this.lovEmpresas = listEmpresas;
    }
 
    public List<Empresas> getFiltrarListEmpresas() {
@@ -1737,14 +1721,14 @@ String pagActual = "cuenta";
       this.backUpEmpresaActual = backUpEmpresaActual;
    }
 
-   public List<Rubrospresupuestales> getListRubros() {
-      listRubros = administrarCuentas.consultarLOVRubros();
+   public List<Rubrospresupuestales> getLovRubros() {
+      lovRubros = administrarCuentas.consultarLOVRubros();
 
-      return listRubros;
+      return lovRubros;
    }
 
-   public void setListRubros(List<Rubrospresupuestales> listCiudades) {
-      this.listRubros = listCiudades;
+   public void setLovRubros(List<Rubrospresupuestales> listCiudades) {
+      this.lovRubros = listCiudades;
    }
 
    public List<Rubrospresupuestales> getFiltrarListRubros() {
@@ -1763,15 +1747,15 @@ String pagActual = "cuenta";
       this.rubroSeleccionado = seleccionado;
    }
 
-   public List<Cuentas> getListCuentasTesoreria() {
+   public List<Cuentas> getLovCuentasTesoreria() {
       if (empresaActual.getSecuencia() != null) {
-         listCuentasTesoreria = administrarCuentas.consultarCuentasEmpresa(empresaActual.getSecuencia());
+         lovCuentasTesoreria = administrarCuentas.consultarCuentasEmpresa(empresaActual.getSecuencia());
       }
-      return listCuentasTesoreria;
+      return lovCuentasTesoreria;
    }
 
-   public void setListCuentasTesoreria(List<Cuentas> CuentasTesoreria) {
-      this.listCuentasTesoreria = CuentasTesoreria;
+   public void setLovCuentasTesoreria(List<Cuentas> CuentasTesoreria) {
+      this.lovCuentasTesoreria = CuentasTesoreria;
    }
 
    public List<Cuentas> getFiltrarListCuentasTesoreria() {

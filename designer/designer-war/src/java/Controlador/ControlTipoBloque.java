@@ -121,7 +121,7 @@ public class ControlTipoBloque implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovTiposBloques = null;
    }
 
    @PostConstruct
@@ -829,7 +829,7 @@ public class ControlTipoBloque implements Serializable {
    public void setEditorE(String editorE) {
       this.editorE = editorE;
    }
-   
+
    public TiposBloques getTipoBloqueSeleccionado() {
       return tipoBloqueSeleccionado;
    }

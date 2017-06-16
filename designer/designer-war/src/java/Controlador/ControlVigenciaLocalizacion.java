@@ -19,7 +19,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -60,19 +59,19 @@ public class ControlVigenciaLocalizacion implements Serializable {
    private List<VigenciasProrrateosProyectos> filtradoPP;
    private VigenciasProrrateosProyectos vigenciaProrrateoProyectoSeleccionada;
    //Centros Costos
-   private List<CentrosCostos> listCentrosCostos;
+   private List<CentrosCostos> lovCentrosCostos;
    private CentrosCostos centroCostoSeleccionado;
    private List<CentrosCostos> filtradoCentroCostos;
    //Motivos Localizaciones
-   private List<MotivosLocalizaciones> listMotivosLocalizaciones;
+   private List<MotivosLocalizaciones> lovMotivosLocalizaciones;
    private MotivosLocalizaciones motivoLocalizacionSelecionado;
    private List<MotivosLocalizaciones> filtradoMotivosLocalizaciones;
    //Estructuras-Centro Costo 
-   private List<Estructuras> listEstructurasCC;
+   private List<Estructuras> lovEstructurasCC;
    private Estructuras estructuraSelecionada;
    private List<Estructuras> filtradoEstructuraCC;
    //Proyectos
-   private List<Proyectos> listProyectos;
+   private List<Proyectos> lovProyectos;
    private Proyectos proyectoSelecionado;
    private List<Proyectos> filtradoProyectos;
    //Empleado
@@ -164,19 +163,16 @@ public class ControlVigenciaLocalizacion implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlVigenciaLocalizacion() {
-
       msnConfirmarRastro = "";
       msnConfirmarRastroHistorico = "";
       backUp = null;
       nombreTablaRastro = "";
-
-      listCentrosCostos = null;
-
+      lovCentrosCostos = null;
       vigenciaLocalizaciones = null;
-      listEstructurasCC = null;
-      listMotivosLocalizaciones = null;
+      lovEstructurasCC = null;
+      lovMotivosLocalizaciones = null;
       empleado = new Empleados();
-      listProyectos = null;
+      lovProyectos = null;
       //Otros
       aceptar = true;
       //borrar aficiones
@@ -246,10 +242,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
    }
 
    public void limpiarListasValor() {
-      listCentrosCostos = null;
-      listEstructurasCC = null;
-      listMotivosLocalizaciones = null;
-      listProyectos = null;
+      lovCentrosCostos = null;
+      lovEstructurasCC = null;
+      lovMotivosLocalizaciones = null;
+      lovProyectos = null;
    }
 
    @PostConstruct
@@ -280,37 +276,19 @@ public class ControlVigenciaLocalizacion implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
-String pagActual = "emplvigencialocalizacion";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "emplvigencialocalizacion";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -434,14 +412,14 @@ String pagActual = "emplvigencialocalizacion";
          RequestContext.getCurrentInstance().update("form:listaValores");
          vigenciaLocalizacionSeleccionada.getLocalizacion().getCentrocosto().setCodigoNombre(centroCosto);
 
-         for (int i = 0; i < listEstructurasCC.size(); i++) {
-            if (listEstructurasCC.get(i).getCentrocosto().getCodigoNombre().startsWith(vigenciaLocalizacionSeleccionada.getLocalizacion().getCentrocosto().getCodigoNombre().toUpperCase())) {
+         for (int i = 0; i < lovEstructurasCC.size(); i++) {
+            if (lovEstructurasCC.get(i).getCentrocosto().getCodigoNombre().startsWith(vigenciaLocalizacionSeleccionada.getLocalizacion().getCentrocosto().getCodigoNombre().toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaLocalizacionSeleccionada.setLocalizacion(listEstructurasCC.get(indiceUnicoElemento));
+            vigenciaLocalizacionSeleccionada.setLocalizacion(lovEstructurasCC.get(indiceUnicoElemento));
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:LocalizacionDialogo");
@@ -453,14 +431,14 @@ String pagActual = "emplvigencialocalizacion";
          RequestContext.getCurrentInstance().update("form:listaValores");
          vigenciaLocalizacionSeleccionada.getMotivo().setDescripcion(motivoLocalizacion);
 
-         for (int i = 0; i < listMotivosLocalizaciones.size(); i++) {
-            if (listMotivosLocalizaciones.get(i).getDescripcion().startsWith(vigenciaLocalizacionSeleccionada.getMotivo().getDescripcion().toUpperCase())) {
+         for (int i = 0; i < lovMotivosLocalizaciones.size(); i++) {
+            if (lovMotivosLocalizaciones.get(i).getDescripcion().startsWith(vigenciaLocalizacionSeleccionada.getMotivo().getDescripcion().toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
-            vigenciaLocalizacionSeleccionada.setMotivo(listMotivosLocalizaciones.get(indiceUnicoElemento));
+            vigenciaLocalizacionSeleccionada.setMotivo(lovMotivosLocalizaciones.get(indiceUnicoElemento));
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("form:MotivoDialogo");
@@ -473,17 +451,17 @@ String pagActual = "emplvigencialocalizacion";
          if (!vigenciaLocalizacionSeleccionada.getProyecto().getNombreproyecto().isEmpty()) {
             vigenciaLocalizacionSeleccionada.getProyecto().setNombreproyecto(proyecto);
 
-            for (int i = 0; i < listProyectos.size(); i++) {
-               if (listProyectos.get(i).getNombreproyecto().startsWith(vigenciaLocalizacionSeleccionada.getProyecto().getNombreproyecto().toUpperCase())) {
+            for (int i = 0; i < lovProyectos.size(); i++) {
+               if (lovProyectos.get(i).getNombreproyecto().startsWith(vigenciaLocalizacionSeleccionada.getProyecto().getNombreproyecto().toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               vigenciaLocalizacionSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
+               vigenciaLocalizacionSeleccionada.setProyecto(lovProyectos.get(indiceUnicoElemento));
             } else {
                permitirIndex = false;
-               getListProyectos();
+               getLovProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
                RequestContext.getCurrentInstance().update("form:lovProyectos");
                contarRegistrosProyecto();
@@ -750,15 +728,15 @@ String pagActual = "emplvigencialocalizacion";
          RequestContext.getCurrentInstance().update("form:listaValores");
          vigenciaProrrateoSeleccionada.getCentrocosto().setNombre(centroCostosVP);
 
-         for (int i = 0; i < listCentrosCostos.size(); i++) {
-            if (listCentrosCostos.get(i).getNombre().startsWith(vigenciaProrrateoSeleccionada.getCentrocosto().getNombre().toUpperCase())) {
+         for (int i = 0; i < lovCentrosCostos.size(); i++) {
+            if (lovCentrosCostos.get(i).getNombre().startsWith(vigenciaProrrateoSeleccionada.getCentrocosto().getNombre().toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             cambioVigenciaP = true;
-            vigenciaProrrateoSeleccionada.setCentrocosto(listCentrosCostos.get(indiceUnicoElemento));
+            vigenciaProrrateoSeleccionada.setCentrocosto(lovCentrosCostos.get(indiceUnicoElemento));
          } else {
             permitirIndexVP = false;
             RequestContext.getCurrentInstance().update("form:CentroCostosDialogo");
@@ -771,18 +749,18 @@ String pagActual = "emplvigencialocalizacion";
          if (!vigenciaProrrateoSeleccionada.getProyecto().getNombreproyecto().isEmpty()) {
             vigenciaProrrateoSeleccionada.getProyecto().setNombreproyecto(proyectoVP);
 
-            for (int i = 0; i < listProyectos.size(); i++) {
-               if (listProyectos.get(i).getNombreproyecto().startsWith(vigenciaProrrateoSeleccionada.getProyecto().getNombreproyecto().toUpperCase())) {
+            for (int i = 0; i < lovProyectos.size(); i++) {
+               if (lovProyectos.get(i).getNombreproyecto().startsWith(vigenciaProrrateoSeleccionada.getProyecto().getNombreproyecto().toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                cambioVigenciaP = true;
-               vigenciaProrrateoSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
+               vigenciaProrrateoSeleccionada.setProyecto(lovProyectos.get(indiceUnicoElemento));
             } else {
                permitirIndexVP = false;
-               getListProyectos();
+               getLovProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
                RequestContext.getCurrentInstance().update("form:lovProyectos");
                contarRegistrosProyecto();
@@ -941,18 +919,18 @@ String pagActual = "emplvigencialocalizacion";
       if (confirmarCambio.equalsIgnoreCase("PROYECTO")) {
          vigenciaProrrateoProyectoSeleccionada.getProyecto().setNombreproyecto(proyectoVPP);
 
-         for (int i = 0; i < listProyectos.size(); i++) {
-            if (listProyectos.get(i).getNombreproyecto().startsWith(vigenciaProrrateoProyectoSeleccionada.getProyecto().getNombreproyecto().toUpperCase())) {
+         for (int i = 0; i < lovProyectos.size(); i++) {
+            if (lovProyectos.get(i).getNombreproyecto().startsWith(vigenciaProrrateoProyectoSeleccionada.getProyecto().getNombreproyecto().toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             cambioVigenciaPP = true;
-            vigenciaProrrateoProyectoSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
+            vigenciaProrrateoProyectoSeleccionada.setProyecto(lovProyectos.get(indiceUnicoElemento));
          } else {
             permitirIndexVPP = false;
-            getListProyectos();
+            getLovProyectos();
             RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
             RequestContext.getCurrentInstance().update("form:lovProyectos");
             contarRegistrosProyecto();
@@ -1027,18 +1005,18 @@ String pagActual = "emplvigencialocalizacion";
          } else if (tipoNuevo == 2) {
             duplicarVL.getLocalizacion().getCentrocosto().setCodigoNombre(centroCosto);
          }
-         for (int i = 0; i < listEstructurasCC.size(); i++) {
-            if (listEstructurasCC.get(i).getCentrocosto().getCodigoNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovEstructurasCC.size(); i++) {
+            if (lovEstructurasCC.get(i).getCentrocosto().getCodigoNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setLocalizacion(listEstructurasCC.get(indiceUnicoElemento));
+               nuevaVigencia.setLocalizacion(lovEstructurasCC.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCentroCosto");
             } else if (tipoNuevo == 2) {
-               duplicarVL.setLocalizacion(listEstructurasCC.get(indiceUnicoElemento));
+               duplicarVL.setLocalizacion(lovEstructurasCC.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCentroCosto");
             }
          } else {
@@ -1057,18 +1035,18 @@ String pagActual = "emplvigencialocalizacion";
          } else if (tipoNuevo == 2) {
             duplicarVL.getMotivo().setDescripcion(motivoLocalizacion);
          }
-         for (int i = 0; i < listMotivosLocalizaciones.size(); i++) {
-            if (listMotivosLocalizaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovMotivosLocalizaciones.size(); i++) {
+            if (lovMotivosLocalizaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.setMotivo(listMotivosLocalizaciones.get(indiceUnicoElemento));
+               nuevaVigencia.setMotivo(lovMotivosLocalizaciones.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivo");
             } else if (tipoNuevo == 2) {
-               duplicarVL.setMotivo(listMotivosLocalizaciones.get(indiceUnicoElemento));
+               duplicarVL.setMotivo(lovMotivosLocalizaciones.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivo");
             }
          } else {
@@ -1088,22 +1066,22 @@ String pagActual = "emplvigencialocalizacion";
             } else if (tipoNuevo == 2) {
                duplicarVL.getProyecto().setNombreproyecto(proyecto);
             }
-            for (int i = 0; i < listProyectos.size(); i++) {
-               if (listProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovProyectos.size(); i++) {
+               if (lovProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigencia.setProyecto(listProyectos.get(indiceUnicoElemento));
+                  nuevaVigencia.setProyecto(lovProyectos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProyecto");
                } else if (tipoNuevo == 2) {
-                  duplicarVL.setProyecto(listProyectos.get(indiceUnicoElemento));
+                  duplicarVL.setProyecto(lovProyectos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProyecto");
                }
             } else {
-               getListProyectos();
+               getLovProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
                RequestContext.getCurrentInstance().update("form:lovProyectos");
                contarRegistrosProyecto();
@@ -1168,18 +1146,18 @@ String pagActual = "emplvigencialocalizacion";
          } else if (tipoNuevo == 2) {
             duplicarVP.getCentrocosto().setNombre(centroCostosVP);
          }
-         for (int i = 0; i < listCentrosCostos.size(); i++) {
-            if (listCentrosCostos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovCentrosCostos.size(); i++) {
+            if (lovCentrosCostos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaP.setCentrocosto(listCentrosCostos.get(indiceUnicoElemento));
+               nuevaVigenciaP.setCentrocosto(lovCentrosCostos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCentroCostoVP");
             } else if (tipoNuevo == 2) {
-               duplicarVP.setCentrocosto(listCentrosCostos.get(indiceUnicoElemento));
+               duplicarVP.setCentrocosto(lovCentrosCostos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoCentroCostoVP");
             }
          } else {
@@ -1199,22 +1177,22 @@ String pagActual = "emplvigencialocalizacion";
             } else if (tipoNuevo == 2) {
                duplicarVP.getProyecto().setNombreproyecto(proyecto);
             }
-            for (int i = 0; i < listProyectos.size(); i++) {
-               if (listProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovProyectos.size(); i++) {
+               if (lovProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaVigenciaP.setProyecto(listProyectos.get(indiceUnicoElemento));
+                  nuevaVigenciaP.setProyecto(lovProyectos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProyectoVP");
                } else if (tipoNuevo == 2) {
-                  duplicarVP.setProyecto(listProyectos.get(indiceUnicoElemento));
+                  duplicarVP.setProyecto(lovProyectos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoProyectoVP");
                }
             } else {
-               getListProyectos();
+               getLovProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
                RequestContext.getCurrentInstance().update("form:lovProyectos");
                contarRegistrosProyecto();
@@ -1272,22 +1250,22 @@ String pagActual = "emplvigencialocalizacion";
          } else if (tipoNuevo == 2) {
             duplicarVPP.getProyecto().setNombreproyecto(proyecto);
          }
-         for (int i = 0; i < listProyectos.size(); i++) {
-            if (listProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovProyectos.size(); i++) {
+            if (lovProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaVigenciaPP.setProyecto(listProyectos.get(indiceUnicoElemento));
+               nuevaVigenciaPP.setProyecto(lovProyectos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProyectoVPP");
             } else if (tipoNuevo == 2) {
-               duplicarVPP.setProyecto(listProyectos.get(indiceUnicoElemento));
+               duplicarVPP.setProyecto(lovProyectos.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProyectoVPP");
             }
          } else {
-            getListProyectos();
+            getLovProyectos();
             RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
             RequestContext.getCurrentInstance().update("form:lovProyectos");
             contarRegistrosProyecto();
@@ -2588,10 +2566,10 @@ String pagActual = "emplvigencialocalizacion";
       vigenciaProrrateoProyectoSeleccionada = null;
       paraNuevaV = 0;
       vigenciaLocalizaciones = null;
-      listCentrosCostos = null;
-      listProyectos = null;
-      listMotivosLocalizaciones = null;
-      listEstructurasCC = null;
+      lovCentrosCostos = null;
+      lovProyectos = null;
+      lovMotivosLocalizaciones = null;
+      lovEstructurasCC = null;
       guardado = true;
       vigenciasProrrateosCentroC = null;
       vigenciasProrrateosProyectos = null;
@@ -2626,7 +2604,7 @@ String pagActual = "emplvigencialocalizacion";
          context.execute("PF('MotivoDialogo').show()");
       } else if (campo == 2) {
          //Proyectos
-         getListProyectos();
+         getLovProyectos();
          context.update("form:ProyectosDialogo");
          contarRegistrosProyecto();
          context.execute("PF('ProyectosDialogo').show()");
@@ -2649,7 +2627,7 @@ String pagActual = "emplvigencialocalizacion";
          RequestContext.getCurrentInstance().execute("PF('CentroCostosDialogo').show()");
       } else if (dlg == 1) {
          //Proyectos
-         getListProyectos();
+         getLovProyectos();
          RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
          RequestContext.getCurrentInstance().update("form:lovProyectos");
          contarRegistrosProyecto();
@@ -2667,7 +2645,7 @@ String pagActual = "emplvigencialocalizacion";
       RequestContext.getCurrentInstance().update("form:listaValores");
       if (dlg == 0) {
          //Proyectos
-         getListProyectos();
+         getLovProyectos();
          RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
          RequestContext.getCurrentInstance().update("form:lovProyectos");
          contarRegistrosProyecto();
@@ -3048,7 +3026,7 @@ String pagActual = "emplvigencialocalizacion";
                RequestContext.getCurrentInstance().execute("PF('CentroCostosDialogo').show()");
             }
             if (cualCeldaVP == 4) {
-               getListProyectos();
+               getLovProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
                RequestContext.getCurrentInstance().update("form:lovProyectos");
                contarRegistrosProyecto();
@@ -3056,7 +3034,7 @@ String pagActual = "emplvigencialocalizacion";
             }
          } else if (vigenciaProrrateoProyectoSeleccionada != null) {
             if (cualCeldaVPP == 0) {
-               getListProyectos();
+               getLovProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
                RequestContext.getCurrentInstance().update("form:lovProyectos");
                contarRegistrosProyecto();
@@ -3077,7 +3055,7 @@ String pagActual = "emplvigencialocalizacion";
             }
             if (cualCelda == 4) {
                //Proyecto
-               getListProyectos();
+               getLovProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
                RequestContext.getCurrentInstance().update("form:lovProyectos");
                contarRegistrosProyecto();
@@ -3621,15 +3599,15 @@ String pagActual = "emplvigencialocalizacion";
       }
    }
 
-   public List<Estructuras> getListEstructurasCC() {
-      if (listEstructurasCC == null) {
-         listEstructurasCC = administrarVigenciaLocalizacion.estructuras();
+   public List<Estructuras> getLovEstructurasCC() {
+      if (lovEstructurasCC == null) {
+         lovEstructurasCC = administrarVigenciaLocalizacion.estructuras();
       }
-      return listEstructurasCC;
+      return lovEstructurasCC;
    }
 
-   public void setListEstructurasCC(List<Estructuras> estructuras) {
-      this.listEstructurasCC = estructuras;
+   public void setLovEstructurasCC(List<Estructuras> estructuras) {
+      this.lovEstructurasCC = estructuras;
    }
 
    public Estructuras getEstructuraSelecionada() {
@@ -3648,15 +3626,15 @@ String pagActual = "emplvigencialocalizacion";
       this.filtradoEstructuraCC = filtradoEstructura;
    }
 
-   public List<MotivosLocalizaciones> getListMotivosLocalizaciones() {
-      if (listMotivosLocalizaciones == null) {
-         listMotivosLocalizaciones = administrarVigenciaLocalizacion.motivosLocalizaciones();
+   public List<MotivosLocalizaciones> getLovMotivosLocalizaciones() {
+      if (lovMotivosLocalizaciones == null) {
+         lovMotivosLocalizaciones = administrarVigenciaLocalizacion.motivosLocalizaciones();
       }
-      return listMotivosLocalizaciones;
+      return lovMotivosLocalizaciones;
    }
 
-   public void setListMotivosLocalizaciones(List<MotivosLocalizaciones> motivosLocalizaciones) {
-      this.listMotivosLocalizaciones = motivosLocalizaciones;
+   public void setLovMotivosLocalizaciones(List<MotivosLocalizaciones> motivosLocalizaciones) {
+      this.lovMotivosLocalizaciones = motivosLocalizaciones;
    }
 
    public MotivosLocalizaciones getMotivoLocalizacionSelecionado() {
@@ -3675,15 +3653,15 @@ String pagActual = "emplvigencialocalizacion";
       this.filtradoMotivosLocalizaciones = filtradoMotivosLocalizaciones;
    }
 
-   public List<Proyectos> getListProyectos() {
-      if (listProyectos == null) {
-         listProyectos = administrarVigenciaLocalizacion.proyectos();
+   public List<Proyectos> getLovProyectos() {
+      if (lovProyectos == null) {
+         lovProyectos = administrarVigenciaLocalizacion.proyectos();
       }
-      return listProyectos;
+      return lovProyectos;
    }
 
-   public void setListProyectos(List<Proyectos> listProyectos) {
-      this.listProyectos = listProyectos;
+   public void setLovProyectos(List<Proyectos> lovProyectos) {
+      this.lovProyectos = lovProyectos;
    }
 
    public Proyectos getProyectoSelecionado() {
@@ -3841,15 +3819,15 @@ String pagActual = "emplvigencialocalizacion";
       this.editarVPP = editarVPP;
    }
 
-   public List<CentrosCostos> getListCentrosCostos() {
-      if (listCentrosCostos == null) {
-         listCentrosCostos = administrarVigenciaLocalizacion.centrosCostos();
+   public List<CentrosCostos> getLovCentrosCostos() {
+      if (lovCentrosCostos == null) {
+         lovCentrosCostos = administrarVigenciaLocalizacion.centrosCostos();
       }
-      return listCentrosCostos;
+      return lovCentrosCostos;
    }
 
-   public void setListCentrosCostos(List<CentrosCostos> centrosCostos) {
-      this.listCentrosCostos = centrosCostos;
+   public void setLovCentrosCostos(List<CentrosCostos> centrosCostos) {
+      this.lovCentrosCostos = centrosCostos;
    }
 
    public CentrosCostos getCentroCostoSeleccionado() {

@@ -191,14 +191,7 @@ public class ControlATCuadrilla implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-       */
       String pagActual = "atcuadrilla";
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -222,7 +215,8 @@ public class ControlATCuadrilla implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovEmpleados = null;
+      lovEmpleadosPorCuadrillas = null;
    }
 
    @PostConstruct

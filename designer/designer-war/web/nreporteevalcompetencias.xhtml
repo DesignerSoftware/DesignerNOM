@@ -330,7 +330,7 @@
 
                     <p:dialog header="#{msg['reporteR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovReportes" var="reportes" value="#{controlNReporteEvalCompetencia.listValInforeportes}" rowKey="#{reportes.secuencia}"
+                        <p:dataTable id="lovReportes" var="reportes" value="#{controlNReporteEvalCompetencia.lovInforeportes}" rowKey="#{reportes.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.reporteSeleccionadoLOV}" selectionMode="single" widgetVar="lovReportes" scrollable="true" scrollWidth="445" scrollHeight="240"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -368,7 +368,7 @@
 
                     <p:dialog id="EmpleadoDesdeDialogo" header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false"   
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
-                        <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReporteEvalCompetencia.listValEmpleados}" rowKey="#{empleadoDesde.secuencia}"
+                        <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReporteEvalCompetencia.lovEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="425" scrollHeight="250"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -406,7 +406,7 @@
 
                     <p:dialog id="EmpleadoHastaDialogo" header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false"  
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
-                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteEvalCompetencia.listValEmpleados}" rowKey="#{empleadoHasta.secuencia}"
+                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteEvalCompetencia.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="425" scrollHeight="250"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -444,7 +444,7 @@
 
                     <p:dialog id="PlanillaDialogo" header="#{msg['planillas']}" widgetVar="PlanillaDialogo" draggable="true" resizable="false" closable="false"
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
-                        <p:dataTable id="lovPlanilla" var="planilla" value="#{controlNReporteEvalCompetencia.listValPlanilla}" rowKey="#{planilla.secuencia}"
+                        <p:dataTable id="lovPlanilla" var="planilla" value="#{controlNReporteEvalCompetencia.lovPlanilla}" rowKey="#{planilla.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.planillaSeleccionada}" selectionMode="single" widgetVar="lovPlanilla" scrollable="true" scrollWidth="425" scrollHeight="250"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarListPlanilla}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -476,7 +476,7 @@
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
-                        <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteEvalCompetencia.listValEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteEvalCompetencia.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="425" scrollHeight="180"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -514,7 +514,7 @@
 
                     <p:dialog id="ConvocatoriaDialogo" header="#{msg['convocatorias']}" widgetVar="ConvocatoriaDialogo" draggable="true" resizable="false" closable="false"
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
-                        <p:dataTable id="lovConvocatoria" var="convocatoria" value="#{controlNReporteEvalCompetencia.listValConvocatoria}" rowKey="#{convocatoria.secuencia}"
+                        <p:dataTable id="lovConvocatoria" var="convocatoria" value="#{controlNReporteEvalCompetencia.lovConvocatoria}" rowKey="#{convocatoria.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.convocatoriaSeleccionada}" selectionMode="single" widgetVar="lovConvocatoria" scrollable="true" scrollWidth="425" scrollHeight="250"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarListConvocatoria}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -546,7 +546,7 @@
 
                     <p:dialog id="EvaluadorDialogo" header="#{msg['evaluadores']}" widgetVar="EvaluadorDialogo" draggable="true" resizable="false" closable="false"
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovEvaluador" var="evaluador" value="#{controlNReporteEvalCompetencia.listValEvaluador}" rowKey="#{evaluador.secuencia}"
+                        <p:dataTable id="lovEvaluador" var="evaluador" value="#{controlNReporteEvalCompetencia.lovEvaluador}" rowKey="#{evaluador.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.evaluadorSeleccionado}" selectionMode="single" widgetVar="lovEvaluador" scrollable="true" scrollWidth="445" scrollHeight="270"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarListEvaluador}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -578,7 +578,7 @@
 
                     <p:dialog header="#{msg['estructurasES']}" widgetVar="EstructuraDialogo" draggable="true" resizable="false" closable="false" id="EstructuraDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovEstructura" var="estructura" value="#{controlNReporteEvalCompetencia.listValEstructuras}" rowKey="#{estructura.secuencia}"
+                        <p:dataTable id="lovEstructura" var="estructura" value="#{controlNReporteEvalCompetencia.lovEstructuras}" rowKey="#{estructura.secuencia}"
                                      selection="#{controlNReporteEvalCompetencia.estructuraSeleccionada}" selectionMode="single" widgetVar="lovEstructura" scrollable="true" scrollWidth="450" scrollHeight="250"
                                      filteredValue="#{controlNReporteEvalCompetencia.filtrarListEstructuras}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 

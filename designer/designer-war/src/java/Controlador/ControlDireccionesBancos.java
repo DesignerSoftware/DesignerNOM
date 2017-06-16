@@ -8,7 +8,6 @@ package Controlador;
 import Entidades.Bancos;
 import Entidades.Ciudades;
 import Entidades.Direcciones;
-import Entidades.Personas;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarBancosInterface;
@@ -63,7 +62,7 @@ public class ControlDireccionesBancos implements Serializable {
    private Direcciones editarDireccion;
    private Direcciones nuevaDireccion;
    private Bancos banco;
-   private List<Ciudades> listaCiudades;
+   private List<Ciudades> lovCiudades;
    private List<Ciudades> listaCiudadesFiltrar;
    private Ciudades ciudadSeleccionada;
    private boolean aceptar;
@@ -123,32 +122,14 @@ public class ControlDireccionesBancos implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "direccionesbancos";
-         
-         
-         
-
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      String pagActual = "direccionesbancos";
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -164,8 +145,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      lovCiudades = null;
    }
 
    @PostConstruct
@@ -615,7 +596,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesBanco:dFecha");
@@ -697,8 +679,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       } else if (tipoNuevo == 2) {
          duplicarDireccion.getCiudad().setNombre(duplicarDireccion.getCiudad().getNombre());
       }
-      for (int i = 0; i < listaCiudades.size(); i++) {
-         if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+      for (int i = 0; i < lovCiudades.size(); i++) {
+         if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
             //indiceUnicoElemento = i;
             coincidencias++;
          }
@@ -711,8 +693,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             duplicarDireccion.setCiudad(ciudadSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
          }
-         listaCiudades = null;
-         getListaCiudades();
+         lovCiudades = null;
+         getLovCiudades();
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
          RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -1066,15 +1048,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.nuevaDireccion = nuevaDireccion;
    }
 
-   public List<Ciudades> getListaCiudades() {
-      if (listaCiudades == null) {
-         listaCiudades = administrarCiudades.consultarCiudades();
+   public List<Ciudades> getLovCiudades() {
+      if (lovCiudades == null) {
+         lovCiudades = administrarCiudades.consultarCiudades();
       }
-      return listaCiudades;
+      return lovCiudades;
    }
 
-   public void setListaCiudades(List<Ciudades> listaCiudades) {
-      this.listaCiudades = listaCiudades;
+   public void setLovCiudades(List<Ciudades> lovCiudades) {
+      this.lovCiudades = lovCiudades;
    }
 
    public List<Ciudades> getListaCiudadesFiltrar() {

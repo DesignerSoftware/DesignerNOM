@@ -55,7 +55,7 @@ public class ControlTiposCentrosCostos implements Serializable {
    //lov gruposTiposCC
    private GruposTiposCC grupoTipoCCSeleccionada;
    private List<GruposTiposCC> filtradoGruposTiposCC;
-   private List<GruposTiposCC> listaGruposTiposCC;
+   private List<GruposTiposCC> lovGruposTiposCC;
    //otros
    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
    private BigInteger l;
@@ -87,7 +87,7 @@ public class ControlTiposCentrosCostos implements Serializable {
       crearTiposCentrosCostos = new ArrayList<TiposCentrosCostos>();
       modificarTiposCentrosCostos = new ArrayList<TiposCentrosCostos>();
       borrarTiposCentrosCostos = new ArrayList<TiposCentrosCostos>();
-      listaGruposTiposCC = null;
+      lovGruposTiposCC = null;
       permitirIndex = true;
       editarTipoCentroCosto = new TiposCentrosCostos();
       nuevoTipoCentroCosto = new TiposCentrosCostos();
@@ -102,7 +102,7 @@ public class ControlTiposCentrosCostos implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+      lovGruposTiposCC = null;
    }
 
    @PostConstruct
@@ -139,31 +139,21 @@ public class ControlTiposCentrosCostos implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "tipocentrocosto";
-         
-         
-         
+       */
+      String pagActual = "tipocentrocosto";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -406,23 +396,23 @@ String pagActual = "tipocentrocosto";
          } else if (tipoNuevo == 2) {
             duplicarTipoCentroCosto.getGrupotipocc().setDescripcion(nuevoGrupoTipoCCAutoCompletar);
          }
-         for (int i = 0; i < listaGruposTiposCC.size(); i++) {
-            if (listaGruposTiposCC.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovGruposTiposCC.size(); i++) {
+            if (lovGruposTiposCC.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoTipoCentroCosto.setGrupotipocc(listaGruposTiposCC.get(indiceUnicoElemento));
+               nuevoTipoCentroCosto.setGrupotipocc(lovGruposTiposCC.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoGrupoTipoCC");
             } else if (tipoNuevo == 2) {
-               duplicarTipoCentroCosto.setGrupotipocc(listaGruposTiposCC.get(indiceUnicoElemento));
+               duplicarTipoCentroCosto.setGrupotipocc(lovGruposTiposCC.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupoTipoCentroCosto");
             }
-            listaGruposTiposCC.clear();
-            listaGruposTiposCC = null;
-            getListaGruposTiposCC();
+            lovGruposTiposCC.clear();
+            lovGruposTiposCC = null;
+            getLovGruposTiposCC();
          } else {
             RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
             RequestContext.getCurrentInstance().execute("PF('gruposTiposCentrosCostosDialogo').show()");
@@ -846,15 +836,15 @@ String pagActual = "tipocentrocosto";
       this.grupoTipoCCSeleccionada = grupoTipoCCSeleccionada;
    }
 
-   public List<GruposTiposCC> getListaGruposTiposCC() {
-      if (listaGruposTiposCC == null) {
-         listaGruposTiposCC = administrarTiposCentrosCostos.consultarLOVGruposTiposCentrosCostos();
+   public List<GruposTiposCC> getLovGruposTiposCC() {
+      if (lovGruposTiposCC == null) {
+         lovGruposTiposCC = administrarTiposCentrosCostos.consultarLOVGruposTiposCentrosCostos();
       }
-      return listaGruposTiposCC;
+      return lovGruposTiposCC;
    }
 
-   public void setListaGruposTiposCC(List<GruposTiposCC> listaGruposTiposCCD) {
-      this.listaGruposTiposCC = listaGruposTiposCCD;
+   public void setLovGruposTiposCC(List<GruposTiposCC> listaGruposTiposCCD) {
+      this.lovGruposTiposCC = listaGruposTiposCCD;
    }
 
    public List<GruposTiposCC> getFiltradoGruposTiposCC() {

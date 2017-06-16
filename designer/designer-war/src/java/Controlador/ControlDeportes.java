@@ -64,8 +64,8 @@ public class ControlDeportes implements Serializable {
    private int registrosBorrados;
    private String mensajeValidacion;
    private Integer a;
-   private BigInteger backUpCodigo;
-   private String backUpDescripcion;
+//   private BigInteger backUpCodigo;
+//   private String backUpDescripcion;
    private String infoRegistro;
    private DataTable tablaC;
    private boolean activarLOV;
@@ -183,10 +183,10 @@ String pagActual = "deporte";
          deporteSeleccionado = deporte;
          cualCelda = celda;
          if (cualCelda == 0) {
-            backUpCodigo = deporteSeleccionado.getCodigo();
+//            backUpCodigo = deporteSeleccionado.getCodigo();
          }
          if (cualCelda == 1) {
-            backUpDescripcion = deporteSeleccionado.getNombre();
+//            backUpDescripcion = deporteSeleccionado.getNombre();
          }
       }
    }

@@ -528,7 +528,7 @@
                   <!-- DIALOGO L.O.V ESTATICO Localizacion Estr -->
                   <p:dialog header="#{msg['localizacionL']}" widgetVar="LocalizacionDialogo" draggable="true" resizable="false" closable="false" id="LocalizacionDialogo"  
                             showEffect="fade" hideEffect="fade" width="755" modal="true">
-                     <p:dataTable id="lovLocalizacion"  var="localizacion" value="#{controlVigenciaLocalizacion.listEstructurasCC}" rowKey="#{localizacion.secuencia}"
+                     <p:dataTable id="lovLocalizacion"  var="localizacion" value="#{controlVigenciaLocalizacion.lovEstructurasCC}" rowKey="#{localizacion.secuencia}"
                                   selection="#{controlVigenciaLocalizacion.estructuraSelecionada}" selectionMode="single" widgetVar="lovLocalizacion" scrollable="true" scrollWidth="737" scrollHeight="250"
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoEstructura}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -574,7 +574,7 @@
                   <!-- DIALOGO L.O.V ESTATICO MOTIVOS -->
                   <p:dialog header="#{msg['motivoM']}" widgetVar="MotivoDialogo" draggable="true" resizable="false" closable="false" id="MotivoDialogo"  
                             showEffect="fade" hideEffect="fade" width="470" modal="true">
-                     <p:dataTable id="lovMotivo"  var="motivo" value="#{controlVigenciaLocalizacion.listMotivosLocalizaciones}" rowKey="#{motivo.secuencia}"
+                     <p:dataTable id="lovMotivo"  var="motivo" value="#{controlVigenciaLocalizacion.lovMotivosLocalizaciones}" rowKey="#{motivo.secuencia}"
                                   selection="#{controlVigenciaLocalizacion.motivoLocalizacionSelecionado}" selectionMode="single" widgetVar="lovMotivo" scrollable="true" scrollWidth="448" scrollHeight="250"
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoMotivosLocalizaciones}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -612,7 +612,7 @@
                   <!-- DIALOGO L.O.V ESTATICO PROYECTOS -->
                   <p:dialog header="#{msg['proyectoP']}" widgetVar="ProyectosDialogo" draggable="true" resizable="false" closable="false" id="ProyectosDialogo"  
                             showEffect="fade" hideEffect="fade" width="630" modal="true">
-                     <p:dataTable id="lovProyectos" var="proyecto" value="#{controlVigenciaLocalizacion.listProyectos}" rowKey="#{proyecto.secuencia}" 
+                     <p:dataTable id="lovProyectos" var="proyecto" value="#{controlVigenciaLocalizacion.lovProyectos}" rowKey="#{proyecto.secuencia}" 
                                   selection="#{controlVigenciaLocalizacion.proyectoSelecionado}" selectionMode="single" widgetVar="lovProyectos" scrollable="true" 
                                   scrollWidth="608" scrollHeight="210" filteredValue="#{controlVigenciaLocalizacion.filtradoProyectos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -657,7 +657,7 @@
                   <!-- DIALOGO L.O.V ESTATICO CENTRO COSTO VIGENCIA PRORRATEO -->
                   <p:dialog header="#{msg['localizacionLP']}" widgetVar="CentroCostosDialogo" draggable="true" resizable="false" closable="false" id="CentroCostosDialogo"  
                             showEffect="fade" hideEffect="fade" width="760" modal="true">
-                     <p:dataTable id="lovCentroCostos" var="centro" value="#{controlVigenciaLocalizacion.listCentrosCostos}" rowKey="#{centro.secuencia}"
+                     <p:dataTable id="lovCentroCostos" var="centro" value="#{controlVigenciaLocalizacion.lovCentrosCostos}" rowKey="#{centro.secuencia}"
                                   selection="#{controlVigenciaLocalizacion.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostos" scrollable="true" scrollWidth="737" scrollHeight="250"
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoCentroCostos}" emptyMessage="#{msg['lovvacio']}">              
 

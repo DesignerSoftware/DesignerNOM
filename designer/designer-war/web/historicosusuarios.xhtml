@@ -341,8 +341,8 @@
                     <p:dialog header="Personas" widgetVar="personasDialogo" draggable="true" resizable="false" closable="false" id="personasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPersonas" style="width: 330px;" var="personas" value="#{controlHistoricosUsuarios.lovPersonas}" rowKey="#{personas.secuencia}"
-                                     selection="#{controlHistoricosUsuarios.personasSeleccionado}" selectionMode="single" widgetVar="LOVPersonas" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlHistoricosUsuarios.lovFiltradoPersonas}" emptyMessage="#{msg['lovvacio']}">              
+                                     selection="#{controlHistoricosUsuarios.personasLovSeleccionado}" selectionMode="single" widgetVar="LOVPersonas" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlHistoricosUsuarios.filtradoLovPersonas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlHistoricosUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarPS"/>
                             <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarPersonas()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPersonas()}" process="@this"/>
@@ -368,8 +368,8 @@
                     <p:dialog header="Usuarios" widgetVar="aliasDialogo" draggable="true" resizable="false" closable="false" id="aliasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVUsuariosAlias" style="width: 330px;" var="aliasU" value="#{controlHistoricosUsuarios.lovUsuarios}" rowKey="#{aliasU.secuencia}"
-                                     selection="#{controlHistoricosUsuarios.usuarioSeleccionado}" selectionMode="single" widgetVar="LOVUsuariosAlias" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlHistoricosUsuarios.lovUsuariosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                                     selection="#{controlHistoricosUsuarios.usuarioLovSeleccionado}" selectionMode="single" widgetVar="LOVUsuariosAlias" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlHistoricosUsuarios.filtrarUsuariosLov}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlHistoricosUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarAU"/>
                             <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarUsuario()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosAlias()}" process="@this"/>
@@ -395,8 +395,8 @@
                     <p:dialog header="Perfiles" widgetVar="perfilesDialogo" draggable="true" resizable="false" closable="false" id="perfilesDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
                         <p:dataTable id="LOVPerfiles" style="width: 330px;" var="perfiles" value="#{controlHistoricosUsuarios.lovPerfiles}" rowKey="#{perfiles.secuencia}"
-                                     selection="#{controlHistoricosUsuarios.perfilSeleccionado}" selectionMode="single" widgetVar="LOVPerfiles" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlHistoricosUsuarios.lovPerfilesFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                                     selection="#{controlHistoricosUsuarios.perfilLovSeleccionado}" selectionMode="single" widgetVar="LOVPerfiles" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlHistoricosUsuarios.filtrarPerfilesLov}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlHistoricosUsuarios.activarAceptar()}" update=":formularioDialogos:aceptarPF"/>
                             <p:ajax event="rowDblselect" listener="#{controlHistoricosUsuarios.actualizarPerfiles()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlHistoricosUsuarios.contarRegistrosPerfiles()}" process="@this"/>
