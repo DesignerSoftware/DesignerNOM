@@ -46,12 +46,12 @@ public class ControlPerTelefonos implements Serializable {
     private List<Telefonos> filtradosListaTelefonos;
     private Telefonos telefonoSeleccionado;
     //L.O.V TIPOS TELEFONOS
-    private List<TiposTelefonos> listaTiposTelefonos;
-    private List<TiposTelefonos> filtradoslistaTiposTelefonos;
+    private List<TiposTelefonos> lovTiposTelefonos;
+    private List<TiposTelefonos> lovTiposTelefonosFiltrar;
     private TiposTelefonos seleccionTipoTelefono;
     //L.O.V CIUDADES
-    private List<Ciudades> listaCiudades;
-    private List<Ciudades> filtradoslistaCiudades;
+    private List<Ciudades> lovCiudades;
+    private List<Ciudades> lovCiudadesFiltrar;
     private Ciudades seleccionCiudades;
     //Columnas Tabla Telefonos
     private Column tFecha, tTipoTelefono, tNumero, tCiudad;
@@ -93,8 +93,8 @@ public class ControlPerTelefonos implements Serializable {
         listaTelefonosCrear = new ArrayList<Telefonos>();
         listaTelefonosModificar = new ArrayList<Telefonos>();
         //INICIALIZAR LOVS
-        listaTiposTelefonos = new ArrayList<TiposTelefonos>();
-        listaCiudades = new ArrayList<Ciudades>();
+        lovTiposTelefonos = new ArrayList<TiposTelefonos>();
+        lovCiudades = new ArrayList<Ciudades>();
         telefonoSeleccionado = null;
         //editar
         editarTelefono = new Telefonos();
@@ -117,7 +117,8 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovCiudades = null;
+        lovTiposTelefonos = null;
     }
 
     @PostConstruct
@@ -174,7 +175,7 @@ public class ControlPerTelefonos implements Serializable {
     public void recibirEmpleado(BigInteger secuencia, String pagina) {
         paginaAnterior = pagina;
         listaTelefonos = null;
-        listaTiposTelefonos = null;
+        lovTiposTelefonos = null;
 //        empleado = administrarTelefonos.empleadoActual(secuencia);
         persona = administrarTelefonos.encontrarPersona(secuencia);
         getListaTelefonos();
@@ -269,7 +270,7 @@ public class ControlPerTelefonos implements Serializable {
             duplicarTelefono.setTipotelefono(seleccionTipoTelefono);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTelefono");
         }
-        filtradoslistaTiposTelefonos = null;
+        lovTiposTelefonosFiltrar = null;
         seleccionTipoTelefono = null;
         aceptar = true;
         tipoActualizacion = -1;
@@ -285,7 +286,7 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public void cancelarCambioTiposTelefonos() {
-        filtradoslistaTiposTelefonos = null;
+        lovTiposTelefonosFiltrar = null;
         seleccionTipoTelefono = null;
         aceptar = true;
         tipoActualizacion = -1;
@@ -681,7 +682,7 @@ public class ControlPerTelefonos implements Serializable {
             duplicarTelefono.setCiudad(seleccionCiudades);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTelefono");
         }
-        filtradoslistaCiudades = null;
+        lovCiudadesFiltrar = null;
         seleccionCiudades = null;
         aceptar = true;
         tipoActualizacion = -1;
@@ -695,7 +696,7 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public void cancelarCambioCiudad() {
-        filtradoslistaCiudades = null;
+        lovCiudadesFiltrar = null;
         seleccionCiudades = null;
         aceptar = true;
         tipoActualizacion = -1;
@@ -788,21 +789,21 @@ public class ControlPerTelefonos implements Serializable {
                 telefonoSeleccionado.getTipotelefono().setNombre(TipoTelefono);
             }
 
-            for (int i = 0; i < listaTiposTelefonos.size(); i++) {
-                if (listaTiposTelefonos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposTelefonos.size(); i++) {
+                if (lovTiposTelefonos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
                     coincidencias++;
                 }
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    telefonoSeleccionado.setTipotelefono(listaTiposTelefonos.get(indiceUnicoElemento));
+                    telefonoSeleccionado.setTipotelefono(lovTiposTelefonos.get(indiceUnicoElemento));
                 } else {
-                    telefonoSeleccionado.setTipotelefono(listaTiposTelefonos.get(indiceUnicoElemento));
+                    telefonoSeleccionado.setTipotelefono(lovTiposTelefonos.get(indiceUnicoElemento));
                 }
                 deshabilitarBotonLov();
-                listaTiposTelefonos.clear();
-                getListaTiposTelefonos();
+                lovTiposTelefonos.clear();
+                getLovTiposTelefonos();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
@@ -815,20 +816,20 @@ public class ControlPerTelefonos implements Serializable {
             } else {
                 telefonoSeleccionado.getCiudad().setNombre(Ciudad);
             }
-            for (int i = 0; i < listaCiudades.size(); i++) {
-                if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+                if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
                     coincidencias++;
                 }
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    telefonoSeleccionado.setCiudad(listaCiudades.get(indiceUnicoElemento));
+                    telefonoSeleccionado.setCiudad(lovCiudades.get(indiceUnicoElemento));
                 } else {
-                    telefonoSeleccionado.setCiudad(listaCiudades.get(indiceUnicoElemento));
+                    telefonoSeleccionado.setCiudad(lovCiudades.get(indiceUnicoElemento));
                 }
-                listaCiudades.clear();
-                getListaCiudades();
+                lovCiudades.clear();
+                getLovCiudades();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
@@ -1001,22 +1002,22 @@ public class ControlPerTelefonos implements Serializable {
             } else if (tipoNuevo == 2) {
                 duplicarTelefono.getTipotelefono().setNombre(TipoTelefono);
             }
-            for (int i = 0; i < listaTiposTelefonos.size(); i++) {
-                if (listaTiposTelefonos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovTiposTelefonos.size(); i++) {
+                if (lovTiposTelefonos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
                     coincidencias++;
                 }
             }
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
-                    nuevoTelefono.setTipotelefono(listaTiposTelefonos.get(indiceUnicoElemento));
+                    nuevoTelefono.setTipotelefono(lovTiposTelefonos.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoTelefono");
                 } else if (tipoNuevo == 2) {
-                    duplicarTelefono.setTipotelefono(listaTiposTelefonos.get(indiceUnicoElemento));
+                    duplicarTelefono.setTipotelefono(lovTiposTelefonos.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoTelefono");
                 }
-                listaTiposTelefonos.clear();
-                getListaTiposTelefonos();
+                lovTiposTelefonos.clear();
+                getLovTiposTelefonos();
             } else {
                 RequestContext.getCurrentInstance().update("form:tiposTelefonosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').show()");
@@ -1033,22 +1034,22 @@ public class ControlPerTelefonos implements Serializable {
             } else if (tipoNuevo == 2) {
                 duplicarTelefono.getCiudad().setNombre(Ciudad);
             }
-            for (int i = 0; i < listaCiudades.size(); i++) {
-                if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+                if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
                     coincidencias++;
                 }
             }
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
-                    nuevoTelefono.setCiudad(listaCiudades.get(indiceUnicoElemento));
+                    nuevoTelefono.setCiudad(lovCiudades.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
                 } else if (tipoNuevo == 2) {
-                    duplicarTelefono.setCiudad(listaCiudades.get(indiceUnicoElemento));
+                    duplicarTelefono.setCiudad(lovCiudades.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
                 }
-                listaCiudades.clear();
-                getListaCiudades();
+                lovCiudades.clear();
+                getLovCiudades();
             } else {
                 RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -1077,12 +1078,12 @@ public class ControlPerTelefonos implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            getListaTiposTelefonos();
+            getLovTiposTelefonos();
             contarRegistroTT();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').show()");
         } else if (dlg == 1) {
-            getListaCiudades();
+            getLovCiudades();
             contarRegistroCiudad();
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -1185,19 +1186,19 @@ public class ControlPerTelefonos implements Serializable {
         this.filtradosListaTelefonos = filtradosListaTelefonos;
     }
 
-    public List<TiposTelefonos> getListaTiposTelefonos() {
-        if (listaTiposTelefonos == null) {
-            listaTiposTelefonos = administrarTelefonos.lovTiposTelefonos();
+    public List<TiposTelefonos> getLovTiposTelefonos() {
+        if (lovTiposTelefonos == null) {
+            lovTiposTelefonos = administrarTelefonos.lovTiposTelefonos();
         }
-        return listaTiposTelefonos;
+        return lovTiposTelefonos;
     }
 
-    public void setListaTiposTelefonos(List<TiposTelefonos> listaTiposTelefonos) {
-        this.listaTiposTelefonos = listaTiposTelefonos;
+    public void setLovTiposTelefonos(List<TiposTelefonos> lovTiposTelefonos) {
+        this.lovTiposTelefonos = lovTiposTelefonos;
     }
 
-    public List<TiposTelefonos> getFiltradoslistaTiposTelefonos() {
-        return filtradoslistaTiposTelefonos;
+    public List<TiposTelefonos> getLovTiposTelefonosFiltrar() {
+        return lovTiposTelefonosFiltrar;
     }
 
     public String getInfoRegistro() {
@@ -1207,8 +1208,8 @@ public class ControlPerTelefonos implements Serializable {
         return infoRegistro;
     }
 
-    public void setFiltradoslistaTiposTelefonos(List<TiposTelefonos> filtradoslistaTiposTelefonos) {
-        this.filtradoslistaTiposTelefonos = filtradoslistaTiposTelefonos;
+    public void setLovTiposTelefonosFiltrar(List<TiposTelefonos> lovTiposTelefonosFiltrar) {
+        this.lovTiposTelefonosFiltrar = lovTiposTelefonosFiltrar;
     }
 
     public TiposTelefonos getSeleccionTipoTelefono() {
@@ -1223,24 +1224,24 @@ public class ControlPerTelefonos implements Serializable {
         return aceptar;
     }
 
-    public List<Ciudades> getListaCiudades() {
-        if (listaCiudades.isEmpty()) {
-            listaCiudades = administrarTelefonos.lovCiudades();
+    public List<Ciudades> getLovCiudades() {
+        if (lovCiudades.isEmpty()) {
+            lovCiudades = administrarTelefonos.lovCiudades();
         }
 
-        return listaCiudades;
+        return lovCiudades;
     }
 
-    public void setListaCiudades(List<Ciudades> listaCiudades) {
-        this.listaCiudades = listaCiudades;
+    public void setLovCiudades(List<Ciudades> lovCiudades) {
+        this.lovCiudades = lovCiudades;
     }
 
-    public List<Ciudades> getFiltradoslistaCiudades() {
-        return filtradoslistaCiudades;
+    public List<Ciudades> getLovCiudadesFiltrar() {
+        return lovCiudadesFiltrar;
     }
 
-    public void setFiltradoslistaCiudades(List<Ciudades> filtradoslistaCiudades) {
-        this.filtradoslistaCiudades = filtradoslistaCiudades;
+    public void setLovCiudadesFiltrar(List<Ciudades> lovCiudadesFiltrar) {
+        this.lovCiudadesFiltrar = lovCiudadesFiltrar;
     }
 
     public Ciudades getSeleccionCiudades() {

@@ -189,7 +189,8 @@ public class ControlInterfaseContableHistorico implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovEmpresas = null;
+        lovProcesos = null;
     }
 
     @PostConstruct
@@ -400,7 +401,7 @@ public class ControlInterfaseContableHistorico implements Serializable {
             System.out.println("fecha final contabilzacion : " + parametroContableActual.getFechafinalcontabilizacion());
             System.out.println("empresa parametro : " + parametroContableActual.getEmpresaRegistro().getNombre());
 
-            listaContabilidadResumida = administrarContabilidadResumida.obtenerContabilidadResumida(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(),parametroContableActual.getProceso().getSecuencia());
+            listaContabilidadResumida = administrarContabilidadResumida.obtenerContabilidadResumida(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia());
             getTotalCGenerado();
             getTotalDGenerado();
             RequestContext.getCurrentInstance().update("form:totalDGenerado");
@@ -410,7 +411,7 @@ public class ControlInterfaseContableHistorico implements Serializable {
 
         listaContabilidadDetallada = null;
         if (listaContabilidadDetallada == null) {
-            listaContabilidadDetallada = administrarContabilidadResumida.obtenerContabilidadDetallada(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(),parametroContableActual.getProceso().getSecuencia());
+            listaContabilidadDetallada = administrarContabilidadResumida.obtenerContabilidadDetallada(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia());
             getTotalCInter();
             getTotalDInter();
             RequestContext.getCurrentInstance().update("form:totalDInter");
@@ -434,7 +435,7 @@ public class ControlInterfaseContableHistorico implements Serializable {
         System.out.println("I finish");
         System.out.println("terminó proceso actualizar");
     }
-    
+
     public void guardarSalir() {
         guardadoGeneral();
         salir();
@@ -1135,7 +1136,7 @@ public class ControlInterfaseContableHistorico implements Serializable {
             lovProcesos = administrarContabilidadResumida.lovProcesos();
         }
     }
-    
+
     public void actionBtnRecontabilizar() {
         Integer contador = administrarContabilidadResumida.abrirPeriodoContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia());
         if (contador != null) {
@@ -1166,14 +1167,14 @@ public class ControlInterfaseContableHistorico implements Serializable {
             administrarContabilidadResumida.actualizarPeriodoContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia());
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
             RequestContext.getCurrentInstance().execute("PF('RecontabilizacionExitosa').show()");
-        }  catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error finalizarProcesoRecontabilizacion Controlador : " + e.toString());
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
             RequestContext.getCurrentInstance().execute("PF('RecontabilizacionExitosa').hide()");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("", e.getMessage()));
             RequestContext.getCurrentInstance().update("form:growl");
         }
-        
+
 //        catch (ExcepcionBD ebd) {
 //            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
 //            RequestContext.getCurrentInstance().execute("PF('RecontabilizacionExitosa').hide()");
@@ -1181,7 +1182,6 @@ public class ControlInterfaseContableHistorico implements Serializable {
 //            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("", ebd.getMessage()));
 //            RequestContext.getCurrentInstance().update("form:growl");
 //        }
-
     }
 /////////////////////SETS Y GETS/////////////////////////////
 
@@ -1475,7 +1475,7 @@ public class ControlInterfaseContableHistorico implements Serializable {
     public void setAltoTablaIntercon(String altoTablaIntercon) {
         this.altoTablaIntercon = altoTablaIntercon;
     }
-    
+
     public BigDecimal getTotalCGenerado() {
         totalCGenerado = BigDecimal.ZERO;
         if (listaContabilidadResumida != null) {
@@ -1535,5 +1535,5 @@ public class ControlInterfaseContableHistorico implements Serializable {
     public void setTotalCInter(BigDecimal totalCInter) {
         this.totalCInter = totalCInter;
     }
-    
+
 }

@@ -263,9 +263,9 @@
 
                   <p:dialog header="#{msg['sectorEconomicoM']}" widgetVar="SectorDialogo" draggable="true" resizable="false" closable="false" id="SectorDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovSector" scrollWidth="416" var="sector" value="#{controlPerExperienciaLaboral.listSectoresEconomicos}" rowKey="#{sector.secuencia}"
+                     <p:dataTable id="lovSector" scrollWidth="416" var="sector" value="#{controlPerExperienciaLaboral.lovSectoresEconomicos}" rowKey="#{sector.secuencia}"
                                   selection="#{controlPerExperienciaLaboral.sectorSeleccionada}" selectionMode="single" widgetVar="lovSector" scrollable="true" scrollHeight="250"
-                                  filteredValue="#{controlPerExperienciaLaboral.filtrarListSectoresEconomicos}" emptyMessage="#{msg['lovvacio']}">              
+                                  filteredValue="#{controlPerExperienciaLaboral.lovSectoresEconomicosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlPerExperienciaLaboral.activarAceptar()}" update=":form:aceptarS"/>
                         <p:ajax event="rowDblselect" listener="#{controlPerExperienciaLaboral.actualizarSector()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlPerExperienciaLaboral.contarRegistroSector()}"/>
@@ -294,9 +294,9 @@
 
                   <p:dialog header="#{msg['motivoRetiroM']}" widgetVar="MotivosDialogo" draggable="true" resizable="false" closable="false" id="MotivosDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovMotivos" scrollWidth="416" var="motivo" value="#{controlPerExperienciaLaboral.listMotivosRetiros}" rowKey="#{motivo.secuencia}"
+                     <p:dataTable id="lovMotivos" scrollWidth="416" var="motivo" value="#{controlPerExperienciaLaboral.lovMotivosRetiros}" rowKey="#{motivo.secuencia}"
                                   selection="#{controlPerExperienciaLaboral.motivoSeleccionado}" selectionMode="single" widgetVar="lovMotivos" scrollable="true"  scrollHeight="250"
-                                  filteredValue="#{controlPerExperienciaLaboral.filtrarListMotivosRetiros}" emptyMessage="#{msg['lovvacio']}">              
+                                  filteredValue="#{controlPerExperienciaLaboral.lovMotivosRetirosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlPerExperienciaLaboral.activarAceptar()}" update=":form:aceptarM"/>
                         <p:ajax event="rowDblselect" listener="#{controlPerExperienciaLaboral.actualizarMotivo()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlPerExperienciaLaboral.contarRegistroMotivo()}"/>

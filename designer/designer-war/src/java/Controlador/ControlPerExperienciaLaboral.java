@@ -44,13 +44,13 @@ public class ControlPerExperienciaLaboral implements Serializable {
     private List<HvExperienciasLaborales> filtrarListExperienciaLaboralEmpl;
     private HvExperienciasLaborales experienciaTablaSeleccionada;
     //SectoresEconomicos
-    private List<SectoresEconomicos> listSectoresEconomicos;
+    private List<SectoresEconomicos> lovSectoresEconomicos;
     private SectoresEconomicos sectorSeleccionada;
-    private List<SectoresEconomicos> filtrarListSectoresEconomicos;
+    private List<SectoresEconomicos> lovSectoresEconomicosFiltrar;
     //MotivosRetiros
-    private List<MotivosRetiros> listMotivosRetiros;
+    private List<MotivosRetiros> lovMotivosRetiros;
     private MotivosRetiros motivoSeleccionado;
-    private List<MotivosRetiros> filtrarListMotivosRetiros;
+    private List<MotivosRetiros> lovMotivosRetirosFiltrar;
     //Tipo Actualizacion
     private int tipoActualizacion;
     //Activo/Desactivo VP Crtl + F11
@@ -119,8 +119,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
         permitirIndex = true;
         experienciaTablaSeleccionada = null;
         cualCelda = -1;
-        listMotivosRetiros = null;
-        listSectoresEconomicos = null;
+        lovMotivosRetiros = null;
+        lovSectoresEconomicos = null;
         nuevaExperienciaLaboral = new HvExperienciasLaborales();
         nuevaExperienciaLaboral.setFechadesde(new Date());
         nuevaExperienciaLaboral.setSectoreconomico(new SectoresEconomicos());
@@ -431,9 +431,9 @@ public class ControlPerExperienciaLaboral implements Serializable {
             } else {
                 experienciaTablaSeleccionada.getSectoreconomico().setDescripcion(sector);
             }
-            if (listSectoresEconomicos != null) {
-                for (int i = 0; i < listSectoresEconomicos.size(); i++) {
-                    if (listSectoresEconomicos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            if (lovSectoresEconomicos != null) {
+                for (int i = 0; i < lovSectoresEconomicos.size(); i++) {
+                    if (lovSectoresEconomicos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
@@ -441,12 +441,12 @@ public class ControlPerExperienciaLaboral implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    experienciaTablaSeleccionada.setSectoreconomico(listSectoresEconomicos.get(indiceUnicoElemento));
+                    experienciaTablaSeleccionada.setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
                 } else {
-                    experienciaTablaSeleccionada.setSectoreconomico(listSectoresEconomicos.get(indiceUnicoElemento));
+                    experienciaTablaSeleccionada.setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
                 }
-                listSectoresEconomicos = null;
-                getListSectoresEconomicos();
+                lovSectoresEconomicos = null;
+                getLovSectoresEconomicos();
 
             } else {
                 permitirIndex = false;
@@ -461,9 +461,9 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 } else {
                     experienciaTablaSeleccionada.getMotivoretiro().setNombre(motivo);
                 }
-                if (listMotivosRetiros != null) {
-                    for (int i = 0; i < listMotivosRetiros.size(); i++) {
-                        if (listMotivosRetiros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                if (lovMotivosRetiros != null) {
+                    for (int i = 0; i < lovMotivosRetiros.size(); i++) {
+                        if (lovMotivosRetiros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                             indiceUnicoElemento = i;
                             coincidencias++;
                         }
@@ -471,12 +471,12 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 }
                 if (coincidencias == 1) {
                     if (tipoLista == 0) {
-                        experienciaTablaSeleccionada.setMotivoretiro(listMotivosRetiros.get(indiceUnicoElemento));
+                        experienciaTablaSeleccionada.setMotivoretiro(lovMotivosRetiros.get(indiceUnicoElemento));
                     } else {
-                        experienciaTablaSeleccionada.setMotivoretiro(listMotivosRetiros.get(indiceUnicoElemento));
+                        experienciaTablaSeleccionada.setMotivoretiro(lovMotivosRetiros.get(indiceUnicoElemento));
                     }
-                    listMotivosRetiros = null;
-                    getListMotivosRetiros();
+                    lovMotivosRetiros = null;
+                    getLovMotivosRetiros();
 
                 } else {
                     permitirIndex = false;
@@ -486,8 +486,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 }
             } else {
                 coincidencias = 1;
-                listMotivosRetiros = null;
-                getListMotivosRetiros();
+                lovMotivosRetiros = null;
+                getLovMotivosRetiros();
                 if (tipoLista == 0) {
                     experienciaTablaSeleccionada.setMotivoretiro(new MotivosRetiros());
                 } else {
@@ -555,22 +555,22 @@ public class ControlPerExperienciaLaboral implements Serializable {
             } else if (tipoNuevo == 2) {
                 duplicarExperienciaLaboral.getSectoreconomico().setDescripcion(sector);
             }
-            for (int i = 0; i < listSectoresEconomicos.size(); i++) {
-                if (listSectoresEconomicos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovSectoresEconomicos.size(); i++) {
+                if (lovSectoresEconomicos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
                     coincidencias++;
                 }
             }
             if (coincidencias == 1) {
                 if (tipoNuevo == 1) {
-                    nuevaExperienciaLaboral.setSectoreconomico(listSectoresEconomicos.get(indiceUnicoElemento));
+                    nuevaExperienciaLaboral.setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaSectorEP");
                 } else if (tipoNuevo == 2) {
-                    duplicarExperienciaLaboral.setSectoreconomico(listSectoresEconomicos.get(indiceUnicoElemento));
+                    duplicarExperienciaLaboral.setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSectorEP");
                 }
-                listSectoresEconomicos = null;
-                getListSectoresEconomicos();
+                lovSectoresEconomicos = null;
+                getLovSectoresEconomicos();
             } else {
                 RequestContext.getCurrentInstance().update("form:SectorDialogo");
                 RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
@@ -588,8 +588,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 } else if (tipoNuevo == 2) {
                     duplicarExperienciaLaboral.getMotivoretiro().setNombre(motivo);
                 }
-                for (int i = 0; i < listMotivosRetiros.size(); i++) {
-                    if (listMotivosRetiros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovMotivosRetiros.size(); i++) {
+                    if (lovMotivosRetiros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
@@ -597,14 +597,14 @@ public class ControlPerExperienciaLaboral implements Serializable {
 
                 if (coincidencias == 1) {
                     if (tipoNuevo == 1) {
-                        nuevaExperienciaLaboral.setMotivoretiro(listMotivosRetiros.get(indiceUnicoElemento));
+                        nuevaExperienciaLaboral.setMotivoretiro(lovMotivosRetiros.get(indiceUnicoElemento));
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
                     } else if (tipoNuevo == 2) {
-                        duplicarExperienciaLaboral.setMotivoretiro(listMotivosRetiros.get(indiceUnicoElemento));
+                        duplicarExperienciaLaboral.setMotivoretiro(lovMotivosRetiros.get(indiceUnicoElemento));
                         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoEP");
                     }
-                    listMotivosRetiros = null;
-                    getListMotivosRetiros();
+                    lovMotivosRetiros = null;
+                    getLovMotivosRetiros();
                 } else {
                     RequestContext.getCurrentInstance().update("form:MotivosDialogo");
                     RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
@@ -616,8 +616,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
                     }
                 }
             } else {
-                listMotivosRetiros = null;
-                getListMotivosRetiros();
+                lovMotivosRetiros = null;
+                getLovMotivosRetiros();
                 if (tipoNuevo == 1) {
                     nuevaExperienciaLaboral.setMotivoretiro(new MotivosRetiros());
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
@@ -777,8 +777,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
             filtrarListExperienciaLaboralEmpl = null;
             tipoLista = 0;
         }
-        listMotivosRetiros = null;
-        listSectoresEconomicos = null;
+        lovMotivosRetiros = null;
+        lovSectoresEconomicos = null;
         listExperienciaLaboralBorrar.clear();
         listExperienciaLaboralCrear.clear();
         listExperienciaLaboralModificar.clear();
@@ -1239,8 +1239,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
         experienciaTablaSeleccionada = null;
         k = 0;
         listExperienciaLaboralEmpl = null;
-        listMotivosRetiros = null;
-        listSectoresEconomicos = null;
+        lovMotivosRetiros = null;
+        lovSectoresEconomicos = null;
         guardado = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         tipoActualizacion = -1;
@@ -1320,7 +1320,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
             duplicarExperienciaLaboral.setSectoreconomico(sectorSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSectorEP");
         }
-        filtrarListSectoresEconomicos = null;
+        lovSectoresEconomicosFiltrar = null;
         sectorSeleccionada = null;
         aceptar = true;
         experienciaTablaSeleccionada = null;
@@ -1336,7 +1336,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public void cancelarCambioSector() {
-        filtrarListSectoresEconomicos = null;
+        lovSectoresEconomicosFiltrar = null;
         sectorSeleccionada = null;
         aceptar = true;
         experienciaTablaSeleccionada = null;
@@ -1384,7 +1384,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
             duplicarExperienciaLaboral.setMotivoretiro(motivoSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoEP");
         }
-        filtrarListMotivosRetiros = null;
+        lovMotivosRetirosFiltrar = null;
         motivoSeleccionado = null;
         aceptar = true;
         experienciaTablaSeleccionada = null;
@@ -1400,7 +1400,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public void cancelarCambioMotivo() {
-        filtrarListMotivosRetiros = null;
+        lovMotivosRetirosFiltrar = null;
         motivoSeleccionado = null;
         aceptar = true;
         experienciaTablaSeleccionada = null;
@@ -1546,21 +1546,21 @@ public class ControlPerExperienciaLaboral implements Serializable {
         this.filtrarListExperienciaLaboralEmpl = setFiltrarListExperienciaLaboralEmpl;
     }
 
-    public List<SectoresEconomicos> getListSectoresEconomicos() {
+    public List<SectoresEconomicos> getLovSectoresEconomicos() {
         try {
-            if (listSectoresEconomicos == null) {
-                listSectoresEconomicos = new ArrayList<SectoresEconomicos>();
-                listSectoresEconomicos = administrarPerExperienciaLaboral.listSectoresEconomicos();
+            if (lovSectoresEconomicos == null) {
+                lovSectoresEconomicos = new ArrayList<SectoresEconomicos>();
+                lovSectoresEconomicos = administrarPerExperienciaLaboral.listSectoresEconomicos();
             }
-            return listSectoresEconomicos;
+            return lovSectoresEconomicos;
         } catch (Exception e) {
             System.out.println("Error getListEmpresas " + e.toString());
             return null;
         }
     }
 
-    public void setListSectoresEconomicos(List<SectoresEconomicos> setListSectoresEconomicos) {
-        this.listSectoresEconomicos = setListSectoresEconomicos;
+    public void setLovSectoresEconomicos(List<SectoresEconomicos> setListSectoresEconomicos) {
+        this.lovSectoresEconomicos = setListSectoresEconomicos;
     }
 
     public SectoresEconomicos getSectorSeleccionada() {
@@ -1571,29 +1571,29 @@ public class ControlPerExperienciaLaboral implements Serializable {
         this.sectorSeleccionada = setSectorSeleccionada;
     }
 
-    public List<SectoresEconomicos> getFiltrarListSectoresEconomicos() {
-        return filtrarListSectoresEconomicos;
+    public List<SectoresEconomicos> getLovSectoresEconomicosFiltrar() {
+        return lovSectoresEconomicosFiltrar;
     }
 
-    public void setFiltrarListSectoresEconomicos(List<SectoresEconomicos> setFiltrarListSectoresEconomicos) {
-        this.filtrarListSectoresEconomicos = setFiltrarListSectoresEconomicos;
+    public void setLovSectoresEconomicosFiltrar(List<SectoresEconomicos> setFiltrarListSectoresEconomicos) {
+        this.lovSectoresEconomicosFiltrar = setFiltrarListSectoresEconomicos;
     }
 
-    public List<MotivosRetiros> getListMotivosRetiros() {
+    public List<MotivosRetiros> getLovMotivosRetiros() {
         try {
-            if (listMotivosRetiros == null) {
-                listMotivosRetiros = new ArrayList<MotivosRetiros>();
-                listMotivosRetiros = administrarPerExperienciaLaboral.listMotivosRetiros();
+            if (lovMotivosRetiros == null) {
+                lovMotivosRetiros = new ArrayList<MotivosRetiros>();
+                lovMotivosRetiros = administrarPerExperienciaLaboral.listMotivosRetiros();
             }
-            return listMotivosRetiros;
+            return lovMotivosRetiros;
         } catch (Exception e) {
             System.out.println("Error getListPryClientes " + e.toString());
             return null;
         }
     }
 
-    public void setListMotivosRetiros(List<MotivosRetiros> setListMotivosRetiros) {
-        this.listMotivosRetiros = setListMotivosRetiros;
+    public void setLovMotivosRetiros(List<MotivosRetiros> setListMotivosRetiros) {
+        this.lovMotivosRetiros = setListMotivosRetiros;
     }
 
     public MotivosRetiros getMotivoSeleccionado() {
@@ -1604,12 +1604,12 @@ public class ControlPerExperienciaLaboral implements Serializable {
         this.motivoSeleccionado = setMotivoSeleccionado;
     }
 
-    public List<MotivosRetiros> getFiltrarListMotivosRetiros() {
-        return filtrarListMotivosRetiros;
+    public List<MotivosRetiros> getLovMotivosRetirosFiltrar() {
+        return lovMotivosRetirosFiltrar;
     }
 
-    public void setFiltrarListMotivosRetiros(List<MotivosRetiros> setFiltrarListMotivosRetiros) {
-        this.filtrarListMotivosRetiros = setFiltrarListMotivosRetiros;
+    public void setLovMotivosRetirosFiltrar(List<MotivosRetiros> setFiltrarListMotivosRetiros) {
+        this.lovMotivosRetirosFiltrar = setFiltrarListMotivosRetiros;
     }
 
     public List<HvExperienciasLaborales> getListExperienciaLaboralModificar() {

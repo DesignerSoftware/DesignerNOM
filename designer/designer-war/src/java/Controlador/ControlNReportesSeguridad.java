@@ -78,28 +78,28 @@ public class ControlNReportesSeguridad implements Serializable {
     private InputText empleadoDesdeParametro, empleadoHastaParametro, estructuraParametro, sucursalParametro, empresaParametro, tipoTrabajadorParametro, terceroParametro, grupoParametro;
     private SelectOneMenu estadoParametro;
     //LOV'S
-    private List<Inforeportes> listValInforeportes;
+    private List<Inforeportes> lovInforeportes;
     private Inforeportes reporteSeleccionadoLOV;
     private List<Inforeportes> filtrarLovInforeportes;
     private List<Inforeportes> filtrarReportes;
-    private List<Empleados> listValEmpleados;
+    private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
     private List<Empleados> filtrarListEmpleados;
-    private List<GruposConceptos> listValGruposConceptos;
+    private List<GruposConceptos> lovGruposConceptos;
     private GruposConceptos grupoCSeleccionado;
     private List<GruposConceptos> filtrarListGruposConceptos;
-    private List<Empresas> listValEmpresas;
+    private List<Empresas> lovEmpresas;
     private Empresas empresaSeleccionada;
     private List<Empresas> filtrarListEmpresas;
-    private List<Terceros> listValTerceros;
+    private List<Terceros> lovTerceros;
     private Terceros terceroSeleccionado;
     private List<Terceros> filtrarListTerceros;
     private TiposTrabajadores tipoTSeleccionado;
     private List<TiposTrabajadores> filtrarListTiposTrabajadores;
-    private List<Estructuras> listValEstructuras;
+    private List<Estructuras> lovEstructuras;
     private Estructuras estructuraSeleccionada;
     private List<Estructuras> filtrarListEstructuras;
-    private List<SucursalesPila> listValSucursales;
+    private List<SucursalesPila> lovSucursales;
     private SucursalesPila sucursalSeleccionada;
     private List<SucursalesPila> filtrarListSucursales;
     //EXPORTAR REPORTE
@@ -161,13 +161,13 @@ public class ControlNReportesSeguridad implements Serializable {
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
-        listValInforeportes = null;
-        listValEmpleados = null;
-        listValEmpresas = null;
-        listValEstructuras = null;
-        listValGruposConceptos = null;
-        listValTerceros = null;
-        listValSucursales = null;
+        lovInforeportes = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovGruposConceptos = null;
+        lovTerceros = null;
+        lovSucursales = null;
         tipoLista = 0;
 
         empleadoSeleccionado = new Empleados();
@@ -200,15 +200,7 @@ public class ControlNReportesSeguridad implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
-            
-        } else {
-         */
         String pagActual = "nreporteseguridad";
-
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
@@ -233,7 +225,13 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovGruposConceptos = null;
+        lovInforeportes = null;
+        lovSucursales = null;
+        lovTerceros = null;
     }
 
     @PostConstruct
@@ -515,17 +513,17 @@ public class ControlNReportesSeguridad implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getEmpresa().setNombre(empresa);
-                for (int i = 0; i < listValEmpresas.size(); i++) {
-                    if (listValEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
+                for (int i = 0; i < lovEmpresas.size(); i++) {
+                    if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setEmpresa(listValEmpresas.get(indiceUnicoElemento));
+                    parametroDeReporte.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValEmpresas.clear();
-                    getListValEmpresas();
+                    lovEmpresas.clear();
+                    getLovEmpresas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -536,8 +534,8 @@ public class ControlNReportesSeguridad implements Serializable {
             } else {
                 parametroDeReporte.setEmpresa(new Empresas());
                 parametroModificacion = parametroDeReporte;
-                listValEmpresas.clear();
-                getListValEmpresas();
+                lovEmpresas.clear();
+                getLovEmpresas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -545,17 +543,17 @@ public class ControlNReportesSeguridad implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("TERCERO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTercero().setNombre(tercero);
-                for (int i = 0; i < listValTerceros.size(); i++) {
-                    if (listValTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovTerceros.size(); i++) {
+                    if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setTercero(listValTerceros.get(indiceUnicoElemento));
+                    parametroDeReporte.setTercero(lovTerceros.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValTerceros.clear();
-                    getListValTerceros();
+                    lovTerceros.clear();
+                    getLovTerceros();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -566,8 +564,8 @@ public class ControlNReportesSeguridad implements Serializable {
             } else {
                 parametroDeReporte.setTercero(new Terceros());
                 parametroModificacion = parametroDeReporte;
-                listValTerceros.clear();
-                getListValTerceros();
+                lovTerceros.clear();
+                getLovTerceros();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -575,17 +573,17 @@ public class ControlNReportesSeguridad implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("SUCURSAL")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getSucursalPila().setDescripcion(tercero);
-                for (int i = 0; i < listValSucursales.size(); i++) {
-                    if (listValSucursales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovSucursales.size(); i++) {
+                    if (lovSucursales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setSucursalPila(listValSucursales.get(indiceUnicoElemento));
+                    parametroDeReporte.setSucursalPila(lovSucursales.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValSucursales.clear();
-                    getListValSucursales();
+                    lovSucursales.clear();
+                    getLovSucursales();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -596,8 +594,8 @@ public class ControlNReportesSeguridad implements Serializable {
             } else {
                 parametroDeReporte.setSucursalPila(new SucursalesPila());
                 parametroModificacion = parametroDeReporte;
-                listValSucursales.clear();
-                getListValSucursales();
+                lovSucursales.clear();
+                getLovSucursales();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -626,36 +624,36 @@ public class ControlNReportesSeguridad implements Serializable {
         System.out.println(this.getClass().getName() + ".listaValoresBoton()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            listValEmpleados = null;
-            getListValEmpleados();
+            lovEmpleados = null;
+            getLovEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpleadoD();
         }
         if (casilla == 3) {
-            listValEmpleados = null;
-            getListValEmpleados();
+            lovEmpleados = null;
+            getLovEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpleadoH();
         }
         if (casilla == 4) {
-            listValTerceros = null;
-            getListValTerceros();
+            lovTerceros = null;
+            getLovTerceros();
             RequestContext.getCurrentInstance().update("formDialogos:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
             contarRegistrosTercero();
         }
         if (casilla == 6) {
-            listValEmpresas = null;
-            getListValEmpresas();
+            lovEmpresas = null;
+            getLovEmpresas();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
         }
         if (casilla == 7) {
-            listValSucursales = null;
-            getListValSucursales();
+            lovSucursales = null;
+            getLovSucursales();
             RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
             RequestContext.getCurrentInstance().execute("PF('sucursalDialogo').show()");
             contarRegistrosSucursales();
@@ -665,7 +663,7 @@ public class ControlNReportesSeguridad implements Serializable {
     public void dialogosParametros(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            listValEmpleados = null;
+            lovEmpleados = null;
             cargarLovEmplDesde();
             contarRegistrosEmpleadoD();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
@@ -673,7 +671,7 @@ public class ControlNReportesSeguridad implements Serializable {
             contarRegistrosEmpleadoD();
         }
         if (pos == 3) {
-            listValEmpleados = null;
+            lovEmpleados = null;
             cargarLovEmplHasta();
             contarRegistrosEmpleadoH();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
@@ -681,7 +679,7 @@ public class ControlNReportesSeguridad implements Serializable {
             contarRegistrosEmpleadoH();
         }
         if (pos == 4) {
-            listValTerceros = null;
+            lovTerceros = null;
             cargarLovTerceros();
             contarRegistrosTercero();
             RequestContext.getCurrentInstance().update("formDialogos:TerceroDialogo");
@@ -689,7 +687,7 @@ public class ControlNReportesSeguridad implements Serializable {
             contarRegistrosTercero();
         }
         if (pos == 5) {
-            listValEmpresas = null;
+            lovEmpresas = null;
             cargarLovEmpresas();
             contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
@@ -697,7 +695,7 @@ public class ControlNReportesSeguridad implements Serializable {
             contarRegistrosEmpresa();
         }
         if (pos == 7) {
-            listValSucursales = null;
+            lovSucursales = null;
             cargarLovReportes();
             contarRegistrosLovReportes();
             RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
@@ -808,8 +806,8 @@ public class ControlNReportesSeguridad implements Serializable {
         parametroModificacion = parametroDeReporte;
         cambiosReporte = false;
         auxiliar = empresaSeleccionada.getSecuencia();
-        listValSucursales = null;
-        getListValSucursales();
+        lovSucursales = null;
+        getLovSucursales();
         RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
         System.out.println("cambio de empresa");
         empresaSeleccionada = null;
@@ -911,7 +909,7 @@ public class ControlNReportesSeguridad implements Serializable {
         System.out.println(this.getClass().getName() + ".mostrarDialogoBuscarReporte()");
         try {
             if (cambiosReporte == true) {
-                listValInforeportes = null;
+                lovInforeportes = null;
                 cargarLovReportes();
                 contarRegistrosLovReportes();
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -935,12 +933,12 @@ public class ControlNReportesSeguridad implements Serializable {
         listaIR = null;
         parametroDeReporte = null;
         parametroModificacion = null;
-        listValSucursales = null;
-        listValEmpleados = null;
-        listValEmpresas = null;
-        listValEstructuras = null;
-        listValGruposConceptos = null;
-        listValTerceros = null;
+        lovSucursales = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovGruposConceptos = null;
+        lovTerceros = null;
         casilla = -1;
         listaInfoReportesModificados.clear();
         cambiosReporte = true;
@@ -956,8 +954,8 @@ public class ControlNReportesSeguridad implements Serializable {
         if (cambiosReporte == true) {
             defaultPropiedadesParametrosReporte();
             listaIR.clear();
-            for (int i = 0; i < listValInforeportes.size(); i++) {
-                listaIR.add(listValInforeportes.get(i));
+            for (int i = 0; i < lovInforeportes.size(); i++) {
+                listaIR.add(lovInforeportes.get(i));
             }
             reporteSeleccionado = null;
             activoBuscarReporte = false;
@@ -1295,39 +1293,39 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void cargarLovEmplDesde() {
-        if (listValEmpleados == null) {
-            listValEmpleados = administrarNReportesSeguridad.listEmpleados();
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarNReportesSeguridad.listEmpleados();
         }
     }
 
     public void cargarLovEmplHasta() {
-        if (listValEmpleados == null) {
-            listValEmpleados = administrarNReportesSeguridad.listEmpleados();
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarNReportesSeguridad.listEmpleados();
         }
 
     }
 
     public void cargarLovTerceros() {
-        if (listValTerceros == null) {
-            listValTerceros = administrarNReportesSeguridad.listTerceros();
+        if (lovTerceros == null) {
+            lovTerceros = administrarNReportesSeguridad.listTerceros();
         }
     }
 
     public void cargarLovEmpresas() {
-        if (listValEmpresas == null) {
-            listValEmpresas = administrarNReportesSeguridad.listEmpresas();
+        if (lovEmpresas == null) {
+            lovEmpresas = administrarNReportesSeguridad.listEmpresas();
         }
     }
 
     public void cargarLovSucursales() {
-        if (listValSucursales == null) {
-            listValSucursales = administrarNReportesSeguridad.listSucursales(auxiliar);
+        if (lovSucursales == null) {
+            lovSucursales = administrarNReportesSeguridad.listSucursales(auxiliar);
         }
     }
 
     public void cargarLovReportes() {
-        if (listValInforeportes == null) {
-            listValInforeportes = administrarNReportesSeguridad.listInforeportesUsuario();
+        if (lovInforeportes == null) {
+            lovInforeportes = administrarNReportesSeguridad.listInforeportesUsuario();
         }
     }
 
@@ -1407,64 +1405,64 @@ public class ControlNReportesSeguridad implements Serializable {
         this.listaIR = listaIR;
     }
 
-    public List<Inforeportes> getListValInforeportes() {
-        return listValInforeportes;
+    public List<Inforeportes> getLovInforeportes() {
+        return lovInforeportes;
     }
 
-    public void setListValInforeportes(List<Inforeportes> listValInforeportes) {
-        this.listValInforeportes = listValInforeportes;
+    public void setLovInforeportes(List<Inforeportes> lovInforeportes) {
+        this.lovInforeportes = lovInforeportes;
     }
 
-    public List<Empleados> getListValEmpleados() {
-        return listValEmpleados;
+    public List<Empleados> getLovEmpleados() {
+        return lovEmpleados;
     }
 
-    public void setListValEmpleados(List<Empleados> listValEmpleados) {
-        this.listValEmpleados = listValEmpleados;
+    public void setLovEmpleados(List<Empleados> lovEmpleados) {
+        this.lovEmpleados = lovEmpleados;
     }
 
-    public List<GruposConceptos> getListValGruposConceptos() {
-        return listValGruposConceptos;
+    public List<GruposConceptos> getLovGruposConceptos() {
+        return lovGruposConceptos;
     }
 
-    public void setListValGruposConceptos(List<GruposConceptos> listValGruposConceptos) {
-        this.listValGruposConceptos = listValGruposConceptos;
+    public void setLovGruposConceptos(List<GruposConceptos> lovGruposConceptos) {
+        this.lovGruposConceptos = lovGruposConceptos;
     }
 
-    public List<Empresas> getListValEmpresas() {
-        return listValEmpresas;
+    public List<Empresas> getLovEmpresas() {
+        return lovEmpresas;
     }
 
-    public void setListValEmpresas(List<Empresas> listValEmpresas) {
-        this.listValEmpresas = listValEmpresas;
+    public void setLovEmpresas(List<Empresas> lovEmpresas) {
+        this.lovEmpresas = lovEmpresas;
     }
 
-    public List<Terceros> getListValTerceros() {
+    public List<Terceros> getLovTerceros() {
 
-        return listValTerceros;
+        return lovTerceros;
     }
 
-    public void setListValTerceros(List<Terceros> listValTerceros) {
-        this.listValTerceros = listValTerceros;
+    public void setLovTerceros(List<Terceros> lovTerceros) {
+        this.lovTerceros = lovTerceros;
     }
 
-    public List<Estructuras> getListValEstructuras() {
-        if (listValEstructuras == null) {
-            listValEstructuras = administrarNReportesSeguridad.listEstructuras();
+    public List<Estructuras> getLovEstructuras() {
+        if (lovEstructuras == null) {
+            lovEstructuras = administrarNReportesSeguridad.listEstructuras();
         }
-        return listValEstructuras;
+        return lovEstructuras;
     }
 
-    public void setListValEstructuras(List<Estructuras> listValEstructuras) {
-        this.listValEstructuras = listValEstructuras;
+    public void setLovEstructuras(List<Estructuras> lovEstructuras) {
+        this.lovEstructuras = lovEstructuras;
     }
 
-    public List<SucursalesPila> getListValSucursales() {
-        return listValSucursales;
+    public List<SucursalesPila> getLovSucursales() {
+        return lovSucursales;
     }
 
-    public void setListValSucursales(List<SucursalesPila> listValSucursales) {
-        this.listValSucursales = listValSucursales;
+    public void setLovSucursales(List<SucursalesPila> lovSucursales) {
+        this.lovSucursales = lovSucursales;
     }
 
     public List<Inforeportes> getListaInfoReportesModificados() {

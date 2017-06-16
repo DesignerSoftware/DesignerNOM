@@ -274,9 +274,9 @@
 
                   <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovEmpresas"  var="empresa" value="#{controlProyecto.listEmpresas}" rowKey="#{empresa.secuencia}"
+                     <p:dataTable id="lovEmpresas"  var="empresa" value="#{controlProyecto.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                   selection="#{controlProyecto.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                  filteredValue="#{controlProyecto.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}"> 
+                                  filteredValue="#{controlProyecto.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}"> 
                         <p:ajax event="filter" listener="#{controlProyecto.contarRegistroEmpresa()}"/>
                         <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarE"/>
                         <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarEmpresa()}" process="@this"/>
@@ -307,9 +307,9 @@
 
                   <p:dialog header="#{msg['clientesC']}" widgetVar="ClientesDialogo" draggable="true" resizable="false" closable="false" id="ClientesDialogo"  
                             showEffect="fade" hideEffect="fade" width="685" modal="true">
-                     <p:dataTable id="lovClientes" var="cliente" value="#{controlProyecto.listPryClientes}" rowKey="#{cliente.secuencia}"
+                     <p:dataTable id="lovClientes" var="cliente" value="#{controlProyecto.lovPryClientes}" rowKey="#{cliente.secuencia}"
                                   selection="#{controlProyecto.clienteSeleccionado}" selectionMode="single" widgetVar="lovClientes" scrollable="true" scrollWidth="656" scrollHeight="250"
-                                  filteredValue="#{controlProyecto.filtrarListPryClientes}" emptyMessage="#{msg['lovvacio']}">  
+                                  filteredValue="#{controlProyecto.filtrarLovPryClientes}" emptyMessage="#{msg['lovvacio']}">  
                         <p:ajax event="filter" listener="#{controlProyecto.contarRegistroCliente()}"/>
                         <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarC"/>
                         <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarCliente()}" process="@this"/>
@@ -354,9 +354,9 @@
 
                   <p:dialog header="#{msg['plataformastecnologicasP']}" widgetVar="PlataformasDialogo" draggable="true" resizable="false" closable="false" id="PlataformasDialogo"  
                             showEffect="fade" hideEffect="fade" width="601" modal="true">
-                     <p:dataTable id="lovPlataforma"  var="plataforma" value="#{controlProyecto.listPryPlataformas}" rowKey="#{plataforma.secuencia}"
+                     <p:dataTable id="lovPlataforma"  var="plataforma" value="#{controlProyecto.lovPryPlataformas}" rowKey="#{plataforma.secuencia}"
                                   selection="#{controlProyecto.plataformaSeleccionada}" selectionMode="single" widgetVar="lovPlataforma" scrollable="true" scrollWidth="575" scrollHeight="250"
-                                  filteredValue="#{controlProyecto.filtrarListPryPlataformas}" emptyMessage="#{msg['lovvacio']}">   
+                                  filteredValue="#{controlProyecto.filtrarLovPryPlataformas}" emptyMessage="#{msg['lovvacio']}">   
                         <p:ajax event="filter" listener="#{controlProyecto.contarRegistroPlataforma()}"/>
                         <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarP"/>
                         <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarPlataforma()}" process="@this"/>
@@ -396,9 +396,9 @@
 
                   <p:dialog header="#{msg['tiposmonedasM']}" widgetVar="MonedasDialogo" draggable="true" resizable="false" closable="false" id="MonedasDialogo"  
                             showEffect="fade" hideEffect="fade" width="445" modal="true">
-                     <p:dataTable id="lovMoneda"  var="moneda" value="#{controlProyecto.listMonedas}" rowKey="#{moneda.secuencia}"
+                     <p:dataTable id="lovMoneda"  var="moneda" value="#{controlProyecto.lovMonedas}" rowKey="#{moneda.secuencia}"
                                   selection="#{controlProyecto.monedaSeleccionada}" selectionMode="single" widgetVar="lovMoneda" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                  filteredValue="#{controlProyecto.filtrarListMonedas}" emptyMessage="#{msg['lovvacio']}"> 
+                                  filteredValue="#{controlProyecto.filtrarLovMonedas}" emptyMessage="#{msg['lovvacio']}"> 
                         <p:ajax event="filter" listener="#{controlProyecto.contarRegistroTipoMoneda()}"/>
                         <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarM"/>
                         <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarMoneda()}" process="@this"/>

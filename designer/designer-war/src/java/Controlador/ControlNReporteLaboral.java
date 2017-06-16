@@ -75,16 +75,16 @@ public class ControlNReporteLaboral implements Serializable {
     private int tipoLista;
     private int posicionReporte;
     private String requisitosReporte;
-    private List<Cargos> listCargos;
-    private List<Cargos> filtrarListCargos;
+    private List<Cargos> lovCargos;
+    private List<Cargos> lovCargosFiltrar;
     private Cargos cargoSeleccionado;
     private String cargoActual, empresa;
     private boolean permitirIndex, cambiosReporte;
     private InputText empleadoDesdeParametroL, empleadoHastaParametroL, cargoParametroL, empresaParametroL;
-    private List<Empresas> listEmpresas;
-    private List<Empleados> listEmpleados;
-    private List<Empresas> filtrarListEmpresas;
-    private List<Empleados> filtrarListEmpleados;
+    private List<Empresas> lovEmpresas;
+    private List<Empleados> lovEmpleados;
+    private List<Empresas> lovEmpresasFiltrar;
+    private List<Empleados> lovEmpleadosFiltrar;
     private Empresas empresaSeleccionada;
     private Empleados empleadoSeleccionado;
     //ALTO SCROLL TABLA
@@ -137,7 +137,7 @@ public class ControlNReporteLaboral implements Serializable {
         parametroDeReporte = null;
         listaIR = null;
         listaIRRespaldo = new ArrayList<>();
-        filtrarListCargos = null;
+        lovCargosFiltrar = null;
         bandera = 0;
         aceptar = true;
         casilla = -1;
@@ -147,10 +147,10 @@ public class ControlNReporteLaboral implements Serializable {
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
-        listCargos = null;
+        lovCargos = null;
         permitirIndex = true;
-        listEmpleados = null;
-        listEmpresas = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
         listaIR = null;
         empresaSeleccionada = new Empresas();
         empleadoSeleccionado = new Empleados();
@@ -302,6 +302,10 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void limpiarListasValor() {
+        lovCargos = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovInforeportes = null;
     }
 
     public void guardarCambios() {
@@ -542,9 +546,9 @@ public class ControlNReporteLaboral implements Serializable {
         if (bandera == 1) {
             cerrarFiltrado();
         }
-        listCargos = null;
-        listEmpleados = null;
-        listEmpresas = null;
+        lovCargos = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
         listaIR = null;
         parametroDeReporte = null;
         parametroModificacion = null;
@@ -674,45 +678,45 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void cargarLovCargos() {
-        if (listCargos == null) {
-            listCargos = administrarNReporteLaboral.listCargos();
+        if (lovCargos == null) {
+            lovCargos = administrarNReporteLaboral.listCargos();
         }
     }
 
     public void cargarLovEmpresas() {
-        if (listEmpresas == null) {
-            listEmpresas = administrarNReporteLaboral.listEmpresas();
+        if (lovEmpresas == null) {
+            lovEmpresas = administrarNReporteLaboral.listEmpresas();
         }
     }
 
     public void cargarLovEmpleados() {
-        if (listEmpleados == null) {
-            listEmpleados = administrarNReporteLaboral.listEmpleados();
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarNReporteLaboral.listEmpleados();
         }
     }
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarLovEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (casilla == 4) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarLovEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (casilla == 5) {
-            listCargos = null;
+            lovCargos = null;
             cargarLovCargos();
             RequestContext.getCurrentInstance().update("formDialogos:CargoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CargoDialogo').show()");
         }
         if (casilla == 6) {
-            listEmpresas = null;
+            lovEmpresas = null;
             cargarLovEmpresas();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
@@ -723,28 +727,28 @@ public class ControlNReporteLaboral implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         casilla = celda;
         if (casilla == 2) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarLovEmpleados();
             contarRegistrosEmpeladoD();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (casilla == 4) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarLovEmpleados();
             contarRegistrosEmpeladoH();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (casilla == 5) {
-            listCargos = null;
+            lovCargos = null;
             cargarLovCargos();
             contarRegistrosCargo();
             RequestContext.getCurrentInstance().update("formDialogos:CargoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CargoDialogo').show()");
         }
         if (casilla == 6) {
-            listEmpresas = null;
+            lovEmpresas = null;
             cargarLovEmpresas();
             contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
@@ -756,7 +760,7 @@ public class ControlNReporteLaboral implements Serializable {
         permitirIndex = true;
         parametroDeReporte.setCargo(cargoSeleccionado);
         parametroModificacion = parametroDeReporte;
-        filtrarListCargos = null;
+        lovCargosFiltrar = null;
         cargoSeleccionado = null;
         cambiosReporte = false;
         aceptar = true;
@@ -769,7 +773,7 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void cancelarSeleccionCargo() {
-        filtrarListCargos = null;
+        lovCargosFiltrar = null;
         cargoSeleccionado = null;
         aceptar = true;
         permitirIndex = true;
@@ -785,7 +789,7 @@ public class ControlNReporteLaboral implements Serializable {
         parametroModificacion = parametroDeReporte;
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpresa:globalFilter");
@@ -798,7 +802,7 @@ public class ControlNReporteLaboral implements Serializable {
     public void cancelarEmpresa() {
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpresa:globalFilter");
@@ -810,7 +814,7 @@ public class ControlNReporteLaboral implements Serializable {
         parametroDeReporte.setCodigoempleadodesde(empleadoSeleccionado.getCodigoempleado());
         parametroModificacion = parametroDeReporte;
         empleadoSeleccionado = null;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         aceptar = true;
         permitirIndex = true;
         cambiosReporte = false;
@@ -826,7 +830,7 @@ public class ControlNReporteLaboral implements Serializable {
     public void cancelarEmpleadoDesde() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
@@ -838,7 +842,7 @@ public class ControlNReporteLaboral implements Serializable {
         parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
         parametroModificacion = parametroDeReporte;
         empleadoSeleccionado = null;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         cambiosReporte = false;
         aceptar = true;
         permitirIndex = true;
@@ -853,7 +857,7 @@ public class ControlNReporteLaboral implements Serializable {
     public void cancelarEmpleadoHasta() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoHasta:globalFilter");
@@ -868,17 +872,17 @@ public class ControlNReporteLaboral implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getEmpresa().setNombre(empresa);
-                for (int i = 0; i < listEmpresas.size(); i++) {
-                    if (listEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
+                for (int i = 0; i < lovEmpresas.size(); i++) {
+                    if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setEmpresa(listEmpresas.get(indiceUnicoElemento));
+                    parametroDeReporte.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listEmpresas.clear();
-                    getListEmpresas();
+                    lovEmpresas.clear();
+                    getLovEmpresas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -889,8 +893,8 @@ public class ControlNReporteLaboral implements Serializable {
             } else {
                 parametroDeReporte.setEmpresa(new Empresas());
                 parametroModificacion = parametroDeReporte;
-                listEmpresas.clear();
-                getListEmpresas();
+                lovEmpresas.clear();
+                getLovEmpresas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -898,17 +902,17 @@ public class ControlNReporteLaboral implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("CARGO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getCargo().setNombre(cargoActual);
-                for (int i = 0; i < listCargos.size(); i++) {
-                    if (listCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovCargos.size(); i++) {
+                    if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setCargo(listCargos.get(indiceUnicoElemento));
+                    parametroDeReporte.setCargo(lovCargos.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listCargos.clear();
-                    getListCargos();
+                    lovCargos.clear();
+                    getLovCargos();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -919,8 +923,8 @@ public class ControlNReporteLaboral implements Serializable {
             } else {
                 parametroDeReporte.setCargo(new Cargos());
                 parametroModificacion = parametroDeReporte;
-                listCargos.clear();
-                getListCargos();
+                lovCargos.clear();
+                getLovCargos();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1250,20 +1254,20 @@ public class ControlNReporteLaboral implements Serializable {
         this.requisitosReporte = requisitosReporte;
     }
 
-    public List<Cargos> getListCargos() {
-        return listCargos;
+    public List<Cargos> getLovCargos() {
+        return lovCargos;
     }
 
-    public void setListCargos(List<Cargos> listCargos) {
-        this.listCargos = listCargos;
+    public void setLovCargos(List<Cargos> lovCargos) {
+        this.lovCargos = lovCargos;
     }
 
-    public List<Cargos> getFiltrarListCargos() {
-        return filtrarListCargos;
+    public List<Cargos> getLovCargosFiltrar() {
+        return lovCargosFiltrar;
     }
 
-    public void setFiltrarListCargos(List<Cargos> filtrarListCargos) {
-        this.filtrarListCargos = filtrarListCargos;
+    public void setLovCargosFiltrar(List<Cargos> lovCargosFiltrar) {
+        this.lovCargosFiltrar = lovCargosFiltrar;
     }
 
     public Cargos getCargoSeleccionado() {
@@ -1274,36 +1278,36 @@ public class ControlNReporteLaboral implements Serializable {
         this.cargoSeleccionado = cargoSeleccionado;
     }
 
-    public List<Empresas> getListEmpresas() {
-        return listEmpresas;
+    public List<Empresas> getLovEmpresas() {
+        return lovEmpresas;
     }
 
-    public void setListEmpresas(List<Empresas> listEmpresas) {
-        this.listEmpresas = listEmpresas;
+    public void setLovEmpresas(List<Empresas> lovEmpresas) {
+        this.lovEmpresas = lovEmpresas;
     }
 
-    public List<Empleados> getListEmpleados() {
-        return listEmpleados;
+    public List<Empleados> getLovEmpleados() {
+        return lovEmpleados;
     }
 
-    public void setListEmpleados(List<Empleados> listEmpleados) {
-        this.listEmpleados = listEmpleados;
+    public void setLovEmpleados(List<Empleados> lovEmpleados) {
+        this.lovEmpleados = lovEmpleados;
     }
 
-    public List<Empresas> getFiltrarListEmpresas() {
-        return filtrarListEmpresas;
+    public List<Empresas> getLovEmpresasFiltrar() {
+        return lovEmpresasFiltrar;
     }
 
-    public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
-        this.filtrarListEmpresas = filtrarListEmpresas;
+    public void setLovEmpresasFiltrar(List<Empresas> lovEmpresasFiltrar) {
+        this.lovEmpresasFiltrar = lovEmpresasFiltrar;
     }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
+    public List<Empleados> getLovEmpleadosFiltrar() {
+        return lovEmpleadosFiltrar;
     }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
+    public void setLovEmpleadosFiltrar(List<Empleados> lovEmpleadosFiltrar) {
+        this.lovEmpleadosFiltrar = lovEmpleadosFiltrar;
     }
 
     public Empresas getEmpresaSeleccionada() {

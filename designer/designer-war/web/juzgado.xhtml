@@ -154,9 +154,9 @@
                         <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                         <p:dialog header="Ciudad" widgetVar="tiposCentrosCostosDialogo" draggable="true" resizable="false" closable="false" id="tiposCentrosCostosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="457" modal="true" style="font-size: 11px;">
-                            <p:dataTable id="lovTipoCentrosCostos" style="font-size: 11px; width: 430px;" var="mostrarCiudad" value="#{controlJuzgados.listaCiudades}" rowKey="#{mostrarCiudad.secuencia}"
+                            <p:dataTable id="lovTipoCentrosCostos" style="font-size: 11px; width: 430px;" var="mostrarCiudad" value="#{controlJuzgados.lovCiudades}" rowKey="#{mostrarCiudad.secuencia}"
                                          selection="#{controlJuzgados.ciudadSeleccionada}" selectionMode="single" widgetVar="lovTipoCentrosCostos" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                         filteredValue="#{controlJuzgados.filtradoCiudades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
+                                         filteredValue="#{controlJuzgados.lovCiudadesFiltrar}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlJuzgados.activarAceptar()}" update=":form:aceptarTCC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlJuzgados.actualizarCiudades()}" process="@this"/>
 
@@ -392,7 +392,7 @@
                     <!-- LOV CIUDADES -->
                     <p:dialog header="Ciudades" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" modal="true" style="font-size: 11px;">
-                        <p:dataTable id="lovEmpresas" style="font-size: 11px; width: 345px;" var="ciudades" value="#{controlJuzgados.listaCiudades}" rowKey="#{ciudades.secuencia}"
+                        <p:dataTable id="lovEmpresas" style="font-size: 11px; width: 345px;" var="ciudades" value="#{controlJuzgados.lilovCiudades}" rowKey="#{ciudades.secuencia}"
                                      selection="#{controlJuzgados.ciudadSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="360" scrollHeight="360"
                                      filteredValue="#{controlJuzgados.filtradoCiudades}" emptyMessage="No hay datos en la tabla">              
                             <p:ajax event="rowSelect" listener="#{controlJuzgados.activarAceptar()}" update=":formularioDialogos:aceptarE"/>

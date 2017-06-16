@@ -51,8 +51,8 @@ public class ControlPerDirecciones implements Serializable {
     //SECUENCIA DE LA PERSONA
     private Personas persona;
     //L.O.V CIUDADES
-    private List<Ciudades> listaCiudades;
-    private List<Ciudades> filtradoslistaCiudades;
+    private List<Ciudades> lovCiudades;
+    private List<Ciudades> lovCiudadesFiltrar;
     private Ciudades seleccionCiudades;
     //AUTOCOMPLETAR
     private String Ciudad;
@@ -145,15 +145,7 @@ public class ControlPerDirecciones implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
         String pagActual = "perdireccion";
-
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
@@ -380,7 +372,7 @@ public class ControlPerDirecciones implements Serializable {
             duplicarDireccion.setCiudad(seleccionCiudades);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
         }
-        filtradoslistaCiudades = null;
+        lovCiudadesFiltrar = null;
         seleccionCiudades = null;
         aceptar = true;
         tipoActualizacion = -1;
@@ -742,7 +734,7 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public void cancelarCambioCiudades() {
-        filtradoslistaCiudades = null;
+        lovCiudadesFiltrar = null;
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
@@ -824,8 +816,8 @@ public class ControlPerDirecciones implements Serializable {
         } else if (tipoNuevo == 2) {
             duplicarDireccion.getCiudad().setNombre(Ciudad);
         }
-        for (int i = 0; i < listaCiudades.size(); i++) {
-            if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+        for (int i = 0; i < lovCiudades.size(); i++) {
+            if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                 //indiceUnicoElemento = i;
                 coincidencias++;
             }
@@ -838,8 +830,8 @@ public class ControlPerDirecciones implements Serializable {
                 duplicarDireccion.setCiudad(seleccionCiudades);
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
             }
-            listaCiudades = null;
-            getListaCiudades();
+            lovCiudades = null;
+            getLovCiudades();
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -1285,23 +1277,23 @@ public class ControlPerDirecciones implements Serializable {
         this.persona = persona;
     }
 
-    public List<Ciudades> getListaCiudades() {
-        if (listaCiudades == null) {
-            listaCiudades = administrarCiudades.consultarCiudades();
+    public List<Ciudades> getLovCiudades() {
+        if (lovCiudades == null) {
+            lovCiudades = administrarCiudades.consultarCiudades();
         }
-        return listaCiudades;
+        return lovCiudades;
     }
 
-    public void setListaCiudades(List<Ciudades> listaCiudades) {
-        this.listaCiudades = listaCiudades;
+    public void setLovCiudades(List<Ciudades> lovCiudades) {
+        this.lovCiudades = lovCiudades;
     }
 
-    public List<Ciudades> getFiltradoslistaCiudades() {
-        return filtradoslistaCiudades;
+    public List<Ciudades> getLovCiudadesFiltrar() {
+        return lovCiudadesFiltrar;
     }
 
-    public void setFiltradoslistaCiudades(List<Ciudades> filtradoslistaCiudades) {
-        this.filtradoslistaCiudades = filtradoslistaCiudades;
+    public void setLovCiudadesFiltrar(List<Ciudades> lovCiudadesFiltrar) {
+        this.lovCiudadesFiltrar = lovCiudadesFiltrar;
     }
 
     public Ciudades getSeleccionCiudades() {

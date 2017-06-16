@@ -179,10 +179,8 @@ public class ControlPerfiles implements Serializable {
 
     public void limpiarListasValor() {
         lovPermisosObjetosDB = null;
-        cargarLovPermisosObjetosDB();
         lovPermisosPantallas = null;
-        cargarLovPermisosPantallas();
-
+        lovPerfilAlias = null;
     }
 
     @PostConstruct
@@ -236,15 +234,7 @@ public class ControlPerfiles implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
         String pagActual = "perfil";
-
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";

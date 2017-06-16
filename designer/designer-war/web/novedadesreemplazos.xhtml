@@ -387,9 +387,9 @@
                     <p:dialog header="#{msg['cargosC']}" widgetVar="cargosDialogo" draggable="true" resizable="false" id="cargosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="430">
 
-                        <p:dataTable  id="LOVCargos" var="cargos" value="#{controlNovedadesReemplazos.listaCargos}"
+                        <p:dataTable  id="LOVCargos" var="cargos" value="#{controlNovedadesReemplazos.lovCargos}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVCargos" 
-                                      filteredValue="#{controlNovedadesReemplazos.filtradoslistaCargos}" emptyMessage="#{msg['lovvacio']}"
+                                      filteredValue="#{controlNovedadesReemplazos.lovCargosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{cargos.secuencia}" selection="#{controlNovedadesReemplazos.seleccionCargos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarCargos()}" process="@this"/>
@@ -426,9 +426,9 @@
                     <p:dialog header="#{msg['empleadosEF']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="430">
 
-                        <p:dataTable  id="LOVEmpleados" var="empleado" value="#{controlNovedadesReemplazos.listaEmpleados}"
+                        <p:dataTable  id="LOVEmpleados" var="empleado" value="#{controlNovedadesReemplazos.lovEmpleados}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVEmpleados" 
-                                      filteredValue="#{controlNovedadesReemplazos.filtradoslistaEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                      filteredValue="#{controlNovedadesReemplazos.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{empleado.secuencia}" selection="#{controlNovedadesReemplazos.seleccionEmpleados}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarEmpleados}" process="@this"/>
@@ -464,9 +464,9 @@
                     <p:dialog header="#{msg['empleadosEF']}" widgetVar="buscarEmpleadosDialogo" draggable="true" resizable="false" id="buscarEmpleadosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="430">
 
-                        <p:dataTable  id="LOVBuscarEmpleados" var="bempleado" value="#{controlNovedadesReemplazos.listaBuscarEmpleados}"
+                        <p:dataTable  id="LOVBuscarEmpleados" var="bempleado" value="#{controlNovedadesReemplazos.lovBuscarEmpleados}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVBuscarEmpleados" 
-                                      filteredValue="#{controlNovedadesReemplazos.filtradosListaBuscarEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                      filteredValue="#{controlNovedadesReemplazos.lovBuscarEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{bempleado.secuencia}" selection="#{controlNovedadesReemplazos.seleccionBuscarEmpleados}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarBuscarEmpleado()}" process="@this"/>
@@ -501,9 +501,9 @@
                     <p:dialog header="#{msg['tiposreemplazosT']}" widgetVar="tiposReemplazosDialogo" draggable="true" resizable="false" id="tiposReemplazosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="347">
 
-                        <p:dataTable  id="LOVTiposReemplazos" var="tiposReemplazos" value="#{controlNovedadesReemplazos.listaTiposReemplazos}"
+                        <p:dataTable  id="LOVTiposReemplazos" var="tiposReemplazos" value="#{controlNovedadesReemplazos.lovTiposReemplazos}"
                                       scrollable="true" scrollHeight="117" scrollWidth="318" widgetVar="LOVTiposReemplazos" 
-                                      filteredValue="#{controlNovedadesReemplazos.filtradoslistaTiposReemplazos}" emptyMessage="#{msg['lovvacio']}"
+                                      filteredValue="#{controlNovedadesReemplazos.lovTiposReemplazosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{tiposReemplazos.secuencia}" selection="#{controlNovedadesReemplazos.seleccionTiposReemplazos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarTR"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarTiposReemplazos()}" process="@this"/>
@@ -533,9 +533,9 @@
                     <p:dialog header="#{msg['motivosreemplazosM']}" widgetVar="motivosReemplazosDialogo" draggable="true" resizable="false" id="motivosReemplazosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="360" height="310">
 
-                        <p:dataTable  id="LOVMotivosReemplazos" var="motivosReemplazos" value="#{controlNovedadesReemplazos.listaMotivosReemplazos}"
+                        <p:dataTable  id="LOVMotivosReemplazos" var="motivosReemplazos" value="#{controlNovedadesReemplazos.lovMotivosReemplazos}"
                                       scrollable="true" scrollHeight="180" scrollWidth="325" widgetVar="LOVMotivosReemplazos" 
-                                      filteredValue="#{controlNovedadesReemplazos.filtradoslistaMotivosReemplazos}" emptyMessage="#{msg['lovvacio']}"
+                                      filteredValue="#{controlNovedadesReemplazos.lovMotivosReemplazosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{motivosReemplazos.secuencia}" selection="#{controlNovedadesReemplazos.seleccionMotivosReemplazos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarMR"/>
                             <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosMotivosReemplazos()}"/>
@@ -565,9 +565,9 @@
                     <p:dialog header="#{msg['estructurasES']}" widgetVar="estructurasDialogo" draggable="true" resizable="false" id="estructurasDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="430">
 
-                        <p:dataTable  id="LOVEstructuras" var="estructuras" value="#{controlNovedadesReemplazos.listaEstructuras}"
+                        <p:dataTable  id="LOVEstructuras" var="estructuras" value="#{controlNovedadesReemplazos.lovEstructuras}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVEstructuras" 
-                                      filteredValue="#{controlNovedadesReemplazos.filtradoslistaEstructuras}" emptyMessage="#{msg['lovvacio']}"
+                                      filteredValue="#{controlNovedadesReemplazos.lovEstructurasFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{estructuras.secuencia}" selection="#{controlNovedadesReemplazos.seleccionEstructuras}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarEST"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarEstructuras()}" process="@this"/>

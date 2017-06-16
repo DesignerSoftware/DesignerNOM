@@ -146,7 +146,8 @@ public class ControlNovedadOperando implements Serializable {
    }
 
    public void limpiarListasValor() {
-
+       lovListaOperandos = null;
+       lovNovedadesOperandos = null;
    }
 
    @PostConstruct

@@ -229,13 +229,6 @@ public class ControlInterfaseContableTotal implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
-            
-        } else {
-         */
         String pagActual = "interfasecontabletotal";
         if (pag.equals("atras")) {
             pag = paginaAnterior;
@@ -260,7 +253,8 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovEmpresas = null;
+        lovProcesos = null;
     }
 
     @PostConstruct

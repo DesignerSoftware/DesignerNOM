@@ -57,7 +57,6 @@ public class ControlJuzgados implements Serializable {
 
    private int banderaModificacionEmpresa;
    private int indiceEmpresaMostrada;
-//LISTA CENTRO COSTO
    private List<Juzgados> listJuzgadosPorCiudad;
    private List<Juzgados> filtrarJuzgados;
    private List<Juzgados> crearJuzgados;
@@ -72,10 +71,10 @@ public class ControlJuzgados implements Serializable {
            observaciones;
 
    //AUTOCOMPLETAR
-   private List<Ciudades> listaCiudades;
+   private List<Ciudades> lovCiudades;
    private String ciudadesAutocompletar;
    private Ciudades ciudadSeleccionada;
-   private List<Ciudades> filtradoCiudades;
+   private List<Ciudades> lovCiudadesFiltrar;
    private List<Juzgados> listaJuzgadosPorCiudadBoton;
    private boolean banderaSeleccionCentrosCostosPorEmpresa;
    private boolean mostrarTodos;
@@ -86,7 +85,7 @@ public class ControlJuzgados implements Serializable {
       listJuzgadosPorCiudad = null;
       guardado = true;
       permitirIndex = true;
-      listaCiudades = null;
+      lovCiudades = null;
       ciudadSeleccionada = null;
       indiceEmpresaMostrada = 0;
 //        listCentrosCostosPorEmpresaBoton = null;
@@ -98,7 +97,7 @@ public class ControlJuzgados implements Serializable {
       nuevoJuzgado.setCiudad(new Ciudades());
       duplicarJuzgado = new Juzgados();
       aceptar = true;
-      filtradoCiudades = null;
+      lovCiudadesFiltrar = null;
       guardado = true;
       banderaSeleccionCentrosCostosPorEmpresa = false;
       listaJuzgadosPorCiudadBoton = null;
@@ -372,20 +371,20 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             filtrarJuzgados.get(indice).getCiudad().setNombre(ciudadesAutocompletar);
          }
          //getListaTiposCentrosCostos();
-         for (int i = 0; i < listaCiudades.size(); i++) {
-            if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+         for (int i = 0; i < lovCiudades.size(); i++) {
+            if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             if (tipoLista == 0) {
-               listJuzgadosPorCiudad.get(indice).setCiudad(listaCiudades.get(indiceUnicoElemento));
+               listJuzgadosPorCiudad.get(indice).setCiudad(lovCiudades.get(indiceUnicoElemento));
             } else {
-               filtrarJuzgados.get(indice).setCiudad(listaCiudades.get(indiceUnicoElemento));
+               filtrarJuzgados.get(indice).setCiudad(lovCiudades.get(indiceUnicoElemento));
             }
-            listaCiudades.clear();
-            listaCiudades = null;
+            lovCiudades.clear();
+            lovCiudades = null;
             // getListaTiposCentrosCostos();
          } else {
             permitirIndex = false;
@@ -503,7 +502,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             duplicarJuzgado.setCiudad(ciudadSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoCentroCostos");
          }
-         filtradoCiudades = null;
+         lovCiudadesFiltrar = null;
          ciudadSeleccionada = null;
          aceptar = true;
          index = -1;
@@ -520,7 +519,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    public void cancelarCambioCiudades() {
       try {
-         filtradoCiudades = null;
+         lovCiudadesFiltrar = null;
          ciudadSeleccionada = null;
          aceptar = true;
          index = -1;
@@ -596,7 +595,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          listJuzgadosPorCiudad = null;
          listaJuzgadosPorCiudadBoton = null;
          getListaJuzgadosPorCiudadBoton();
-         filtradoCiudades = null;
+         lovCiudadesFiltrar = null;
          aceptar = true;
          context.reset("formularioDialogos:lovEmpresas:globalFilter");
          RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
@@ -616,7 +615,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    public void cancelarCambioCiudad() {
       RequestContext context = RequestContext.getCurrentInstance();
 
-      filtradoCiudades = null;
+      lovCiudadesFiltrar = null;
       banderaModificacionEmpresa = 0;
       index = -1;
       mostrarTodos = true;
@@ -888,18 +887,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoYduplicarCiudadCompletar: " + nuevoYduplicarCiudadCompletar);
             nuevoJuzgado.getCiudad().setNombre(nuevoYduplicarCiudadCompletar);
-            getListaCiudades();
-            for (int i = 0; i < listaCiudades.size(); i++) {
-               if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            getLovCiudades();
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               nuevoJuzgado.setCiudad(listaCiudades.get(indiceUnicoElemento));
-               listaCiudades = null;
-               getListaCiudades();
+               nuevoJuzgado.setCiudad(lovCiudades.get(indiceUnicoElemento));
+               lovCiudades = null;
+               getLovCiudades();
                System.err.println("CIUDAD GUARDADA EN NUEVO JUZGADO " + nuevoJuzgado.getCiudad().getNombre());
             } else {
                RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
@@ -1261,17 +1260,17 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             System.out.println("valorConfirmar: " + valorConfirmar);
             System.out.println("nuevoTipoCCAutoCompletar: " + nuevoYduplicarCiudadCompletar);
             duplicarJuzgado.getCiudad().setNombre(nuevoYduplicarCiudadCompletar);
-            for (int i = 0; i < listaCiudades.size(); i++) {
-               if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             System.out.println("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
-               duplicarJuzgado.setCiudad(listaCiudades.get(indiceUnicoElemento));
-               listaCiudades = null;
-               getListaCiudades();
+               duplicarJuzgado.setCiudad(lovCiudades.get(indiceUnicoElemento));
+               lovCiudades = null;
+               getLovCiudades();
             } else {
                RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
                RequestContext.getCurrentInstance().execute("PF('tiposCentrosCostosDialogo').show()");
@@ -1319,12 +1318,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.ciudadSeleccionada = ciudadSeleccionada;
    }
 
-   public List<Ciudades> getFiltradoCiudades() {
-      return filtradoCiudades;
+   public List<Ciudades> getLovCiudadesFiltrar() {
+      return lovCiudadesFiltrar;
    }
 
-   public void setFiltradoCiudades(List<Ciudades> filtradoCiudades) {
-      this.filtradoCiudades = filtradoCiudades;
+   public void setLovCiudadesFiltrar(List<Ciudades> lovCiudadesFiltrar) {
+      this.lovCiudadesFiltrar = lovCiudadesFiltrar;
    }
 
    public boolean isAceptar() {
@@ -1335,15 +1334,15 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       this.aceptar = aceptar;
    }
 
-   public List<Ciudades> getListaCiudades() {
-      if (listaCiudades == null) {
-         listaCiudades = administrarJuzgados.consultarLOVCiudades();
+   public List<Ciudades> getLovCiudades() {
+      if (lovCiudades == null) {
+         lovCiudades = administrarJuzgados.consultarLOVCiudades();
       }
-      return listaCiudades;
+      return lovCiudades;
    }
 
-   public void setListaCiudades(List<Ciudades> listaCiudades) {
-      this.listaCiudades = listaCiudades;
+   public void setLovCiudades(List<Ciudades> lovCiudades) {
+      this.lovCiudades = lovCiudades;
    }
 
    public List<Juzgados> getListaJuzgadosPorCiudadBoton() {

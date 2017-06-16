@@ -1039,9 +1039,9 @@
 
                     <p:dialog header="Empresas" widgetVar="empresasDialogo" draggable="true" resizable="false" closable="false" id="empresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlNovedadAutoLiquidacion.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlNovedadAutoLiquidacion.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                     filteredValue="#{controlNovedadAutoLiquidacion.filtrarlistaEmpresas}" emptyMessage="#{msg['lovvacio']}">   
+                                     filteredValue="#{controlNovedadAutoLiquidacion.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadAutoLiquidacion.contarRegistroEmpresas()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNovedadAutoLiquidacion.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarEmpresa()}" process="@this"/>
@@ -1074,9 +1074,9 @@
 
                     <p:dialog header="Terceros" widgetVar="tercerosDialogo" draggable="true" resizable="false" closable="false" id="tercerosDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovTerceros" style="width: 400px;" var="terceros" value="#{controlNovedadAutoLiquidacion.listaTerceros}" rowKey="#{terceros.secuencia}"
+                        <p:dataTable id="lovTerceros" style="width: 400px;" var="terceros" value="#{controlNovedadAutoLiquidacion.lovTerceros}" rowKey="#{terceros.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.terceroSeleccionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                     filteredValue="#{controlNovedadAutoLiquidacion.filtrarlistaTerceros}" emptyMessage="#{msg['lovvacio']}">   
+                                     filteredValue="#{controlNovedadAutoLiquidacion.lovTercerosFiltrar}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadAutoLiquidacion.contarRegistroTerceros()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNovedadAutoLiquidacion.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarTercero()}" process="@this"/>
@@ -1110,9 +1110,9 @@
 
                     <p:dialog header="Sucursales" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovSucursales" style="width: 400px;" var="sucursal" value="#{controlNovedadAutoLiquidacion.listaSucursales}" rowKey="#{sucursal.secuencia}"
+                        <p:dataTable id="lovSucursales" style="width: 400px;" var="sucursal" value="#{controlNovedadAutoLiquidacion.lovSucursales}" rowKey="#{sucursal.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                     filteredValue="#{controlNovedadAutoLiquidacion.filtrarlistaSucursales}" emptyMessage="#{msg['lovvacio']}">   
+                                     filteredValue="#{controlNovedadAutoLiquidacion.lovSucursalesFiltrar}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadAutoLiquidacion.contarRegistroSucursales()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNovedadAutoLiquidacion.activarAceptar()}" update=":formularioDialogos:aceptarS"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarSucursal()}" process="@this"/>
@@ -1145,9 +1145,9 @@
 
                     <p:dialog header="Tipos Entidades" widgetVar="tiposEntidadesDialogo" draggable="true" resizable="false" closable="false" id="tiposEntidadesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovTiposEntidades" style="width: 400px;" var="tipoentidad" value="#{controlNovedadAutoLiquidacion.listaTiposEntidades}" rowKey="#{tipoentidad.secuencia}"
+                        <p:dataTable id="lovTiposEntidades" style="width: 400px;" var="tipoentidad" value="#{controlNovedadAutoLiquidacion.lovTiposEntidades}" rowKey="#{tipoentidad.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.tipoEntidadSeleccionada}" selectionMode="single" widgetVar="lovTiposEntidades" scrollable="true" scrollWidth="415" scrollHeight="250"
-                                     filteredValue="#{controlNovedadAutoLiquidacion.filtrarlistaTiposEntidades}" emptyMessage="#{msg['lovvacio']}">   
+                                     filteredValue="#{controlNovedadAutoLiquidacion.lovTiposEntidadesFiltrar}" emptyMessage="#{msg['lovvacio']}">   
                             <p:ajax event="filter" listener="#{controlNovedadAutoLiquidacion.contaroRegistroTipoEntidad()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNovedadAutoLiquidacion.activarAceptar()}" update=":formularioDialogos:aceptarTE"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadAutoLiquidacion.actualizarTipoEntidad()}" process="@this"/>

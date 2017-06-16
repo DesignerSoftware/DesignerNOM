@@ -254,7 +254,8 @@ public class ControlInterfaseContableSapBO implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovEmpresas = null;
+        lovProcesos = null;
     }
 
     @PostConstruct

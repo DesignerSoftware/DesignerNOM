@@ -324,9 +324,9 @@
 
                <p:dialog header="#{msg['cargosC']}" widgetVar="CargoDialogo" draggable="true" resizable="false" closable="false" id="CargoDialogo"  
                          showEffect="fade" hideEffect="fade" width="475" modal="true">
-                  <p:dataTable id="lovCargoDialogo" var="cargo" value="#{controlNReporteLaboral.listCargos}" rowKey="#{cargo.secuencia}"
+                  <p:dataTable id="lovCargoDialogo" var="cargo" value="#{controlNReporteLaboral.lovCargos}" rowKey="#{cargo.secuencia}"
                                selection="#{controlNReporteLaboral.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargoDialogo" scrollable="true" scrollWidth="445" scrollHeight="250"
-                               filteredValue="#{controlNReporteLaboral.filtrarListCargos}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">
+                               filteredValue="#{controlNReporteLaboral.lovCargosFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">
 
                      <p:ajax event="filter" listener="#{controlNReporteLaboral.contarRegistrosCargo()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNReporteLaboral.activarAceptar()}" update=":formDialogos:aceptarC"/>
@@ -359,9 +359,9 @@
 
                <p:dialog header="Empleado Desde" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDesdeDialogo"  
                          showEffect="fade" hideEffect="fade" width="475" modal="true">
-                  <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReporteLaboral.listEmpleados}" rowKey="#{empleadoDesde.secuencia}"
+                  <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReporteLaboral.lovEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                selection="#{controlNReporteLaboral.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="445" scrollHeight="250"
-                               filteredValue="#{controlNReporteLaboral.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                               filteredValue="#{controlNReporteLaboral.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                      <p:ajax event="filter" listener="#{controlNReporteLaboral.contarRegistrosEmpeladoD()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNReporteLaboral.activarAceptar()}" update=":formDialogos:aceptarED"/>
@@ -393,7 +393,7 @@
 
                <p:dialog header="Empleado Hasta" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
                          showEffect="fade" hideEffect="fade" width="475" modal="true">
-                  <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteLaboral.listEmpleados}" rowKey="#{empleadoHasta.secuencia}"
+                  <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteLaboral.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                selection="#{controlNReporteLaboral.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="445" scrollHeight="250"
                                filteredValue="#{controlNReporteLaboral.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -429,7 +429,7 @@
 
                <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                          showEffect="fade" hideEffect="fade" width="475" modal="true">
-                  <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteLaboral.listEmpresas}" rowKey="#{empresa.secuencia}"
+                  <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteLaboral.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                selection="#{controlNReporteLaboral.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="445" scrollHeight="250"
                                filteredValue="#{controlNReporteLaboral.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 

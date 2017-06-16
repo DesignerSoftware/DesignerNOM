@@ -292,9 +292,9 @@
                <!-- LOV EMPRESAS -->
                <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                          showEffect="fade" hideEffect="fade" width="360" modal="true" style="">
-                  <p:dataTable id="lovEmpresas" style=" width: 320px;" var="empresa" value="#{controlPapeles.listaEmpresas}" rowKey="#{empresa.secuencia}"
+                  <p:dataTable id="lovEmpresas" style=" width: 320px;" var="empresa" value="#{controlPapeles.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                selection="#{controlPapeles.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="340" scrollHeight="120"
-                               filteredValue="#{controlPapeles.filtradoListaEmpresas}" emptyMessage="#{msg['lovvacio']}">              
+                               filteredValue="#{controlPapeles.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}">              
                      <p:ajax event="rowSelect" listener="#{controlPapeles.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                      <p:ajax event="rowDblselect" listener="#{controlPapeles.cambiarEmpresa()}" process="@this"/>
                      <f:facet name="header">  

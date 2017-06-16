@@ -748,9 +748,9 @@
 
                <p:dialog id="tiposEducacionesDialogo" header="#{msg['tiposeducacionTE']}" widgetVar="tiposEducacionesDialogo" draggable="true" resizable="false"  closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="380" onShow="PF('LOVTiposEducaciones').clearFilters();">
-                  <p:dataTable  id="LOVTiposEducaciones" var="tiposEducaciones" value="#{controlPersonaEducacion.listaTiposEducaciones}"
+                  <p:dataTable  id="LOVTiposEducaciones" var="tiposEducaciones" value="#{controlPersonaEducacion.lovTiposEducaciones}"
                                 scrollable="true" scrollHeight="200" scrollWidth="351" widgetVar="LOVTiposEducaciones" 
-                                filteredValue="#{controlPersonaEducacion.filtradoslistaTiposEducaciones}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlPersonaEducacion.lovTiposEducacionesFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{tiposEducaciones.secuencia}" selection="#{controlPersonaEducacion.seleccionTiposEducaciones}" selectionMode="single">
                     
                      <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarTE"/>
@@ -779,9 +779,9 @@
                <p:dialog header="#{msg['profesionesP']}" widgetVar="profesionesDialogo" draggable="true" resizable="false" id="profesionesDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="380" onShow="PF('LOVProfesiones').clearFilters();">
 
-                  <p:dataTable  id="LOVProfesiones" var="profesiones" value="#{controlPersonaEducacion.listaProfesiones}"
+                  <p:dataTable  id="LOVProfesiones" var="profesiones" value="#{controlPersonaEducacion.lovProfesiones}"
                                 scrollable="true" scrollHeight="200" scrollWidth="351" widgetVar="LOVProfesiones" 
-                                filteredValue="#{controlPersonaEducacion.filtradoslistaProfesiones}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlPersonaEducacion.lovProfesionesFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{profesiones.secuencia}" selection="#{controlPersonaEducacion.seleccionProfesiones}" selectionMode="single">
                
                      <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
@@ -810,9 +810,9 @@
                <p:dialog header="#{msg['institucionesI']}" widgetVar="institucionesDialogo" draggable="true" resizable="false" id="institucionesDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="380" onShow="PF('LOVInstituciones').clearFilters();">
 
-                  <p:dataTable  id="LOVInstituciones" var="instituciones" value="#{controlPersonaEducacion.listaInstituciones}"
+                  <p:dataTable  id="LOVInstituciones" var="instituciones" value="#{controlPersonaEducacion.lovInstituciones}"
                                 scrollable="true" scrollHeight="200" scrollWidth="351" widgetVar="LOVInstituciones" 
-                                filteredValue="#{controlPersonaEducacion.filtradoslistaInstituciones}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlPersonaEducacion.lovInstitucionesFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{instituciones.secuencia}" selection="#{controlPersonaEducacion.seleccionInstituciones}" selectionMode="single">
                   
                      <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarI"/>
@@ -842,9 +842,9 @@
                <p:dialog header="#{msg['adiestramientosA']}" widgetVar="adiestramientosFDialogo" draggable="true" resizable="false" id="adiestramientosFDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="380" onShow="PF('LOVAdiestramientosF').clearFilters();">
 
-                  <p:dataTable  id="LOVAdiestramientosF"  var="adiestramientosF" value="#{controlPersonaEducacion.listaAdiestramientosFormales}"
+                  <p:dataTable  id="LOVAdiestramientosF"  var="adiestramientosF" value="#{controlPersonaEducacion.lovAdiestramientosFormales}"
                                 scrollable="true" scrollHeight="200" scrollWidth="351" widgetVar="LOVAdiestramientosF" 
-                                filteredValue="#{controlPersonaEducacion.filtradoslistaAdiestramientosFormales}" emptyMessage="No se encontraron resultados con el criterio de busqueda."
+                                filteredValue="#{controlPersonaEducacion.filtradoslovAdiestramientosFormales}" emptyMessage="No se encontraron resultados con el criterio de busqueda."
                                 rowKey="#{adiestramientosF.secuencia}" selection="#{controlPersonaEducacion.seleccionAdiestramientosFormales}" selectionMode="single">
                      
                      <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarAF"/>
@@ -875,9 +875,9 @@
 
                <p:dialog header="#{msg['cursosC']}" widgetVar="cursosDialogo" draggable="true" resizable="false" id="cursosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="380" onShow="PF('LOVCursos').clearFilters();">
-                  <p:dataTable  id="LOVCursos"  var="cursos" value="#{controlPersonaEducacion.listaCursos}"
+                  <p:dataTable  id="LOVCursos"  var="cursos" value="#{controlPersonaEducacion.lovCursos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="351" widgetVar="LOVCursos" 
-                                filteredValue="#{controlPersonaEducacion.filtradoslistaCursos}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlPersonaEducacion.lovListaCursosfiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{cursos.secuencia}" selection="#{controlPersonaEducacion.seleccionCursos}" selectionMode="single">
                     
                      <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
@@ -908,9 +908,9 @@
                <p:dialog header="#{msg['institucionesI']}" widgetVar="institucionesNFDialogo" draggable="true" resizable="false" id="institucionesNFDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="380" onShow="PF('LOVInstitucionesNF').clearFilters();">
 
-                  <p:dataTable  id="LOVInstitucionesNF" var="institucionesNF" value="#{controlPersonaEducacion.listaInstituciones}"
+                  <p:dataTable  id="LOVInstitucionesNF" var="institucionesNF" value="#{controlPersonaEducacion.lovInstituciones}"
                                 scrollable="true" scrollHeight="200" scrollWidth="351" widgetVar="LOVInstitucionesNF" 
-                                filteredValue="#{controlPersonaEducacion.filtradoslistaInstituciones}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlPersonaEducacion.lovInstitucionesFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{institucionesNF.secuencia}" selection="#{controlPersonaEducacion.seleccionInstituciones}" selectionMode="single">
                     
                      <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarINF"/>
@@ -944,9 +944,9 @@
                <p:dialog header="#{msg['adiestramientosA']}" widgetVar="adiestramientosNFDialogo" draggable="true" resizable="false" id="adiestramientosNFDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="380" onShow="PF('LOVAdiestramientosNF').clearFilters();">
 
-                  <p:dataTable  id="LOVAdiestramientosNF"  var="adiestramientosNF" value="#{controlPersonaEducacion.listaAdiestramientosNoFormales}"
+                  <p:dataTable  id="LOVAdiestramientosNF"  var="adiestramientosNF" value="#{controlPersonaEducacion.lovAdiestramientosNoFormales}"
                                 scrollable="true" scrollHeight="200" scrollWidth="351" widgetVar="LOVAdiestramientosNF" 
-                                filteredValue="#{controlPersonaEducacion.filtradoslistaAdiestramientosNoFormales}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlPersonaEducacion.filtradoslovAdiestramientosNoFormales}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{adiestramientosNF.secuencia}" selection="#{controlPersonaEducacion.seleccionAdiestramientosNoFormales}" selectionMode="single">
                      <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarANF"/>
                      <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarAdiestramientoNF()}" process="@this"/>

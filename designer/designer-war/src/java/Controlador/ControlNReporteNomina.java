@@ -70,50 +70,50 @@ public class ControlNReporteNomina implements Serializable {
     private List<Inforeportes> filtrarListIRU;
     private List<Inforeportes> listaInfoReportesModificados;
     //INFOREPORTES LOV
-    private List<Inforeportes> listValInforeportes;
+    private List<Inforeportes> lovInforeportes;
     private Inforeportes reporteSeleccionadoLOV;
     private List<Inforeportes> filtrarLovInforeportes;
     private List<Inforeportes> filtrarReportes;
     //EMPLEADOS
-    private List<Empleados> listValEmpleados;
+    private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
-    private List<Empleados> filtrarListEmpleados;
+    private List<Empleados> lovEmpleadosFiltrar;
     //GRUPO
-    private List<GruposConceptos> listValGruposConceptos;
+    private List<GruposConceptos> lovGruposConceptos;
     private GruposConceptos grupoCSeleccionado;
-    private List<GruposConceptos> filtrarListGruposConceptos;
+    private List<GruposConceptos> lovGruposConceptosFiltrar;
     //UBICACION GEOGRAFICA
-    private List<UbicacionesGeograficas> listValUbicacionesGeograficas;
+    private List<UbicacionesGeograficas> lovUbicacionesGeograficas;
     private UbicacionesGeograficas ubicacionesGSeleccionado;
-    private List<UbicacionesGeograficas> filtrarListUbicacionesGeograficas;
+    private List<UbicacionesGeograficas> lovUbicacionesGeograficasFiltrar;
     //TIPOS ASOCIACIONES
-    private List<TiposAsociaciones> listValTiposAsociaciones;
+    private List<TiposAsociaciones> lovTiposAsociaciones;
     private TiposAsociaciones tiposASeleccionado;
-    private List<TiposAsociaciones> filtrarListTiposAsociaciones;
+    private List<TiposAsociaciones> lovTiposAsociacionesFiltrar;
     //EMPRESAS
-    private List<Empresas> listValEmpresas;
+    private List<Empresas> lovEmpresas;
     private Empresas empresaSeleccionada;
-    private List<Empresas> filtrarListEmpresas;
+    private List<Empresas> lovEmpresasFiltrar;
     //ASOCIACIONES
-    private List<Asociaciones> listValAsociaciones;
+    private List<Asociaciones> lovAsociaciones;
     private Asociaciones asociacionSeleccionado;
-    private List<Asociaciones> filtrarListAsociaciones;
+    private List<Asociaciones> lovAsociacionesFiltrar;
     //TERCEROS
-    private List<Terceros> listValTerceros;
+    private List<Terceros> lovTerceros;
     private Terceros terceroSeleccionado;
-    private List<Terceros> filtrarListTerceros;
+    private List<Terceros> lovTercerosFiltrar;
     //PROCESOS
-    private List<Procesos> listValProcesos;
+    private List<Procesos> lovProcesos;
     private Procesos procesoSeleccionado;
-    private List<Procesos> filtrarListProcesos;
+    private List<Procesos> lovProcesosFiltrar;
     //TIPOS TRABAJADORES
-    private List<TiposTrabajadores> listValTiposTrabajadores;
+    private List<TiposTrabajadores> lovTiposTrabajadores;
     private TiposTrabajadores tipoTSeleccionado;
-    private List<TiposTrabajadores> filtrarListTiposTrabajadores;
+    private List<TiposTrabajadores> lovTiposTrabajadoresFiltrar;
     //ESTRUCTURAS
-    private List<Estructuras> listValEstructuras;
+    private List<Estructuras> lovEstructuras;
     private Estructuras estructuraSeleccionada;
-    private List<Estructuras> filtrarListEstructuras;
+    private List<Estructuras> lovEstructurasFiltrar;
     //COLUMNS
     private Column codigoIR, reporteIR;
     //GENERAR    
@@ -187,18 +187,18 @@ public class ControlNReporteNomina implements Serializable {
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
-        listValInforeportes = null;
-        listValAsociaciones = null;
-//        listValEmpleados = null;
-        listValEmpleados = new ArrayList<>();
-        listValEmpresas = null;
-        listValEstructuras = null;
-        listValGruposConceptos = null;
-        listValProcesos = null;
-        listValTerceros = null;
-        listValTiposAsociaciones = null;
-        listValTiposTrabajadores = null;
-        listValUbicacionesGeograficas = null;
+        lovInforeportes = null;
+        lovAsociaciones = null;
+//        lovEmpleados = null;
+        lovEmpleados = new ArrayList<>();
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovGruposConceptos = null;
+        lovProcesos = null;
+        lovTerceros = null;
+        lovTiposAsociaciones = null;
+        lovTiposTrabajadores = null;
+        lovUbicacionesGeograficas = null;
         tipoLista = 0;
         empleadoSeleccionado = new Empleados();
         empresaSeleccionada = new Empresas();
@@ -236,13 +236,6 @@ public class ControlNReporteNomina implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
         String pagActual = "nreportenomina";
 
         if (pag.equals("atras")) {
@@ -269,7 +262,17 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovAsociaciones = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovGruposConceptos = null;
+        lovInforeportes = null;
+        lovProcesos = null;
+        lovTerceros = null;
+        lovTiposAsociaciones = null;
+        lovTiposTrabajadores = null;
+        lovUbicacionesGeograficas = null;
     }
 
     @PostConstruct
@@ -441,77 +444,77 @@ public class ControlNReporteNomina implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            listValEmpleados = null;
+            lovEmpleados = null;
             cargarListaEmpleados();
             RequestContext.getCurrentInstance().update("formularioEmpleadoDesde:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpeladoD();
         }
         if (casilla == 4) {
-            listValGruposConceptos = null;
+            lovGruposConceptos = null;
             cargarListaGruposConcepto();
             RequestContext.getCurrentInstance().update("formularioGrupoConcepto:GruposConceptosDialogo");
             RequestContext.getCurrentInstance().execute("PF('GruposConceptosDialogo').show()");
             contarRegistrosGrupo();
         }
         if (casilla == 5) {
-            listValUbicacionesGeograficas = null;
+            lovUbicacionesGeograficas = null;
             cargarListaUbicacionesGeograficas();
             RequestContext.getCurrentInstance().update("formularioUbicacion:UbiGeograficaDialogo");
             RequestContext.getCurrentInstance().execute("PF('UbiGeograficaDialogo').show()");
             contarRegistrosUbicacion();
         }
         if (casilla == 6) {
-            listValTiposAsociaciones = null;
-            getListValTiposAsociaciones();
+            lovTiposAsociaciones = null;
+            getLovTiposAsociaciones();
             RequestContext.getCurrentInstance().update("formularioTipoAsociacion:TipoAsociacionDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoAsociacionDialogo').show()");
             contarRegistrosTipoAsociacion();
         }
         if (casilla == 8) {
-            listValEmpleados = null;
+            lovEmpleados = null;
             cargarListaEmpleados();
             RequestContext.getCurrentInstance().update("formularioEmpleadoHasta:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpeladoH();
         }
         if (casilla == 10) {
-            listValEmpresas = null;
-            getListValEmpresas();
+            lovEmpresas = null;
+            getLovEmpresas();
             RequestContext.getCurrentInstance().update("formularioEmpresa:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
         }
         if (casilla == 11) {
-            listValEstructuras = null;
+            lovEstructuras = null;
             cargarListaEstructuras();
             RequestContext.getCurrentInstance().update("formularioEstructura:EstructuraDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             contarRegistrosEstructura();
         }
         if (casilla == 12) {
-            listValTiposTrabajadores = null;
+            lovTiposTrabajadores = null;
             cargarListaTiposTrabajadores();
             RequestContext.getCurrentInstance().update("formularioTipoTrabajador:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             contarRegistrosTipoTrabajador();
         }
         if (casilla == 13) {
-            listValTerceros = null;
+            lovTerceros = null;
             cargarListaTerceros();
             RequestContext.getCurrentInstance().update("formularioTercero:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
             contarRegistrosTercero();
         }
         if (casilla == 14) {
-            listValProcesos = null;
+            lovProcesos = null;
             cargarListaProcesos();
             RequestContext.getCurrentInstance().update("formularioProceso:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
             contarRegistrosProceso();
         }
         if (casilla == 16) {
-            listValAsociaciones = null;
+            lovAsociaciones = null;
             cargarListaAsociaciones();
             RequestContext.getCurrentInstance().update("formularioAsociacion:AsociacionDialogo");
             RequestContext.getCurrentInstance().execute("PF('AsociacionDialogo').show()");
@@ -556,16 +559,16 @@ public class ControlNReporteNomina implements Serializable {
         listaIR = null;
         parametroDeReporte = null;
         parametroModificacion = null;
-        listValAsociaciones = null;
-        listValEmpleados = null;
-        listValEmpresas = null;
-        listValEstructuras = null;
-        listValGruposConceptos = null;
-        listValProcesos = null;
-        listValTerceros = null;
-        listValTiposAsociaciones = null;
-        listValTiposTrabajadores = null;
-        listValUbicacionesGeograficas = null;
+        lovAsociaciones = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovGruposConceptos = null;
+        lovProcesos = null;
+        lovTerceros = null;
+        lovTiposAsociaciones = null;
+        lovTiposTrabajadores = null;
+        lovUbicacionesGeograficas = null;
         casilla = -1;
         listaInfoReportesModificados.clear();
         cambiosReporte = true;
@@ -957,8 +960,8 @@ public class ControlNReporteNomina implements Serializable {
         if (cambiosReporte == true) {
             defaultPropiedadesParametrosReporte();
             listaIR.clear();
-            for (int i = 0; i < listValInforeportes.size(); i++) {
-                listaIR.add(listValInforeportes.get(i));
+            for (int i = 0; i < lovInforeportes.size(); i++) {
+                listaIR.add(lovInforeportes.get(i));
             }
             reporteSeleccionado = null;
             contarRegistros();
@@ -1001,14 +1004,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
 
     }
 
     public void cancelarCambioEmplDesde() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioEmpleadoDesde:lovEmpleadoDesde:globalFilter");
@@ -1030,13 +1033,13 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
     }
 
     public void cancelarCambioEmplHasta() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioEmpleadoHasta:lovEmpleadoHasta:globalFilter");
@@ -1058,14 +1061,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:grupoParametro");
         grupoCSeleccionado = null;
         aceptar = true;
-        filtrarListGruposConceptos = null;
+        lovGruposConceptosFiltrar = null;
 
     }
 
     public void cancelarCambioGrupo() {
         grupoCSeleccionado = null;
         aceptar = true;
-        filtrarListGruposConceptos = null;
+        lovGruposConceptosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioGrupoConcepto:lovGruposConceptos:globalFilter");
@@ -1087,14 +1090,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:ubicacionGeograficaParametro");
         ubicacionesGSeleccionado = null;
         aceptar = true;
-        filtrarListUbicacionesGeograficas = null;
+        lovUbicacionesGeograficasFiltrar = null;
 
     }
 
     public void cancelarCambioUbicacionGeografica() {
         ubicacionesGSeleccionado = null;
         aceptar = true;
-        filtrarListUbicacionesGeograficas = null;
+        lovUbicacionesGeograficasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioUbicacion:lovUbicacionGeografica:globalFilter");
@@ -1116,14 +1119,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:tipoAsociacionParametro");
         tiposASeleccionado = null;
         aceptar = true;
-        filtrarListTiposAsociaciones = null;
+        lovTiposAsociacionesFiltrar = null;
 
     }
 
     public void cancelarTipoAsociacion() {
         tiposASeleccionado = null;
         aceptar = true;
-        filtrarListTiposAsociaciones = null;
+        lovTiposAsociacionesFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioTipoAsociacion:lovTipoAsociacion:globalFilter");
@@ -1145,14 +1148,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
 
     }
 
     public void cancelarEmpresa() {
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioEmpresa:lovEmpresa:globalFilter");
@@ -1173,7 +1176,7 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
         estructuraSeleccionada = null;
         aceptar = true;
-        filtrarListEstructuras = null;
+        lovEstructurasFiltrar = null;
         permitirIndex = true;
 
     }
@@ -1181,7 +1184,7 @@ public class ControlNReporteNomina implements Serializable {
     public void cancelarEstructura() {
         estructuraSeleccionada = null;
         aceptar = true;
-        filtrarListEstructuras = null;
+        lovEstructurasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioEstructura:lovEstructura:globalFilter");
@@ -1202,7 +1205,7 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
         tipoTSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTrabajadores = null;
+        lovTiposTrabajadoresFiltrar = null;
         permitirIndex = true;
 
     }
@@ -1210,7 +1213,7 @@ public class ControlNReporteNomina implements Serializable {
     public void cancelarTipoTrabajador() {
         tipoTSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTrabajadores = null;
+        lovTiposTrabajadoresFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioTipoTrabajador:lovTipoTrabajador:globalFilter");
@@ -1232,14 +1235,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:terceroParametro");
         terceroSeleccionado = null;
         aceptar = true;
-        filtrarListTerceros = null;
+        lovTercerosFiltrar = null;
 
     }
 
     public void cancelarTercero() {
         terceroSeleccionado = null;
         aceptar = true;
-        filtrarListTerceros = null;
+        lovTercerosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioTercero:lovTercero:globalFilter");
@@ -1261,14 +1264,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:procesoParametro");
         procesoSeleccionado = null;
         aceptar = true;
-        filtrarListProcesos = null;
+        lovProcesosFiltrar = null;
 
     }
 
     public void cancelarProceso() {
         procesoSeleccionado = null;
         aceptar = true;
-        filtrarListProcesos = null;
+        lovProcesosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioProceso:lovProceso:globalFilter");
@@ -1290,14 +1293,14 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:asociacionParametro");
         asociacionSeleccionado = null;
         aceptar = true;
-        filtrarListAsociaciones = null;
+        lovAsociacionesFiltrar = null;
 
     }
 
     public void cancelarAsociacion() {
         asociacionSeleccionado = null;
         aceptar = true;
-        filtrarListAsociaciones = null;
+        lovAsociacionesFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioAsociacion:lovAsociacion:globalFilter");
@@ -1347,17 +1350,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("GRUPO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getGrupo().setDescripcion(grupo);
-                for (int i = 0; i < listValGruposConceptos.size(); i++) {
-                    if (listValGruposConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovGruposConceptos.size(); i++) {
+                    if (lovGruposConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setGrupo(listValGruposConceptos.get(indiceUnicoElemento));
+                    parametroDeReporte.setGrupo(lovGruposConceptos.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValGruposConceptos.clear();
-                    getListValGruposConceptos();
+                    lovGruposConceptos.clear();
+                    getLovGruposConceptos();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1368,8 +1371,8 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setGrupo(new GruposConceptos());
                 parametroModificacion = parametroDeReporte;
-                listValGruposConceptos.clear();
-                getListValGruposConceptos();
+                lovGruposConceptos.clear();
+                getLovGruposConceptos();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1377,17 +1380,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("UBIGEO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getUbicaciongeografica().setDescripcion(ubiGeo);
-                for (int i = 0; i < listValUbicacionesGeograficas.size(); i++) {
-                    if (listValUbicacionesGeograficas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovUbicacionesGeograficas.size(); i++) {
+                    if (lovUbicacionesGeograficas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setUbicaciongeografica(listValUbicacionesGeograficas.get(indiceUnicoElemento));
+                    parametroDeReporte.setUbicaciongeografica(lovUbicacionesGeograficas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValUbicacionesGeograficas.clear();
-                    getListValUbicacionesGeograficas();
+                    lovUbicacionesGeograficas.clear();
+                    getLovUbicacionesGeograficas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1398,8 +1401,8 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setUbicaciongeografica(new UbicacionesGeograficas());
                 parametroModificacion = parametroDeReporte;
-                listValUbicacionesGeograficas.clear();
-                getListValUbicacionesGeograficas();
+                lovUbicacionesGeograficas.clear();
+                getLovUbicacionesGeograficas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1407,17 +1410,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getEmpresa().setNombre(empresa);
-                for (int i = 0; i < listValEmpresas.size(); i++) {
-                    if (listValEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
+                for (int i = 0; i < lovEmpresas.size(); i++) {
+                    if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setEmpresa(listValEmpresas.get(indiceUnicoElemento));
+                    parametroDeReporte.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValEmpresas.clear();
-                    getListValEmpresas();
+                    lovEmpresas.clear();
+                    getLovEmpresas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1428,8 +1431,8 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setEmpresa(new Empresas());
                 parametroModificacion = parametroDeReporte;
-                listValEmpresas.clear();
-                getListValEmpresas();
+                lovEmpresas.clear();
+                getLovEmpresas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1437,17 +1440,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("TIPOASO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTipoasociacion().setDescripcion(tipoAso);
-                for (int i = 0; i < listValTiposAsociaciones.size(); i++) {
-                    if (listValTiposAsociaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovTiposAsociaciones.size(); i++) {
+                    if (lovTiposAsociaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setTipoasociacion(listValTiposAsociaciones.get(indiceUnicoElemento));
+                    parametroDeReporte.setTipoasociacion(lovTiposAsociaciones.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValTiposAsociaciones.clear();
-                    getListValTiposAsociaciones();
+                    lovTiposAsociaciones.clear();
+                    getLovTiposAsociaciones();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1458,8 +1461,8 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setTipoasociacion(new TiposAsociaciones());
                 parametroModificacion = parametroDeReporte;
-                listValTiposAsociaciones.clear();
-                getListValTiposAsociaciones();
+                lovTiposAsociaciones.clear();
+                getLovTiposAsociaciones();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1467,17 +1470,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("ESTRUCTURA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getLocalizacion().setNombre(estructura);
-                for (int i = 0; i < listValEstructuras.size(); i++) {
-                    if (listValEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovEstructuras.size(); i++) {
+                    if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setLocalizacion(listValEstructuras.get(indiceUnicoElemento));
+                    parametroDeReporte.setLocalizacion(lovEstructuras.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValEstructuras.clear();
-                    getListValEstructuras();
+                    lovEstructuras.clear();
+                    getLovEstructuras();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1495,17 +1498,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("TIPOTRABAJADOR")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTipotrabajador().setNombre(tipoTrabajador);
-                for (int i = 0; i < listValTiposTrabajadores.size(); i++) {
-                    if (listValTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
+                    if (lovTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setTipotrabajador(listValTiposTrabajadores.get(indiceUnicoElemento));
+                    parametroDeReporte.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValTiposTrabajadores.clear();
-                    getListValTiposTrabajadores();
+                    lovTiposTrabajadores.clear();
+                    getLovTiposTrabajadores();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1523,17 +1526,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("TERCERO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTercero().setNombre(tercero);
-                for (int i = 0; i < listValTerceros.size(); i++) {
-                    if (listValTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovTerceros.size(); i++) {
+                    if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setTercero(listValTerceros.get(indiceUnicoElemento));
+                    parametroDeReporte.setTercero(lovTerceros.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValTerceros.clear();
-                    getListValTerceros();
+                    lovTerceros.clear();
+                    getLovTerceros();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1544,8 +1547,8 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setTercero(new Terceros());
                 parametroModificacion = parametroDeReporte;
-                listValTerceros.clear();
-                getListValTerceros();
+                lovTerceros.clear();
+                getLovTerceros();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1553,17 +1556,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("PROCESO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getProceso().setDescripcion(proceso);
-                for (int i = 0; i < listValProcesos.size(); i++) {
-                    if (listValProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovProcesos.size(); i++) {
+                    if (lovProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setProceso(listValProcesos.get(indiceUnicoElemento));
+                    parametroDeReporte.setProceso(lovProcesos.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValProcesos.clear();
-                    getListValProcesos();
+                    lovProcesos.clear();
+                    getLovProcesos();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1574,8 +1577,8 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setProceso(new Procesos());
                 parametroModificacion = parametroDeReporte;
-                listValProcesos.clear();
-                getListValProcesos();
+                lovProcesos.clear();
+                getLovProcesos();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1583,17 +1586,17 @@ public class ControlNReporteNomina implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("ASOCIACION")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getAsociacion().setDescripcion(asociacion);
-                for (int i = 0; i < listValAsociaciones.size(); i++) {
-                    if (listValAsociaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovAsociaciones.size(); i++) {
+                    if (lovAsociaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setAsociacion(listValAsociaciones.get(indiceUnicoElemento));
+                    parametroDeReporte.setAsociacion(lovAsociaciones.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValAsociaciones.clear();
-                    getListValAsociaciones();
+                    lovAsociaciones.clear();
+                    getLovAsociaciones();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1604,8 +1607,8 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setAsociacion(new Asociaciones());
                 parametroModificacion = parametroDeReporte;
-                listValAsociaciones.clear();
-                getListValAsociaciones();
+                lovAsociaciones.clear();
+                getLovAsociaciones();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1686,77 +1689,77 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println(this.getClass().getName() + ".dialogosParametros()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            listValEmpleados = null;
+            lovEmpleados = null;
             cargarListaEmpleados();
             contarRegistrosEmpeladoD();
             RequestContext.getCurrentInstance().update("formularioEmpleadoDesde:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (pos == 4) {
-            listValGruposConceptos = null;
+            lovGruposConceptos = null;
             cargarListaGruposConcepto();
             RequestContext.getCurrentInstance().update("formularioGrupoConcepto:GruposConceptosDialogo");
             RequestContext.getCurrentInstance().execute("PF('GruposConceptosDialogo').show()");
             contarRegistrosGrupo();
         }
         if (pos == 5) {
-            listValUbicacionesGeograficas = null;
+            lovUbicacionesGeograficas = null;
             cargarListaUbicacionesGeograficas();
             RequestContext.getCurrentInstance().update("formularioUbicacion:UbiGeograficaDialogo");
             RequestContext.getCurrentInstance().execute("PF('UbiGeograficaDialogo').show()");
             contarRegistrosUbicacion();
         }
         if (pos == 6) {
-            listValTiposAsociaciones = null;
-            getListValTiposAsociaciones();
+            lovTiposAsociaciones = null;
+            getLovTiposAsociaciones();
             RequestContext.getCurrentInstance().update("formularioTipoAsociacion:TipoAsociacionDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoAsociacionDialogo').show()");
             contarRegistrosTipoAsociacion();
         }
         if (pos == 8) {
-            listValEmpleados = null;
+            lovEmpleados = null;
             cargarListaEmpleados();
             contarRegistrosEmpeladoH();
             RequestContext.getCurrentInstance().update("formularioEmpleadoHasta:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (pos == 10) {
-            listValEmpresas = null;
-            getListValEmpresas();
+            lovEmpresas = null;
+            getLovEmpresas();
             RequestContext.getCurrentInstance().update("formularioEmpresa:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
         }
         if (pos == 11) {
-            listValEstructuras = null;
+            lovEstructuras = null;
             cargarListaEstructuras();
             RequestContext.getCurrentInstance().update("formularioEstructura:EstructuraDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             contarRegistrosEstructura();
         }
         if (pos == 12) {
-            listValTiposTrabajadores = null;
+            lovTiposTrabajadores = null;
             cargarListaTiposTrabajadores();
             RequestContext.getCurrentInstance().update("formularioTipoTrabajador:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             contarRegistrosTipoTrabajador();
         }
         if (pos == 13) {
-            listValTerceros = null;
+            lovTerceros = null;
             cargarListaTerceros();
             RequestContext.getCurrentInstance().update("formularioTercero:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
             contarRegistrosTercero();
         }
         if (pos == 14) {
-            listValProcesos = null;
+            lovProcesos = null;
             cargarListaProcesos();
             RequestContext.getCurrentInstance().update("formularioProceso:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
             contarRegistrosProceso();
         }
         if (pos == 16) {
-            listValAsociaciones = null;
+            lovAsociaciones = null;
             cargarListaAsociaciones();
             RequestContext.getCurrentInstance().update("formularioAsociacion:AsociacionDialogo");
             RequestContext.getCurrentInstance().execute("PF('AsociacionDialogo').show()");
@@ -1890,54 +1893,54 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void cargarListaEmpleados() {
-        if (listValEmpleados == null) {
-            listValEmpleados = administrarNReportesNomina.listEmpleados();
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarNReportesNomina.listEmpleados();
         }
     }
 
     public void cargarListaGruposConcepto() {
-        if (listValGruposConceptos == null) {
-            listValGruposConceptos = administrarNReportesNomina.listGruposConcetos();
+        if (lovGruposConceptos == null) {
+            lovGruposConceptos = administrarNReportesNomina.listGruposConcetos();
         }
     }
 
     public void cargarListaUbicacionesGeograficas() {
-        if (listValUbicacionesGeograficas == null) {
-            listValUbicacionesGeograficas = administrarNReportesNomina.listUbicacionesGeograficas();
+        if (lovUbicacionesGeograficas == null) {
+            lovUbicacionesGeograficas = administrarNReportesNomina.listUbicacionesGeograficas();
         }
     }
 
     public void cargarListaEstructuras() {
-        if (listValEstructuras == null) {
-            listValEstructuras = administrarNReportesNomina.listEstructuras();
+        if (lovEstructuras == null) {
+            lovEstructuras = administrarNReportesNomina.listEstructuras();
         }
     }
 
     public void cargarListaTiposTrabajadores() {
-        if (listValTiposTrabajadores == null) {
-            listValTiposTrabajadores = administrarNReportesNomina.listTiposTrabajadores();
+        if (lovTiposTrabajadores == null) {
+            lovTiposTrabajadores = administrarNReportesNomina.listTiposTrabajadores();
         }
     }
 
     public void cargarListaTerceros() {
-        if (listValTerceros == null) {
+        if (lovTerceros == null) {
             if (empresa != null) {
-                listValTerceros = administrarNReportesNomina.listTercerosSecEmpresa(this.getParametroDeInforme().getEmpresa().getSecuencia());
+                lovTerceros = administrarNReportesNomina.listTercerosSecEmpresa(this.getParametroDeInforme().getEmpresa().getSecuencia());
             } else {
-                listValTerceros = administrarNReportesNomina.listTerceros();
+                lovTerceros = administrarNReportesNomina.listTerceros();
             }
         }
     }
 
     public void cargarListaProcesos() {
-        if (listValProcesos == null) {
-            listValProcesos = administrarNReportesNomina.listProcesos();
+        if (lovProcesos == null) {
+            lovProcesos = administrarNReportesNomina.listProcesos();
         }
     }
 
     public void cargarListaAsociaciones() {
-        if (listValAsociaciones == null) {
-            listValAsociaciones = administrarNReportesNomina.listAsociaciones();
+        if (lovAsociaciones == null) {
+            lovAsociaciones = administrarNReportesNomina.listAsociaciones();
         }
     }
 
@@ -2064,90 +2067,90 @@ public class ControlNReporteNomina implements Serializable {
         this.requisitosReporte = requisitosReporte;
     }
 
-    public List<Empleados> getListValEmpleados() {
-        return listValEmpleados;
+    public List<Empleados> getLovEmpleados() {
+        return lovEmpleados;
     }
 
-    public void setListValEmpleados(List<Empleados> listEmpleados) {
-        this.listValEmpleados = listEmpleados;
+    public void setLovEmpleados(List<Empleados> listEmpleados) {
+        this.lovEmpleados = listEmpleados;
     }
 
-    public List<Empresas> getListValEmpresas() {
-        if (listValEmpresas == null) {
-            listValEmpresas = administrarNReportesNomina.listEmpresas();
+    public List<Empresas> getLovEmpresas() {
+        if (lovEmpresas == null) {
+            lovEmpresas = administrarNReportesNomina.listEmpresas();
         }
-        return listValEmpresas;
+        return lovEmpresas;
     }
 
-    public void setListValEmpresas(List<Empresas> listEmpresas) {
-        this.listValEmpresas = listEmpresas;
+    public void setLovEmpresas(List<Empresas> listEmpresas) {
+        this.lovEmpresas = listEmpresas;
     }
 
-    public List<GruposConceptos> getListValGruposConceptos() {
-        return listValGruposConceptos;
+    public List<GruposConceptos> getLovGruposConceptos() {
+        return lovGruposConceptos;
     }
 
-    public void setListValGruposConceptos(List<GruposConceptos> listGruposConceptos) {
-        this.listValGruposConceptos = listGruposConceptos;
+    public void setLovGruposConceptos(List<GruposConceptos> listGruposConceptos) {
+        this.lovGruposConceptos = listGruposConceptos;
     }
 
-    public List<UbicacionesGeograficas> getListValUbicacionesGeograficas() {
-        return listValUbicacionesGeograficas;
+    public List<UbicacionesGeograficas> getLovUbicacionesGeograficas() {
+        return lovUbicacionesGeograficas;
     }
 
-    public void setListValUbicacionesGeograficas(List<UbicacionesGeograficas> listUbicacionesGeograficas) {
-        this.listValUbicacionesGeograficas = listUbicacionesGeograficas;
+    public void setLovUbicacionesGeograficas(List<UbicacionesGeograficas> listUbicacionesGeograficas) {
+        this.lovUbicacionesGeograficas = listUbicacionesGeograficas;
     }
 
-    public List<TiposAsociaciones> getListValTiposAsociaciones() {
-        if (listValTiposAsociaciones == null) {
-            listValTiposAsociaciones = administrarNReportesNomina.listTiposAsociaciones();
+    public List<TiposAsociaciones> getLovTiposAsociaciones() {
+        if (lovTiposAsociaciones == null) {
+            lovTiposAsociaciones = administrarNReportesNomina.listTiposAsociaciones();
         }
-        return listValTiposAsociaciones;
+        return lovTiposAsociaciones;
     }
 
-    public void setListValTiposAsociaciones(List<TiposAsociaciones> listTiposAsociaciones) {
-        this.listValTiposAsociaciones = listTiposAsociaciones;
+    public void setLovTiposAsociaciones(List<TiposAsociaciones> listTiposAsociaciones) {
+        this.lovTiposAsociaciones = listTiposAsociaciones;
     }
 
-    public List<Estructuras> getListValEstructuras() {
-        return listValEstructuras;
+    public List<Estructuras> getLovEstructuras() {
+        return lovEstructuras;
     }
 
-    public void setListValEstructuras(List<Estructuras> listEstructuras) {
-        this.listValEstructuras = listEstructuras;
+    public void setLovEstructuras(List<Estructuras> listEstructuras) {
+        this.lovEstructuras = listEstructuras;
     }
 
-    public List<TiposTrabajadores> getListValTiposTrabajadores() {
-        return listValTiposTrabajadores;
+    public List<TiposTrabajadores> getLovTiposTrabajadores() {
+        return lovTiposTrabajadores;
     }
 
-    public void setListValTiposTrabajadores(List<TiposTrabajadores> listTiposTrabajadores) {
-        this.listValTiposTrabajadores = listTiposTrabajadores;
+    public void setLovTiposTrabajadores(List<TiposTrabajadores> listTiposTrabajadores) {
+        this.lovTiposTrabajadores = listTiposTrabajadores;
     }
 
-    public List<Terceros> getListValTerceros() {
-        return listValTerceros;
+    public List<Terceros> getLovTerceros() {
+        return lovTerceros;
     }
 
-    public void setListValTerceros(List<Terceros> listTerceros) {
-        this.listValTerceros = listTerceros;
+    public void setLovTerceros(List<Terceros> listTerceros) {
+        this.lovTerceros = listTerceros;
     }
 
-    public List<Procesos> getListValProcesos() {
-        return listValProcesos;
+    public List<Procesos> getLovProcesos() {
+        return lovProcesos;
     }
 
-    public void setListValProcesos(List<Procesos> listProcesos) {
-        this.listValProcesos = listProcesos;
+    public void setLovProcesos(List<Procesos> listProcesos) {
+        this.lovProcesos = listProcesos;
     }
 
-    public List<Asociaciones> getListValAsociaciones() {
-        return listValAsociaciones;
+    public List<Asociaciones> getLovAsociaciones() {
+        return lovAsociaciones;
     }
 
-    public void setListValAsociaciones(List<Asociaciones> listAsociaciones) {
-        this.listValAsociaciones = listAsociaciones;
+    public void setLovAsociaciones(List<Asociaciones> listAsociaciones) {
+        this.lovAsociaciones = listAsociaciones;
     }
 
     public Empleados getEmpleadoSeleccionado() {
@@ -2214,76 +2217,76 @@ public class ControlNReporteNomina implements Serializable {
         this.asociacionSeleccionado = asociacionSeleccionado;
     }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
+    public List<Empleados> getLovEmpleadosFiltrar() {
+        return lovEmpleadosFiltrar;
     }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
+    public void setLovEmpleadosFiltrar(List<Empleados> lovEmpleadosFiltrar) {
+        this.lovEmpleadosFiltrar = lovEmpleadosFiltrar;
     }
 
-    public List<Empresas> getFiltrarListEmpresas() {
-        return filtrarListEmpresas;
+    public List<Empresas> getLovEmpresasFiltrar() {
+        return lovEmpresasFiltrar;
     }
 
-    public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
-        this.filtrarListEmpresas = filtrarListEmpresas;
+    public void setLovEmpresasFiltrar(List<Empresas> lovEmpresasFiltrar) {
+        this.lovEmpresasFiltrar = lovEmpresasFiltrar;
     }
 
-    public List<GruposConceptos> getFiltrarListGruposConceptos() {
-        return filtrarListGruposConceptos;
+    public List<GruposConceptos> getLovGruposConceptosFiltrar() {
+        return lovGruposConceptosFiltrar;
     }
 
-    public void setFiltrarListGruposConceptos(List<GruposConceptos> filtrarListGruposConceptos) {
-        this.filtrarListGruposConceptos = filtrarListGruposConceptos;
+    public void setLovGruposConceptosFiltrar(List<GruposConceptos> lovGruposConceptosFiltrar) {
+        this.lovGruposConceptosFiltrar = lovGruposConceptosFiltrar;
     }
 
-    public List<UbicacionesGeograficas> getFiltrarListUbicacionesGeograficas() {
-        return filtrarListUbicacionesGeograficas;
+    public List<UbicacionesGeograficas> getLovUbicacionesGeograficasFiltrar() {
+        return lovUbicacionesGeograficasFiltrar;
     }
 
-    public void setFiltrarListUbicacionesGeograficas(List<UbicacionesGeograficas> filtrarListUbicacionesGeograficas) {
-        this.filtrarListUbicacionesGeograficas = filtrarListUbicacionesGeograficas;
+    public void setLovUbicacionesGeograficasFiltrar(List<UbicacionesGeograficas> lovUbicacionesGeograficasFiltrar) {
+        this.lovUbicacionesGeograficasFiltrar = lovUbicacionesGeograficasFiltrar;
     }
 
-    public List<TiposAsociaciones> getFiltrarListTiposAsociaciones() {
-        return filtrarListTiposAsociaciones;
+    public List<TiposAsociaciones> getLovTiposAsociacionesFiltrar() {
+        return lovTiposAsociacionesFiltrar;
     }
 
-    public void setFiltrarListTiposAsociaciones(List<TiposAsociaciones> filtrarListTiposAsociaciones) {
-        this.filtrarListTiposAsociaciones = filtrarListTiposAsociaciones;
+    public void setLovTiposAsociacionesFiltrar(List<TiposAsociaciones> lovTiposAsociacionesFiltrar) {
+        this.lovTiposAsociacionesFiltrar = lovTiposAsociacionesFiltrar;
     }
 
-    public List<Estructuras> getFiltrarListEstructuras() {
-        return filtrarListEstructuras;
+    public List<Estructuras> getLovEstructurasFiltrar() {
+        return lovEstructurasFiltrar;
     }
 
-    public void setFiltrarListEstructuras(List<Estructuras> filtrarListEstructuras) {
-        this.filtrarListEstructuras = filtrarListEstructuras;
+    public void setLovEstructurasFiltrar(List<Estructuras> lovEstructurasFiltrar) {
+        this.lovEstructurasFiltrar = lovEstructurasFiltrar;
     }
 
-    public List<Terceros> getFiltrarListTerceros() {
-        return filtrarListTerceros;
+    public List<Terceros> getLovTercerosFiltrar() {
+        return lovTercerosFiltrar;
     }
 
-    public void setFiltrarListTerceros(List<Terceros> filtrarListTerceros) {
-        this.filtrarListTerceros = filtrarListTerceros;
+    public void setLovTercerosFiltrar(List<Terceros> lovTercerosFiltrar) {
+        this.lovTercerosFiltrar = lovTercerosFiltrar;
     }
 
-    public List<Procesos> getFiltrarListProcesos() {
-        return filtrarListProcesos;
+    public List<Procesos> getLovProcesosFiltrar() {
+        return lovProcesosFiltrar;
     }
 
-    public void setFiltrarListProcesos(List<Procesos> filtrarListProcesos) {
-        this.filtrarListProcesos = filtrarListProcesos;
+    public void setLovProcesosFiltrar(List<Procesos> lovProcesosFiltrar) {
+        this.lovProcesosFiltrar = lovProcesosFiltrar;
     }
 
-    public List<Asociaciones> getFiltrarListAsociaciones() {
-        return filtrarListAsociaciones;
+    public List<Asociaciones> getLovAsociacionesFiltrar() {
+        return lovAsociacionesFiltrar;
     }
 
-    public void setFiltrarListAsociaciones(List<Asociaciones> filtrarListAsociaciones) {
-        this.filtrarListAsociaciones = filtrarListAsociaciones;
+    public void setLovAsociacionesFiltrar(List<Asociaciones> lovAsociacionesFiltrar) {
+        this.lovAsociacionesFiltrar = lovAsociacionesFiltrar;
     }
 
     public UbicacionesGeograficas getUbicacionesGSeleccionado() {
@@ -2302,12 +2305,12 @@ public class ControlNReporteNomina implements Serializable {
         this.tiposASeleccionado = tiposASeleccionado;
     }
 
-    public List<TiposTrabajadores> getFiltrarListTiposTrabajadores() {
-        return filtrarListTiposTrabajadores;
+    public List<TiposTrabajadores> getLovTiposTrabajadoresFiltrar() {
+        return lovTiposTrabajadoresFiltrar;
     }
 
-    public void setFiltrarListTiposTrabajadores(List<TiposTrabajadores> filtrarListTiposTrabajadores) {
-        this.filtrarListTiposTrabajadores = filtrarListTiposTrabajadores;
+    public void setLovTiposTrabajadoresFiltrar(List<TiposTrabajadores> lovTiposTrabajadoresFiltrar) {
+        this.lovTiposTrabajadoresFiltrar = lovTiposTrabajadoresFiltrar;
     }
 
     public String getAltoTabla() {
@@ -2400,9 +2403,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroEmpleadoDesde() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioEmpleadoDesde:lovEmpleadoDesde");
-        if (filtrarListEmpleados != null) {
-            if (filtrarListEmpleados.size() == 1) {
-                empleadoSeleccionado = filtrarListEmpleados.get(0);
+        if (lovEmpleadosFiltrar != null) {
+            if (lovEmpleadosFiltrar.size() == 1) {
+                empleadoSeleccionado = lovEmpleadosFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').unselectAllRows();PF('lovEmpleadoDesde').selectRow(0);");
             } else {
@@ -2420,9 +2423,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroEmpleadoHasta() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioEmpleadoHasta:lovEmpleadoHasta");
-        if (filtrarListEmpleados != null) {
-            if (filtrarListEmpleados.size() == 1) {
-                empleadoSeleccionado = filtrarListEmpleados.get(0);
+        if (lovEmpleadosFiltrar != null) {
+            if (lovEmpleadosFiltrar.size() == 1) {
+                empleadoSeleccionado = lovEmpleadosFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovEmpleadoHasta').unselectAllRows();PF('lovEmpleadoHasta').selectRow(0);");
             } else {
@@ -2440,9 +2443,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroGrupoConcepto() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioGrupoConcepto:lovGruposConceptos");
-        if (filtrarListGruposConceptos != null) {
-            if (filtrarListGruposConceptos.size() == 1) {
-                grupoCSeleccionado = filtrarListGruposConceptos.get(0);
+        if (lovGruposConceptosFiltrar != null) {
+            if (lovGruposConceptosFiltrar.size() == 1) {
+                grupoCSeleccionado = lovGruposConceptosFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovGruposConceptos').unselectAllRows();PF('lovGruposConceptos').selectRow(0);");
             } else {
@@ -2460,9 +2463,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroUbicacion() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioUbicacion:lovUbicacionGeografica");
-        if (filtrarListUbicacionesGeograficas != null) {
-            if (filtrarListUbicacionesGeograficas.size() == 1) {
-                ubicacionesGSeleccionado = filtrarListUbicacionesGeograficas.get(0);
+        if (lovUbicacionesGeograficasFiltrar != null) {
+            if (lovUbicacionesGeograficasFiltrar.size() == 1) {
+                ubicacionesGSeleccionado = lovUbicacionesGeograficasFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovUbicacionGeografica').unselectAllRows();PF('lovUbicacionGeografica').selectRow(0);");
             } else {
@@ -2480,9 +2483,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroTipoAsociacion() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioTipoAsociacion:lovTipoAsociacion");
-        if (filtrarListTiposAsociaciones != null) {
-            if (filtrarListTiposAsociaciones.size() == 1) {
-                tiposASeleccionado = filtrarListTiposAsociaciones.get(0);
+        if (lovTiposAsociacionesFiltrar != null) {
+            if (lovTiposAsociacionesFiltrar.size() == 1) {
+                tiposASeleccionado = lovTiposAsociacionesFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovTipoAsociacion').unselectAllRows();PF('lovTipoAsociacion').selectRow(0);");
             } else {
@@ -2500,9 +2503,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroEmpresa() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioEmpresa:lovEmpresa");
-        if (filtrarListEmpresas != null) {
-            if (filtrarListEmpresas.size() == 1) {
-                empresaSeleccionada = filtrarListEmpresas.get(0);
+        if (lovEmpresasFiltrar != null) {
+            if (lovEmpresasFiltrar.size() == 1) {
+                empresaSeleccionada = lovEmpresasFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovEmpresa').unselectAllRows();PF('lovEmpresa').selectRow(0);");
             } else {
@@ -2520,9 +2523,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroAsociacion() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioAsociacion:lovAsociacion");
-        if (filtrarListAsociaciones != null) {
-            if (filtrarListAsociaciones.size() == 1) {
-                asociacionSeleccionado = filtrarListAsociaciones.get(0);
+        if (lovAsociacionesFiltrar != null) {
+            if (lovAsociacionesFiltrar.size() == 1) {
+                asociacionSeleccionado = lovAsociacionesFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovAsociacion').unselectAllRows();PF('lovAsociacion').selectRow(0);");
             } else {
@@ -2540,9 +2543,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroTercero() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioTercero:lovTercero");
-        if (filtrarListTerceros != null) {
-            if (filtrarListTerceros.size() == 1) {
-                terceroSeleccionado = filtrarListTerceros.get(0);
+        if (lovTercerosFiltrar != null) {
+            if (lovTercerosFiltrar.size() == 1) {
+                terceroSeleccionado = lovTercerosFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovTercero').unselectAllRows();PF('lovTercero').selectRow(0);");
             } else {
@@ -2560,9 +2563,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroProceso() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioProceso:lovProceso");
-        if (filtrarListProcesos != null) {
-            if (filtrarListProcesos.size() == 1) {
-                procesoSeleccionado = filtrarListProcesos.get(0);
+        if (lovProcesosFiltrar != null) {
+            if (lovProcesosFiltrar.size() == 1) {
+                procesoSeleccionado = lovProcesosFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovProceso').unselectAllRows();PF('lovProceso').selectRow(0);");
             } else {
@@ -2580,9 +2583,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroTipoTrabajador() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioTipoTrabajador:lovTipoTrabajador");
-        if (filtrarListTiposTrabajadores != null) {
-            if (filtrarListTiposTrabajadores.size() == 1) {
-                tipoTSeleccionado = filtrarListTiposTrabajadores.get(0);
+        if (lovTiposTrabajadoresFiltrar != null) {
+            if (lovTiposTrabajadoresFiltrar.size() == 1) {
+                tipoTSeleccionado = lovTiposTrabajadoresFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovTipoTrabajador').unselectAllRows();PF('lovTipoTrabajador').selectRow(0);");
             } else {
@@ -2600,9 +2603,9 @@ public class ControlNReporteNomina implements Serializable {
     public String getInfoRegistroEstructura() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioEstructura:lovEstructura");
-        if (filtrarListEstructuras != null) {
-            if (filtrarListEstructuras.size() == 1) {
-                estructuraSeleccionada = filtrarListEstructuras.get(0);
+        if (lovEstructurasFiltrar != null) {
+            if (lovEstructurasFiltrar.size() == 1) {
+                estructuraSeleccionada = lovEstructurasFiltrar.get(0);
                 aceptar = false;
                 RequestContext.getCurrentInstance().execute("PF('lovEstructura').unselectAllRows();PF('lovEstructura').selectRow(0);");
             } else {
@@ -2638,15 +2641,15 @@ public class ControlNReporteNomina implements Serializable {
 
     }
 
-    public List<Inforeportes> getListValInforeportes() {
-        if (listValInforeportes == null || listValInforeportes.isEmpty()) {
-            listValInforeportes = administrarNReportesNomina.listInforeportesUsuario();
+    public List<Inforeportes> getLovInforeportes() {
+        if (lovInforeportes == null || lovInforeportes.isEmpty()) {
+            lovInforeportes = administrarNReportesNomina.listInforeportesUsuario();
         }
-        return listValInforeportes;
+        return lovInforeportes;
     }
 
-    public void setListValInforeportes(List<Inforeportes> lovInforeportes) {
-        this.listValInforeportes = lovInforeportes;
+    public void setLovInforeportes(List<Inforeportes> lovInforeportes) {
+        this.lovInforeportes = lovInforeportes;
     }
 
     public List<Inforeportes> getFiltrarReportes() {

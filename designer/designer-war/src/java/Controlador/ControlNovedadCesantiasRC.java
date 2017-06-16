@@ -61,8 +61,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
    private List<NovedadesSistema> filtrarListaNovedades;
    private NovedadesSistema novedadSeleccionada;
    //LOV EMPLEADOS
-   private List<Empleados> listaEmpleadosLOV;
-   private List<Empleados> listaFiltrarEmpleadosLOV;
+   private List<Empleados> lovEmpleados;
+   private List<Empleados> lovEmpleadosFiltrar;
    private Empleados empleadoSeleccionadoLOV;
    //LISTA CESANTIAS NO LIQUIDADAS
    private List<Empleados> listaaux;
@@ -123,7 +123,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
       guardado = true;
       tipoLista = 0;
       tipoListaNov = 0;
-      listaEmpleadosLOV = null;
+      lovEmpleados = null;
       lovMotivosCesantia = null;
       permitirIndex = true;
       altotabla = 120;
@@ -195,6 +195,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
    public void limpiarListasValor() {
       lovMotivosCesantia = null;
+      lovEmpleados = null;
    }
 
    @PostConstruct
@@ -546,9 +547,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
       if (!listaEmpleadosNovedad.isEmpty()) {
          listaEmpleadosNovedad.clear();
       }
-      if (listaEmpleadosLOV != null) {
-         for (int i = 0; i < listaEmpleadosLOV.size(); i++) {
-            listaEmpleadosNovedad.add(listaEmpleadosLOV.get(i));
+      if (lovEmpleados != null) {
+         for (int i = 0; i < lovEmpleados.size(); i++) {
+            listaEmpleadosNovedad.add(lovEmpleados.get(i));
          }
       }
 
@@ -902,7 +903,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
    }
 
    public void cancelarCambioEmpleados() {
-      listaFiltrarEmpleadosLOV = null;
+      lovEmpleadosFiltrar = null;
       empleadoSeleccionadoLOV = null;
       aceptar = true;
       tipoActualizacion = -1;
@@ -924,9 +925,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
       if (!listaEmpleadosNovedad.isEmpty()) {
          listaEmpleadosNovedad.clear();
       }
-      if (listaEmpleadosLOV != null) {
-         for (int i = 0; i < listaEmpleadosLOV.size(); i++) {
-            listaEmpleadosNovedad.add(listaEmpleadosLOV.get(i));
+      if (lovEmpleados != null) {
+         for (int i = 0; i < lovEmpleados.size(); i++) {
+            listaEmpleadosNovedad.add(lovEmpleados.get(i));
          }
       }
       contarRegistrosNovedades();
@@ -946,7 +947,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
       listaNovedadesCrear.clear();
       listaNovedadesModificar.clear();
       listaNovedades = null;
-      listaEmpleadosLOV = null;
+      lovEmpleados = null;
       activarMTodos = true;
       empleadoSeleccionado = null;
       novedadSeleccionada = null;
@@ -965,7 +966,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
       guardado = true;
       tipoLista = 0;
       tipoListaNov = 0;
-      listaEmpleadosLOV = null;
+      lovEmpleados = null;
       permitirIndex = true;
       nuevaNovedad = new NovedadesSistema();
       nuevaNovedad.setEstado("ABIERTO");
@@ -1136,8 +1137,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
    }
 
    public void cargarLovEmpleados() {
-      if (listaEmpleadosLOV == null) {
-         listaEmpleadosLOV = administrarNovedadesPagoCesantias.empleadosCesantias();
+      if (lovEmpleados == null) {
+         lovEmpleados = administrarNovedadesPagoCesantias.empleadosCesantias();
       }
 
    }
@@ -1277,20 +1278,20 @@ public class ControlNovedadCesantiasRC implements Serializable {
       this.guardado = guardado;
    }
 
-   public List<Empleados> getListaEmpleadosLOV() {
-      return listaEmpleadosLOV;
+   public List<Empleados> getLovEmpleados() {
+      return lovEmpleados;
    }
 
-   public void setListaEmpleadosLOV(List<Empleados> listaEmpleadosLOV) {
-      this.listaEmpleadosLOV = listaEmpleadosLOV;
+   public void setLovEmpleados(List<Empleados> lovEmpleados) {
+      this.lovEmpleados = lovEmpleados;
    }
 
-   public List<Empleados> getListaFiltrarEmpleadosLOV() {
-      return listaFiltrarEmpleadosLOV;
+   public List<Empleados> getLovEmpleadosFiltrar() {
+      return lovEmpleadosFiltrar;
    }
 
-   public void setListaFiltrarEmpleadosLOV(List<Empleados> listaFiltrarEmpleadosLOV) {
-      this.listaFiltrarEmpleadosLOV = listaFiltrarEmpleadosLOV;
+   public void setLovEmpleadosFiltrar(List<Empleados> lovEmpleadosFiltrar) {
+      this.lovEmpleadosFiltrar = lovEmpleadosFiltrar;
    }
 
    public Empleados getEmpleadoSeleccionadoLOV() {
@@ -1376,9 +1377,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
    public String getInfoRegistroEmpleadosLov() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovEmpleados:LOVEmpleados");
-      if (listaFiltrarEmpleadosLOV != null) {
-         if (listaFiltrarEmpleadosLOV.size() == 1) {
-            empleadoSeleccionadoLOV = listaFiltrarEmpleadosLOV.get(0);
+      if (lovEmpleadosFiltrar != null) {
+         if (lovEmpleadosFiltrar.size() == 1) {
+            empleadoSeleccionadoLOV = lovEmpleadosFiltrar.get(0);
             aceptar = false;
             RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').unselectAllRows();PF('LOVEmpleados').selectRow(0);");
          } else {

@@ -54,9 +54,8 @@ public class ControlPapeles implements Serializable {
     private int registrosBorrados;
     private String mensajeValidacion;
 //EMPRESA
-    private List<Empresas> listaEmpresas;
-    private List<Empresas> filtradoListaEmpresas;
-
+    private List<Empresas> lovEmpresas;
+    private List<Empresas> lovEmpresasFiltrar;
     private Empresas empresaSeleccionada;
     private int banderaModificacionEmpresa;
     private int indiceEmpresaMostrada;
@@ -89,7 +88,7 @@ public class ControlPapeles implements Serializable {
 
     public ControlPapeles() {
         permitirIndex = true;
-        listaEmpresas = null;
+        lovEmpresas = null;
         empresaSeleccionada = null;
         indiceEmpresaMostrada = 0;
         listPapelesPorEmpresa = null;
@@ -101,18 +100,18 @@ public class ControlPapeles implements Serializable {
         nuevoPapel = new Papeles();
         duplicarPapel = new Papeles();
         aceptar = true;
-        filtradoListaEmpresas = null;
+        lovEmpresasFiltrar = null;
         guardado = true;
         banderaSeleccionPapelesPorEmpresa = false;
         tamano = 270;
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
+        lovEmpresas = null;
+    }
 
-   }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -140,43 +139,25 @@ public class ControlPapeles implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
+        String pagActual = "papel";
+        if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
             controlListaNavegacion.quitarPagina(pagActual);
-         
         } else {
-            */
-String pagActual = "papel";
-            
-            
-            
-
-
-            
-            
-            
-            
-            
-            
-            if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
         }
         limpiarListasValor();
     }
@@ -422,7 +403,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         }
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
         try {
             System.out.println("entre a CONTROLPAPELES.cancelarModificacion");
             FacesContext c = FacesContext.getCurrentInstance();
@@ -525,7 +507,6 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
              RequestContext.getCurrentInstance().execute("PF('buscarPapelesDialogo').hide()");
              context.reset("formularioDialogos:lovPapeles:globalFilter");
              }*/
-
 
         } catch (Exception e) {
             System.out.println("ERROR CONTROLPAPELES.seleccionaVigencia ERROR====" + e.getMessage());
@@ -1005,19 +986,19 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('confirmarCambioEmpresa').show()");
             } else if (banderaModificacionEmpresa == 0) {
-                getListaEmpresas();
-                for (int i = 0; i < listaEmpresas.size(); i++) {
-                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresa: " + i + " nombre: " + listaEmpresas.get(i).getNombre());
+                getLovEmpresas();
+                for (int i = 0; i < lovEmpresas.size(); i++) {
+                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresa: " + i + " nombre: " + lovEmpresas.get(i).getNombre());
                 }
                 System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Entra a cambiar la empresa seleccionada");
                 int temp = indiceEmpresaMostrada;
                 System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: temp = " + temp);
                 if (updown == 1) {
                     temp--;
-                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Arriba_ temp = " + temp + " lista: " + listaEmpresas.size());
-                    if (temp >= 0 && temp < listaEmpresas.size()) {
+                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Arriba_ temp = " + temp + " lista: " + lovEmpresas.size());
+                    if (temp >= 0 && temp < lovEmpresas.size()) {
                         indiceEmpresaMostrada = temp;
-                        empresaSeleccionada = getListaEmpresas().get(indiceEmpresaMostrada);
+                        empresaSeleccionada = getLovEmpresas().get(indiceEmpresaMostrada);
                         getListPapelesPorEmpresaBoton();
                         System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresaSeleccionada = " + empresaSeleccionada.getNombre());
                         listPapelesPorEmpresa = administrarPapeles.consultarPapelesPorEmpresa(empresaSeleccionada.getSecuencia());
@@ -1030,10 +1011,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     }
                 } else {
                     temp++;
-                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Abajo_ temp = " + temp + " lista: " + listaEmpresas.size());
-                    if (temp >= 0 && temp < listaEmpresas.size()) {
+                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Abajo_ temp = " + temp + " lista: " + lovEmpresas.size());
+                    if (temp >= 0 && temp < lovEmpresas.size()) {
                         indiceEmpresaMostrada = temp;
-                        empresaSeleccionada = getListaEmpresas().get(indiceEmpresaMostrada);
+                        empresaSeleccionada = getLovEmpresas().get(indiceEmpresaMostrada);
                         getListPapelesPorEmpresaBoton();
                         System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresaSeleccionada = " + empresaSeleccionada.getNombre());
                         listPapelesPorEmpresa = administrarPapeles.consultarPapelesPorEmpresa(empresaSeleccionada.getSecuencia());
@@ -1178,7 +1159,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("form:nitEmpresa");
             getListPapelesPorEmpresa();
             getListPapelesPorEmpresaBoton();
-            filtradoListaEmpresas = null;
+            lovEmpresasFiltrar = null;
             listPapelesPorEmpresa = null;
             aceptar = true;
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
@@ -1197,7 +1178,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void cancelarCambioEmpresa() {
-        filtradoListaEmpresas = null;
+        lovEmpresasFiltrar = null;
         banderaModificacionEmpresa = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
@@ -1232,45 +1213,45 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
     private String infoRegistroEmpresas;
 
-    public List<Empresas> getListaEmpresas() {
+    public List<Empresas> getLovEmpresas() {
         try {
-            if (listaEmpresas == null) {
-                listaEmpresas = administrarPapeles.consultarEmpresas();
-                if (!listaEmpresas.isEmpty()) {
-                    empresaSeleccionada = listaEmpresas.get(0);
+            if (lovEmpresas == null) {
+                lovEmpresas = administrarPapeles.consultarEmpresas();
+                if (!lovEmpresas.isEmpty()) {
+                    empresaSeleccionada = lovEmpresas.get(0);
                     backUpEmpresaActual = empresaSeleccionada;
                 }
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            if (listaEmpresas == null || listaEmpresas.isEmpty()) {
+            if (lovEmpresas == null || lovEmpresas.isEmpty()) {
                 infoRegistroEmpresas = "Cantidad de registros: 0 ";
             } else {
-                infoRegistroEmpresas = "Cantidad de registros: " + listaEmpresas.size();
+                infoRegistroEmpresas = "Cantidad de registros: " + lovEmpresas.size();
             }
             RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
-            return listaEmpresas;
+            return lovEmpresas;
         } catch (Exception e) {
             System.out.println("ERRO LISTA EMPRESAS " + e);
             return null;
         }
     }
 
-    public void setListaEmpresas(List<Empresas> listaEmpresas) {
-        this.listaEmpresas = listaEmpresas;
+    public void setLovEmpresas(List<Empresas> lovEmpresas) {
+        this.lovEmpresas = lovEmpresas;
     }
 
-    public List<Empresas> getFiltradoListaEmpresas() {
-        return filtradoListaEmpresas;
+    public List<Empresas> getLovEmpresasFiltrar() {
+        return lovEmpresasFiltrar;
     }
 
-    public void setFiltradoListaEmpresas(List<Empresas> filtradoListaEmpresas) {
-        this.filtradoListaEmpresas = filtradoListaEmpresas;
+    public void setLovEmpresasFiltrar(List<Empresas> lovEmpresasFiltrar) {
+        this.lovEmpresasFiltrar = lovEmpresasFiltrar;
     }
 
     public Empresas getEmpresaSeleccionada() {
         try {
             if (empresaSeleccionada == null) {
-                getListaEmpresas();
+                getLovEmpresas();
                 return empresaSeleccionada;
             }
         } catch (Exception e) {

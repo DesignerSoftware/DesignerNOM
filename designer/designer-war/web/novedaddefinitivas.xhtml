@@ -438,9 +438,9 @@
                <p:dialog header="#{msg['motivosM']}" widgetVar="motivosDialogo" draggable="true" resizable="false" id="motivosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="390" height="335">
 
-                  <p:dataTable  id="LOVMotivos" style="width: 340px;" var="motivos" value="#{controlNovedadesDefinitivas.listaMotivos}"
+                  <p:dataTable  id="LOVMotivos" style="width: 340px;" var="motivos" value="#{controlNovedadesDefinitivas.lovMotivos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="360" widgetVar="LOVMotivos" 
-                                filteredValue="#{controlNovedadesDefinitivas.filtradosListaMotivos}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlNovedadesDefinitivas.lovMotivosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{motivos.secuencia}" selection="#{controlNovedadesDefinitivas.seleccionMotivos}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesDefinitivas.contarRegistrosLovMLiqDef()}"/>
@@ -478,9 +478,9 @@
                <p:dialog header="#{msg['motivosR']}" widgetVar="retirosDialogo" draggable="true" resizable="false" id="retirosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="390" height="340">
 
-                  <p:dataTable  id="LOVRetiros" style=" width: 340px;" var="retiros" value="#{controlNovedadesDefinitivas.listaMotiRetiros}"
+                  <p:dataTable  id="LOVRetiros" style=" width: 340px;" var="retiros" value="#{controlNovedadesDefinitivas.lovMotiRetiros}"
                                 scrollable="true" scrollHeight="200" scrollWidth="360" widgetVar="LOVRetiros" 
-                                filteredValue="#{controlNovedadesDefinitivas.filtradosListaRetiros}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlNovedadesDefinitivas.lovMotiRetirosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{retiros.secuencia}" selection="#{controlNovedadesDefinitivas.seleccionRetiros}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesDefinitivas.contarRegistrosLovMRetiro()}"/>
@@ -519,9 +519,9 @@
                <p:dialog header="#{msg['empleadosE']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="400" height="336">
 
-                  <p:dataTable  id="LOVEmpleados" var="emp" value="#{controlNovedadesDefinitivas.listaEmpleadosLOV}"
+                  <p:dataTable  id="LOVEmpleados" var="emp" value="#{controlNovedadesDefinitivas.lovEmpleados}"
                                 scrollable="true" scrollHeight="200" style="width: 360px;" scrollWidth="380" widgetVar="LOVEmpleados" rowKey="#{emp.secuencia}"
-                                filteredValue="#{controlNovedadesDefinitivas.filtradoslistaEmpleadosLOV}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlNovedadesDefinitivas.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 selection="#{controlNovedadesDefinitivas.empleadoSeleccionadoLOV}" selectionMode="single">
 
                      <p:ajax event="filter" listener="#{controlNovedadesDefinitivas.contarRegistrosLovEmpl()}"/>

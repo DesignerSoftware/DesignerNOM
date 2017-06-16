@@ -94,7 +94,7 @@ public class ControlKioAdmin implements Serializable {
     }
 
     public void limpiarListasValor() {
-        listEmpleadosCK = null;
+        lovEmpleadosCK = null;
     }
 
     @PostConstruct
@@ -135,7 +135,6 @@ public class ControlKioAdmin implements Serializable {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
         String pagActual = "kioadmin";
-
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";

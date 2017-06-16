@@ -316,7 +316,7 @@
 
                     <p:dialog header="#{msg['reporteR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
                               showEffect="fade" hideEffect="fade" height="380" width="470" modal="true">
-                        <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlNReportesSeguridad.listValInforeportes}" rowKey="#{reportes.secuencia}"
+                        <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlNReportesSeguridad.lovInforeportes}" rowKey="#{reportes.secuencia}"
                                      selection="#{controlNReportesSeguridad.reporteSeleccionadoLOV}" selectionMode="single" widgetVar="lovReportesDialogo" scrollable="true" scrollWidth="445" scrollHeight="240"
                                      filteredValue="#{controlNReportesSeguridad.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -354,7 +354,7 @@
 
                     <p:dialog header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDesdeDialogo"  
                               showEffect="fade" hideEffect="fade" height="400" width="470" modal="true">
-                        <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReportesSeguridad.listValEmpleados}" rowKey="#{empleadoDesde.secuencia}"
+                        <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReportesSeguridad.lovEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlNReportesSeguridad.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="450" scrollHeight="250"
                                      filteredValue="#{controlNReportesSeguridad.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
@@ -392,7 +392,7 @@
 
                     <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
                               showEffect="fade" hideEffect="fade" height="400" width="470" modal="true">
-                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReportesSeguridad.listValEmpleados}" rowKey="#{empleadoHasta.secuencia}"
+                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReportesSeguridad.listlovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReportesSeguridad.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="450" scrollHeight="250"
                                      filteredValue="#{controlNReportesSeguridad.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 

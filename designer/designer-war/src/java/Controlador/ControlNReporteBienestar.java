@@ -82,12 +82,12 @@ public class ControlNReporteBienestar implements Serializable {
     private boolean permitirIndex, cambiosReporte;
     private InputText empleadoDesdeParametroL, empleadoHastaParametroL;
     //
-    private List<Empleados> listEmpleados;
-    private List<Empleados> filtrarListEmpleados;
+    private List<Empleados> lovEmpleados;
+    private List<Empleados> lovEmpleadosFiltrar;
     private Empleados empleadoSeleccionado;
-    private List<Actividades> listActividades;
+    private List<Actividades> lovActividades;
     private Actividades actividadSeleccionada;
-    private List<Actividades> filtrarListActividades;
+    private List<Actividades> lovActividadesFiltrar;
     //ALTO SCROLL TABLA
     private String altoTabla;
     private int indice;
@@ -147,9 +147,9 @@ public class ControlNReporteBienestar implements Serializable {
         requisitosReporte = "";
         posicionReporte = -1;
         permitirIndex = true;
-        listEmpleados = null;
+        lovEmpleados = null;
         empleadoSeleccionado = new Empleados();
-        listActividades = null;
+        lovActividades = null;
         actividadSeleccionada = new Actividades();
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
@@ -169,13 +169,6 @@ public class ControlNReporteBienestar implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-
-      } else {
-         */
         String pagActual = "nreportebienestar";
 
         if (pag.equals("atras")) {
@@ -202,7 +195,9 @@ public class ControlNReporteBienestar implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovActividades = null;
+        lovEmpleados = null;
+        lovInforeportes = null;
     }
 
     @PostConstruct
@@ -674,9 +669,9 @@ public class ControlNReporteBienestar implements Serializable {
         if (bandera == 1) {
             cerrarFiltrado();
         }
-        listEmpleados = null;
+        lovEmpleados = null;
         listaIR = null;
-        listActividades = null;
+        lovActividades = null;
         parametroDeReporte = null;
         parametroModificacion = null;
         casilla = -1;
@@ -741,8 +736,8 @@ public class ControlNReporteBienestar implements Serializable {
     public void mostrarDialogosListas() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            if ((listEmpleados == null) || listEmpleados.isEmpty()) {
-                listEmpleados = null;
+            if ((lovEmpleados == null) || lovEmpleados.isEmpty()) {
+                lovEmpleados = null;
             }
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
@@ -763,7 +758,7 @@ public class ControlNReporteBienestar implements Serializable {
         parametroModificacion = parametroDeReporte;
         actividadSeleccionada = null;
         aceptar = true;
-        filtrarListActividades = null;
+        lovActividadesFiltrar = null;
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovActividad:globalFilter");
@@ -776,7 +771,7 @@ public class ControlNReporteBienestar implements Serializable {
     public void cancelarCambioActividad() {
         actividadSeleccionada = null;
         aceptar = true;
-        filtrarListActividades = null;
+        lovActividadesFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovActividad:globalFilter");
@@ -790,7 +785,7 @@ public class ControlNReporteBienestar implements Serializable {
         parametroModificacion = parametroDeReporte;
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
@@ -803,7 +798,7 @@ public class ControlNReporteBienestar implements Serializable {
     public void cancelarCambioEmplDesde() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
@@ -817,7 +812,7 @@ public class ControlNReporteBienestar implements Serializable {
         parametroModificacion = parametroDeReporte;
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         cambiosReporte = false;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoHasta:globalFilter");
@@ -830,7 +825,7 @@ public class ControlNReporteBienestar implements Serializable {
     public void cancelarCambioEmplHasta() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoHasta:globalFilter");
@@ -845,17 +840,17 @@ public class ControlNReporteBienestar implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("ACTIVIDAD")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getActividadbienestar().setDescripcion(actividad);
-                for (int i = 0; i < listActividades.size(); i++) {
-                    if (listActividades.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovActividades.size(); i++) {
+                    if (lovActividades.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setActividadbienestar(listActividades.get(indiceUnicoElemento));
+                    parametroDeReporte.setActividadbienestar(lovActividades.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listActividades.clear();
-                    getListActividades();
+                    lovActividades.clear();
+                    getLovActividades();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -864,8 +859,8 @@ public class ControlNReporteBienestar implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('ActividadDialogo').show()");
                 }
             } else {
-                listActividades.clear();
-                getListActividades();
+                lovActividades.clear();
+                getLovActividades();
                 parametroDeReporte.setActividadbienestar(new Actividades());
                 parametroModificacion = parametroDeReporte;
                 cambiosReporte = false;
@@ -1128,23 +1123,23 @@ public class ControlNReporteBienestar implements Serializable {
         this.requisitosReporte = requisitosReporte;
     }
 
-    public List<Empleados> getListEmpleados() {
-        if (listEmpleados == null || listEmpleados.isEmpty()) {
-            listEmpleados = administrarNReporteBienestar.listEmpleados();
+    public List<Empleados> getLovEmpleados() {
+        if (lovEmpleados == null || lovEmpleados.isEmpty()) {
+            lovEmpleados = administrarNReporteBienestar.listEmpleados();
         }
-        return listEmpleados;
+        return lovEmpleados;
     }
 
-    public void setListEmpleados(List<Empleados> listEmpleados) {
-        this.listEmpleados = listEmpleados;
+    public void setLovEmpleados(List<Empleados> lovEmpleados) {
+        this.lovEmpleados = lovEmpleados;
     }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
+    public List<Empleados> getLovEmpleadosFiltrar() {
+        return lovEmpleadosFiltrar;
     }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
+    public void setLovEmpleadosFiltrar(List<Empleados> lovEmpleadosFiltrar) {
+        this.lovEmpleadosFiltrar = lovEmpleadosFiltrar;
     }
 
     public Empleados getEmpleadoSeleccionado() {
@@ -1155,15 +1150,15 @@ public class ControlNReporteBienestar implements Serializable {
         this.empleadoSeleccionado = empleadoSeleccionado;
     }
 
-    public List<Actividades> getListActividades() {
-        if (listActividades == null || listActividades.isEmpty()) {
-            listActividades = administrarNReporteBienestar.listActividades();
+    public List<Actividades> getLovActividades() {
+        if (lovActividades == null || lovActividades.isEmpty()) {
+            lovActividades = administrarNReporteBienestar.listActividades();
         }
-        return listActividades;
+        return lovActividades;
     }
 
-    public void setListActividades(List<Actividades> listActividades) {
-        this.listActividades = listActividades;
+    public void setLovActividades(List<Actividades> lovActividades) {
+        this.lovActividades = lovActividades;
     }
 
     public Actividades getActividadSeleccionada() {
@@ -1174,12 +1169,12 @@ public class ControlNReporteBienestar implements Serializable {
         this.actividadSeleccionada = actividadSeleccionada;
     }
 
-    public List<Actividades> getFiltrarListActividades() {
-        return filtrarListActividades;
+    public List<Actividades> getLovActividadesFiltrar() {
+        return lovActividadesFiltrar;
     }
 
-    public void setFiltrarListActividades(List<Actividades> filtrarListActividades) {
-        this.filtrarListActividades = filtrarListActividades;
+    public void setLovActividadesFiltrar(List<Actividades> lovActividadesFiltrar) {
+        this.lovActividadesFiltrar = lovActividadesFiltrar;
     }
 
     public boolean isCambiosReporte() {

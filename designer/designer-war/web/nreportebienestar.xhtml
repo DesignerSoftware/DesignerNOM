@@ -245,9 +245,9 @@
 
                     <p:dialog header="#{msg['actividadA']}" widgetVar="ActividadDialogo" draggable="true" resizable="false" closable="false" id="ActividadDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
-                        <p:dataTable id="lovActividad" style="width: 400px;" var="actividad" value="#{controlNReporteBienestar.listActividades}" rowKey="#{actividad.secuencia}"
+                        <p:dataTable id="lovActividad" style="width: 400px;" var="actividad" value="#{controlNReporteBienestar.lovActividades}" rowKey="#{actividad.secuencia}"
                                      selection="#{controlNReporteBienestar.actividadSeleccionada}" selectionMode="single" widgetVar="lovActividad" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlNReporteBienestar.filtrarListActividades}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlNReporteBienestar.lovActividadesFiltrar}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlNReporteBienestar.activarAceptar()}" update=":formDialogos:aceptarAct"/>
                             <p:ajax event="rowDblselect" listener="#{controlNReporteBienestar.actualizarActividad()}"  process="@this"/>
                             <f:facet name="header">  
@@ -280,9 +280,9 @@
 
                     <p:dialog header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDesdeDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
-                        <p:dataTable id="lovEmpleadoDesde" style="width: 400px;" var="empleadoDesde" value="#{controlNReporteBienestar.listEmpleados}" rowKey="#{empleadoDesde.secuencia}"
+                        <p:dataTable id="lovEmpleadoDesde" style="width: 400px;" var="empleadoDesde" value="#{controlNReporteBienestar.lovEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlNReporteBienestar.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlNReporteBienestar.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlNReporteBienestar.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlNReporteBienestar.contarRegistrosEmpleadoD()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNReporteBienestar.activarAceptar()}" update=":formDialogos:aceptarED"/>
@@ -315,7 +315,7 @@
 
                     <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
-                        <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlNReporteBienestar.listEmpleados}" rowKey="#{empleadoHasta.secuencia}"
+                        <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlNReporteBienestar.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReporteBienestar.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlNReporteBienestar.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
 

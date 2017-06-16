@@ -223,9 +223,9 @@
                   <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                   <p:dialog header="Buscar Unidades" widgetVar="tiposPeriodicidadesDialogo" draggable="true" resizable="false" closable="false" id="tiposPeriodicidadesDialogo"  
                             showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                     <p:dataTable id="lovTipoPeriodicidades" style=" width: 430px;" var="unidads" value="#{controlPeriodicidades.listaUnidades}" rowKey="#{unidads.secuencia}"
+                     <p:dataTable id="lovTipoPeriodicidades" style=" width: 430px;" var="unidads" value="#{controlPeriodicidades.lovUnidades}" rowKey="#{unidads.secuencia}"
                                   selection="#{controlPeriodicidades.unidadSeleccionada}" selectionMode="single" widgetVar="lovTipoPeriodicidades" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                  filteredValue="#{controlPeriodicidades.filtradoUnidades}" emptyMessage="#{msg['lovvacio']}">              
+                                  filteredValue="#{controlPeriodicidades.filtradoLovUnidades}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlPeriodicidades.activarAceptar()}" update=":form:aceptarTCC"/>
                         <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.actualizarTipoPeriodicidad()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlPeriodicidades.contarRegistrosUnidades()}" process="@this"/>
@@ -256,9 +256,9 @@
 
                   <p:dialog header="Unidades Base" widgetVar="unidadesBaseDialogo" draggable="true" resizable="false" closable="false" id="unidadesBaseDialogo"  
                             showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                     <p:dataTable id="lovUnidadesBase" style=" width: 430px;" var="unidads" value="#{controlPeriodicidades.listaUnidades}" rowKey="#{unidads.secuencia}"
+                     <p:dataTable id="lovUnidadesBase" style=" width: 430px;" var="unidads" value="#{controlPeriodicidades.lovUnidades}" rowKey="#{unidads.secuencia}"
                                   selection="#{controlPeriodicidades.unidadBaseSeleccionada}" selectionMode="single" widgetVar="lovUnidadesBase" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                  filteredValue="#{controlPeriodicidades.filtradoUnidades}" emptyMessage="#{msg['lovvacio']}">              
+                                  filteredValue="#{controlPeriodicidades.filtradoLovUnidades}" emptyMessage="#{msg['lovvacio']}">              
                         <p:ajax event="rowSelect" listener="#{controlPeriodicidades.activarAceptar()}" update=":form:aceptarUB"/>
                         <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.actualizarUnidadBase()}" process="@this"/>
                         <p:ajax event="filter" listener="#{controlPeriodicidades.contarRegistrosUnidadesBase()}" process="@this"/>

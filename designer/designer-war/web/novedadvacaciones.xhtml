@@ -339,9 +339,9 @@
             <h:form id="formLovPeriodo">
                <p:dialog header="Periodos" widgetVar="periodosDialogo" draggable="true" resizable="false" id="periodosDialogo" closable="false"
                          showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
-                  <p:dataTable  id="LOVPeriodos" style=" width: 410px;" var="per" value="#{controlNovedadesVacaciones.listaPeriodos}"
+                  <p:dataTable  id="LOVPeriodos" style=" width: 410px;" var="per" value="#{controlNovedadesVacaciones.lovPeriodos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVPeriodos" rowKey="#{per.secuencia}"
-                                filteredValue="#{controlNovedadesVacaciones.filtradoslistaPeriodos}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                filteredValue="#{controlNovedadesVacaciones.lovPeriodosFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
                                 selection="#{controlNovedadesVacaciones.periodoSeleccionado}" selectionMode="single">
 
                      <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formLovPeriodo:aceptarP"/>
@@ -381,9 +381,9 @@
 
                <p:dialog header="Buscar Empleado." widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="646" height="330">
-                  <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlNovedadesVacaciones.listaValEmpleados}"
+                  <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlNovedadesVacaciones.lovEmpleados}"
                                 scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
-                                filteredValue="#{controlNovedadesVacaciones.filtradoslistaValEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                filteredValue="#{controlNovedadesVacaciones.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{emp.secuencia}" selection="#{controlNovedadesVacaciones.seleccionEmpleados}" selectionMode="single">
 
                      <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formLovEmpleado:aceptarE"/>

@@ -428,7 +428,25 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovAdiestramientos = null;
+        lovAntecedentes = null;
+        lovCargos = null;
+        lovCiudadDireccion = null;
+        lovCiudadDocumento = null;
+        lovCiudadTelefono = null;
+        lovCiudades = null;
+        lovEstadosCiviles = null;
+        lovInstituciones = null;
+        lovMotivos = null;
+        lovPersonas = null;
+        lovProfesiones = null;
+        lovSectoresEconomicos = null;
+        lovTiposAntecedentes = null;
+        lovTiposDocumentos = null;
+        lovTiposEducaciones = null;
+        lovTiposFamiliares = null;
+        lovTiposTelefonos = null;
+        lovVisitas = null;
     }
 
     @PostConstruct
@@ -459,13 +477,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
-         
-        } else {
-         */
         String pagActual = "pervigenciadomiciliaria";
         if (pag.equals("atras")) {
             pag = paginaAnterior;

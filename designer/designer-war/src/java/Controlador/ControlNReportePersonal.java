@@ -72,45 +72,45 @@ public class ControlNReportePersonal implements Serializable {
     private Inforeportes reporteSeleccionadoLov;
     private List<Inforeportes> filtrarLovInforeportes;
     //EMPLEADOS
-    private List<Empleados> listEmpleados;
+    private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
-    private List<Empleados> filtrarListEmpleados;
+    private List<Empleados> lovEmpleadosFiltrar;
     //EMPRESAS
-    private List<Empresas> listEmpresas;
+    private List<Empresas> lovEmpresas;
     private Empresas empresaSeleccionada;
-    private List<Empresas> filtrarListEmpresas;
+    private List<Empresas> lovEmpresasFiltrar;
     //ESTRUCTURAS
-    private List<Estructuras> listEstructuras;
+    private List<Estructuras> lovEstructuras;
     private Estructuras estructuraSeleccionada;
-    private List<Estructuras> filtrarListEstructuras;
+    private List<Estructuras> lovEstructurasFiltrar;
     //TIPOS TRABAJADORES
-    private List<TiposTrabajadores> listTiposTrabajadores;
+    private List<TiposTrabajadores> lovTiposTrabajadores;
     private TiposTrabajadores tipoTSeleccionado;
-    private List<TiposTrabajadores> filtrarListTiposTrabajadores;
+    private List<TiposTrabajadores> lovTiposTrabajadoresFiltrar;
     //ESTADOS CIVILES
-    private List<EstadosCiviles> listEstadosCiviles;
+    private List<EstadosCiviles> lovEstadosCiviles;
     private EstadosCiviles estadoCivilSeleccionado;
-    private List<EstadosCiviles> filtrarListEstadosCiviles;
+    private List<EstadosCiviles> lovEstadosCivilesFiltrar;
     //TIPOS TELEFONOS
-    private List<TiposTelefonos> listTiposTelefonos;
+    private List<TiposTelefonos> lovTiposTelefonos;
     private TiposTelefonos tipoTelefonoSeleccionado;
-    private List<TiposTelefonos> filtrarListTiposTelefonos;
+    private List<TiposTelefonos> lovTiposTelefonosFiltrar;
     //CIUDADES
-    private List<Ciudades> listCiudades;
+    private List<Ciudades> lovCiudades;
     private Ciudades ciudadSeleccionada;
-    private List<Ciudades> filtrarListCiudades;
+    private List<Ciudades> lovListCiudadesFiltrar;
     //DEPORTES
-    private List<Deportes> listDeportes;
+    private List<Deportes> lovDeportes;
     private Deportes deporteSeleccionado;
-    private List<Deportes> filtrarListDeportes;
+    private List<Deportes> lovDeportesFiltrar;
     //AFICIONES
-    private List<Aficiones> listAficiones;
+    private List<Aficiones> lovAficiones;
     private Aficiones aficionSeleccionada;
-    private List<Aficiones> filtrarListAficiones;
+    private List<Aficiones> lovAficionesFiltrar;
     //
-    private List<Idiomas> listIdiomas;
+    private List<Idiomas> lovIdiomas;
     private Idiomas idiomaSeleccionado;
-    private List<Idiomas> filtrarListIdiomas;
+    private List<Idiomas> lovIdiomasFiltrar;
 
     private ParametrosReportes nuevoParametroInforme;
     //
@@ -188,16 +188,16 @@ public class ControlNReportePersonal implements Serializable {
         tipoLista = 0;
         posicionReporte = -1;
         //
-        listEmpleados = null;
-        listEmpresas = null;
-        listEstructuras = null;
-        listTiposTrabajadores = null;
-        listAficiones = null;
-        listCiudades = null;
-        listDeportes = null;
-        listEstadosCiviles = null;
-        listIdiomas = null;
-        listTiposTelefonos = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovTiposTrabajadores = null;
+        lovAficiones = null;
+        lovCiudades = null;
+        lovDeportes = null;
+        lovEstadosCiviles = null;
+        lovIdiomas = null;
+        lovTiposTelefonos = null;
         //
         empleadoSeleccionado = new Empleados();
         empresaSeleccionada = new Empresas();
@@ -257,7 +257,17 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+    lovAficiones = null;
+    lovCiudades = null;
+    lovDeportes = null;
+    lovEmpleados = null;
+    lovEmpresas = null;
+    lovEstadosCiviles = null;
+    lovEstructuras = null;
+    lovIdiomas = null;
+    lovInforeportes = null;
+    lovTiposTelefonos = null;
+    lovTiposTrabajadores = null;
     }
 
     @PostConstruct
@@ -475,84 +485,84 @@ public class ControlNReportePersonal implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpleadoD();
         }
         if (casilla == 4) {
-            listEstadosCiviles = null;
+            lovEstadosCiviles = null;
             cargarEstadosCiviles();
             RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
             contarRegistrosEstadoCivil();
         }
         if (casilla == 5) {
-            listTiposTelefonos = null;
+            lovTiposTelefonos = null;
             cargarTiposTelefonos();
             RequestContext.getCurrentInstance().update("form:TipoTelefonoDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTelefonoDialogo').show()");
             contarRegistrosTipoTelefono();
         }
         if (casilla == 6) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:JefeDivisionDialogo");
             RequestContext.getCurrentInstance().execute("PF('JefeDivisionDialogo').show()");
             contarRegistrosJefe();
         }
         if (casilla == 9) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpleadoH();
         }
         if (casilla == 10) {
-            listEstructuras = null;
+            lovEstructuras = null;
             cargarEstructuras();
             RequestContext.getCurrentInstance().update("form:EstructuraDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             contarRegistrosEstructura();
         }
         if (casilla == 11) {
-            listTiposTrabajadores = null;
+            lovTiposTrabajadores = null;
             cargarTiposTrabajadores();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             contarRegistrosTipoTrabajador();
         }
         if (casilla == 12) {
-            listCiudades = null;
+            lovCiudades = null;
             cargarCiudades();
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
             contarRegistrosCiudad();
         }
         if (casilla == 13) {
-            listDeportes = null;
+            lovDeportes = null;
             cargarDeporte();
             RequestContext.getCurrentInstance().update("form:DeportesDialogo");
             RequestContext.getCurrentInstance().execute("PF('DeportesDialogo').show()");
             contarRegistrosDeporte();
         }
         if (casilla == 14) {
-            listAficiones = null;
+            lovAficiones = null;
             cargarAficion();
             RequestContext.getCurrentInstance().update("form:AficionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
             contarRegistrosAficion();
         }
         if (casilla == 15) {
-            listIdiomas = null;
+            lovIdiomas = null;
             cargarIdioma();
             RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
             RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
             contarRegistrosIdioma();
         }
         if (casilla == 16) {
-            listEmpresas = null;
+            lovEmpresas = null;
             cargarEmpresas();
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
@@ -597,16 +607,16 @@ public class ControlNReportePersonal implements Serializable {
         listaIR = null;
         parametroDeReporte = null;
         parametroModificacion = null;
-        listEmpleados = null;
-        listEmpresas = null;
-        listEstructuras = null;
-        listTiposTrabajadores = null;
-        listAficiones = null;
-        listCiudades = null;
-        listDeportes = null;
-        listTiposTelefonos = null;
-        listIdiomas = null;
-        listEstadosCiviles = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstructuras = null;
+        lovTiposTrabajadores = null;
+        lovAficiones = null;
+        lovCiudades = null;
+        lovDeportes = null;
+        lovTiposTelefonos = null;
+        lovIdiomas = null;
+        lovEstadosCiviles = null;
         casilla = -1;
         listaInfoReportesModificados.clear();
         mapTipos.clear();
@@ -915,17 +925,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("ESTADOCIVIL")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getEstadocivil().setDescripcion(estadocivil);
-                for (int i = 0; i < listEstadosCiviles.size(); i++) {
-                    if (listEstadosCiviles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovEstadosCiviles.size(); i++) {
+                    if (lovEstadosCiviles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setEstadocivil(listEstadosCiviles.get(indiceUnicoElemento));
+                    parametroDeReporte.setEstadocivil(lovEstadosCiviles.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listEstadosCiviles.clear();
-                    getListEstadosCiviles();
+                    lovEstadosCiviles.clear();
+                    getLovEstadosCiviles();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -936,8 +946,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setEstadocivil(new EstadosCiviles());
                 parametroModificacion = parametroDeReporte;
-                listEstadosCiviles.clear();
-                getListEstadosCiviles();
+                lovEstadosCiviles.clear();
+                getLovEstadosCiviles();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -945,17 +955,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("TIPOTELEFONO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTipotelefono().setNombre(tipotelefono);
-                for (int i = 0; i < listTiposTelefonos.size(); i++) {
-                    if (listTiposTelefonos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovTiposTelefonos.size(); i++) {
+                    if (lovTiposTelefonos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setTipotelefono(listTiposTelefonos.get(indiceUnicoElemento));
+                    parametroDeReporte.setTipotelefono(lovTiposTelefonos.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listTiposTelefonos.clear();
-                    getListTiposTelefonos();
+                    lovTiposTelefonos.clear();
+                    getLovTiposTelefonos();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -966,8 +976,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setTipotelefono(new TiposTelefonos());
                 parametroModificacion = parametroDeReporte;
-                listTiposTelefonos.clear();
-                getListTiposTelefonos();
+                lovTiposTelefonos.clear();
+                getLovTiposTelefonos();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -975,17 +985,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("JEFEDIV")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getNombregerente().getPersona().setNombreCompleto(jefediv);
-                for (int i = 0; i < listEmpleados.size(); i++) {
-                    if (listEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar)) {
+                for (int i = 0; i < lovEmpleados.size(); i++) {
+                    if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar)) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setNombregerente(listEmpleados.get(indiceUnicoElemento));
+                    parametroDeReporte.setNombregerente(lovEmpleados.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listEmpleados.clear();
-                    getListEmpleados();
+                    lovEmpleados.clear();
+                    getLovEmpleados();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -996,8 +1006,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setNombregerente(new Empleados());
                 parametroModificacion = parametroDeReporte;
-                listEmpleados.clear();
-                getListEmpleados();
+                lovEmpleados.clear();
+                getLovEmpleados();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1005,17 +1015,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("ESTRUCTURA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getLocalizacion().setNombre(estructura);
-                for (int i = 0; i < listEstructuras.size(); i++) {
-                    if (listEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovEstructuras.size(); i++) {
+                    if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setLocalizacion(listEstructuras.get(indiceUnicoElemento));
+                    parametroDeReporte.setLocalizacion(lovEstructuras.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listEstructuras.clear();
-                    getListEstructuras();
+                    lovEstructuras.clear();
+                    getLovEstructuras();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1026,8 +1036,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setLocalizacion(new Estructuras());
                 parametroModificacion = parametroDeReporte;
-                listEstructuras.clear();
-                getListEstructuras();
+                lovEstructuras.clear();
+                getLovEstructuras();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1035,17 +1045,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("TIPOTRABAJADOR")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTipotrabajador().setNombre(tipoTrabajador);
-                for (int i = 0; i < listTiposTrabajadores.size(); i++) {
-                    if (listTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
+                    if (lovTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setTipotrabajador(listTiposTrabajadores.get(indiceUnicoElemento));
+                    parametroDeReporte.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listTiposTrabajadores.clear();
-                    getListTiposTrabajadores();
+                    lovTiposTrabajadores.clear();
+                    getLovTiposTrabajadores();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1056,8 +1066,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setTipotrabajador(new TiposTrabajadores());
                 parametroModificacion = parametroDeReporte;
-                listTiposTrabajadores.clear();
-                getListTiposTrabajadores();
+                lovTiposTrabajadores.clear();
+                getLovTiposTrabajadores();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1065,17 +1075,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("CIUDAD")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getCiudad().setNombre(ciudad);
-                for (int i = 0; i < listCiudades.size(); i++) {
-                    if (listCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovCiudades.size(); i++) {
+                    if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setCiudad(listCiudades.get(indiceUnicoElemento));
+                    parametroDeReporte.setCiudad(lovCiudades.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listCiudades.clear();
-                    getListCiudades();
+                    lovCiudades.clear();
+                    getLovCiudades();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1086,8 +1096,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setCiudad(new Ciudades());
                 parametroModificacion = parametroDeReporte;
-                listCiudades.clear();
-                getListCiudades();
+                lovCiudades.clear();
+                getLovCiudades();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1095,17 +1105,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("DEPORTE")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getDeporte().setNombre(deporte);
-                for (int i = 0; i < listDeportes.size(); i++) {
-                    if (listDeportes.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovDeportes.size(); i++) {
+                    if (lovDeportes.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setDeporte(listDeportes.get(indiceUnicoElemento));
+                    parametroDeReporte.setDeporte(lovDeportes.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listDeportes.clear();
-                    getListDeportes();
+                    lovDeportes.clear();
+                    getLovDeportes();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1117,8 +1127,8 @@ public class ControlNReportePersonal implements Serializable {
 
                 parametroDeReporte.setDeporte(new Deportes());
                 parametroModificacion = parametroDeReporte;
-                listDeportes.clear();
-                getListDeportes();
+                lovDeportes.clear();
+                getLovDeportes();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1126,17 +1136,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("AFICION")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getAficion().setDescripcion(aficiones);
-                for (int i = 0; i < listAficiones.size(); i++) {
-                    if (listAficiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovAficiones.size(); i++) {
+                    if (lovAficiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setAficion(listAficiones.get(indiceUnicoElemento));
+                    parametroDeReporte.setAficion(lovAficiones.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listAficiones.clear();
-                    getListAficiones();
+                    lovAficiones.clear();
+                    getLovAficiones();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
@@ -1148,8 +1158,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setAficion(new Aficiones());
                 parametroModificacion = parametroDeReporte;
-                listAficiones.clear();
-                getListAficiones();
+                lovAficiones.clear();
+                getLovAficiones();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1157,17 +1167,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("IDIOMA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getIdioma().setNombre(idioma);
-                for (int i = 0; i < listIdiomas.size(); i++) {
-                    if (listIdiomas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovIdiomas.size(); i++) {
+                    if (lovIdiomas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setIdioma(listIdiomas.get(indiceUnicoElemento));
+                    parametroDeReporte.setIdioma(lovIdiomas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listIdiomas.clear();
-                    getListIdiomas();
+                    lovIdiomas.clear();
+                    getLovIdiomas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1178,8 +1188,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setIdioma(new Idiomas());
                 parametroModificacion = parametroDeReporte;
-                listIdiomas.clear();
-                getListIdiomas();
+                lovIdiomas.clear();
+                getLovIdiomas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1187,17 +1197,17 @@ public class ControlNReportePersonal implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getEmpresa().setNombre(empresa);
-                for (int i = 0; i < listEmpresas.size(); i++) {
-                    if (listEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovEmpresas.size(); i++) {
+                    if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setEmpresa(listEmpresas.get(indiceUnicoElemento));
+                    parametroDeReporte.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listEmpresas.clear();
-                    getListEmpresas();
+                    lovEmpresas.clear();
+                    getLovEmpresas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -1208,8 +1218,8 @@ public class ControlNReportePersonal implements Serializable {
             } else {
                 parametroDeReporte.setEmpresa(new Empresas());
                 parametroModificacion = parametroDeReporte;
-                listEmpresas.clear();
-                getListEmpresas();
+                lovEmpresas.clear();
+                getLovEmpresas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1235,69 +1245,69 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void cargarEmpleados() {
-        if (listEmpleados == null) {
-            listEmpleados = administrarNReportePersonal.listEmpleados();
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarNReportePersonal.listEmpleados();
         }
     }
 
     public void cargarEmpresas() {
-        if (listEmpresas == null) {
-            listEmpresas = administrarNReportePersonal.listEmpresas();
+        if (lovEmpresas == null) {
+            lovEmpresas = administrarNReportePersonal.listEmpresas();
         }
     }
 
     public void cargarEstructuras() {
-        if (listEstructuras == null) {
-            listEstructuras = administrarNReportePersonal.listEstructuras();
+        if (lovEstructuras == null) {
+            lovEstructuras = administrarNReportePersonal.listEstructuras();
         }
     }
 
     public void cargarTiposTrabajadores() {
-        if (listTiposTrabajadores == null) {
-            listTiposTrabajadores = administrarNReportePersonal.listTiposTrabajadores();
+        if (lovTiposTrabajadores == null) {
+            lovTiposTrabajadores = administrarNReportePersonal.listTiposTrabajadores();
         }
     }
 
     public void cargarEstadosCiviles() {
-        if (listEstadosCiviles == null) {
-            listEstadosCiviles = administrarNReportePersonal.listEstadosCiviles();
+        if (lovEstadosCiviles == null) {
+            lovEstadosCiviles = administrarNReportePersonal.listEstadosCiviles();
         }
     }
 
     public void cargarTiposTelefonos() {
-        if (listTiposTelefonos == null) {
-            listTiposTelefonos = administrarNReportePersonal.listTiposTelefonos();
+        if (lovTiposTelefonos == null) {
+            lovTiposTelefonos = administrarNReportePersonal.listTiposTelefonos();
         }
     }
 
     public void cargarCiudades() {
-        if (listCiudades == null) {
-            listCiudades = administrarNReportePersonal.listCiudades();
+        if (lovCiudades == null) {
+            lovCiudades = administrarNReportePersonal.listCiudades();
         }
     }
 
     public void cargarDeporte() {
-        if (listDeportes == null) {
-            listDeportes = administrarNReportePersonal.listDeportes();
+        if (lovDeportes == null) {
+            lovDeportes = administrarNReportePersonal.listDeportes();
         }
     }
 
     public void cargarAficion() {
-        if (listAficiones == null) {
-            listAficiones = administrarNReportePersonal.listAficiones();
+        if (lovAficiones == null) {
+            lovAficiones = administrarNReportePersonal.listAficiones();
         }
     }
 
     public void cargarIdioma() {
-        if (listIdiomas == null) {
-            listIdiomas = administrarNReportePersonal.listIdiomas();
+        if (lovIdiomas == null) {
+            lovIdiomas = administrarNReportePersonal.listIdiomas();
         }
     }
 
     public void dialogosParametros(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarEmpleados();
             contarRegistrosEmpleadoD();
             RequestContext.getCurrentInstance().update("form:EmpleadoDesdeDialogo");
@@ -1305,7 +1315,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosEmpleadoD();
         }
         if (pos == 4) {
-            listEstadosCiviles = null;
+            lovEstadosCiviles = null;
             cargarEstadosCiviles();
             contarRegistrosEstadoCivil();
             RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
@@ -1313,7 +1323,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosEstadoCivil();
         }
         if (pos == 5) {
-            listTiposTelefonos = null;
+            lovTiposTelefonos = null;
             cargarTiposTelefonos();
             contarRegistrosTipoTelefono();
             RequestContext.getCurrentInstance().update("form:TipoTelefonoDialogo");
@@ -1321,7 +1331,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosTipoTelefono();
         }
         if (pos == 6) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarEmpleados();
             contarRegistrosJefe();
             RequestContext.getCurrentInstance().update("form:JefeDivisionDialogo");
@@ -1329,7 +1339,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosJefe();
         }
         if (pos == 9) {
-            listEmpleados = null;
+            lovEmpleados = null;
             cargarEmpleados();
             contarRegistrosEmpleadoH();
             RequestContext.getCurrentInstance().update("form:EmpleadoHastaDialogo");
@@ -1337,7 +1347,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosEmpleadoH();
         }
         if (pos == 10) {
-            listEstructuras = null;
+            lovEstructuras = null;
             cargarEstructuras();
             contarRegistrosEstructura();
             RequestContext.getCurrentInstance().update("form:EstructuraDialogo");
@@ -1345,7 +1355,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosEstructura();
         }
         if (pos == 11) {
-            listTiposTrabajadores = null;
+            lovTiposTrabajadores = null;
             cargarTiposTrabajadores();
             contarRegistrosTipoTrabajador();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
@@ -1353,7 +1363,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosTipoTrabajador();
         }
         if (pos == 12) {
-            listCiudades = null;
+            lovCiudades = null;
             cargarCiudades();
             contarRegistrosCiudad();
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
@@ -1361,7 +1371,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosCiudad();
         }
         if (pos == 13) {
-            listDeportes = null;
+            lovDeportes = null;
             cargarDeporte();
             contarRegistrosDeporte();
             RequestContext.getCurrentInstance().update("form:DeportesDialogo");
@@ -1369,7 +1379,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosDeporte();
         }
         if (pos == 14) {
-            listAficiones = null;
+            lovAficiones = null;
             cargarAficion();
             contarRegistrosAficion();
             RequestContext.getCurrentInstance().update("form:AficionesDialogo");
@@ -1377,7 +1387,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosAficion();
         }
         if (pos == 15) {
-            listIdiomas = null;
+            lovIdiomas = null;
             cargarIdioma();
             contarRegistrosIdioma();
             RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
@@ -1385,7 +1395,7 @@ public class ControlNReportePersonal implements Serializable {
             contarRegistrosIdioma();
         }
         if (pos == 16) {
-            listEmpresas = null;
+            lovEmpresas = null;
             cargarEmpresas();
             contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
@@ -1418,13 +1428,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
     }
 
     public void cancelarCambioEmplDesde() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpleadoDesde:globalFilter");
@@ -1446,13 +1456,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
     }
 
     public void cancelarCambioEmplHasta() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpleadoHasta:globalFilter");
@@ -1476,14 +1486,14 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
 
     }
 
     public void cancelarEmpresa() {
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresa:globalFilter");
@@ -1503,14 +1513,14 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
         estructuraSeleccionada = null;
         aceptar = true;
-        filtrarListEstructuras = null;
+        lovEstructurasFiltrar = null;
         permitirIndex = true;
     }
 
     public void cancelarEstructura() {
         estructuraSeleccionada = null;
         aceptar = true;
-        filtrarListEstructuras = null;
+        lovEstructurasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEstructura:globalFilter");
@@ -1530,14 +1540,14 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
         tipoTSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTrabajadores = null;
+        lovTiposTrabajadoresFiltrar = null;
         permitirIndex = true;
     }
 
     public void cancelarTipoTrabajador() {
         tipoTSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTrabajadores = null;
+        lovTiposTrabajadoresFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoTrabajador:globalFilter");
@@ -1558,13 +1568,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:estadoCivilParametro");
         estadoCivilSeleccionado = null;
         aceptar = true;
-        filtrarListEstadosCiviles = null;
+        lovEstadosCivilesFiltrar = null;
     }
 
     public void cancelarEstadoCivil() {
         estadoCivilSeleccionado = null;
         aceptar = true;
-        filtrarListEstadosCiviles = null;
+        lovEstadosCivilesFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEstadoCivil:globalFilter");
@@ -1585,13 +1595,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:tipoTelefonoParametro");
         tipoTelefonoSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTelefonos = null;
+        lovTiposTelefonosFiltrar = null;
     }
 
     public void cancelarTipoTelefono() {
         tipoTelefonoSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTelefonos = null;
+        lovTiposTelefonosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoTelefono:globalFilter");
@@ -1612,13 +1622,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:jefeDivisionParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
     }
 
     public void cancelarJefeDivision() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovJefeD:globalFilter");
@@ -1639,13 +1649,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:ciudadParametro");
         ciudadSeleccionada = null;
         aceptar = true;
-        filtrarListCiudades = null;
+        lovListCiudadesFiltrar = null;
     }
 
     public void cancelarCiudad() {
         ciudadSeleccionada = null;
         aceptar = true;
-        filtrarListCiudades = null;
+        lovListCiudadesFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCiudades:globalFilter");
@@ -1666,13 +1676,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:deporteParametro");
         deporteSeleccionado = null;
         aceptar = true;
-        filtrarListDeportes = null;
+        lovDeportesFiltrar = null;
     }
 
     public void cancelarDeporte() {
         deporteSeleccionado = null;
         aceptar = true;
-        filtrarListDeportes = null;
+        lovDeportesFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovDeportes:globalFilter");
@@ -1693,13 +1703,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:aficionParametro");
         aficionSeleccionada = null;
         aceptar = true;
-        filtrarListAficiones = null;
+        lovAficionesFiltrar = null;
     }
 
     public void cancelarAficion() {
         aficionSeleccionada = null;
         aceptar = true;
-        filtrarListAficiones = null;
+        lovAficionesFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovAficiones:globalFilter");
@@ -1720,13 +1730,13 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:idiomaParametro");
         idiomaSeleccionado = null;
         aceptar = true;
-        filtrarListIdiomas = null;
+        lovIdiomasFiltrar = null;
     }
 
     public void cancelarIdioma() {
         idiomaSeleccionado = null;
         aceptar = true;
-        filtrarListIdiomas = null;
+        lovIdiomasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovIdiomas:globalFilter");
@@ -2265,36 +2275,36 @@ public class ControlNReportePersonal implements Serializable {
         this.requisitosReporte = requisitosReporte;
     }
 
-    public List<Empleados> getListEmpleados() {
-        return listEmpleados;
+    public List<Empleados> getLovEmpleados() {
+        return lovEmpleados;
     }
 
-    public void setListEmpleados(List<Empleados> listEmpleados) {
-        this.listEmpleados = listEmpleados;
+    public void setLovEmpleados(List<Empleados> lovEmpleados) {
+        this.lovEmpleados = lovEmpleados;
     }
 
-    public List<Empresas> getListEmpresas() {
-        return listEmpresas;
+    public List<Empresas> getLovEmpresas() {
+        return lovEmpresas;
     }
 
-    public void setListEmpresas(List<Empresas> listEmpresas) {
-        this.listEmpresas = listEmpresas;
+    public void setLovEmpresas(List<Empresas> lovEmpresas) {
+        this.lovEmpresas = lovEmpresas;
     }
 
-    public List<Estructuras> getListEstructuras() {
-        return listEstructuras;
+    public List<Estructuras> getLovEstructuras() {
+        return lovEstructuras;
     }
 
-    public void setListEstructuras(List<Estructuras> listEstructuras) {
-        this.listEstructuras = listEstructuras;
+    public void setLovEstructuras(List<Estructuras> lovEstructuras) {
+        this.lovEstructuras = lovEstructuras;
     }
 
-    public List<TiposTrabajadores> getListTiposTrabajadores() {
-        return listTiposTrabajadores;
+    public List<TiposTrabajadores> getLovTiposTrabajadores() {
+        return lovTiposTrabajadores;
     }
 
-    public void setListTiposTrabajadores(List<TiposTrabajadores> listTiposTrabajadores) {
-        this.listTiposTrabajadores = listTiposTrabajadores;
+    public void setLovTiposTrabajadores(List<TiposTrabajadores> lovTiposTrabajadores) {
+        this.lovTiposTrabajadores = lovTiposTrabajadores;
     }
 
     public Empleados getEmpleadoSeleccionado() {
@@ -2329,84 +2339,84 @@ public class ControlNReportePersonal implements Serializable {
         this.tipoTSeleccionado = tipoTSeleccionado;
     }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
+    public List<Empleados> getLovEmpleadosFiltrar() {
+        return lovEmpleadosFiltrar;
     }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
+    public void setLovEmpleadosFiltrar(List<Empleados> lovEmpleadosFiltrar) {
+        this.lovEmpleadosFiltrar = lovEmpleadosFiltrar;
     }
 
-    public List<Empresas> getFiltrarListEmpresas() {
-        return filtrarListEmpresas;
+    public List<Empresas> getLovEmpresasFiltrar() {
+        return lovEmpresasFiltrar;
     }
 
-    public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
-        this.filtrarListEmpresas = filtrarListEmpresas;
+    public void setLovEmpresasFiltrar(List<Empresas> lovEmpresasFiltrar) {
+        this.lovEmpresasFiltrar = lovEmpresasFiltrar;
     }
 
-    public List<Estructuras> getFiltrarListEstructuras() {
-        return filtrarListEstructuras;
+    public List<Estructuras> getLovEstructurasFiltrar() {
+        return lovEstructurasFiltrar;
     }
 
-    public void setFiltrarListEstructuras(List<Estructuras> filtrarListEstructuras) {
-        this.filtrarListEstructuras = filtrarListEstructuras;
+    public void setLovEstructurasFiltrar(List<Estructuras> lovEstructurasFiltrar) {
+        this.lovEstructurasFiltrar = lovEstructurasFiltrar;
     }
 
-    public List<TiposTrabajadores> getFiltrarListTiposTrabajadores() {
-        return filtrarListTiposTrabajadores;
+    public List<TiposTrabajadores> getLovTiposTrabajadoresFiltrar() {
+        return lovTiposTrabajadoresFiltrar;
     }
 
-    public void setFiltrarListTiposTrabajadores(List<TiposTrabajadores> filtrarListTiposTrabajadores) {
-        this.filtrarListTiposTrabajadores = filtrarListTiposTrabajadores;
+    public void setLovTiposTrabajadoresFiltrar(List<TiposTrabajadores> lovTiposTrabajadoresFiltrar) {
+        this.lovTiposTrabajadoresFiltrar = lovTiposTrabajadoresFiltrar;
     }
 
-    public List<EstadosCiviles> getListEstadosCiviles() {
-        return listEstadosCiviles;
+    public List<EstadosCiviles> getLovEstadosCiviles() {
+        return lovEstadosCiviles;
     }
 
-    public void setListEstadosCiviles(List<EstadosCiviles> listEstadosCiviles) {
-        this.listEstadosCiviles = listEstadosCiviles;
+    public void setLovEstadosCiviles(List<EstadosCiviles> lovEstadosCiviles) {
+        this.lovEstadosCiviles = lovEstadosCiviles;
     }
 
-    public List<TiposTelefonos> getListTiposTelefonos() {
-        return listTiposTelefonos;
+    public List<TiposTelefonos> getLovTiposTelefonos() {
+        return lovTiposTelefonos;
     }
 
-    public void setListTiposTelefonos(List<TiposTelefonos> listTiposTelefonos) {
-        this.listTiposTelefonos = listTiposTelefonos;
+    public void setLovTiposTelefonos(List<TiposTelefonos> lovTiposTelefonos) {
+        this.lovTiposTelefonos = lovTiposTelefonos;
     }
 
-    public List<Ciudades> getListCiudades() {
-        return listCiudades;
+    public List<Ciudades> getLovCiudades() {
+        return lovCiudades;
     }
 
-    public void setListCiudades(List<Ciudades> listCiudades) {
-        this.listCiudades = listCiudades;
+    public void setLovCiudades(List<Ciudades> lovCiudades) {
+        this.lovCiudades = lovCiudades;
     }
 
-    public List<Deportes> getListDeportes() {
-        return listDeportes;
+    public List<Deportes> getLovDeportes() {
+        return lovDeportes;
     }
 
-    public void setListDeportes(List<Deportes> listDeportes) {
-        this.listDeportes = listDeportes;
+    public void setLovDeportes(List<Deportes> lovDeportes) {
+        this.lovDeportes = lovDeportes;
     }
 
-    public List<Aficiones> getListAficiones() {
-        return listAficiones;
+    public List<Aficiones> getLovAficiones() {
+        return lovAficiones;
     }
 
-    public void setListAficiones(List<Aficiones> listAficiones) {
-        this.listAficiones = listAficiones;
+    public void setLovAficiones(List<Aficiones> lovAficiones) {
+        this.lovAficiones = lovAficiones;
     }
 
-    public List<Idiomas> getListIdiomas() {
-        return listIdiomas;
+    public List<Idiomas> getLovIdiomas() {
+        return lovIdiomas;
     }
 
-    public void setListIdiomas(List<Idiomas> listIdiomas) {
-        this.listIdiomas = listIdiomas;
+    public void setLovIdiomas(List<Idiomas> lovIdiomas) {
+        this.lovIdiomas = lovIdiomas;
     }
 
     public EstadosCiviles getEstadoCivilSeleccionado() {
@@ -2449,52 +2459,52 @@ public class ControlNReportePersonal implements Serializable {
         this.aficionSeleccionada = aficionSeleccionada;
     }
 
-    public List<EstadosCiviles> getFiltrarListEstadosCiviles() {
-        return filtrarListEstadosCiviles;
+    public List<EstadosCiviles> getLovEstadosCivilesFiltrar() {
+        return lovEstadosCivilesFiltrar;
     }
 
-    public void setFiltrarListEstadosCiviles(List<EstadosCiviles> filtrarListEstadosCiviles) {
-        this.filtrarListEstadosCiviles = filtrarListEstadosCiviles;
+    public void setLovEstadosCivilesFiltrar(List<EstadosCiviles> lovEstadosCivilesFiltrar) {
+        this.lovEstadosCivilesFiltrar = lovEstadosCivilesFiltrar;
     }
 
-    public List<TiposTelefonos> getFiltrarListTiposTelefonos() {
-        return filtrarListTiposTelefonos;
+    public List<TiposTelefonos> getLovTiposTelefonosFiltrar() {
+        return lovTiposTelefonosFiltrar;
     }
 
-    public void setFiltrarListTiposTelefonos(List<TiposTelefonos> filtrarListTiposTelefonos) {
-        this.filtrarListTiposTelefonos = filtrarListTiposTelefonos;
+    public void setLovTiposTelefonosFiltrar(List<TiposTelefonos> lovTiposTelefonosFiltrar) {
+        this.lovTiposTelefonosFiltrar = lovTiposTelefonosFiltrar;
     }
 
-    public List<Ciudades> getFiltrarListCiudades() {
-        return filtrarListCiudades;
+    public List<Ciudades> getLovListCiudadesFiltrar() {
+        return lovListCiudadesFiltrar;
     }
 
-    public void setFiltrarListCiudades(List<Ciudades> filtrarListCiudades) {
-        this.filtrarListCiudades = filtrarListCiudades;
+    public void setLovListCiudadesFiltrar(List<Ciudades> lovListCiudadesFiltrar) {
+        this.lovListCiudadesFiltrar = lovListCiudadesFiltrar;
     }
 
-    public List<Deportes> getFiltrarListDeportes() {
-        return filtrarListDeportes;
+    public List<Deportes> getLovDeportesFiltrar() {
+        return lovDeportesFiltrar;
     }
 
-    public void setFiltrarListDeportes(List<Deportes> filtrarListDeportes) {
-        this.filtrarListDeportes = filtrarListDeportes;
+    public void setLovDeportesFiltrar(List<Deportes> lovDeportesFiltrar) {
+        this.lovDeportesFiltrar = lovDeportesFiltrar;
     }
 
-    public List<Aficiones> getFiltrarListAficiones() {
-        return filtrarListAficiones;
+    public List<Aficiones> getLovAficionesFiltrar() {
+        return lovAficionesFiltrar;
     }
 
-    public void setFiltrarListAficiones(List<Aficiones> filtrarListAficiones) {
-        this.filtrarListAficiones = filtrarListAficiones;
+    public void setLovAficionesFiltrar(List<Aficiones> lovAficionesFiltrar) {
+        this.lovAficionesFiltrar = lovAficionesFiltrar;
     }
 
-    public List<Idiomas> getFiltrarListIdiomas() {
-        return filtrarListIdiomas;
+    public List<Idiomas> getLovIdiomasFiltrar() {
+        return lovIdiomasFiltrar;
     }
 
-    public void setFiltrarListIdiomas(List<Idiomas> filtrarListIdiomas) {
-        this.filtrarListIdiomas = filtrarListIdiomas;
+    public void setLovIdiomasFiltrar(List<Idiomas> lovIdiomasFiltrar) {
+        this.lovIdiomasFiltrar = lovIdiomasFiltrar;
     }
 
     public Idiomas getIdiomaSeleccionado() {

@@ -73,7 +73,7 @@ public class ControlOpcionesKioscos implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovOpciones = null;
     }
 
     @PostConstruct

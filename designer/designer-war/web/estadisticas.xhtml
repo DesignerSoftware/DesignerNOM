@@ -4301,7 +4301,7 @@
                <p:dialog header="#{msg['conceptos']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
                          showEffect="fade" hideEffect="fade" modal="true" width="460">
 
-                  <p:dataTable  id="LOVConceptos" style=" width: 420px;" var="conceptos" value="#{controlParametrosConjuntos.listaConceptosEspecificos}"
+                  <p:dataTable  id="LOVConceptos" style=" width: 420px;" var="conceptos" value="#{controlParametrosConjuntos.lovConceptosEspecificos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="435" widgetVar="LOVConceptos" editable="true" editMode="cell"
                                 filteredValue="#{controlParametrosConjuntos.filtradoConceptos}" emptyMessage="#{msg['vacio']}"
                                 rowKey="#{conceptos.secuencia}" selection="#{controlParametrosConjuntos.conceptoSeleccionado}" selectionMode="single">

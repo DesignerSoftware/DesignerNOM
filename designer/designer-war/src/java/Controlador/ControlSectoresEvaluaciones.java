@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.SectoresEvaluaciones;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -16,7 +15,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -68,7 +68,7 @@ public class ControlSectoresEvaluaciones implements Serializable {
     private String infoRegistro;
     private Integer backUpCodigo;
     private String paginaAnterior = "nominaf";
-    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); 
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlSectoresEvaluaciones() {
         listSectoresEvaluaciones = null;
@@ -81,14 +81,14 @@ public class ControlSectoresEvaluaciones implements Serializable {
         duplicarSectoresEvaluaciones = new SectoresEvaluaciones();
         guardado = true;
         tamano = 270;
-       mapParametros.put ("paginaAnterior", paginaAnterior);
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-  public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -100,63 +100,44 @@ public class ControlSectoresEvaluaciones implements Serializable {
             System.out.println("Causa: " + e.getCause());
         }
     }
-    
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
 
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-         
-      } else {
-         */
-String pagActual = "sectorevaluacion";
-        
-         
-         
-
-
- 
-   
-     
-       
-         
-   
-         if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
-      }
-      limpiarListasValor();
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        String pagActual = "sectorevaluacion";
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+        }
+        limpiarListasValor();
+    }
 
     public void eventoFiltrar() {
         try {
@@ -258,7 +239,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
@@ -419,115 +401,111 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
-
-                if (!crearSectoresEvaluaciones.contains(filtrarSectoresEvaluaciones.get(indice))) {
-                    if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarSectoresEvaluaciones.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == filtrarSectoresEvaluaciones.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < listSectoresEvaluaciones.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == listSectoresEvaluaciones.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
-                        } else {
-                            pass++;
-                        }
-
-                    }
-
-                    if (filtrarSectoresEvaluaciones.get(indice).getDescripcion() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
-                    } else if (filtrarSectoresEvaluaciones.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
-                    } else {
-                        pass++;
-                    }
-
-                    if (pass == 2) {
-                        if (modificarSectoresEvaluaciones.isEmpty()) {
-                            modificarSectoresEvaluaciones.add(filtrarSectoresEvaluaciones.get(indice));
-                        } else if (!modificarSectoresEvaluaciones.contains(filtrarSectoresEvaluaciones.get(indice))) {
-                            modificarSectoresEvaluaciones.add(filtrarSectoresEvaluaciones.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+            } else if (!crearSectoresEvaluaciones.contains(filtrarSectoresEvaluaciones.get(indice))) {
+                if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
                 } else {
-
-                    if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarSectoresEvaluaciones.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == filtrarSectoresEvaluaciones.get(j).getCodigo()) {
-                                    contador++;
-                                }
+                    for (int j = 0; j < filtrarSectoresEvaluaciones.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == filtrarSectoresEvaluaciones.get(j).getCodigo()) {
+                                contador++;
                             }
                         }
-                        for (int j = 0; j < listSectoresEvaluaciones.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == listSectoresEvaluaciones.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
-                        } else {
-                            pass++;
-                        }
-
                     }
-
-                    if (filtrarSectoresEvaluaciones.get(indice).getDescripcion() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
-                    } else if (filtrarSectoresEvaluaciones.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
+                    for (int j = 0; j < listSectoresEvaluaciones.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == listSectoresEvaluaciones.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
                     } else {
                         pass++;
                     }
-
-                    if (pass == 2) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
 
                 }
+
+                if (filtrarSectoresEvaluaciones.get(indice).getDescripcion() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
+                } else if (filtrarSectoresEvaluaciones.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
+                } else {
+                    pass++;
+                }
+
+                if (pass == 2) {
+                    if (modificarSectoresEvaluaciones.isEmpty()) {
+                        modificarSectoresEvaluaciones.add(filtrarSectoresEvaluaciones.get(indice));
+                    } else if (!modificarSectoresEvaluaciones.contains(filtrarSectoresEvaluaciones.get(indice))) {
+                        modificarSectoresEvaluaciones.add(filtrarSectoresEvaluaciones.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+
+                if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
+                } else {
+                    for (int j = 0; j < filtrarSectoresEvaluaciones.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == filtrarSectoresEvaluaciones.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    for (int j = 0; j < listSectoresEvaluaciones.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarSectoresEvaluaciones.get(indice).getCodigo() == listSectoresEvaluaciones.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        filtrarSectoresEvaluaciones.get(indice).setCodigo(backUpCodigo);
+                    } else {
+                        pass++;
+                    }
+
+                }
+
+                if (filtrarSectoresEvaluaciones.get(indice).getDescripcion() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
+                } else if (filtrarSectoresEvaluaciones.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSectoresEvaluaciones.get(indice).setDescripcion(backUpDescripcion);
+                } else {
+                    pass++;
+                }
+
+                if (pass == 2) {
+
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
 
             }
             RequestContext.getCurrentInstance().update("form:datosSectoresEvaluaciones");
@@ -900,13 +878,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("SECTORESEVALUACIONES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("SECTORESEVALUACIONES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

@@ -66,18 +66,18 @@ public class ControlNReporteCapacitacion implements Serializable {
     private List<Inforeportes> filtrarListIRU;
     private List<Inforeportes> listaInfoReportesModificados;
     //INFOREPORTES LOV
-    private List<Inforeportes> listValInforeportes;
+    private List<Inforeportes> lovInforeportes;
     private Inforeportes reporteSeleccionadoLOV;
     private List<Inforeportes> filtrarLovInforeportes;
     private List<Inforeportes> filtrarReportes;
     //EMPLEADOS
-    private List<Empleados> listValEmpleados;
+    private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
-    private List<Empleados> filtrarListEmpleados;
+    private List<Empleados> lovEmpleadosFiltrar;
     //EMPRESAS
-    private List<Empresas> listValEmpresas;
+    private List<Empresas> lovEmpresas;
     private Empresas empresaSeleccionada;
-    private List<Empresas> filtrarListEmpresas;
+    private List<Empresas> lovEmpresasFiltrar;
 //GENERAR    
     private String reporteGenerar;
     //OTROS
@@ -147,9 +147,9 @@ public class ControlNReporteCapacitacion implements Serializable {
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
-        listValInforeportes = null;
-        listValEmpleados = new ArrayList<>();
-        listValEmpresas = null;
+        lovInforeportes = null;
+        lovEmpleados = new ArrayList<>();
+        lovEmpresas = null;
         tipoLista = 0;
         empleadoSeleccionado = new Empleados();
         empresaSeleccionada = new Empresas();
@@ -177,13 +177,6 @@ public class ControlNReporteCapacitacion implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
-            
-        } else {
-         */
         String pagActual = "nreportecapacitacion";
 
         if (pag.equals("atras")) {
@@ -210,7 +203,9 @@ public class ControlNReporteCapacitacion implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovInforeportes = null;
     }
 
     @PostConstruct
@@ -326,8 +321,8 @@ public class ControlNReporteCapacitacion implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 3) {
-            if ((listValEmpleados == null) || listValEmpleados.isEmpty()) {
-                listValEmpleados = null;
+            if ((lovEmpleados == null) || lovEmpleados.isEmpty()) {
+                lovEmpleados = null;
             }
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
@@ -393,8 +388,8 @@ public class ControlNReporteCapacitacion implements Serializable {
         listaIR = null;
         parametroDeReporte = null;
         parametroModificacion = null;
-        listValEmpleados = null;
-        listValEmpresas = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
         casilla = -1;
         listaInfoReportesModificados.clear();
         cambiosReporte = true;
@@ -767,8 +762,8 @@ public class ControlNReporteCapacitacion implements Serializable {
         if (cambiosReporte == true) {
             defaultPropiedadesParametrosReporte();
             listaIR.clear();
-            for (int i = 0; i < listValInforeportes.size(); i++) {
-                listaIR.add(listValInforeportes.get(i));
+            for (int i = 0; i < lovInforeportes.size(); i++) {
+                listaIR.add(lovInforeportes.get(i));
             }
             RequestContext context = RequestContext.getCurrentInstance();
             activoBuscarReporte = false;
@@ -797,7 +792,7 @@ public class ControlNReporteCapacitacion implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
 
     }
 
@@ -805,7 +800,7 @@ public class ControlNReporteCapacitacion implements Serializable {
         System.out.println(this.getClass().getName() + ".cancelarCambioEmplDesde()");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
@@ -828,14 +823,14 @@ public class ControlNReporteCapacitacion implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
     }
 
     public void cancelarCambioEmplHasta() {
         System.out.println(this.getClass().getName() + ".cancelarCambioEmplHasta()");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        lovEmpleadosFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpleadoHasta:globalFilter");
@@ -858,7 +853,7 @@ public class ControlNReporteCapacitacion implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
 
     }
 
@@ -866,7 +861,7 @@ public class ControlNReporteCapacitacion implements Serializable {
         System.out.println(this.getClass().getName() + ".cancelarEmpresa()");
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        lovEmpresasFiltrar = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpresa:globalFilter");
@@ -917,17 +912,17 @@ public class ControlNReporteCapacitacion implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getEmpresa().setNombre(empresa);
-                for (int i = 0; i < listValEmpresas.size(); i++) {
-                    if (listValEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
+                for (int i = 0; i < lovEmpresas.size(); i++) {
+                    if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setEmpresa(listValEmpresas.get(indiceUnicoElemento));
+                    parametroDeReporte.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listValEmpresas.clear();
-                    getListValEmpresas();
+                    lovEmpresas.clear();
+                    getLovEmpresas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -938,8 +933,8 @@ public class ControlNReporteCapacitacion implements Serializable {
             } else {
                 parametroDeReporte.setEmpresa(new Empresas());
                 parametroModificacion = parametroDeReporte;
-                listValEmpresas.clear();
-                getListValEmpresas();
+                lovEmpresas.clear();
+                getLovEmpresas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1158,12 +1153,12 @@ public class ControlNReporteCapacitacion implements Serializable {
         this.listaInfoReportesModificados = listaInfoReportesModificados;
     }
 
-    public List<Inforeportes> getListValInforeportes() {
-        return listValInforeportes;
+    public List<Inforeportes> getLovInforeportes() {
+        return lovInforeportes;
     }
 
-    public void setListValInforeportes(List<Inforeportes> listValInforeportes) {
-        this.listValInforeportes = listValInforeportes;
+    public void setLovInforeportes(List<Inforeportes> lovInforeportes) {
+        this.lovInforeportes = lovInforeportes;
     }
 
     public Inforeportes getReporteSeleccionadoLOV() {
@@ -1190,15 +1185,15 @@ public class ControlNReporteCapacitacion implements Serializable {
         this.filtrarReportes = filtrarReportes;
     }
 
-    public List<Empleados> getListValEmpleados() {
-        if (listValEmpleados == null) {
-            listValEmpleados = administrarNReporteCapacitacion.listEmpleados();
+    public List<Empleados> getLovEmpleados() {
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarNReporteCapacitacion.listEmpleados();
         }
-        return listValEmpleados;
+        return lovEmpleados;
     }
 
-    public void setListValEmpleados(List<Empleados> listValEmpleados) {
-        this.listValEmpleados = listValEmpleados;
+    public void setLovEmpleados(List<Empleados> lovEmpleados) {
+        this.lovEmpleados = lovEmpleados;
     }
 
     public Empleados getEmpleadoSeleccionado() {
@@ -1209,23 +1204,23 @@ public class ControlNReporteCapacitacion implements Serializable {
         this.empleadoSeleccionado = empleadoSeleccionado;
     }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
+    public List<Empleados> getLovEmpleadosFiltrar() {
+        return lovEmpleadosFiltrar;
     }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
+    public void setLovEmpleadosFiltrar(List<Empleados> lovEmpleadosFiltrar) {
+        this.lovEmpleadosFiltrar = lovEmpleadosFiltrar;
     }
 
-    public List<Empresas> getListValEmpresas() {
-        if (listValEmpresas == null || listValEmpresas.isEmpty()) {
-            listValEmpresas = administrarNReporteCapacitacion.listEmpresas();
+    public List<Empresas> getLovEmpresas() {
+        if (lovEmpresas == null || lovEmpresas.isEmpty()) {
+            lovEmpresas = administrarNReporteCapacitacion.listEmpresas();
         }
-        return listValEmpresas;
+        return lovEmpresas;
     }
 
-    public void setListValEmpresas(List<Empresas> listValEmpresas) {
-        this.listValEmpresas = listValEmpresas;
+    public void setLovEmpresas(List<Empresas> lovEmpresas) {
+        this.lovEmpresas = lovEmpresas;
     }
 
     public Empresas getEmpresaSeleccionada() {
@@ -1236,12 +1231,12 @@ public class ControlNReporteCapacitacion implements Serializable {
         this.empresaSeleccionada = empresaSeleccionada;
     }
 
-    public List<Empresas> getFiltrarListEmpresas() {
-        return filtrarListEmpresas;
+    public List<Empresas> getLovEmpresasFiltrar() {
+        return lovEmpresasFiltrar;
     }
 
-    public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
-        this.filtrarListEmpresas = filtrarListEmpresas;
+    public void setLovEmpresasFiltrar(List<Empresas> lovEmpresasFiltrar) {
+        this.lovEmpresasFiltrar = lovEmpresasFiltrar;
     }
 
     public boolean isAceptar() {

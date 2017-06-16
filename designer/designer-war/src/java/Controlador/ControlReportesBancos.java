@@ -78,12 +78,12 @@ public class ControlReportesBancos implements Serializable {
     private String requisitosReporte;
     private InputText empleadoDesdeParametro, empleadoHastaParametro, tipoTrabajadorParametro, ciudadParametro;
     ///
-    private List<Empleados> listEmpleados;
-    private List<Empresas> listEmpresas;
-    private List<Bancos> listBancos;
-    private List<Procesos> listProcesos;
-    private List<TiposTrabajadores> listTiposTrabajadores;
-    private List<Ciudades> listCiudades;
+    private List<Empleados> lovEmpleados;
+    private List<Empresas> lovEmpresas;
+    private List<Bancos> lovBancos;
+    private List<Procesos> lovProcesos;
+    private List<TiposTrabajadores> lovTiposTrabajadores;
+    private List<Ciudades> lovCiudades;
     //
     private Empleados empleadoSeleccionado;
     private Empresas empresaSeleccionada;
@@ -165,12 +165,12 @@ public class ControlReportesBancos implements Serializable {
         reporteGenerar = "";
         requisitosReporte = "";
         posicionReporte = -1;
-        listEmpleados = null;
-        listEmpresas = null;
-        listProcesos = null;
-        listBancos = null;
-        listTiposTrabajadores = null;
-        listCiudades = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovProcesos = null;
+        lovBancos = null;
+        lovTiposTrabajadores = null;
+        lovCiudades = null;
         listValInforeportes = null;
         empleadoSeleccionado = new Empleados();
         empresaSeleccionada = new Empresas();
@@ -184,7 +184,12 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void limpiarListasValor() {
-
+        lovBancos = null;
+        lovCiudades = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovProcesos = null;
+        lovTiposTrabajadores = null;
     }
 
     @PostConstruct
@@ -217,13 +222,6 @@ public class ControlReportesBancos implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        /*if (pag.equals("atras")) {
-            pag = paginaAnterior;
-            paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
-            
-        } else {
-         */
         String pagActual = "reportesbancos";
 
         if (pag.equals("atras")) {
@@ -482,17 +480,17 @@ public class ControlReportesBancos implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getEmpresa().setNombre(empresa);
-                for (int i = 0; i < listEmpresas.size(); i++) {
-                    if (listEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
+                for (int i = 0; i < lovEmpresas.size(); i++) {
+                    if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setEmpresa(listEmpresas.get(indiceUnicoElemento));
+                    parametroDeReporte.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listEmpresas.clear();
-                    getListEmpresas();
+                    lovEmpresas.clear();
+                    getLovEmpresas();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -503,8 +501,8 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setEmpresa(new Empresas());
                 parametroModificacion = parametroDeReporte;
-                listEmpresas.clear();
-                getListEmpresas();
+                lovEmpresas.clear();
+                getLovEmpresas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -513,17 +511,17 @@ public class ControlReportesBancos implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("TIPOTRABAJADOR")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTipotrabajador().setNombre(tipoTrabajador);
-                for (int i = 0; i < listTiposTrabajadores.size(); i++) {
-                    if (listTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
+                    if (lovTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setTipotrabajador(listTiposTrabajadores.get(indiceUnicoElemento));
+                    parametroDeReporte.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listTiposTrabajadores.clear();
-                    getListTiposTrabajadores();
+                    lovTiposTrabajadores.clear();
+                    getLovTiposTrabajadores();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -534,8 +532,8 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setTipotrabajador(new TiposTrabajadores());
                 parametroModificacion = parametroDeReporte;
-                listTiposTrabajadores.clear();
-                getListTiposTrabajadores();
+                lovTiposTrabajadores.clear();
+                getLovTiposTrabajadores();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -544,17 +542,17 @@ public class ControlReportesBancos implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("PROCESO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getProceso().setDescripcion(proceso);
-                for (int i = 0; i < listProcesos.size(); i++) {
-                    if (listProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovProcesos.size(); i++) {
+                    if (lovProcesos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setProceso(listProcesos.get(indiceUnicoElemento));
+                    parametroDeReporte.setProceso(lovProcesos.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listProcesos.clear();
-                    getListProcesos();
+                    lovProcesos.clear();
+                    getLovProcesos();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -565,8 +563,8 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setProceso(new Procesos());
                 parametroModificacion = parametroDeReporte;
-                listProcesos.clear();
-                getListProcesos();
+                lovProcesos.clear();
+                getLovProcesos();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -574,17 +572,17 @@ public class ControlReportesBancos implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("BANCO")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getBanco().setNombre(banco);
-                for (int i = 0; i < listBancos.size(); i++) {
-                    if (listBancos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovBancos.size(); i++) {
+                    if (lovBancos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setBanco(listBancos.get(indiceUnicoElemento));
+                    parametroDeReporte.setBanco(lovBancos.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listBancos.clear();
-                    getListBancos();
+                    lovBancos.clear();
+                    getLovBancos();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -595,8 +593,8 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setBanco(new Bancos());
                 parametroModificacion = parametroDeReporte;
-                listBancos.clear();
-                getListBancos();
+                lovBancos.clear();
+                getLovBancos();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -604,17 +602,17 @@ public class ControlReportesBancos implements Serializable {
         if (campoConfirmar.equalsIgnoreCase("CIUDAD")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getCiudad().setNombre(ciudad);
-                for (int i = 0; i < listCiudades.size(); i++) {
-                    if (listCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                for (int i = 0; i < lovCiudades.size(); i++) {
+                    if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
                         coincidencias++;
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeReporte.setCiudad(listCiudades.get(indiceUnicoElemento));
+                    parametroDeReporte.setCiudad(lovCiudades.get(indiceUnicoElemento));
                     parametroModificacion = parametroDeReporte;
-                    listCiudades.clear();
-                    getListCiudades();
+                    lovCiudades.clear();
+                    getLovCiudades();
                     cambiosReporte = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
@@ -625,8 +623,8 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setCiudad(new Ciudades());
                 parametroModificacion = parametroDeReporte;
-                listCiudades.clear();
-                getListCiudades();
+                lovCiudades.clear();
+                getLovCiudades();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -654,7 +652,7 @@ public class ControlReportesBancos implements Serializable {
     public void listaValoresBoton(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            listEmpleados = null;
+            lovEmpleados = null;
             empleadoSeleccionado = null;
             cargarLovEmpleados();
             contarRegistrosEmpeladoD();
@@ -662,7 +660,7 @@ public class ControlReportesBancos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (pos == 3) {
-            listEmpresas = null;
+            lovEmpresas = null;
             cargarLovEmpresas();
             contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
@@ -671,14 +669,14 @@ public class ControlReportesBancos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
         }
         if (pos == 4) {
-            listProcesos = null;
+            lovProcesos = null;
             cargarLovProcesos();
             contarRegistrosProceso();
             RequestContext.getCurrentInstance().update("formDialogos:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
         }
         if (pos == 6) {
-            listEmpleados = null;
+            lovEmpleados = null;
             empleadoSeleccionado = null;
             cargarLovEmpleados();
             contarRegistrosEmpeladoH();
@@ -686,21 +684,21 @@ public class ControlReportesBancos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (pos == 8) {
-            listBancos = null;
+            lovBancos = null;
             cargarLovBancos();
             contarRegistrosBanco();
             RequestContext.getCurrentInstance().update("formDialogos:BancoDialogo");
             RequestContext.getCurrentInstance().execute("PF('BancoDialogo').show()");
         }
         if (pos == 9) {
-            listTiposTrabajadores = null;
+            lovTiposTrabajadores = null;
             cargarLovTiposTrabajadores();
             contarRegistrosTipoTrabajador();
             RequestContext.getCurrentInstance().update("formDialogos:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
         }
         if (pos == 11) {
-            listCiudades = null;
+            lovCiudades = null;
             cargarLovCiudades();
             contarRegistrosCiudades();
             RequestContext.getCurrentInstance().update("formDialogos:CiudadDialogo");
@@ -712,7 +710,7 @@ public class ControlReportesBancos implements Serializable {
     public void listasValores(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            listEmpleados = null;
+            lovEmpleados = null;
             empleadoSeleccionado = null;
             cargarLovEmpleados();
             contarRegistrosEmpeladoD();
@@ -720,21 +718,21 @@ public class ControlReportesBancos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (pos == 3) {
-            listEmpresas = null;
+            lovEmpresas = null;
             cargarLovEmpresas();
             contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
         }
         if (pos == 4) {
-            listProcesos = null;
+            lovProcesos = null;
             cargarLovProcesos();
             contarRegistrosProceso();
             RequestContext.getCurrentInstance().update("formDialogos:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
         }
         if (pos == 6) {
-            listEmpleados = null;
+            lovEmpleados = null;
             empleadoSeleccionado = null;
             cargarLovEmpleados();
             contarRegistrosEmpeladoH();
@@ -743,21 +741,21 @@ public class ControlReportesBancos implements Serializable {
         }
 
         if (pos == 8) {
-            listBancos = null;
+            lovBancos = null;
             cargarLovBancos();
             contarRegistrosBanco();
             RequestContext.getCurrentInstance().update("formDialogos:BancoDialogo");
             RequestContext.getCurrentInstance().execute("PF('BancoDialogo').show()");
         }
         if (pos == 9) {
-            listTiposTrabajadores = null;
+            lovTiposTrabajadores = null;
             cargarLovTiposTrabajadores();
             contarRegistrosTipoTrabajador();
             RequestContext.getCurrentInstance().update("formDialogos:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
         }
         if (pos == 11) {
-            listCiudades = null;
+            lovCiudades = null;
             cargarLovCiudades();
             contarRegistrosCiudades();
             RequestContext.getCurrentInstance().update("formDialogos:CiudadDialogo");
@@ -1058,12 +1056,12 @@ public class ControlReportesBancos implements Serializable {
         listaIR = null;
         parametroDeReporte = null;
         parametroModificacion = null;
-        listEmpleados = null;
-        listEmpresas = null;
-        listProcesos = null;
-        listTiposTrabajadores = null;
-        listBancos = null;
-        listCiudades = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovProcesos = null;
+        lovTiposTrabajadores = null;
+        lovBancos = null;
+        lovCiudades = null;
         casilla = -1;
         listaInfoReportesModificados.clear();
         cambiosReporte = true;
@@ -1191,7 +1189,7 @@ public class ControlReportesBancos implements Serializable {
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
                 if (tipoReporte.equals("TXT") || tipoReporte.equals("XLS") || tipoReporte.equals("PDF")) {
                     RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
-                } 
+                }
                 System.out.println("userAgent : " + userAgent);
                 if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                     context.update("formDialogos:descargarReporte");
@@ -1388,38 +1386,38 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void cargarLovEmpleados() {
-        if (listEmpleados == null) {
-            listEmpleados = administrarReportesBancos.listEmpleados();
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarReportesBancos.listEmpleados();
         }
     }
 
     public void cargarLovEmpresas() {
-        if (listEmpresas == null) {
-            listEmpresas = administrarReportesBancos.listEmpresas();
+        if (lovEmpresas == null) {
+            lovEmpresas = administrarReportesBancos.listEmpresas();
         }
     }
 
     public void cargarLovTiposTrabajadores() {
-        if (listTiposTrabajadores == null) {
-            listTiposTrabajadores = administrarReportesBancos.listTiposTrabajadores();
+        if (lovTiposTrabajadores == null) {
+            lovTiposTrabajadores = administrarReportesBancos.listTiposTrabajadores();
         }
     }
 
     public void cargarLovProcesos() {
-        if (listProcesos == null) {
-            listProcesos = administrarReportesBancos.listProcesos();
+        if (lovProcesos == null) {
+            lovProcesos = administrarReportesBancos.listProcesos();
         }
     }
 
     public void cargarLovBancos() {
-        if (listBancos == null) {
-            listBancos = administrarReportesBancos.listBancos();
+        if (lovBancos == null) {
+            lovBancos = administrarReportesBancos.listBancos();
         }
     }
 
     public void cargarLovCiudades() {
-        if (listCiudades == null) {
-            listCiudades = administrarReportesBancos.listCiudades();
+        if (lovCiudades == null) {
+            lovCiudades = administrarReportesBancos.listCiudades();
         }
     }
 
@@ -1585,36 +1583,36 @@ public class ControlReportesBancos implements Serializable {
         this.requisitosReporte = requisitosReporte;
     }
 
-    public List<Empleados> getListEmpleados() {
-        return listEmpleados;
+    public List<Empleados> getLovEmpleados() {
+        return lovEmpleados;
     }
 
-    public void setListEmpleados(List<Empleados> listEmpleados) {
-        this.listEmpleados = listEmpleados;
+    public void setLovEmpleados(List<Empleados> lovEmpleados) {
+        this.lovEmpleados = lovEmpleados;
     }
 
-    public List<Empresas> getListEmpresas() {
-        return listEmpresas;
+    public List<Empresas> getLovEmpresas() {
+        return lovEmpresas;
     }
 
-    public void setListEmpresas(List<Empresas> listEmpresas) {
-        this.listEmpresas = listEmpresas;
+    public void setLovEmpresas(List<Empresas> lovEmpresas) {
+        this.lovEmpresas = lovEmpresas;
     }
 
-    public List<TiposTrabajadores> getListTiposTrabajadores() {
-        return listTiposTrabajadores;
+    public List<TiposTrabajadores> getLovTiposTrabajadores() {
+        return lovTiposTrabajadores;
     }
 
-    public void setListTiposTrabajadores(List<TiposTrabajadores> listTiposTrabajadores) {
-        this.listTiposTrabajadores = listTiposTrabajadores;
+    public void setLovTiposTrabajadores(List<TiposTrabajadores> lovTiposTrabajadores) {
+        this.lovTiposTrabajadores = lovTiposTrabajadores;
     }
 
-    public List<Procesos> getListProcesos() {
-        return listProcesos;
+    public List<Procesos> getLovProcesos() {
+        return lovProcesos;
     }
 
-    public void setListProcesos(List<Procesos> listProcesos) {
-        this.listProcesos = listProcesos;
+    public void setLovProcesos(List<Procesos> lovProcesos) {
+        this.lovProcesos = lovProcesos;
     }
 
     public Empleados getEmpleadoSeleccionado() {
@@ -1681,12 +1679,12 @@ public class ControlReportesBancos implements Serializable {
         this.filtrarListTiposTrabajadores = filtrarListTiposTrabajadores;
     }
 
-    public List<Bancos> getListBancos() {
-        return listBancos;
+    public List<Bancos> getLovBancos() {
+        return lovBancos;
     }
 
-    public void setListBancos(List<Bancos> listBancos) {
-        this.listBancos = listBancos;
+    public void setLovBancos(List<Bancos> lovBancos) {
+        this.lovBancos = lovBancos;
     }
 
     public Bancos getBancoSeleccionado() {
@@ -1705,8 +1703,8 @@ public class ControlReportesBancos implements Serializable {
         this.filtrarListBancos = filtrarListBancos;
     }
 
-    public List<Ciudades> getListCiudades() {
-        return listCiudades;
+    public List<Ciudades> getLovCiudades() {
+        return lovCiudades;
 
     }
 
@@ -1718,8 +1716,8 @@ public class ControlReportesBancos implements Serializable {
         this.listValInforeportes = listValInforeportes;
     }
 
-    public void setListCiudades(List<Ciudades> listCiudades) {
-        this.listCiudades = listCiudades;
+    public void setLovCiudades(List<Ciudades> lovCiudades) {
+        this.lovCiudades = lovCiudades;
     }
 
     public Ciudades getCiudadSeleccionada() {
