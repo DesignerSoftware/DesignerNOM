@@ -14,6 +14,19 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTablas implements PersistenciaTablasInterface {
 
+   public List<Tablas> consultarTablas(EntityManager em) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT ta FROM Tablas ta ORDER BY ta.nombre");
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<Tablas> lista = query.getResultList();
+         return lista;
+      } catch (Exception e) {
+         System.out.println("ERROR: PersistenciaTablas.consultarTablas() Error: " + e);
+         return null;
+      }
+   }
+
    @Override
    public List<Tablas> buscarTablas(EntityManager em, BigInteger secuenciaMod) {
       //System.out.println("PersistenciaTablas.buscarTablas() secuenciaMod : " + secuenciaMod);

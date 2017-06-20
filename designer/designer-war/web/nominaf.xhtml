@@ -810,10 +810,9 @@
                            </p:dataTable>
                            <h:outputText id="infoRegistroTablas" value="Registros: #{controlRemoto.infoRegistroMod}" style="font-weight: bold; display: block; position: relative; top: 0px;"/>
                            <p:commandButton id="buscartablas" value="" class="cssBotonBuscar" style="position: relative; top: -10px; left: 620px;"
-                                            actionListener="#{controlRemoto.buscarTablas()}"/>
-                           <!--disabled="#/{controlRemoto.buscarTablasLOV}"-->
+                                            actionListener="#{controlRemoto.buscarTablas()}" disabled="#{controlRemoto.buscarTablasLOV}"/>
                            <p:commandButton id="mostrartodastablas" value="" class="cssBotonMostrarTodos" style="position: relative; top: -10px; left: 620px;"
-                                            disabled="#{controlRemoto.mostrarTodasTablas}" actionListener="#{controlRemoto.mostrarTodo_Tablas()}"/>
+                                            actionListener="#{controlRemoto.mostrarTodo_Tablas()}" process="@this"/>
                         </fieldset>
                      </p:tab>
                   </p:tabView> 
@@ -927,12 +926,12 @@
 
                <h:form id="formlovtablas">
                   <p:dialog header="Tablas" widgetVar="buscartablasdialogo" draggable="true" resizable="false" closable="false" id="buscartablasdialogo"  
-                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                            showEffect="fade" hideEffect="fade" width="460" modal="true" onShow="PF('lovtablas').clearFilters();">
                      <p:dataTable id="lovtablas" var="tab" value="#{controlRemoto.listTablasLOV}" rowKey="#{tab.secuencia}"
-                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="414" selectionMode="single" widgetVar="lovtablas" scrollable="true" scrollHeight="250" 
+                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="440" selectionMode="single" widgetVar="lovtablas" scrollable="true" scrollHeight="250" 
                                   filteredValue="#{controlRemoto.filtradoListTablasLOV}" emptyMessage="#{msg['lovvacio']}">   
 
-                        <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBT()}" process="@this"/>
+                        <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBT()}"/>
                         <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:formlovtablas:aceptarTT"/>
                         <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTabla()}" process="@this"/>
 
@@ -940,13 +939,13 @@
                            <h:outputText value="Buscar Tabla:"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{tab.nombre}" filterMatchMode="contains">
+                        <p:column filterBy="#{tab.nombre}" sortBy="#{tab.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombre']}"/>
                            </f:facet>
                            <h:outputText value="#{tab.nombre}"/>
                         </p:column>
-                        <p:column filterBy="#{tab.descripcion}" filterMatchMode="contains">
+                        <p:column filterBy="#{tab.descripcion}" sortBy="#{tab.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['descripcion']}"/>
                            </f:facet>
@@ -1068,26 +1067,31 @@
             </h:form>
 
             <h:form id="formexportar">
-               <p:dataTable id="empleadosexportar" var="empleadoVW" style="visibility: hidden; display: none;"                           
+               <p:dataTable id="empleadosexportar" widgetVar="empleadosexportar" var="empleadoVW" style="visibility: hidden; display: none;"                           
                             value="#{controlRemoto.lovBuscarEmplTipo}">
+
                   <p:column>
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet>
                      <h:outputText value="#{empleadoVW.codigoEmpleado}"/>
                   </p:column>
+
                   <p:column headerText="#{msg['primerApellidoXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['primerApellidoX']}"/></f:facet> 
                      <h:outputText value="#{empleadoVW.primerApellido}"/>
                   </p:column>
+
                   <p:column headerText="#{msg['segundoApellidoXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['segundoApellidoX']}"/></f:facet>
                      <h:outputText value="#{empleadoVW.segundoApellido}"/>
                   </p:column>
+
                   <p:column>                                                              
                      <f:facet name="header"> 
                         <h:outputText value="#{msg['nombreX']}"/>
                      </f:facet>
                      <h:outputText value="#{empleadoVW.nombre}"/>
                   </p:column>
+
                </p:dataTable>
             </h:form>
 

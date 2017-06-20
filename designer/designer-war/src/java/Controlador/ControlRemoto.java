@@ -111,7 +111,7 @@ public class ControlRemoto implements Serializable {
    private List<Tablas> listTablasLOV;
    private List<Tablas> filtradoListTablasLOV;
    private Tablas tablaSeleccionadaLOV;
-   private boolean buscarTablasLOV, mostrarTodasTablas;
+   private boolean buscarTablasLOV;
    //Visualizar seleccion de tipos trabajadores (StyleClass)
    private String styleActivos, stylePensionados, styleRetirados, styleAspirantes;
    private String actualCargo;
@@ -192,7 +192,6 @@ public class ControlRemoto implements Serializable {
       altoModulos = "73";
       altoTablas = "202";
       buscarTablasLOV = true;
-      mostrarTodasTablas = true;
       filtrosActivos = false;
       posicion = 0;
       totalRegistros = -1;
@@ -205,6 +204,8 @@ public class ControlRemoto implements Serializable {
       listaTablas = null;
       mensajeinterface = " ";
       nombrepantalla = " ";
+      listTablasLOV = new ArrayList<Tablas>();
+      lovBuscarEmplTipo = new ArrayList<VwTiposEmpleados>();
    }
 
    @PostConstruct
@@ -224,7 +225,7 @@ public class ControlRemoto implements Serializable {
             System.out.println("error en primerTipoTrabajador");
             System.out.println("ControlRemoto.inicializarAdministrador() 7 CATCH");
          }
-         actualizarInformacionTipoTrabajador();
+//         actualizarInformacionTipoTrabajador();
          llenarListaDeshavilitados();
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
          totalRegistros = administrarCarpetaPersonal.obtenerTotalRegistrosTipoTrabajador(tipo);
@@ -367,7 +368,8 @@ public class ControlRemoto implements Serializable {
       this.resultadoBusquedaAv = true;
       if (listaSecEmpleados != null) {
          if (!listaSecEmpleados.isEmpty()) {
-            listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
+            listaBusquedaAvanzada.clear();
+            lovBuscarEmplTipo.clear();
             for (int i = 0; i < listaSecEmpleados.size(); i++) {
                try {
                   listaBusquedaAvanzada.add(administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(listaSecEmpleados.get(i)));
@@ -375,6 +377,19 @@ public class ControlRemoto implements Serializable {
                } catch (Exception e) {
                   System.out.println("recibirBusquedaAvansada() Error consultando vwactualtipotrabajador Pos : " + i + ",  ERROR e : " + e);
                }
+            }
+            if (!listaBusquedaAvanzada.isEmpty()) {
+               if (lovBusquedaRapida == null) {
+                  lovBusquedaRapida = administrarCarpetaPersonal.consultarRapidaEmpleados();
+               }
+               for (VWActualesTiposTrabajadores recBAvanzada : listaBusquedaAvanzada) {
+                  for (VwTiposEmpleados recBRapida : lovBusquedaRapida) {
+                     if (recBAvanzada.getEmpleado().getCodigoempleado().toBigInteger().equals(recBRapida.getCodigoEmpleado())) {
+                        lovBuscarEmplTipo.add(recBRapida);
+                     }
+                  }
+               }
+               System.out.println("ControlRemoto.recibirBusquedaAvansada() lovBuscarEmplTipo.size(): " + lovBuscarEmplTipo.size());
             }
             totalRegistros = listaBusquedaAvanzada.size();
             tipoPersonal = "activos";
@@ -413,7 +428,6 @@ public class ControlRemoto implements Serializable {
                }
                mostrarT2 = false;
                mostrarT = true;
-               lovBuscarEmplTipo = null;
                System.out.println("Ya termino de entrar  :)");
                actualizarInformacionTipoTrabajador();
                controlListaNavegacion.quitarPagina("busquedaavanzada");
@@ -461,7 +475,7 @@ public class ControlRemoto implements Serializable {
             System.out.println(this.getClass().getName() + "activos() error ");
             ex.printStackTrace();
          }
-         lovBuscarEmplTipo = null;
+         lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -509,7 +523,7 @@ public class ControlRemoto implements Serializable {
          } catch (ParseException ex) {
             System.out.println(ControlRemoto.class.getName() + " error en la entrada");
          }
-         lovBuscarEmplTipo = null;
+         lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -557,7 +571,7 @@ public class ControlRemoto implements Serializable {
          } catch (ParseException ex) {
             System.out.println(ControlRemoto.class.getName() + " error en la entrada");
          }
-         lovBuscarEmplTipo = null;
+         lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -605,7 +619,7 @@ public class ControlRemoto implements Serializable {
          } catch (ParseException ex) {
             System.out.println(ControlRemoto.class.getName() + " error en la entrada");
          }
-         lovBuscarEmplTipo = null;
+         lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -638,7 +652,7 @@ public class ControlRemoto implements Serializable {
       } else if (tipoPersonal.equals("retirados")) {
          accion = "reintegro";
       }
-      lovBuscarEmplTipo = null;
+      lovBuscarEmplTipo.clear();
       lovBusquedaRapida = null;
    }
 
@@ -695,7 +709,7 @@ public class ControlRemoto implements Serializable {
                   System.out.println(this.getClass().getName() + "activos() 'resultadoBusquedaAv' error ");
                   ex.printStackTrace();
                }
-               lovBuscarEmplTipo = null;
+               lovBuscarEmplTipo.clear();
                actualizarInformacionTipoTrabajador();
                RequestContext.getCurrentInstance().update("form:tabmenu");
                RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -962,12 +976,18 @@ public class ControlRemoto implements Serializable {
    }
 
    public void cambiarTablas() {
-      //secuenciaMod = moduloSeleccionado.getSecuencia();
       //System.out.println("ControlRemoto.cambiarTablas() moduloSeleccionado : " + moduloSeleccionado);
       if (moduloSeleccionado != null) {
          listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-         //System.out.println("cambiarTablas() consulto listaTablas : " + listaTablas);
-         buscarTablasLOV = (listaTablas == null || listaTablas.isEmpty());
+         if (listaTablas != null) {
+            if (!listaTablas.isEmpty()) {
+               buscarTablasLOV = true;
+               listTablasLOV.clear();
+               listTablasLOV.addAll(listaTablas);
+               RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
+               RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
+            }
+         }
          if (tablaExportar.equals("tablas")) {
             tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
             tablasNombre.setFilterStyle("display: none; visibility: hidden;");
@@ -978,8 +998,6 @@ public class ControlRemoto implements Serializable {
             RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
             filtrosActivos = false;
          }
-         mostrarTodasTablas = true;
-         RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodastablas");
          RequestContext.getCurrentInstance().update("form:tabmenu:buscartablas");
          tablaExportar = "data1";
          nombreArchivo = "modulos";
@@ -1048,7 +1066,6 @@ public class ControlRemoto implements Serializable {
          lovBuscarEmplTipo = administrarCarpetaPersonal.consultarEmpleadosTipoTrabajador(tipo);
       }
       filterBuscarEmpleado = null;
-//      DataTable tablaTemp = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:formlovempleados:lvbuscarempleado");
       RequestContext.getCurrentInstance().update("form:formlovempleados:lvbe");
       RequestContext.getCurrentInstance().update("form:formlovempleados:lvbuscarempleado");
       contarRegistrosBE();
@@ -1075,7 +1092,6 @@ public class ControlRemoto implements Serializable {
          requerirTipoTrabajador(posicion);
          try {
             valorInputText();
-
          } catch (ParseException ex) {
             System.out.println(ControlRemoto.class.getName() + " error en la entrada.");
          }
@@ -1117,7 +1133,7 @@ public class ControlRemoto implements Serializable {
          posicion = 0;
          totalRegistros = totalActual;
 //         primerTipoTrabajador();
-         lovBuscarEmplTipo = null;
+         lovBuscarEmplTipo.clear();
          lovBusquedaRapida = null;
          actualizarInformacionTipoTrabajador();
       }
@@ -1204,12 +1220,12 @@ public class ControlRemoto implements Serializable {
 
    //   GET'S Y SET'S
    public List<Tablas> getListaTablas() {
-      if (moduloSeleccionado != null && listaTablas == null) {
-         listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-         if (listaTablas != null && !listaTablas.isEmpty()) {
-            buscarTablasLOV = false;
-         }
-      }
+//      if (moduloSeleccionado != null && listaTablas == null) {
+//         listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
+//         if (listaTablas != null && !listaTablas.isEmpty()) {
+//            buscarTablasLOV = false;
+//         }
+//      }
       return listaTablas;
    }
 
@@ -1535,6 +1551,9 @@ public class ControlRemoto implements Serializable {
    }
 
    public List<Tablas> getListTablasLOV() {
+      if (listTablasLOV == null) {
+         listTablasLOV = new ArrayList<Tablas>();
+      }
       return listTablasLOV;
    }
 
@@ -1702,14 +1721,12 @@ public class ControlRemoto implements Serializable {
    }
 
    public void buscarTablas() {
-      if (moduloSeleccionado != null) {
+      if (moduloSeleccionado != null && listaTablas != null) {
          filtradoListTablasLOV = null;
-         listTablasLOV = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-         RequestContext.getCurrentInstance().reset("form:formlovtablas:lovtablas:globalFilter");
          RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
          RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
-         RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
          RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').show()");
+         contarRegistrosBT();
       }
    }
 
@@ -1727,7 +1744,6 @@ public class ControlRemoto implements Serializable {
       nombreArchivo = "modulos";
       listaTablas.clear();
       listaTablas.add(tablaSeleccionadaLOV);
-      mostrarTodasTablas = false;
       filtradoListTablasLOV = null;
       tablaSeleccionadaLOV = null;
       buscar = true;
@@ -1736,32 +1752,41 @@ public class ControlRemoto implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
       RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
       RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').hide()");
-      RequestContext.getCurrentInstance().update("form:mostrartodastablas");
       RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
-      RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodastablas");
+      contarRegistrosBT();
    }
 
    public void cancelarSeleccionTabla() {
       filtradoListTablasLOV = null;
       tablaSeleccionadaLOV = null;
       buscar = true;
+      System.out.println("ControlRemoto.cancelarSeleccionTabla() 1");
       RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
       RequestContext.getCurrentInstance().reset("form:formlovtablas:lovtablas:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
       RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
       RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').hide()");
-      RequestContext.getCurrentInstance().update("form:mostrartodastablas");
       RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
-      RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodastablas");
+      System.out.println("ControlRemoto.cancelarSeleccionTabla() 2");
+      contarRegistrosBT();
    }
 
    public void mostrarTodo_Tablas() {
       listaTablas.clear();
-      listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-      filterListTablas = null;
-      mostrarTodasTablas = true;
+      System.out.println("ControlRemoto.mostrarTodo_Tablas() 1");
+      listTablasLOV.clear();
+      moduloSeleccionado = null;
+      listTablasLOV = administrarCarpetaDesigner.consultarTablas();
+      System.out.println("ControlRemoto.mostrarTodo_Tablas() 2");
+      RequestContext.getCurrentInstance().reset("form:formlovtablas:lovtablas:globalFilter");
+      RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
+      RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
+      RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').show()");
+      System.out.println("ControlRemoto.mostrarTodo_Tablas() 3");
       RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
-      RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodastablas");
+      RequestContext.getCurrentInstance().update("form:tabmenu:data1");
+      contarRegistrosBT();
    }
 
    public void validarBorradoLiquidacion() {
@@ -1925,18 +1950,20 @@ public class ControlRemoto implements Serializable {
       if (!nombrepantalla.equalsIgnoreCase(" ")) {
          FacesContext fc = FacesContext.getCurrentInstance();
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, nombrepantalla.toLowerCase());
-         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class
+         );
          controlListaNavegacion.guardarNavegacion("nominaf", nombrepantalla.toLowerCase());
       }
    }
 
    /////get y set/////
    public boolean isBuscarTablasLOV() {
+      if (moduloSeleccionado == null) {
+         buscarTablasLOV = true;
+      } else {
+         buscarTablasLOV = false;
+      }
       return buscarTablasLOV;
-   }
-
-   public boolean isMostrarTodasTablas() {
-      return mostrarTodasTablas;
    }
 
    public boolean isBandera() {
