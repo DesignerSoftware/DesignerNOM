@@ -269,9 +269,9 @@
                 <h:form id="formularioEmpleadoHasta">
                     <p:dialog id="EmpleadoHastaDialogo" header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
-                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteNomina.listlovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
+                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteNomina.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReporteNomina.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="425" scrollHeight="250"
-                                     filteredValue="#{controlNReporteNomina.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosEmpeladoH()}"/>    
 
@@ -308,9 +308,9 @@
                 <h:form id="formularioGrupoConcepto">
                     <p:dialog header="#{msg['gruposGC']}" widgetVar="GruposConceptosDialogo" draggable="true" resizable="false" closable="false" id="GruposConceptosDialogo"  
                               showEffect="fade" hideEffect="fade" width="456" modal="true">
-                        <p:dataTable id="lovGruposConceptos" var="grupoC" value="#{controlNReporteNomina.listValGruposConceptos}" rowKey="#{grupoC.secuencia}"
+                        <p:dataTable id="lovGruposConceptos" var="grupoC" value="#{controlNReporteNomina.lovGruposConceptos}" rowKey="#{grupoC.secuencia}"
                                      selection="#{controlNReporteNomina.grupoCSeleccionado}" selectionMode="single" widgetVar="lovGruposConceptos" scrollable="true" scrollWidth="435" scrollHeight="235"
-                                     filteredValue="#{controlNReporteNomina.filtrarListGruposConceptos}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovGruposConceptosFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosGrupo()}"/>    
 
@@ -347,9 +347,9 @@
                 <h:form id="formularioUbicacion">
                     <p:dialog header="#{msg['ubicacionUG']}" widgetVar="UbiGeograficaDialogo" draggable="true" resizable="false" closable="false" id="UbiGeograficaDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
-                        <p:dataTable id="lovUbicacionGeografica" var="ubicacionG" value="#{controlNReporteNomina.listValUbicacionesGeograficas}" rowKey="#{ubicacionG.secuencia}"
+                        <p:dataTable id="lovUbicacionGeografica" var="ubicacionG" value="#{controlNReporteNomina.lovUbicacionesGeograficas}" rowKey="#{ubicacionG.secuencia}"
                                      selection="#{controlNReporteNomina.ubicacionesGSeleccionado}" selectionMode="single" widgetVar="lovUbicacionGeografica" scrollable="true" scrollWidth="425" scrollHeight="250"
-                                     filteredValue="#{controlNReporteNomina.filtrarListUbicacionesGeograficas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovUbicacionesGeograficasFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosUbicacion()}"/>    
 
@@ -386,9 +386,9 @@
                 <h:form id="formularioTipoAsociacion">
                     <p:dialog header="#{msg['tipoasociacionTA']}" widgetVar="TipoAsociacionDialogo" draggable="true" resizable="false" closable="false" id="TipoAsociacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
-                        <p:dataTable id="lovTipoAsociacion" var="tipoA" value="#{controlNReporteNomina.listValTiposAsociaciones}" rowKey="#{tipoA.secuencia}"
+                        <p:dataTable id="lovTipoAsociacion" var="tipoA" value="#{controlNReporteNomina.lovTiposAsociaciones}" rowKey="#{tipoA.secuencia}"
                                      selection="#{controlNReporteNomina.tiposASeleccionado}" selectionMode="single" widgetVar="lovTipoAsociacion" scrollable="true" scrollWidth="425" scrollHeight="250"
-                                     filteredValue="#{controlNReporteNomina.filtrarListTiposAsociaciones}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovTiposAsociacionesFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosTipoAsociacion()}"/>
 
@@ -425,9 +425,9 @@
                 <h:form id="formularioEmpresa">
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
-                        <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteNomina.listValEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteNomina.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNReporteNomina.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="425" scrollHeight="180"
-                                     filteredValue="#{controlNReporteNomina.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosEmpresa()}"/>
 
@@ -464,9 +464,9 @@
                 <h:form id="formularioAsociacion">
                     <p:dialog header="#{msg['asociacionesAS']}" widgetVar="AsociacionDialogo" draggable="true" resizable="false" closable="false" id="AsociacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
-                        <p:dataTable id="lovAsociacion" var="asociacion" value="#{controlNReporteNomina.listValAsociaciones}" rowKey="#{asociacion.secuencia}"
+                        <p:dataTable id="lovAsociacion" var="asociacion" value="#{controlNReporteNomina.lovAsociaciones}" rowKey="#{asociacion.secuencia}"
                                      selection="#{controlNReporteNomina.asociacionSeleccionado}" selectionMode="single" widgetVar="lovAsociacion" scrollable="true" scrollWidth="425" scrollHeight="250"
-                                     filteredValue="#{controlNReporteNomina.filtrarListAsociaciones}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovAsociacionesFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosAsociacion()}"/>    
 
@@ -503,9 +503,9 @@
                 <h:form id="formularioTercero">
                     <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovTercero" var="tercero" value="#{controlNReporteNomina.listValTerceros}" rowKey="#{tercero.secuencia}"
+                        <p:dataTable id="lovTercero" var="tercero" value="#{controlNReporteNomina.lovTerceros}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlNReporteNomina.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="445" scrollHeight="270"
-                                     filteredValue="#{controlNReporteNomina.filtrarListTerceros}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovTercerosFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosTercero()}"/>    
 
@@ -549,9 +549,9 @@
                 <h:form id="formularioProceso">
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
                               showEffect="fade" hideEffect="fade" width="446" modal="true">
-                        <p:dataTable id="lovProceso" var="proceso" value="#{controlNReporteNomina.listValProcesos}" rowKey="#{proceso.secuencia}"
+                        <p:dataTable id="lovProceso" var="proceso" value="#{controlNReporteNomina.lovProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlNReporteNomina.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="425" scrollHeight="250"
-                                     filteredValue="#{controlNReporteNomina.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovProcesosFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosProceso()}"/>    
 
@@ -589,9 +589,9 @@
                 <h:form id="formularioTipoTrabajador">
                     <p:dialog header="#{msg['tipotrabajadorTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" modal="true">
-                        <p:dataTable id="lovTipoTrabajador" var="tipoT" value="#{controlNReporteNomina.listValTiposTrabajadores}" rowKey="#{tipoT.secuencia}"
+                        <p:dataTable id="lovTipoTrabajador" var="tipoT" value="#{controlNReporteNomina.lovTiposTrabajadores}" rowKey="#{tipoT.secuencia}"
                                      selection="#{controlNReporteNomina.tipoTSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="440" scrollHeight="250"
-                                     filteredValue="#{controlNReporteNomina.filtrarListTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovTiposTrabajadoresFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosTipoTrabajador()}"/>    
 
@@ -635,9 +635,9 @@
                 <h:form id="formularioEstructura">
                     <p:dialog header="#{msg['estructurasES']}" widgetVar="EstructuraDialogo" draggable="true" resizable="false" closable="false" id="EstructuraDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovEstructura" var="estructura" value="#{controlNReporteNomina.listValEstructuras}" rowKey="#{estructura.secuencia}"
+                        <p:dataTable id="lovEstructura" var="estructura" value="#{controlNReporteNomina.lovEstructuras}" rowKey="#{estructura.secuencia}"
                                      selection="#{controlNReporteNomina.estructuraSeleccionada}" selectionMode="single" widgetVar="lovEstructura" scrollable="true" scrollWidth="450" scrollHeight="250"
-                                     filteredValue="#{controlNReporteNomina.filtrarListEstructuras}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.lovEstructurasFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosEstructura()}"/>    
 

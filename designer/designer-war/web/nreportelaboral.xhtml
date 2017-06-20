@@ -395,7 +395,7 @@
                          showEffect="fade" hideEffect="fade" width="475" modal="true">
                   <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteLaboral.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                selection="#{controlNReporteLaboral.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="445" scrollHeight="250"
-                               filteredValue="#{controlNReporteLaboral.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                               filteredValue="#{controlNReporteLaboral.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                      <p:ajax event="filter" listener="#{controlNReporteLaboral.contarRegistrosEmpeladoH()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNReporteLaboral.activarAceptar()}" update=":formDialogos:aceptarEH"/>
@@ -431,7 +431,7 @@
                          showEffect="fade" hideEffect="fade" width="475" modal="true">
                   <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteLaboral.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                selection="#{controlNReporteLaboral.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="445" scrollHeight="250"
-                               filteredValue="#{controlNReporteLaboral.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                               filteredValue="#{controlNReporteLaboral.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                      <p:ajax event="filter" listener="#{controlNReporteLaboral.contarRegistrosEmpresa()}"/>
                      <p:ajax event="rowSelect" listener="#{controlNReporteLaboral.activarAceptar()}" update=":formDialogos:aceptarE"/>

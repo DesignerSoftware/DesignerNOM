@@ -84,24 +84,24 @@ public class ControlNReportesSeguridad implements Serializable {
     private List<Inforeportes> filtrarReportes;
     private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
-    private List<Empleados> filtrarListEmpleados;
+    private List<Empleados> filtrarLovEmpleados;
     private List<GruposConceptos> lovGruposConceptos;
     private GruposConceptos grupoCSeleccionado;
-    private List<GruposConceptos> filtrarListGruposConceptos;
+    private List<GruposConceptos> filtrarLovGruposConceptos;
     private List<Empresas> lovEmpresas;
     private Empresas empresaSeleccionada;
-    private List<Empresas> filtrarListEmpresas;
+    private List<Empresas> filtrarLovEmpresas;
     private List<Terceros> lovTerceros;
     private Terceros terceroSeleccionado;
-    private List<Terceros> filtrarListTerceros;
+    private List<Terceros> filtrarLovTerceros;
     private TiposTrabajadores tipoTSeleccionado;
-    private List<TiposTrabajadores> filtrarListTiposTrabajadores;
+    private List<TiposTrabajadores> filtrarLovTiposTrabajadores;
     private List<Estructuras> lovEstructuras;
     private Estructuras estructuraSeleccionada;
-    private List<Estructuras> filtrarListEstructuras;
+    private List<Estructuras> filtrarLovEstructuras;
     private List<SucursalesPila> lovSucursales;
     private SucursalesPila sucursalSeleccionada;
-    private List<SucursalesPila> filtrarListSucursales;
+    private List<SucursalesPila> filtrarLovSucursales;
     //EXPORTAR REPORTE
     private String pathReporteGenerado;
     private String nombreReporte, tipoReporte;
@@ -756,14 +756,14 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
 
     }
 
     public void cancelarCambioEmplDesde() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
@@ -785,13 +785,13 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
     }
 
     public void cancelarCambioEmplHasta() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoHasta:globalFilter");
@@ -812,7 +812,7 @@ public class ControlNReportesSeguridad implements Serializable {
         System.out.println("cambio de empresa");
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        filtrarLovEmpresas = null;
         context.reset("formDialogos:lovEmpresa:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
@@ -827,7 +827,7 @@ public class ControlNReportesSeguridad implements Serializable {
     public void cancelarEmpresa() {
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        filtrarLovEmpresas = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpresa:globalFilter");
@@ -849,14 +849,14 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:terceroParametro");
         terceroSeleccionado = null;
         aceptar = true;
-        filtrarListTerceros = null;
+        filtrarLovTerceros = null;
 
     }
 
     public void cancelarTercero() {
         terceroSeleccionado = null;
         aceptar = true;
-        filtrarListTerceros = null;
+        filtrarLovTerceros = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovTercero:globalFilter");
@@ -878,14 +878,14 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:sucursalParametro");
         sucursalSeleccionada = null;
         aceptar = true;
-        filtrarListSucursales = null;
+        filtrarLovSucursales = null;
 
     }
 
     public void cancelarSucursal() {
         sucursalSeleccionada = null;
         aceptar = true;
-        filtrarListSucursales = null;
+        filtrarLovSucursales = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovSucursal:globalFilter");
@@ -1537,60 +1537,60 @@ public class ControlNReportesSeguridad implements Serializable {
         this.filtrarReportes = filtrarReportes;
     }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
+    public List<Empleados> getFiltrarLovEmpleados() {
+        return filtrarLovEmpleados;
     }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
+    public void setFiltrarLovEmpleados(List<Empleados> filtrarLovEmpleados) {
+        this.filtrarLovEmpleados = filtrarLovEmpleados;
     }
 
-    public List<GruposConceptos> getFiltrarListGruposConceptos() {
-        return filtrarListGruposConceptos;
+    public List<GruposConceptos> getFiltrarLovGruposConceptos() {
+        return filtrarLovGruposConceptos;
     }
 
-    public void setFiltrarListGruposConceptos(List<GruposConceptos> filtrarListGruposConceptos) {
-        this.filtrarListGruposConceptos = filtrarListGruposConceptos;
+    public void setFiltrarLovGruposConceptos(List<GruposConceptos> filtrarLovGruposConceptos) {
+        this.filtrarLovGruposConceptos = filtrarLovGruposConceptos;
     }
 
-    public List<Empresas> getFiltrarListEmpresas() {
-        return filtrarListEmpresas;
+    public List<Empresas> getFiltrarLovEmpresas() {
+        return filtrarLovEmpresas;
     }
 
-    public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
-        this.filtrarListEmpresas = filtrarListEmpresas;
+    public void setFiltrarLovEmpresas(List<Empresas> filtrarLovEmpresas) {
+        this.filtrarLovEmpresas = filtrarLovEmpresas;
     }
 
-    public List<Terceros> getFiltrarListTerceros() {
-        return filtrarListTerceros;
+    public List<Terceros> getFiltrarLovTerceros() {
+        return filtrarLovTerceros;
     }
 
-    public void setFiltrarListTerceros(List<Terceros> filtrarListTerceros) {
-        this.filtrarListTerceros = filtrarListTerceros;
+    public void setFiltrarLovTerceros(List<Terceros> filtrarLovTerceros) {
+        this.filtrarLovTerceros = filtrarLovTerceros;
     }
 
-    public List<TiposTrabajadores> getFiltrarListTiposTrabajadores() {
-        return filtrarListTiposTrabajadores;
+    public List<TiposTrabajadores> getFiltrarLovTiposTrabajadores() {
+        return filtrarLovTiposTrabajadores;
     }
 
-    public void setFiltrarListTiposTrabajadores(List<TiposTrabajadores> filtrarListTiposTrabajadores) {
-        this.filtrarListTiposTrabajadores = filtrarListTiposTrabajadores;
+    public void setFiltrarLovTiposTrabajadores(List<TiposTrabajadores> filtrarLovTiposTrabajadores) {
+        this.filtrarLovTiposTrabajadores = filtrarLovTiposTrabajadores;
     }
 
-    public List<Estructuras> getFiltrarListEstructuras() {
-        return filtrarListEstructuras;
+    public List<Estructuras> getFiltrarLovEstructuras() {
+        return filtrarLovEstructuras;
     }
 
-    public void setFiltrarListEstructuras(List<Estructuras> filtrarListEstructuras) {
-        this.filtrarListEstructuras = filtrarListEstructuras;
+    public void setFiltrarLovEstructuras(List<Estructuras> filtrarLovEstructuras) {
+        this.filtrarLovEstructuras = filtrarLovEstructuras;
     }
 
-    public List<SucursalesPila> getFiltrarListSucursales() {
-        return filtrarListSucursales;
+    public List<SucursalesPila> getFiltrarLovSucursales() {
+        return filtrarLovSucursales;
     }
 
-    public void setFiltrarListSucursales(List<SucursalesPila> filtrarListSucursales) {
-        this.filtrarListSucursales = filtrarListSucursales;
+    public void setFiltrarLovSucursales(List<SucursalesPila> filtrarLovSucursales) {
+        this.filtrarLovSucursales = filtrarLovSucursales;
     }
 
     public String getInfoRegistroEmpleadoDesde() {

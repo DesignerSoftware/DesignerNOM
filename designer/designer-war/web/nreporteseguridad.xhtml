@@ -356,7 +356,7 @@
                               showEffect="fade" hideEffect="fade" height="400" width="470" modal="true">
                         <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReportesSeguridad.lovEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlNReportesSeguridad.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="450" scrollHeight="250"
-                                     filteredValue="#{controlNReportesSeguridad.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReportesSeguridad.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosEmpleadoD()}"/>    
 
@@ -392,9 +392,9 @@
 
                     <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
                               showEffect="fade" hideEffect="fade" height="400" width="470" modal="true">
-                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReportesSeguridad.listlovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
+                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReportesSeguridad.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReportesSeguridad.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="450" scrollHeight="250"
-                                     filteredValue="#{controlNReportesSeguridad.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReportesSeguridad.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosEmpleadoH()}"/>    
 
@@ -430,9 +430,9 @@
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" height="300" width="470" modal="true">
-                        <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReportesSeguridad.listValEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReportesSeguridad.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNReportesSeguridad.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="450" scrollHeight="137"
-                                     filteredValue="#{controlNReportesSeguridad.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReportesSeguridad.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosEmpresa()}"/>
 
@@ -468,9 +468,9 @@
 
                     <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovTercero" var="tercero" value="#{controlNReportesSeguridad.listValTerceros}" rowKey="#{tercero.secuencia}"
+                        <p:dataTable id="lovTercero" var="tercero" value="#{controlNReportesSeguridad.lovTerceros}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlNReportesSeguridad.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="445" scrollHeight="270"
-                                     filteredValue="#{controlNReportesSeguridad.filtrarListTerceros}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReportesSeguridad.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
 
                             <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosTercero()}"/>    
@@ -512,9 +512,9 @@
                     </p:dialog>
                     <p:dialog header="Sucursales" widgetVar="sucursalDialogo" draggable="true" resizable="false" closable="false" id="sucursalDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovSucursal" var="sucursal" value="#{controlNReportesSeguridad.listValSucursales}" rowKey="#{sucursal.secuencia}"
+                        <p:dataTable id="lovSucursal" var="sucursal" value="#{controlNReportesSeguridad.lovSucursales}" rowKey="#{sucursal.secuencia}"
                                      selection="#{controlNReportesSeguridad.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursal" scrollable="true" scrollWidth="450" scrollHeight="270"
-                                     filteredValue="#{controlNReportesSeguridad.filtrarListSucursales}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReportesSeguridad.filtrarLovSucursales}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosSucursales()}"/>    
 

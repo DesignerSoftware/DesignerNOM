@@ -30,10 +30,10 @@ public class FirmasReportes implements Serializable {
     private Empresas empresa;
     @JoinColumn(name = "PERSONAFIRMA", referencedColumnName = "SECUENCIA")
     @ManyToOne
-    private Personas personaFirma;
+    private Personas personafirma;
     @JoinColumn(name = "CARGOFIRMA", referencedColumnName = "SECUENCIA")
     @ManyToOne
-    private Cargos cargo;
+    private Cargos cargofirma;
 
     public FirmasReportes() {
     }
@@ -93,20 +93,20 @@ public class FirmasReportes implements Serializable {
         this.empresa = empresa;
     }
 
-    public Personas getPersonaFirma() {
-        return personaFirma;
+    public Personas getPersonafirma() {
+        return personafirma;
     }
 
-    public void setPersonaFirma(Personas personaFirma) {
-        this.personaFirma = personaFirma;
+    public void setPersonafirma(Personas personafirma) {
+        this.personafirma = personafirma;
     }
 
-    public Cargos getCargo() {
-        return cargo;
+    public Cargos getCargofirma() {
+        return cargofirma;
     }
 
-    public void setCargo(Cargos cargo) {
-        this.cargo = cargo;
+    public void setCargofirma(Cargos cargofirma) {
+        this.cargofirma = cargofirma;
     }
 
     @Override

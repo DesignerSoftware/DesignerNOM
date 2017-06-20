@@ -427,7 +427,8 @@
                   <p:commandButton id="EMPRESABANCO" style="position: absolute; left: 180px; top: 479px;" class="cssBotonLargo" icon="ui-icon-arrowreturnthick-1-w"
                                    value="#{msg['empresaBanco']}" disabled="#{controlEmpresa.activoBtnesAdd}" process="@this" onstart="#{controlEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresa', 'empresabanco')}"/>
                   <p:commandButton id="DIRECCIONES" style="position: absolute; left: 350px; top: 479px;" class="cssBotonLargo" icon="ui-icon-arrowreturnthick-1-w"
-                                   value="#{msg['direccion']}" disabled="#{controlEmpresa.activoBtnesAdd}" onstart="#{controlEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresa', 'firmareporte')}" process="@this"/>
+                                   value="#{msg['direccion']}" disabled="#{controlEmpresa.activoBtnesAdd}" onstart="#{controlEmpresa.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresa', 'firmareporte')}" process="@this"
+                                   actionListener="#{controlFirmasReportes.recibirPaginaEntrante('empresa')}" />
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlEmpresa.cambiosPagina}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmpresa.salir()}" process="@this"/>

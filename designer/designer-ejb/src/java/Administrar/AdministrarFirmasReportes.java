@@ -85,8 +85,8 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
             System.out.println("NOMBRE: " + listaFirmasReportes.get(i).getDescripcion());
             System.out.println("EMPRESA: " + listaFirmasReportes.get(i).getEmpresa().getNombre());
             System.out.println("SUBTITULO : " + listaFirmasReportes.get(i).getSubtitulofirma());
-            System.out.println("PERSONA : " + listaFirmasReportes.get(i).getPersonaFirma().getNombre());
-            System.out.println("CARGO : " + listaFirmasReportes.get(i).getCargo().getNombre());
+            System.out.println("PERSONA : " + listaFirmasReportes.get(i).getPersonafirma().getNombre());
+            System.out.println("CARGO : " + listaFirmasReportes.get(i).getCargofirma().getNombre());
             System.out.println("--------------DUPLICAR------------------------");
             persistenciaFirmasReportes.crear(em,listaFirmasReportes.get(i));
         }

@@ -353,7 +353,7 @@
                               showEffect="fade" hideEffect="fade" width="445" modal="true">
                         <p:dataTable id="lovEmpleadoDesde" style="width: 400px;" var="empleadoDesde" value="#{controlReportesBancos.lovEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlReportesBancos.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlReportesBancos.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlReportesBancos.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpeladoD()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarED"/>
@@ -388,7 +388,7 @@
                               showEffect="fade" hideEffect="fade" width="445" modal="true">
                         <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlReportesBancos.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlReportesBancos.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlReportesBancos.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlReportesBancos.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpeladoH()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarEH"/>
@@ -420,9 +420,9 @@
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="445" modal="true">
-                        <p:dataTable id="lovEmpresa" style="width: 400px;" var="empresa" value="#{controlReportesBancos.listEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresa" style="width: 400px;" var="empresa" value="#{controlReportesBancos.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlReportesBancos.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlReportesBancos.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlReportesBancos.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpresa()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarEmp"/>
@@ -456,9 +456,9 @@
 
                     <p:dialog header="#{msg['tipostrabajadorTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovTipoTrabajador" style="width: 430px;" var="tipo" value="#{controlReportesBancos.listTiposTrabajadores}" rowKey="#{tipo.secuencia}"
+                        <p:dataTable id="lovTipoTrabajador" style="width: 430px;" var="tipo" value="#{controlReportesBancos.lovTiposTrabajadores}" rowKey="#{tipo.secuencia}"
                                      selection="#{controlReportesBancos.tipoTSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                     filteredValue="#{controlReportesBancos.filtrarListTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlReportesBancos.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosTipoTrabajador()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarTT"/>
@@ -497,9 +497,9 @@
 
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
                               showEffect="fade" hideEffect="fade" width="445" modal="true">
-                        <p:dataTable id="lovProceso" style="width: 400px;" var="proceso" value="#{controlReportesBancos.listProcesos}" rowKey="#{proceso.secuencia}"
+                        <p:dataTable id="lovProceso" style="width: 400px;" var="proceso" value="#{controlReportesBancos.lovProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlReportesBancos.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlReportesBancos.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlReportesBancos.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosProceso()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarPro"/>
@@ -532,9 +532,9 @@
 
                     <p:dialog header="#{msg['bancosB']}" widgetVar="BancoDialogo" draggable="true" resizable="false" closable="false" id="BancoDialogo"  
                               showEffect="fade" hideEffect="fade" width="445" modal="true">
-                        <p:dataTable id="lovBancos" style="width: 400px;" var="banco" value="#{controlReportesBancos.listBancos}" rowKey="#{banco.secuencia}"
+                        <p:dataTable id="lovBancos" style="width: 400px;" var="banco" value="#{controlReportesBancos.lovBancos}" rowKey="#{banco.secuencia}"
                                      selection="#{controlReportesBancos.bancoSeleccionado}" selectionMode="single" widgetVar="lovBancos" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlReportesBancos.filtrarListBancos}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlReportesBancos.filtrarLovBancos}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosBanco()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarBan"/>
@@ -561,9 +561,9 @@
 
                     <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
                               showEffect="fade" hideEffect="fade" width="445" modal="true">
-                        <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlReportesBancos.listCiudades}" rowKey="#{ciudad.secuencia}"
+                        <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlReportesBancos.lovCiudades}" rowKey="#{ciudad.secuencia}"
                                      selection="#{controlReportesBancos.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlReportesBancos.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlReportesBancos.filtrarLovCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosCiudades()}"/>
                             <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarCiu"/>

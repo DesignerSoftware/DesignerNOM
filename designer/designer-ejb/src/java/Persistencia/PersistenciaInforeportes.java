@@ -111,7 +111,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
     public List<Inforeportes> buscarInforeportesUsuarioLaboral(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT DISTINCT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'LBL' AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
+            Query query = em.createQuery("SELECT DISTINCT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'LBL' AND ui.inforeporte.codigo <> 17 AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;

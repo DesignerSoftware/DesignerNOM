@@ -92,12 +92,12 @@ public class ControlReportesBancos implements Serializable {
     private Bancos bancoSeleccionado;
     private Ciudades ciudadSeleccionada;
     //////////////////
-    private List<Empleados> filtrarListEmpleados;
-    private List<Empresas> filtrarListEmpresas;
-    private List<TiposTrabajadores> filtrarListTiposTrabajadores;
-    private List<Procesos> filtrarListProcesos;
-    private List<Bancos> filtrarListBancos;
-    private List<Ciudades> filtrarListCiudades;
+    private List<Empleados> filtrarLovEmpleados;
+    private List<Empresas> filtrarLovEmpresas;
+    private List<TiposTrabajadores> filtrarLovTiposTrabajadores;
+    private List<Procesos> filtrarLovProcesos;
+    private List<Bancos> filtrarLovBancos;
+    private List<Ciudades> filtrarLovCiudades;
     //
     private String banco, empresa, tipoTrabajador, proceso, ciudad;
     private boolean permitirIndex, cambiosReporte;
@@ -836,7 +836,7 @@ public class ControlReportesBancos implements Serializable {
         cambiosReporte = false;
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').clearFilters()");
@@ -849,7 +849,7 @@ public class ControlReportesBancos implements Serializable {
     public void cancelarCambioEmplDesde() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
@@ -862,7 +862,7 @@ public class ControlReportesBancos implements Serializable {
         parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
         parametroModificacion = parametroDeReporte;
         cambiosReporte = false;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
         empleadoSeleccionado = null;
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -876,7 +876,7 @@ public class ControlReportesBancos implements Serializable {
     public void cancelarCambioEmplHasta() {
         empleadoSeleccionado = null;
         aceptar = true;
-        filtrarListEmpleados = null;
+        filtrarLovEmpleados = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpleadoHasta:globalFilter");
@@ -891,7 +891,7 @@ public class ControlReportesBancos implements Serializable {
         cambiosReporte = false;
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        filtrarLovEmpresas = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpresa:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
@@ -903,7 +903,7 @@ public class ControlReportesBancos implements Serializable {
     public void cancelarEmpresa() {
         empresaSeleccionada = null;
         aceptar = true;
-        filtrarListEmpresas = null;
+        filtrarLovEmpresas = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovEmpresa:globalFilter");
@@ -917,7 +917,7 @@ public class ControlReportesBancos implements Serializable {
         cambiosReporte = false;
         tipoTSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTrabajadores = null;
+        filtrarLovTiposTrabajadores = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovTipoTrabajador:globalFilter");
@@ -930,7 +930,7 @@ public class ControlReportesBancos implements Serializable {
     public void cancelarTipoTrabajador() {
         tipoTSeleccionado = null;
         aceptar = true;
-        filtrarListTiposTrabajadores = null;
+        filtrarLovTiposTrabajadores = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovTipoTrabajador:globalFilter");
@@ -945,7 +945,7 @@ public class ControlReportesBancos implements Serializable {
         cambiosReporte = false;
         procesoSeleccionado = null;
         aceptar = true;
-        filtrarListProcesos = null;
+        filtrarLovProcesos = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovProceso:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovProceso').clearFilters()");
@@ -957,7 +957,7 @@ public class ControlReportesBancos implements Serializable {
     public void cancelarProceso() {
         procesoSeleccionado = null;
         aceptar = true;
-        filtrarListProcesos = null;
+        filtrarLovProcesos = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovProceso:globalFilter");
@@ -972,7 +972,7 @@ public class ControlReportesBancos implements Serializable {
         cambiosReporte = false;
         bancoSeleccionado = null;
         aceptar = true;
-        filtrarListBancos = null;
+        filtrarLovBancos = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovBancos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
@@ -985,7 +985,7 @@ public class ControlReportesBancos implements Serializable {
     public void cancelarBanco() {
         bancoSeleccionado = null;
         aceptar = true;
-        filtrarListBancos = null;
+        filtrarLovBancos = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovBancos:globalFilter");
@@ -1000,7 +1000,7 @@ public class ControlReportesBancos implements Serializable {
         cambiosReporte = false;
         ciudadSeleccionada = null;
         aceptar = true;
-        filtrarListCiudades = null;
+        filtrarLovCiudades = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovCiudades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
@@ -1013,7 +1013,7 @@ public class ControlReportesBancos implements Serializable {
     public void cancelarCiudad() {
         ciudadSeleccionada = null;
         aceptar = true;
-        filtrarListCiudades = null;
+        filtrarLovCiudades = null;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovCiudades:globalFilter");
@@ -1647,36 +1647,36 @@ public class ControlReportesBancos implements Serializable {
         this.procesoSeleccionado = procesoSeleccionado;
     }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
+    public List<Empleados> getFiltrarLovEmpleados() {
+        return filtrarLovEmpleados;
     }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
+    public void setFiltrarLovEmpleados(List<Empleados> filtrarLovEmpleados) {
+        this.filtrarLovEmpleados = filtrarLovEmpleados;
     }
 
-    public List<Empresas> getFiltrarListEmpresas() {
-        return filtrarListEmpresas;
+    public List<Empresas> getFiltrarLovEmpresas() {
+        return filtrarLovEmpresas;
     }
 
-    public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
-        this.filtrarListEmpresas = filtrarListEmpresas;
+    public void setFiltrarLovEmpresas(List<Empresas> filtrarLovEmpresas) {
+        this.filtrarLovEmpresas = filtrarLovEmpresas;
     }
 
-    public List<Procesos> getFiltrarListProcesos() {
-        return filtrarListProcesos;
+    public List<Procesos> getFiltrarLovProcesos() {
+        return filtrarLovProcesos;
     }
 
-    public void setFiltrarListProcesos(List<Procesos> filtrarListProcesos) {
-        this.filtrarListProcesos = filtrarListProcesos;
+    public void setFiltrarLovProcesos(List<Procesos> filtrarLovProcesos) {
+        this.filtrarLovProcesos = filtrarLovProcesos;
     }
 
-    public List<TiposTrabajadores> getFiltrarListTiposTrabajadores() {
-        return filtrarListTiposTrabajadores;
+    public List<TiposTrabajadores> getFiltrarLovTiposTrabajadores() {
+        return filtrarLovTiposTrabajadores;
     }
 
-    public void setFiltrarListTiposTrabajadores(List<TiposTrabajadores> filtrarListTiposTrabajadores) {
-        this.filtrarListTiposTrabajadores = filtrarListTiposTrabajadores;
+    public void setFiltrarLovTiposTrabajadores(List<TiposTrabajadores> filtrarLovTiposTrabajadores) {
+        this.filtrarLovTiposTrabajadores = filtrarLovTiposTrabajadores;
     }
 
     public List<Bancos> getLovBancos() {
@@ -1695,12 +1695,12 @@ public class ControlReportesBancos implements Serializable {
         this.bancoSeleccionado = bancoSeleccionado;
     }
 
-    public List<Bancos> getFiltrarListBancos() {
-        return filtrarListBancos;
+    public List<Bancos> getFiltrarLovBancos() {
+        return filtrarLovBancos;
     }
 
-    public void setFiltrarListBancos(List<Bancos> filtrarListBancos) {
-        this.filtrarListBancos = filtrarListBancos;
+    public void setFiltrarLovBancos(List<Bancos> filtrarLovBancos) {
+        this.filtrarLovBancos = filtrarLovBancos;
     }
 
     public List<Ciudades> getLovCiudades() {
@@ -1728,12 +1728,12 @@ public class ControlReportesBancos implements Serializable {
         this.ciudadSeleccionada = ciudadSeleccionada;
     }
 
-    public List<Ciudades> getFiltrarListCiudades() {
-        return filtrarListCiudades;
+    public List<Ciudades> getFiltrarLovCiudades() {
+        return filtrarLovCiudades;
     }
 
-    public void setFiltrarListCiudades(List<Ciudades> filtrarListCiudades) {
-        this.filtrarListCiudades = filtrarListCiudades;
+    public void setFiltrarLovCiudades(List<Ciudades> filtrarLovCiudades) {
+        this.filtrarLovCiudades = filtrarLovCiudades;
     }
 
     public boolean isCambiosReporte() {
