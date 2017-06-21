@@ -108,7 +108,7 @@ public class ControlRemoto implements Serializable {
    //ALTO TABLAS (PESTAÑA DESIGNER)
    private String altoModulos, altoTablas;
    //Buscar Tablas LOV
-   private List<Tablas> listTablasLOV;
+   private List<Tablas> lovTablas, lovTodasTablas;
    private List<Tablas> filtradoListTablasLOV;
    private Tablas tablaSeleccionadaLOV;
    private boolean buscarTablasLOV;
@@ -119,6 +119,7 @@ public class ControlRemoto implements Serializable {
    private String accion;
    private String infoRegistroBuscarEmpleados;
    private String infoRegistroBuscarTablas;
+   private String infoRegistroBuscarTablasT;
    private String infoRegistroBusquedaRapida;
    private String infoRegistroTablas;
    private String infoRegistroMod;
@@ -202,9 +203,12 @@ public class ControlRemoto implements Serializable {
       unicaEmpresa = null;
       listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
       listaTablas = null;
+      lovTodasTablas = null;
       mensajeinterface = " ";
       nombrepantalla = " ";
-      listTablasLOV = new ArrayList<Tablas>();
+      if (lovTablas == null) {
+         lovTablas = new ArrayList<Tablas>();
+      }
       lovBuscarEmplTipo = new ArrayList<VwTiposEmpleados>();
    }
 
@@ -225,7 +229,6 @@ public class ControlRemoto implements Serializable {
             System.out.println("error en primerTipoTrabajador");
             System.out.println("ControlRemoto.inicializarAdministrador() 7 CATCH");
          }
-//         actualizarInformacionTipoTrabajador();
          llenarListaDeshavilitados();
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
          totalRegistros = administrarCarpetaPersonal.obtenerTotalRegistrosTipoTrabajador(tipo);
@@ -297,7 +300,6 @@ public class ControlRemoto implements Serializable {
             try {
                vwActualesTiposTrabajadores = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(secuencia);
             } catch (Exception e) {
-
                vwActualesTiposTrabajadores = null;
             }
             try {
@@ -982,8 +984,8 @@ public class ControlRemoto implements Serializable {
          if (listaTablas != null) {
             if (!listaTablas.isEmpty()) {
                buscarTablasLOV = true;
-               listTablasLOV.clear();
-               listTablasLOV.addAll(listaTablas);
+               lovTablas.clear();
+               lovTablas.addAll(listaTablas);
                RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
                RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
             }
@@ -1550,15 +1552,23 @@ public class ControlRemoto implements Serializable {
       return nombreArchivo;
    }
 
-   public List<Tablas> getListTablasLOV() {
-      if (listTablasLOV == null) {
-         listTablasLOV = new ArrayList<Tablas>();
+   public List<Tablas> getLovTablas() {
+      if (lovTablas == null) {
+         lovTablas = new ArrayList<Tablas>();
       }
-      return listTablasLOV;
+      return lovTablas;
    }
 
-   public void setListTablasLOV(List<Tablas> listTablasLOV) {
-      this.listTablasLOV = listTablasLOV;
+   public void setLovTablas(List<Tablas> lovTablas) {
+      this.lovTablas = lovTablas;
+   }
+
+   public List<Tablas> getLovTodasTablas() {
+      return lovTodasTablas;
+   }
+
+   public void setLovTodasTablas(List<Tablas> lovTodasTablas) {
+      this.lovTodasTablas = lovTodasTablas;
    }
 
    public List<Tablas> getFiltradoListTablasLOV() {
@@ -1723,6 +1733,8 @@ public class ControlRemoto implements Serializable {
    public void buscarTablas() {
       if (moduloSeleccionado != null && listaTablas != null) {
          filtradoListTablasLOV = null;
+         lovTablas.clear();
+         lovTablas.addAll(listaTablas);
          RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
          RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
          RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').show()");
@@ -1731,15 +1743,15 @@ public class ControlRemoto implements Serializable {
    }
 
    public void seleccionTabla() {
-      if (filtrosActivos == true) {
-         tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
-         tablasNombre.setFilterStyle("display: none; visibility: hidden;");
-         tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
-         tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-         altoTablas = "200";
-         filtrosActivos = false;
-         RequestContext.getCurrentInstance().execute("PF('tablas').clearFilters()");
-      }
+//      if (filtrosActivos == true) {
+//         tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
+//         tablasNombre.setFilterStyle("display: none; visibility: hidden;");
+//         tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
+//         tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
+//         altoTablas = "200";
+//         filtrosActivos = false;
+//         RequestContext.getCurrentInstance().execute("PF('tablas').clearFilters()");
+//      }
       tablaExportar = "data1";
       nombreArchivo = "modulos";
       listaTablas.clear();
@@ -1753,40 +1765,44 @@ public class ControlRemoto implements Serializable {
       RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
       RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').hide()");
       RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
-      contarRegistrosBT();
+      RequestContext.getCurrentInstance().update("form:tabmenu:infoRegistroTablas");
    }
 
    public void cancelarSeleccionTabla() {
       filtradoListTablasLOV = null;
       tablaSeleccionadaLOV = null;
       buscar = true;
-      System.out.println("ControlRemoto.cancelarSeleccionTabla() 1");
       RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
       RequestContext.getCurrentInstance().reset("form:formlovtablas:lovtablas:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
       RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
       RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').hide()");
-      RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
-      System.out.println("ControlRemoto.cancelarSeleccionTabla() 2");
-      contarRegistrosBT();
+   }
+
+   public void cancelarSeleccionTablaT() {
+      filtradoListTablasLOV = null;
+      tablaSeleccionadaLOV = null;
+      buscar = true;
+      RequestContext.getCurrentInstance().update("form:formlovtablasT:lovtablasT");
+      RequestContext.getCurrentInstance().reset("form:formlovtablasT:lovtablasT:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovtablasT').clearFilters()");
+      RequestContext.getCurrentInstance().update("form:formlovtablasT:buscartablasdialogoT");
+      RequestContext.getCurrentInstance().execute("PF('buscartablasdialogoT').hide()");
    }
 
    public void mostrarTodo_Tablas() {
-      listaTablas.clear();
-      System.out.println("ControlRemoto.mostrarTodo_Tablas() 1");
-      listTablasLOV.clear();
+      if (lovTodasTablas == null) {
+         lovTodasTablas = administrarCarpetaDesigner.consultarTablas();
+      }
       moduloSeleccionado = null;
-      listTablasLOV = administrarCarpetaDesigner.consultarTablas();
-      System.out.println("ControlRemoto.mostrarTodo_Tablas() 2");
-      RequestContext.getCurrentInstance().reset("form:formlovtablas:lovtablas:globalFilter");
-      RequestContext.getCurrentInstance().update("form:formlovtablas:buscartablasdialogo");
-      RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
-      RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').show()");
-      System.out.println("ControlRemoto.mostrarTodo_Tablas() 3");
+      RequestContext.getCurrentInstance().reset("form:formlovtablasT:lovtablasT:globalFilter");
+      RequestContext.getCurrentInstance().update("form:formlovtablasT:buscartablasdialogoT");
+      RequestContext.getCurrentInstance().update("form:formlovtablasT:lovtablasT");
+      RequestContext.getCurrentInstance().execute("PF('lovtablasT').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('buscartablasdialogoT').show()");
       RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
       RequestContext.getCurrentInstance().update("form:tabmenu:data1");
-      contarRegistrosBT();
+      contarRegistrosBTT();
    }
 
    public void validarBorradoLiquidacion() {
@@ -1835,8 +1851,11 @@ public class ControlRemoto implements Serializable {
    }
 
    public void contarRegistrosBT() {
-      System.out.println("ControlRemoto.contarRegistrosBT() FILTRO");
       RequestContext.getCurrentInstance().update("form:formlovtablas:inforegistrobuscartablas");
+   }
+
+   public void contarRegistrosBTT() {
+      RequestContext.getCurrentInstance().update("form:formlovtablasT:inforegistrobuscartablasT");
    }
 
    public void contarRegistrosBE() {
@@ -2025,6 +2044,21 @@ public class ControlRemoto implements Serializable {
       return infoRegistroBuscarTablas;
    }
 
+   public void setInfoRegistroBuscarTablas(String infoRegistroBuscarTablas) {
+      this.infoRegistroBuscarTablas = infoRegistroBuscarTablas;
+   }
+
+   public String getInfoRegistroBuscarTablasT() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:formlovtablasT:lovtablasT");
+      infoRegistroBuscarTablasT = String.valueOf(tabla.getRowCount());
+      return infoRegistroBuscarTablasT;
+   }
+
+   public void setInfoRegistroBuscarTablasT(String infoRegistroBuscarTablasT) {
+      this.infoRegistroBuscarTablasT = infoRegistroBuscarTablasT;
+   }
+
    public String getInfoRegistroEmpresas() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("formulariodialogos:LovEmpresasTabla");
@@ -2105,10 +2139,6 @@ public class ControlRemoto implements Serializable {
 
    public void setUnicaEmpresa(Empresas unicaEmpresa) {
       this.unicaEmpresa = unicaEmpresa;
-   }
-
-   public void setInfoRegistroBuscarTablas(String infoRegistroBuscarTablas) {
-      this.infoRegistroBuscarTablas = infoRegistroBuscarTablas;
    }
 
    public boolean isMostrarT2() {

@@ -103,8 +103,6 @@
                      <p:inputText autocomplete="off" value="#{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: relative; top: 30px; width: 206px; color: #BF1A1A; font-weight: bold; text-align: center; height: 10px; font-size: smaller;" readonly="true"/>
                   </fieldset>
 
-                  <p:remoteCommand name="posicionComprobante" actionListener="#{controlEmplComprobantes.posicionComprobante()}"/>
-
                   <fieldset style="position: absolute; left: 253px; top: 70px; width: 280px; height: 119px; border-radius: 10px; padding-top: 0px;">
                      <legend style=" font-weight: bold; color: #00F;">#{msg['titulo']}</legend>
 
@@ -160,12 +158,12 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column width="22" sortBy="#{comprobante.entregado}" filterBy="#{comprobante.entregado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
+                        <p:column width="20" sortBy="#{comprobante.entregado}" class="cssColumnasCentradas" filterBy="#{comprobante.entregado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
                               <h:outputText id="textTT" value="..."/>
                               <p:tooltip  for="textTT" value="#{msg['textTT']}"/>
                            </f:facet>  
-                           <p:selectBooleanCheckbox id="editarRetroactivo" style="position: relative; height: 9px; margin-top: 1px; margin-left: -9px; margin-right: -9px;" value="#{comprobante.checkEntregado}">
+                           <p:selectBooleanCheckbox id="editarRetroactivo" value="#{comprobante.checkEntregado}">
                               <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}"
                                       onstart="PF('datosComprobantes').unselectAllRows();PF('datosComprobantes').selectRow(#{indiceComprobante});" process="@this"/>
                            </p:selectBooleanCheckbox> 
@@ -183,7 +181,6 @@
                               <f:facet name="input">
                                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editarFechaEntregado" readonly="#{comprobante.readOnlyFechaEntregado}" value="#{comprobante.fechaentregado}"
                                              onselect="posicionComprobante([{name: 'n', value: '2'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
-
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantesFechaEntregado(comprobante,2)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantesFechaEntregado(comprobante,2)}" process="@this"/>
                                     <p:ajax event="select" onstart="PF('datosComprobantes').unselectAllRows();PF('datosComprobantes').selectRow(#{indiceComprobante});"/>
@@ -251,22 +248,24 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>
-                     <h:outputText id="informacionRegistroProc" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCP}" style="position: relative; left: 10px; top: 89px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistroProc" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCP}" style="position: relative; left: 10px; top: 88px; font-weight: bold;"/>
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 205px; width: 840px; height: 284px; border-radius: 10px; left: 5px; padding-top: 0px;">
 
-                     <p:scrollPanel id="scrollPanel1" styleClass="tabla2ScrollInteligente" style="position: absolute; width: 830px; height: 297px; background-color: transparent; padding: 0px; left: 5px; border: none; padding-right: 10px;">
-                        <h:outputText style=" font-weight: bold; color: #00F;" value="#{msg['empleado']}"/>
-                        <div id="inferiorIzquierda" style="top: 0px; display: block; height: 110px;">
+                     <h:outputText style="position: absolute; font-weight: bold; color: #00F; top: 0px; z-index: 99;" value="#{msg['empleado']}"/>
+                     <h:outputText style="position: absolute; font-weight: bold; color: #00F; top: 140px; z-index: 99;" value="#{msg['empleador']}"/>
 
-                           <p:dataTable id="tablaEmpleado" var="solucionNodoEmpleado" style="width: 1400px; height: 11px; font-size: 10px; margin: 0px; position: relative;" value="#{controlEmplComprobantes.listaSolucionesNodosEmpleado}"
+                     <p:scrollPanel id="scrollPanel1" styleClass="tabla2ScrollInteligente" style="position: absolute; width: 830px; height: 295px; background-color: transparent; padding: 0px; left: 5px; border: none; padding-right: 10px;">
+                        <div id="inferiorIzquierda" style="top: 4px; display: block; height: 110px;">
+
+                           <p:dataTable id="tablaEmpleado" var="solucionNodoEmpleado" style="width: 1400px; height: 11px; font-size: 10px; margin: 0px; position: absolute; top: 15px;" value="#{controlEmplComprobantes.listaSolucionesNodosEmpleado}"
                                         rowKey="#{solucionNodoEmpleado.secuencia}" scrollable="true" scrollWidth="1400" scrollHeight="#{controlEmplComprobantes.altoScrollSolucionesNodos}"
                                         widgetVar="tablaEmpleado" rowIndexVar="indiceEM" editable="true" editMode="cell"
                                         filteredValue="#{controlEmplComprobantes.filtradolistaSolucionesNodosEmpleado}" emptyMessage="#{msg['vacio']}"
                                         selection="#{controlEmplComprobantes.empleadoTablaSeleccionado}" selectionMode="single">
 
-                              <!--<p:ajax event="rowSelect" listener="#/{controlEmplComprobantes.seleccionTablaEmpleadoIz()}"/>-->
+                              <p:ajax event="rowSelect" onstart="PF('tablaEmpleador').unselectAllRows();"/>
                               <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarSNEmpleado()}"/>
 
                               <p:column width="20" style="text-align: center; padding: 0px !important;"> 
@@ -278,32 +277,76 @@
                               </p:column>
 
                               <p:column id="codigoSNE2" headerText="#{msg['codigo']}" width="60" sortBy="#{solucionNodoEmpleado.codigoconcepto}" filterBy="#{solucionNodoEmpleado.codigoconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleado.codigoconcepto}"/>  
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.codigoconcepto}"/>  
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.codigoconcepto}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '0'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>  
 
                               <p:column id="descripcionSNE2" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleado.nombreconcepto}" filterBy="#{solucionNodoEmpleado.nombreconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleado.nombreconcepto}"/> 
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.nombreconcepto}"/> 
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.nombreconcepto}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '1'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>  
 
                               <p:column id="fechaDesdeSNE" headerText="#{msg['desde']}" sortBy="#{solucionNodoEmpleado.fechadesde}" width="70" style="text-align: center;" filterBy="#{solucionNodoEmpleado.fechadesde}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleado.fechadesde}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                 </h:outputText> 
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.fechadesde}">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </h:outputText> 
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.fechadesde}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '2'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </p:inputText>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>  
 
                               <p:column id="fechaHastaSNE" headerText="#{msg['hasta']}" sortBy="#{solucionNodoEmpleado.fechahasta}" width="70" style="text-align: center;" filterBy="#{solucionNodoEmpleado.fechahasta}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleado.fechahasta}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                 </h:outputText>  
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.fechahasta}">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </h:outputText>  
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.fechahasta}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '3'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </p:inputText>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -313,7 +356,17 @@
                               </p:column>
 
                               <p:column id="unidadSNE" headerText="#{msg['unidad']}" style=" text-align: center;" sortBy="#{solucionNodoEmpleado.unidades}" width="40" filterBy="#{solucionNodoEmpleado.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleado.unidades}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.unidades}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.unidades}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '4'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -321,7 +374,17 @@
 
                               <p:column id="pasivoSNE" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleado.pago}" width="70"
                                         style="text-align: right;" filterBy="#{solucionNodoEmpleado.pago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleado.pago}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.pago}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.pago}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '5'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -329,7 +392,17 @@
 
                               <p:column id="gastoSNE" headerText="#{msg['descuento']}" sortBy="#{solucionNodoEmpleado.descuento}" width="70"
                                         style="text-align: right;" filterBy="#{solucionNodoEmpleado.descuento}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleado.descuento}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.descuento}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.descuento}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '6'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -338,9 +411,7 @@
                               <p:column id="terceroSNE" headerText="#{msg['nombretercero']}" sortBy="#{solucionNodoEmpleado.nombretercero}" width="160" filterBy="#{solucionNodoEmpleado.nombretercero}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                  <p:cellEditor>  
                                     <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleado.nombretercero}">
-                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                       </h:outputText>
+                                       <h:outputText value="#{solucionNodoEmpleado.nombretercero}"/>
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{solucionNodoEmpleado.nombretercero}" style="width: 96%; text-transform: uppercase; height: 12px;">
@@ -444,7 +515,17 @@
 
                               <p:column id="saldoSNE" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleado.saldo}" width="70"
                                         filterBy="#{solucionNodoEmpleado.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleado.saldo}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.saldo}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.saldo}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '12'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -452,46 +533,60 @@
 
                               <p:column id="pagoSNE" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleado.fechapago}"
                                         width="70" style="text-align: center;" filterBy="#{solucionNodoEmpleado.fechapago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleado.fechapago}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                 </h:outputText> 
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleado.fechapago}">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </h:outputText> 
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.fechapago}"
+                                                    onselect="posicionEmpleado([{name: 'n', value: '13'}, {name: 't', value: '#{indiceEM}'}]);
+                                                          PF('tablaEmpleado').unselectAllRows();
+                                                          PF('tablaEmpleado').selectRow(#{indiceEM});">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </p:inputText>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
                            </p:dataTable>
-                           <h:outputText id="informacionRegistroE" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroTEmpleado}" style="position: relative; left: 10px; top: 94px; font-weight: bold;"/>
+                           <h:outputText id="informacionRegistroE" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroTEmpleado}"
+                                         style="position: relative; left: 10px; top: 116px; font-weight: bold;"/>
+                           <!--</div>-->
+
+                           <div style="position: absolute;">
+
+                              <h:outputText value="#{msg['neto']}" style="color: #14388B; font-weight: bold; position: absolute; left: 250px; top: 103px; display: inline-block;"/>
+                              <p:inputText autocomplete="off" id="neto" value="#{controlEmplComprobantes.neto}" readonly="true"
+                                           style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: absolute; top: 103px; left: 291px; width: 90px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                 <f:convertNumber currencyCode="COP"/>
+                              </p:inputText>
+
+                              <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: absolute; left: 496px; top: 103px; display: inline-block;"/>
+                              <p:inputText autocomplete="off" id="subTotalPago" value="#{controlEmplComprobantes.subtotalPago}" readonly="true"
+                                           style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: absolute; top: 103px; left: 576px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                 <f:convertNumber currencyCode="COP"/>
+                              </p:inputText>
+                              <p:inputText autocomplete="off" id="subTotalDescuento" value="#{controlEmplComprobantes.subtotalDescuento}" readonly="true"
+                                           style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: absolute; top: 103px; left: 651px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                 <f:convertNumber currencyCode="COP"/>
+                              </p:inputText>
+                           </div>
                         </div>
 
-                        <div style="left: 0px; display: block; margin-top: -5px; margin-left: 33px;">
+                        <div id="inferiorIzquierdaEM" style="margin-top: 47px; display: block; height: 110px;">
 
-                           <h:outputText value="#{msg['neto']}" style="color: #14388B; font-weight: bold; position: relative; left: 310px; top: 0px; display: inline-block;"/>
-                           <p:inputText autocomplete="off" id="neto" value="#{controlEmplComprobantes.neto}" readonly="true"
-                                        style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 323px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
-                              <f:convertNumber currencyCode="COP"/>
-                           </p:inputText>
-
-                           <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: relative; left: 357px; top: 0px; display: inline-block;"/>
-                           <p:inputText autocomplete="off" id="subTotalPago" value="#{controlEmplComprobantes.subtotalPago}" readonly="true"
-                                        style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 370px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
-                              <f:convertNumber currencyCode="COP"/>
-                           </p:inputText>
-                           <p:inputText autocomplete="off" id="subTotalDescuento" value="#{controlEmplComprobantes.subtotalDescuento}" readonly="true"
-                                        style=" margin: 0px; height: 14px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 371px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
-                              <f:convertNumber currencyCode="COP"/>
-                           </p:inputText>
-                        </div>
-
-                        <div id="inferiorIzquierdaEM" style="margin-top: 7px; display: block; height: 110px;">
-
-                           <h:outputText style=" font-weight: bold; color: #00F; top: 0px;" value="#{msg['empleador']}"/>
-                           <p:dataTable id="tablaEmpleador" var="solucionNodoEmpleador" style="width: 1400px; height: 9px; font-size: 10px; margin: 0px; position: relative;" value="#{controlEmplComprobantes.listaSolucionesNodosEmpleador}"
+                           <p:dataTable id="tablaEmpleador" var="solucionNodoEmpleador" style="width: 1400px; height: 9px; font-size: 10px; margin: 0px; position: absolute;" value="#{controlEmplComprobantes.listaSolucionesNodosEmpleador}"
                                         rowKey="#{solucionNodoEmpleador.secuencia}" scrollable="true" scrollWidth="1400" scrollHeight="#{controlEmplComprobantes.altoScrollSolucionesNodos}"
                                         widgetVar="tablaEmpleador" rowIndexVar="indiceER" editable="true" editMode="cell"
                                         filteredValue="#{controlEmplComprobantes.filtradolistaSolucionesNodosEmpleador}" emptyMessage="#{msg['vacio']}"
                                         selection="#{controlEmplComprobantes.empleadorTablaSeleccionado}" selectionMode="single">
 
                               <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarSNEmpleador()}"/>
+                              <p:ajax event="rowSelect" onstart="PF('tablaEmpleado').unselectAllRows();"/>
 
                               <p:column width="20" style="padding: 0px !important; width: 18px;"> 
                                  <p:commandButton value="" actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceER, 1)}" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);
@@ -502,53 +597,127 @@
                               </p:column>
 
                               <p:column id="codigoSNEM" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleador.codigoconcepto}" width="60" filterBy="#{solucionNodoEmpleador.codigoconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleador.codigoconcepto}"/>  
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.codigoconcepto}"/>  
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.codigoconcepto}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '0'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>  
 
                               <p:column id="descripcionSNEM" headerText="#{msg['descripcion']}" sortBy="#{solucionNodoEmpleador.nombreconcepto}" filterBy="#{solucionNodoEmpleador.nombreconcepto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleador.nombreconcepto}"/>  
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.nombreconcepto}"/>  
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.nombreconcepto}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '1'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>  
 
                               <p:column id="fechaDesdeSNE" headerText="#{msg['desde']}" sortBy="#{solucionNodoEmpleador.fechadesde}" width="70" style="text-align: center;" filterBy="#{solucionNodoEmpleador.fechadesde}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleador.fechadesde}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                 </h:outputText> 
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.fechadesde}">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </h:outputText> 
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.fechadesde}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '2'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </p:inputText>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>  
 
                               <p:column id="fechaHastaSNEM" headerText="#{msg['hasta']}" sortBy="#{solucionNodoEmpleador.fechahasta}" width="70" style="text-align: center;" filterBy="#{solucionNodoEmpleador.fechahasta}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleador.fechahasta}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                 </h:outputText>  
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.fechahasta}">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </h:outputText>  
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.fechahasta}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '3'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </p:inputText>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
 
                               <p:column id="unidadSNEM" headerText="#{msg['unidad']}" style=" text-align: center;" sortBy="#{solucionNodoEmpleador.unidades}" width="40" filterBy="#{solucionNodoEmpleador.unidades}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleador.unidades}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.unidades}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.unidades}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '4'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
 
                               <p:column id="pasivoSNEM" headerText="#{msg['pasivo']}" style=" text-align: right;" sortBy="#{solucionNodoEmpleador.pasivo}" width="70" filterBy="#{solucionNodoEmpleador.pasivo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <h:outputText value="#{solucionNodoEmpleador.pasivo}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.pasivo}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.pasivo}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '5'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
 
                               <p:column id="gastoSNEM" headerText="#{msg['gasto']}" style=" text-align: right;" sortBy="#{solucionNodoEmpleador.gasto}" width="70" filterBy="#{solucionNodoEmpleador.gasto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleador.gasto}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.gasto}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.gasto}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '6'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -578,8 +747,7 @@
                                         width="60" filterBy="#{solucionNodoEmpleador.codigocuentad}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
                                  <p:cellEditor>  
                                     <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleador.codigocuentad}">
-                                       </h:outputText>
+                                       <h:outputText value="#{solucionNodoEmpleador.codigocuentad}"/>
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.codigocuentad}" style="width: 96%; text-transform: uppercase; height: 12px;">
@@ -599,8 +767,7 @@
                                         width="110" filterBy="#{solucionNodoEmpleador.nombrecentrocostod}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                  <p:cellEditor>  
                                     <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostod}">
-                                       </h:outputText>
+                                       <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostod}"/>
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.nombrecentrocostod}" style="width: 96%; text-transform: uppercase; height: 12px;">
@@ -620,8 +787,7 @@
                                         filterBy="#{solucionNodoEmpleador.codigocuentac}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                                  <p:cellEditor>  
                                     <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleador.codigocuentac}">
-                                       </h:outputText>
+                                       <h:outputText value="#{solucionNodoEmpleador.codigocuentac}"/>
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.codigocuentac}" style="width: 96%; text-transform: uppercase; height: 12px;">
@@ -640,8 +806,7 @@
                               <p:column id="centroCostoCSNEM" headerText="#{msg['ccc']}" sortBy="#{solucionNodoEmpleador.nombrecentrocostoc}" width="110" filterBy="#{solucionNodoEmpleador.nombrecentrocostoc}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
                                  <p:cellEditor>  
                                     <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostoc}">
-                                       </h:outputText>
+                                       <h:outputText value="#{solucionNodoEmpleador.nombrecentrocostoc}"/>
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{solucionNodoEmpleador.nombrecentrocostoc}" style="width: 96%; text-transform: uppercase; height: 12px;">
@@ -658,42 +823,66 @@
                               </p:column>
 
                               <p:column id="saldoSNEM" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleador.saldo}" width="70" filterBy="#{solucionNodoEmpleador.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleador.saldo}"/>
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.saldo}"/>
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.saldo}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '12'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
 
                               <p:column id="pagoSNEM" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleador.fechapago}" width="70" style="text-align: center;" filterBy="#{solucionNodoEmpleador.fechapago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <h:outputText value="#{solucionNodoEmpleador.fechapago}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                 </h:outputText> 
+                                 <p:cellEditor>
+                                    <f:facet name="output">
+                                       <h:outputText value="#{solucionNodoEmpleador.fechapago}">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </h:outputText> 
+                                    </f:facet>  
+                                    <f:facet name="input">
+                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.fechapago}"
+                                                    onselect="posicionEmpleador([{name: 'n', value: '13'}, {name: 't', value: '#{indiceER}'}]);
+                                                          PF('tablaEmpleador').unselectAllRows();
+                                                          PF('tablaEmpleador').selectRow(#{indiceER});">
+                                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                       </p:inputText>
+                                    </f:facet>
+                                 </p:cellEditor>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
 
                            </p:dataTable>
-                           <h:outputText id="informacionRegistroEr" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroTEmpleador}" style="position: relative; left: 10px; top: 95px; font-weight: bold;"/>
-                        </div>
+                           <h:outputText id="informacionRegistroEr" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroTEmpleador}"
+                                         style="position: relative; left: 10px; top: 102px; font-weight: bold;"/>
+                           <!--</div>-->
 
-                        <div id="inferiorDerechaSubtotalesEmpleador" style="left: 0px; display: block; margin-top: 10px; margin-left: 33px;">
+                           <div id="inferiorDerechaSubtotalesEmpleador" style="position: relative;">
 
-                           <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: relative; left: 467px; top: 0px; display: inline-block;"/>
-                           <p:inputText autocomplete="off" id="subTotalPasivo" value="#{controlEmplComprobantes.subtotalPasivo}" readonly="true"
-                                        style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 479px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
-                              <f:convertNumber currencyCode="COP"/>
-                           </p:inputText>
-                           <p:inputText autocomplete="off" id="subTotalGasto" value="#{controlEmplComprobantes.subtotalGasto}" readonly="true"
-                                        style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: relative; top: 0px; left: 480px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
-                              <f:convertNumber currencyCode="COP"/>
-                           </p:inputText>
+                              <h:outputText value="#{msg['subtotales']}" style="color: #14388B; font-weight: bold; position: absolute; left: 496px; top: 89px; display: inline-block;"/>
+                              <p:inputText autocomplete="off" id="subTotalPasivo" value="#{controlEmplComprobantes.subtotalPasivo}" readonly="true"
+                                           style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: absolute; top: 89px; left: 576px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                 <f:convertNumber currencyCode="COP"/>
+                              </p:inputText>
+                              <p:inputText autocomplete="off" id="subTotalGasto" value="#{controlEmplComprobantes.subtotalGasto}" readonly="true"
+                                           style="height: 14px; margin: 0px; padding: 0px; padding-right: 4px; font-size: 10px; position: absolute; top: 89px; left: 651px; width: 70px; font-weight: bold; color: #14388B; text-align: right; display: inline-block;">
+                                 <f:convertNumber currencyCode="COP"/>
+                              </p:inputText>
+                           </div>
                         </div>
 
                      </p:scrollPanel>
                   </fieldset>
-                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlEmplComprobantes.guardado}" onclick="PF('confirmarGuardar').show();" process="@this"/>
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplComprobantes.salir()}" process="@this"/>
+                  <p:commandButton class="cssBotonAceptar" style="top: 503px !important;" id="ACEPTAR" value="" disabled="#{controlEmplComprobantes.guardado}" onclick="PF('confirmarGuardar').show();" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" style="top: 503px !important;" id="ATRAS" value="" actionListener="#{controlEmplComprobantes.salir()}" process="@this"/>
                </p:panel>
 
                <style>
@@ -701,14 +890,21 @@
                      display: none;
                   }
 
-                  .ui-datatable td, .ui-datatable td, .ui-datatable td {
-                     padding: 0px 2px !important;
+                  .ui-chkbox-box {
+                     height: 14px !important;
+                     width: 14px !important;
+                     margin: 0px !important;
+                     margin-left: -2px !important;
                   }
+
                   .ui-column-filter.ui-inputfield {
                      margin-bottom: 0px !important;
                   }
                </style>
 
+               <p:remoteCommand name="posicionComprobante" actionListener="#{controlEmplComprobantes.posicionComprobante()}"/>
+               <p:remoteCommand name="posicionEmpleado" actionListener="#{controlEmplComprobantes.posicionSNEmpleado()}"/>
+               <p:remoteCommand name="posicionEmpleador" actionListener="#{controlEmplComprobantes.posicionSNEmpleador()}"/>
             </h:form>
 
             <h:form id="formularioDialogos">
@@ -889,6 +1085,7 @@
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
+
                <p:dialog id="editarFechaEntrega" header="#{msg['editarFechaEntrega']}" widgetVar="editarFechaEntrega" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                   <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.fechaentregado}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -904,6 +1101,17 @@
 
                <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlEmplComprobantes.editarCorteProceso.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <!-- EDITOR SOLUCIONESNODOS -->
+               <p:dialog id="editarFecha" header="#{controlEmplComprobantes.nombreColumnaEditar}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplComprobantes.fechaColumnaEditar}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarTexto" header="#{controlEmplComprobantes.nombreColumnaEditar}" widgetVar="editarTexto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlEmplComprobantes.textoColumnaEditar}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- DIALOGOS RASTRO-->

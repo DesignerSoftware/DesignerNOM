@@ -809,10 +809,13 @@
                               </p:column>
                            </p:dataTable>
                            <h:outputText id="infoRegistroTablas" value="Registros: #{controlRemoto.infoRegistroMod}" style="font-weight: bold; display: block; position: relative; top: 0px;"/>
-                           <p:commandButton id="buscartablas" value="" class="cssBotonBuscar" style="position: relative; top: -10px; left: 620px;"
+                           <p:commandButton id="buscarTodas" class="cssBotonLargo" value="Todas las Tablas" style="position: relative; top: -10px; left: 450px;"
+                                            actionListener="#{controlRemoto.mostrarTodo_Tablas()}" icon="ui-icon-extlink"/>
+                           <p:tooltip for="buscarTodas" value="Consultar en todos los Modulos."/>
+                           <p:commandButton id="buscartablas" value="" class="cssBotonBuscar" style="position: relative; top: -13px; left: 460px;"
                                             actionListener="#{controlRemoto.buscarTablas()}" disabled="#{controlRemoto.buscarTablasLOV}"/>
-                           <p:commandButton id="mostrartodastablas" value="" class="cssBotonMostrarTodos" style="position: relative; top: -10px; left: 620px;"
-                                            actionListener="#{controlRemoto.mostrarTodo_Tablas()}" process="@this"/>
+                           <p:commandButton id="mostrartodastablas" value="" class="cssBotonMostrarTodos" style="position: relative; top: -13px; left: 460px;"
+                                            actionListener="#{controlRemoto.cambiarTablas()}" process="@this"/>
                         </fieldset>
                      </p:tab>
                   </p:tabView> 
@@ -874,7 +877,6 @@
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();"/>
                         <p:commandButton value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  class="cssAtrasLOV" onclick="PF('lvbr').hide()"/>
                      </div>
-
                   </p:dialog>
                </h:form>
 
@@ -924,11 +926,52 @@
                   </p:dialog>
                </h:form>
 
+               <h:form id="formlovtablasT">
+                  <p:dialog header="TablasT" widgetVar="buscartablasdialogoT" draggable="true" resizable="false" closable="false" id="buscartablasdialogoT"  
+                            showEffect="fade" hideEffect="fade" width="500" modal="true" onShow="PF('lovtablasT').clearFilters();">
+                     <p:dataTable id="lovtablasT" var="tab" value="#{controlRemoto.lovTodasTablas}" rowKey="#{tab.secuencia}"
+                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="480" selectionMode="single" widgetVar="lovtablasT" scrollable="true" scrollHeight="250" 
+                                  filteredValue="#{controlRemoto.filtradoListTablasLOV}" emptyMessage="#{msg['lovvacio']}">   
+
+                        <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBTT()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:formlovtablasT:aceptarTTT"/>
+                        <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTabla()}" process="@this"/>
+
+                        <f:facet name="header">  
+                           <h:outputText value="Buscar Tabla:"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovtablasT').filter();" class="cssFiltroLOV"/>  
+                        </f:facet>
+                        <p:column filterBy="#{tab.nombre}" sortBy="#{tab.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['nombre']}"/>
+                           </f:facet>
+                           <h:outputText value="#{tab.nombre}"/>
+                        </p:column>
+                        <p:column filterBy="#{tab.modulo.nombre}" sortBy="#{tab.modulo.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['nombreM']}"/>
+                           </f:facet>
+                           <h:outputText value="#{tab.modulo.nombre}"/>
+                        </p:column>
+                        <p:column filterBy="#{tab.descripcion}" sortBy="#{tab.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['descripcion']}"/>
+                           </f:facet>
+                           <h:outputText value="#{tab.descripcion}"/>
+                        </p:column>
+                     </p:dataTable>
+                     <div class="cssBotonesLOV">
+                        <h:outputText id="inforegistrobuscartablasT" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarTablasT}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarTTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.buscar}" actionListener="#{controlRemoto.seleccionTabla()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTTT" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlRemoto.cancelarSeleccionTablaT()}" process="@this"/>
+                     </div>
+                  </p:dialog>
+               </h:form>
                <h:form id="formlovtablas">
                   <p:dialog header="Tablas" widgetVar="buscartablasdialogo" draggable="true" resizable="false" closable="false" id="buscartablasdialogo"  
-                            showEffect="fade" hideEffect="fade" width="460" modal="true" onShow="PF('lovtablas').clearFilters();">
-                     <p:dataTable id="lovtablas" var="tab" value="#{controlRemoto.listTablasLOV}" rowKey="#{tab.secuencia}"
-                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="440" selectionMode="single" widgetVar="lovtablas" scrollable="true" scrollHeight="250" 
+                            showEffect="fade" hideEffect="fade" width="470" modal="true" onShow="PF('lovtablas').clearFilters();">
+                     <p:dataTable id="lovtablas" var="tab" value="#{controlRemoto.lovTablas}" rowKey="#{tab.secuencia}"
+                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="450" selectionMode="single" widgetVar="lovtablas" scrollable="true" scrollHeight="250" 
                                   filteredValue="#{controlRemoto.filtradoListTablasLOV}" emptyMessage="#{msg['lovvacio']}">   
 
                         <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBT()}"/>
@@ -958,6 +1001,7 @@
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasT" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlRemoto.cancelarSeleccionTabla()}" process="@this"/>
                      </div>
                   </p:dialog>
+
                </h:form>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlRemoto.lab()}"/> 

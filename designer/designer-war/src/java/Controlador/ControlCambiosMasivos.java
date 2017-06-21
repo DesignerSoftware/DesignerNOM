@@ -233,11 +233,6 @@ public class ControlCambiosMasivos {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
@@ -272,24 +267,24 @@ public class ControlCambiosMasivos {
    }
 
    public void limpiarListasValor() {
-      lovCausasausentismos = null;
-      lovClasesausentismos = null;
-      lovConceptos = null;
-      lovEmpleados = null;
-      lovEstructuras = null;
-      lovFormulas = null;
-      lovIbcs = null;
-      lovMotivosDefinitivas = null;
-      lovMotivosRetiros = null;
-      lovMotivosSueldos = null;
-      lovPapeles = null;
-      lovPeriodicidades = null;
-      lovTerceros = null;
-      lovTercerosSucursales = null;
-      lovTiposEntidades = null;
-      lovTiposSueldos = null;
-      lovTiposausentismos = null;
-      lovUnidades = null;
+      lovEstructuras.clear();
+      lovMotivosDefinitivas.clear();
+      lovMotivosRetiros.clear();
+      lovTiposEntidades.clear();
+      lovTercerosSucursales.clear();
+      lovPeriodicidades.clear();
+      lovConceptos.clear();
+      lovFormulas.clear();
+      lovTerceros.clear();
+      lovMotivosSueldos.clear();
+      lovTiposSueldos.clear();
+      lovTiposausentismos.clear();
+      lovUnidades.clear();
+      lovEmpleados.clear();
+      lovIbcs.clear();
+      lovPapeles.clear();
+      lovCausasausentismos.clear();
+      lovClasesausentismos.clear();
    }
 
    @PostConstruct

@@ -135,8 +135,9 @@ public class ControlEmplComprobantes implements Serializable {
    //RASTRO*/
    private BigInteger secRegistro;
    private String nombreTabla;
+   private String nombreColumnaEditar, fechaColumnaEditar, textoColumnaEditar;
    //INFORMATIVOS
-   private int cualCelda, tipoListaComprobantes, tipoListaCortesProcesos, tipoListaSNEmpleado, tipoListaSNEmpleador, tipoTabla;
+   private int cualCelda, tipoListaComprobantes, tipoListaCortesProcesos, tipoListaSNEmpleado, tipoListaSNEmpleador, tablaActiva;
    //SUBTOTALES Y NETO
    private BigDecimal subtotalPago, subtotalDescuento, subtotalPasivo, subtotalGasto, neto;
    //PARCIALES 
@@ -185,7 +186,7 @@ public class ControlEmplComprobantes implements Serializable {
       tipoListaCortesProcesos = 0;
       tipoListaSNEmpleado = 0;
       tipoListaSNEmpleador = 0;
-      tipoTabla = 0;
+      tablaActiva = 0;
       //guardar
       guardado = true;
       //Crear
@@ -195,7 +196,7 @@ public class ControlEmplComprobantes implements Serializable {
       duplicarComprobante = new Comprobantes();
       secRegistro = null;
       tablaExportar = ":formExportar:datosComprobantesExportar";
-      altoScrollComprobante = "69";
+      altoScrollComprobante = "66";
       banderaComprobantes = 0;
       banderaCortesProcesos = 0;
       nombreTabla = "Comprobantes";
@@ -259,8 +260,8 @@ public class ControlEmplComprobantes implements Serializable {
    public void limpiarListasValor() {
       lovCentrosCostos = null;
       lovCuentas = null;
-      lovProcesos = null;
-      lovTerceros = null;
+      lovProcesos = new ArrayList<Procesos>();
+      lovTerceros = new ArrayList<Terceros>();
    }
 
    @PostConstruct
@@ -358,6 +359,38 @@ public class ControlEmplComprobantes implements Serializable {
       cambiarIndiceComprobantes(comprobanteSeleccionado, columna);
    }
 
+   public void posicionSNEmpleado() {
+      FacesContext context = FacesContext.getCurrentInstance();
+      Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+      String name = map.get("n"); // name attribute of node
+      String type = map.get("t"); // type attribute of node
+      int indice = Integer.parseInt(type);
+      int columna = Integer.parseInt(name);
+      if (tipoListaSNEmpleado == 0) {
+         empleadoTablaSeleccionado = listaSolucionesNodosEmpleado.get(indice);
+      } else {
+         empleadoTablaSeleccionado = filtradolistaSolucionesNodosEmpleado.get(indice);
+      }
+      empleadorTablaSeleccionado = null;
+      cambiarIndiceSolucionesNodosEmpleado(empleadoTablaSeleccionado, columna);
+   }
+
+   public void posicionSNEmpleador() {
+      FacesContext context = FacesContext.getCurrentInstance();
+      Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+      String name = map.get("n"); // name attribute of node
+      String type = map.get("t"); // type attribute of node
+      int indice = Integer.parseInt(type);
+      int columna = Integer.parseInt(name);
+      if (tipoListaSNEmpleador == 0) {
+         empleadorTablaSeleccionado = listaSolucionesNodosEmpleador.get(indice);
+      } else {
+         empleadorTablaSeleccionado = filtradolistaSolucionesNodosEmpleador.get(indice);
+      }
+      empleadoTablaSeleccionado = null;
+      cambiarIndiceSolucionesNodosEmpleador(empleadorTablaSeleccionado, columna);
+   }
+
    public void cargarListasConComprobante() {
       System.out.println("Entro en cargarListasConComprobante()");
       listaCortesProcesos = administrarComprobantes.consultarCortesProcesosComprobante(comprobanteSeleccionado.getSecuencia());
@@ -432,7 +465,7 @@ public class ControlEmplComprobantes implements Serializable {
                subtotalPasivo = new BigDecimal(0);
                subtotalGasto = new BigDecimal(0);
                cualCelda = celda;
-               tipoTabla = 0;
+               tablaActiva = 0;
                //Para los rastros
                nombreTabla = "Comprobantes";
                secRegistro = comprobanteSeleccionado.getSecuencia();
@@ -473,7 +506,7 @@ public class ControlEmplComprobantes implements Serializable {
             subtotalPasivo = new BigDecimal(0);
             subtotalGasto = new BigDecimal(0);
             cualCelda = celda;
-            tipoTabla = 1;
+            tablaActiva = 1;
             nombreTabla = "CortesProcesos";
             secRegistro = cortesProcesosSeleccionado.getSecuencia();
             if (cualCelda == 1) {
@@ -506,7 +539,7 @@ public class ControlEmplComprobantes implements Serializable {
       fechaC.setFilterStyle("display: none; visibility: hidden;");
       fechaEntregaC = (Column) c.getViewRoot().findComponent("form:datosComprobantes:fechaEntregaC");
       fechaEntregaC.setFilterStyle("display: none; visibility: hidden;");
-      altoScrollComprobante = "69";
+      altoScrollComprobante = "66";
       RequestContext.getCurrentInstance().update("form:datosComprobantes");
       banderaComprobantes = 0;
       tipoListaComprobantes = 0;
@@ -519,7 +552,7 @@ public class ControlEmplComprobantes implements Serializable {
       fechaCorteCP.setFilterStyle("display: none; visibility: hidden;");
       procesoCP = (Column) c.getViewRoot().findComponent("form:datosCortesProcesos:procesoCP");
       procesoCP.setFilterStyle("display: none; visibility: hidden;");
-      altoScrollComprobante = "69";
+      altoScrollComprobante = "66";
       RequestContext.getCurrentInstance().update("form:datosCortesProcesos");
       banderaCortesProcesos = 0;
       tipoListaCortesProcesos = 0;
@@ -600,7 +633,7 @@ public class ControlEmplComprobantes implements Serializable {
       empleadoTablaSeleccionado = snEmpleado;
       if (permitirIndex == true) {
          cualCelda = celda;
-         tipoTabla = 2;
+         tablaActiva = 2;
          nombreTabla = "SolucionesNodos";
          tablaExportar = ":formExportar:solucionesNodoEmpleadoExportar";
          secRegistro = empleadoTablaSeleccionado.getSecuencia();
@@ -627,7 +660,7 @@ public class ControlEmplComprobantes implements Serializable {
       empleadorTablaSeleccionado = snEmpleador;
       if (permitirIndex == true) {
          cualCelda = celda;
-         tipoTabla = 3;
+         tablaActiva = 3;
          nombreTabla = "SolucionesNodos";
          tablaExportar = ":formExportar:solucionesNodoEmpleadorExportar";
          secRegistro = empleadorTablaSeleccionado.getSecuencia();
@@ -678,7 +711,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
       secRegistro = null;
-      tipoTabla = -1;
+      tablaActiva = -1;
       modificacionesComprobantes = true;
       RequestContext.getCurrentInstance().update("form:datosComprobantes");
    }
@@ -700,7 +733,7 @@ public class ControlEmplComprobantes implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          secRegistro = null;
-         tipoTabla = -1;
+         tablaActiva = -1;
          modificacionesCortesProcesos = true;
          RequestContext.getCurrentInstance().update("form:datosCortesProcesos");
       } else if (confirmarCambio.equalsIgnoreCase("PROCESO")) {
@@ -799,10 +832,10 @@ public class ControlEmplComprobantes implements Serializable {
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoDato.equals("TERCERO")) {
-         if (tipoTabla == 2) {
+         if (tablaActiva == 2) {
             empleadoTablaSeleccionado = sn;
             empleadoTablaSeleccionado.setNombretercero(tercero);
-         } else if (tipoTabla == 3) {
+         } else if (tablaActiva == 3) {
             empleadorTablaSeleccionado = sn;
             empleadorTablaSeleccionado.setNombretercero(tercero);
          }
@@ -815,10 +848,10 @@ public class ControlEmplComprobantes implements Serializable {
          }
 
          if (coincidencias == 1) {
-            if (tipoTabla == 2) {
+            if (tablaActiva == 2) {
                empleadoTablaSeleccionado.setNittercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
                empleadoTablaSeleccionado.setNombretercero(lovTerceros.get(indiceUnicoElemento).getNombre());
-            } else if (tipoTabla == 3) {
+            } else if (tablaActiva == 3) {
                empleadorTablaSeleccionado.setNittercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
                empleadorTablaSeleccionado.setNombretercero(lovTerceros.get(indiceUnicoElemento).getNombre());
             }
@@ -830,10 +863,10 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       if (tipoDato.equals("CREDITO")) {
-         if (tipoTabla == 2) {
+         if (tablaActiva == 2) {
             empleadoTablaSeleccionado = sn;
             empleadoTablaSeleccionado.setCodigocuentac(codigoCredito);
-         } else if (tipoTabla == 3) {
+         } else if (tablaActiva == 3) {
             empleadorTablaSeleccionado = sn;
             empleadorTablaSeleccionado.setCodigocuentac(codigoCredito);
          }
@@ -845,10 +878,10 @@ public class ControlEmplComprobantes implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            if (tipoTabla == 2) {
+            if (tablaActiva == 2) {
                empleadoTablaSeleccionado.setCuentac(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                empleadoTablaSeleccionado.setCodigocuentac(lovCuentas.get(indiceUnicoElemento).getCodigo());
-            } else if (tipoTabla == 3) {
+            } else if (tablaActiva == 3) {
                empleadorTablaSeleccionado.setCuentac(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                empleadorTablaSeleccionado.setCodigocuentac(lovCuentas.get(indiceUnicoElemento).getCodigo());
             }
@@ -860,10 +893,10 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       if (tipoDato.equals("DEBITO")) {
-         if (tipoTabla == 2) {
+         if (tablaActiva == 2) {
             empleadoTablaSeleccionado = sn;
             empleadoTablaSeleccionado.setCodigocuentad(codigoDebito);
-         } else if (tipoTabla == 3) {
+         } else if (tablaActiva == 3) {
             empleadorTablaSeleccionado = sn;
             empleadorTablaSeleccionado.setCodigocuentad(codigoDebito);
          }
@@ -875,10 +908,10 @@ public class ControlEmplComprobantes implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            if (tipoTabla == 2) {
+            if (tablaActiva == 2) {
                empleadoTablaSeleccionado.setCuentad(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                empleadoTablaSeleccionado.setCodigocuentad(lovCuentas.get(indiceUnicoElemento).getCodigo());
-            } else if (tipoTabla == 3) {
+            } else if (tablaActiva == 3) {
                empleadorTablaSeleccionado.setCuentad(lovCuentas.get(indiceUnicoElemento).getSecuencia());
                empleadorTablaSeleccionado.setCodigocuentad(lovCuentas.get(indiceUnicoElemento).getCodigo());
             }
@@ -890,10 +923,10 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       if (tipoDato.equals("CENTROCOSTODEBITO")) {
-         if (tipoTabla == 2) {
+         if (tablaActiva == 2) {
             empleadoTablaSeleccionado = sn;
             empleadoTablaSeleccionado.setNombrecentrocostod(centroCostoDebito);
-         } else if (tipoTabla == 3) {
+         } else if (tablaActiva == 3) {
             empleadorTablaSeleccionado = sn;
             empleadorTablaSeleccionado.setNombrecentrocostod(centroCostoDebito);
          }
@@ -905,10 +938,10 @@ public class ControlEmplComprobantes implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            if (tipoTabla == 2) {
+            if (tablaActiva == 2) {
                empleadoTablaSeleccionado.setCentrocostod(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                empleadoTablaSeleccionado.setNombrecentrocostod(lovCentrosCostos.get(indiceUnicoElemento).getNombre());
-            } else if (tipoTabla == 3) {
+            } else if (tablaActiva == 3) {
                empleadorTablaSeleccionado.setCentrocostod(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                empleadorTablaSeleccionado.setNombrecentrocostod(lovCentrosCostos.get(indiceUnicoElemento).getNombre());
             }
@@ -920,10 +953,10 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       if (tipoDato.equals("CENTROCOSTOCREDITO")) {
-         if (tipoTabla == 2) {
+         if (tablaActiva == 2) {
             empleadoTablaSeleccionado = sn;
             empleadoTablaSeleccionado.setNombrecentrocostoc(centroCostoCredito);
-         } else if (tipoTabla == 3) {
+         } else if (tablaActiva == 3) {
             empleadorTablaSeleccionado = sn;
             empleadorTablaSeleccionado.setNombrecentrocostoc(centroCostoCredito);
          }
@@ -935,10 +968,10 @@ public class ControlEmplComprobantes implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            if (tipoTabla == 2) {
+            if (tablaActiva == 2) {
                empleadoTablaSeleccionado.setCentrocostoc(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                empleadoTablaSeleccionado.setNombrecentrocostoc(lovCentrosCostos.get(indiceUnicoElemento).getNombre());
-            } else if (tipoTabla == 3) {
+            } else if (tablaActiva == 3) {
                empleadorTablaSeleccionado.setCentrocostoc(lovCentrosCostos.get(indiceUnicoElemento).getSecuencia());
                empleadorTablaSeleccionado.setNombrecentrocostoc(lovCentrosCostos.get(indiceUnicoElemento).getNombre());
             }
@@ -950,7 +983,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       if (coincidencias == 1) {
-         if (tipoTabla == 2) {
+         if (tablaActiva == 2) {
             if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
                listaSolucionesNodosEmpleadoModificar.add(empleadoTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadoModificar.contains(empleadoTablaSeleccionado)) {
@@ -958,7 +991,7 @@ public class ControlEmplComprobantes implements Serializable {
             }
             modificacionesSolucionesNodosEmpleado = true;
             RequestContext.getCurrentInstance().update("form:tablaEmpleado");
-         } else if (tipoTabla == 3) {
+         } else if (tablaActiva == 3) {
             if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
                listaSolucionesNodosEmpleadorModificar.add(empleadorTablaSeleccionado);
             } else if (!listaSolucionesNodosEmpleadorModificar.contains(empleadorTablaSeleccionado)) {
@@ -997,7 +1030,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    //LOVs Soluciones Nodos
    public void llamarLovsSolucionesNodos(SolucionesNodos sn, int tipoTab, int campo) {
-      tipoTabla = tipoTab;
+      tablaActiva = tipoTab;
       if (tipoTab == 2) {
          empleadoTablaSeleccionado = sn;
       } else if (tipoTab == 3) {
@@ -1082,7 +1115,7 @@ public class ControlEmplComprobantes implements Serializable {
       secRegistro = null;
       tipoActualizacion = -1;
       cualCelda = -1;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovProcesos");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
@@ -1098,7 +1131,7 @@ public class ControlEmplComprobantes implements Serializable {
       secRegistro = null;
       tipoActualizacion = -1;
       permitirIndex = true;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovProcesos");
@@ -1111,7 +1144,7 @@ public class ControlEmplComprobantes implements Serializable {
    //ACTUALIZAR TERCERO
    public void actualizarTercero() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (tipoTabla == 2) {
+      if (tablaActiva == 2) {
          empleadoTablaSeleccionado.setNittercero(TerceroSelecionado.getSecuencia());
          empleadoTablaSeleccionado.setNombretercero(TerceroSelecionado.getNombre());
          if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
@@ -1127,7 +1160,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:tablaEmpleado");
          modificacionesSolucionesNodosEmpleado = true;
          permitirIndex = true;
-      } else if (tipoTabla == 3) {
+      } else if (tablaActiva == 3) {
          empleadorTablaSeleccionado.setNittercero(TerceroSelecionado.getSecuencia());
          empleadorTablaSeleccionado.setNombretercero(TerceroSelecionado.getNombre());
          if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
@@ -1150,7 +1183,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       cualCelda = -1;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovTerceros");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarT");
@@ -1165,7 +1198,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       permitirIndex = true;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovTerceros");
@@ -1177,7 +1210,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void actualizarCuentaDebito() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (tipoTabla == 2) {
+      if (tablaActiva == 2) {
          empleadoTablaSeleccionado.setCuentad(cuentaSeleccionada.getSecuencia());
          empleadoTablaSeleccionado.setCodigocuentad(cuentaSeleccionada.getCodigo());
          if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
@@ -1193,7 +1226,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:tablaEmpleado");
          modificacionesSolucionesNodosEmpleado = true;
          permitirIndex = true;
-      } else if (tipoTabla == 3) {
+      } else if (tablaActiva == 3) {
          empleadorTablaSeleccionado.setCuentad(cuentaSeleccionada.getSecuencia());
          empleadorTablaSeleccionado.setCodigocuentad(cuentaSeleccionada.getCodigo());
          if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
@@ -1216,7 +1249,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       cualCelda = -1;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext.getCurrentInstance().update("formularioDialogos:CuentaDebitoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaDebito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCD");
@@ -1231,7 +1264,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       permitirIndex = true;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:CuentaDebitoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaDebito");
@@ -1243,7 +1276,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void actualizarCuentaCredito() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (tipoTabla == 2) {
+      if (tablaActiva == 2) {
          empleadoTablaSeleccionado.setCuentac(cuentaSeleccionada.getSecuencia());
          empleadoTablaSeleccionado.setCodigocuentac(cuentaSeleccionada.getCodigo());
          if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
@@ -1258,7 +1291,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:tablaEmpleado");
          modificacionesSolucionesNodosEmpleado = true;
          permitirIndex = true;
-      } else if (tipoTabla == 3) {
+      } else if (tablaActiva == 3) {
          empleadorTablaSeleccionado.setCuentac(cuentaSeleccionada.getSecuencia());
          empleadorTablaSeleccionado.setCodigocuentac(cuentaSeleccionada.getCodigo());
          if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
@@ -1279,7 +1312,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       cualCelda = -1;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext.getCurrentInstance().update("formularioDialogos:CuentaCreditoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaCredito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCC");
@@ -1294,7 +1327,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       permitirIndex = true;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:CuentaCreditoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaCredito");
@@ -1306,7 +1339,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void actualizarCentroCostoCredito() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (tipoTabla == 2) {
+      if (tablaActiva == 2) {
          empleadoTablaSeleccionado.setCentrocostoc(centroCostoSeleccionado.getSecuencia());
          empleadoTablaSeleccionado.setNombrecentrocostoc(centroCostoSeleccionado.getNombre());
          if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
@@ -1321,7 +1354,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:tablaEmpleado");
          modificacionesSolucionesNodosEmpleado = true;
          permitirIndex = true;
-      } else if (tipoTabla == 3) {
+      } else if (tablaActiva == 3) {
          empleadorTablaSeleccionado.setCentrocostoc(centroCostoSeleccionado.getSecuencia());
          empleadorTablaSeleccionado.setNombrecentrocostoc(centroCostoSeleccionado.getNombre());
          if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
@@ -1343,7 +1376,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       cualCelda = -1;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoCreditoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoCredito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCCC");
@@ -1358,7 +1391,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       permitirIndex = true;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoCreditoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoCredito");
@@ -1370,7 +1403,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void actualizarCentroCostoDebito() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (tipoTabla == 2) {
+      if (tablaActiva == 2) {
          empleadoTablaSeleccionado.setCentrocostod(centroCostoSeleccionado.getSecuencia());
          empleadoTablaSeleccionado.setNombrecentrocostod(centroCostoSeleccionado.getNombre());
          if (listaSolucionesNodosEmpleadoModificar.isEmpty()) {
@@ -1386,7 +1419,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:tablaEmpleado");
          modificacionesSolucionesNodosEmpleado = true;
          permitirIndex = true;
-      } else if (tipoTabla == 3) {
+      } else if (tablaActiva == 3) {
          empleadorTablaSeleccionado.setCentrocostod(centroCostoSeleccionado.getSecuencia());
          empleadorTablaSeleccionado.setNombrecentrocostod(centroCostoSeleccionado.getNombre());
          if (listaSolucionesNodosEmpleadorModificar.isEmpty()) {
@@ -1407,7 +1440,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       cualCelda = -1;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoDebitoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoDebito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCCD");
@@ -1422,7 +1455,7 @@ public class ControlEmplComprobantes implements Serializable {
       aceptar = true;
       secRegistro = null;
       permitirIndex = true;
-      tipoTabla = -1;
+      tablaActiva = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoDebitoDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoDebito");
@@ -1435,7 +1468,7 @@ public class ControlEmplComprobantes implements Serializable {
    //BORRAR VC
    public void borrar() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (tipoTabla == 0) {
+      if (tablaActiva == 0) {
          if (comprobanteSeleccionado != null) {
             if (administrarComprobantes.consultarCortesProcesosComprobante(comprobanteSeleccionado.getSecuencia()).isEmpty()) {
                if (!listaComprobantesModificar.isEmpty() && listaComprobantesModificar.contains(comprobanteSeleccionado)) {
@@ -1461,7 +1494,7 @@ public class ControlEmplComprobantes implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosComprobantes");
             comprobanteSeleccionado = null;
          }
-      } else if (tipoTabla == 1) {
+      } else if (tablaActiva == 1) {
          if (cortesProcesosSeleccionado != null) {
             if (administrarComprobantes.consultarSolucionesNodosEmpleado(cortesProcesosSeleccionado.getSecuencia(), secuenciaEmpleado).isEmpty() && administrarComprobantes.consultarSolucionesNodosEmpleador(cortesProcesosSeleccionado.getSecuencia(), secuenciaEmpleado).isEmpty()) {
                if (!listaCortesProcesosModificar.isEmpty() && listaCortesProcesosModificar.contains(cortesProcesosSeleccionado)) {
@@ -1487,7 +1520,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       secRegistro = null;
-      tipoTabla = -1;
+      tablaActiva = -1;
       if (guardado == true) {
          guardado = false;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1502,12 +1535,12 @@ public class ControlEmplComprobantes implements Serializable {
             if (comprobanteSeleccionado != null) {
                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
             }
-         } else if (tipoTabla == 0) {
+         } else if (tablaActiva == 0) {
             BigInteger sugerenciaNumero = administrarComprobantes.consultarMaximoNumeroComprobante().add(new BigInteger("1"));
             nuevoComprobante.setNumero(sugerenciaNumero);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoComprobante");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroComprobantes').show()");
-         } else if (tipoTabla == 1) {
+         } else if (tablaActiva == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCorteProceso");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCortesProcesos').show()");
          }
@@ -1557,7 +1590,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroComprobantes').hide()");
          modificacionesComprobantes = true;
-         tipoTabla = -1;
+         tablaActiva = -1;
          secRegistro = null;
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacioNuevoComprobante");
@@ -1569,7 +1602,7 @@ public class ControlEmplComprobantes implements Serializable {
    //LIMPIAR NUEVO REGISTRO COMPROBANTES
    public void limpiarNuevoComprobante() {
       nuevoComprobante = new Comprobantes();
-      tipoTabla = -1;
+      tablaActiva = -1;
       secRegistro = null;
    }
 
@@ -1605,7 +1638,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCortesProcesos').hide()");
          modificacionesCortesProcesos = true;
-         tipoTabla = -1;
+         tablaActiva = -1;
          secRegistro = null;
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacioNuevoCorteProceso");
@@ -1617,13 +1650,13 @@ public class ControlEmplComprobantes implements Serializable {
    public void limpiarNuevoCorteProceso() {
       nuevoCorteProceso = new CortesProcesos();
       nuevoCorteProceso.setProceso(new Procesos());
-      tipoTabla = -1;
+      tablaActiva = -1;
       secRegistro = null;
    }
 
    //DUPLICADOS
    public void duplicarC() {
-      if (tipoTabla == 0) {
+      if (tablaActiva == 0) {
          if (comprobanteSeleccionado != null) {
             duplicarComprobante = new Comprobantes();
             duplicarComprobante.setNumero(comprobanteSeleccionado.getNumero());
@@ -1636,7 +1669,7 @@ public class ControlEmplComprobantes implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroComprobantes').show()");
             secRegistro = null;
          }
-      } else if (tipoTabla == 1) {
+      } else if (tablaActiva == 1) {
          if (cortesProcesosSeleccionado != null) {
             duplicarCorteProceso = new CortesProcesos();
             duplicarCorteProceso.setCorte(cortesProcesosSeleccionado.getCorte());
@@ -1677,7 +1710,7 @@ public class ControlEmplComprobantes implements Serializable {
          comprobanteSeleccionado = listaComprobantes.get(listaComprobantes.indexOf(duplicarComprobante));
          RequestContext.getCurrentInstance().update("form:datosComprobantes");
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroComprobantes').hide()");
-         tipoTabla = -1;
+         tablaActiva = -1;
          modificacionesComprobantes = true;
          secRegistro = null;
          if (guardado == true) {
@@ -1697,7 +1730,7 @@ public class ControlEmplComprobantes implements Serializable {
    public void limpiarDuplicadoComprobante() {
       duplicarComprobante = new Comprobantes();
       secRegistro = null;
-      tipoTabla = -1;
+      tablaActiva = -1;
    }
 
    public void confirmarDuplicarCortesProcesos() {
@@ -1720,7 +1753,7 @@ public class ControlEmplComprobantes implements Serializable {
          cortesProcesosSeleccionado = listaCortesProcesos.get(listaCortesProcesos.indexOf(duplicarCorteProceso));
          RequestContext.getCurrentInstance().update("form:datosCortesProcesos");
          RequestContext.getCurrentInstance().execute("PF('DuplicarCortesProcesos').hide()");
-         tipoTabla = -1;
+         tablaActiva = -1;
          modificacionesCortesProcesos = true;
          secRegistro = null;
          if (guardado == true) {
@@ -1739,7 +1772,7 @@ public class ControlEmplComprobantes implements Serializable {
    //LIMPIAR DUPLICADO REGISTRO CORTES PROCESOS
    public void limpiarDuplicadoCortesProcesos() {
       duplicarCorteProceso = new CortesProcesos();
-      tipoTabla = -1;
+      tablaActiva = -1;
       secRegistro = null;
    }
 
@@ -1753,7 +1786,7 @@ public class ControlEmplComprobantes implements Serializable {
          fechaC.setFilterStyle("width: 85% !important;");
          fechaEntregaC = (Column) c.getViewRoot().findComponent("form:datosComprobantes:fechaEntregaC");
          fechaEntregaC.setFilterStyle("width: 85% !important;");
-         altoScrollComprobante = "52";
+         altoScrollComprobante = "49";
          RequestContext.getCurrentInstance().update("form:datosComprobantes");
          banderaComprobantes = 1;
       } else if (banderaComprobantes == 1) {
@@ -1764,7 +1797,7 @@ public class ControlEmplComprobantes implements Serializable {
          fechaCorteCP.setFilterStyle("width: 85% !important;");
          procesoCP = (Column) c.getViewRoot().findComponent("form:datosCortesProcesos:procesoCP");
          procesoCP.setFilterStyle("width: 85% !important;");
-         altoScrollComprobante = "52";
+         altoScrollComprobante = "49";
 
          c_codigo = (Column) c.getViewRoot().findComponent("form:tablaEmpleado:codigoSNE2");
          c_codigo.setFilterStyle("width: 85% !important;");
@@ -1838,7 +1871,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    //MOSTRAR DATOS CELDA
    public void editarCelda() {
-      if (tipoTabla == 0) {
+      if (tablaActiva == 0) {
          if (comprobanteSeleccionado != null) {
             editarComprobante = comprobanteSeleccionado;
             if (cualCelda == 0) {
@@ -1852,7 +1885,7 @@ public class ControlEmplComprobantes implements Serializable {
                RequestContext.getCurrentInstance().execute("PF('editarFechaEntrega').show()");
             }
          }
-      } else if (tipoTabla == 1) {
+      } else if (tablaActiva == 1) {
          editarCorteProceso = cortesProcesosSeleccionado;
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaCorte");
@@ -1867,7 +1900,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    //LISTA DE VALORES BOTON
    public void listaValoresBoton() {
-      if (tipoTabla == 1) {
+      if (tablaActiva == 1) {
          if (cortesProcesosSeleccionado != null) {
             if (cualCelda == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
@@ -1912,22 +1945,22 @@ public class ControlEmplComprobantes implements Serializable {
    public void exportPDF() throws IOException {
       DataTable tabla;
       Exporter exporter = new ExportarPDF();
-      if (tipoTabla == 0) {
+      if (tablaActiva == 0) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosComprobantesExportar");
          exporter.export(context, tabla, "ComprobantesPDF", false, false, "UTF-8", null, null);
          context.responseComplete();
-      } else if (tipoTabla == 1) {
+      } else if (tablaActiva == 1) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosCortesProcesosExportar");
          exporter.export(context, tabla, "CortesProcesosPDF", false, false, "UTF-8", null, null);
          context.responseComplete();
-      } else if (tipoTabla == 2) {
+      } else if (tablaActiva == 2) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:solucionesNodoEmpleadoExportar");
          exporter.export(context, tabla, "SolucionesNodosEmpleadoPDF", false, false, "UTF-8", null, null);
          context.responseComplete();
-      } else if (tipoTabla == 3) {
+      } else if (tablaActiva == 3) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:solucionesNodoEmpleadorExportar");
          exporter.export(context, tabla, "SolucionesNodosEmpleadorPDF", false, false, "UTF-8", null, null);
@@ -1939,22 +1972,22 @@ public class ControlEmplComprobantes implements Serializable {
    public void exportXLS() throws IOException {
       DataTable tabla;
       Exporter exporter = new ExportarXLS();
-      if (tipoTabla == 0) {
+      if (tablaActiva == 0) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosComprobantesExportar");
          exporter.export(context, tabla, "ComprobantesXLS", false, false, "UTF-8", null, null);
          context.responseComplete();
-      } else if (tipoTabla == 1) {
+      } else if (tablaActiva == 1) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosCortesProcesosExportar");
          exporter.export(context, tabla, "CortesProcesosXLS", false, false, "UTF-8", null, null);
          context.responseComplete();
-      } else if (tipoTabla == 2) {
+      } else if (tablaActiva == 2) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:solucionesNodoEmpleadoExportar");
          exporter.export(context, tabla, "SolucionesNodosEmpleadoXLS", false, false, "UTF-8", null, null);
          context.responseComplete();
-      } else if (tipoTabla == 3) {
+      } else if (tablaActiva == 3) {
          FacesContext context = FacesContext.getCurrentInstance();
          tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:solucionesNodoEmpleadorExportar");
          exporter.export(context, tabla, "SolucionesNodosEmpleadorXLS", false, false, "UTF-8", null, null);
@@ -1983,7 +2016,7 @@ public class ControlEmplComprobantes implements Serializable {
       modificacionesCortesProcesos = false;
       modificacionesSolucionesNodosEmpleado = false;
       modificacionesSolucionesNodosEmpleador = false;
-      tipoTabla = 0;
+      tablaActiva = 0;
       cualCelda = -1;
       tablaExportar = ":formExportar:datosComprobantesExportar";
       nombreTabla = "Comprobantes";
@@ -2549,9 +2582,11 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public List<Terceros> getLovTerceros() {
-      if (empleado.getEmpresa() != null && lovTerceros.isEmpty()) {
-         if (empleado.getEmpresa().getSecuencia() != null) {
-            lovTerceros = administrarComprobantes.consultarLOVTerceros(empleado.getEmpresa().getSecuencia());
+      if (empleado != null) {
+         if (empleado.getEmpresa() != null && lovTerceros.isEmpty()) {
+            if (empleado.getEmpresa().getSecuencia() != null) {
+               lovTerceros = administrarComprobantes.consultarLOVTerceros(empleado.getEmpresa().getSecuencia());
+            }
          }
       }
       return lovTerceros;
@@ -2828,15 +2863,39 @@ public class ControlEmplComprobantes implements Serializable {
 
    public String getAltoScrollSolucionesNodos() {
       if (banderaCortesProcesos == 1) {
-         this.altoScrollSolucionesNodos = "58";
+         this.altoScrollSolucionesNodos = "55";
       } else {
-         this.altoScrollSolucionesNodos = "75";
+         this.altoScrollSolucionesNodos = "72";
       }
       return altoScrollSolucionesNodos;
    }
 
    public void setAltoScrollSolucionesNodos(String altoScrollSolucionesNodos) {
       this.altoScrollSolucionesNodos = altoScrollSolucionesNodos;
+   }
+
+   public String getNombreColumnaEditar() {
+      return nombreColumnaEditar;
+   }
+
+   public void setNombreColumnaEditar(String nombreColumnaEditar) {
+      this.nombreColumnaEditar = nombreColumnaEditar;
+   }
+
+   public String getFechaColumnaEditar() {
+      return fechaColumnaEditar;
+   }
+
+   public void setFechaColumnaEditar(String fechaColumnaEditar) {
+      this.fechaColumnaEditar = fechaColumnaEditar;
+   }
+
+   public String getTextoColumnaEditar() {
+      return textoColumnaEditar;
+   }
+
+   public void setTextoColumnaEditar(String textoColumnaEditar) {
+      this.textoColumnaEditar = textoColumnaEditar;
    }
 
 }

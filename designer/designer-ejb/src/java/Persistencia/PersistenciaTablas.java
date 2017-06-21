@@ -17,8 +17,7 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
    public List<Tablas> consultarTablas(EntityManager em) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT ta FROM Tablas ta ORDER BY ta.nombre");
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         Query query = em.createNativeQuery("SELECT * FROM Tablas t where EXISTS (SELECT p.secuencia FROM Pantallas p where t.secuencia = p.tabla) ORDER BY t.nombre", Tablas.class);
          List<Tablas> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
@@ -33,8 +32,8 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
       try {
          em.clear();
          Query query = em.createQuery("select t from Tablas t where t.modulo.secuencia = :secuenciaMod "
-                 + " and t.tipo in ('SISTEMA','CONFIGURACION') "
                  + " and EXISTS (SELECT p FROM Pantallas p where t = p.tabla)"
+                 + " and t.tipo in ('SISTEMA','CONFIGURACION') "
                  + "order by t.nombre");
          query.setParameter("secuenciaMod", secuenciaMod);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
