@@ -146,8 +146,8 @@
                                                      onblur="PF('datosEmpresasBancos').unselectAllRows();PF('datosEmpresasBancos').selectRow(#{indice})"
                                                      onfocus="PF('datosEmpresasBancos').unselectAllRows();PF('datosEmpresasBancos').selectRow(#{indice})">  
                                         <f:selectItem itemLabel="" itemValue=""/>  
-                                        <f:selectItem itemLabel="Ahorros" itemValue="A"/>  
-                                        <f:selectItem itemLabel="Corriente" itemValue="C"/>  
+                                        <f:selectItem itemLabel="AHORROS" itemValue="A"/>  
+                                        <f:selectItem itemLabel="CORRIENTE" itemValue="C"/>  
                                         <p:ajax event="change" listener="#{controlEmpresasBancos.modificarEmpresasBancos(info)}" update="obsoleto"/>
                                     </p:selectOneMenu>
 
@@ -397,8 +397,8 @@
                             <strong><h:outputText value="Tipo Cuenta :" style="left: 15px; position: absolute; top: 180px;"/></strong>
                             <p:selectOneMenu id="nuevaObsoleto" value="#{controlEmpresasBancos.nuevoEmpresasBancos.tipocuenta}" style="width: 143px; position: absolute; left: 140px; top: 175px; text-transform: uppercase;">  
                                 <f:selectItem itemLabel=" " itemValue=""/>  
-                                <f:selectItem itemLabel="Ahorros" itemValue="A"/>  
-                                <f:selectItem itemLabel="Corriente" itemValue="C"/>  
+                                <f:selectItem itemLabel="AHORROS" itemValue="A"/>  
+                                <f:selectItem itemLabel="CORRIENTE" itemValue="C"/>  
                                 <p:ajax update="@this"/>
                             </p:selectOneMenu>   
 
@@ -442,8 +442,8 @@
                             <strong><h:outputText value="Tipo Cuenta:" style="left: 15px; position: absolute; top: 180px;"/></strong>
                             <p:selectOneMenu id="duplicarObsoleto" value="#{controlEmpresasBancos.duplicarEmpresasBancos.tipocuenta}" style="width: 143px; position: absolute; left: 140px; top: 175px; text-transform: uppercase;">  
                                 <f:selectItem itemLabel=" " itemValue=""/>  
-                                <f:selectItem itemLabel="Ahorros" itemValue="A"/>  
-                                <f:selectItem itemLabel="Corriente" itemValue="C"/>  
+                                <f:selectItem itemLabel="AHORROS" itemValue="A"/>  
+                                <f:selectItem itemLabel="CORRIENTE" itemValue="C"/>  
                                 <p:ajax update="@this"/>
                             </p:selectOneMenu>  
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 20px; top: 210px;"  actionListener="#{controlEmpresasBancos.limpiarDuplicarEmpresasBancos() }" update="duplicarTE"  process="@this"/>

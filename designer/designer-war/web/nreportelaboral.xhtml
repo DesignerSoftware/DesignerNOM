@@ -237,7 +237,7 @@
                            <div style="display: block;">
                               <h:outputText value="#{msg['empresa']}:" style="top: 5px; position: relative; left: 0px;"/>
                               <p:inputText autocomplete="off" value="#{controlNReporteLaboral.parametroDeReporte.empresa.nombre}" 
-                                            id="empresaParametroL" style="position: absolute; width: 100px; left: 65px; top: 2px;" onclick="select();">
+                                            id="empresaParametroL" style="position: absolute; width: 125px; left: 65px; top: 2px;" onclick="select();">
                                  <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(6)}" process="@this"/> 
                                  <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas(6)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                  <p:ajax event="change" update="empresaParametroL" listener="#{controlNReporteLaboral.autocompletarGeneral('EMPRESA',controlNReporteLaboral.parametroDeReporte.empresa.nombre)}" process="@this"/>

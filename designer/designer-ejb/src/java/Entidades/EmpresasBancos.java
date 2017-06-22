@@ -73,10 +73,10 @@ public class EmpresasBancos implements Serializable {
             trTipoCuenta = " ";
         } else {
             if (tipocuenta.equalsIgnoreCase("c")) {
-                trTipoCuenta = "Corriente";
+                trTipoCuenta = "CORRIENTE";
             }
             if (tipocuenta.equalsIgnoreCase("a")) {
-                trTipoCuenta = "Ahorros";
+                trTipoCuenta = "AHORROS";
             }
         }
         System.out.println("trTipoCuenta : " + trTipoCuenta);
@@ -85,12 +85,10 @@ public class EmpresasBancos implements Serializable {
 
     public void setTrTipoCuenta(String trTipoCuenta) {
         this.trTipoCuenta = trTipoCuenta;
-        if (this.trTipoCuenta.equalsIgnoreCase("ahorro")) {
-            System.out.println("EmpresasBancos setTrTipoCuenta a ");
+        if (this.trTipoCuenta.equalsIgnoreCase("AHORROS")) {
             setTipocuenta("a");
         }
-        if (this.trTipoCuenta.equalsIgnoreCase("corriente")) {
-            System.out.println("EmpresasBancos setTrTipoCuenta c ");
+        if (this.trTipoCuenta.equalsIgnoreCase("CORRIENTE")) {
             setTipocuenta("c");
         }
     }
