@@ -135,7 +135,7 @@ public class ControlEmplComprobantes implements Serializable {
    //RASTRO*/
    private BigInteger secRegistro;
    private String nombreTabla;
-   private String nombreColumnaEditar, fechaColumnaEditar, textoColumnaEditar;
+   private String nombreColumnaEditar, textoColumnaEditar;
    //INFORMATIVOS
    private int cualCelda, tipoListaComprobantes, tipoListaCortesProcesos, tipoListaSNEmpleado, tipoListaSNEmpleador, tablaActiva;
    //SUBTOTALES Y NETO
@@ -277,6 +277,15 @@ public class ControlEmplComprobantes implements Serializable {
       }
    }
 
+   public String fechaParaMostrar(Date fecha) {
+      int mes = fecha.getMonth();
+      if (mes < 9) {
+         return "" + fecha.getDate() + "/0" + (mes + 1) + "/" + (fecha.getYear() + 1900);
+      } else {
+         return "" + fecha.getDate() + "/" + (mes + 1) + "/" + (fecha.getYear() + 1900);
+      }
+   }
+
    public void recibirEmpleado(BigInteger sec) {
       subtotalPago = new BigDecimal(0);
       subtotalDescuento = new BigDecimal(0);
@@ -305,7 +314,6 @@ public class ControlEmplComprobantes implements Serializable {
                      listaComprobantes.get(i).setReadOnlyNumero(true);
                   }
                }
-
                comprobanteSeleccionado = listaComprobantes.get(0);
                listaCortesProcesos = administrarComprobantes.consultarCortesProcesosComprobante(comprobanteSeleccionado.getSecuencia());
                if (!listaCortesProcesos.isEmpty()) {
@@ -366,6 +374,7 @@ public class ControlEmplComprobantes implements Serializable {
       String type = map.get("t"); // type attribute of node
       int indice = Integer.parseInt(type);
       int columna = Integer.parseInt(name);
+      tablaActiva = 2;
       if (tipoListaSNEmpleado == 0) {
          empleadoTablaSeleccionado = listaSolucionesNodosEmpleado.get(indice);
       } else {
@@ -427,7 +436,6 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       neto = subtotalPago.subtract(subtotalDescuento);
-
       RequestContext.getCurrentInstance().update("form:tablaEmpleado");
       RequestContext.getCurrentInstance().update("form:tablaEmpleador");
    }
@@ -631,9 +639,9 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void cambiarIndiceSolucionesNodosEmpleado(SolucionesNodos snEmpleado, int celda) {
       empleadoTablaSeleccionado = snEmpleado;
+      tablaActiva = 2;
       if (permitirIndex == true) {
          cualCelda = celda;
-         tablaActiva = 2;
          nombreTabla = "SolucionesNodos";
          tablaExportar = ":formExportar:solucionesNodoEmpleadoExportar";
          secRegistro = empleadoTablaSeleccionado.getSecuencia();
@@ -654,6 +662,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       nombreArchivoExportar = "SolucionesNodosEmpleadoXML";
+      System.out.println("ControlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado() tablaActiva: " + tablaActiva);
    }
 
    public void cambiarIndiceSolucionesNodosEmpleador(SolucionesNodos snEmpleador, int celda) {
@@ -681,6 +690,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       nombreArchivoExportar = "SolucionesNodosEmpleadorXML";
+      System.out.println("ControlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador() tablaActiva: " + tablaActiva);
    }
 
    public void modificarComprobantesFechaEntregado(Comprobantes comprobante, int celda) {
@@ -1871,6 +1881,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    //MOSTRAR DATOS CELDA
    public void editarCelda() {
+      System.out.println("Controlador.ControlEmplComprobantes.editarCelda() tablaActiva : " + tablaActiva);
       if (tablaActiva == 0) {
          if (comprobanteSeleccionado != null) {
             editarComprobante = comprobanteSeleccionado;
@@ -1886,16 +1897,147 @@ public class ControlEmplComprobantes implements Serializable {
             }
          }
       } else if (tablaActiva == 1) {
-         editarCorteProceso = cortesProcesosSeleccionado;
-         if (cualCelda == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaCorte");
-            RequestContext.getCurrentInstance().execute("PF('editarFechaCorte').show()");
-         } else if (cualCelda == 1) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editarProceso");
-            RequestContext.getCurrentInstance().execute("PF('editarProceso').show()");
+         if (cortesProcesosSeleccionado != null) {
+            editarCorteProceso = cortesProcesosSeleccionado;
+            if (cualCelda == 0) {
+               RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaCorte");
+               RequestContext.getCurrentInstance().execute("PF('editarFechaCorte').show()");
+            } else if (cualCelda == 1) {
+               RequestContext.getCurrentInstance().update("formularioDialogos:editarProceso");
+               RequestContext.getCurrentInstance().execute("PF('editarProceso').show()");
+            }
+         }
+      } else if (tablaActiva == 2) {
+         if (empleadoTablaSeleccionado != null) {
+            if (cualCelda == 0) {
+               textoColumnaEditar = empleadoTablaSeleccionado.getCodigoconcepto().toString();
+               nombreColumnaEditar = "Por Empleado: Codigo Concepto";
+            } else if (cualCelda == 1) {
+               textoColumnaEditar = empleadoTablaSeleccionado.getNombreconcepto();
+               nombreColumnaEditar = "Por Empleado: Concepto";
+            } else if (cualCelda == 2) {
+               textoColumnaEditar = fechaParaMostrar(empleadoTablaSeleccionado.getFechadesde());
+               nombreColumnaEditar = "Por Empleado: Fecha Desde";
+            } else if (cualCelda == 3) {
+               textoColumnaEditar = fechaParaMostrar(empleadoTablaSeleccionado.getFechahasta());
+               nombreColumnaEditar = "Por Empleado: Fecha Hasta";
+            } else if (cualCelda == 4) {
+               if (empleadoTablaSeleccionado.getUnidades() != null) {
+                  textoColumnaEditar = empleadoTablaSeleccionado.getUnidades().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleado: Unidades";
+            } else if (cualCelda == 5) {
+               if (empleadoTablaSeleccionado.getPago() != null) {
+                  textoColumnaEditar = empleadoTablaSeleccionado.getPago().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleado: Pago";
+            } else if (cualCelda == 6) {
+               if (empleadoTablaSeleccionado.getDescuento() != null) {
+                  textoColumnaEditar = empleadoTablaSeleccionado.getDescuento().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleado: Descuento:";
+            } else if (cualCelda == 7) {
+               textoColumnaEditar = empleadoTablaSeleccionado.getNombretercero();
+               nombreColumnaEditar = "Por Empleado: Tercero";
+            } else if (cualCelda == 8) {
+               textoColumnaEditar = empleadoTablaSeleccionado.getCodigocuentad();
+               nombreColumnaEditar = "Por Empleado: Cuenta Debito";
+            } else if (cualCelda == 9) {
+               textoColumnaEditar = empleadoTablaSeleccionado.getNombrecentrocostod();
+               nombreColumnaEditar = "Por Empleado: Cuenta Debito";
+            } else if (cualCelda == 10) {
+               textoColumnaEditar = empleadoTablaSeleccionado.getCodigocuentac();
+               nombreColumnaEditar = "Por Empleado: Cuenta Credito";
+            } else if (cualCelda == 11) {
+               textoColumnaEditar = empleadoTablaSeleccionado.getNombrecentrocostoc();
+               nombreColumnaEditar = "Por Empleado: Cuenta Credito";
+            } else if (cualCelda == 12) {
+               if (empleadoTablaSeleccionado.getSaldo() != null) {
+                  textoColumnaEditar = empleadoTablaSeleccionado.getSaldo().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleado: Saldo";
+            } else if (cualCelda == 13) {
+               textoColumnaEditar = fechaParaMostrar(empleadoTablaSeleccionado.getFechapago());
+               nombreColumnaEditar = "Por Empleado: Fecha Pago";
+            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarTexto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarTextoI");
+            RequestContext.getCurrentInstance().execute("PF('editarTexto').show()");
+         }
+      } else if (tablaActiva == 3) {
+         if (empleadorTablaSeleccionado != null) {
+            if (cualCelda == 0) {
+               textoColumnaEditar = empleadorTablaSeleccionado.getCodigoconcepto().toString();
+               nombreColumnaEditar = "Por Empleador: Codigo Concepto";
+            } else if (cualCelda == 1) {
+               textoColumnaEditar = empleadorTablaSeleccionado.getNombreconcepto();
+               nombreColumnaEditar = "Por Empleador: Concepto";
+            } else if (cualCelda == 2) {
+               textoColumnaEditar = fechaParaMostrar(empleadorTablaSeleccionado.getFechadesde());
+               nombreColumnaEditar = "Por Empleador: Fecha Desde";
+            } else if (cualCelda == 3) {
+               textoColumnaEditar = fechaParaMostrar(empleadorTablaSeleccionado.getFechahasta());
+               nombreColumnaEditar = "Por Empleador: Fecha Hasta";
+            } else if (cualCelda == 4) {
+               if (empleadorTablaSeleccionado.getUnidades() != null) {
+                  textoColumnaEditar = empleadorTablaSeleccionado.getUnidades().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleador: Unidades";
+            } else if (cualCelda == 5) {
+               if (empleadorTablaSeleccionado.getPasivo() != null) {
+                  textoColumnaEditar = empleadorTablaSeleccionado.getPasivo().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleador: Pasivo";
+            } else if (cualCelda == 6) {
+               if (empleadorTablaSeleccionado.getGasto() != null) {
+                  textoColumnaEditar = empleadorTablaSeleccionado.getGasto().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleador: Gasto:";
+            } else if (cualCelda == 7) {
+               textoColumnaEditar = empleadorTablaSeleccionado.getNombretercero();
+               nombreColumnaEditar = "Por Empleador: Tercero";
+            } else if (cualCelda == 8) {
+               textoColumnaEditar = empleadorTablaSeleccionado.getCodigocuentad();
+               nombreColumnaEditar = "Por Empleador: Cuenta Debito";
+            } else if (cualCelda == 9) {
+               textoColumnaEditar = empleadorTablaSeleccionado.getNombrecentrocostod();
+               nombreColumnaEditar = "Por Empleador: Cuenta Debito";
+            } else if (cualCelda == 10) {
+               textoColumnaEditar = empleadorTablaSeleccionado.getCodigocuentac();
+               nombreColumnaEditar = "Por Empleador: Cuenta Credito";
+            } else if (cualCelda == 11) {
+               textoColumnaEditar = empleadorTablaSeleccionado.getNombrecentrocostoc();
+               nombreColumnaEditar = "Por Empleador: Cuenta Credito";
+            } else if (cualCelda == 12) {
+               if (empleadorTablaSeleccionado.getSaldo() != null) {
+                  textoColumnaEditar = empleadorTablaSeleccionado.getSaldo().toString();
+               } else {
+                  textoColumnaEditar = "";
+               }
+               nombreColumnaEditar = "Por Empleador: Saldo";
+            } else if (cualCelda == 13) {
+               textoColumnaEditar = fechaParaMostrar(empleadorTablaSeleccionado.getFechapago());
+               nombreColumnaEditar = "Por Empleador: Fecha Pago";
+            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarTexto");
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarTextoI");
+            RequestContext.getCurrentInstance().execute("PF('editarTexto').show()");
          }
       }
-      secRegistro = null;
    }
 
    //LISTA DE VALORES BOTON
@@ -2294,6 +2436,18 @@ public class ControlEmplComprobantes implements Serializable {
       }
       empleadoTablaSeleccionado = null;
       contarRegistrosTE();
+   }
+
+   public void seleccionEmpleadoDefault() {
+      empleadorTablaSeleccionado = null;
+      tablaActiva = 2;
+      System.out.println("ControlEmplComprobantes.seleccionEmpleadoDefault() tablaActiva : " + tablaActiva);
+   }
+
+   public void seleccionEmpleadorDefault() {
+      empleadoTablaSeleccionado = null;
+      tablaActiva = 3;
+      System.out.println("ControlEmplComprobantes.seleccionEmpleadorDefault() tablaActiva : " + tablaActiva);
    }
 
    public void eventoFiltrarSNEmpleador() {
@@ -2880,14 +3034,6 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void setNombreColumnaEditar(String nombreColumnaEditar) {
       this.nombreColumnaEditar = nombreColumnaEditar;
-   }
-
-   public String getFechaColumnaEditar() {
-      return fechaColumnaEditar;
-   }
-
-   public void setFechaColumnaEditar(String fechaColumnaEditar) {
-      this.fechaColumnaEditar = fechaColumnaEditar;
    }
 
    public String getTextoColumnaEditar() {

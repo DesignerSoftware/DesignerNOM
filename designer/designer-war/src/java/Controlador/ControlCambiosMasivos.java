@@ -36,6 +36,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import Entidades.FormulasConceptos;
+import InterfaceAdministrar.AdministrarFormulaConceptoInterface;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -61,6 +63,8 @@ public class ControlCambiosMasivos {
 
    @EJB
    AdministrarCambiosMasivosInterface administrarCambiosMasivos;
+   @EJB
+   AdministrarFormulaConceptoInterface administrarFormulaConcepto;
    @EJB
    AdministrarRastrosInterface administrarRastros;
 
@@ -295,6 +299,7 @@ public class ControlCambiosMasivos {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCambiosMasivos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
+         administrarFormulaConcepto.obtenerConexion(ses.getId());
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Error: " + e);
@@ -302,6 +307,9 @@ public class ControlCambiosMasivos {
    }
 
    public void cambiosMasivosHechos() {
+      if (!guardado) {
+         administrarCambiosMasivos.actualizarParametroCM(parametroCambioMasivoActual);
+      }
       FacesMessage msg = new FacesMessage("Cambios Masivos", "Los Cambios se han realizado Correctamente.");
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
@@ -412,12 +420,16 @@ public class ControlCambiosMasivos {
 
    public void procesarNovedades() {
       if (parametroCambioMasivoActual.getNoveTipo() != null && parametroCambioMasivoActual.getNoveConcepto() != null && parametroCambioMasivoActual.getNovePeriodicidad() != null
-              && parametroCambioMasivoActual.getNoveFormula() != null && parametroCambioMasivoActual.getNoveValor() != null && parametroCambioMasivoActual.getFechaNoveCambioInicial() != null) {
-         administrarCambiosMasivos.adicionaNovedadCM2(parametroCambioMasivoActual.getNoveTipo(), parametroCambioMasivoActual.getNoveConcepto(),
-                 parametroCambioMasivoActual.getNovePeriodicidad(), parametroCambioMasivoActual.getNoveTercero(), parametroCambioMasivoActual.getNoveFormula(),
-                 parametroCambioMasivoActual.getNoveValor(), parametroCambioMasivoActual.getNoveSaldo(), parametroCambioMasivoActual.getFechaNoveCambioInicial(),
-                 parametroCambioMasivoActual.getFechaNoveCambioFinal(), parametroCambioMasivoActual.getNoveUnidadParteEntera(), parametroCambioMasivoActual.getNoveUnidadParteFraccion());
-         cambiosMasivosHechos();
+              && parametroCambioMasivoActual.getNoveFormula() != null && parametroCambioMasivoActual.getFechaNoveCambioInicial() != null) {
+         if (parametroCambioMasivoActual.getNoveValor() != null || parametroCambioMasivoActual.getNoveUnidadParteEntera() != null || parametroCambioMasivoActual.getNoveUnidadParteFraccion() != null) {
+            administrarCambiosMasivos.adicionaNovedadCM2(parametroCambioMasivoActual.getNoveTipo(), parametroCambioMasivoActual.getNoveConcepto(),
+                    parametroCambioMasivoActual.getNovePeriodicidad(), parametroCambioMasivoActual.getNoveTercero(), parametroCambioMasivoActual.getNoveFormula(),
+                    parametroCambioMasivoActual.getNoveValor(), parametroCambioMasivoActual.getNoveSaldo(), parametroCambioMasivoActual.getFechaNoveCambioInicial(),
+                    parametroCambioMasivoActual.getFechaNoveCambioFinal(), parametroCambioMasivoActual.getNoveUnidadParteEntera(), parametroCambioMasivoActual.getNoveUnidadParteFraccion());
+            cambiosMasivosHechos();
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('validacionValorVacioNovedad').show()");
+         }
       } else {
          RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
       }
@@ -538,6 +550,7 @@ public class ControlCambiosMasivos {
             }
          }
       }
+      modificarParametros();
       filtroLovEstructuras = null;
       estructuraSeleccionada = null;
       RequestContext.getCurrentInstance().reset("form:lovEstructuras:globalFilter");
@@ -662,6 +675,7 @@ public class ControlCambiosMasivos {
             }
          }
       }
+      modificarParametros();
       RequestContext.getCurrentInstance().update("form:acordionPanel:str_novePeriodicidad");
       filtroLovPeriodicidades = null;
       periodicidadSeleccionada = null;
@@ -732,21 +746,23 @@ public class ControlCambiosMasivos {
 
    public void seleccionarConceptos() {
       aceptar = true;
-      if (lovConceptos != null) {
-         if (!lovConceptos.isEmpty()) {
-            if (conceptoSeleccionado != null) {
-               parametroCambioMasivoActual.setNoveConcepto(conceptoSeleccionado.getSecuencia());
-               parametroCambioMasivoActual.setStr_noveConcepto(conceptoSeleccionado.getDescripcion());
-               if (guardado) {
-                  guardado = false;
-                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
-               }
-            }
+      cargarLOVsNovedad();
+      if (conceptoSeleccionado != null) {
+         parametroCambioMasivoActual.setNoveConcepto(conceptoSeleccionado.getSecuencia());
+         parametroCambioMasivoActual.setStr_noveConcepto(conceptoSeleccionado.getDescripcion());
+         Formulas f = verificarFormulaConcepto(parametroCambioMasivoActual.getNoveConcepto());
+         parametroCambioMasivoActual.setNoveFormula(f.getSecuencia());
+         parametroCambioMasivoActual.setStr_noveFormula(f.getNombrelargo());
+         RequestContext.getCurrentInstance().update("form:acordionPanel:str_noveFormula");
+         if (guardado) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
       RequestContext.getCurrentInstance().update("form:acordionPanel:str_noveConcepto");
       filtroLovConceptos = null;
       conceptoSeleccionado = null;
+      modificarParametros();
       RequestContext.getCurrentInstance().reset("form:lovConceptos:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovConceptos').clearFilters()");
       RequestContext.getCurrentInstance().update("form:aceptarCon");
@@ -785,12 +801,17 @@ public class ControlCambiosMasivos {
                if (lovConceptos.get(i).getDescripcion().startsWith(t)) {
                   hayUno++;
                   indexObj = i;
+                  break;
                }
             }
             if (hayUno == 1) {
                parametroCambioMasivoActual.setNoveConcepto(lovConceptos.get(indexObj).getSecuencia());
                parametroCambioMasivoActual.setStr_noveConcepto(lovConceptos.get(indexObj).getDescripcion());
                modificarParametros();
+               Formulas f = verificarFormulaConcepto(parametroCambioMasivoActual.getNoveConcepto());
+               parametroCambioMasivoActual.setNoveFormula(f.getSecuencia());
+               parametroCambioMasivoActual.setStr_noveFormula(f.getNombrelargo());
+               RequestContext.getCurrentInstance().update("form:acordionPanel:str_noveFormula");
             } else {
                hayUno = 0;
                for (int i = 0; i < lovConceptos.size(); i++) {
@@ -825,6 +846,7 @@ public class ControlCambiosMasivos {
             }
          }
       }
+      modificarParametros();
       RequestContext.getCurrentInstance().update("form:acordionPanel:str_noveFormula");
       filtroLovFormulas = null;
       formulaSeleccionada = null;
@@ -906,6 +928,7 @@ public class ControlCambiosMasivos {
             }
          }
       }
+      modificarParametros();
       RequestContext.getCurrentInstance().update("form:acordionPanel:str_noveTercero");
       filtroLovTerceros = null;
       terceroSeleccionado = null;
@@ -987,6 +1010,7 @@ public class ControlCambiosMasivos {
             }
          }
       }
+      modificarParametros();
       RequestContext.getCurrentInstance().update("form:acordionPanel:str_sueldoMotivoCambioSueldo");
       filtroLovMotivosSueldos = null;
       motivoSueldoSeleccionado = null;
@@ -1068,6 +1092,7 @@ public class ControlCambiosMasivos {
             }
          }
       }
+      modificarParametros();
       RequestContext.getCurrentInstance().update("form:acordionPanel:str_sueldoTipoSueldo");
       filtroLovTiposSueldos = null;
       tipoSueldoSeleccionado = null;
@@ -1286,6 +1311,28 @@ public class ControlCambiosMasivos {
          }
       }
       RequestContext.getCurrentInstance().update("form:acordionPanel:str_sueldoUnidadPago");
+   }
+
+   public Formulas verificarFormulaConcepto(BigInteger secCon) {
+      List<FormulasConceptos> formulasConceptoSel = administrarFormulaConcepto.cargarFormulasConcepto(secCon);
+      BigInteger autoFormula;
+      cargarLOVsNovedad();
+      if (formulasConceptoSel != null) {
+         if (!formulasConceptoSel.isEmpty()) {
+            autoFormula = formulasConceptoSel.get(0).getFormula();
+         } else {
+            autoFormula = new BigInteger("4621544");
+         }
+      } else {
+         autoFormula = new BigInteger("4621544");
+      }
+      Formulas formulaR = new Formulas();
+      for (int i = 0; i < lovFormulas.size(); i++) {
+         if (autoFormula.equals(lovFormulas.get(i).getSecuencia())) {
+            formulaR = lovFormulas.get(i);
+         }
+      }
+      return formulaR;
    }
 
    public void seleccionarEmpleados() {

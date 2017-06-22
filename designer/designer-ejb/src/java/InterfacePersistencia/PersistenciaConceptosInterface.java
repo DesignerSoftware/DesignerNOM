@@ -61,6 +61,7 @@ public interface PersistenciaConceptosInterface {
     */
    public boolean verificarCodigoConcepto(EntityManager em, BigInteger codigoConcepto);
 
+   public boolean verificarConceptoManual(EntityManager em, BigInteger secConcepto);
    /**
     * Método encargado de buscar los conceptos cuyo código existe y pertencen a
     * una empresa especifica.

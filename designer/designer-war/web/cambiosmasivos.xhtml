@@ -383,7 +383,7 @@
                                     </div>
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
                                        <div style="width: 140px; display: inline-block;">
-                                          <h:outputText value="*#{msg['valor']}" styleClass="textoNombres"/>
+                                          <h:outputText value="#{msg['valor']}" styleClass="textoNombres"/>
                                           <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveValor}"
                                                        id="noveValor" widgetVar="noveValor" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>

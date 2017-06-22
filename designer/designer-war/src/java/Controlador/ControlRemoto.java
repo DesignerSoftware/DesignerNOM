@@ -990,16 +990,16 @@ public class ControlRemoto implements Serializable {
                RequestContext.getCurrentInstance().update("form:formlovtablas:lovtablas");
             }
          }
-         if (tablaExportar.equals("tablas")) {
-            tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
-            tablasNombre.setFilterStyle("display: none; visibility: hidden;");
-            tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
-            tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().execute("PF('tablas').clearFilters()");
-            altoTablas = "202";
-            RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
-            filtrosActivos = false;
-         }
+//         if (tablaExportar.equals("tablas")) {
+//            tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
+//            tablasNombre.setFilterStyle("display: none; visibility: hidden;");
+//            tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
+//            tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
+//            RequestContext.getCurrentInstance().execute("PF('tablas').clearFilters()");
+//            altoTablas = "202";
+//            RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
+//            filtrosActivos = false;
+//         }
          RequestContext.getCurrentInstance().update("form:tabmenu:buscartablas");
          tablaExportar = "data1";
          nombreArchivo = "modulos";
@@ -1742,16 +1742,24 @@ public class ControlRemoto implements Serializable {
       }
    }
 
+   public void seleccionTablaT() {
+      tablaExportar = "data1";
+      nombreArchivo = "modulos";
+      listaTablas.clear();
+      listaTablas.add(tablaSeleccionadaLOV);
+      filtradoListTablasLOV = null;
+      tablaSeleccionadaLOV = null;
+      buscar = true;
+      RequestContext.getCurrentInstance().update("form:formlovtablasT:lovtablasT");
+      RequestContext.getCurrentInstance().reset("form:formlovtablasT:lovtablasT:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovtablasT').clearFilters()");
+      RequestContext.getCurrentInstance().update("form:formlovtablasT:buscartablasdialogoT");
+//      RequestContext.getCurrentInstance().execute("PF('buscartablasdialogoT').hide()");
+      RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
+      RequestContext.getCurrentInstance().update("form:tabmenu:infoRegistroTablas");
+   }
+
    public void seleccionTabla() {
-//      if (filtrosActivos == true) {
-//         tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
-//         tablasNombre.setFilterStyle("display: none; visibility: hidden;");
-//         tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
-//         tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-//         altoTablas = "200";
-//         filtrosActivos = false;
-//         RequestContext.getCurrentInstance().execute("PF('tablas').clearFilters()");
-//      }
       tablaExportar = "data1";
       nombreArchivo = "modulos";
       listaTablas.clear();
@@ -1783,11 +1791,14 @@ public class ControlRemoto implements Serializable {
       filtradoListTablasLOV = null;
       tablaSeleccionadaLOV = null;
       buscar = true;
+      moduloSeleccionado = listModulos.get(0);
+      cambiarTablas();
       RequestContext.getCurrentInstance().update("form:formlovtablasT:lovtablasT");
       RequestContext.getCurrentInstance().reset("form:formlovtablasT:lovtablasT:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovtablasT').clearFilters()");
       RequestContext.getCurrentInstance().update("form:formlovtablasT:buscartablasdialogoT");
       RequestContext.getCurrentInstance().execute("PF('buscartablasdialogoT').hide()");
+      RequestContext.getCurrentInstance().update("form:tabmenu:data1");
    }
 
    public void mostrarTodo_Tablas() {
@@ -1795,10 +1806,8 @@ public class ControlRemoto implements Serializable {
          lovTodasTablas = administrarCarpetaDesigner.consultarTablas();
       }
       moduloSeleccionado = null;
-      RequestContext.getCurrentInstance().reset("form:formlovtablasT:lovtablasT:globalFilter");
       RequestContext.getCurrentInstance().update("form:formlovtablasT:buscartablasdialogoT");
       RequestContext.getCurrentInstance().update("form:formlovtablasT:lovtablasT");
-      RequestContext.getCurrentInstance().execute("PF('lovtablasT').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('buscartablasdialogoT').show()");
       RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
       RequestContext.getCurrentInstance().update("form:tabmenu:data1");

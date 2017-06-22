@@ -583,9 +583,10 @@ public class ControlParametro implements Serializable {
    }
 
    public void validarGuardado(String tipoG) {
-      System.out.println("Entre a validarGuardado");
+      System.out.println("Entre a validarGuardado() guardado: " + guardado);
       tipoGuardado = tipoG;
-      if (guardado == false) {
+      int cont = 0;
+      if (!guardado) {
          if (parametroLiquidacion.getFechadesdecausado() != null) {
             if (parametroLiquidacion.getFechahastacausado() != null) {
                if (parametroLiquidacion.getFechasistema() != null) {
@@ -607,6 +608,7 @@ public class ControlParametro implements Serializable {
                                  if (compararFechas() == true) {
                                     if (conteoDias_Proceso() == true) {
                                        guardarCambios();
+                                       cont++;
                                     } else {
                                        RequestContext.getCurrentInstance().execute("PF('errorDias').show();");
                                     }
@@ -639,7 +641,7 @@ public class ControlParametro implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorFechaDesde').show();");
          }
       }
-      if (guardado == true && tipoGuardado.equals("ADICIONAR EMPLEADOS")) {
+      if (cont == 0) {
          guardarCambios();
       }
    }

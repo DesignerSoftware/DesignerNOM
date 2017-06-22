@@ -265,7 +265,7 @@
                                         filteredValue="#{controlEmplComprobantes.filtradolistaSolucionesNodosEmpleado}" emptyMessage="#{msg['vacio']}"
                                         selection="#{controlEmplComprobantes.empleadoTablaSeleccionado}" selectionMode="single">
 
-                              <p:ajax event="rowSelect" onstart="PF('tablaEmpleador').unselectAllRows();"/>
+                              <p:ajax event="rowSelect" onstart="PF('tablaEmpleador').unselectAllRows();" listener="#{controlEmplComprobantes.seleccionEmpleadoDefault()}"/>
                               <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarSNEmpleado()}"/>
 
                               <p:column width="20" style="text-align: center; padding: 0px !important;"> 
@@ -586,7 +586,7 @@
                                         selection="#{controlEmplComprobantes.empleadorTablaSeleccionado}" selectionMode="single">
 
                               <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarSNEmpleador()}"/>
-                              <p:ajax event="rowSelect" onstart="PF('tablaEmpleado').unselectAllRows();"/>
+                              <p:ajax event="rowSelect" onstart="PF('tablaEmpleado').unselectAllRows();" listener="#{controlEmplComprobantes.seleccionEmpleadorDefault()}"/>
 
                               <p:column width="20" style="padding: 0px !important; width: 18px;"> 
                                  <p:commandButton value="" actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceER, 1)}" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);
@@ -902,9 +902,9 @@
                   }
                </style>
 
-               <p:remoteCommand name="posicionComprobante" actionListener="#{controlEmplComprobantes.posicionComprobante()}"/>
-               <p:remoteCommand name="posicionEmpleado" actionListener="#{controlEmplComprobantes.posicionSNEmpleado()}"/>
-               <p:remoteCommand name="posicionEmpleador" actionListener="#{controlEmplComprobantes.posicionSNEmpleador()}"/>
+               <p:remoteCommand name="posicionComprobante" actionListener="#{controlEmplComprobantes.posicionComprobante()}" process="@this"/>
+               <p:remoteCommand name="posicionEmpleado" actionListener="#{controlEmplComprobantes.posicionSNEmpleado()}" process="@this"/>
+               <p:remoteCommand name="posicionEmpleador" actionListener="#{controlEmplComprobantes.posicionSNEmpleador()}" process="@this"/>
             </h:form>
 
             <h:form id="formularioDialogos">
@@ -1076,7 +1076,7 @@
                </p:dialog>
 
                <!-- EDITOR COMPROBANTES -->
-               <p:dialog id="editarNumeroComprobante" header="#{msg['editarNumeroComrpobante']}" widgetVar="editarNumeroComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+               <p:dialog id="editarNumeroComprobante" header="#{msg['editarNumeroComprobante']}" widgetVar="editarNumeroComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.numero}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
@@ -1104,14 +1104,14 @@
                </p:dialog>
 
                <!-- EDITOR SOLUCIONESNODOS -->
-               <p:dialog id="editarFecha" header="#{controlEmplComprobantes.nombreColumnaEditar}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplComprobantes.fechaColumnaEditar}" style="overflow: auto;" readonly="true">                        
-                     <f:convertDateTime pattern="dd/MM/yyyy"/>
-                  </p:inputTextarea>
-               </p:dialog>
+               <!-- <p:dialog id="editarFecha" header="#/{controlEmplComprobantes.nombreColumnaEditar}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                     <p:inputTextarea value="#/{controlEmplComprobantes.fechaColumnaEditar}" style="overflow: auto;" readonly="true">                        
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                           </p:inputTextarea>
+                        </p:dialog>-->
 
-               <p:dialog id="editarTexto" header="#{controlEmplComprobantes.nombreColumnaEditar}" widgetVar="editarTexto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlEmplComprobantes.textoColumnaEditar}" style="overflow: auto;" readonly="true"/>
+               <p:dialog id="editarTexto" widgetVar="editarTexto" header="#{controlEmplComprobantes.nombreColumnaEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea id="editarTextoI" widgetVar="editarTextoI" value="#{controlEmplComprobantes.textoColumnaEditar}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- DIALOGOS RASTRO-->

@@ -809,12 +809,12 @@
                               </p:column>
                            </p:dataTable>
                            <h:outputText id="infoRegistroTablas" value="Registros: #{controlRemoto.infoRegistroMod}" style="font-weight: bold; display: block; position: relative; top: 0px;"/>
-                           <p:commandButton id="buscarTodas" class="cssBotonLargo" value="Todas las Tablas" style="position: relative; top: -10px; left: 450px;"
+                           <p:commandButton id="buscarTodas" class="cssBotonLargo" value="Todas las Tablas" style="position: absolute; top: 247px; left: 460px;"
                                             actionListener="#{controlRemoto.mostrarTodo_Tablas()}" icon="ui-icon-extlink"/>
                            <p:tooltip for="buscarTodas" value="Consultar en todos los Modulos."/>
-                           <p:commandButton id="buscartablas" value="" class="cssBotonBuscar" style="position: relative; top: -13px; left: 460px;"
+                           <p:commandButton id="buscartablas" value="" class="cssBotonBuscar" style="position: relative; top: -12px; left: 630px;"
                                             actionListener="#{controlRemoto.buscarTablas()}" disabled="#{controlRemoto.buscarTablasLOV}"/>
-                           <p:commandButton id="mostrartodastablas" value="" class="cssBotonMostrarTodos" style="position: relative; top: -13px; left: 460px;"
+                           <p:commandButton id="mostrartodastablas" value="" class="cssBotonMostrarTodos" style="position: relative; top: -12px; left: 630px;"
                                             actionListener="#{controlRemoto.cambiarTablas()}" process="@this"/>
                         </fieldset>
                      </p:tab>
@@ -928,14 +928,14 @@
 
                <h:form id="formlovtablasT">
                   <p:dialog header="TablasT" widgetVar="buscartablasdialogoT" draggable="true" resizable="false" closable="false" id="buscartablasdialogoT"  
-                            showEffect="fade" hideEffect="fade" width="500" modal="true" onShow="PF('lovtablasT').clearFilters();">
+                            showEffect="fade" hideEffect="fade" width="580" modal="true" onShow="PF('lovtablasT').clearFilters();">
                      <p:dataTable id="lovtablasT" var="tab" value="#{controlRemoto.lovTodasTablas}" rowKey="#{tab.secuencia}"
-                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="480" selectionMode="single" widgetVar="lovtablasT" scrollable="true" scrollHeight="250" 
+                                  selection="#{controlRemoto.tablaSeleccionadaLOV}" scrollWidth="560" selectionMode="single" widgetVar="lovtablasT" scrollable="true" scrollHeight="250" 
                                   filteredValue="#{controlRemoto.filtradoListTablasLOV}" emptyMessage="#{msg['lovvacio']}">   
 
-                        <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBTT()}"/>
+                        <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBTT()}" process="@this"/>
                         <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:formlovtablasT:aceptarTTT"/>
-                        <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTabla()}" process="@this"/>
+                        <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTablaT()}" process="@this"/>
 
                         <f:facet name="header">  
                            <h:outputText value="Buscar Tabla:"/>  
@@ -962,7 +962,8 @@
                      </p:dataTable>
                      <div class="cssBotonesLOV">
                         <h:outputText id="inforegistrobuscartablasT" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarTablasT}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton icon="ui-icon-check" id="aceptarTTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.buscar}" actionListener="#{controlRemoto.seleccionTabla()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarTTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.buscar}"
+                                         actionListener="#{controlRemoto.seleccionTablaT()}" process="@this" oncomplete="PF('buscartablasdialogoT').hide();"/>
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTTT" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlRemoto.cancelarSeleccionTablaT()}" process="@this"/>
                      </div>
                   </p:dialog>

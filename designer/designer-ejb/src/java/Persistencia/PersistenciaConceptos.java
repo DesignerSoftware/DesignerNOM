@@ -74,10 +74,10 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          tx.commit();
 
       } catch (Exception e) {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-            System.out.println("Error PersistenciaConceptos.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         System.out.println("Error PersistenciaConceptos.borrar: " + e);
       }
    }
 
@@ -85,10 +85,10 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> buscarConceptos(EntityManager em) {
       em.clear();
       try {
-         String sql = "SELECT * FROM CONCEPTOS ORDER BY DESCRIPCION"; 
-         Query query = em.createNativeQuery(sql,Conceptos.class);
+         String sql = "SELECT * FROM CONCEPTOS ORDER BY DESCRIPCION";
+         Query query = em.createNativeQuery(sql, Conceptos.class);
          List<Conceptos> listaConceptos = query.getResultList();
-          return listaConceptos;
+         return listaConceptos;
       } catch (Exception e) {
          System.out.println("Error en buscarConceptos() : " + e.getCause());
          return null;
@@ -99,13 +99,13 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> buscarConceptosLovNovedades(EntityManager em) {
       em.clear();
       try {
-         String sql = "SELECT * FROM CONCEPTOS C\n" +
-            " WHERE NOT EXISTS (SELECT 'X' FROM FORMULASCONCEPTOS FC, FORMULAS F, FORMULASCONTRATOS FCON\n" +
-            " WHERE F.SECUENCIA = FCON.FORMULA AND FC.CONCEPTO = C.SECUENCIA AND FC.FORMULA = F.SECUENCIA)\n" +
-            " AND C.ACTIVO = 'S' ORDER BY DESCRIPCION";
-         Query query = em.createNativeQuery(sql,Conceptos.class);
+         String sql = "SELECT * FROM CONCEPTOS C\n"
+                 + " WHERE NOT EXISTS (SELECT 'X' FROM FORMULASCONCEPTOS FC, FORMULAS F, FORMULASCONTRATOS FCON\n"
+                 + " WHERE F.SECUENCIA = FCON.FORMULA AND FC.CONCEPTO = C.SECUENCIA AND FC.FORMULA = F.SECUENCIA)\n"
+                 + " AND C.ACTIVO = 'S' ORDER BY DESCRIPCION";
+         Query query = em.createNativeQuery(sql, Conceptos.class);
          List<Conceptos> listaConceptos = query.getResultList();
-          return listaConceptos;
+         return listaConceptos;
       } catch (Exception e) {
          System.out.println("Error en buscarConceptosLovNovedades() : " + e.getCause());
          return null;
@@ -128,6 +128,22 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    }
 
    @Override
+   public boolean verificarConceptoManual(EntityManager em, BigInteger secConcepto) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT COUNT(C.SECUENCIA) CONTEO FROM CONCEPTOS C WHERE secuencia = ? \n"
+                 + "AND NOT EXISTS (SELECT 'X' FROM FORMULASCONCEPTOS FC \n"
+                 + "WHERE FC.CONCEPTO = C.SECUENCIA) AND C.ACTIVO = 'S'");
+         query.setParameter(1, secConcepto);
+         Long resultado = (Long) query.getSingleResult();
+         return resultado > 0;
+      } catch (Exception e) {
+         System.out.println("PersistenciaConceptos.verificarConceptoManual() ERROR: " + e);
+         return false;
+      }
+   }
+
+   @Override
    public Conceptos validarCodigoConcepto(EntityManager em, BigInteger codigoConcepto, BigInteger secEmpresa) {
       try {
          em.clear();
@@ -138,6 +154,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          Conceptos concepto = (Conceptos) query.getSingleResult();
          return concepto;
       } catch (Exception e) {
+         System.out.println("PersistenciaConceptos.validarCodigoConcepto() ERROR: " + e);
          return null;
       }
    }
@@ -154,6 +171,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          List<Conceptos> listaConceptos = query.getResultList();
          return listaConceptos;
       } catch (Exception e) {
+         System.out.println("PersistenciaConceptos.conceptosPorEmpresa() ERROR: " + e);
          return null;
       }
    }
@@ -169,6 +187,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          List<Conceptos> listaConceptos = query.getResultList();
          return listaConceptos;
       } catch (Exception e) {
+         System.out.println("PersistenciaConceptos.conceptosEmpresaActivos_Inactivos() ERROR: " + e);
          return null;
       }
    }
@@ -183,6 +202,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          List<Conceptos> listaConceptos = query.getResultList();
          return listaConceptos;
       } catch (Exception e) {
+         System.out.println("PersistenciaConceptos.conceptosEmpresaSinPasivos() ERROR: " + e);
          return null;
       }
    }

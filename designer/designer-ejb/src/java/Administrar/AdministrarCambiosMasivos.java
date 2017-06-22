@@ -223,7 +223,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
 
    @Override
    public List<Conceptos> consultarLovConceptos() {
-      return persistenciaConceptos.buscarConceptos(em);
+      return persistenciaConceptos.buscarConceptosLovNovedades(em);
    }
 
    @Override
