@@ -154,16 +154,16 @@
                         <p:commandButton id="ATRAS" class="cssBotonCancelar"  value=""
                                          actionListener="#{controlNReporteNomina.cancelarYSalir()}" process="@this"/>
 
-                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 485px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteNomina.activarEnvio}"
                                          onstart="#{controlNReporteNomina.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreportenomina', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportenomina', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
 
-                        <p:commandButton id="ENVIOLOTE" icon="ui-icon-extlink" style="position: absolute; left: 145px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="ENVIOLOTE" icon="ui-icon-extlink" style="position: absolute; left: 145px; top: 485px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio lote"   process="@this"/>
                         <p:tooltip  for="ENVIOLOTE" value="#{msg['envioLote']}"/>
 
-                        <p:commandButton id="ESTIMACIONES" icon="ui-icon-extlink" style="position: absolute; left: 280px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="ESTIMACIONES" icon="ui-icon-extlink" style="position: absolute; left: 280px; top: 485px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="estimacion"   process="@this"/>
                         <p:tooltip  for="ESTIMACIONES" value="#{msg['estimaciones']}"/>
 

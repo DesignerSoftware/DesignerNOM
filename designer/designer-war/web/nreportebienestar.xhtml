@@ -144,15 +144,13 @@
 
                         </fieldset>
 
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=""
                                          actionListener="#{controlNReporteBienestar.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteBienestar.cambiosReporte}" process="@this"/>
 
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" "
                                          actionListener="#{controlNReporteBienestar.salir()}" process="@this"/>
 
-                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 512px; top: 483px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" onstart="#{controlNReporteBienestar.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreportebienestar', 'enviocorreo')}" disabled="#{controlNReporteBienestar.activarEnvio}" 
                                          actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportebienestar', controlNReporteBienestar.inforreporteSeleccionado.secuencia)}" process="@this"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
@@ -317,7 +315,7 @@
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlNReporteBienestar.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReporteBienestar.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlNReporteBienestar.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlNReporteBienestar.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlNReporteBienestar.contarRegistrosEmpleadoH()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNReporteBienestar.activarAceptar()}" update=":formDialogos:aceptarEH"/>

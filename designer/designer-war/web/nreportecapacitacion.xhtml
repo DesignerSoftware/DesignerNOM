@@ -151,12 +151,10 @@
                             <h:outputText id="btn" style="position: absolute; left: 10px; top: 10px; background-image: url(Imagenes/Iconos/reporte.png); width:115px; height:268px; background-repeat: no-repeat; border: none; background-size: 100% 100%"/>
                         </fieldset>
 
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value=""  
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=""  
                                          actionListener="#{controlNReporteCapacitacion.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteCapacitacion.cambiosReporte}" process="@this"/>
 
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value=""
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar"  value=""
                                          actionListener="#{controlNReporteCapacitacion.cancelarYSalir()}" process="@this"/>
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;

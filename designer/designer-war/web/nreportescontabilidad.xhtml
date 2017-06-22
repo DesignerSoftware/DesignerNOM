@@ -166,12 +166,12 @@
                         <p:commandButton id="ATRAS" class="cssBotonCancelar" value=""
                                          actionListener="#{controlNReporteContabilidad.cancelarYSalir()}" process="@this"/>
 
-                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 475px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteContabilidad.activarEnvio}"
                                          onstart="#{controlNReporteContabilidad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreportescontabilidad', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportecontabilidad', controlNReporteContabilidad.inforreporteSeleccionado.secuencia)}" process="@this"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
 
-                        <p:commandButton id="UGPP" icon="ui-icon-extlink" style="position: absolute; left: 150px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="UGPP" icon="ui-icon-extlink" style="position: absolute; left: 150px; top: 475px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="UGPP" process="@this"/>
                         <p:tooltip  for="UGPP" value="#{msg['ugpp']}"/>
 
