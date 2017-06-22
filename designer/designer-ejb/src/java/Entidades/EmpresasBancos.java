@@ -96,6 +96,9 @@ public class EmpresasBancos implements Serializable {
     }
 
     public Empresas getEmpresa() {
+        if(empresa == null){
+            empresa = new Empresas();
+        }
         return empresa;
     }
 
@@ -104,6 +107,9 @@ public class EmpresasBancos implements Serializable {
     }
 
     public Bancos getBanco() {
+        if(banco == null){
+            banco = new Bancos();
+        }
         return banco;
     }
 
@@ -112,6 +118,9 @@ public class EmpresasBancos implements Serializable {
     }
 
     public Ciudades getCiudad() {
+        if(ciudad == null){
+            ciudad = new Ciudades();
+        }
         return ciudad;
     }
 

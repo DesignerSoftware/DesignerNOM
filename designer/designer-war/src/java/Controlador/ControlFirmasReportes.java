@@ -877,32 +877,25 @@ public class ControlFirmasReportes implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
-        if (!listFirmasReportes.isEmpty()) {
-            if (firmaReporteSeleccionada != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(firmaReporteSeleccionada.getSecuencia(), "FIRMASREPORTES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (firmaReporteSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(firmaReporteSeleccionada.getSecuencia(), "FIRMASREPORTES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("FIRMASREPORTES")) { // igual acá
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        firmaReporteSeleccionada = null;
     }
 
     public void contarRegistros() {
@@ -1148,4 +1141,11 @@ public class ControlFirmasReportes implements Serializable {
         this.aceptar = aceptar;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
 }

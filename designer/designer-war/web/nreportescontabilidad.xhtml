@@ -377,7 +377,7 @@
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlNReporteContabilidad.lovEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReporteContabilidad.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlNReporteContabilidad.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlNReporteContabilidad.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlNReporteContabilidad.contarRegistrosEmpeladoH()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNReporteContabilidad.activarAceptar()}" update=":formDialogos:aceptarEH"/>
@@ -408,9 +408,9 @@
                     </p:dialog>
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
-                        <p:dataTable id="lovProceso" style="width: 400px;" var="proceso" value="#{controlNReporteContabilidad.listProcesos}" rowKey="#{proceso.secuencia}"
+                        <p:dataTable id="lovProceso" style="width: 400px;" var="proceso" value="#{controlNReporteContabilidad.lovProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlNReporteContabilidad.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                     filteredValue="#{controlNReporteContabilidad.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                                     filteredValue="#{controlNReporteContabilidad.lovProcesosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="filter" listener="#{controlNReporteContabilidad.contarRegistrosProceso()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNReporteContabilidad.activarAceptar()}" update=":formDialogos:aceptarPro"/>
@@ -443,9 +443,9 @@
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
-                        <p:dataTable id="lovEmpresas" var="empresa" value="#{controlNReporteContabilidad.listEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresas" var="empresa" value="#{controlNReporteContabilidad.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNReporteContabilidad.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="425" scrollHeight="180"
-                                     filteredValue="#{controlNReporteContabilidad.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteContabilidad.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReporteContabilidad.contarRegistrosEmpresa()}"/>
                             <p:ajax event="rowSelect" listener="#{controlNReporteContabilidad.activarAceptar()}" update=":formDialogos:aceptarE"/>

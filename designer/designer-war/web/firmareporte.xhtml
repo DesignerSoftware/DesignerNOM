@@ -25,7 +25,7 @@
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlFirmasReportes.listaValoresBoton()}"   process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlFirmasReportes.listaValoresBoton()}" disabled="#{controlFirmasReportes.activarLov}"  process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlFirmasReportes.activarCtrlF11()}"  process="@this"/>
@@ -58,7 +58,8 @@
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
                                 <p:separator style="position: relative; top: -9px;"/> 
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlFirmasReportes.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlFirmasReportes.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px;"/> 
 

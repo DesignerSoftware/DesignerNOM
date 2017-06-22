@@ -40,1631 +40,231 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlEmpresasBancos implements Serializable {
 
-   @EJB
-   AdministrarEmpresasBancosInterface administrarEmpresasBancos;
-   @EJB
-   AdministrarRastrosInterface administrarRastros;
+    @EJB
+    AdministrarEmpresasBancosInterface administrarEmpresasBancos;
+    @EJB
+    AdministrarRastrosInterface administrarRastros;
 
-   private List<EmpresasBancos> listEmpresasBancos;
-   private List<EmpresasBancos> filtrarEmpresasBancos;
-   private List<EmpresasBancos> crearEmpresasBancos;
-   private List<EmpresasBancos> modificarEmpresasBancos;
-   private List<EmpresasBancos> borrarEmpresasBancos;
-   private EmpresasBancos nuevoEmpresasBancos;
-   private EmpresasBancos duplicarEmpresasBancos;
-   private EmpresasBancos editarEmpresasBancos;
-   private EmpresasBancos empresasBancoSeleccionado;
-   //otros
-   private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
-   private BigInteger l;
-   private boolean aceptar, guardado;
-   //AutoCompletar
-   private boolean permitirIndex;
-   //RASTRO
-   private BigInteger secRegistro;
-   private Column obsoleto, pais, subTituloFirma, personafir, cargo;
-   //borrado
-   private int registrosBorrados;
-   private String mensajeValidacion;
-   //filtrado table
-   private int tamano;
-   private Integer backupCodigo;
-   private String backupDescripcion;
-   private String backupPais;
-   private String backupNumeroCuenta;
-   //-------------------------------
-   private String backupEmpresas;
-   private List<Empresas> lovEmpresas;
-   private List<Empresas> filtradoEmpresas;
-   private Empresas empresaSeleccionado;
-   private String nuevoYduplicarCompletarEmpresa;
-   //---------------------------------
-   private String backupCiudad;
-   private List<Bancos> lovBancos;
-   private List<Bancos> filtradoBancos;
-   private Bancos bancoSeleccionado;
-   private String nuevoYduplicarCompletarPersona;
-   //--------------------------------------
-   private String backupBanco;
-   private List<Ciudades> lovCiudades;
-   private List<Ciudades> filtradoCiudades;
-   private Ciudades cargoSeleccionado;
-   private String nuevoYduplicarCompletarCargo;
-   private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private List<EmpresasBancos> listEmpresasBancos;
+    private List<EmpresasBancos> filtrarEmpresasBancos;
+    private List<EmpresasBancos> crearEmpresasBancos;
+    private List<EmpresasBancos> modificarEmpresasBancos;
+    private List<EmpresasBancos> borrarEmpresasBancos;
+    private EmpresasBancos nuevoEmpresasBancos;
+    private EmpresasBancos duplicarEmpresasBancos;
+    private EmpresasBancos editarEmpresasBancos;
+    private EmpresasBancos empresasBancoSeleccionado;
+    //otros
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+    private BigInteger l;
+    private boolean aceptar, guardado;
+    //AutoCompletar
+    private boolean permitirIndex;
+    //RASTRO
+    private Column obsoleto, pais, subTituloFirma, personafir, cargo;
+    //borrado
+    private int registrosBorrados;
+    private String mensajeValidacion;
+    //filtrado table
+    private int tamano;
+    private List<Empresas> lovEmpresas;
+    private List<Empresas> filtradoEmpresas;
+    private Empresas empresaSeleccionado;
+    private String nuevoYduplicarCompletarEmpresa;
+    //---------------------------------
+    private List<Bancos> lovBancos;
+    private List<Bancos> filtradoBancos;
+    private Bancos bancoSeleccionado;
+    private String nuevoYduplicarCompletarPersona;
+    //--------------------------------------
+    private List<Ciudades> lovCiudades;
+    private List<Ciudades> filtradoCiudades;
+    private Ciudades ciudadSeleccionada;
+    private String nuevoYduplicarCompletarCargo;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String infoRegistro;
+    private String infoRegistroEmpresas;
+    private String infoRegistroCiudades;
+    private String infoRegistrosBancos;
+    private boolean activarLov;
 
-   public ControlEmpresasBancos() {
-      listEmpresasBancos = null;
-      crearEmpresasBancos = new ArrayList<EmpresasBancos>();
-      modificarEmpresasBancos = new ArrayList<EmpresasBancos>();
-      borrarEmpresasBancos = new ArrayList<EmpresasBancos>();
-      permitirIndex = true;
-      editarEmpresasBancos = new EmpresasBancos();
-      nuevoEmpresasBancos = new EmpresasBancos();
-      nuevoEmpresasBancos.setEmpresa(new Empresas());
-      nuevoEmpresasBancos.setBanco(new Bancos());
-      nuevoEmpresasBancos.setCiudad(new Ciudades());
-      duplicarEmpresasBancos = new EmpresasBancos();
-      duplicarEmpresasBancos.setEmpresa(new Empresas());
-      duplicarEmpresasBancos.setBanco(new Bancos());
-      duplicarEmpresasBancos.setCiudad(new Ciudades());
-      lovEmpresas = null;
-      filtradoEmpresas = null;
-      lovBancos = null;
-      filtradoBancos = null;
-      lovCiudades = null;
-      filtradoCiudades = null;
-      guardado = true;
-      tamano = 270;
-      aceptar = true;
-      mapParametros.put("paginaAnterior", paginaAnterior);
-   }
+    public ControlEmpresasBancos() {
+        listEmpresasBancos = null;
+        crearEmpresasBancos = new ArrayList<EmpresasBancos>();
+        modificarEmpresasBancos = new ArrayList<EmpresasBancos>();
+        borrarEmpresasBancos = new ArrayList<EmpresasBancos>();
+        permitirIndex = true;
+        editarEmpresasBancos = new EmpresasBancos();
+        nuevoEmpresasBancos = new EmpresasBancos();
+        nuevoEmpresasBancos.setEmpresa(new Empresas());
+        nuevoEmpresasBancos.setBanco(new Bancos());
+        nuevoEmpresasBancos.setCiudad(new Ciudades());
+        duplicarEmpresasBancos = new EmpresasBancos();
+        duplicarEmpresasBancos.setEmpresa(new Empresas());
+        duplicarEmpresasBancos.setBanco(new Bancos());
+        duplicarEmpresasBancos.setCiudad(new Ciudades());
+        lovEmpresas = null;
+        filtradoEmpresas = null;
+        lovBancos = null;
+        filtradoBancos = null;
+        lovCiudades = null;
+        filtradoCiudades = null;
+        guardado = true;
+        tamano = 320;
+        aceptar = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
+    }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-   public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      String pagActual = "empresabanco";
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-         controlListaNavegacion.guardarNavegacion(pagActual, pag);
-         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
-         //         if (pag.equals("rastrotabla")) {
-         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
-      }
-      limpiarListasValor();
-   }
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        String pagActual = "empresabanco";
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina(pagActual);
+        } else {
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParaEnviar.put("paginaAnterior", pagActual);
+            //mas Parametros
+            //         if (pag.equals("rastrotabla")) {
+            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+        }
+        limpiarListasValor();
+    }
 
-   public void limpiarListasValor() {
-      lovBancos = null;
-      lovCiudades = null;
-      lovEmpresas = null;
-   }
+    public void limpiarListasValor() {
+        lovBancos = null;
+        lovCiudades = null;
+        lovEmpresas = null;
+    }
 
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarEmpresasBancos.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
-   }
+    @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarEmpresasBancos.obtenerConexion(ses.getId());
+            administrarRastros.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
+    }
 
-   public void eventoFiltrar() {
-      try {
-         System.out.println("\n ENTRE A ControlEmpresasBancos.eventoFiltrar \n");
-         if (tipoLista == 0) {
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
             tipoLista = 1;
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
-         infoRegistro = "Cantidad de registros: " + filtrarEmpresasBancos.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      } catch (Exception e) {
-         System.out.println("ERROR ControlEmpresasBancos eventoFiltrar ERROR===" + e.getMessage());
-      }
-   }
+        }
+        contarRegistros();
+    }
 
-   public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
-
-      if (permitirIndex == true) {
-         index = indice;
-         cualCelda = celda;
-         secRegistro = listEmpresasBancos.get(index).getSecuencia();
-         if (tipoLista == 0) {
+    public void cambiarIndice(EmpresasBancos empresab, int celda) {
+        if (permitirIndex == true) {
+            empresasBancoSeleccionado = empresab;
+            cualCelda = celda;
+            empresasBancoSeleccionado.getSecuencia();
             if (cualCelda == 0) {
-               backupEmpresas = listEmpresasBancos.get(index).getEmpresa().getNombre();
-               System.out.println("EMPRESA : " + backupEmpresas);
+                habilitarLov();
+                empresasBancoSeleccionado.getEmpresa().getNombre();
             }
             if (cualCelda == 1) {
-               backupBanco = listEmpresasBancos.get(index).getBanco().getNombre();
-               System.out.println("BANCO : " + backupBanco);
-
+                habilitarLov();
+                empresasBancoSeleccionado.getBanco().getNombre();
             }
             if (cualCelda == 2) {
-               backupCiudad = listEmpresasBancos.get(index).getCiudad().getNombre();
-               System.out.println("CIUDAD : " + backupCiudad);
-
+                habilitarLov();
+                empresasBancoSeleccionado.getCiudad().getNombre();
             }
             if (cualCelda == 3) {
-               backupNumeroCuenta = listEmpresasBancos.get(index).getNumerocuenta();
+                deshabilitarLov();
+                empresasBancoSeleccionado.getNumerocuenta();
             }
-         } else if (tipoLista == 1) {
+        }
+    }
+
+    public void asignarIndex(EmpresasBancos empresaB, int LND, int dig) {
+        empresasBancoSeleccionado = empresaB;
+        tipoActualizacion = LND;
+        if (dig == 0) {
+            lovEmpresas = null;
+            getLovEmpresas();
+            contarRegistrosEmpresas();
+            RequestContext.getCurrentInstance().update("form:empresasDialogo");
+            RequestContext.getCurrentInstance().execute("PF('empresasDialogo').show()");
+            dig = -1;
+        } else if (dig == 1) {
+            lovBancos = null;
+            getLovBancos();
+            contarRegistrosBancos();
+            RequestContext.getCurrentInstance().update("form:bancosDialogo");
+            RequestContext.getCurrentInstance().execute("PF('bancosDialogo').show()");
+            dig = -1;
+        } else if (dig == 2) {
+            lovCiudades = null;
+            getLovCiudades();
+            contarRegistrosCiudades();
+            RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
+            dig = -1;
+        }
+    }
+
+    public void activarAceptar() {
+        aceptar = false;
+    }
+
+    public void listaValoresBoton() {
+        if (empresasBancoSeleccionado != null) {
             if (cualCelda == 0) {
-               backupEmpresas = filtrarEmpresasBancos.get(index).getEmpresa().getNombre();
-               System.out.println("EMPRESA : " + backupEmpresas);
+                lovEmpresas = null;
+                getLovEmpresas();
+                contarRegistrosEmpresas();
+                RequestContext.getCurrentInstance().update("form:empresasDialogo");
+                RequestContext.getCurrentInstance().execute("PF('empresasDialogo').show()");
             }
             if (cualCelda == 1) {
-               backupBanco = filtrarEmpresasBancos.get(index).getBanco().getNombre();
-               System.out.println("BANCO : " + backupBanco);
-
+                lovBancos = null;
+                getLovBancos();
+                contarRegistrosBancos();
+                RequestContext.getCurrentInstance().update("form:bancosDialogo");
+                RequestContext.getCurrentInstance().execute("PF('bancosDialogo').show()");
             }
             if (cualCelda == 2) {
-               backupCiudad = filtrarEmpresasBancos.get(index).getCiudad().getNombre();
-               System.out.println("CIUDAD : " + backupCiudad);
-
+                lovCiudades = null;
+                getLovCiudades();
+                contarRegistrosCiudades();
+                RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
+                RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
             }
-            if (cualCelda == 3) {
-               backupNumeroCuenta = filtrarEmpresasBancos.get(index).getNumerocuenta();
-            }
-
-         }
-
-      }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
-   }
-
-   public void asignarIndex(Integer indice, int LND, int dig) {
-      try {
-         RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("\n ENTRE A ControlEmpresasBancos.asignarIndex \n");
-         index = indice;
-         if (LND == 0) {
-            tipoActualizacion = 0;
-         } else if (LND == 1) {
-            tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-         } else if (LND == 2) {
-            tipoActualizacion = 2;
-         }
-         if (dig == 0) {
-            RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
-            dig = -1;
-         }
-         if (dig == 1) {
-            RequestContext.getCurrentInstance().update("form:personasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-            dig = -1;
-         }
-         if (dig == 2) {
-            RequestContext.getCurrentInstance().update("form:cargosDialogo");
-            RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
-            dig = -1;
-         }
-      } catch (Exception e) {
-         System.out.println("ERROR ControlEmpresasBancos.asignarIndex ERROR======" + e.getMessage());
-      }
-   }
-
-   public void activarAceptar() {
-      aceptar = false;
-   }
-
-   public void listaValoresBoton() {
-      if (index >= 0) {
-         if (cualCelda == 0) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
-         }
-         if (cualCelda == 1) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:personasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-         }
-         if (cualCelda == 2) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:cargosDialogo");
-            RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
-         }
-      }
-   }
-
-   public void cancelarModificacion() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 1) {
-         //CERRAR FILTRADO
-         obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
-         obsoleto.setFilterStyle("display: none; visibility: hidden;");
-         pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
-         pais.setFilterStyle("display: none; visibility: hidden;");
-         subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
-         subTituloFirma.setFilterStyle("display: none; visibility: hidden;");
-         personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
-         personafir.setFilterStyle("display: none; visibility: hidden;");
-         cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
-         cargo.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         bandera = 0;
-         filtrarEmpresasBancos = null;
-         tipoLista = 0;
-      }
-
-      borrarEmpresasBancos.clear();
-      crearEmpresasBancos.clear();
-      modificarEmpresasBancos.clear();
-      index = -1;
-      secRegistro = null;
-      k = 0;
-      listEmpresasBancos = null;
-      guardado = true;
-      permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listEmpresasBancos == null || listEmpresasBancos.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listEmpresasBancos.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-   }
-
-   public void salir() {
-      limpiarListasValor();
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 1) {
-         //CERRAR FILTRADO
-         obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
-         obsoleto.setFilterStyle("display: none; visibility: hidden;");
-         pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
-         pais.setFilterStyle("display: none; visibility: hidden;");
-         subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
-         subTituloFirma.setFilterStyle("display: none; visibility: hidden;");
-         personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
-         personafir.setFilterStyle("display: none; visibility: hidden;");
-         cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
-         cargo.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         bandera = 0;
-         filtrarEmpresasBancos = null;
-         tipoLista = 0;
-      }
-
-      borrarEmpresasBancos.clear();
-      crearEmpresasBancos.clear();
-      modificarEmpresasBancos.clear();
-      index = -1;
-      secRegistro = null;
-      k = 0;
-      listEmpresasBancos = null;
-      guardado = true;
-      permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listEmpresasBancos == null || listEmpresasBancos.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listEmpresasBancos.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-   }
-
-   public void activarCtrlF11() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 0) {
-         tamano = 250;
-         obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
-         obsoleto.setFilterStyle("width: 85% !important;");
-         pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
-         pais.setFilterStyle("width: 85% !important;");
-         subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
-         subTituloFirma.setFilterStyle("width: 85% !important;");
-         personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
-         personafir.setFilterStyle("width: 85% !important;");
-         cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
-         cargo.setFilterStyle("width: 85% !important;");
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         System.out.println("Activar");
-         bandera = 1;
-      } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         tamano = 270;
-         obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
-         obsoleto.setFilterStyle("display: none; visibility: hidden;");
-         pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
-         pais.setFilterStyle("display: none; visibility: hidden;");
-         subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
-         subTituloFirma.setFilterStyle("display: none; visibility: hidden;");
-         personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
-         personafir.setFilterStyle("display: none; visibility: hidden;");
-         cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
-         cargo.setFilterStyle("display: none; visibility: hidden;");
-
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         bandera = 0;
-         filtrarEmpresasBancos = null;
-         tipoLista = 0;
-      }
-   }
-
-   public void actualizarPais() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("pais seleccionado : " + empresaSeleccionado.getNombre());
-      System.out.println("tipo Actualizacion : " + tipoActualizacion);
-      System.out.println("tipo Lista : " + tipoLista);
-
-      if (tipoActualizacion == 0) {
-         if (tipoLista == 0) {
-            listEmpresasBancos.get(index).setEmpresa(empresaSeleccionado);
-
-            if (!crearEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-               if (modificarEmpresasBancos.isEmpty()) {
-                  modificarEmpresasBancos.add(listEmpresasBancos.get(index));
-               } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-                  modificarEmpresasBancos.add(listEmpresasBancos.get(index));
-               }
-            }
-         } else {
-            filtrarEmpresasBancos.get(index).setEmpresa(empresaSeleccionado);
-
-            if (!crearEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-               if (modificarEmpresasBancos.isEmpty()) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-               } else if (!modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-               }
-            }
-         }
-         if (guardado == true) {
-            guardado = false;
-         }
-         permitirIndex = true;
-         System.out.println("ACTUALIZAR PAIS PAIS SELECCIONADO : " + empresaSeleccionado.getNombre());
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      } else if (tipoActualizacion == 1) {
-         System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + empresaSeleccionado.getNombre());
-         nuevoEmpresasBancos.setEmpresa(empresaSeleccionado);
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPais");
-      } else if (tipoActualizacion == 2) {
-         System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + empresaSeleccionado.getNombre());
-         duplicarEmpresasBancos.setEmpresa(empresaSeleccionado);
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPais");
-      }
-      filtradoEmpresas = null;
-      empresaSeleccionado = null;
-      aceptar = true;
-      index = -1;
-      secRegistro = null;
-      tipoActualizacion = -1;
-      cualCelda = -1;
-      context.reset("form:lovTiposFamiliares:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').hide()");
-      //RequestContext.getCurrentInstance().update("form:lovTiposFamiliares");
-      //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-   }
-
-   public void actualizarBancos() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("pais seleccionado : " + bancoSeleccionado.getNombre());
-      System.out.println("tipo Actualizacion : " + tipoActualizacion);
-      System.out.println("tipo Lista : " + tipoLista);
-
-      if (tipoActualizacion == 0) {
-         if (tipoLista == 0) {
-            listEmpresasBancos.get(index).setBanco(bancoSeleccionado);
-
-            if (!crearEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-               if (modificarEmpresasBancos.isEmpty()) {
-                  modificarEmpresasBancos.add(listEmpresasBancos.get(index));
-               } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-                  modificarEmpresasBancos.add(listEmpresasBancos.get(index));
-               }
-            }
-         } else {
-            filtrarEmpresasBancos.get(index).setBanco(bancoSeleccionado);
-
-            if (!crearEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-               if (modificarEmpresasBancos.isEmpty()) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-               } else if (!modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-               }
-            }
-         }
-         if (guardado == true) {
-            guardado = false;
-         }
-         permitirIndex = true;
-         System.out.println("ACTUALIZAR PAIS PAIS SELECCIONADO : " + bancoSeleccionado.getNombre());
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      } else if (tipoActualizacion == 1) {
-         System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + bancoSeleccionado.getNombre());
-         nuevoEmpresasBancos.setBanco(bancoSeleccionado);
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
-      } else if (tipoActualizacion == 2) {
-         System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + bancoSeleccionado.getNombre());
-         duplicarEmpresasBancos.setBanco(bancoSeleccionado);
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
-      }
-      filtradoBancos = null;
-      bancoSeleccionado = null;
-      aceptar = true;
-      index = -1;
-      secRegistro = null;
-      tipoActualizacion = -1;
-      cualCelda = -1;
-      context.reset("form:lovBancos:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
-      //RequestContext.getCurrentInstance().update("form:lovBancos");
-      //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-   }
-
-   public void actualizarCiudades() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("pais seleccionado : " + cargoSeleccionado.getNombre());
-      System.out.println("tipo Actualizacion : " + tipoActualizacion);
-      System.out.println("tipo Lista : " + tipoLista);
-
-      if (tipoActualizacion == 0) {
-         if (tipoLista == 0) {
-            listEmpresasBancos.get(index).setCiudad(cargoSeleccionado);
-
-            if (!crearEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-               if (modificarEmpresasBancos.isEmpty()) {
-                  modificarEmpresasBancos.add(listEmpresasBancos.get(index));
-               } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-                  modificarEmpresasBancos.add(listEmpresasBancos.get(index));
-               }
-            }
-         } else {
-            filtrarEmpresasBancos.get(index).setCiudad(cargoSeleccionado);
-
-            if (!crearEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-               if (modificarEmpresasBancos.isEmpty()) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-               } else if (!modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-               }
-            }
-         }
-         if (guardado == true) {
-            guardado = false;
-         }
-         permitirIndex = true;
-         System.out.println("ACTUALIZAR PAIS CARGO SELECCIONADO : " + cargoSeleccionado.getNombre());
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      } else if (tipoActualizacion == 1) {
-         System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + cargoSeleccionado.getNombre());
-         nuevoEmpresasBancos.setCiudad(cargoSeleccionado);
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
-      } else if (tipoActualizacion == 2) {
-         System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + cargoSeleccionado.getNombre());
-         duplicarEmpresasBancos.setCiudad(cargoSeleccionado);
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
-      }
-      filtradoBancos = null;
-      bancoSeleccionado = null;
-      aceptar = true;
-      index = -1;
-      secRegistro = null;
-      tipoActualizacion = -1;
-      cualCelda = -1;
-      context.reset("form:lovCiudades:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('cargosDialogo').hide()");
-      //RequestContext.getCurrentInstance().update("form:lovCiudades");
-      //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-   }
-
-   public void cancelarCambioPais() {
-      filtradoEmpresas = null;
-      empresaSeleccionado = null;
-      aceptar = true;
-      index = -1;
-      secRegistro = null;
-      tipoActualizacion = -1;
-      permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      context.reset("form:lovTiposFamiliares:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').hide()");
-   }
-
-   public void cancelarCambioBancos() {
-      listEmpresasBancos.get(index).getBanco().setNombre(backupBanco);
-      filtradoBancos = null;
-      bancoSeleccionado = null;
-      aceptar = true;
-      index = -1;
-      secRegistro = null;
-      tipoActualizacion = -1;
-      permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      context.reset("form:lovBancos:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
-   }
-
-   public void cancelarCambioCiudades() {
-      filtradoCiudades = null;
-      cargoSeleccionado = null;
-      aceptar = true;
-      index = -1;
-      secRegistro = null;
-      tipoActualizacion = -1;
-      permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      context.reset("form:lovCiudades:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('cargosDialogo').hide()");
-   }
-
-   public void mostrarInfo(int indice, int celda) {
-      if (permitirIndex == true) {
-         RequestContext context = RequestContext.getCurrentInstance();
-
-         index = indice;
-         cualCelda = celda;
-         secRegistro = listEmpresasBancos.get(index).getSecuencia();
-         if (cualCelda == 5) {
-            System.out.println("DIMENSIONES  " + listEmpresasBancos.get(indice).getTipocuenta());
-         }
-         if (!crearEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-
-            if (modificarEmpresasBancos.isEmpty()) {
-               modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-            } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-               modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-            }
-            if (guardado == true) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-         }
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-
-      }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
-
-   }
-
-   public void modificarEmpresasBancos(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
-      index = indice;
-      int coincidencias = 0;
-      int contador = 0;
-      boolean banderita = false;
-      boolean banderita1 = false;
-      boolean banderita2 = false;
-      int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
-      if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
-         if (tipoLista == 0) {
-            if (!crearEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
-               System.out.println("backupSubtituloFirma : " + backupNumeroCuenta);
-               System.out.println("backupPais : " + backupPais);
-
-               if (listEmpresasBancos.get(indice).getNumerocuenta() == null) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  banderita = false;
-                  listEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-
-               } else {
-                  for (int j = 0; j < listEmpresasBancos.size(); j++) {
-                     if (j != indice) {
-                        if (listEmpresasBancos.get(indice).getNumerocuenta() == listEmpresasBancos.get(j).getNumerocuenta()) {
-                           contador++;
-                        }
-                     }
-                  }
-
-                  if (contador > 0) {
-                     mensajeValidacion = "CODIGOS REPETIDOS";
-                     banderita = false;
-                     listEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-                  } else {
-                     banderita = true;
-                  }
-
-               }
-
-               if (banderita == true) {
-                  if (modificarEmpresasBancos.isEmpty()) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-
-               } else {
-                  RequestContext.getCurrentInstance().update("form:validacionModificar");
-                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-
-               }
-               index = -1;
-               secRegistro = null;
-               RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            } else {
-
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
-
-               if (listEmpresasBancos.get(indice).getNumerocuenta() == null) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  banderita = false;
-                  listEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-               } else {
-                  for (int j = 0; j < listEmpresasBancos.size(); j++) {
-                     if (j != indice) {
-                        if (listEmpresasBancos.get(indice).getNumerocuenta() == listEmpresasBancos.get(j).getNumerocuenta()) {
-                           contador++;
-                        }
-                     }
-                  }
-
-                  if (contador > 0) {
-                     mensajeValidacion = "CODIGOS REPETIDOS";
-                     banderita = false;
-                     listEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-                  } else {
-                     banderita = true;
-                  }
-
-               }
-
-               if (banderita == true) {
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-               } else {
-                  RequestContext.getCurrentInstance().update("form:validacionModificar");
-                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-
-               }
-               index = -1;
-               secRegistro = null;
-               RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-            }
-         } else if (!crearEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-            if (filtrarEmpresasBancos.get(indice).getNumerocuenta() == null) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-               filtrarEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-            } else {
-               for (int j = 0; j < filtrarEmpresasBancos.size(); j++) {
-                  if (j != indice) {
-                     if (filtrarEmpresasBancos.get(indice).getNumerocuenta() == listEmpresasBancos.get(j).getNumerocuenta()) {
-                        contador++;
-                     }
-                  }
-               }
-               for (int j = 0; j < listEmpresasBancos.size(); j++) {
-                  if (j != indice) {
-                     if (filtrarEmpresasBancos.get(indice).getNumerocuenta() == listEmpresasBancos.get(j).getNumerocuenta()) {
-                        contador++;
-                     }
-                  }
-               }
-               if (contador > 0) {
-                  mensajeValidacion = "CODIGOS REPETIDOS";
-                  banderita = false;
-                  filtrarEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-
-               } else {
-                  banderita = true;
-               }
-
-            }
-
-            if (banderita == true) {
-
-               if (modificarEmpresasBancos.isEmpty()) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-               } else if (!modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-                  modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-               }
-               if (guardado == true) {
-                  guardado = false;
-               }
-
-            } else {
-               RequestContext.getCurrentInstance().update("form:validacionModificar");
-               RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-            }
-            index = -1;
-            secRegistro = null;
-         } else {
-            if (filtrarEmpresasBancos.get(indice).getNumerocuenta() == null) {
-               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               banderita = false;
-               filtrarEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-            } else {
-               for (int j = 0; j < filtrarEmpresasBancos.size(); j++) {
-                  if (j != indice) {
-                     if (filtrarEmpresasBancos.get(indice).getNumerocuenta() == listEmpresasBancos.get(j).getNumerocuenta()) {
-                        contador++;
-                     }
-                  }
-               }
-               for (int j = 0; j < listEmpresasBancos.size(); j++) {
-                  if (j != indice) {
-                     if (filtrarEmpresasBancos.get(indice).getNumerocuenta() == listEmpresasBancos.get(j).getNumerocuenta()) {
-                        contador++;
-                     }
-                  }
-               }
-               if (contador > 0) {
-                  mensajeValidacion = "CODIGOS REPETIDOS";
-                  banderita = false;
-                  filtrarEmpresasBancos.get(indice).setNumerocuenta(backupNumeroCuenta);
-
-               } else {
-                  banderita = true;
-               }
-
-            }
-
-            if (banderita == true) {
-               if (guardado == true) {
-                  guardado = false;
-               }
-
-            } else {
-               RequestContext.getCurrentInstance().update("form:validacionModificar");
-               RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-            }
-            index = -1;
-            secRegistro = null;
-         }
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      } else if (confirmarCambio.equalsIgnoreCase("PAISES")) {
-
-         System.out.println("MODIFICANDO NORMA LABORAL : " + listEmpresasBancos.get(indice).getEmpresa().getNombre());
-         if (!listEmpresasBancos.get(indice).getEmpresa().getNombre().equals("")) {
-            if (tipoLista == 0) {
-               listEmpresasBancos.get(indice).getEmpresa().setNombre(backupEmpresas);
-            } else {
-               listEmpresasBancos.get(indice).getEmpresa().setNombre(backupEmpresas);
-            }
-
-            for (int i = 0; i < lovEmpresas.size(); i++) {
-               if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-
-            if (coincidencias == 1) {
-               if (tipoLista == 0) {
-                  listEmpresasBancos.get(indice).setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-               } else {
-                  filtrarEmpresasBancos.get(indice).setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-               }
-               lovEmpresas.clear();
-               lovEmpresas = null;
-               //getListaTiposFamiliares();
-
-            } else {
-               permitirIndex = false;
-               RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-               RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
-               tipoActualizacion = 0;
-            }
-         } else {
-            if (backupEmpresas != null) {
-               if (tipoLista == 0) {
-                  listEmpresasBancos.get(index).getEmpresa().setNombre(backupEmpresas);
-               } else {
-                  filtrarEmpresasBancos.get(index).getEmpresa().setNombre(backupEmpresas);
-               }
-            }
-            tipoActualizacion = 0;
-            System.out.println("PAIS ANTES DE MOSTRAR DIALOGO : " + backupEmpresas);
-            RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
-         }
-
-         if (coincidencias == 1) {
-            if (tipoLista == 0) {
-               if (!crearEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-
-                  if (modificarEmpresasBancos.isEmpty()) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-               }
-               index = -1;
-               secRegistro = null;
-            } else {
-               if (!crearEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-
-                  if (modificarEmpresasBancos.isEmpty()) {
-                     modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-                  } else if (!modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-                     modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         }
-
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-      } else if (confirmarCambio.equalsIgnoreCase("PERSONAS")) {
-         System.out.println("MODIFICANDO NORMA LABORAL : " + listEmpresasBancos.get(indice).getBanco().getNombre());
-         if (!listEmpresasBancos.get(indice).getBanco().getNombre().equals("")) {
-            if (tipoLista == 0) {
-               listEmpresasBancos.get(indice).getBanco().setNombre(backupBanco);
-            } else {
-               listEmpresasBancos.get(indice).getBanco().setNombre(backupBanco);
-            }
-
-            for (int i = 0; i < lovBancos.size(); i++) {
-               if (lovBancos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-
-            if (coincidencias == 1) {
-               if (tipoLista == 0) {
-                  listEmpresasBancos.get(indice).setBanco(lovBancos.get(indiceUnicoElemento));
-               } else {
-                  filtrarEmpresasBancos.get(indice).setBanco(lovBancos.get(indiceUnicoElemento));
-               }
-               lovEmpresas.clear();
-               lovEmpresas = null;
-               //getListaTiposFamiliares();
-
-            } else {
-               permitirIndex = false;
-               RequestContext.getCurrentInstance().update("form:personasDialogo");
-               RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-               tipoActualizacion = 0;
-            }
-         } else {
-            if (backupBanco != null) {
-               if (tipoLista == 0) {
-                  listEmpresasBancos.get(index).getBanco().setNombre(backupBanco);
-               } else {
-                  filtrarEmpresasBancos.get(index).getBanco().setNombre(backupBanco);
-               }
-            }
-            tipoActualizacion = 0;
-            System.out.println("PAIS ANTES DE MOSTRAR DIALOGO PERSONA : " + backupBanco);
-            RequestContext.getCurrentInstance().update("form:personasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-         }
-
-         if (coincidencias == 1) {
-            if (tipoLista == 0) {
-               if (!crearEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-
-                  if (modificarEmpresasBancos.isEmpty()) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-               }
-               index = -1;
-               secRegistro = null;
-            } else {
-               if (!crearEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-
-                  if (modificarEmpresasBancos.isEmpty()) {
-                     modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-                  } else if (!modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-                     modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         }
-
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-      } else if (confirmarCambio.equalsIgnoreCase("CARGOS")) {
-         System.out.println("MODIFICANDO CARGO: " + listEmpresasBancos.get(indice).getCiudad().getNombre());
-         if (!listEmpresasBancos.get(indice).getBanco().getNombre().equals("")) {
-            if (tipoLista == 0) {
-               listEmpresasBancos.get(indice).getCiudad().setNombre(backupCiudad);
-            } else {
-               listEmpresasBancos.get(indice).getCiudad().setNombre(backupCiudad);
-            }
-
-            for (int i = 0; i < lovCiudades.size(); i++) {
-               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-
-            if (coincidencias == 1) {
-               if (tipoLista == 0) {
-                  listEmpresasBancos.get(indice).setCiudad(lovCiudades.get(indiceUnicoElemento));
-               } else {
-                  filtrarEmpresasBancos.get(indice).setCiudad(lovCiudades.get(indiceUnicoElemento));
-               }
-               lovEmpresas.clear();
-               lovEmpresas = null;
-               //getListaTiposFamiliares();
-
-            } else {
-               permitirIndex = false;
-               RequestContext.getCurrentInstance().update("form:cargosDialogo");
-               RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
-               tipoActualizacion = 0;
-            }
-         } else {
-            if (backupCiudad != null) {
-               if (tipoLista == 0) {
-                  listEmpresasBancos.get(index).getCiudad().setNombre(backupCiudad);
-               } else {
-                  filtrarEmpresasBancos.get(index).getCiudad().setNombre(backupCiudad);
-               }
-            }
-            tipoActualizacion = 0;
-            System.out.println("PAIS ANTES DE MOSTRAR DIALOGO CARGOS : " + backupCiudad);
-            RequestContext.getCurrentInstance().update("form:personasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-         }
-
-         if (coincidencias == 1) {
-            if (tipoLista == 0) {
-               if (!crearEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-
-                  if (modificarEmpresasBancos.isEmpty()) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  } else if (!modificarEmpresasBancos.contains(listEmpresasBancos.get(indice))) {
-                     modificarEmpresasBancos.add(listEmpresasBancos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-               }
-               index = -1;
-               secRegistro = null;
-            } else {
-               if (!crearEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-
-                  if (modificarEmpresasBancos.isEmpty()) {
-                     modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-                  } else if (!modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(indice))) {
-                     modificarEmpresasBancos.add(filtrarEmpresasBancos.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         }
-
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-      }
-
-   }
-
-   public void borrandoEmpresasBancos() {
-
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            System.out.println("Entro a borrandoEmpresasBancos");
-            if (!modificarEmpresasBancos.isEmpty() && modificarEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-               int modIndex = modificarEmpresasBancos.indexOf(listEmpresasBancos.get(index));
-               modificarEmpresasBancos.remove(modIndex);
-               borrarEmpresasBancos.add(listEmpresasBancos.get(index));
-            } else if (!crearEmpresasBancos.isEmpty() && crearEmpresasBancos.contains(listEmpresasBancos.get(index))) {
-               int crearIndex = crearEmpresasBancos.indexOf(listEmpresasBancos.get(index));
-               crearEmpresasBancos.remove(crearIndex);
-            } else {
-               borrarEmpresasBancos.add(listEmpresasBancos.get(index));
-            }
-            listEmpresasBancos.remove(index);
-         }
-         if (tipoLista == 1) {
-            System.out.println("borrandoEmpresasBancos ");
-            if (!modificarEmpresasBancos.isEmpty() && modificarEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-               int modIndex = modificarEmpresasBancos.indexOf(filtrarEmpresasBancos.get(index));
-               modificarEmpresasBancos.remove(modIndex);
-               borrarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-            } else if (!crearEmpresasBancos.isEmpty() && crearEmpresasBancos.contains(filtrarEmpresasBancos.get(index))) {
-               int crearIndex = crearEmpresasBancos.indexOf(filtrarEmpresasBancos.get(index));
-               crearEmpresasBancos.remove(crearIndex);
-            } else {
-               borrarEmpresasBancos.add(filtrarEmpresasBancos.get(index));
-            }
-            int VCIndex = listEmpresasBancos.indexOf(filtrarEmpresasBancos.get(index));
-            listEmpresasBancos.remove(VCIndex);
-            filtrarEmpresasBancos.remove(index);
-
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         infoRegistro = "Cantidad de registros: " + listEmpresasBancos.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-         index = -1;
-         secRegistro = null;
-
-         if (guardado == true) {
-            guardado = false;
-         }
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-
-   }
-
-   public void valoresBackupAutocompletar(int tipoNuevo, String valorCambio) {
-      System.out.println("1...");
-      if (valorCambio.equals("EMPRESAS")) {
-         if (tipoNuevo == 1) {
-            nuevoYduplicarCompletarEmpresa = nuevoEmpresasBancos.getEmpresa().getNombre();
-         } else if (tipoNuevo == 2) {
-            nuevoYduplicarCompletarEmpresa = duplicarEmpresasBancos.getEmpresa().getNombre();
-         }
-         System.out.println("EMPRESA : " + nuevoYduplicarCompletarEmpresa);
-      } else if (valorCambio.equals("PERSONA")) {
-         if (tipoNuevo == 1) {
-            nuevoYduplicarCompletarPersona = nuevoEmpresasBancos.getBanco().getNombre();
-         } else if (tipoNuevo == 2) {
-            nuevoYduplicarCompletarPersona = duplicarEmpresasBancos.getBanco().getNombre();
-         }
-
-         System.out.println("PERSONA : " + nuevoYduplicarCompletarPersona);
-      } else if (valorCambio.equals("CARGO")) {
-         if (tipoNuevo == 1) {
-            nuevoYduplicarCompletarCargo = nuevoEmpresasBancos.getCiudad().getNombre();
-         } else if (tipoNuevo == 2) {
-            nuevoYduplicarCompletarCargo = duplicarEmpresasBancos.getCiudad().getNombre();
-         }
-         System.out.println("CARGO : " + nuevoYduplicarCompletarCargo);
-      }
-
-   }
-
-   public void autocompletarNuevo(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-
-      int coincidencias = 0;
-      int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (confirmarCambio.equalsIgnoreCase("EMPRESAS")) {
-         System.out.println(" nueva Ciudad    Entro al if 'Centro costo'");
-         System.out.println("NOMBRE CENTRO COSTO: " + nuevoEmpresasBancos.getEmpresa().getNombre());
-
-         if (!nuevoEmpresasBancos.getEmpresa().getNombre().equals("")) {
-            System.out.println("ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("valorConfirmar: " + valorConfirmar);
-            System.out.println("nuevoYduplicarCiudadCompletar: " + nuevoYduplicarCompletarEmpresa);
-            nuevoEmpresasBancos.getEmpresa().setNombre(nuevoYduplicarCompletarEmpresa);
-            getLovEmpresas();
-            for (int i = 0; i < lovEmpresas.size(); i++) {
-               if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-               nuevoEmpresasBancos.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-               lovEmpresas = null;
-               getLovEmpresas();
-               System.err.println("NORMA LABORAL GUARDADA " + nuevoEmpresasBancos.getEmpresa().getNombre());
-            } else {
-               RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-               RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
-               tipoActualizacion = tipoNuevo;
-            }
-         } else {
-            nuevoEmpresasBancos.getEmpresa().setNombre(nuevoYduplicarCompletarEmpresa);
-            System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
-            nuevoEmpresasBancos.setEmpresa(new Empresas());
-            System.out.println("empresa" + nuevoEmpresasBancos.getEmpresa().getNombre());
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPais");
-      } else if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
-         System.out.println(" nueva Ciudad    Entro al if 'Centro costo'");
-         System.out.println("NUEVO PERSONA :-------> " + nuevoEmpresasBancos.getBanco().getNombre());
-
-         if (!nuevoEmpresasBancos.getBanco().getNombre().equals("")) {
-            System.out.println("ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("valorConfirmar: " + valorConfirmar);
-            System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarPersona);
-            nuevoEmpresasBancos.getBanco().setNombre(nuevoYduplicarCompletarPersona);
-            getLovEmpresas();
-            for (int i = 0; i < lovBancos.size(); i++) {
-               if (lovBancos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-               nuevoEmpresasBancos.setBanco(lovBancos.get(indiceUnicoElemento));
-               lovEmpresas = null;
-               getLovEmpresas();
-               System.err.println("PERSONA GUARDADA :-----> " + nuevoEmpresasBancos.getBanco().getNombre());
-            } else {
-               RequestContext.getCurrentInstance().update("form:personasDialogo");
-               RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-               tipoActualizacion = tipoNuevo;
-            }
-         } else {
-            nuevoEmpresasBancos.getBanco().setNombre(nuevoYduplicarCompletarPersona);
-            System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
-            nuevoEmpresasBancos.setBanco(new Bancos());
-            nuevoEmpresasBancos.getBanco().setNombre(" ");
-            System.out.println("NUEVA NORMA LABORAL" + nuevoEmpresasBancos.getBanco().getNombre());
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
-      } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
-         System.out.println(" nueva Ciudad    Entro al if 'Centro costo'");
-         System.out.println("NUEVO PERSONA :-------> " + nuevoEmpresasBancos.getCiudad().getNombre());
-
-         if (!nuevoEmpresasBancos.getCiudad().getNombre().equals("")) {
-            System.out.println("ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("valorConfirmar: " + valorConfirmar);
-            System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarCargo);
-            nuevoEmpresasBancos.getCiudad().setNombre(nuevoYduplicarCompletarCargo);
-            getLovEmpresas();
-            for (int i = 0; i < lovCiudades.size(); i++) {
-               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-               nuevoEmpresasBancos.setCiudad(lovCiudades.get(indiceUnicoElemento));
-               lovEmpresas = null;
-               getLovEmpresas();
-               System.err.println("CARGO GUARDADA :-----> " + nuevoEmpresasBancos.getCiudad().getNombre());
-            } else {
-               RequestContext.getCurrentInstance().update("form:cargosDialogo");
-               RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
-               tipoActualizacion = tipoNuevo;
-            }
-         } else {
-            nuevoEmpresasBancos.getCiudad().setNombre(nuevoYduplicarCompletarCargo);
-            System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
-            nuevoEmpresasBancos.setCiudad(new Ciudades());
-            System.out.println("NUEVO CARGO " + nuevoEmpresasBancos.getCiudad().getNombre());
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
-      }
-
-   }
-
-   public void asignarVariableEmpresas(int tipoNuevo) {
-      if (tipoNuevo == 0) {
-         tipoActualizacion = 1;
-      }
-      if (tipoNuevo == 1) {
-         tipoActualizacion = 2;
-      }
-      RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-      RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
-   }
-
-   public void asignarVariableBancos(int tipoNuevo) {
-      if (tipoNuevo == 0) {
-         tipoActualizacion = 1;
-      }
-      if (tipoNuevo == 1) {
-         tipoActualizacion = 2;
-      }
-      RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:personasDialogo");
-      RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-   }
-
-   public void asignarVariableCiudades(int tipoNuevo) {
-      if (tipoNuevo == 0) {
-         tipoActualizacion = 1;
-      }
-      if (tipoNuevo == 1) {
-         tipoActualizacion = 2;
-      }
-      RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:cargosDialogo");
-      RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
-   }
-
-   public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-      System.out.println("DUPLICAR entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
-      int coincidencias = 0;
-      int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (confirmarCambio.equalsIgnoreCase("EMPRESAS")) {
-         System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
-         System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarEmpresa);
-
-         if (!duplicarEmpresasBancos.getEmpresa().getNombre().equals("")) {
-            System.out.println("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
-            System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarEmpresa);
-            duplicarEmpresasBancos.getEmpresa().setNombre(nuevoYduplicarCompletarEmpresa);
-            for (int i = 0; i < lovEmpresas.size(); i++) {
-               if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-               duplicarEmpresasBancos.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
-               lovEmpresas = null;
-               getLovEmpresas();
-            } else {
-               RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-               RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
-               tipoActualizacion = tipoNuevo;
-            }
-         } else if (tipoNuevo == 2) {
-            //duplicarEmpresasBancos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
-            System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-            System.out.println("DUPLICAR INDEX : " + index);
-            duplicarEmpresasBancos.setEmpresa(new Empresas());
-            duplicarEmpresasBancos.getEmpresa().setNombre(" ");
-
-            System.out.println("DUPLICAR Valor NORMA LABORAL : " + duplicarEmpresasBancos.getEmpresa().getNombre());
-            System.out.println("nuevoYduplicarCompletarPais : " + nuevoYduplicarCompletarEmpresa);
-            if (tipoLista == 0) {
-               listEmpresasBancos.get(index).getEmpresa().setNombre(nuevoYduplicarCompletarEmpresa);
-               System.err.println("tipo lista" + tipoLista);
-               System.err.println("Secuencia Parentesco " + listEmpresasBancos.get(index).getEmpresa().getSecuencia());
-            } else if (tipoLista == 1) {
-               filtrarEmpresasBancos.get(index).getEmpresa().setNombre(nuevoYduplicarCompletarEmpresa);
-            }
-
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPais");
-      } else if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
-         System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
-         System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarPersona);
-
-         if (!duplicarEmpresasBancos.getBanco().getNombre().equals("")) {
-            System.out.println("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
-            System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarPersona);
-            duplicarEmpresasBancos.getBanco().setNombre(nuevoYduplicarCompletarPersona);
-            for (int i = 0; i < lovBancos.size(); i++) {
-               if (lovBancos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-               duplicarEmpresasBancos.setBanco(lovBancos.get(indiceUnicoElemento));
-               lovBancos = null;
-               getLovEmpresas();
-            } else {
-               RequestContext.getCurrentInstance().update("form:personasDialogo");
-               RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-               tipoActualizacion = tipoNuevo;
-            }
-         } else if (tipoNuevo == 2) {
-            //duplicarEmpresasBancos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
-            System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-            System.out.println("DUPLICAR INDEX : " + index);
-            duplicarEmpresasBancos.setBanco(new Bancos());
-            duplicarEmpresasBancos.getBanco().setNombre(" ");
-
-            System.out.println("DUPLICAR PERSONA  : " + duplicarEmpresasBancos.getBanco().getNombre());
-            System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarPersona);
-            if (tipoLista == 0) {
-               listEmpresasBancos.get(index).getBanco().setNombre(nuevoYduplicarCompletarPersona);
-               System.err.println("tipo lista" + tipoLista);
-               System.err.println("Secuencia Parentesco " + listEmpresasBancos.get(index).getBanco().getSecuencia());
-            } else if (tipoLista == 1) {
-               filtrarEmpresasBancos.get(index).getBanco().setNombre(nuevoYduplicarCompletarPersona);
-            }
-
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
-      } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
-         System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
-         System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarCargo);
-
-         if (!duplicarEmpresasBancos.getCiudad().getNombre().equals("")) {
-            System.out.println("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
-            System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarCargo);
-            duplicarEmpresasBancos.getCiudad().setNombre(nuevoYduplicarCompletarCargo);
-            for (int i = 0; i < lovCiudades.size(); i++) {
-               if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-               duplicarEmpresasBancos.setCiudad(lovCiudades.get(indiceUnicoElemento));
-               lovCiudades = null;
-               getLovCiudades();
-            } else {
-               RequestContext.getCurrentInstance().update("form:cargosDialogo");
-               RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
-               tipoActualizacion = tipoNuevo;
-            }
-         } else if (tipoNuevo == 2) {
-            //duplicarEmpresasBancos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
-            System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-            System.out.println("DUPLICAR INDEX : " + index);
-            duplicarEmpresasBancos.setCiudad(new Ciudades());
-            duplicarEmpresasBancos.getCiudad().setNombre(" ");
-
-            System.out.println("DUPLICAR CARGO  : " + duplicarEmpresasBancos.getCiudad().getNombre());
-            System.out.println("nuevoYduplicarCompletarCARGO : " + nuevoYduplicarCompletarCargo);
-            if (tipoLista == 0) {
-               listEmpresasBancos.get(index).getCiudad().setNombre(nuevoYduplicarCompletarCargo);
-               System.err.println("tipo lista" + tipoLista);
-               System.err.println("Secuencia Parentesco " + listEmpresasBancos.get(index).getCiudad().getSecuencia());
-            } else if (tipoLista == 1) {
-               filtrarEmpresasBancos.get(index).getCiudad().setNombre(nuevoYduplicarCompletarCargo);
-            }
-
-         }
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
-      }
-   }
-
-   /*public void verificarBorrado() {
-     System.out.println("Estoy en verificarBorrado");
-     BigInteger contarBienProgramacionesDepartamento;
-     BigInteger contarCapModulosDepartamento;
-     BigInteger contarCiudadesDepartamento;
-     BigInteger contarSoAccidentesMedicosDepartamento;
-
-     try {
-     System.err.println("Control Secuencia de ControlEmpresasBancos ");
-     if (tipoLista == 0) {
-     contarBienProgramacionesDepartamento = administrarEmpresasBancos.contarBienProgramacionesDepartamento(listEmpresasBancos.get(index).getSecuencia());
-     contarCapModulosDepartamento = administrarEmpresasBancos.contarCapModulosDepartamento(listEmpresasBancos.get(index).getSecuencia());
-     contarCiudadesDepartamento = administrarEmpresasBancos.contarCiudadesDepartamento(listEmpresasBancos.get(index).getSecuencia());
-     contarSoAccidentesMedicosDepartamento = administrarEmpresasBancos.contarSoAccidentesMedicosDepartamento(listEmpresasBancos.get(index).getSecuencia());
-     } else {
-     contarBienProgramacionesDepartamento = administrarEmpresasBancos.contarBienProgramacionesDepartamento(filtrarEmpresasBancos.get(index).getSecuencia());
-     contarCapModulosDepartamento = administrarEmpresasBancos.contarCapModulosDepartamento(filtrarEmpresasBancos.get(index).getSecuencia());
-     contarCiudadesDepartamento = administrarEmpresasBancos.contarCiudadesDepartamento(filtrarEmpresasBancos.get(index).getSecuencia());
-     contarSoAccidentesMedicosDepartamento = administrarEmpresasBancos.contarSoAccidentesMedicosDepartamento(filtrarEmpresasBancos.get(index).getSecuencia());
-     }
-     if (contarBienProgramacionesDepartamento.equals(new BigInteger("0"))
-     && contarCapModulosDepartamento.equals(new BigInteger("0"))
-     && contarCiudadesDepartamento.equals(new BigInteger("0"))
-     && contarSoAccidentesMedicosDepartamento.equals(new BigInteger("0"))) {
-     System.out.println("Borrado==0");
-     borrandoEmpresasBancos();
-     } else {
-     System.out.println("Borrado>0");
-
-     RequestContext context = RequestContext.getCurrentInstance();
-     RequestContext.getCurrentInstance().update("form:validacionBorrar");
-     RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-     index = -1;
-     contarBienProgramacionesDepartamento = new BigInteger("-1");
-     contarCapModulosDepartamento = new BigInteger("-1");
-     contarCiudadesDepartamento = new BigInteger("-1");
-     contarSoAccidentesMedicosDepartamento = new BigInteger("-1");
-
-     }
-     } catch (Exception e) {
-     System.err.println("ERROR ControlEmpresasBancos verificarBorrado ERROR " + e);
-     }
-     }
-    */
-   public void revisarDialogoGuardar() {
-
-      if (!borrarEmpresasBancos.isEmpty() || !crearEmpresasBancos.isEmpty() || !modificarEmpresasBancos.isEmpty()) {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-      }
-
-   }
-
-   public void guardarEmpresasBancos() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      if (guardado == false) {
-         System.out.println("Realizando guardarEmpresasBancos");
-         if (!borrarEmpresasBancos.isEmpty()) {
-            administrarEmpresasBancos.borrarEmpresasBancos(borrarEmpresasBancos);
-            //mostrarBorrados
-            registrosBorrados = borrarEmpresasBancos.size();
-            RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-            RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-            borrarEmpresasBancos.clear();
-         }
-         if (!modificarEmpresasBancos.isEmpty()) {
-            administrarEmpresasBancos.modificarEmpresasBancos(modificarEmpresasBancos);
-            modificarEmpresasBancos.clear();
-         }
-         if (!crearEmpresasBancos.isEmpty()) {
-            administrarEmpresasBancos.crearEmpresasBancos(crearEmpresasBancos);
-            crearEmpresasBancos.clear();
-         }
-         System.out.println("Se guardaron los datos con exito");
-         listEmpresasBancos = null;
-         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-         FacesContext.getCurrentInstance().addMessage(null, msg);
-         RequestContext.getCurrentInstance().update("form:growl");
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         k = 0;
-         guardado = true;
-      }
-      index = -1;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-   }
-
-   public void editarCelda() {
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            editarEmpresasBancos = listEmpresasBancos.get(index);
-         }
-         if (tipoLista == 1) {
-            editarEmpresasBancos = filtrarEmpresasBancos.get(index);
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
-         if (cualCelda == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
-            RequestContext.getCurrentInstance().execute("PF('editPais').show()");
-            cualCelda = -1;
-         } else if (cualCelda == 3) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editSubtituloFirma");
-            RequestContext.getCurrentInstance().execute("PF('editSubtituloFirma').show()");
-            cualCelda = -1;
-         } else if (cualCelda == 1) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editBancos");
-            RequestContext.getCurrentInstance().execute("PF('editBancos').show()");
-            cualCelda = -1;
-         } else if (cualCelda == 2) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:editCiudades");
-            RequestContext.getCurrentInstance().execute("PF('editCiudades').show()");
-            cualCelda = -1;
-         }
-
-      }
-      index = -1;
-      secRegistro = null;
-   }
-
-   public void agregarNuevoEmpresasBancos() {
-      System.out.println("agregarNuevoEmpresasBancos");
-      int contador = 0;
-      int duplicados = 0;
-
-      Integer a = 0;
-      a = null;
-      mensajeValidacion = " ";
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (nuevoEmpresasBancos.getNumerocuenta() == null) {
-         mensajeValidacion = " *Numero Cuenta \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-      } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoEmpresasBancos.getNumerocuenta());
-
-         for (int x = 0; x < listEmpresasBancos.size(); x++) {
-            if (listEmpresasBancos.get(x).getNumerocuenta() == nuevoEmpresasBancos.getNumerocuenta()) {
-               duplicados++;
-            }
-         }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
-         if (duplicados > 0) {
-            mensajeValidacion = " *Que NO Hayan Cuenta Repetidas \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-         } else {
-            System.out.println("bandera");
-            contador++;//1
-         }
-      }
-      if (nuevoEmpresasBancos.getEmpresa().getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + " *Empresa \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         System.out.println("bandera");
-         contador++;//2
-
-      }
-      if (nuevoEmpresasBancos.getBanco().getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + " *Banco \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         System.out.println("bandera");
-         contador++;//3
-
-      }
-
-      if (nuevoEmpresasBancos.getCiudad().getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + " *Ciudad \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         System.out.println("bandera");
-         contador++;//4
-
-      }
-
-      System.out.println("contador " + contador);
-
-      if (contador == 4) {
-         if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            //CERRAR FILTRADO
-            System.out.println("Desactivar");
+        }
+    }
+
+    public void cancelarModificacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 1) {
             obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
             obsoleto.setFilterStyle("display: none; visibility: hidden;");
             pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
@@ -1675,181 +275,29 @@ public class ControlEmpresasBancos implements Serializable {
             personafir.setFilterStyle("display: none; visibility: hidden;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
             cargo.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
             bandera = 0;
             filtrarEmpresasBancos = null;
             tipoLista = 0;
-         }
-         System.out.println("Despues de la bandera");
+        }
 
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoEmpresasBancos.setSecuencia(l);
+        borrarEmpresasBancos.clear();
+        crearEmpresasBancos.clear();
+        modificarEmpresasBancos.clear();
+        empresasBancoSeleccionado = null;
+        k = 0;
+        listEmpresasBancos = null;
+        guardado = true;
+        permitirIndex = true;
+        contarRegistros();
+        RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
 
-         crearEmpresasBancos.add(nuevoEmpresasBancos);
-
-         listEmpresasBancos.add(nuevoEmpresasBancos);
-         nuevoEmpresasBancos = new EmpresasBancos();
-         nuevoEmpresasBancos.setEmpresa(new Empresas());
-         nuevoEmpresasBancos.setCiudad(new Ciudades());
-         nuevoEmpresasBancos.setBanco(new Bancos());
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         infoRegistro = "Cantidad de registros: " + listEmpresasBancos.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-         if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-
-         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEmpresasBancos').hide()");
-         index = -1;
-         secRegistro = null;
-
-      } else {
-         RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
-         contador = 0;
-      }
-   }
-
-   public void limpiarNuevoEmpresasBancos() {
-      System.out.println("limpiarNuevoEmpresasBancos");
-      nuevoEmpresasBancos = new EmpresasBancos();
-      nuevoEmpresasBancos.setEmpresa(new Empresas());
-      nuevoEmpresasBancos.setBanco(new Bancos());
-      nuevoEmpresasBancos.setCiudad(new Ciudades());
-      secRegistro = null;
-      index = -1;
-
-   }
-
-   //------------------------------------------------------------------------------
-   public void cargarNuevoEmpresasBancos() {
-      System.out.println("cargarNuevoEmpresasBancos");
-
-      duplicarEmpresasBancos = new EmpresasBancos();
-      duplicarEmpresasBancos.setEmpresa(new Empresas());
-      duplicarEmpresasBancos.setBanco(new Bancos());
-      duplicarEmpresasBancos.setCiudad(new Ciudades());
-      RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEmpresasBancos').show()");
-
-   }
-
-   public void duplicandoEmpresasBancos() {
-      System.out.println("duplicandoEmpresasBancos");
-      if (index >= 0) {
-         duplicarEmpresasBancos = new EmpresasBancos();
-         duplicarEmpresasBancos.setEmpresa(new Empresas());
-         duplicarEmpresasBancos.setBanco(new Bancos());
-         duplicarEmpresasBancos.setCiudad(new Ciudades());
-         k++;
-         l = BigInteger.valueOf(k);
-
-         if (tipoLista == 0) {
-            duplicarEmpresasBancos.setSecuencia(l);
-            duplicarEmpresasBancos.setNumerocuenta(listEmpresasBancos.get(index).getNumerocuenta());
-            duplicarEmpresasBancos.setTipocuenta(listEmpresasBancos.get(index).getTipocuenta());
-            duplicarEmpresasBancos.setEmpresa(listEmpresasBancos.get(index).getEmpresa());
-            duplicarEmpresasBancos.setBanco(listEmpresasBancos.get(index).getBanco());
-            duplicarEmpresasBancos.setCiudad(listEmpresasBancos.get(index).getCiudad());
-         }
-         if (tipoLista == 1) {
-            duplicarEmpresasBancos.setSecuencia(l);
-            duplicarEmpresasBancos.setNumerocuenta(filtrarEmpresasBancos.get(index).getNumerocuenta());
-            duplicarEmpresasBancos.setTipocuenta(filtrarEmpresasBancos.get(index).getTipocuenta());
-            duplicarEmpresasBancos.setEmpresa(filtrarEmpresasBancos.get(index).getEmpresa());
-            duplicarEmpresasBancos.setBanco(filtrarEmpresasBancos.get(index).getBanco());
-            duplicarEmpresasBancos.setCiudad(filtrarEmpresasBancos.get(index).getCiudad());
-
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresasBancos').show()");
-         secRegistro = null;
-      }
-   }
-
-   public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
-      int contador = 0;
-      mensajeValidacion = " ";
-      int duplicados = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      Integer a = 0;
-      a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarEmpresasBancos.getNumerocuenta());
-
-      if (duplicarEmpresasBancos.getNumerocuenta() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Numero Cuenta \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-      } else {
-         for (int x = 0; x < listEmpresasBancos.size(); x++) {
-            if (listEmpresasBancos.get(x).getNumerocuenta() == duplicarEmpresasBancos.getNumerocuenta()) {
-               duplicados++;
-            }
-         }
-         if (duplicados > 0) {
-            mensajeValidacion = " *Que NO Existan Cuentas repetidas \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-         } else {
-            System.out.println("bandera");
-            contador++;
-            duplicados = 0;
-         }
-      }
-
-      if (duplicarEmpresasBancos.getEmpresa().getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Empresa \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         System.out.println("Bandera : ");
-         contador++;
-      }
-      if (duplicarEmpresasBancos.getBanco().getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Banco \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         System.out.println("Bandera : ");
-         contador++;
-      }
-      if (duplicarEmpresasBancos.getCiudad().getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Ciudad \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-      } else {
-         System.out.println("Bandera : ");
-         contador++;
-      }
-
-      if (contador == 4) {
-
-         System.out.println("Datos Duplicando: " + duplicarEmpresasBancos.getSecuencia() + "  " + duplicarEmpresasBancos.getNumerocuenta());
-         if (crearEmpresasBancos.contains(duplicarEmpresasBancos)) {
-            System.out.println("Ya lo contengo.");
-         }
-         listEmpresasBancos.add(duplicarEmpresasBancos);
-         crearEmpresasBancos.add(duplicarEmpresasBancos);
-         RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
-         index = -1;
-         System.out.println("--------------DUPLICAR------------------------");
-         System.out.println("CODIGO : " + duplicarEmpresasBancos.getNumerocuenta());
-         System.out.println("EMPRESA: " + duplicarEmpresasBancos.getEmpresa().getNombre());
-         System.out.println("PERSONA : " + duplicarEmpresasBancos.getBanco().getNombre());
-         System.out.println("CARGO : " + duplicarEmpresasBancos.getCiudad().getNombre());
-         System.out.println("--------------DUPLICAR------------------------");
-
-         secRegistro = null;
-         if (guardado == true) {
-            guardado = false;
-         }
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         infoRegistro = "Cantidad de registros: " + listEmpresasBancos.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-         if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
+    public void salir() {
+        limpiarListasValor();
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 1) {
             //CERRAR FILTRADO
             obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
             obsoleto.setFilterStyle("display: none; visibility: hidden;");
@@ -1865,326 +313,784 @@ public class ControlEmpresasBancos implements Serializable {
             bandera = 0;
             filtrarEmpresasBancos = null;
             tipoLista = 0;
-         }
-         duplicarEmpresasBancos = new EmpresasBancos();
-         duplicarEmpresasBancos.setEmpresa(new Empresas());
-         duplicarEmpresasBancos.setCiudad(new Ciudades());
-         duplicarEmpresasBancos.setBanco(new Bancos());
-         index = -1;
+        }
 
-         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresasBancos').hide()");
+        borrarEmpresasBancos.clear();
+        crearEmpresasBancos.clear();
+        modificarEmpresasBancos.clear();
+        empresasBancoSeleccionado = null;
+        empresasBancoSeleccionado = null;
+        k = 0;
+        listEmpresasBancos = null;
+        guardado = true;
+        permitirIndex = true;
+        contarRegistros();
+        RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
 
-      } else {
-         contador = 0;
-         RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-         RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
-      }
-   }
+    public void activarCtrlF11() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 0) {
+            tamano = 300;
+            obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
+            obsoleto.setFilterStyle("width: 85% !important;");
+            pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
+            pais.setFilterStyle("width: 85% !important;");
+            subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
+            subTituloFirma.setFilterStyle("width: 85% !important;");
+            personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
+            personafir.setFilterStyle("width: 85% !important;");
+            cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
+            cargo.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            System.out.println("Activar");
+            bandera = 1;
+        } else if (bandera == 1) {
+            System.out.println("Desactivar");
+            tamano = 320;
+            obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
+            obsoleto.setFilterStyle("display: none; visibility: hidden;");
+            pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
+            pais.setFilterStyle("display: none; visibility: hidden;");
+            subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
+            subTituloFirma.setFilterStyle("display: none; visibility: hidden;");
+            personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
+            personafir.setFilterStyle("display: none; visibility: hidden;");
+            cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
+            cargo.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            bandera = 0;
+            filtrarEmpresasBancos = null;
+            tipoLista = 0;
+        }
+    }
 
-   public void limpiarDuplicarEmpresasBancos() {
-      duplicarEmpresasBancos = new EmpresasBancos();
-      duplicarEmpresasBancos.setEmpresa(new Empresas());
-      duplicarEmpresasBancos.setBanco(new Bancos());
-      duplicarEmpresasBancos.setCiudad(new Ciudades());
-   }
+    public void actualizarCiudad() {
+        if (tipoActualizacion == 0) {
+            empresasBancoSeleccionado.setCiudad(ciudadSeleccionada);
 
-   public void exportPDF() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasBancosExportar");
-      FacesContext context = FacesContext.getCurrentInstance();
-      Exporter exporter = new ExportarPDF();
-      exporter.export(context, tabla, "EMPRESASBANCOS", false, false, "UTF-8", null, null);
-      context.responseComplete();
-      index = -1;
-      secRegistro = null;
-   }
+            if (!crearEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                if (modificarEmpresasBancos.isEmpty()) {
+                    modificarEmpresasBancos.add(empresasBancoSeleccionado);
+                } else if (!modificarEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                    modificarEmpresasBancos.add(empresasBancoSeleccionado);
+                }
+            }
+            guardado = false;
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else if (tipoActualizacion == 1) {
+            nuevoEmpresasBancos.setCiudad(ciudadSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
+        } else if (tipoActualizacion == 2) {
+            duplicarEmpresasBancos.setCiudad(ciudadSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
+        }
+        filtradoCiudades = null;
+        ciudadSeleccionada = null;
+        aceptar = true;
 
-   public void exportXLS() throws IOException {
-      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasBancosExportar");
-      FacesContext context = FacesContext.getCurrentInstance();
-      Exporter exporter = new ExportarXLS();
-      exporter.export(context, tabla, "EMPRESASBANCOS", false, false, "UTF-8", null, null);
-      context.responseComplete();
-      index = -1;
-      secRegistro = null;
-   }
+        RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("form:lovCiudades");
+        RequestContext.getCurrentInstance().update("form:aceptarCar");
+        RequestContext.getCurrentInstance().reset("form:lovCiudades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').hide()");
+    }
 
-   public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
-      if (!listEmpresasBancos.isEmpty()) {
-         if (secRegistro != null) {
-            System.out.println("lol 2");
-            int resultado = administrarRastros.obtenerTabla(secRegistro, "EMPRESASBANCOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+    public void cancelarCambioCiudad() {
+        filtradoCiudades = null;
+        ciudadSeleccionada = null;
+        aceptar = true;
+        RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("form:lovCiudades");
+        RequestContext.getCurrentInstance().update("form:aceptarCar");
+        RequestContext.getCurrentInstance().reset("form:lovCiudades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').hide()");
+    }
+
+    public void actualizarBancos() {
+        if (tipoActualizacion == 0) {
+            empresasBancoSeleccionado.setBanco(bancoSeleccionado);
+            if (!crearEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                if (modificarEmpresasBancos.isEmpty()) {
+                    modificarEmpresasBancos.add(empresasBancoSeleccionado);
+                } else if (!modificarEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                    modificarEmpresasBancos.add(empresasBancoSeleccionado);
+                }
+            }
+            guardado = false;
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else if (tipoActualizacion == 1) {
+            nuevoEmpresasBancos.setBanco(bancoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
+        } else if (tipoActualizacion == 2) {
+            duplicarEmpresasBancos.setBanco(bancoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
+        }
+        filtradoBancos = null;
+        bancoSeleccionado = null;
+        aceptar = true;
+
+        RequestContext.getCurrentInstance().update("form:bancosDialogo");
+        RequestContext.getCurrentInstance().update("form:lovBancos");
+        RequestContext.getCurrentInstance().update("form:aceptarPer");
+        RequestContext.getCurrentInstance().reset("form:lovBancos:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('bancosDialogo').hide()");
+    }
+
+    public void cancelarCambioBancos() {
+        filtradoBancos = null;
+        bancoSeleccionado = null;
+        aceptar = true;
+        RequestContext.getCurrentInstance().update("form:bancosDialogo");
+        RequestContext.getCurrentInstance().update("form:lovBancos");
+        RequestContext.getCurrentInstance().update("form:aceptarPer");
+        RequestContext.getCurrentInstance().reset("form:lovBancos:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('bancosDialogo').hide()");
+    }
+
+    public void actualizarEmpresa() {
+        if (tipoActualizacion == 0) {
+            empresasBancoSeleccionado.setEmpresa(empresaSeleccionado);
+            if (!crearEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                if (modificarEmpresasBancos.isEmpty()) {
+                    modificarEmpresasBancos.add(empresasBancoSeleccionado);
+                } else if (!modificarEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                    modificarEmpresasBancos.add(empresasBancoSeleccionado);
+                }
+            }
+            guardado = false;
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else if (tipoActualizacion == 1) {
+            nuevoEmpresasBancos.setEmpresa(empresaSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresa");
+        } else if (tipoActualizacion == 2) {
+            duplicarEmpresasBancos.setEmpresa(empresaSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresa");
+        }
+        filtradoEmpresas = null;
+        empresaSeleccionado = null;
+        aceptar = true;
+
+        RequestContext.getCurrentInstance().update("form:empresasDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEmpresas");
+        RequestContext.getCurrentInstance().update("form:aceptarS");
+        RequestContext.getCurrentInstance().reset("form:lovEmpresas:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('empresasDialogo').hide()");
+    }
+
+    public void cancelarCambioEmpresa() {
+        filtradoEmpresas = null;
+        empresaSeleccionado = null;
+        aceptar = true;
+        RequestContext.getCurrentInstance().update("form:empresasDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEmpresas");
+        RequestContext.getCurrentInstance().update("form:aceptarS");
+        RequestContext.getCurrentInstance().reset("form:lovEmpresas:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('empresasDialogo').hide()");
+    }
+
+    public void modificarEmpresasBancos(EmpresasBancos empresab) {
+        empresasBancoSeleccionado = empresab;
+        if (!crearEmpresasBancos.contains(empresasBancoSeleccionado)) {
+            if (modificarEmpresasBancos.isEmpty()) {
+                modificarEmpresasBancos.add(empresasBancoSeleccionado);
+            } else if (!modificarEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                modificarEmpresasBancos.add(empresasBancoSeleccionado);
+            }
+        }
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void borrandoEmpresasBancos() {
+
+        if (empresasBancoSeleccionado != null) {
+            if (tipoLista == 0) {
+                System.out.println("Entro a borrandoEmpresasBancos");
+                if (!modificarEmpresasBancos.isEmpty() && modificarEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                    int modIndex = modificarEmpresasBancos.indexOf(empresasBancoSeleccionado);
+                    modificarEmpresasBancos.remove(modIndex);
+                    borrarEmpresasBancos.add(empresasBancoSeleccionado);
+                } else if (!crearEmpresasBancos.isEmpty() && crearEmpresasBancos.contains(empresasBancoSeleccionado)) {
+                    int crearIndex = crearEmpresasBancos.indexOf(empresasBancoSeleccionado);
+                    crearEmpresasBancos.remove(crearIndex);
+                } else {
+                    borrarEmpresasBancos.add(empresasBancoSeleccionado);
+                }
+                listEmpresasBancos.remove(empresasBancoSeleccionado);
+            }
+            if (tipoLista == 1) {
+                filtrarEmpresasBancos.remove(empresasBancoSeleccionado);
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            contarRegistros();
+            empresasBancoSeleccionado = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+
+    }
+
+    public void revisarDialogoGuardar() {
+        if (!borrarEmpresasBancos.isEmpty() || !crearEmpresasBancos.isEmpty() || !modificarEmpresasBancos.isEmpty()) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        }
+
+    }
+
+    public void guardarEmpresasBancos() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (guardado == false) {
+            if (!borrarEmpresasBancos.isEmpty()) {
+                administrarEmpresasBancos.borrarEmpresasBancos(borrarEmpresasBancos);
+                //mostrarBorrados
+                registrosBorrados = borrarEmpresasBancos.size();
+                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+                borrarEmpresasBancos.clear();
+            }
+            if (!modificarEmpresasBancos.isEmpty()) {
+                administrarEmpresasBancos.modificarEmpresasBancos(modificarEmpresasBancos);
+                modificarEmpresasBancos.clear();
+            }
+            if (!crearEmpresasBancos.isEmpty()) {
+                administrarEmpresasBancos.crearEmpresasBancos(crearEmpresasBancos);
+                crearEmpresasBancos.clear();
+            }
+            System.out.println("Se guardaron los datos con exito");
+            listEmpresasBancos = null;
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            k = 0;
+            guardado = true;
+        }
+        empresasBancoSeleccionado = null;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void editarCelda() {
+        if (empresasBancoSeleccionado != null) {
+            editarEmpresasBancos = empresasBancoSeleccionado;
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
+                RequestContext.getCurrentInstance().execute("PF('editPais').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 3) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editSubtituloFirma");
+                RequestContext.getCurrentInstance().execute("PF('editSubtituloFirma').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editBancos");
+                RequestContext.getCurrentInstance().execute("PF('editBancos').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editCiudades");
+                RequestContext.getCurrentInstance().execute("PF('editCiudades').show()");
+                cualCelda = -1;
+            }
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void agregarNuevoEmpresasBancos() {
+        int contador = 0;
+        int duplicados = 0;
+
+        Integer a = 0;
+        a = null;
+        mensajeValidacion = " ";
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (nuevoEmpresasBancos.getNumerocuenta() == null) {
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
+        } else {
+            for (int x = 0; x < listEmpresasBancos.size(); x++) {
+                if (listEmpresasBancos.get(x).getNumerocuenta() == nuevoEmpresasBancos.getNumerocuenta()) {
+                    duplicados++;
+                }
+            }
+            if (duplicados > 0) {
+                mensajeValidacion = "La cuenta ingresada está relacionada con otro registro. Por favor ingrese una cuenta válida";
+            } else {
+                contador++;//1
+            }
+        }
+        if (nuevoEmpresasBancos.getEmpresa().getNombre() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;//2
+        }
+        if (nuevoEmpresasBancos.getBanco().getNombre() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;//3
+        }
+        if (nuevoEmpresasBancos.getCiudad().getNombre() == null) {
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;//4
+        }
+
+        if (contador == 4) {
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                //CERRAR FILTRADO
+                System.out.println("Desactivar");
+                obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
+                obsoleto.setFilterStyle("display: none; visibility: hidden;");
+                pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
+                pais.setFilterStyle("display: none; visibility: hidden;");
+                subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
+                subTituloFirma.setFilterStyle("display: none; visibility: hidden;");
+                personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
+                personafir.setFilterStyle("display: none; visibility: hidden;");
+                cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
+                cargo.setFilterStyle("display: none; visibility: hidden;");
+                bandera = 0;
+                filtrarEmpresasBancos = null;
+                tipoLista = 0;
+            }
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoEmpresasBancos.setSecuencia(l);
+            crearEmpresasBancos.add(nuevoEmpresasBancos);
+            listEmpresasBancos.add(nuevoEmpresasBancos);
+            empresasBancoSeleccionado = nuevoEmpresasBancos;
+            contarRegistros();
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEmpresasBancos').hide()");
+            nuevoEmpresasBancos = new EmpresasBancos();
+            nuevoEmpresasBancos.setEmpresa(new Empresas());
+            nuevoEmpresasBancos.setCiudad(new Ciudades());
+            nuevoEmpresasBancos.setBanco(new Bancos());
+        } else {
+            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
+            contador = 0;
+        }
+    }
+
+    public void limpiarNuevoEmpresasBancos() {
+        nuevoEmpresasBancos = new EmpresasBancos();
+        nuevoEmpresasBancos.setEmpresa(new Empresas());
+        nuevoEmpresasBancos.setBanco(new Bancos());
+        nuevoEmpresasBancos.setCiudad(new Ciudades());
+
+    }
+
+    public void duplicandoEmpresasBancos() {
+        if (empresasBancoSeleccionado != null) {
+            duplicarEmpresasBancos = new EmpresasBancos();
+            duplicarEmpresasBancos.setEmpresa(new Empresas());
+            duplicarEmpresasBancos.setBanco(new Bancos());
+            duplicarEmpresasBancos.setCiudad(new Ciudades());
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarEmpresasBancos.setSecuencia(l);
+            duplicarEmpresasBancos.setNumerocuenta(empresasBancoSeleccionado.getNumerocuenta());
+            duplicarEmpresasBancos.setTipocuenta(empresasBancoSeleccionado.getTipocuenta());
+            duplicarEmpresasBancos.setEmpresa(empresasBancoSeleccionado.getEmpresa());
+            duplicarEmpresasBancos.setBanco(empresasBancoSeleccionado.getBanco());
+            duplicarEmpresasBancos.setCiudad(empresasBancoSeleccionado.getCiudad());
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresasBancos').show()");
+        }
+    }
+
+    public void confirmarDuplicar() {
+        int contador = 0;
+        mensajeValidacion = " ";
+        int duplicados = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        Integer a = 0;
+        a = null;
+        if (duplicarEmpresasBancos.getNumerocuenta() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            for (int x = 0; x < listEmpresasBancos.size(); x++) {
+                if (listEmpresasBancos.get(x).getNumerocuenta() == duplicarEmpresasBancos.getNumerocuenta()) {
+                    duplicados++;
+                }
+            }
+            if (duplicados > 0) {
+                mensajeValidacion = " La cuenta ingresada está relacionada con otro registro. Por favor ingrese una cuenta válida";
+            } else {
+                contador++;
+                duplicados = 0;
+            }
+        }
+
+        if (duplicarEmpresasBancos.getEmpresa().getNombre() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;
+        }
+        if (duplicarEmpresasBancos.getBanco().getNombre() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;
+        }
+        if (duplicarEmpresasBancos.getCiudad().getNombre() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            contador++;
+        }
+
+        if (contador == 4) {
+            listEmpresasBancos.add(duplicarEmpresasBancos);
+            crearEmpresasBancos.add(duplicarEmpresasBancos);
+            empresasBancoSeleccionado = duplicarEmpresasBancos;
+            RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            contarRegistros();
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                //CERRAR FILTRADO
+                obsoleto = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:obsoleto");
+                obsoleto.setFilterStyle("display: none; visibility: hidden;");
+                pais = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:pais");
+                pais.setFilterStyle("display: none; visibility: hidden;");
+                subTituloFirma = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:subTituloFirma");
+                subTituloFirma.setFilterStyle("display: none; visibility: hidden;");
+                personafir = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:personafir");
+                personafir.setFilterStyle("display: none; visibility: hidden;");
+                cargo = (Column) c.getViewRoot().findComponent("form:datosEmpresasBancos:cargo");
+                cargo.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");
+                bandera = 0;
+                filtrarEmpresasBancos = null;
+                tipoLista = 0;
+            }
+            duplicarEmpresasBancos = new EmpresasBancos();
+            duplicarEmpresasBancos.setEmpresa(new Empresas());
+            duplicarEmpresasBancos.setCiudad(new Ciudades());
+            duplicarEmpresasBancos.setBanco(new Bancos());
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresasBancos').hide()");
+        } else {
+            contador = 0;
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+        }
+    }
+
+    public void limpiarDuplicarEmpresasBancos() {
+        duplicarEmpresasBancos = new EmpresasBancos();
+        duplicarEmpresasBancos.setEmpresa(new Empresas());
+        duplicarEmpresasBancos.setBanco(new Bancos());
+        duplicarEmpresasBancos.setCiudad(new Ciudades());
+    }
+
+    public void exportPDF() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasBancosExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "EMPRESASBANCOS", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLS() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpresasBancosExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "EMPRESASBANCOS", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void verificarRastro() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (empresasBancoSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(empresasBancoSeleccionado.getSecuencia(), "EMPRESASBANCOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-               RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-               RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-               RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
-         } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-         }
-      } else if (administrarRastros.verificarHistoricosTabla("EMPRESASBANCOS")) { // igual acá
-         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-      }
-      index = -1;
-   }
+        } else if (administrarRastros.verificarHistoricosTabla("EMPRESASBANCOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+        }
+    }
 
-   private String infoRegistro;
+    public void contarRegistrosEmpresas() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
+    }
 
-   //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
-   public List<EmpresasBancos> getListEmpresasBancos() {
-      if (listEmpresasBancos == null) {
-         listEmpresasBancos = administrarEmpresasBancos.consultarEmpresasBancos();
-      }
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listEmpresasBancos == null || listEmpresasBancos.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listEmpresasBancos.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      return listEmpresasBancos;
-   }
+    public void contarRegistrosCiudades() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroCiudades");
+    }
 
-   public void setListEmpresasBancos(List<EmpresasBancos> listEmpresasBancos) {
-      this.listEmpresasBancos = listEmpresasBancos;
-   }
+    public void contarRegistrosBancos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistrosBancos");
+    }
 
-   public List<EmpresasBancos> getFiltrarEmpresasBancos() {
-      return filtrarEmpresasBancos;
-   }
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
 
-   public void setFiltrarEmpresasBancos(List<EmpresasBancos> filtrarEmpresasBancos) {
-      this.filtrarEmpresasBancos = filtrarEmpresasBancos;
-   }
+    public void habilitarLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
 
-   public EmpresasBancos getNuevoEmpresasBancos() {
-      return nuevoEmpresasBancos;
-   }
+    public void deshabilitarLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
 
-   public void setNuevoEmpresasBancos(EmpresasBancos nuevoEmpresasBancos) {
-      this.nuevoEmpresasBancos = nuevoEmpresasBancos;
-   }
+    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
+    public List<EmpresasBancos> getListEmpresasBancos() {
+        if (listEmpresasBancos == null) {
+            listEmpresasBancos = administrarEmpresasBancos.consultarEmpresasBancos();
+        }
+        return listEmpresasBancos;
+    }
 
-   public EmpresasBancos getDuplicarEmpresasBancos() {
-      return duplicarEmpresasBancos;
-   }
+    public void setListEmpresasBancos(List<EmpresasBancos> listEmpresasBancos) {
+        this.listEmpresasBancos = listEmpresasBancos;
+    }
 
-   public void setDuplicarEmpresasBancos(EmpresasBancos duplicarEmpresasBancos) {
-      this.duplicarEmpresasBancos = duplicarEmpresasBancos;
-   }
+    public List<EmpresasBancos> getFiltrarEmpresasBancos() {
+        return filtrarEmpresasBancos;
+    }
 
-   public EmpresasBancos getEditarEmpresasBancos() {
-      return editarEmpresasBancos;
-   }
+    public void setFiltrarEmpresasBancos(List<EmpresasBancos> filtrarEmpresasBancos) {
+        this.filtrarEmpresasBancos = filtrarEmpresasBancos;
+    }
 
-   public void setEditarEmpresasBancos(EmpresasBancos editarEmpresasBancos) {
-      this.editarEmpresasBancos = editarEmpresasBancos;
-   }
+    public EmpresasBancos getNuevoEmpresasBancos() {
+        return nuevoEmpresasBancos;
+    }
 
-   public BigInteger getSecRegistro() {
-      return secRegistro;
-   }
+    public void setNuevoEmpresasBancos(EmpresasBancos nuevoEmpresasBancos) {
+        this.nuevoEmpresasBancos = nuevoEmpresasBancos;
+    }
 
-   public void setSecRegistro(BigInteger secRegistro) {
-      this.secRegistro = secRegistro;
-   }
+    public EmpresasBancos getDuplicarEmpresasBancos() {
+        return duplicarEmpresasBancos;
+    }
 
-   public int getRegistrosBorrados() {
-      return registrosBorrados;
-   }
+    public void setDuplicarEmpresasBancos(EmpresasBancos duplicarEmpresasBancos) {
+        this.duplicarEmpresasBancos = duplicarEmpresasBancos;
+    }
 
-   public void setRegistrosBorrados(int registrosBorrados) {
-      this.registrosBorrados = registrosBorrados;
-   }
+    public EmpresasBancos getEditarEmpresasBancos() {
+        return editarEmpresasBancos;
+    }
 
-   public String getMensajeValidacion() {
-      return mensajeValidacion;
-   }
+    public void setEditarEmpresasBancos(EmpresasBancos editarEmpresasBancos) {
+        this.editarEmpresasBancos = editarEmpresasBancos;
+    }
 
-   public void setMensajeValidacion(String mensajeValidacion) {
-      this.mensajeValidacion = mensajeValidacion;
-   }
+    public int getRegistrosBorrados() {
+        return registrosBorrados;
+    }
 
-   public boolean isGuardado() {
-      return guardado;
-   }
+    public void setRegistrosBorrados(int registrosBorrados) {
+        this.registrosBorrados = registrosBorrados;
+    }
 
-   public void setGuardado(boolean guardado) {
-      this.guardado = guardado;
-   }
+    public String getMensajeValidacion() {
+        return mensajeValidacion;
+    }
 
-   public int getTamano() {
-      return tamano;
-   }
+    public void setMensajeValidacion(String mensajeValidacion) {
+        this.mensajeValidacion = mensajeValidacion;
+    }
 
-   public void setTamano(int tamano) {
-      this.tamano = tamano;
-   }
-   private String infoRegistroEmpresas;
+    public boolean isGuardado() {
+        return guardado;
+    }
 
-   public List<Empresas> getLovEmpresas() {
-      if (lovEmpresas == null) {
-         lovEmpresas = administrarEmpresasBancos.consultarLOVEmpresas();
-      }
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (lovEmpresas == null || lovEmpresas.isEmpty()) {
-         infoRegistroEmpresas = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistroEmpresas = "Cantidad de registros: " + lovEmpresas.size();
-      }
-      RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
-      return lovEmpresas;
-   }
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
 
-   public void setLovEmpresas(List<Empresas> lovEmpresas) {
-      this.lovEmpresas = lovEmpresas;
-   }
+    public int getTamano() {
+        return tamano;
+    }
 
-   public List<Empresas> getFiltradoEmpresas() {
-      return filtradoEmpresas;
-   }
+    public void setTamano(int tamano) {
+        this.tamano = tamano;
+    }
 
-   public void setFiltradoEmpresas(List<Empresas> filtradoEmpresas) {
-      this.filtradoEmpresas = filtradoEmpresas;
-   }
+    public List<Empresas> getLovEmpresas() {
+        if (lovEmpresas == null) {
+            lovEmpresas = administrarEmpresasBancos.consultarLOVEmpresas();
+        }
+        return lovEmpresas;
+    }
 
-   public Empresas getEmpresaSeleccionado() {
-      return empresaSeleccionado;
-   }
+    public void setLovEmpresas(List<Empresas> lovEmpresas) {
+        this.lovEmpresas = lovEmpresas;
+    }
 
-   public void setEmpresaSeleccionado(Empresas empresaSeleccionado) {
-      this.empresaSeleccionado = empresaSeleccionado;
-   }
-   private String infoRegistrosBancos;
+    public List<Empresas> getFiltradoEmpresas() {
+        return filtradoEmpresas;
+    }
 
-   public List<Bancos> getLovBancos() {
-      if (lovBancos == null) {
-         lovBancos = administrarEmpresasBancos.consultarLOVBancos();
-      }
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (lovBancos == null || lovBancos.isEmpty()) {
-         infoRegistrosBancos = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistrosBancos = "Cantidad de registros: " + lovBancos.size();
-      }
-      RequestContext.getCurrentInstance().update("form:infoRegistrosBancos");
-      return lovBancos;
-   }
+    public void setFiltradoEmpresas(List<Empresas> filtradoEmpresas) {
+        this.filtradoEmpresas = filtradoEmpresas;
+    }
 
-   public void setLovBancos(List<Bancos> lovBancos) {
-      this.lovBancos = lovBancos;
-   }
+    public Empresas getEmpresaSeleccionado() {
+        return empresaSeleccionado;
+    }
 
-   public List<Bancos> getFiltradoBancos() {
-      return filtradoBancos;
-   }
+    public void setEmpresaSeleccionado(Empresas empresaSeleccionado) {
+        this.empresaSeleccionado = empresaSeleccionado;
+    }
 
-   public void setFiltradoBancos(List<Bancos> filtradoBancos) {
-      this.filtradoBancos = filtradoBancos;
-   }
+    public List<Bancos> getLovBancos() {
+        if (lovBancos == null) {
+            lovBancos = administrarEmpresasBancos.consultarLOVBancos();
+        }
+        return lovBancos;
+    }
 
-   public Bancos getBancoSeleccionado() {
-      return bancoSeleccionado;
-   }
+    public void setLovBancos(List<Bancos> lovBancos) {
+        this.lovBancos = lovBancos;
+    }
 
-   public void setBancoSeleccionado(Bancos bancoSeleccionado) {
-      this.bancoSeleccionado = bancoSeleccionado;
-   }
+    public List<Bancos> getFiltradoBancos() {
+        return filtradoBancos;
+    }
 
-   private String infoRegistroCiudades;
+    public void setFiltradoBancos(List<Bancos> filtradoBancos) {
+        this.filtradoBancos = filtradoBancos;
+    }
 
-   public List<Ciudades> getLovCiudades() {
-      if (lovCiudades == null) {
-         lovCiudades = administrarEmpresasBancos.consultarLOVCiudades();
-      }
+    public Bancos getBancoSeleccionado() {
+        return bancoSeleccionado;
+    }
 
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (lovCiudades == null || lovCiudades.isEmpty()) {
-         infoRegistroCiudades = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistroCiudades = "Cantidad de registros: " + lovCiudades.size();
-      }
-      RequestContext.getCurrentInstance().update("form:infoRegistroCiudades");
+    public void setBancoSeleccionado(Bancos bancoSeleccionado) {
+        this.bancoSeleccionado = bancoSeleccionado;
+    }
 
-      return lovCiudades;
-   }
+    public List<Ciudades> getLovCiudades() {
+        if (lovCiudades == null) {
+            lovCiudades = administrarEmpresasBancos.consultarLOVCiudades();
+        }
+        return lovCiudades;
+    }
 
-   public void setLovCiudades(List<Ciudades> lovCiudades) {
-      this.lovCiudades = lovCiudades;
-   }
+    public void setLovCiudades(List<Ciudades> lovCiudades) {
+        this.lovCiudades = lovCiudades;
+    }
 
-   public List<Ciudades> getFiltradoCiudades() {
-      return filtradoCiudades;
-   }
+    public List<Ciudades> getFiltradoCiudades() {
+        return filtradoCiudades;
+    }
 
-   public void setFiltradoCiudades(List<Ciudades> filtradoCiudades) {
-      this.filtradoCiudades = filtradoCiudades;
-   }
+    public void setFiltradoCiudades(List<Ciudades> filtradoCiudades) {
+        this.filtradoCiudades = filtradoCiudades;
+    }
 
-   public Ciudades getCiudadSeleccionado() {
-      return cargoSeleccionado;
-   }
+    public Ciudades getCiudadSeleccionado() {
+        return ciudadSeleccionada;
+    }
 
-   public void setCiudadSeleccionado(Ciudades cargoSeleccionado) {
-      this.cargoSeleccionado = cargoSeleccionado;
-   }
+    public void setCiudadSeleccionado(Ciudades cargoSeleccionado) {
+        this.ciudadSeleccionada = cargoSeleccionado;
+    }
 
-   public EmpresasBancos getEmpresasBancoSeleccionado() {
-      return empresasBancoSeleccionado;
-   }
+    public EmpresasBancos getEmpresasBancoSeleccionado() {
+        return empresasBancoSeleccionado;
+    }
 
-   public void setEmpresasBancoSeleccionado(EmpresasBancos empresasBancoSeleccionado) {
-      this.empresasBancoSeleccionado = empresasBancoSeleccionado;
-   }
+    public void setEmpresasBancoSeleccionado(EmpresasBancos empresasBancoSeleccionado) {
+        this.empresasBancoSeleccionado = empresasBancoSeleccionado;
+    }
 
-   public boolean isAceptar() {
-      return aceptar;
-   }
+    public boolean isAceptar() {
+        return aceptar;
+    }
 
-   public void setAceptar(boolean aceptar) {
-      this.aceptar = aceptar;
-   }
+    public void setAceptar(boolean aceptar) {
+        this.aceptar = aceptar;
+    }
 
-   public String getInfoRegistro() {
-      return infoRegistro;
-   }
+    public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpresasBancos");
+        infoRegistro = String.valueOf(tabla.getRowCount());
+        return infoRegistro;
+    }
 
-   public void setInfoRegistro(String infoRegistro) {
-      this.infoRegistro = infoRegistro;
-   }
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
 
-   public String getInfoRegistroEmpresas() {
-      return infoRegistroEmpresas;
-   }
+    public String getInfoRegistroEmpresas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
+        infoRegistroEmpresas = String.valueOf(tabla.getRowCount());
+        return infoRegistroEmpresas;
+    }
 
-   public void setInfoRegistroEmpresas(String infoRegistroEmpresas) {
-      this.infoRegistroEmpresas = infoRegistroEmpresas;
-   }
+    public void setInfoRegistroEmpresas(String infoRegistroEmpresas) {
+        this.infoRegistroEmpresas = infoRegistroEmpresas;
+    }
 
-   public String getInfoRegistrosBancos() {
-      return infoRegistrosBancos;
-   }
+    public String getInfoRegistrosBancos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovBancos");
+        infoRegistrosBancos = String.valueOf(tabla.getRowCount());
+        return infoRegistrosBancos;
+    }
 
-   public void setInfoRegistrosBancos(String infoRegistrosBancos) {
-      this.infoRegistrosBancos = infoRegistrosBancos;
-   }
+    public void setInfoRegistrosBancos(String infoRegistrosBancos) {
+        this.infoRegistrosBancos = infoRegistrosBancos;
+    }
 
-   public String getInfoRegistroCiudades() {
-      return infoRegistroCiudades;
-   }
+    public String getInfoRegistroCiudades() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovCiudades");
+        infoRegistroCiudades = String.valueOf(tabla.getRowCount());
+        return infoRegistroCiudades;
+    }
 
-   public void setInfoRegistroCiudades(String infoRegistroCiudades) {
-      this.infoRegistroCiudades = infoRegistroCiudades;
-   }
+    public void setInfoRegistroCiudades(String infoRegistroCiudades) {
+        this.infoRegistroCiudades = infoRegistroCiudades;
+    }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
 }
