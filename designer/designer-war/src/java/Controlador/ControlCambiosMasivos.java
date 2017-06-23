@@ -313,6 +313,7 @@ public class ControlCambiosMasivos {
       FacesMessage msg = new FacesMessage("Cambios Masivos", "Los Cambios se han realizado Correctamente.");
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
+      cancelarModificaciones();
    }
 
    public void procesarCargo() {
@@ -421,7 +422,18 @@ public class ControlCambiosMasivos {
    public void procesarNovedades() {
       if (parametroCambioMasivoActual.getNoveTipo() != null && parametroCambioMasivoActual.getNoveConcepto() != null && parametroCambioMasivoActual.getNovePeriodicidad() != null
               && parametroCambioMasivoActual.getNoveFormula() != null && parametroCambioMasivoActual.getFechaNoveCambioInicial() != null) {
-         if (parametroCambioMasivoActual.getNoveValor() != null || parametroCambioMasivoActual.getNoveUnidadParteEntera() != null || parametroCambioMasivoActual.getNoveUnidadParteFraccion() != null) {
+         boolean continuar = false;
+         if (administrarCambiosMasivos.comprobarConceptoManual(parametroCambioMasivoActual.getNoveConcepto())) {
+            if (parametroCambioMasivoActual.getNoveValor() != null) {
+               continuar = true;
+            }
+         } else if (parametroCambioMasivoActual.getNoveValor() != null || parametroCambioMasivoActual.getNoveUnidadParteEntera() != null || parametroCambioMasivoActual.getNoveUnidadParteFraccion() != null) {
+            if (parametroCambioMasivoActual.getNoveValor() == null) {
+               parametroCambioMasivoActual.setNoveValor(new BigInteger("0"));
+            }
+            continuar = true;
+         }
+         if (continuar) {
             administrarCambiosMasivos.adicionaNovedadCM2(parametroCambioMasivoActual.getNoveTipo(), parametroCambioMasivoActual.getNoveConcepto(),
                     parametroCambioMasivoActual.getNovePeriodicidad(), parametroCambioMasivoActual.getNoveTercero(), parametroCambioMasivoActual.getNoveFormula(),
                     parametroCambioMasivoActual.getNoveValor(), parametroCambioMasivoActual.getNoveSaldo(), parametroCambioMasivoActual.getFechaNoveCambioInicial(),

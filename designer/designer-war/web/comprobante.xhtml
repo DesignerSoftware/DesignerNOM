@@ -784,7 +784,7 @@
 
                <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo" resizable="false" draggable="true" modal="true" width="732" closable="false">
 
-                  <p:dataTable  id="lovEmpleados" var="parametro" value="#{controlComprobantes.listaParametrosLOV}"
+                  <p:dataTable  id="lovEmpleados" var="parametro" value="#{controlComprobantes.lovParametros}"
                                 scrollable="true" scrollHeight="225" scrollWidth="716" widgetVar="lovEmpleados" liveScroll="true" scrollRows="20" 
                                 filteredValue="#{controlComprobantes.filtradoListaParametrosLOV}" emptyMessage="#{msg['lovvacio']}" 
                                 rowKey="#{parametro.empleado.secuencia}" selection="#{controlComprobantes.parametroSeleccionado}" selectionMode="single">

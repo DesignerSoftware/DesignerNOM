@@ -40,7 +40,7 @@ public class ControlComprobantes implements Serializable {
    private List<Parametros> listaParametros;
    private Parametros parametroActual;
    private ParametrosEstructuras parametroEstructura;
-   private List<Parametros> listaParametrosLOV;
+   private List<Parametros> lovParametros;
    private List<Parametros> filtradoListaParametrosLOV;
    private Parametros parametroSeleccionado;
    //SOLUCIONES NODOS EMPLEADO
@@ -100,17 +100,30 @@ public class ControlComprobantes implements Serializable {
       descuento = "0";
       netoTotal = "0";
       tablaActual = 0;
-      listaParametrosLOV = new ArrayList<Parametros>();
+      lovParametros = new ArrayList<Parametros>();
       editarParametros = new Parametros();
       tipoLista = 0;
       solucionNodoEmpleadoSeleccionado = null;
       solucionNodoEmpleadorSeleccionado = null;
       editarSolucionNodo = new SolucionesNodos();
       registroActual = 0;
-      listaSolucionesNodosEmpleado = null;
-      listaSolucionesNodosEmpleador = null;
+      listaSolucionesNodosEmpleado = new ArrayList<>();
+      listaSolucionesNodosEmpleador = new ArrayList<>();
       listaParametros = new ArrayList<Parametros>();
       mapParametros.put("paginaAnterior", "nominaf");
+      index = 0;
+   }
+
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarComprobantes.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
    }
 
    public void recibirParametros(Map<String, Object> map) {
@@ -144,27 +157,16 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void limpiarListasValor() {
-
-   }
-
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarComprobantes.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
+      lovParametros = null;
    }
 
    public void refrescar() {
+      System.out.println("ControlComprobantes.refrescar()");
       solucionNodoEmpleadoSeleccionado = null;
       solucionNodoEmpleadorSeleccionado = null;
       listaParametros.clear();
-      listaSolucionesNodosEmpleado = null;
-      listaSolucionesNodosEmpleador = null;
+      listaSolucionesNodosEmpleado.clear();
+      listaSolucionesNodosEmpleador.clear();
       getListaParametros();
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("form:datosSolucionesNodosEmpleado");
@@ -175,8 +177,8 @@ public class ControlComprobantes implements Serializable {
       if (registroActual > 0) {
          registroActual--;
          parametroActual = listaParametros.get(registroActual);
-         listaSolucionesNodosEmpleado = null;
-         listaSolucionesNodosEmpleador = null;
+         listaSolucionesNodosEmpleado.clear();
+         listaSolucionesNodosEmpleador.clear();
          getListaSolucionesNodosEmpleado();
          getListaSolucionesNodosEmpleador();
          if (registroActual == 0) {
@@ -205,8 +207,8 @@ public class ControlComprobantes implements Serializable {
       if (registroActual < (listaParametros.size() - 1)) {
          registroActual++;
          parametroActual = listaParametros.get(registroActual);
-         listaSolucionesNodosEmpleado = null;
-         listaSolucionesNodosEmpleador = null;
+         listaSolucionesNodosEmpleado.clear();
+         listaSolucionesNodosEmpleador.clear();
          getListaSolucionesNodosEmpleado();
          getListaSolucionesNodosEmpleador();
          if (registroActual > 0) {
@@ -232,6 +234,7 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void seleccionarEmpleado() {
+      System.out.println("ControlComprobantes.seleccionarEmpleado()");
       listaParametros.clear();
       listaParametros.add(parametroSeleccionado);
       parametroActual = parametroSeleccionado;
@@ -240,8 +243,8 @@ public class ControlComprobantes implements Serializable {
       parametroSeleccionado = null;
       aceptar = true;
       mostrarTodos = false;
-      listaSolucionesNodosEmpleado = null;
-      listaSolucionesNodosEmpleador = null;
+      listaSolucionesNodosEmpleado.clear();
+      listaSolucionesNodosEmpleador.clear();
       getListaSolucionesNodosEmpleado();
       getListaSolucionesNodosEmpleador();
       RequestContext context = RequestContext.getCurrentInstance();
@@ -254,6 +257,8 @@ public class ControlComprobantes implements Serializable {
       context.reset("formularioDialogos:lovEmpleados:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovEmpleados').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('buscarEmpleadoDialogo').hide()");
+      contarRegistrosComprobanteEmpleado();
+      contarRegistrosComprobanteEmpleador();
    }
 
    public void cancelarSeleccionEmpleado() {
@@ -267,13 +272,14 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void mostarTodosEmpleados() {
+      System.out.println("ControlComprobantes.mostarTodosEmpleados()");
       registroActual = 0;
       listaParametros.clear();
       parametroActual = null;
-      listaParametrosLOV = null;
+      lovParametros = null;
       getParametroActual();
-      listaSolucionesNodosEmpleado = null;
-      listaSolucionesNodosEmpleador = null;
+      listaSolucionesNodosEmpleado.clear();
+      listaSolucionesNodosEmpleador.clear();
       getListaSolucionesNodosEmpleado();
       getListaSolucionesNodosEmpleador();
       contarRegistrosComprobanteEmpleado();
@@ -286,6 +292,7 @@ public class ControlComprobantes implements Serializable {
 
    //CTRL + F11 ACTIVAR/DESACTIVAR
    public void activarCtrlF11() {
+      System.out.println("ControlComprobantes.activarCtrlF11()");
       if (bandera == 0) {
          //SOLUCIONES NODOS EMPLEADO
          codigoSNE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionesNodosEmpleado:codigoSNE");
@@ -352,7 +359,6 @@ public class ControlComprobantes implements Serializable {
          FechaModificacioSNER.setFilterStyle("width: 85% !important");
 
          altoScrollSolucionesNodosEmpleado = "80";
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
          RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
          bandera = 1;
@@ -564,7 +570,6 @@ public class ControlComprobantes implements Serializable {
 
    public void verDetallesFormula() {
       listaDetallesFormulas = null;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:detallesFormulas");
       RequestContext.getCurrentInstance().execute("PF('detallesFormulas').show();");
    }
@@ -572,8 +577,8 @@ public class ControlComprobantes implements Serializable {
    public void salir() {
       limpiarListasValor();
       parametroActual = null;
-      listaSolucionesNodosEmpleado = null;
-      listaSolucionesNodosEmpleador = null;
+      listaSolucionesNodosEmpleado.clear();
+      listaSolucionesNodosEmpleador.clear();
       parametroEstructura = null;
       registroActual = 0;
       estadoBtnArriba = false;
@@ -805,15 +810,19 @@ public class ControlComprobantes implements Serializable {
       this.parametroEstructura = parametroEstructura;
    }
 
-   public List<Parametros> getListaParametrosLOV() {
-      if (listaParametrosLOV == null || listaParametrosLOV.isEmpty()) {
-         listaParametrosLOV = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
+   public List<Parametros> getLovParametros() {
+      if (lovParametros == null) {
+         lovParametros = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
+         System.out.println("ControlComprobantes.getLovParametros() consulto parametros");
+      } else if (lovParametros.isEmpty()) {
+         lovParametros = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
+         System.out.println("ControlComprobantes.getLovParametros() consulto parametros");
       }
-      return listaParametrosLOV;
+      return lovParametros;
    }
 
-   public void setListaParametrosLOV(List<Parametros> listaParametrosLOV) {
-      this.listaParametrosLOV = listaParametrosLOV;
+   public void setLovParametros(List<Parametros> lovParametros) {
+      this.lovParametros = lovParametros;
    }
 
    public Parametros getParametroSeleccionado() {
@@ -842,8 +851,9 @@ public class ControlComprobantes implements Serializable {
 
    public List<SolucionesNodos> getListaSolucionesNodosEmpleado() {
       if (parametroActual != null) {
-         if (listaSolucionesNodosEmpleado == null) {
+         if (listaSolucionesNodosEmpleado.isEmpty()) {
             listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(parametroActual.getEmpleado().getSecuencia());
+            System.out.println("ControlComprobantes.getListaSolucionesNodosEmpleado() Consulto");
             if (listaSolucionesNodosEmpleado != null) {
                subtotalPago = new BigDecimal(0);
                subtotalDescuento = new BigDecimal(0);
@@ -858,6 +868,8 @@ public class ControlComprobantes implements Serializable {
                pago = nf.format(subtotalPago);
                descuento = nf.format(subtotalDescuento);
                netoTotal = nf.format(neto);
+            } else {
+               listaSolucionesNodosEmpleado = new ArrayList<SolucionesNodos>();
             }
          }
       }
@@ -878,9 +890,10 @@ public class ControlComprobantes implements Serializable {
 
    public List<SolucionesNodos> getListaSolucionesNodosEmpleador() {
       if (parametroActual != null) {
-         if (listaSolucionesNodosEmpleador == null) {
+         if (listaSolucionesNodosEmpleador.isEmpty()) {
             if (parametroActual.getEmpleado().getSecuencia() != null) {
                listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(parametroActual.getEmpleado().getSecuencia());
+               System.out.println("ControlComprobantes.getListaSolucionesNodosEmpleador() Consulto");
                if (listaSolucionesNodosEmpleador != null) {
                   subtotalPasivo = new BigDecimal(0);
                   subtotalGasto = new BigDecimal(0);
@@ -893,6 +906,8 @@ public class ControlComprobantes implements Serializable {
                   }
                   pasivo = nf.format(subtotalPasivo);
                   gasto = nf.format(subtotalGasto);
+               } else {
+                  listaSolucionesNodosEmpleador = new ArrayList<SolucionesNodos>();
                }
             }
          }
@@ -965,11 +980,13 @@ public class ControlComprobantes implements Serializable {
    }
 
    public List<DetallesFormulas> getListaDetallesFormulas() {
+      System.out.println("getListaDetallesFormulas() Entro index : " + index);
       if (listaDetallesFormulas == null) {
          BigInteger secEmpleado = null, secProceso = null, secHistoriaFormula, secFormula = null;
          String fechaDesde = null, fechaHasta = null;
          if (tablaActual == 0) {
-            if (listaSolucionesNodosEmpleado != null || !listaSolucionesNodosEmpleado.isEmpty()) {
+            if (!listaSolucionesNodosEmpleado.isEmpty()) {
+               System.out.println("getListaDetallesFormulas() Entro listaSolucionesNodosEmpleado.get(index) : " + listaSolucionesNodosEmpleado.get(index));
                secFormula = listaSolucionesNodosEmpleado.get(index).getFormula();//
                fechaDesde = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechadesde()); //
                fechaHasta = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechahasta()); //
@@ -977,7 +994,7 @@ public class ControlComprobantes implements Serializable {
                secProceso = listaSolucionesNodosEmpleado.get(index).getProceso();//
             }
          } else if (tablaActual == 1) {
-            if (listaSolucionesNodosEmpleador != null || !listaSolucionesNodosEmpleador.isEmpty()) {
+            if (!listaSolucionesNodosEmpleador.isEmpty()) {
                secFormula = listaSolucionesNodosEmpleador.get(index).getFormula();  //
                fechaDesde = formatoFecha.format(listaSolucionesNodosEmpleador.get(index)); // 
                fechaHasta = formatoFecha.format(listaSolucionesNodosEmpleador.get(index)); //
@@ -988,6 +1005,7 @@ public class ControlComprobantes implements Serializable {
          if (secFormula != null && fechaDesde != null) {
             secHistoriaFormula = administrarComprobantes.consultarHistoriaFormulaFormula(secFormula, fechaDesde);
             listaDetallesFormulas = administrarComprobantes.consultarDetallesFormulasEmpleado(secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
+            System.out.println("getListaDetallesFormulas() Consulto listaDetallesFormulas");
          }
       }
       return listaDetallesFormulas;

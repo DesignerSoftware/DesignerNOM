@@ -1386,8 +1386,14 @@
 
                <p:dialog id="validacionCamposVacios" header="#{msg['atencion']}" widgetVar="validacionCamposVacios"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"/>
-                  <h:outputText value="#{msg['validacionCamposVacios']}" style="position: absolute; left: 100px; top: 20px; width: 270px;"/>
-                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionCamposVacios').hide();" style="position: absolute; top: 55px; left: 280px;" icon="ui-icon-check" process="@this"/>
+                  <h:outputText value="#{msg['validacionCamposVacios']}" style="position: absolute; left: 100px; top: 10px; width: 270px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionCamposVacios').hide();" style="position: absolute; top: 65px; left: 280px;" icon="ui-icon-check" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="validacionValorVacioNovedad" header="#{msg['atencion']}" widgetVar="validacionValorVacioNovedad"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                  <h:outputText value="#{msg['validacionValorVacioNovedad']}" style="position: absolute; left: 100px; top: 10px; width: 270px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionValorVacioNovedad').hide();" style="position: absolute; top: 65px; left: 280px;" icon="ui-icon-check" process="@this"/>
                </p:dialog>
 
             </h:form>

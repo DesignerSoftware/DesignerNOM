@@ -48,6 +48,8 @@ public interface AdministrarCambiosMasivosInterface {
 
    public boolean actualizarParametroCM(ParametrosCambiosMasivos parametro);
 
+   public boolean comprobarConceptoManual(BigInteger secuenciaConcepto);
+
    public List<Estructuras> consultarLovCargos_Estructuras();
 
    public List<MotivosDefinitivas> consultarLovMotivosDefinitivas();

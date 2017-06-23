@@ -186,6 +186,10 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       return persistenciaParametros.actualizarParametroCambioMasivo(em, parametro);
    }
 
+   public boolean comprobarConceptoManual(BigInteger secuenciaConcepto) {
+      return persistenciaConceptos.verificarConceptoManual(em, secuenciaConcepto);
+   }
+
    @Override
    public List<Estructuras> consultarLovCargos_Estructuras() {
       return persistenciaEstructuras.buscarEstructuras(em);

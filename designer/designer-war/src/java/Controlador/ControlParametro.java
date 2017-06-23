@@ -605,8 +605,8 @@ public class ControlParametro implements Serializable {
                               dia = c.get(Calendar.DAY_OF_MONTH);
                               ultimoDia = c.getActualMaximum(Calendar.DAY_OF_MONTH);
                               if (dia == 1 || dia == 15 || dia == 16 || dia == ultimoDia) {
-                                 if (compararFechas() == true) {
-                                    if (conteoDias_Proceso() == true) {
+                                 if (compararFechas()) {
+                                    if (conteoDias_Proceso()) {
                                        guardarCambios();
                                        cont++;
                                     } else {
@@ -999,15 +999,21 @@ public class ControlParametro implements Serializable {
    }
 
    public boolean compararFechas() {
-      fechaCorte = parametroLiquidacion.getFechasistema();
-      fechaInicial = parametroLiquidacion.getEstructura().getCentrocosto().getEmpresa().getControlinicioperiodoactivo();
-      fechaFinal = parametroLiquidacion.getEstructura().getCentrocosto().getEmpresa().getControlfinperiodoactivo();
-      if (fechaInicial.compareTo(fechaCorte) > 0 && fechaFinal.compareTo(fechaCorte) < 0) {
-         return true;
-      } else if (fechaInicial.compareTo(fechaCorte) == 0 || fechaFinal.compareTo(fechaCorte) == 0) {
-         return true;
+      if (parametroLiquidacion.getEstructura().getCentrocosto().getEmpresa().getControlinicioperiodoactivo() != null
+              && parametroLiquidacion.getEstructura().getCentrocosto().getEmpresa().getControlfinperiodoactivo() != null
+              & parametroLiquidacion.getFechasistema() != null) {
+         fechaCorte = parametroLiquidacion.getFechasistema();
+         fechaInicial = parametroLiquidacion.getEstructura().getCentrocosto().getEmpresa().getControlinicioperiodoactivo();
+         fechaFinal = parametroLiquidacion.getEstructura().getCentrocosto().getEmpresa().getControlfinperiodoactivo();
+         if (fechaInicial.compareTo(fechaCorte) > 0 && fechaFinal.compareTo(fechaCorte) < 0) {
+            return true;
+         } else if (fechaInicial.compareTo(fechaCorte) == 0 || fechaFinal.compareTo(fechaCorte) == 0) {
+            return true;
+         } else {
+            return false;
+         }
       } else {
-         return false;
+         return true;
       }
    }
 
