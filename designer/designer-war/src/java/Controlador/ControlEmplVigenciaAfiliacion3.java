@@ -738,20 +738,15 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         if (i == 2) {
             provisional = duplicarVA;
         }
-
-        for (int j = 0; j < listVigenciasAfiliaciones.size(); j++) {
-            try {
+        if (listVigenciasAfiliaciones != null) {
+            for (int j = 0; j < listVigenciasAfiliaciones.size(); j++) {
                 if (listVigenciasAfiliaciones.get(j).getTipoentidad().getSecuencia().equals(provisional.getTipoentidad().getSecuencia())) {
                     listMismoTipo.add(listVigenciasAfiliaciones.get(j));
                 }
-            } catch (NullPointerException npe) {
-                System.out.println("Dato nulo");
-                System.out.println(provisional.getTipoentidad());
-                System.out.println(npe.getMessage());
             }
         }
         if (!listMismoTipo.isEmpty()) {
-            for (VigenciasAfiliaciones recVA : listVigenciasAfiliaciones) {
+            for (VigenciasAfiliaciones recVA : listMismoTipo) {
                 if (recVA.getFechafinal() != null) {
                     if (recVA.getFechafinal().after(provisional.getFechainicial())) {
                         retorno = false;
@@ -819,10 +814,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('errorFechaMenorContratacion').show()");
     }
 
-    public void dialogoDiaInicioError() {
-        RequestContext.getCurrentInstance().execute("PF('errorFechaInicialRegistro').show()");
-    }
-
     public void dialogoErrorTercero() {
         RequestContext.getCurrentInstance().execute("PF('errorTerceroSucursal').show()");
     }
@@ -837,23 +828,18 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         boolean validacionDiaInicioFecha;
         validacionCamposNulos = camposModificacionRegistro(listAuxiliar);
         if (validacionCamposNulos) {
-            //////----------////////////
             validacionFechas = fechasModificacionRegistro(listAuxiliar);
             if (!validacionFechas) {
                 retorno = false;
                 dialogoFechasErroneas();
             }
-            //////----------////////////
             validacionFechaMayorContratacion = fechaContratacionModificacionEmpleado();
             if (!validacionFechaMayorContratacion) {
                 dialogoFechaContratacionError();
             }
-            //////----------////////////
-            validacionDiaInicioFecha = diaInicialFechaModificacion();
-            if (!validacionDiaInicioFecha) {
-                dialogoDiaInicioError();
+            if (vigenciaValidaciones.getFechainicial().getDate() > 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorFechaInicialRegistro').show()");
             }
-            //////----------////////////
             if (!validacionFechas) {
                 retorno = false;
             }
@@ -907,15 +893,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
     public boolean fechaContratacionModificacionEmpleado() {
         boolean retorna = true;
         if (vigenciaSeleccionada.getFechainicial().before(fechaContratacion)) {
-            retorna = false;
-        }
-        return retorna;
-    }
-
-    public boolean diaInicialFechaModificacion() {
-        boolean retorna = true;
-        int dia = vigenciaValidaciones.getFechainicial().getDate();
-        if (dia > 1) {
             retorna = false;
         }
         return retorna;
@@ -1396,6 +1373,8 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarObservacionesVAD').show()");
                 cualCeldaVA = -1;
             }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1409,43 +1388,57 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
             if (validarFechasRegistro(1) == true) {
                 if (nuevaVigenciaA.getFechainicial().before(fechaContratacion)) {
                     dialogoFechaContratacionError();
-                }
-                int dia = nuevaVigenciaA.getFechainicial().getDate();
-                if (dia > 1) {
-                    dialogoDiaInicioError();
-                }
-                cambioVigenciaA = true;
-                //CERRAR FILTRADO
-                if (banderaVA == 1) {
-                    cerrarFiltrado();
-                }
-                //AGREGAR REGISTRO A LA LISTA VIGENCIAS
-                k++;
-                l = BigInteger.valueOf(k);
+                } else {
+                    boolean repetir = false;
+                    if (listVigenciasAfiliaciones != null) {
+                        for (int j = 0; j < listVigenciasAfiliaciones.size(); j++) {
+                            if (listVigenciasAfiliaciones.get(j).getTipoentidad().getSecuencia().equals(nuevaVigenciaA.getTipoentidad().getSecuencia())) {
+                                repetir = true;
+                            }
+                        }
+                    }
+                    if ((nuevaVigenciaA.getFechainicial().getDate() == fechaContratacion.getDate()
+                            && nuevaVigenciaA.getFechainicial().getMonth() == fechaContratacion.getMonth()
+                            && nuevaVigenciaA.getFechainicial().getYear() == fechaContratacion.getYear()
+                            && repetir) || nuevaVigenciaA.getFechainicial().getDate() > 1) {
+                        RequestContext.getCurrentInstance().execute("PF('errorFechaInicialRegistro').show()");
+                    } else {
+                        cambioVigenciaA = true;
+                        //CERRAR FILTRADO
+                        if (banderaVA == 1) {
+                            cerrarFiltrado();
+                        }
+                        //AGREGAR REGISTRO A LA LISTA VIGENCIAS
+                        k++;
+                        l = BigInteger.valueOf(k);
 
-                nuevaVigenciaA.setSecuencia(l);
-                nuevaVigenciaA.setEmpleado(empleado);
-                listVigenciasAfiliaciones.add(nuevaVigenciaA);
-                listVACrear.add(nuevaVigenciaA);
-                vigenciaSeleccionada = listVigenciasAfiliaciones.get(listVigenciasAfiliaciones.indexOf(nuevaVigenciaA));
-                contarRegistros();
-                RequestContext.getCurrentInstance().update("form:listaValores");
-                //
-                nuevaVigenciaA = new VigenciasAfiliaciones();
-                nuevaVigenciaA.setTipoentidad(new TiposEntidades());
-                nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
-                nuevaVigenciaA.setEstadoafiliacion(new EstadosAfiliaciones());
-                RequestContext.getCurrentInstance().update("form:datosVAVigencia");
-                //
-                if (guardado) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        nuevaVigenciaA.setSecuencia(l);
+                        nuevaVigenciaA.setEmpleado(empleado);
+                        listVigenciasAfiliaciones.add(nuevaVigenciaA);
+                        listVACrear.add(nuevaVigenciaA);
+                        vigenciaSeleccionada = listVigenciasAfiliaciones.get(listVigenciasAfiliaciones.indexOf(nuevaVigenciaA));
+                        contarRegistros();
+                        RequestContext.getCurrentInstance().update("form:listaValores");
+                        //
+                        nuevaVigenciaA = new VigenciasAfiliaciones();
+                        nuevaVigenciaA.setTipoentidad(new TiposEntidades());
+                        nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
+                        nuevaVigenciaA.setEstadoafiliacion(new EstadosAfiliaciones());
+                        RequestContext.getCurrentInstance().update("form:datosVAVigencia");
+                        //
+                        if (guardado) {
+                            guardado = false;
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        }
+                        limpiarNuevaVA();
+                        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVA').hide()");
+                    }
+
                 }
-                limpiarNuevaVA();
-                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVA').hide()");
             } else {
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
+
         }
     }
 
@@ -1473,53 +1466,27 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         cambioVigenciaA = false;
     }
 
-    //DUPLICAR VL
-    /**
-     * Metodo que verifica que proceso de duplicar se genera con respecto a la
-     * posicion en la pagina que se tiene
-     */
-    public void verificarDuplicarVigencia() {
-        if (vigenciaSeleccionada != null) {
-            if (!cambioVigenciaA) {
-                duplicarVigenciaA();
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalir').show()");
-            }
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////
-    /**
-     * Duplica una registro de
-     */
     public void duplicarVigenciaA() {
-        duplicarVA = new VigenciasAfiliaciones();
-        k++;
-        BigInteger var = BigInteger.valueOf(k);
-        l = BigInteger.valueOf(k);
-        duplicarVA.setSecuencia(l);
-        duplicarVA.setEmpleado(vigenciaSeleccionada.getEmpleado());
-        duplicarVA.setFechafinal(vigenciaSeleccionada.getFechafinal());
-        duplicarVA.setFechainicial(vigenciaSeleccionada.getFechainicial());
-        duplicarVA.setTercerosucursal(vigenciaSeleccionada.getTercerosucursal());
-        duplicarVA.setTipoentidad(vigenciaSeleccionada.getTipoentidad());
-        duplicarVA.setCodigo(vigenciaSeleccionada.getCodigo());
-        duplicarVA.setEstadoafiliacion(vigenciaSeleccionada.getEstadoafiliacion());
-        duplicarVA.setObservacion(vigenciaSeleccionada.getObservacion());
-        try {
-            System.out.println("duplicarVigenciaA() vigenciaSeleccionada.getTercerosucursal(): " + vigenciaSeleccionada.getTercerosucursal());
-            System.out.println("duplicarVigenciaA() vigenciaSeleccionada.getFechaFinal(): " + vigenciaSeleccionada.getFechafinal());
-            System.out.println("duplicarVigenciaA() vigenciaSeleccionada.getTercerosucursal().getTercero(): " + vigenciaSeleccionada.getTercerosucursal().getTercero());
-            System.out.println("duplicarVigenciaA() vigenciaSeleccionada.getTercerosucursal().getTercero().getNit(): " + vigenciaSeleccionada.getTercerosucursal().getTercero().getNit());
-            System.out.println("duplicarVigenciaA() duplicarVA.getTercerosucursal(): " + duplicarVA.getTercerosucursal());
-            System.out.println("duplicarVigenciaA() duplicarVA.getTercerosucursal().getTercero(): " + duplicarVA.getTercerosucursal().getTercero());
-            System.out.println("duplicarVigenciaA() duplicarVA.getTercerosucursal().getTercero().getNit(): " + duplicarVA.getTercerosucursal().getTercero().getNit());
-        } catch (Exception e) {
-            System.out.println("ERROR en duplicarVigenciaA() e: " + e);
+        if (vigenciaSeleccionada != null) {
+            duplicarVA = new VigenciasAfiliaciones();
+            k++;
+            BigInteger var = BigInteger.valueOf(k);
+            l = BigInteger.valueOf(k);
+            duplicarVA.setSecuencia(l);
+            duplicarVA.setEmpleado(vigenciaSeleccionada.getEmpleado());
+            duplicarVA.setFechafinal(vigenciaSeleccionada.getFechafinal());
+            duplicarVA.setFechainicial(vigenciaSeleccionada.getFechainicial());
+            duplicarVA.setTercerosucursal(vigenciaSeleccionada.getTercerosucursal());
+            duplicarVA.setTipoentidad(vigenciaSeleccionada.getTipoentidad());
+            duplicarVA.setCodigo(vigenciaSeleccionada.getCodigo());
+            duplicarVA.setEstadoafiliacion(vigenciaSeleccionada.getEstadoafiliacion());
+            duplicarVA.setObservacion(vigenciaSeleccionada.getObservacion());
+            cambioVigenciaA = true;
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoVA");
+            RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVA').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        cambioVigenciaA = true;
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoVA");
-        RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVA').show()");
     }
 
     /**
@@ -1532,34 +1499,45 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
             if (validarFechasRegistro(2)) {
                 if (duplicarVA.getFechainicial().before(fechaContratacion)) {
                     dialogoFechaContratacionError();
-                }
-                int dia = duplicarVA.getFechainicial().getDate();
-                if (dia > 1) {
-                    dialogoDiaInicioError();
-                }
-                RequestContext context = RequestContext.getCurrentInstance();
-                cambioVigenciaA = true;
-                k++;
-                l = BigInteger.valueOf(k);
-                duplicarVA.setSecuencia(l);
-                listVigenciasAfiliaciones.add(duplicarVA);
-                listVACrear.add(duplicarVA);
-                vigenciaSeleccionada = listVigenciasAfiliaciones.get(listVigenciasAfiliaciones.indexOf(duplicarVA));
-                contarRegistros();
-                RequestContext.getCurrentInstance().update("form:datosVAVigencia");
+                } else {
+                    boolean repetir = false;
+                    if (listVigenciasAfiliaciones != null) {
+                        for (int j = 0; j < listVigenciasAfiliaciones.size(); j++) {
+                            if (listVigenciasAfiliaciones.get(j).getTipoentidad().getSecuencia().equals(duplicarVA.getTipoentidad().getSecuencia())) {
+                                repetir = true;
+                            }
+                        }
+                    }
+                    if ((duplicarVA.getFechainicial().getDate() == fechaContratacion.getDate()
+                            && duplicarVA.getFechainicial().getMonth() == fechaContratacion.getMonth()
+                            && duplicarVA.getFechainicial().getYear() == fechaContratacion.getYear()
+                            && repetir) || duplicarVA.getFechainicial().getDate() > 1) {
+                        RequestContext.getCurrentInstance().execute("PF('errorFechaInicialRegistro').show()");
+                    } else {
+                        RequestContext context = RequestContext.getCurrentInstance();
+                        cambioVigenciaA = true;
+                        k++;
+                        l = BigInteger.valueOf(k);
+                        duplicarVA.setSecuencia(l);
+                        listVigenciasAfiliaciones.add(duplicarVA);
+                        listVACrear.add(duplicarVA);
+                        vigenciaSeleccionada = listVigenciasAfiliaciones.get(listVigenciasAfiliaciones.indexOf(duplicarVA));
+                        contarRegistros();
+                        RequestContext.getCurrentInstance().update("form:datosVAVigencia");
 
-                if (guardado) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        if (guardado) {
+                            guardado = false;
+                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                        }
+                        if (banderaVA == 1) {
+                            cerrarFiltrado();
+                        }
+                        duplicarVA = new VigenciasAfiliaciones();
+                        limpiarduplicarVA();
+                        RequestContext.getCurrentInstance().update("form:listaValores");
+                        RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVA').hide()");
+                    }
                 }
-                if (banderaVA == 1) {
-                    //CERRAR FILTRADO
-                    cerrarFiltrado();
-                }
-                duplicarVA = new VigenciasAfiliaciones();
-                limpiarduplicarVA();
-                RequestContext.getCurrentInstance().update("form:listaValores");
-                RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVA').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
@@ -1584,7 +1562,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         duplicarVA.setTipoentidad(new TiposEntidades());
         duplicarVA.setTercerosucursal(new TercerosSucursales());
         duplicarVA.setEstadoafiliacion(new EstadosAfiliaciones());
-        //vigenciaSeleccionada = null;
     }
 
     /**
@@ -1601,41 +1578,38 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
      * Metodo que borra una vigencia prorrateo
      */
     public void borrarVA() {
-        cambioVigenciaA = true;
-        if (!listVAModificar.isEmpty() && listVAModificar.contains(vigenciaSeleccionada)) {
-            int modIndex = listVAModificar.indexOf(vigenciaSeleccionada);
-            listVAModificar.remove(modIndex);
-            listVABorrar.add(vigenciaSeleccionada);
-        } else if (!listVACrear.isEmpty() && listVACrear.contains(vigenciaSeleccionada)) {
-            int crearIndex = listVACrear.indexOf(vigenciaSeleccionada);
-            listVACrear.remove(crearIndex);
-        } else {
-            listVABorrar.add(vigenciaSeleccionada);
-        }
-        listVigenciasAfiliaciones.remove(vigenciaSeleccionada);
-        if (tipoListaVA == 1) {
-            filtrarVigenciasAfiliaciones.remove(vigenciaSeleccionada);
-        }
-        contarRegistros();
-        RequestContext.getCurrentInstance().update("form:listaValores");
-        RequestContext.getCurrentInstance().update("form:datosVAVigencia");
-        vigenciaSeleccionada = null;
-        if (guardado) {
+        if (vigenciaSeleccionada != null) {
+
+            cambioVigenciaA = true;
+            if (!listVAModificar.isEmpty() && listVAModificar.contains(vigenciaSeleccionada)) {
+                int modIndex = listVAModificar.indexOf(vigenciaSeleccionada);
+                listVAModificar.remove(modIndex);
+                listVABorrar.add(vigenciaSeleccionada);
+            } else if (!listVACrear.isEmpty() && listVACrear.contains(vigenciaSeleccionada)) {
+                int crearIndex = listVACrear.indexOf(vigenciaSeleccionada);
+                listVACrear.remove(crearIndex);
+            } else {
+                listVABorrar.add(vigenciaSeleccionada);
+            }
+            listVigenciasAfiliaciones.remove(vigenciaSeleccionada);
+            if (tipoListaVA == 1) {
+                filtrarVigenciasAfiliaciones.remove(vigenciaSeleccionada);
+            }
+            contarRegistros();
+            RequestContext.getCurrentInstance().update("form:listaValores");
+            RequestContext.getCurrentInstance().update("form:datosVAVigencia");
+            vigenciaSeleccionada = null;
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
     }
 
-    //CTRL + F11 ACTIVAR/DESACTIVAR
-    /**
-     * Metodo que activa el filtrado por medio de la opcion en el toolbar o por
-     * medio de la tecla Crtl+F11
-     */
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaVA == 0) {
-            //Columnas Tabla VPP
             vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
             vAFechaInicial.setFilterStyle("width: 85% !important");
             vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
@@ -1660,10 +1634,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         }
     }
 
-    //SALIR
-    /**
-     * Metodo que cierra la sesion y limpia los datos en la pagina
-     */
     public void salir() {
         limpiarListasValor();
         cerrarFiltrado();
@@ -1683,17 +1653,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         limpiarListasValor();
         navegar("atras");
     }
-    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 
-    /**
-     * Metodo que ejecuta los dialogos de estructuras, motivos localizaciones,
-     * proyectos
-     *
-     * @param indice Fila de la tabla
-     * @param dlg Dialogo
-     * @param LND Tipo actualizacion = LISTA - NUEVO - DUPLICADO
-     * VigenciaProrrateoProyecto
-     */
     public void asignarIndex(VigenciasAfiliaciones va, int dlg, int LND) {
         vigenciaSeleccionada = va;
         tipoActualizacion = 0;
@@ -1742,11 +1702,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         }
     }
 
-    //Motivo Localizacion
-    /**
-     * Metodo que actualiza el motivo localizacion seleccionado (vigencia
-     * localizacion)
-     */
     public void actualizarTipoEntidad() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:listaValores");
@@ -1795,7 +1750,6 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
         filtrarTiposEntidades = null;
         tipoEntidadSeleccionado = null;
         aceptar = true;
-        //vigenciaSeleccionada = null;
         tipoActualizacion = -1;
         permitirIndexVA = true;
         RequestContext context = RequestContext.getCurrentInstance();
