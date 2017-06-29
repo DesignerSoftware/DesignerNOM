@@ -74,7 +74,7 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
         List<VWVacaPendientesEmpleados> listaVacaPendientesEmpleados = null;
         try {
             em.clear();
-            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes > 0";
+            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes > 0 ORDER BY vwv.finalcausacion desc";
             Query query = em.createQuery(script).setParameter("empleado", secuencia);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             listaVacaPendientesEmpleados = query.getResultList();
@@ -90,7 +90,7 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
         List<VWVacaPendientesEmpleados> listaVacaPendientesEmpleados = null;
         try {
             em.clear();
-            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes <= 0";
+            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes <= 0 ORDER BY vwv.finalcausacion desc ";
             Query query = em.createQuery(script).setParameter("empleado", sec);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             listaVacaPendientesEmpleados = query.getResultList();

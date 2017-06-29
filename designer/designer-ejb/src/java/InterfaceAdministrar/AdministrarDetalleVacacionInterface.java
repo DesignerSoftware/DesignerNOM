@@ -10,11 +10,13 @@ import Entidades.Vacaciones;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author user
  */
+@Local
 public interface AdministrarDetalleVacacionInterface {
    
    public void obtenerConexion(String idSesion);

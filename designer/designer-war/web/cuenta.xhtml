@@ -76,7 +76,8 @@
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" actionListener="#{controlCuenta.cancelarModificacion()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>  
+                                         style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
+                                         oncomplete="window.location.reload()" />  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
@@ -111,9 +112,8 @@
                               <h:outputText id="DetalleC" value="D"/>
                               <p:tooltip for="DetalleC" value="Detalle Cuenta"/>
                            </f:facet>
-                           <p:commandButton onstart="#{controlCuenta.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                            value=""  actionListener="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}">
-                       <!--<p:ajax event="click"  listener="#{controlCuenta.verDetalle(infoC)}" oncomplete="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}"/>-->
+                           <p:commandButton onstart="#{controlCuenta.limpiarListasValor()}; PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});" action="#{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                            value=""  actionListener="#{controlDetalleCuenta.recibirCuenta(infoC.secuencia)}">
                            </p:commandButton>   
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -451,7 +451,7 @@
 
                      </p:dataTable>
 
-                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistro}" style="position: relative; left: 0px; top: 0px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistro}" style="position: relative; left: 0px; top: 15px; font-weight: bold;"/>
 
                   </fieldset>
 

@@ -8041,5 +8041,22 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
+    <navigation-rule>
+      <from-view-id>/emplvacapendiente.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>detallevacacion</from-outcome>
+         <to-view-id>/detallevacacion.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/detallevacacion.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplvacapendiente</from-outcome>
+         <to-view-id>/emplvacapendiente.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
 </faces-config>
 

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -266,9 +267,32 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
     public List<NovedadesSistema> novedadsistemaPorEmpleadoYVacacion(EntityManager em, BigInteger secEmpleado, BigInteger secVacacion) {
         try {
             em.clear();
-            String strngQuery = "SELECT * FROM NOVEDADESSISTEMA WHERE TIPO = 'VACACION' AND EMPLEADO = " + secEmpleado + " AND VACACION = " + secVacacion;
+            String strngQuery = "SELECT * FROM NOVEDADESSISTEMA WHERE TIPO = 'VACACION' AND EMPLEADO = ? AND VACACION = ? ";
             Query query = em.createNativeQuery(strngQuery, NovedadesSistema.class);
+            query.setParameter(1, secEmpleado);
+            query.setParameter(2, secVacacion);
             List<NovedadesSistema> novedadesSistema = query.getResultList();
+
+            if (novedadesSistema != null) {
+                if (!novedadesSistema.isEmpty()) {
+                    em.clear();
+                    try {
+                        for (int i = 0; i < novedadesSistema.size(); i++) {
+                            String sql = "SELECT SUM(SN.VALOR)\n"
+                                    + "	FROM SOLUCIONESNODOS SN, SOLUCIONESFORMULAS SF, DETALLESNOVEDADESSISTEMA DNS\n"
+                                    + "	WHERE SN.SECUENCIA = SF.solucionnodo\n"
+                                    + "	AND SF.novedad = DNS.novedad\n"
+                                    + "	AND DNS.novedadsistema=" + novedadesSistema.get(i).getSecuencia();
+                            Query query2 = em.createNativeQuery(sql);
+                            BigDecimal valorp = (BigDecimal) query2.getSingleResult();
+                            novedadesSistema.get(i).setValorpagado(valorp);
+                        }
+                    } catch (NoResultException nre) {
+                        System.out.println("No result exception en valor pagado : " + nre.getMessage());
+                    }
+                }
+            }
+
             return novedadesSistema;
         } catch (Exception e) {
             System.out.println("Error: novedadsistemaPorEmpleadoYVacacion : " + e.getMessage());

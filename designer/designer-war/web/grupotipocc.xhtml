@@ -11,7 +11,7 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body"> 
                 <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.grupotipocc" var="msg"/>
+                    <f:loadBundle basename="Recursos.grupostipocc" var="msg"/>
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Tipos de Curso" styleClass="panelTotal">    
                         <p:toolbar styleClass="cssToolbar">  
@@ -59,7 +59,8 @@
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlGruposTiposCC.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlGruposTiposCC.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
@@ -70,10 +71,10 @@
                         </p:toolbar>
 
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlGruposTiposCC.revisarDialogoGuardar()}" disabled="#{controlGruposTiposCC.guardado}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" onstart="#{controlGruposTiposCC.salir()}" actionListener="#{controlGruposTiposCC.salir()}"  value=""/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlGruposTiposCC.salir()}"  value=""/>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 13px; color: blue;"><strong>Tipos del Curso</strong></legend>
+                            <legend style="font-size: 13px; color: blue;"><strong>Grupos Tipos Centros de Costo</strong></legend>
 
                             <p:dataTable id="datosGruposTiposCC" widgetVar="datosGruposTiposCC" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
                                          value="#{controlGruposTiposCC.listGruposTiposCC}" scrollable="true" scrollHeight="#{controlGruposTiposCC.altoTabla}"
@@ -104,7 +105,7 @@
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                                 <p:ajax event="select" listener="#{controlGruposTiposCC.cambiarIndice(info, 1)}" process="@this"
-                                                       onstart="PF('datosGruposTiposCC').unselectAllRows();PF('datosGruposTiposCC').selectRow(#{indice});"/> 
+                                                        onstart="PF('datosGruposTiposCC').unselectAllRows();PF('datosGruposTiposCC').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlGruposTiposCC.modificarGruposTipo(info)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet> 
@@ -210,17 +211,16 @@
                             <p:inputText autocomplete="off" id="nuevoCodigo" maxlength="4" value="#{controlGruposTiposCC.nuevoGrupoTipoCC.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCodigo" value="#{msg['codigo']}"/>
 
                             <strong><h:outputText value="#{msg['desc']}: "  style="position: absolute; top: 90px;"/></strong>
                             <p:inputText autocomplete="off"  id="nuevoNombre" maxlength="50" value="#{controlGruposTiposCC.nuevoGrupoTipoCC.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoNombre" value="#{msg['desc']}"/>
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlGruposTiposCC.limpiarNuevoGrupoTipo()}" update="nuevoGrupoTCC" process="@this"/>
-                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlGruposTiposCC.agregarNuevoGrupoTipo()}" process="@this"/>
-                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="nuevoGrupoTCC" onclick="PF('nuevoRegistroTiposCursos').hide();"  actionListener="#{controlGruposTiposCC.limpiarNuevoGrupoTipo()}"  process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-check" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlGruposTiposCC.agregarNuevoGrupoTipo()}" process="@this"/>
+                            <p:commandButton id="cancelarTE" icon="ui-icon-close" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="nuevoGrupoTCC" onclick="PF('nuevoRegistroTiposCursos').hide();" 
+                                             actionListener="#{controlGruposTiposCC.limpiarNuevoGrupoTipo()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -234,16 +234,14 @@
                             <p:inputText autocomplete="off" id="duplicarCodigo" maxlength="4" value="#{controlGruposTiposCC.duplicarGrupoTipoCC.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigo" value="#{msg['codigo']}"/>
 
                             <strong><h:outputText value="#{msg['desc']}:"  style=" position: absolute; top: 90px;"/></strong>
                             <p:inputText autocomplete="off" id="duplicarNombre" maxlength="50" value="#{controlGruposTiposCC.duplicarGrupoTipoCC.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombre" value="#{msg['desc']}"/>
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 120px;"  actionListener="#{controlGruposTiposCC.limpiarDuplicarNuevoGrupoTipo() }" update="duplicarGT"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlGruposTiposCC.confirmarDuplicar()}"  process="@this"/>
-                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="duplicarGT" onclick="PF('duplicarRegistroTiposCursos').hide();" actionListener="#{controlGruposTiposCC.limpiarDuplicarNuevoGrupoTipo()}"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-check" value="Agregar" style=" position: absolute; left: 110px; top: 120px;" actionListener="#{controlGruposTiposCC.confirmarDuplicar()}"  process="@this"/>
+                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-close" value="Cancelar" style=" position: absolute; left: 210px; top: 120px;"  update="duplicarGT" onclick="PF('duplicarRegistroTiposCursos').hide();" actionListener="#{controlGruposTiposCC.limpiarDuplicarNuevoGrupoTipo()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
                 </h:form>
@@ -253,12 +251,12 @@
                     <p:dataTable id="datosGruposTipoCCExportar" var="info2" style="visibility: hidden; display: none;"                           
                                  value="#{controlGruposTiposCC.listGruposTiposCC}">
                         <p:column>                                  
-                            <f:facet name="header"><h:outputText value="#{msg['codigo']}"/></f:facet> 
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
                             <h:outputText value="#{info2.codigo}"/>
                         </p:column>  
 
                         <p:column>  
-                            <f:facet name="header"><h:outputText value="#{msg['desc']}"/></f:facet>
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
                             <h:outputText value="#{info2.descripcion}"/>
                         </p:column>
                     </p:dataTable>

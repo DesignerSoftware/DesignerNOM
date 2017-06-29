@@ -81,7 +81,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 80px; left: 10px; height: 380px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 13px; color: blue;"><strong>Grupo Tipo Entidad</strong></legend>
 
                      <p:dataTable id="datosGruposTiposEntidades" widgetVar="datosGruposTiposEntidades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: 1px;"                           
@@ -89,8 +89,7 @@
                                   filteredValue="#{controlGruposTiposEntidades.filtrarGruposTiposEntidades}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" paginator="false"  scrollable="true"
                                   selection="#{controlGruposTiposEntidades.grupoTipoEntidadSeleccionado}"
-                                  selectionMode="single"
-                      >
+                                  selectionMode="single"   >
                         <p:ajax event="filter" listener="#{controlGruposTiposEntidades.eventoFiltrar()}"/>
 
                         <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;">                                  
@@ -124,9 +123,9 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>
+                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlGruposTiposEntidades.infoRegistro}" style="position: relative; left: 1px; top: 5px; font-weight: bold;"/>
                   </fieldset>
 
-                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlGruposTiposEntidades.infoRegistro}" style="position: relative; left: 15px; top: 380px; font-weight: bold;"/>
 
                   <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value="" actionListener="#{controlGruposTiposEntidades.revisarDialogoGuardar()}" disabled="#{controlGruposTiposEntidades.guardado}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" actionListener="#{controlGruposTiposEntidades.salir()}" id="ATRAS" value=""/>
@@ -234,10 +233,10 @@
 
 
 
-               <p:dialog id="editCodigo" header="#{msg['cod']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+               <p:dialog id="editCodigo" header="#{msg['cod']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlGruposTiposEntidades.editarGruposTiposEntidades.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editDescripcion" header="#{msg['desc']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">  
+               <p:dialog id="editDescripcion" header="#{msg['desc']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlGruposTiposEntidades.editarGruposTiposEntidades.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 

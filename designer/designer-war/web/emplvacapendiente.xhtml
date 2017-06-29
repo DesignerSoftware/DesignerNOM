@@ -111,7 +111,8 @@
                         <p:ajax event="filter" listener="#{controlEmplVacaPendiente.eventoFiltrarP()}"/>
 
                         <p:column style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="22">
-                           <p:commandButton style="width: 17px; height: 17px; left: 1px;" value=""/>
+                            <p:commandButton style="width: 17px; height: 17px; left: 1px;" value="" actionListener="#{controlDetallesVacaciones.recibirVariasCosas('emplvacapendiente', controlEmplVacaPendiente.empleado, controlEmplVacaPendiente.vacaPendienteSeleccionada.rfvacacion)}"
+                                             action="#{controlListaNavegacion.guardarNavegacion('emplvacapendiente', 'detallevacacion')}" />
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -196,7 +197,8 @@
                         <f:event type="preRenderView" listener="#{controlEmplVacaPendiente.recordarSeleccionD()}"/>
 
                         <p:column width="22" style="padding: 0px !important; width: 20px; alignment-adjust: central;">
-                           <p:commandButton style="width: 17px; height: 17px; left: 1px;" value=""/>
+                            <p:commandButton style="width: 17px; height: 17px; left: 1px;" value="" actionListener="#{controlDetallesVacaciones.recibirVariasCosas('emplvacapendiente', controlEmplVacaPendiente.empleado, controlEmplVacaPendiente.vacaDisfrutadaSeleccionada.rfvacacion)}"
+                                             action="#{controlListaNavegacion.guardarNavegacion('emplvacapendiente', 'detallevacacion')}" />
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>

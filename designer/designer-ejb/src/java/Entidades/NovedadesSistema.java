@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;
@@ -136,6 +137,8 @@ public class NovedadesSistema implements Serializable {
     private Causasausentismos causaausentismo;
     @Transient
     private Boolean indemnizaBool;
+    @Transient
+    private BigDecimal valorpagado;
 
     public NovedadesSistema() {
     }
@@ -514,6 +517,22 @@ public class NovedadesSistema implements Serializable {
 
     public void setCausaausentismo(Causasausentismos causaausentismo) {
         this.causaausentismo = causaausentismo;
+    }
+
+    public MotivosRetiros getMotivoretiros() {
+        return motivoretiros;
+    }
+
+    public void setMotivoretiros(MotivosRetiros motivoretiros) {
+        this.motivoretiros = motivoretiros;
+    }
+
+    public BigDecimal getValorpagado() {
+        return valorpagado;
+    }
+
+    public void setValorpagado(BigDecimal valorpagado) {
+        this.valorpagado = valorpagado;
     }
 
     @Override
