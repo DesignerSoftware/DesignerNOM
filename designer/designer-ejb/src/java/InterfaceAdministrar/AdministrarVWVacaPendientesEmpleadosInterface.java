@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
- 
+
 /**
  *
  * @author user
@@ -27,13 +27,18 @@ public interface AdministrarVWVacaPendientesEmpleadosInterface {
 
     public void borrarVacaPendiente(VWVacaPendientesEmpleados vaca);
 
-    public List<VWVacaPendientesEmpleados> vacaPendientesPendientes(Empleados empl);
+    public List<VWVacaPendientesEmpleados> vacaPendientesPendientes(Empleados empl, Date fechaingreso);
 
-    public List<VWVacaPendientesEmpleados> vacaPendientesDisfrutadas(Empleados empl);
+    public List<VWVacaPendientesEmpleados> vacaPendientesDisfrutadas(Empleados empl, Date fechaingreso);
 
     public Empleados obtenerEmpleado(BigInteger secuencia);
 
     public BigDecimal diasProvisionadosEmpleado(Empleados empl);
 
-    public Date obtenerFechaFinalContratacionEmpleado(BigInteger secEmpleado); 
+    public Date obtenerFechaFinalContratacionEmpleado(BigInteger secEmpleado);
+
+    public List<VWVacaPendientesEmpleados> vacaPendientesPendientesAnterioresContratos(Empleados empl);
+
+    public List<VWVacaPendientesEmpleados> vacaPendientesDisfrutadasAnterioresContratos(Empleados empl);
+
 }

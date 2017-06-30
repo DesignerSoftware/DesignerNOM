@@ -5,6 +5,7 @@ package InterfacePersistencia;
 
 import Entidades.VWVacaPendientesEmpleados;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -44,7 +45,7 @@ public interface PersistenciaVWVacaPendientesEmpleadosInterface {
      * @return Retorna una lista de VWVacaPendienteEmpleado asociadas a un empleado y cuyo valor en diaspendientes
      * es mayor a cero.
      */
-    public List<VWVacaPendientesEmpleados> vacaEmpleadoPendientes(EntityManager em, BigInteger secuencia);
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoPendientes(EntityManager em, BigInteger secuencia,Date fechaingreso);
     /**
      * Método encargado de buscar las VWVacaPendienteEmpleado de un empleado el cual
      * NO tiene días de vacaciones pendientes.
@@ -52,6 +53,10 @@ public interface PersistenciaVWVacaPendientesEmpleadosInterface {
      * @return Retorna una lista de VWVacaPendienteEmpleado asociadas a un empleado y cuyo valor en diaspendientes
      * es igual o menor a cero.
      */
-    public List<VWVacaPendientesEmpleados> vacaEmpleadoDisfrutadas(EntityManager em, BigInteger secuencia);
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoDisfrutadas(EntityManager em, BigInteger secuencia,Date fechaingreso);
+    
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoPendientesAnterioresContratos(EntityManager em, BigInteger secuencia);
+    
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoDisfrutadasAnterioresContratos(EntityManager em, BigInteger secuencia);
     
 }

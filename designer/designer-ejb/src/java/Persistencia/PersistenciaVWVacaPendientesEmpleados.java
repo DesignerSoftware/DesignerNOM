@@ -6,6 +6,7 @@ package Persistencia;
 import Entidades.VWVacaPendientesEmpleados;
 import InterfacePersistencia.PersistenciaVWVacaPendientesEmpleadosInterface;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -70,14 +71,16 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
     }
 
     @Override
-    public List<VWVacaPendientesEmpleados> vacaEmpleadoPendientes(EntityManager em, BigInteger secuencia) {
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoPendientes(EntityManager em, BigInteger secuencia,Date fechaingreso) {
         List<VWVacaPendientesEmpleados> listaVacaPendientesEmpleados = null;
         try {
             em.clear();
-            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes > 0 ORDER BY vwv.finalcausacion desc";
-            Query query = em.createQuery(script).setParameter("empleado", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes > 0 and vwv.inicialcausacion >= :fechaingreso ORDER BY vwv.finalcausacion desc";
+            Query query = em.createQuery(script);
+            query.setParameter("empleado", secuencia);
+            query.setParameter("fechaingreso", fechaingreso);
             listaVacaPendientesEmpleados = query.getResultList();
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         } catch (Exception e) {
             System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleados." + e.getMessage());
         } finally {
@@ -86,12 +89,14 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
     }
 
     @Override
-    public List<VWVacaPendientesEmpleados> vacaEmpleadoDisfrutadas(EntityManager em, BigInteger sec) {
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoDisfrutadas(EntityManager em, BigInteger sec,Date fechaingreso) {
         List<VWVacaPendientesEmpleados> listaVacaPendientesEmpleados = null;
         try {
             em.clear();
-            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes <= 0 ORDER BY vwv.finalcausacion desc ";
-            Query query = em.createQuery(script).setParameter("empleado", sec);
+            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes <= 0 and vwv.inicialcausacion >= :fechaingreso ORDER BY vwv.finalcausacion desc ";
+            Query query = em.createQuery(script);
+            query.setParameter("empleado", sec);
+            query.setParameter("fechaingreso", fechaingreso);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             listaVacaPendientesEmpleados = query.getResultList();
         } catch (Exception e) {
@@ -110,6 +115,39 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
             listaVacaPendientesEmpleados = em.createQuery("SELECT v FROM VWVacaPendientesEmpleados v WHERE v.empleado = :empleado").setParameter("empleado", secuenciaEmpleado).getResultList();
         } catch (Exception e) {
             System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleados." + e.getMessage());
+            System.out.println(e);
+        } finally {
+            return listaVacaPendientesEmpleados;
+        }
+    }
+
+    @Override
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoPendientesAnterioresContratos(EntityManager em, BigInteger secuencia) {
+       List<VWVacaPendientesEmpleados> listaVacaPendientesEmpleados = null;
+        try {
+            em.clear();
+            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes > 0 ORDER BY vwv.finalcausacion desc";
+            Query query = em.createQuery(script).setParameter("empleado", secuencia);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            listaVacaPendientesEmpleados = query.getResultList();
+        } catch (Exception e) {
+            System.err.println("PersistenciaVWVacaPendientesEmpleados.vacaEmpleadoPendientesAnterioresContratos." + e.getMessage());
+        } finally {
+            return listaVacaPendientesEmpleados;
+        }
+    }
+
+    @Override
+    public List<VWVacaPendientesEmpleados> vacaEmpleadoDisfrutadasAnterioresContratos(EntityManager em, BigInteger secuencia) {
+          List<VWVacaPendientesEmpleados> listaVacaPendientesEmpleados = null;
+        try {
+            em.clear();
+            String script = "SELECT vwv FROM VWVacaPendientesEmpleados vwv WHERE vwv.empleado = :empleado AND vwv.diaspendientes <= 0 ORDER BY vwv.finalcausacion desc ";
+            Query query = em.createQuery(script).setParameter("empleado", secuencia);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            listaVacaPendientesEmpleados = query.getResultList();
+        } catch (Exception e) {
+            System.err.println("PersistenciaVWVacaPendientesEmpleados.vacaEmpleadoDisfrutadasAnterioresContratos" + e.getMessage());
             System.out.println(e);
         } finally {
             return listaVacaPendientesEmpleados;

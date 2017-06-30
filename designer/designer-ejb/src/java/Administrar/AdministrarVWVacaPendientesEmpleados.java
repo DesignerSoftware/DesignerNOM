@@ -78,9 +78,9 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
     }
 
     @Override
-    public List<VWVacaPendientesEmpleados> vacaPendientesPendientes(Empleados empl) {
+    public List<VWVacaPendientesEmpleados> vacaPendientesPendientes(Empleados empl,Date fechaingreso) {
         try {
-            vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoPendientes(em, empl.getSecuencia());
+            vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoPendientes(em, empl.getSecuencia(),fechaingreso);
             return vacaciones;
         } catch (Exception e) {
             System.out.println("Error en vacaPendientesMayorCero Admi : " + e.toString());
@@ -89,9 +89,9 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
     }
 
     @Override
-    public List<VWVacaPendientesEmpleados> vacaPendientesDisfrutadas(Empleados empl) {
+    public List<VWVacaPendientesEmpleados> vacaPendientesDisfrutadas(Empleados empl,Date fechaingreso) {
         try {
-            vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoDisfrutadas(em, empl.getSecuencia());
+            vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoDisfrutadas(em, empl.getSecuencia(),fechaingreso);
             return vacaciones;
         } catch (Exception e) {
             System.out.println("Error en vacaPendientesIgualCero Admi : " + e.toString());
@@ -128,6 +128,28 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             return ultimaFecha;
         } catch (Exception e) {
             System.out.println("Error obtenerFechaFinalContratacionEmpleado Admi : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<VWVacaPendientesEmpleados> vacaPendientesPendientesAnterioresContratos(Empleados empl) {
+       try {
+            vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoPendientesAnterioresContratos(em, empl.getSecuencia());
+            return vacaciones;
+        } catch (Exception e) {
+            System.out.println("Error en vacaPendientesIgualCero Admi : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<VWVacaPendientesEmpleados> vacaPendientesDisfrutadasAnterioresContratos(Empleados empl) {
+       try {
+            vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoDisfrutadasAnterioresContratos(em, empl.getSecuencia());
+            return vacaciones;
+        } catch (Exception e) {
+            System.out.println("Error en vacaPendientesIgualCero Admi : " + e.toString());
             return null;
         }
     }

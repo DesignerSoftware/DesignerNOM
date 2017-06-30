@@ -378,9 +378,9 @@ public class NovedadesSistema implements Serializable {
     }
 
     public Short getVacadiasaplazados() {
-        if(vacadiasaplazados == null){
-            vacadiasaplazados = 0;
-        }
+//        if(vacadiasaplazados == null){
+//            vacadiasaplazados = 0;
+//        }
         return vacadiasaplazados;
     }
 
