@@ -13,6 +13,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,6 +23,7 @@ import javax.validation.constraints.Size;
  * @author user
  */
 @Entity
+@Table(name = "TEMPPRORRATEOSPROY")
 public class TempProrrateosProy implements Serializable {
 
    private static final long serialVersionUID = 1L;
@@ -31,10 +34,7 @@ public class TempProrrateosProy implements Serializable {
    private BigInteger secuencia;
    @Column(name = "CODIGOEMPLEADO")
    @Size(max = 15)
-   private BigInteger codigoEmpleado;
-   @Column(name = "CENTROCOSTO")
-   @Size(max = 20)
-   private String centroCosto;
+   private String empleado;
    @Column(name = "FECHAINICIAL")
    private Date fechaInicial;
    @Column(name = "FECHAFINAL")
@@ -63,14 +63,18 @@ public class TempProrrateosProy implements Serializable {
    private String causaRechazo;
    @Column(name = "VIGLOCALIZACION")
    private BigInteger vigLocalizacion;
-   @Column(name = "SUBPORCENTAJE")
-   private BigDecimal subPorcentaje;
    @Column(name = "PROYECTO")
    @Size(max = 20)
    private String proyecto;
-   @Column(name = "OBSERVACION")
-   @Size(max = 100)
-   private String observacion;
+
+   @Transient
+   private String nombreEmpleado;
+   @Transient
+   private String nombreProyecto;
+   @Transient
+   private BigInteger codigoProyecto;
+   @Transient
+   private BigInteger codigoEmpleado;
 
    public BigInteger getSecuencia() {
       return secuencia;
@@ -78,22 +82,6 @@ public class TempProrrateosProy implements Serializable {
 
    public void setSecuencia(BigInteger secuencia) {
       this.secuencia = secuencia;
-   }
-
-   public BigInteger getCodigoEmpleado() {
-      return codigoEmpleado;
-   }
-
-   public void setCodigoEmpleado(BigInteger codigoEmpleado) {
-      this.codigoEmpleado = codigoEmpleado;
-   }
-
-   public String getCentroCosto() {
-      return centroCosto;
-   }
-
-   public void setCentroCosto(String centroCosto) {
-      this.centroCosto = centroCosto;
    }
 
    public Date getFechaInicial() {
@@ -184,14 +172,6 @@ public class TempProrrateosProy implements Serializable {
       this.vigLocalizacion = vigLocalizacion;
    }
 
-   public BigDecimal getSubPorcentaje() {
-      return subPorcentaje;
-   }
-
-   public void setSubPorcentaje(BigDecimal subPorcentaje) {
-      this.subPorcentaje = subPorcentaje;
-   }
-
    public String getProyecto() {
       return proyecto;
    }
@@ -200,12 +180,60 @@ public class TempProrrateosProy implements Serializable {
       this.proyecto = proyecto;
    }
 
-   public String getObservacion() {
-      return observacion;
+   public String getEmpleado() {
+      return empleado;
    }
 
-   public void setObservacion(String observacion) {
-      this.observacion = observacion;
+   public void setEmpleado(String empleado) {
+      this.empleado = empleado;
+   }
+
+   public BigInteger getCodigoEmpleado() {
+      if (this.empleado != null && codigoEmpleado == null) {
+         codigoEmpleado = new BigInteger(empleado);
+      }
+      return codigoEmpleado;
+   }
+
+   public void setCodigoEmpleado(BigInteger codigoEmpl) {
+      if (codigoEmpl != null) {
+         this.empleado = codigoEmpl.toString();
+      } else {
+         this.empleado = null;
+      }
+      this.codigoEmpleado = codigoEmpl;
+   }
+
+   public String getNombreEmpleado() {
+      return nombreEmpleado;
+   }
+
+   public void setNombreEmpleado(String nombreEmpleado) {
+      this.nombreEmpleado = nombreEmpleado;
+   }
+
+   public String getNombreProyecto() {
+      return nombreProyecto;
+   }
+
+   public void setNombreProyecto(String nombreProyecto) {
+      this.nombreProyecto = nombreProyecto;
+   }
+
+   public BigInteger getCodigoProyecto() {
+      if (this.proyecto != null && codigoProyecto == null) {
+         codigoProyecto = new BigInteger(proyecto);
+      }
+      return codigoProyecto;
+   }
+
+   public void setCodigoProyecto(BigInteger codigoProy) {
+      if (codigoProy != null) {
+         this.proyecto = codigoProy.toString();
+      } else {
+         this.proyecto = null;
+      }
+      this.codigoProyecto = codigoProy;
    }
 
    @Override

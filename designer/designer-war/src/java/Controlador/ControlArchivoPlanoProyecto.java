@@ -9,10 +9,10 @@ import ClasesAyuda.ErroresNovedades;
 import ClasesAyuda.ResultadoBorrarTodoNovedades;
 import ControlNavegacion.ControlListaNavegacion;
 import Entidades.ActualUsuario;
-import Entidades.TempSoAusentismos;
+import Entidades.TempProrrateosProy;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
-import InterfaceAdministrar.AdministrarTempSoAusentismosInterface;
+import InterfaceAdministrar.AdministrarArchivoPlanoProyectoInterface;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,17 +57,17 @@ import org.primefaces.model.UploadedFile;
 public class ControlArchivoPlanoProyecto implements Serializable {
 
    @EJB
-   AdministrarTempSoAusentismosInterface administrarCargueArchivos;
-   private List<TempSoAusentismos> listTempSoAusentismos;
-   private List<TempSoAusentismos> filtrarListTempSoAusentismos;
-   private List<TempSoAusentismos> modificarTempSoAusentismos;
-   private List<TempSoAusentismos> borrarTempSoAusentismos;
-   private List<TempSoAusentismos> crearTempSoAusentismos;
-   private TempSoAusentismos tempSoAusentismoSeleccionada;
-   private TempSoAusentismos duplicarTempSoAusentismos, nuevaTempSoAusentismos;
-   private TempSoAusentismos editarNovedad;
+   AdministrarArchivoPlanoProyectoInterface administrarArchivoPlanoProyecto;
+   private List<TempProrrateosProy> listTempProrrateosProy;
+   private List<TempProrrateosProy> filtrarListTempProrrateosProy;
+   private List<TempProrrateosProy> modificarTempProrrateosProy;
+   private List<TempProrrateosProy> borrarTempProrrateosProy;
+   private List<TempProrrateosProy> crearTempProrrateosProy;
+   private TempProrrateosProy tempProrrateoSeleccionado;
+   private TempProrrateosProy duplicarTempProrrateosProy, nuevaTempProrrateosProy;
+   private TempProrrateosProy editarNovedad;
    private HashSet hs;
-   private TempSoAusentismos tNovedades;
+   private TempProrrateosProy tNovedades;
    private ActualUsuario UsuarioBD;
    private List<ErroresNovedades> listErrores;
    private ErroresNovedades erroresNovedad;
@@ -98,7 +99,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    //
    private int bandera, tipoLista;
    //
-   private Column columnaEmpleado, columnaFechaIni, columnaFechaFin, columnaPorcentaje;
+   private Column columnaCodigoEmpl, columnaEmpleado, columnaCodigoProy, columnaProyecto, columnaFechaIni, columnaFechaFin, columnaPorcentaje;
    //
    private int cualCelda;
    //
@@ -114,13 +115,13 @@ public class ControlArchivoPlanoProyecto implements Serializable {
     * Creates a new instance of ControlArchivoPlanoProyecto
     */
    public ControlArchivoPlanoProyecto() {
-      tempSoAusentismoSeleccionada = null;
+      tempProrrateoSeleccionado = null;
       cualCelda = -1;
-      editarNovedad = new TempSoAusentismos();
+      editarNovedad = new TempProrrateosProy();
       bandera = 0;
       tipoLista = 0;
-      altoTabla = "130";
-      tNovedades = new TempSoAusentismos();
+      altoTabla = "140";
+      tNovedades = new TempProrrateosProy();
       hs = new HashSet();
       listErrores = new ArrayList<ErroresNovedades>();
       erroresNovedad = new ErroresNovedades();
@@ -133,13 +134,13 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       documentosEscogidos = new ArrayList<String>();
       resultadoProceso = new ResultadoBorrarTodoNovedades();
       elementosActualizar = new ArrayList<String>();
-      listTempSoAusentismos = null;
-      modificarTempSoAusentismos = new ArrayList<TempSoAusentismos>();
-      borrarTempSoAusentismos = new ArrayList<TempSoAusentismos>();
-      crearTempSoAusentismos = new ArrayList<TempSoAusentismos>();
+      listTempProrrateosProy = null;
+      modificarTempProrrateosProy = new ArrayList<TempProrrateosProy>();
+      borrarTempProrrateosProy = new ArrayList<TempProrrateosProy>();
+      crearTempProrrateosProy = new ArrayList<TempProrrateosProy>();
       k = 0;
-      nuevaTempSoAusentismos = new TempSoAusentismos();
-      duplicarTempSoAusentismos = new TempSoAusentismos();
+      nuevaTempProrrateosProy = new TempProrrateosProy();
+      duplicarTempProrrateosProy = new TempProrrateosProy();
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -148,7 +149,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarCargueArchivos.obtenerConexion(ses.getId());
+         administrarArchivoPlanoProyecto.obtenerConexion(ses.getId());
       } catch (Exception e) {
          System.out.println("Error postconstruct CargarArchivoPlano: " + e);
          System.out.println("Causa: " + e.getCause());
@@ -167,7 +168,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      String pagActual = "tempsoausentismos";
+      String pagActual = "archivoplanoproyecto";
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -204,16 +205,16 @@ public class ControlArchivoPlanoProyecto implements Serializable {
          restaurarTabla();
       }
       nombreArchivoPlano = null;
-      listTempSoAusentismos = null;
+      listTempProrrateosProy = null;
       contarRegistros();
-      tempSoAusentismoSeleccionada = null;
+      tempProrrateoSeleccionado = null;
       cualCelda = -1;
       guardado = true;
-      modificarTempSoAusentismos = new ArrayList<TempSoAusentismos>();
-      borrarTempSoAusentismos = new ArrayList<TempSoAusentismos>();
-      crearTempSoAusentismos = new ArrayList<TempSoAusentismos>();
-      nuevaTempSoAusentismos = new TempSoAusentismos();
-      duplicarTempSoAusentismos = new TempSoAusentismos();
+      modificarTempProrrateosProy = new ArrayList<TempProrrateosProy>();
+      borrarTempProrrateosProy = new ArrayList<TempProrrateosProy>();
+      crearTempProrrateosProy = new ArrayList<TempProrrateosProy>();
+      nuevaTempProrrateosProy = new TempProrrateosProy();
+      duplicarTempProrrateosProy = new TempProrrateosProy();
       botones = false;
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("form:FileUp");
@@ -223,9 +224,9 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    public void editarCelda() {
-      if (tempSoAusentismoSeleccionada != null) {
+      if (tempProrrateoSeleccionado != null) {
          RequestContext context = RequestContext.getCurrentInstance();
-         editarNovedad = tempSoAusentismoSeleccionada;
+         editarNovedad = tempProrrateoSeleccionado;
          if (cualCelda == 0) {//Proyecto
             context.update("formDialogos:editarProyecto");
             context.execute("PF('editarProyecto').show()");
@@ -250,52 +251,23 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       String type = map.get("t"); // type attribute of node
       index = Integer.parseInt(type);
       cualCelda = Integer.parseInt(name);
-      tempSoAusentismoSeleccionada = listTempSoAusentismos.get(index);
-      cambiarIndice(tempSoAusentismoSeleccionada, cualCelda);
+      tempProrrateoSeleccionado = listTempProrrateosProy.get(index);
+      cambiarIndice(tempProrrateoSeleccionado, cualCelda);
    }
 
-   public void cambiarIndice(TempSoAusentismos tempausen, int celda) {
-      tempSoAusentismoSeleccionada = tempausen;
+   public void cambiarIndice(TempProrrateosProy tempausen, int celda) {
+      tempProrrateoSeleccionado = tempausen;
       cualCelda = celda;
-      tempSoAusentismoSeleccionada.getSecuencia();
-      if (cualCelda == 0) {
-         tempSoAusentismoSeleccionada.getEmpleado();
-      } else if (cualCelda == 1) {
-         tempSoAusentismoSeleccionada.getTipo();
-      } else if (cualCelda == 2) {
-         tempSoAusentismoSeleccionada.getClase();
-      } else if (cualCelda == 3) {
-         tempSoAusentismoSeleccionada.getCausa();
-      } else if (cualCelda == 4) {
-         tempSoAusentismoSeleccionada.getDias();
-      } else if (cualCelda == 5) {
-         tempSoAusentismoSeleccionada.getFecha();
-      } else if (cualCelda == 6) {
-         tempSoAusentismoSeleccionada.getFechafinaus();
-      } else if (cualCelda == 7) {
-         tempSoAusentismoSeleccionada.getFechaexpedicion();
-      } else if (cualCelda == 8) {
-         tempSoAusentismoSeleccionada.getFechainipago();
-      } else if (cualCelda == 9) {
-         tempSoAusentismoSeleccionada.getFechafinpago();
-      } else if (cualCelda == 10) {
-         tempSoAusentismoSeleccionada.getPorcentajeindividual();
-      } else if (cualCelda == 11) {
-         tempSoAusentismoSeleccionada.getBaseliquidacion();
-      } else if (cualCelda == 12) {
-         tempSoAusentismoSeleccionada.getFormaliquidacion();
-      } else if (cualCelda == 13) {
-         tempSoAusentismoSeleccionada.getDocumentosoporte();
-      }
+      tempProrrateoSeleccionado.getSecuencia();
    }
 
-   public void modificarTempNovedad(TempSoAusentismos tempNovedad) {
-      tempSoAusentismoSeleccionada = tempNovedad;
-      if (!crearTempSoAusentismos.contains(tempSoAusentismoSeleccionada)) {
-         if (modificarTempSoAusentismos.isEmpty()) {
-            modificarTempSoAusentismos.add(tempSoAusentismoSeleccionada);
-         } else if (!modificarTempSoAusentismos.contains(tempSoAusentismoSeleccionada)) {
-            modificarTempSoAusentismos.add(tempSoAusentismoSeleccionada);
+   public void modificarTempNovedad(TempProrrateosProy tempNovedad) {
+      tempProrrateoSeleccionado = tempNovedad;
+      if (!crearTempProrrateosProy.contains(tempProrrateoSeleccionado)) {
+         if (modificarTempProrrateosProy.isEmpty()) {
+            modificarTempProrrateosProy.add(tempProrrateoSeleccionado);
+         } else if (!modificarTempProrrateosProy.contains(tempProrrateoSeleccionado)) {
+            modificarTempProrrateosProy.add(tempProrrateoSeleccionado);
          }
          if (guardado) {
             guardado = false;
@@ -305,20 +277,20 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    public void recordarSeleccion() {
-      if (tempSoAusentismoSeleccionada != null) {
+      if (tempProrrateoSeleccionado != null) {
          FacesContext c = FacesContext.getCurrentInstance();
          tabla = (DataTable) c.getViewRoot().findComponent("form:tempNovedades");
-         tabla.setSelection(tempSoAusentismoSeleccionada);
+         tabla.setSelection(tempProrrateoSeleccionado);
       }
    }
 
-   public void modificarTempNovedad(TempSoAusentismos tempNovedad, int celda, String valor) {
-      tempSoAusentismoSeleccionada = tempNovedad;
+   public void modificarTempNovedad(TempProrrateosProy tempNovedad, int celda, String valor) {
+      tempProrrateoSeleccionado = tempNovedad;
       cualCelda = celda;
       if (cualCelda == 0) {
-         tempSoAusentismoSeleccionada.setEmpleado(new BigInteger(valor));
+         tempProrrateoSeleccionado.setCodigoEmpleado(new BigInteger(valor));
       }
-      modificarTempNovedad(tempSoAusentismoSeleccionada);
+      modificarTempNovedad(tempProrrateoSeleccionado);
    }
 
    public void cargarArchivo(FileUploadEvent event) throws IOException {
@@ -344,7 +316,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       try {
          if (nombreArchivo.length() <= 30) {
 //            String destino = "C:\\Prueba\\Archivos_Planos_Cargados\\" + nombreArchivo;
-            String destino = administrarCargueArchivos.consultarRuta() + nombreArchivo;
+            String destino = administrarArchivoPlanoProyecto.consultarRuta() + nombreArchivo;
             System.out.println("transformarArchivo() destino : _" + destino + "_");
             OutputStream out = new FileOutputStream(new File(destino));
             int reader = 0;
@@ -366,6 +338,24 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       }
    }
 
+   ///PROYECTO
+//
+//v_vcCodigoempleado:= substr((LINEBUF),1,15);
+//v_vcPROYECTO:= substr((LINEBUF),16,15);
+//v_vcfechainicial:= substr((LINEBUF),31,10);
+//v_vcfechafinal:= substr((LINEBUF),41,10);
+//v_vcPorcentaje:= substr((LINEBUF),51,5);
+//
+//
+//////CEMTRO COSTO
+//
+//v_vcCodigoempleado:= substr((LINEBUF),1,15);
+//v_vcCentrocosto:= substr((LINEBUF),16,15);
+//v_vcfechainicial:= substr((LINEBUF),31,10);
+//v_vcfechafinal:= substr((LINEBUF),41,10);
+//v_vcPorcentaje:= substr((LINEBUF),51,5);
+//v_vcPROYECTO:= substr((LINEBUF),56,15);
+//v_vcSUBPorcentaje:= substr((LINEBUF),71,5);
    public void leerTxt(String locArchivo, String nombreArchivo) throws FileNotFoundException, IOException {
       System.out.println("Cargue.CargarArchivoPlano.leerTxt()");
       try {
@@ -375,219 +365,99 @@ public class ControlArchivoPlanoProyecto implements Serializable {
          SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
          String sCadena;
          RequestContext context = RequestContext.getCurrentInstance();
-         listTempSoAusentismos.clear();
+         listTempProrrateosProy.clear();
          listErrores.clear();
          while ((sCadena = bf.readLine()) != null) {
-            tNovedades = new TempSoAusentismos();
+            tNovedades = new TempProrrateosProy();
             //LEER EMPLEADO
-            String sEmpleado = sCadena.substring(1, 16).trim();
+            String sEmpleado = sCadena.substring(1, 15).trim();
             if (!sEmpleado.equals("")) {
                try {
-                  BigInteger empleado = new BigInteger(sEmpleado);
-                  tNovedades.setEmpleado(empleado);
+                  BigInteger codEmpleado = new BigInteger(sEmpleado);
+                  tNovedades.setCodigoEmpleado(codEmpleado);
                } catch (Exception e) {
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
             } else {
-               tNovedades.setEmpleado(null);
+               tNovedades.setCodigoEmpleado(null);
             }
             //LEER TIPO AUSENTISMO
-            String sTipo = sCadena.substring(17, 21).trim();
-            if (!sTipo.equals("")) {
+            String sProyecto = sCadena.substring(16, 30).trim();
+            if (!sProyecto.equals("")) {
                try {
-                  BigInteger tipo = new BigInteger(sTipo);
-                  tNovedades.setTipo(tipo);
+                  BigInteger codProyecto = new BigInteger(sProyecto);
+                  tNovedades.setCodigoProyecto(codProyecto);
                } catch (Exception e) {
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
             } else {
-               tNovedades.setTipo(null);
+               tNovedades.setCodigoProyecto(null);
             }
             //LEER CLASE AUSENTISMO
-            String sClase = sCadena.substring(22, 26).trim();
-            if (!sClase.equals("")) {
+            String fechaIni = sCadena.substring(31, 40).trim();
+            if (!fechaIni.equals("")) {
+               if (fechaIni.indexOf("-") > 0) {
+                  fechaIni = fechaIni.replaceAll("-", "/");
+               }
                try {
-                  BigInteger clase = new BigInteger(sClase);
-                  tNovedades.setClase(clase);
+                  Date fechaInicial = formato.parse(fechaIni);
+                  tNovedades.setFechaInicial(fechaInicial);
                } catch (Exception e) {
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
             } else {
-               tNovedades.setClase(null);
+               tNovedades.setFechaInicial(null);
             }
             //LEER CAUSA AUSENTIMO
-            String sCausa = sCadena.substring(27, 31).trim();
-            if (!sCausa.equals("")) {
+            String fechaFin = sCadena.substring(41, 50).trim();
+            if (!fechaFin.equals("")) {
+               if (fechaFin.indexOf("-") > 0) {
+                  fechaFin = fechaFin.replaceAll("-", "/");
+               }
                try {
-                  BigInteger causa = new BigInteger(sCausa);
-                  tNovedades.setCausa(causa);
+                  Date fechaFinal = formato.parse(fechaFin);
+                  tNovedades.setFechaFinal(fechaFinal);
                } catch (Exception e) {
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
             } else {
-               tNovedades.setCausa(null);
+               tNovedades.setFechaFinal(null);
             }
             // LEER DIAS AUSENTISMO
-            String sDias = sCadena.substring(32, 46).trim();
-            if (!sDias.equals("")) {
-               try {
-                  BigInteger dias = new BigInteger(sDias);
-                  tNovedades.setDias(dias);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setDias(null);
-            }
-            // LEER FECHA INICIAL AUSENTISMO
-            String fechaInicial = sCadena.substring(47, 59).trim();
-            if (!fechaInicial.equals("")) {
-               if (fechaInicial.indexOf("-") > 0) {
-                  fechaInicial = fechaInicial.replaceAll("-", "/");
-               }
-               try {
-                  Date FechaInicial = formato.parse(fechaInicial);
-                  tNovedades.setFecha(FechaInicial);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setFecha(null);
-            }
-
-            //LEER FECHA FINAL AUSENTISMO
-            String fechaFinal = sCadena.substring(60, 72).trim();
-            if (!fechaFinal.equals("")) {
-               if (fechaFinal.indexOf("-") > 0) {
-                  fechaFinal = fechaFinal.replaceAll("-", "/");
-               }
-               try {
-                  Date FechaFinal = formato.parse(fechaFinal);
-                  tNovedades.setFechafinaus(FechaFinal);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setFechafinaus(null);
-            }
-            // LEER FECHA EXPEDICION
-            String fechaExp = sCadena.substring(73, 86).trim();
-            if (!fechaExp.equals("")) {
-               if (fechaExp.indexOf("-") > 0) {
-                  fechaExp = fechaExp.replaceAll("-", "/");
-               }
-               try {
-                  Date fechaExpe = formato.parse(fechaExp);
-                  tNovedades.setFechaexpedicion(fechaExpe);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setFechaexpedicion(null);
-            }
-            //LEER FECHA INICIO PAGO
-            String fechaIniPago = sCadena.substring(87, 101).trim();
-            if (!fechaIniPago.equals("")) {
-               if (fechaIniPago.indexOf("-") > 0) {
-                  fechaIniPago = fechaIniPago.replaceAll("-", "/");
-               }
-               try {
-                  Date fechaIniP = formato.parse(fechaIniPago);
-                  tNovedades.setFechainipago(fechaIniP);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setFechainipago(null);
-            }
-            //LEER FECHA FIN PAGO
-            String fechaFinPago = sCadena.substring(102, 115).trim();
-            if (!fechaFinPago.equals("")) {
-               if (fechaFinPago.indexOf("-") > 0) {
-                  fechaFinPago = fechaFinPago.replaceAll("-", "/");
-               }
-               try {
-                  Date fechaFinP = formato.parse(fechaFinPago);
-                  tNovedades.setFechafinpago(fechaFinP);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setFechafinpago(null);
-            }
-            // LEER PORCENTAJE AUSENTISMO
-            String sPorcentaje = sCadena.substring(116, 140).trim();
+            String sPorcentaje = sCadena.substring(51, 55).trim();
             if (!sPorcentaje.equals("")) {
                try {
-                  BigInteger porcentaje = new BigInteger(sPorcentaje);
-                  tNovedades.setPorcentajeindividual(porcentaje);
+                  BigDecimal porcentaje = new BigDecimal(sPorcentaje);
+                  tNovedades.setPorcentaje(porcentaje);
                } catch (Exception e) {
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
             } else {
-               tNovedades.setPorcentajeindividual(null);
+               tNovedades.setPorcentaje(null);
             }
-            // LEER BASE LIQUIDACION
-            String sBaseL = sCadena.substring(123, 132).trim();
-            if (!sBaseL.equals("")) {
-               try {
-                  BigInteger baseliq = new BigInteger(sBaseL);
-                  tNovedades.setBaseliquidacion(baseliq);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setBaseliquidacion(null);
-            }
-            // LEER FORMA LIQUIDACION
-            String sFormaL = sCadena.substring(134, 183).trim();
-            if (!sFormaL.equals("")) {
-               try {
-                  tNovedades.setFormaliquidacion(sFormaL);
-               } catch (Exception e) {
-                  context.update("form:errorArchivo");
-                  context.execute("PF('errorArchivo').show()");
-                  break;
-               }
-            } else {
-               tNovedades.setFormaliquidacion(null);
-            }
-            tNovedades.setUsuariobd(UsuarioBD.getAlias());
+
+            tNovedades.setUsuarioBD(UsuarioBD.getAlias());
             //NOMBRE ARCHIVO
             tNovedades.setArchivo(nombreArchivo);
             tNovedades.setSecuencia(BigInteger.valueOf(1));
-            listTempSoAusentismos.add(tNovedades);
+            listTempProrrateosProy.add(tNovedades);
             tNovedades = null;
          }
-         administrarCargueArchivos.borrarRegistrosTempSoAusentismos(UsuarioBD.getAlias());
-         insertarNovedadTempSoAusentismos();
-         listTempSoAusentismos = null;
-         listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
-         if (listTempSoAusentismos != null) {
+         administrarArchivoPlanoProyecto.borrarRegistrosTempProrrateosProy(UsuarioBD.getAlias());
+         insertarNovedadTempProrrateosProy();
+         listTempProrrateosProy = null;
+         listTempProrrateosProy = administrarArchivoPlanoProyecto.obtenerTempProrrateosProy(UsuarioBD.getAlias());
+         if (listTempProrrateosProy != null) {
             botones = true;
             cargue = false;
             elementosActualizar.add("form:tempNovedades");
@@ -605,15 +475,21 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
+         columnaCodigoEmpl = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoEmpl");
+         columnaCodigoEmpl.setFilterStyle("width: 85% !important");
          columnaEmpleado = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaEmpleado");
          columnaEmpleado.setFilterStyle("width: 85% !important");
+         columnaProyecto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaProyecto");
+         columnaProyecto.setFilterStyle("width: 85% !important");
+         columnaCodigoProy = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoProy");
+         columnaCodigoProy.setFilterStyle("width: 85% !important");
          columnaFechaIni = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaIni");
          columnaFechaIni.setFilterStyle("width: 85% !important");
          columnaFechaFin = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaFin");
          columnaFechaFin.setFilterStyle("width: 85% !important");
          columnaPorcentaje = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaPorcentaje");
          columnaPorcentaje.setFilterStyle("width: 85% !important");
-         altoTabla = "108";
+         altoTabla = "120";
          RequestContext.getCurrentInstance().update("form:tempNovedades");
          bandera = 1;
       } else if (bandera == 1) {
@@ -642,22 +518,22 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    public void borrar() {
-      if (tempSoAusentismoSeleccionada != null) {
-         if (!modificarTempSoAusentismos.isEmpty() && modificarTempSoAusentismos.contains(tempSoAusentismoSeleccionada)) {
-            modificarTempSoAusentismos.remove(tempSoAusentismoSeleccionada);
-            borrarTempSoAusentismos.add(tempSoAusentismoSeleccionada);
-         } else if (!crearTempSoAusentismos.isEmpty() && crearTempSoAusentismos.contains(tempSoAusentismoSeleccionada)) {
-            crearTempSoAusentismos.remove(tempSoAusentismoSeleccionada);
+      if (tempProrrateoSeleccionado != null) {
+         if (!modificarTempProrrateosProy.isEmpty() && modificarTempProrrateosProy.contains(tempProrrateoSeleccionado)) {
+            modificarTempProrrateosProy.remove(tempProrrateoSeleccionado);
+            borrarTempProrrateosProy.add(tempProrrateoSeleccionado);
+         } else if (!crearTempProrrateosProy.isEmpty() && crearTempProrrateosProy.contains(tempProrrateoSeleccionado)) {
+            crearTempProrrateosProy.remove(tempProrrateoSeleccionado);
          } else {
-            borrarTempSoAusentismos.add(tempSoAusentismoSeleccionada);
+            borrarTempProrrateosProy.add(tempProrrateoSeleccionado);
          }
-         listTempSoAusentismos.remove(tempSoAusentismoSeleccionada);
+         listTempProrrateosProy.remove(tempProrrateoSeleccionado);
          if (tipoLista == 1) {
-            filtrarListTempSoAusentismos.remove(tempSoAusentismoSeleccionada);
+            filtrarListTempProrrateosProy.remove(tempProrrateoSeleccionado);
          }
          contarRegistros();
          RequestContext.getCurrentInstance().update("form:tempNovedades");
-         tempSoAusentismoSeleccionada = null;
+         tempProrrateoSeleccionado = null;
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -668,29 +544,30 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    public void duplicar() {
-      if (tempSoAusentismoSeleccionada == null) {
+      if (tempProrrateoSeleccionado == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else {
-         duplicarTempSoAusentismos = new TempSoAusentismos();
+         duplicarTempProrrateosProy = new TempProrrateosProy();
          k++;
          l = BigInteger.valueOf(k);
-         duplicarTempSoAusentismos.setSecuencia(l);
-         duplicarTempSoAusentismos.setEmpleado(tempSoAusentismoSeleccionada.getEmpleado());
-         duplicarTempSoAusentismos.setTipo(tempSoAusentismoSeleccionada.getTipo());
-         duplicarTempSoAusentismos.setDocumentosoporte(tempSoAusentismoSeleccionada.getDocumentosoporte());
-         duplicarTempSoAusentismos.setClase(tempSoAusentismoSeleccionada.getClase());
-         duplicarTempSoAusentismos.setCausa(tempSoAusentismoSeleccionada.getCausa());
-         duplicarTempSoAusentismos.setDias(tempSoAusentismoSeleccionada.getDias());
-         duplicarTempSoAusentismos.setFecha(tempSoAusentismoSeleccionada.getFecha());
-         duplicarTempSoAusentismos.setFechafinaus(tempSoAusentismoSeleccionada.getFechafinaus());
-         duplicarTempSoAusentismos.setFechainipago(tempSoAusentismoSeleccionada.getFechainipago());
-         duplicarTempSoAusentismos.setFechafinpago(tempSoAusentismoSeleccionada.getFechafinpago());
-         duplicarTempSoAusentismos.setFechaexpedicion(tempSoAusentismoSeleccionada.getFechaexpedicion());
-         duplicarTempSoAusentismos.setPorcentajeindividual(tempSoAusentismoSeleccionada.getPorcentajeindividual());
-         duplicarTempSoAusentismos.setBaseliquidacion(tempSoAusentismoSeleccionada.getBaseliquidacion());
-         duplicarTempSoAusentismos.setFormaliquidacion(tempSoAusentismoSeleccionada.getFormaliquidacion());
-         duplicarTempSoAusentismos.setDocumentosoporte(tempSoAusentismoSeleccionada.getDocumentosoporte());
-         duplicarTempSoAusentismos.setUsuariobd(tempSoAusentismoSeleccionada.getUsuariobd());
+         duplicarTempProrrateosProy.setSecuencia(l);
+         duplicarTempProrrateosProy.setEmpleado(tempProrrateoSeleccionado.getEmpleado());
+         duplicarTempProrrateosProy.setArchivo(tempProrrateoSeleccionado.getArchivo());
+         duplicarTempProrrateosProy.setCausaRechazo(tempProrrateoSeleccionado.getCausaRechazo());
+         duplicarTempProrrateosProy.setCodigoEmpleado(tempProrrateoSeleccionado.getCodigoEmpleado());
+         duplicarTempProrrateosProy.setCodigoEmpleadoCargue(tempProrrateoSeleccionado.getCodigoEmpleadoCargue());
+         duplicarTempProrrateosProy.setCodigoProyecto(tempProrrateoSeleccionado.getCodigoProyecto());
+         duplicarTempProrrateosProy.setEstado(tempProrrateoSeleccionado.getEstado());
+         duplicarTempProrrateosProy.setFechaFinal(tempProrrateoSeleccionado.getFechaFinal());
+         duplicarTempProrrateosProy.setFechaInicial(tempProrrateoSeleccionado.getFechaInicial());
+         duplicarTempProrrateosProy.setFechaSistema(tempProrrateoSeleccionado.getFechaSistema());
+         duplicarTempProrrateosProy.setNombreEmpleado(tempProrrateoSeleccionado.getNombreEmpleado());
+         duplicarTempProrrateosProy.setNombreProyecto(tempProrrateoSeleccionado.getNombreProyecto());
+         duplicarTempProrrateosProy.setPorcentaje(tempProrrateoSeleccionado.getPorcentaje());
+         duplicarTempProrrateosProy.setProyecto(tempProrrateoSeleccionado.getProyecto());
+         duplicarTempProrrateosProy.setTerminal(tempProrrateoSeleccionado.getTerminal());
+         duplicarTempProrrateosProy.setUsuarioBD(tempProrrateoSeleccionado.getUsuarioBD());
+         duplicarTempProrrateosProy.setVigLocalizacion(tempProrrateoSeleccionado.getVigLocalizacion());
 
          RequestContext.getCurrentInstance().update("formDialogos:duplicarTempNDialogo");
          RequestContext.getCurrentInstance().execute("PF('duplicarTempNDialogo').show()");
@@ -698,9 +575,9 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      listTempSoAusentismos.add(duplicarTempSoAusentismos);
-      crearTempSoAusentismos.add(duplicarTempSoAusentismos);
-      tempSoAusentismoSeleccionada = listTempSoAusentismos.get(listTempSoAusentismos.indexOf(duplicarTempSoAusentismos));
+      listTempProrrateosProy.add(duplicarTempProrrateosProy);
+      crearTempProrrateosProy.add(duplicarTempProrrateosProy);
+      tempProrrateoSeleccionado = listTempProrrateosProy.get(listTempProrrateosProy.indexOf(duplicarTempProrrateosProy));
 
       RequestContext.getCurrentInstance().update("form:tempNovedades");
       contarRegistros();
@@ -711,7 +588,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       if (bandera == 1) {
          restaurarTabla();
       }
-      duplicarTempSoAusentismos = new TempSoAusentismos();
+      duplicarTempProrrateosProy = new TempProrrateosProy();
 
       RequestContext.getCurrentInstance().update("formDialogos:duplicarTempNDialogo");
       RequestContext.getCurrentInstance().execute("PF('duplicarTempNDialogo').hide()");
@@ -720,10 +597,10 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    public void agregarNuevaTempAusentismo() {
       k++;
       l = BigInteger.valueOf(k);
-      nuevaTempSoAusentismos.setSecuencia(l);
-      listTempSoAusentismos.add(nuevaTempSoAusentismos);
-      crearTempSoAusentismos.add(nuevaTempSoAusentismos);
-      tempSoAusentismoSeleccionada = listTempSoAusentismos.get(listTempSoAusentismos.indexOf(nuevaTempSoAusentismos));
+      nuevaTempProrrateosProy.setSecuencia(l);
+      listTempProrrateosProy.add(nuevaTempProrrateosProy);
+      crearTempProrrateosProy.add(nuevaTempProrrateosProy);
+      tempProrrateoSeleccionado = listTempProrrateosProy.get(listTempProrrateosProy.indexOf(nuevaTempProrrateosProy));
 
       RequestContext.getCurrentInstance().update("form:tempNovedades");
       contarRegistros();
@@ -734,40 +611,40 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       if (bandera == 1) {
          restaurarTabla();
       }
-      nuevaTempSoAusentismos = new TempSoAusentismos();
+      nuevaTempProrrateosProy = new TempProrrateosProy();
 
       RequestContext.getCurrentInstance().update("formDialogos:nuevaTempNDialogo");
       RequestContext.getCurrentInstance().execute("PF('nuevaTempNDialogo').hide()");
    }
 
    public void limpiarNuevo() {
-      nuevaTempSoAusentismos = new TempSoAusentismos();
-      duplicarTempSoAusentismos = new TempSoAusentismos();
+      nuevaTempProrrateosProy = new TempProrrateosProy();
+      duplicarTempProrrateosProy = new TempProrrateosProy();
       RequestContext.getCurrentInstance().update("formDialogos:nuevaTempNDialogo");
       RequestContext.getCurrentInstance().update("formDialogos:duplicarTempNDialogo");
    }
 
-   public void insertarNovedadTempSoAusentismos() {
-      if (!listTempSoAusentismos.isEmpty()) {
-         administrarCargueArchivos.crearTempSoAusentismos(listTempSoAusentismos);
+   public void insertarNovedadTempProrrateosProy() {
+      if (!listTempProrrateosProy.isEmpty()) {
+         administrarArchivoPlanoProyecto.crear(listTempProrrateosProy);
       }
    }
 
    public void guardar() {
       if (guardado == false) {
          guardado = true;
-         if (!modificarTempSoAusentismos.isEmpty()) {
-            for (int i = 0; i < modificarTempSoAusentismos.size(); i++) {
-               administrarCargueArchivos.modificarTempSoAusentismos(modificarTempSoAusentismos.get(i));
+         if (!modificarTempProrrateosProy.isEmpty()) {
+            for (int i = 0; i < modificarTempProrrateosProy.size(); i++) {
+               administrarArchivoPlanoProyecto.editar(modificarTempProrrateosProy.get(i));
             }
          }
-         if (!borrarTempSoAusentismos.isEmpty()) {
-            for (int i = 0; i < borrarTempSoAusentismos.size(); i++) {
-               administrarCargueArchivos.borrarTempSoAusentismos(borrarTempSoAusentismos.get(i));
+         if (!borrarTempProrrateosProy.isEmpty()) {
+            for (int i = 0; i < borrarTempProrrateosProy.size(); i++) {
+               administrarArchivoPlanoProyecto.borrar(borrarTempProrrateosProy.get(i));
             }
          }
-         if (!crearTempSoAusentismos.isEmpty()) {
-            administrarCargueArchivos.crearTempSoAusentismos(crearTempSoAusentismos);
+         if (!crearTempProrrateosProy.isEmpty()) {
+            administrarArchivoPlanoProyecto.crear(crearTempProrrateosProy);
          }
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -788,18 +665,24 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
+      columnaCodigoEmpl = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoEmpl");
+      columnaCodigoEmpl.setFilterStyle("display: none; visibility: hidden;");
       columnaEmpleado = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaEmpleado");
       columnaEmpleado.setFilterStyle("display: none; visibility: hidden;");
+      columnaCodigoProy = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoProy");
+      columnaCodigoProy.setFilterStyle("display: none; visibility: hidden;");
+      columnaProyecto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaProyecto");
+      columnaProyecto.setFilterStyle("display: none; visibility: hidden;");
       columnaFechaIni = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaIni");
       columnaFechaIni.setFilterStyle("display: none; visibility: hidden;");
       columnaFechaFin = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaFin");
       columnaFechaFin.setFilterStyle("display: none; visibility: hidden;");
       columnaPorcentaje = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaPorcentaje");
       columnaPorcentaje.setFilterStyle("display: none; visibility: hidden;");
-      altoTabla = "130";
+      altoTabla = "140";
       RequestContext.getCurrentInstance().update("form:tempNovedades");
       bandera = 0;
-      filtrarListTempSoAusentismos = null;
+      filtrarListTempProrrateosProy = null;
       tipoLista = 0;
    }
 
@@ -864,15 +747,51 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       context.execute("PF('documentoSoporteDialogo').show()");
    }
 
+   //CARGUE NOVEDADES
+   public void cargarNovedades() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (!listTempProrrateosProy.isEmpty() || listTempProrrateosProy != null) {
+         int pasa = 0;
+         for (int i = 0; i < listErrores.size(); i++) {
+            if (listErrores.get(i).getNumeroErrores() != 0) {
+               pasa++;
+            }
+         }
+         if (pasa == 0) {
+            administrarArchivoPlanoProyecto.cargarTempProrrateosProy();
+            int registrosNAntes = listTempProrrateosProy.size();
+            listTempProrrateosProy = administrarArchivoPlanoProyecto.obtenerTempProrrateosProy(UsuarioBD.getAlias());
+            int registrosNDespues = listTempProrrateosProy.size();
+            diferenciaRegistrosN = registrosNAntes - registrosNDespues;
+            context.update("form:tempNovedades");
+            if (diferenciaRegistrosN == registrosNAntes) {
+               context.update("form:novedadesCargadas");
+               context.execute("PF('novedadesCargadas').show()");
+            }
+            context.update("form:subtotal");
+            listErrores.clear();
+            erroresNovedad = null;
+            cargue = true;
+            nombreArchivoPlano = null;
+            documentosSoportes = null;
+            context.update("form:pickListDocumentosSoporte");
+            botones = false;
+            context.update("form:FileUp");
+            context.update("form:nombreArchivo");
+            context.update("form:formula");
+            context.update("form:cargar");
+         }
+      }
+   }
+
    public void borrarRegistrosNoCargados() {
-      administrarCargueArchivos.borrarRegistrosTempSoAusentismos(UsuarioBD.getAlias());
-      listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
+      administrarArchivoPlanoProyecto.borrarRegistrosTempProrrateosProy(UsuarioBD.getAlias());
+      listTempProrrateosProy = administrarArchivoPlanoProyecto.obtenerTempProrrateosProy(UsuarioBD.getAlias());
       contarRegistros();
       nombreArchivoPlano = null;
       botones = false;
       cargue = true;
       RequestContext context = RequestContext.getCurrentInstance();
-      context.update("form:subtotal");
       context.update("form:FileUp");
       context.update("form:formula");
       context.update("form:usoFormulaC");
@@ -885,7 +804,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void reversar() {
       RequestContext context = RequestContext.getCurrentInstance();
-      resultado = administrarCargueArchivos.reversarNovedades(UsuarioBD, documentoSoporteReversar);
+      resultado = administrarArchivoPlanoProyecto.reversarTempProrrateosProy(UsuarioBD, documentoSoporteReversar);
       documentoSoporteReversar = null;
       context.update("form:documentoR");
       context.execute("PF('reversarDialogo').hide()");
@@ -908,7 +827,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void confirmarReversar() {
       RequestContext context = RequestContext.getCurrentInstance();
-      lovdocumentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      lovdocumentosSoporteCargados = administrarArchivoPlanoProyecto.obtenerDocumentosSoporteCargados();
       hs.addAll(lovdocumentosSoporteCargados);
       lovdocumentosSoporteCargados.clear();
       lovdocumentosSoporteCargados.addAll(hs);
@@ -928,7 +847,8 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    public void confirmarBorrarTodo() {
       if (!documentosSoportes.getTarget().isEmpty()) {
          RequestContext context = RequestContext.getCurrentInstance();
-         resultadoProceso = administrarCargueArchivos.BorrarTodo(UsuarioBD, documentosSoportes.getTarget());
+//         resultadoProceso = administrarArchivoPlanoProyecto.BorrarTodo(UsuarioBD, documentosSoportes.getTarget());
+         System.out.println("NO ESTA BORRANDO TODO");
          documentosSoportes = null;
          context.execute("PF('borrarTodoDialogo').hide()");
          context.update("form:pickListDocumentosSoporte");
@@ -955,7 +875,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void exportPDF() throws IOException {
       FacesContext c = FacesContext.getCurrentInstance();
-      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formExportar:exportarTempSoAusentismos");
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formExportar:exportarTempProrrateosProy");
       FacesContext context = c;
       Exporter exporter = new ExportarPDF();
       exporter.export(context, tabla, "Novedades_PDF", false, false, "UTF-8", null, null);
@@ -964,7 +884,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
 
    public void exportXLS() throws IOException {
       FacesContext c = FacesContext.getCurrentInstance();
-      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formExportar:exportarTempSoAusentismos");
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formExportar:exportarTempProrrateosProy");
       FacesContext context = c;
       Exporter exporter = new ExportarXLS();
       exporter.export(context, tabla, "Novedades_XLS", false, false, "UTF-8", null, null);
@@ -976,7 +896,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
          tipoLista = 1;
       }
       contarRegistros();
-      tempSoAusentismoSeleccionada = null;
+      tempProrrateoSeleccionado = null;
    }
 
    public void contarRegistrosFormulas() {
@@ -992,18 +912,18 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    //GETTER AND SETTER
-   public List<TempSoAusentismos> getListTempSoAusentismos() {
+   public List<TempProrrateosProy> getListTempProrrateosProy() {
       if (UsuarioBD == null) {
-         UsuarioBD = administrarCargueArchivos.actualUsuario();
+         UsuarioBD = administrarArchivoPlanoProyecto.actualUsuario();
       }
-      if (UsuarioBD.getAlias() != null && listTempSoAusentismos == null) {
-         listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
+      if (UsuarioBD.getAlias() != null && listTempProrrateosProy == null) {
+         listTempProrrateosProy = administrarArchivoPlanoProyecto.obtenerTempProrrateosProy(UsuarioBD.getAlias());
       }
-      return listTempSoAusentismos;
+      return listTempProrrateosProy;
    }
 
-   public void setListTempSoAusentismos(List<TempSoAusentismos> listTempSoAusentismos) {
-      this.listTempSoAusentismos = listTempSoAusentismos;
+   public void setListTempProrrateosProy(List<TempProrrateosProy> listTempProrrateosProy) {
+      this.listTempProrrateosProy = listTempProrrateosProy;
    }
 
    public ErroresNovedades getErroresNovedad() {
@@ -1047,11 +967,13 @@ public class ControlArchivoPlanoProyecto implements Serializable {
    }
 
    public List<String> getLovdocumentosSoporteCargados() {
-      lovdocumentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
-      hs.addAll(lovdocumentosSoporteCargados);
-      lovdocumentosSoporteCargados.clear();
-      lovdocumentosSoporteCargados.addAll(hs);
-      hs.clear();
+      lovdocumentosSoporteCargados = administrarArchivoPlanoProyecto.obtenerDocumentosSoporteCargados();
+      if (lovdocumentosSoporteCargados != null) {
+         hs.addAll(lovdocumentosSoporteCargados);
+         lovdocumentosSoporteCargados.clear();
+         lovdocumentosSoporteCargados.addAll(hs);
+         hs.clear();
+      }
       return lovdocumentosSoporteCargados;
    }
 
@@ -1102,21 +1024,21 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       this.resultadoProceso = resultadoProceso;
    }
 
-   public List<TempSoAusentismos> getFiltrarListTempSoAusentismos() {
-      return filtrarListTempSoAusentismos;
+   public List<TempProrrateosProy> getFiltrarListTempProrrateosProy() {
+      return filtrarListTempProrrateosProy;
    }
 
-   public void setFiltrarListTempSoAusentismos(List<TempSoAusentismos> filtrarListTempSoAusentismos) {
-      this.filtrarListTempSoAusentismos = filtrarListTempSoAusentismos;
+   public void setFiltrarListTempProrrateosProy(List<TempProrrateosProy> filtrarListTempProrrateosProy) {
+      this.filtrarListTempProrrateosProy = filtrarListTempProrrateosProy;
    }
 
-   public TempSoAusentismos getTempSoAusentismoSeleccionada() {
-      //getListTempSoAusentismos();
-      return tempSoAusentismoSeleccionada;
+   public TempProrrateosProy getTempProrrateoSeleccionado() {
+      //getListTempProrrateosProy();
+      return tempProrrateoSeleccionado;
    }
 
-   public void setTempSoAusentismoSeleccionada(TempSoAusentismos tempSoAusentismoSeleccionada) {
-      this.tempSoAusentismoSeleccionada = tempSoAusentismoSeleccionada;
+   public void setTempProrrateoSeleccionado(TempProrrateosProy tempProrrateoSeleccionado) {
+      this.tempProrrateoSeleccionado = tempProrrateoSeleccionado;
    }
 
    public String getInfoRegistroFormula() {
@@ -1160,11 +1082,11 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       this.altoTabla = altoTabla;
    }
 
-   public TempSoAusentismos getEditarNovedad() {
+   public TempProrrateosProy getEditarNovedad() {
       return editarNovedad;
    }
 
-   public void setEditarNovedad(TempSoAusentismos editarNovedad) {
+   public void setEditarNovedad(TempProrrateosProy editarNovedad) {
       this.editarNovedad = editarNovedad;
    }
 
@@ -1176,19 +1098,19 @@ public class ControlArchivoPlanoProyecto implements Serializable {
       this.guardado = guardado;
    }
 
-   public TempSoAusentismos getDuplicarTempSoAusentismos() {
-      return duplicarTempSoAusentismos;
+   public TempProrrateosProy getDuplicarTempProrrateosProy() {
+      return duplicarTempProrrateosProy;
    }
 
-   public void setDuplicarTempSoAusentismos(TempSoAusentismos duplicarTempSoAusentismos) {
-      this.duplicarTempSoAusentismos = duplicarTempSoAusentismos;
+   public void setDuplicarTempProrrateosProy(TempProrrateosProy duplicarTempProrrateosProy) {
+      this.duplicarTempProrrateosProy = duplicarTempProrrateosProy;
    }
 
-   public TempSoAusentismos getNuevaTempSoAusentismos() {
-      return nuevaTempSoAusentismos;
+   public TempProrrateosProy getNuevaTempProrrateosProy() {
+      return nuevaTempProrrateosProy;
    }
 
-   public void setNuevaTempSoAusentismos(TempSoAusentismos nuevaTempSoAusentismos) {
-      this.nuevaTempSoAusentismos = nuevaTempSoAusentismos;
+   public void setNuevaTempProrrateosProy(TempProrrateosProy nuevaTempProrrateosProy) {
+      this.nuevaTempProrrateosProy = nuevaTempProrrateosProy;
    }
 }

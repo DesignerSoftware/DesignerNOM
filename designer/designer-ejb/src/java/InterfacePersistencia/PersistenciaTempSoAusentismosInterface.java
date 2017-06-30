@@ -30,6 +30,6 @@ public interface PersistenciaTempSoAusentismosInterface {
 
     public void cargarTempAusentismos(EntityManager em, String fechaInicial, BigInteger secEmpresa);
 
-    public void reversarTempAusentismos(EntityManager em, String usuarioBD, String documentoSoporte);
+    public int reversarTempAusentismos(EntityManager em, String usuarioBD, String documentoSoporte);
 
 }

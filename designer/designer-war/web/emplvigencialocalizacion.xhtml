@@ -37,7 +37,8 @@
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="listaValores" disabled="#{controlVigenciaLocalizacion.activarLOV}" value="" actionListener="#{controlVigenciaLocalizacion.listaValoresBoton()}" process="@this"
+                        <p:commandButton id="listaValores" disabled="#{controlVigenciaLocalizacion.activarLOV}" value=""
+                                         actionListener="#{controlVigenciaLocalizacion.listaValoresBoton()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
@@ -83,7 +84,7 @@
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"
-                                         style="background-image: url(Imagenes/Iconos/refrescar.png);"/>  
+                                         style="background-image: url(Imagenes/Iconos/refrescar.png);"/>
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
@@ -97,20 +98,20 @@
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
-                     <h:outputText id="nombreEmpleadot" value="#{controlVigenciaLocalizacion.empleado.persona.nombreCompleto}" 
+                     <h:outputText id="nombreEmpleadot" value="#{controlVigenciaLocalizacion.empleado.persona.nombreCompleto}"
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
                      <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
-                     <h:outputText id="docEmpleado" value="#{controlVigenciaLocalizacion.empleado.codigoempleado}" 
+                     <h:outputText id="docEmpleado" value="#{controlVigenciaLocalizacion.empleado.codigoempleado}"
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 107px; left: 10px; height: 165px; width: 830px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 108px; left: 10px; height: 170px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="color: blue;"><strong>#{msg['localizacion']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
                      <p:dataTable id="datosVLEmpleado" widgetVar="datosVLEmpleado" var="infoDVL" rowKey="#{infoDVL.secuencia}" rowIndexVar="indice" style="width: 820px;"   
-                                  value="#{controlVigenciaLocalizacion.vigenciaLocalizaciones}" scrollable="true" scrollHeight="#{controlVigenciaLocalizacion.altoTabla1}" scrollWidth="820"
+                                  value="#{controlVigenciaLocalizacion.vigenciaLocalizaciones}" scrollable="true" scrollHeight="#{controlVigenciaLocalizacion.altoTabla}" scrollWidth="820"
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoVL}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" selection="#{controlVigenciaLocalizacion.vigenciaLocalizacionSeleccionada}" selectionMode="single">
 
@@ -194,13 +195,13 @@
                            <f:facet name="header">
                               <h:outputText id="headerMotivoVL" value="#{msg['motivo']}"/>
                               <p:tooltip  for="vlMotivo" value="Ingrese el motivo del cambio de localizacion."/>
-                           </f:facet> 
-                           <p:cellEditor>  
+                           </f:facet>
+                           <p:cellEditor>
                               <f:facet name="output">
                                  <h:outputText value="#{infoDVL.motivo.descripcion}"/>
-                              </f:facet>  
+                              </f:facet>
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoDVL.motivo.descripcion}" id="editarMotivo" style=" border-radius: 0px; width: 95%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoDVL.motivo.descripcion}" id="editarMotivo" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVL(infoDVL, 'MOTIVOLOCALIZACION')}" update="editarMotivo"/>                                                
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(infoDVL,1,0)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndice(infoDVL,3)}"
@@ -210,7 +211,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 115%;" id="fooMotivo" onstart="#{controlVigenciaLocalizacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion','motivolocalizacion')}" value="">
+                              <p:commandButton id="fooMotivo" style="width: 115%;" onstart="#{controlVigenciaLocalizacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion','motivolocalizacion')}" value="">
                                  <f:actionListener binding="#{controlMotivosLocalizaciones.recibirPag('motivolocalizacion')}"/>
                                  <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -226,7 +227,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoDVL.proyecto.nombreproyecto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" maxlength="50" value="#{infoDVL.proyecto.nombreproyecto}" id="editarProyecto" style=" border-radius: 0px; width: 95%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" maxlength="50" value="#{infoDVL.proyecto.nombreproyecto}" id="editarProyecto" style="text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVL(infoDVL, 'PROYECTO')}" update="editarProyecto"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(infoDVL,2,0)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndice(infoDVL,4)}"
@@ -242,16 +243,16 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>  
-                     <h:outputText id="informacionRegistroVL" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVL}" style="position: relative; left: 15px; top: 0px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistroVL" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVL}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 290px; left: 10px; height: 165px; width: 455px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 298px; left: 10px; height: 185px; width: 455px; border-radius: 10px; text-align: left;">
                      <legend style="color: blue;"><strong>#{msg['pcc']}</strong></legend>
 
                      <p:dataTable id="datosVPVigencia" widgetVar="datosVPVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVP" 
-                                  value="#{controlVigenciaLocalizacion.vigenciasProrrateosCentroC}" style=" border: 1px; width: 630px; position: inherit;"
+                                  value="#{controlVigenciaLocalizacion.vigenciasProrrateosCentroC}" style="width: 630px; position: inherit;"
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoVP}" emptyMessage="#{msg['vacio']}" liveScroll="true" scrollRows="10"
-                                  scrollable="true" editable="true" editMode="cell" scrollHeight="#{controlVigenciaLocalizacion.altoTabla2}" scrollWidth="450" 
+                                  scrollable="true" editable="true" editMode="cell" scrollHeight="#{controlVigenciaLocalizacion.altoTabla}" scrollWidth="450" 
                                   selection="#{controlVigenciaLocalizacion.vigenciaProrrateoSeleccionada}" selectionMode="single">
 
                         <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.eventoFiltrarVP()}"/>
@@ -266,7 +267,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.centrocosto.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.centrocosto.nombre}" id="editarCentroCostoVP" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{info.centrocosto.nombre}" id="editarCentroCostoVP" style="text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,0)}" update=":form:datosVPPVigencia"
                                             onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP});" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(info,0,0)}" process="@this"/>
@@ -362,7 +363,7 @@
                               <f:facet name="output"><h:outputText value="#{info.proyecto.nombreproyecto}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" maxlength="50" value="#{info.proyecto.nombreproyecto}"
-                                              id="editarProyectoVP" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
+                                              id="editarProyectoVP" style="text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,4)}" update=":form:datosVPPVigencia" process="@this"
                                             onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(info,1,0)}" process="@this"/>
@@ -401,15 +402,20 @@
                         </p:column> 
 
                      </p:dataTable>
-                     <h:outputText id="informacionRegistroVP" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVP}" style="position: relative; left: 15px; top: 137px; font-weight: bold;"/>
+                     <div style="position: relative; top: 140px;">
+                        <h:outputText id="informacionRegistroVP" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVP}"
+                                      style="position: relative; left: 10px; top: 6px; font-weight: bold;"/>
+                        <p:commandButton style="position: absolute; right: 0px; top: 6px; width: 135px;" class="cssBoton" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion', 'archivoplanocentrocosto')}"
+                                         id="ARCHIVOPLANOCC" value="Archivo Plano" process="@this" icon="ui-icon-extlink"/>
+                        <p:tooltip for="ARCHIVOPLANOCC" value="#{msg['archivoCC']}"/>
+                     </div>
                   </fieldset>
 
-
-                  <fieldset style="position: absolute; top: 290px; left: 492px; height: 165px; width: 348px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 298px; left: 492px; height: 185px; width: 348px; border-radius: 10px; text-align: left;">
                      <legend style="color: blue;"><strong>#{msg['pp']}</strong></legend>
                      <p:dataTable id="datosVPPVigencia" widgetVar="datosVPPVigencia" var="info2" rowKey="#{info2.secuencia}" rowIndexVar="indiceVPP" value="#{controlVigenciaLocalizacion.vigenciasProrrateosProyectos}" 
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoPP}" editable="true" editMode="cell" 
-                                  scrollable="true" scrollHeight="#{controlVigenciaLocalizacion.altoTabla3}" scrollWidth="345" emptyMessage="#{msg['vacio']}" style=" border: 1px; width:345px"
+                                  scrollable="true" scrollHeight="#{controlVigenciaLocalizacion.altoTabla}" scrollWidth="345" emptyMessage="#{msg['vacio']}" style=" border: 1px; width:345px"
                                   selection="#{controlVigenciaLocalizacion.vigenciaProrrateoProyectoSeleccionada}" selectionMode="single">
 
                         <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.eventoFiltrarVPP()}"/>
@@ -423,7 +429,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info2.proyecto.nombreproyecto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" maxlength="50" value="#{info2.proyecto.nombreproyecto}" id="editarProyectoVPP" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                 <p:inputText autocomplete="off" maxlength="50" value="#{info2.proyecto.nombreproyecto}" id="editarProyectoVPP" style="text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVPP(info2, 0)}" update=":form:datosVPVigencia" process="@this"
                                             onstart="PF('datosVPPVigencia').unselectAllRows();PF('datosVPPVigencia').selectRow(#{indiceVPP});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVPP(info2,0,0)}" process="@this"/>
@@ -515,12 +521,14 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>
-                     <h:outputText id="informacionRegistroVPP" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVPP}" style="position: relative; left: 15px; top: 0px; font-weight: bold;"/>
+                     <div style="position: relative; top: 0px;">
+                        <h:outputText id="informacionRegistroVPP" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVPP}"
+                                      style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
+                        <p:commandButton style="position: absolute; right: 0px; top: 0px; width: 135px;" class="cssBoton" action="#{controlListaNavegacion.guardarNavegacion('emplvigencialocalizacion', 'archivoplanoproyecto')}"
+                                         id="ARCHIVOPLANOPR" value="Archivo Plano" icon="ui-icon-extlink"/>
+                        <p:tooltip for="ARCHIVOPLANOPR" value="#{msg['archivoPR']}"/>
+                     </div>
                   </fieldset>
-
-                  <p:commandButton style="position: absolute; left: 20px; top: 470px; height: 30px; width: 137px; background-image: url(Imagenes/Iconos/boton.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" id="ARCHIVOPLANO" value="Archivo Plano" process="@this" icon="ui-icon-extlink"/>
-                  <p:tooltip for="ARCHIVOPLANO" value="#{msg['archivo']}"/>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVLEmpleado" process="@this" disabled="#{controlVigenciaLocalizacion.guardado}"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaLocalizacion.salir()}" process="@this"/>

@@ -220,7 +220,8 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
       em.clear();
       try {
          String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
-                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
+                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO) \n"
+                 + "ORDER BY ULTIMAMODIFICACION DESC";
          System.out.println("q : " + q);
          Query query = em.createNativeQuery(q, CambiosMasivos.class);
          List<CambiosMasivos> lista = query.getResultList();
@@ -233,11 +234,8 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                      if (i == 0) {
                         System.out.println("q2 : " + q2);
                      }
-//                     Query query1 = em.createNativeQuery(q1, BigDecimal.class);
                      Query query2 = em.createNativeQuery(q2);
-//                     BigDecimal cod = (BigDecimal) query1.getSingleResult();
                      String nom = (String) query2.getSingleResult();
-//                     lista.get(i).setCodigoEmpleado(cod);
                      lista.get(i).setNombreEmpleado(nom);
                   } catch (Exception e2) {
                      System.out.println("Error consultando Transients : " + e2);
@@ -245,17 +243,12 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                   em.clear();
                   try {
                      String q1 = "SELECT E.CODIGOEMPLEADO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
-//                     String q2 = "SELECT P.NOMBRE ||' '|| P.PRIMERAPELLIDO ||' '|| P.SEGUNDOAPELLIDO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
                      if (i == 0) {
                         System.out.println("q1 : " + q1);
-//                        System.out.println("q2 : " + q2);
                      }
                      Query query1 = em.createNativeQuery(q1);
-//                     Query query2 = em.createNativeQuery(q2, String.class);
                      BigDecimal cod = (BigDecimal) query1.getSingleResult();
-//                     String nom = (String) query2.getSingleResult();
                      lista.get(i).setCodigoEmpleado(cod);
-//                     lista.get(i).setNombreEmpleado(nom);
                   } catch (Exception e3) {
                      System.out.println("Error consultando Transients : " + e3);
                   }
@@ -357,7 +350,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                         parametro.setStr_sueldoUnidadPago(objAux.getStr_sueldoUnidadPago());
                      }
                   }
-                  
+
                   if (parametro.getAfiliaTerceroSucursal() == n) {
                      parametro.setAfiliaTerceroSucursal(null);
                   }

@@ -6,29 +6,31 @@
 package InterfacePersistencia;
 
 import Entidades.TempProrrateos;
-import java.math.BigInteger;
 import java.util.List;
+import javax.ejb.Local;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author user
  */
+@Local
 public interface PersistenciaTempProrrateosInterface {
 
-   public void crear(EntityManager em, TempProrrateos tempProrrateos);
+   public void crear(EntityManager em, TempProrrateos tempAusentismos);
 
-   public void editar(EntityManager em, TempProrrateos tempProrrateos);
+   public void editar(EntityManager em, TempProrrateos tempAusentismos);
 
-   public void borrar(EntityManager em, TempProrrateos tempProrrateos);
+   public void borrar(EntityManager em, TempProrrateos tempAusentismos);
 
    public void borrarRegistrosTempProrrateos(EntityManager em, String usuarioBD);
 
    public List<TempProrrateos> obtenerTempProrrateos(EntityManager em, String usuarioBD);
 
-   public List<String> obtenerDocumentosSoporteCargados(EntityManager em, String usuarioBD);
+   public List<String> obtenerDocumentosSoporteCargados(EntityManager em);
 
-   public void cargarTempProrrateos(EntityManager em, String fechaInicial, BigInteger secEmpresa);
+//   public void cargarTempProrrateos(EntityManager em, String fechaInicial, BigInteger secEmpresa);
+   public void cargarTempProrrateos(EntityManager em);
 
-   public void reversarTempProrrateos(EntityManager em, String documentoSoporte);
+   public int reversarTempProrrateos(EntityManager em, String usuario, String documentoSoporte);
 }

@@ -6,14 +6,15 @@
 package InterfacePersistencia;
 
 import Entidades.TempProrrateosProy;
-import java.math.BigInteger;
 import java.util.List;
+import javax.ejb.Local;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author user
  */
+@Local
 public interface PersistenciaTempProrrateosProyInterface {
 
    public void crear(EntityManager em, TempProrrateosProy tempAusentismos);
@@ -26,9 +27,10 @@ public interface PersistenciaTempProrrateosProyInterface {
 
    public List<TempProrrateosProy> obtenerTempProrrateosProy(EntityManager em, String usuarioBD);
 
-   public List<String> obtenerDocumentosSoporteCargados(EntityManager em, String usuarioBD);
+   public List<String> obtenerDocumentosSoporteCargados(EntityManager em);
 
-   public void cargarTempProrrateosProy(EntityManager em, String fechaInicial, BigInteger secEmpresa);
+//   public void cargarTempProrrateosProy(EntityManager em, String fechaInicial, BigInteger secEmpresa);
+   public void cargarTempProrrateosProy(EntityManager em);
 
-   public void reversarTempProrrateosProy(EntityManager em, String documentoSoporte);
+   public int reversarTempProrrateosProy(EntityManager em, String usuario, String documentoSoporte);
 }

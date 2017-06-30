@@ -425,13 +425,30 @@ public class ControlCambiosMasivos {
          boolean continuar = false;
          if (administrarCambiosMasivos.comprobarConceptoManual(parametroCambioMasivoActual.getNoveConcepto())) {
             if (parametroCambioMasivoActual.getNoveValor() != null) {
+               System.out.println("ControlCambiosMasivos.procesarNovedades() parametroCambioMasivoActual.getNoveValor(): " + parametroCambioMasivoActual.getNoveValor());
+            }
+            if (parametroCambioMasivoActual.getNoveValor().intValue() > 0) {
                continuar = true;
             }
-         } else if (parametroCambioMasivoActual.getNoveValor() != null || parametroCambioMasivoActual.getNoveUnidadParteEntera() != null || parametroCambioMasivoActual.getNoveUnidadParteFraccion() != null) {
-            if (parametroCambioMasivoActual.getNoveValor() == null) {
+            //Si no es manual entonces es semiautomatico
+         } else {
+            if (parametroCambioMasivoActual.getNoveUnidadParteEntera() != null) {
+               if (parametroCambioMasivoActual.getNoveUnidadParteEntera().intValue() > 0) {
+                  continuar = true;
+               }
+            }
+            if (parametroCambioMasivoActual.getNoveUnidadParteFraccion() != null) {
+               if (parametroCambioMasivoActual.getNoveUnidadParteFraccion().intValue() > 0) {
+                  continuar = true;
+               }
+            }
+            if (parametroCambioMasivoActual.getNoveValor() != null) {
+               if (parametroCambioMasivoActual.getNoveValor().intValue() > 0) {
+                  continuar = true;
+               }
+            } else {
                parametroCambioMasivoActual.setNoveValor(new BigInteger("0"));
             }
-            continuar = true;
          }
          if (continuar) {
             administrarCambiosMasivos.adicionaNovedadCM2(parametroCambioMasivoActual.getNoveTipo(), parametroCambioMasivoActual.getNoveConcepto(),
@@ -2204,34 +2221,35 @@ public class ControlCambiosMasivos {
       clasesausentismosSeleccionado = null;
       causaausentismoSeleccionado = null;
 
-      lovEstructuras = new ArrayList<Estructuras>();
-      lovMotivosDefinitivas = new ArrayList<MotivosDefinitivas>();
-      lovMotivosRetiros = new ArrayList<MotivosRetiros>();
-      lovTiposEntidades = new ArrayList<TiposEntidades>();
-      lovTercerosSucursales = new ArrayList<TercerosSucursales>();
-      lovPeriodicidades = new ArrayList<Periodicidades>();
-      lovConceptos = new ArrayList<Conceptos>();
-      lovFormulas = new ArrayList<Formulas>();
-      lovTerceros = new ArrayList<Terceros>();
-      lovMotivosSueldos = new ArrayList<MotivosCambiosSueldos>();
-      lovTiposSueldos = new ArrayList<TiposSueldos>();
-      lovTiposausentismos = new ArrayList<Tiposausentismos>();
-      lovUnidades = new ArrayList<Unidades>();
-      lovEmpleados = new ArrayList<Empleados>();
-      lovIbcs = new ArrayList<String>();
-      lovPapeles = new ArrayList<Papeles>();
-      lovCausasausentismos = new ArrayList<Causasausentismos>();
-      lovClasesausentismos = new ArrayList<Clasesausentismos>();
+//      lovEstructuras = new ArrayList<Estructuras>();
+//      lovMotivosDefinitivas = new ArrayList<MotivosDefinitivas>();
+//      lovMotivosRetiros = new ArrayList<MotivosRetiros>();
+//      lovTiposEntidades = new ArrayList<TiposEntidades>();
+//      lovTercerosSucursales = new ArrayList<TercerosSucursales>();
+//      lovPeriodicidades = new ArrayList<Periodicidades>();
+//      lovConceptos = new ArrayList<Conceptos>();
+//      lovFormulas = new ArrayList<Formulas>();
+//      lovTerceros = new ArrayList<Terceros>();
+//      lovMotivosSueldos = new ArrayList<MotivosCambiosSueldos>();
+//      lovTiposSueldos = new ArrayList<TiposSueldos>();
+//      lovTiposausentismos = new ArrayList<Tiposausentismos>();
+//      lovUnidades = new ArrayList<Unidades>();
+//      lovEmpleados = new ArrayList<Empleados>();
+//      lovIbcs = new ArrayList<String>();
+//      lovPapeles = new ArrayList<Papeles>();
+//      lovCausasausentismos = new ArrayList<Causasausentismos>();
+//      lovClasesausentismos = new ArrayList<Clasesausentismos>();
       campo = 0;
       panelActivo = 1;
       aceptar = true;
       guardado = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
+      RequestContext.getCurrentInstance().update("form:datosCambiosMasivos");
+      contarRegistrosCM();
    }
 
    public void salir() {
-      limpiarListasValor();
       listaParametros = null;
       listaCambiosMasivos = null;
       cambioMasivoSeleccionado = null;

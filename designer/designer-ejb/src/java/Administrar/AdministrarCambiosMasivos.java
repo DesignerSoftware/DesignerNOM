@@ -139,7 +139,6 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
 
    @Override
    public List<CambiosMasivos> consultarUltimosCambiosMasivos() {
-      System.out.println("Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
       try {
          return persistenciaParametros.listcambiosmasivos(em);
       } catch (Exception e) {

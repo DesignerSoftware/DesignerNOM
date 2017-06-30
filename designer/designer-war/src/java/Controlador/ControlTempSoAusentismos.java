@@ -168,11 +168,11 @@ public class ControlTempSoAusentismos implements Serializable {
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-           //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
-           //         if (pag.equals("rastrotabla")) {
-            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //         if (pag.equals("rastrotabla")) {
+         //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -334,6 +334,45 @@ public class ControlTempSoAusentismos implements Serializable {
          tempSoAusentismoSeleccionada.setEmpleado(new BigInteger(valor));
       }
       modificarTempNovedad(tempSoAusentismoSeleccionada);
+   }
+
+   //CARGUE NOVEDADES
+   public void cargarNovedades() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (!listTempSoAusentismos.isEmpty() || listTempSoAusentismos != null) {
+         int pasa = 0;
+         for (int i = 0; i < listErrores.size(); i++) {
+            if (listErrores.get(i).getNumeroErrores() != 0) {
+               pasa++;
+            }
+         }
+         if (pasa == 0) {
+//            administrarCargueArchivos.carg(listTempSoAusentismos.get(0).getFechareporte(), formulaUsada.getNombrecorto(), usarFormulaConcepto);
+            int registrosNAntes = listTempSoAusentismos.size();
+            listTempSoAusentismos = administrarCargueArchivos.consultarTempSoAusentismos(UsuarioBD.getAlias());
+            int registrosNDespues = listTempSoAusentismos.size();
+            diferenciaRegistrosN = registrosNAntes - registrosNDespues;
+            context.update("form:tempNovedades");
+            if (diferenciaRegistrosN == registrosNAntes) {
+               context.update("form:novedadesCargadas");
+               context.execute("PF('novedadesCargadas').show()");
+            }
+            subTotal = new BigDecimal(0);
+            context.update("form:subtotal");
+            listErrores.clear();
+            erroresNovedad = null;
+            botones = false;
+            cargue = true;
+            nombreArchivoPlano = null;
+            documentosSoportes = null;
+            context.update("form:pickListDocumentosSoporte");
+            context.update("form:FileUp");
+            context.update("form:nombreArchivo");
+            context.update("form:formula");
+            context.update("form:usoFormulaC");
+            context.update("form:cargar");
+         }
+      }
    }
 
    public void cargarArchivo(FileUploadEvent event) throws IOException {
@@ -985,7 +1024,8 @@ public class ControlTempSoAusentismos implements Serializable {
    public void confirmarBorrarTodo() {
       if (!documentosSoportes.getTarget().isEmpty()) {
          RequestContext context = RequestContext.getCurrentInstance();
-         resultadoProceso = administrarCargueArchivos.BorrarTodo(UsuarioBD, documentosSoportes.getTarget());
+//         resultadoProceso = administrarCargueArchivos.borrarTodo(UsuarioBD, documentosSoportes.getTarget());
+         System.out.println("NO ESTA BORRANDO TODO");
          documentosSoportes = null;
          context.execute("PF('borrarTodoDialogo').hide()");
          context.update("form:pickListDocumentosSoporte");
@@ -1109,10 +1149,12 @@ public class ControlTempSoAusentismos implements Serializable {
 
    public List<String> getDocumentosSoporteCargados() {
       documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
-      hs.addAll(documentosSoporteCargados);
-      documentosSoporteCargados.clear();
-      documentosSoporteCargados.addAll(hs);
-      hs.clear();
+      if (documentosSoporteCargados != null) {
+         hs.addAll(documentosSoporteCargados);
+         documentosSoporteCargados.clear();
+         documentosSoporteCargados.addAll(hs);
+         hs.clear();
+      }
       return documentosSoporteCargados;
    }
 

@@ -1,12 +1,526 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-   <h:head>
-      <title>Facelet Title</title>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:head> 
    </h:head>
    <h:body>
-      Hello from Facelets
+      <ui:composition template="template.xhtml">
+         <ui:define name="body"> 
+            <script type="text/javascript">
+               $(window).load(function () {
+                  foco('form:guardarRapido');
+               });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               }
+               ;
+            </script>
+            <div style="position: static;"></div>
+            <h:form id="form">
+               <p:growl id="growl" showDetail="true"/>
+               <f:loadBundle basename="Recursos.archivoplanoproyecto" var="msg"/>
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
+
+                  <p:toolbar styleClass="cssToolbar">
+                     <p:toolbarGroup align="left"> 
+
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         process="@this" actionListener="#{controlArchivoPlanoCentroC.guardar()}"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlArchivoPlanoCentroC.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlArchivoPlanoCentroC.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         ajax="false" actionListener="#{controlArchivoPlanoCentroC.exportXLS()}"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:exportarTempNovedades" fileName="Ausentismos_XML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         ajax="false" actionListener="#{controlArchivoPlanoCentroC.exportPDF()}"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         process="@this" onclick="PF('nuevaTempNDialogo').show()"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                        <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlArchivoPlanoCentroC.duplicar()}" process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton disabled="true" id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlArchivoPlanoCentroC.cancelarModificaciones()}" process="@this"
+                                         oncomplete="window.location.reload()"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:separator style="position: relative; top: -9px;"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlArchivoPlanoCentroC.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+
+                  <fieldset style="position: absolute; left: 10px; top: 75px; width: 290px; height: 152px; border-radius: 10px;">
+                     <center><h:outputText value="#{msg['cap']}" style="color: #009; font-weight: bold;"/></center>
+                     <br></br>
+                     <p:inputText autocomplete="off" id="nombreArchivo" value="#{controlArchivoPlanoCentroC.nombreArchivoPlano}" readonly="true"
+                                  style="position: absolute; top: 30px; left: 8px; width: 158px; z-index: 1; height: 12px;"/>
+                     <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}"/>
+
+                     <p:fileUpload id="FileUp" mode="advanced" disabled="#{controlArchivoPlanoCentroC.botones}" label="#{msg['examinar']}" auto="true" skinSimple="true"
+                                   style="position: absolute; top: 28px; left: 177px;" fileUploadListener="#{controlArchivoPlanoCentroC.cargarArchivo}"
+                                   invalidSizeMessage="#{msg['tamaño']}"/>
+
+                     <p:commandButton id="cargar" icon="ui-icon-folder-open" value="#{msg['cargar']}" disabled="#{controlArchivoPlanoCentroC.cargue}"
+                                      actionListener="#{controlArchivoPlanoCentroC.cargarNovedades()}" process="@this" style="position: absolute; top: 65px; left: 98px;"/>
+                     <p:commandButton id="reversar" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['reversar']}" oncomplete="PF('reversarDialogo').show();"
+                                      update="reversarDialogo" process="@this" style="position: absolute; top: 65px; left: 190px;"/>
+                  </fieldset>
+
+                  <fieldset style="position: absolute; left: 325px; top: 75px; width: 520px; height: 152px; border-radius: 10px;">
+
+                     <center><h:outputText value="#{msg['eap']}" style="color: #009; font-weight: bold; position: relative;"/></center>
+                     <p:scrollPanel mode="native" style="height: 128px; border: none; padding-top: 10px;">
+                        <h:outputText value="#{msg['codEmpl']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['codEmplT']}"/>
+                        <br></br><h:outputText value="#{msg['proyect']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['proyectT']}"/>
+                        <br></br><h:outputText value="#{msg['fechaini']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['fechainiT']}"/>
+                        <br></br><h:outputText value="#{msg['fechafin']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['fechafinT']}"/>
+                        <br></br><h:outputText value="#{msg['porcentaje']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['porcentajeT']}"/>
+                        <br></br><h:outputText value="#{msg['formliq']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['formliqT']}"/>
+                        <br></br><h:outputText value="#{msg['nota']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['notaT']}" style="font-weight: bold; text-decoration: underline;"/>
+                     </p:scrollPanel> 
+                  </fieldset>
+
+                  <fieldset style="position: absolute; left: 10px; top: 245px; width: 835px; height: 205px; border-radius: 10px;">
+                     <legend style="color: blue;"><strong>Datos</strong></legend>
+
+                     <p:dataTable id="tempNovedades" var="tempProrrateo" style="width: 835px;" value="#{controlArchivoPlanoCentroC.listTempProrrateosProy}"
+                                  scrollable="true" scrollHeight="#{controlArchivoPlanoCentroC.altoTabla}" scrollWidth="835" emptyMessage="#{msg['noseencontraron']}" widgetVar="tempNovedades"
+                                  rowKey="#{tempProrrateo.secuencia}" rowIndexVar="pos" styleClass="ui-datatable" liveScroll="true" scrollRows="30"
+                                  editable="true" editMode="cell" 
+                                  filteredValue="#{controlArchivoPlanoCentroC.filtrarListTempProrrateosProy}" selection="#{controlArchivoPlanoCentroC.tempProrrateoSeleccionado}">
+
+                        <p:ajax event="filter" listener="#{controlArchivoPlanoCentroC.eventoFiltrar()}"/>
+
+                        <p:column width="90" id="columnaCodigoEmpl" filterBy="#{tempProrrateo.codigoEmpleado}" sortBy="#{tempProrrateo.codigoEmpleado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="codempleado" value="#{msg['empleadoN']}"/>  
+                              <p:tooltip for="codempleado" value="#{msg['identificaciondelempleadoN']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.codigoEmpleado}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.codigoEmpleado}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column> 
+
+                        <p:column id="columnaEmpleado" filterBy="#{tempProrrateo.nombreEmpleado}" sortBy="#{tempProrrateo.nombreEmpleado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="empleado" value="#{msg['NEmpleado']}"/>  
+                              <p:tooltip  for="empleado" value="#{msg['identificaciondelempleadoN']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.nombreEmpleado}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.nombreEmpleado}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>  
+
+                        <p:column id="columnaCodigoProy" filterBy="#{tempProrrateo.codigoProyecto}" sortBy="#{tempProrrateo.codigoProyecto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="codProy" value="#{msg['proyectoX']}"/>  
+                              <p:tooltip  for="codProy" value="#{msg['identificaciondelempleadoN']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.codigoProyecto}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.codigoProyecto}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>  
+
+                        <p:column id="columnaProyecto" filterBy="#{tempProrrateo.nombreProyecto}" sortBy="#{tempProrrateo.nombreProyecto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="proyecto" value="#{msg['nomproyecto']}"/>  
+                              <p:tooltip  for="proyecto" value="#{msg['identificaciondelempleadoN']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.nombreProyecto}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.nombreProyecto}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>  
+
+                        <p:column width="80" id="columnaFechaIni" class="cssColumnasCentradas" filterBy="#{tempProrrateo.fechaInicial}" sortBy="#{tempProrrateo.fechaInicial}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="fechaI" value="#{msg['fechainiN']}"/>  
+                              <p:tooltip for="fechaI" value="#{msg['fechainicialnovedadN']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.fechaInicial}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.fechaInicial}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column width="80" id="columnaFechaFin" class="cssColumnasCentradas" filterBy="#{tempProrrateo.fechaFinal}" sortBy="#{tempProrrateo.fechaFinal}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="fechaF" value="#{msg['fechafinalN']}"/> 
+                              <p:tooltip  for="fechaF" value="#{msg['fechafinalnovedadN']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.fechaFinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.fechaFinal}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column width="76" id="columnaPorcentaje" filterBy="#{tempProrrateo.porcentaje}" sortBy="#{tempProrrateo.porcentaje}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="porcentaje" value="Porcentaje"/> 
+                              <p:tooltip for="porcentaje" value="Porcentaje"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.porcentaje}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.porcentaje}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>
+                     </p:dataTable>
+
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlArchivoPlanoCentroC.infoRegistro}" style="position: relative; left: 10px; top: 2px; font-weight: bold;"/>
+
+                  </fieldset>
+                  <p:commandButton id="borrarPlano" value="#{msg['borrarplano']}" actionListener="#{controlArchivoPlanoCentroC.borrarRegistrosNoCargados()}"
+                                   process="@this" style="position: absolute; top: 470px; height: 32px;" icon="ui-icon-extlink" class="cssBotonLargo"/>
+                  <p:tooltip for="borrarPlano" value="borrarplano2"/>
+
+                  <p:commandButton id="ACEPTAR" value="" disabled="#{controlArchivoPlanoCentroC.guardado}" process="@this" class="cssBotonAceptar"/>
+                  <p:commandButton id="ATRAS" value="" actionListener="#{controlArchivoPlanoCentroC.salir()}" process="@this" class="cssBotonCancelar"/>
+
+                  <p:remoteCommand name="posicionTablaNovedad" actionListener="#{controlArchivoPlanoCentroC.posicionTablaNovedad()}"/>
+
+                  <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad"  resizable="false" draggable="true" modal="true" height="100" width="400">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <h:outputText value="#{msg['errores']}" style="font-weight: bold; position: absolute; left: 80px; top: 10px; color: red;"/>
+                     <p:dataGrid var="error" value="#{controlArchivoPlanoCentroC.erroresNovedad.mensajeError}" columns="1" styleClass="ui-dataGrid-CargueNovedad">
+                        <strong><h:outputText value="#{error}" style="width: 200px; text-align: center;"/></strong>
+                     </p:dataGrid>                     
+                  </p:dialog>
+
+                  <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="novedadesCargadas" header="#{msg['informacion']}" widgetVar="novedadesCargadas"  resizable="false" draggable="true" modal="true" height="90" width="295">  
+                     <h:graphicImage value="Imagenes/Iconos/correcto.png" width="80" height="80" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['nce']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
+                     <strong><h:outputText value="#{msg['registroscargados']} #{controlArchivoPlanoCentroC.diferenciaRegistrosN})" style="position: absolute; left: 75px; top: 60px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="errorExtensionArchivo" header="#{msg['error']}" widgetVar="errorExtensionArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['errorExtensionArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['errorNombreArchivo']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['documentoNoExiste']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['reversarFallo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                     <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['nre']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
+                     <strong><h:outputText value="#{msg['registrosreversados']} #{controlArchivoPlanoCentroC.resultado})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="reversarDialogo" header="#{msg['reversarDialogo']}" widgetVar="reversarDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="121" width="316">  
+                     <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px;">
+                        <legend style="color: blue;"><strong>Reversar Cargue Novedades</strong></legend>
+                        <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;"/></strong>
+                        <p:inputText autocomplete="off" id="documentoR" value="#{controlArchivoPlanoCentroC.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
+                           <p:ajax event="dblclick" listener="#{controlArchivoPlanoCentroC.llamarDialogoDocumentoSoporte()}"/>
+                           <p:ajax event="change" listener="#{controlArchivoPlanoCentroC.autocompletarDocumentoSoporte}" update="@this"/>
+                        </p:inputText>
+                        <p:commandButton id="aceptarR" value="#{msg['reversar']}" icon="ui-icon-check" style="position: absolute; top: 60px; left: 70px;" actionListener="#{controlArchivoPlanoCentroC.confirmarReversar()}"/>
+                        <p:commandButton id="atrasR" value="#{msg['atras']}" icon="ui-icon-close" style="position: absolute; top: 60px; left: 180px;" actionListener="#{controlArchivoPlanoCentroC.cancelarReversar()}"/>
+                     </fieldset>
+                  </p:dialog>
+
+                  <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="true" modal="true" height="110" width="355px;">
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['confirmarReversar']} #{controlArchivoPlanoCentroC.documentoSoporteReversar}, Desea continuar?" style="position: absolute; left: 75px; top: 20px; width: 250px; text-align: center;"/></strong>
+                     <p:commandButton id="aceptarC" icon="ui-icon-check" value="#{msg['continuar']}" style="position: absolute; top: 70px; left: 145px;" actionListener="#{controlArchivoPlanoCentroC.reversar()}"/>
+                     <p:commandButton id="atrasC" icon="ui-icon-close" value="#{msg['atras']}" style="position: absolute; top: 70px; left: 258px;" onclick="PF('confirmarReversar').hide();"/>
+                  </p:dialog>
+
+                  <p:dialog id="borrarTodoDialogo" header="#{msg['bvc']}" widgetVar="borrarTodoDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="290" width="467px;">  
+                     <p:pickList id="pickListDocumentosSoporte" value="#{controlArchivoPlanoCentroC.documentosSoportes}" var="documento"   
+                                 itemLabel="#{documento}" itemValue="#{documento}" style="position: relative; left: -3px;"
+                                 showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
+                        <f:facet name="sourceCaption">#{msg['documentosSoporte']}</f:facet>  
+                        <f:facet name="targetCaption">#{msg['cpb']}</f:facet> 
+                     </p:pickList>
+                     <p:commandButton value="#{msg['borrarseleccionados']}" icon="ui-icon-check" actionListener="#{controlArchivoPlanoCentroC.confirmarBorrarTodo()}" style="position: relative; left: 180px"/>
+                     <p:commandButton value="#{msg['atras']}" icon="ui-icon-close" actionListener="#{controlArchivoPlanoCentroC.cancelarBorrarTodo()}" style="position: relative; left: 180px"/>
+                  </p:dialog>
+
+                  <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;">  
+                     <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['novedadesborradasconexito']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;"/></strong>
+                     <strong><h:outputText value="#{msg['registrosborrados']} #{controlArchivoPlanoCentroC.resultadoProceso.registrosBorrados})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="erroresBorrarTodo" header="#{msg['erroresdelanovedad']}" widgetVar="erroresBorrarTodo"  resizable="false" draggable="true" modal="true" height="120" width="420">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <h:outputText value="#{msg['erroresBorrarTodo']}" style="font-weight: bold;  position: absolute; left: 80px; top: 10px; color: red;"/>
+                     <p:dataGrid var="documentoNoBorrado" value="#{controlArchivoPlanoCentroC.resultadoProceso.documentosNoBorrados}" columns="1" styleClass="ui-dataGrid-CargueNovedad">
+                        <strong><h:outputText value="#{documentoNoBorrado}" style="position: absolute; width: 200px; text-align: center; top: 400px;"/></strong>
+                     </p:dataGrid>      
+                     <h:outputText value="#{msg['yaqueexisten']}" style="font-weight: bold; position: absolute; left: 10px; top: 70px; color: red;"/>
+                     <h:outputText value="#{msg['losdemasdocumentos']}" style="font-weight: bold; position: absolute; left: 10px; top: 90px; color: red;"/>
+                  </p:dialog>
+               </p:panel>
+            </h:form> 
+
+            <h:form id="formDialogos">
+               <p:dialog header="#{msg['documentosDS']}" widgetVar="documentoSoporteDialogo" draggable="true" resizable="false" closable="false" id="documentoSoporteDialogo"  
+                         showEffect="fade" hideEffect="fade" width="445" modal="true">
+
+                  <p:dataTable id="lovDocumentoSoporte" var="documentoSoporte" value="#{controlArchivoPlanoCentroC.lovdocumentosSoporteCargados}" rowKey="#{documentoSoporte}"
+                               selection="#{controlArchivoPlanoCentroC.seleccionDocumentosSoporteCargado}" selectionMode="single" widgetVar="lovDocumentoSoporte" scrollable="true" scrollWidth="415" scrollHeight="225"
+                               filteredValue="#{controlArchivoPlanoCentroC.filtradoDocumentosSoporteCargados}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlArchivoPlanoCentroC.activarAceptar()}" update=":formDialogos:aceptarDS"/>
+                     <p:ajax event="rowDblselect" process="@this" listener="#{controlArchivoPlanoCentroC.seleccionarDocumentoSoporte()}"/>
+                     <p:ajax event="filter" listener="#{controlArchivoPlanoCentroC.contarRegistrosDocumentos()}"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarDS']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+
+                     <p:column filterBy="#{documentoSoporte}" width="300" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombreDS']}"/>
+                        </f:facet>
+                        <h:outputText value="#{documentoSoporte}"/>
+                     </p:column>
+
+                  </p:dataTable>
+
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroDocumento" value="#{msg['infoRegistro']} #{controlArchivoPlanoCentroC.infoRegistroDocumento}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarDS" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlArchivoPlanoCentroC.aceptar}" actionListener="#{controlArchivoPlanoCentroC.seleccionarDocumentoSoporte()}" process="@this"/>
+                     <p:commandButton id="atrasDS" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlArchivoPlanoCentroC.cancelarSeleccionDocumentoSoporte()}" process="@this"/>
+                  </div>
+               </p:dialog> 
+
+               <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlArchivoPlanoCentroC.editarNovedad.empleado}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarFechainicial" header="Fecha Inicial" widgetVar="editarFechainicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlArchivoPlanoCentroC.editarNovedad.fechaInicial}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechaFinal" header="Fecha Final" widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlArchivoPlanoCentroC.editarNovedad.fechaFinal}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarPorcentaje" header="Porcentaje" widgetVar="editarPorcentaje" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlArchivoPlanoCentroC.editarNovedad.porcentaje}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="nuevaTempNDialogo" header="Nuevo Registro" widgetVar="nuevaTempNDialogo" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="710">  
+                  <center><strong><h:outputText value="Ingresar  nuevo Temp Ausentismo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="nuevaNovedad" style="border: none;">
+
+                     <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoEmpl" widgetVar="nuevoEmpl" value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.empleado}"
+                                  style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
+                        <p:keyFilter for="nuevoEmpl" mask="9999999999"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="Fecha Inicial:" style=" position: absolute; top: 205px; left: 40px;"/></strong>
+                     <fielset style=" position: absolute; top: 200px; left: 200px;">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.fechaInicial}"/>
+                     </fielset>
+
+                     <strong><h:outputText value="Fecha Final:" style="position: absolute; top: 235px; left: 40px;"/></strong>
+                     <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.fechaFinal}"/>
+
+                     <strong><h:outputText value="Porcentaje:" style=" position: absolute; top: 145px; left: 410px;"/></strong>
+                     <p:inputNumber autocomplete="off" value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.porcentaje}" 
+                                    style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
+
+                     <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
+                                      actionListener="#{controlArchivoPlanoCentroC.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>
+                     <p:commandButton value="#{msg['agregar']}" style=" position: absolute; left: 490px; top: 280px;" icon="ui-icon-circle-check"
+                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                      actionListener="#{controlArchivoPlanoCentroC.agregarNuevaTempAusentismo()}" process="@this"/>
+                     <p:commandButton value="#{msg['cancelar']}" style=" position: absolute; left: 590px; top: 280px;" icon="ui-icon-circle-close"
+                                      actionListener="#{controlArchivoPlanoCentroC.limpiarNuevo()}" update="nuevaNovedad" onclick="PF('nuevaTempNDialogo').hide();" process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="duplicarTempNDialogo" header="#{msg['nuevoregistro']}" widgetVar="duplicarTempNDialogo" closable="false" resizable="false"  draggable="true" height="310" width="710">  
+                  <center><strong><h:outputText value="#{msg['ingresarnueva']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="duplicaNovedad" style="border: none;">
+
+                     <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
+                     <p:inputText autocomplete="off" id="duplEmpleado" widgetVar="duplEmpleado" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.empleado}"
+                                  style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
+                        <p:keyFilter for="duplEmpleado" mask="9999999999"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="Fecha Inicial:" style=" position: absolute; top: 205px; left: 40px;"/></strong>
+                     <fielset style=" position: absolute; top: 200px; left: 200px;">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.fechaInicial}"/>
+                     </fielset>
+
+                     <strong><h:outputText value="Fecha Final:" style="position: absolute; top: 235px; left: 40px;"/></strong>
+                     <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.fechaFinal}"/>
+
+                     <strong><h:outputText value="Porcentaje:" style=" position: absolute; top: 145px; left: 410px;"/></strong>
+                     <p:inputNumber autocomplete="off" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.porcentaje}" 
+                                    style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
+
+                     <strong><h:outputText value="#{msg['documentosoporteN']}:" style=" position: absolute; top: 235px; left: 410px;"/></strong>
+                     <p:inputText autocomplete="off" id="duplicaDocumento" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.archivo}" 
+                                  style=" width: 122px; position: absolute; left: 550px; top: 230px; text-transform: uppercase; text-align: right;"/>
+
+                     <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
+                                      actionListener="#{controlArchivoPlanoCentroC.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>
+                     <p:commandButton value="#{msg['agregar']}" style=" position: absolute; left: 490px; top: 280px;" icon="ui-icon-circle-check"
+                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                      actionListener="#{controlArchivoPlanoCentroC.confirmarDuplicar()}" process="@this"/>
+                     <p:commandButton id="cancelarDE" value="#{msg['cancelar']}" style=" position: absolute; left: 590px; top: 280px;" icon="ui-icon-circle-close"
+                                      actionListener="#{controlArchivoPlanoCentroC.limpiarNuevo()}" update="nuevaNovedad" onclick="PF('duplicarTempNDialogo').hide();" process="@this"/>
+                  </p:panel>-->
+               </p:dialog>
+
+            </h:form>
+
+            <h:form id="formExportar">
+               <p:dataTable id="exportarTempNovedades"  var="tempProrrateoExp"   style="visibility: hidden; display: none;" 
+                            value="#{controlArchivoPlanoCentroC.listTempProrrateosProy}">
+
+                        <p:column headerText="#{msg['proyectoX']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['proyectoX']}"/></f:facet>
+                            <h:outputText value="#{tempProrrateoExp.nombreProyecto}"/>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaIniciallX']}"/>
+                            </f:facet>
+                            <h:outputText value="#{tempProrrateoExp.fechaInicial}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechaFinalX']}"/>
+                            </f:facet>
+                            <h:outputText value="#{tempProrrateoExp.fechaFinal}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                  
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>
    </h:body>
 </html>
-

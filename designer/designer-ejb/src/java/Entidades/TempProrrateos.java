@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,14 +34,14 @@ public class TempProrrateos implements Serializable {
    private BigInteger secuencia;
    @Column(name = "CODIGOEMPLEADO")
    @Size(max = 15)
-   private BigInteger codigoEmpleado;
-   @Column(name = "PROYECTO")
+   private String empleado;
+   @Column(name = "CENTROCOSTO")
    @Size(max = 20)
-   private String proyecto;
+   private String centroCosto;
    @Column(name = "FECHAINICIAL")
    private Date fechaInicial;
    @Column(name = "FECHAFINAL")
-   private Date fechaFinal;
+   private Date FechaFinal;
    @Column(name = "PORCENTAJE")
    private BigDecimal porcentaje;
    @Column(name = "FECHASISTEMA")
@@ -65,6 +66,27 @@ public class TempProrrateos implements Serializable {
    private String causaRechazo;
    @Column(name = "VIGLOCALIZACION")
    private BigInteger vigLocalizacion;
+   @Column(name = "SUBPORCENTAJE")
+   private BigDecimal subPorcentaje;
+   @Column(name = "PROYECTO")
+   @Size(max = 20)
+   private String proyecto;
+   @Column(name = "OBSERVACION")
+   @Size(max = 100)
+   private String observacion;
+
+   @Transient
+   private String nombreEmpleado;
+   @Transient
+   private String nombreProyecto;
+   @Transient
+   private String nombreCentrocosto;
+   @Transient
+   private BigInteger codigoProyecto;
+   @Transient
+   private BigInteger codigoEmpleado;
+   @Transient
+   private BigInteger codigoCentrocosto;
 
    public BigInteger getSecuencia() {
       return secuencia;
@@ -74,20 +96,20 @@ public class TempProrrateos implements Serializable {
       this.secuencia = secuencia;
    }
 
-   public BigInteger getCodigoEmpleado() {
-      return codigoEmpleado;
+   public String getEmpleado() {
+      return empleado;
    }
 
-   public void setCodigoEmpleado(BigInteger codigoEmpleado) {
-      this.codigoEmpleado = codigoEmpleado;
+   public void setEmpleado(String empleado) {
+      this.empleado = empleado;
    }
 
-   public String getProyecto() {
-      return proyecto;
+   public String getCentroCosto() {
+      return centroCosto;
    }
 
-   public void setProyecto(String proyecto) {
-      this.proyecto = proyecto;
+   public void setCentroCosto(String centroCosto) {
+      this.centroCosto = centroCosto;
    }
 
    public Date getFechaInicial() {
@@ -99,11 +121,11 @@ public class TempProrrateos implements Serializable {
    }
 
    public Date getFechaFinal() {
-      return fechaFinal;
+      return FechaFinal;
    }
 
-   public void setFechaFinal(Date fechaFinal) {
-      this.fechaFinal = fechaFinal;
+   public void setFechaFinal(Date FechaFinal) {
+      this.FechaFinal = FechaFinal;
    }
 
    public BigDecimal getPorcentaje() {
@@ -176,6 +198,102 @@ public class TempProrrateos implements Serializable {
 
    public void setVigLocalizacion(BigInteger vigLocalizacion) {
       this.vigLocalizacion = vigLocalizacion;
+   }
+
+   public BigDecimal getSubPorcentaje() {
+      return subPorcentaje;
+   }
+
+   public void setSubPorcentaje(BigDecimal subPorcentaje) {
+      this.subPorcentaje = subPorcentaje;
+   }
+
+   public String getProyecto() {
+      return proyecto;
+   }
+
+   public void setProyecto(String proyecto) {
+      this.proyecto = proyecto;
+   }
+
+   public String getObservacion() {
+      return observacion;
+   }
+
+   public void setObservacion(String observacion) {
+      this.observacion = observacion;
+   }
+
+   public String getNombreEmpleado() {
+      return nombreEmpleado;
+   }
+
+   public void setNombreEmpleado(String nombreEmpleado) {
+      this.nombreEmpleado = nombreEmpleado;
+   }
+
+   public String getNombreProyecto() {
+      return nombreProyecto;
+   }
+
+   public void setNombreProyecto(String nombreProyecto) {
+      this.nombreProyecto = nombreProyecto;
+   }
+
+   public String getNombreCentrocosto() {
+      return nombreCentrocosto;
+   }
+
+   public void setNombreCentrocosto(String nombreCentrocosto) {
+      this.nombreCentrocosto = nombreCentrocosto;
+   }
+
+   public BigInteger getCodigoProyecto() {
+      if (this.proyecto != null && codigoProyecto == null) {
+         codigoProyecto = new BigInteger(proyecto);
+      }
+      return codigoProyecto;
+   }
+
+   public void setCodigoProyecto(BigInteger codigoProy) {
+      if (codigoProy != null) {
+         this.proyecto = codigoProy.toString();
+      } else {
+         this.proyecto = null;
+      }
+      this.codigoProyecto = codigoProyecto;
+   }
+
+   public BigInteger getCodigoEmpleado() {
+      if (this.empleado != null && codigoEmpleado == null) {
+         codigoEmpleado = new BigInteger(empleado);
+      }
+      return codigoEmpleado;
+   }
+
+   public void setCodigoEmpleado(BigInteger codigoEmpl) {
+      if (codigoEmpl != null) {
+         this.empleado = codigoEmpl.toString();
+      } else {
+         this.empleado = null;
+      }
+      this.codigoEmpleado = codigoEmpleado;
+   }
+
+   public BigInteger getCodigoCentrocosto() {
+      if (this.centroCosto != null && codigoCentrocosto == null) {
+         codigoCentrocosto = new BigInteger(centroCosto);
+      }
+      return codigoCentrocosto;
+   }
+
+   public void setCodigoCentrocosto(BigInteger codigoCC) {
+      if (codigoCC != null) {
+         this.centroCosto = codigoCC.toString();
+      } else {
+         this.centroCosto = null;
+      }
+      this.codigoCentrocosto = codigoCentrocosto;
    }
 
    @Override

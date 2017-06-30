@@ -6,8 +6,8 @@
 package Persistencia;
 
 import Entidades.TempProrrateosProy;
+import Entidades.TempProrrateosProyAux;
 import InterfacePersistencia.PersistenciaTempProrrateosProyInterface;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -28,38 +28,121 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
 
    @Override
    public void crear(EntityManager em, TempProrrateosProy tempAusentismos) {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(tempAusentismos);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaTempProrrateosProy.crear: " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
    }
 
    @Override
    public void editar(EntityManager em, TempProrrateosProy tempAusentismos) {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(tempAusentismos);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaTempProrrateosProy.editar: " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
    }
 
    @Override
    public void borrar(EntityManager em, TempProrrateosProy tempAusentismos) {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(tempAusentismos));
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaTempProrrateosProy.borrar: " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
    }
 
    @Override
    public void borrarRegistrosTempProrrateosProy(EntityManager em, String usuarioBD) {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         String sql = "DELETE FROM TEMPPRORRATEOSPROY WHERE USUARIOBD = ? AND ESTADO = 'N'";
+         Query query = em.createNativeQuery(sql);
+         query.setParameter(1, usuarioBD);
+         query.executeUpdate();
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("No se pudo borrar el registro en borrarRegistrosTempProrrateosProy() : " + e.toString());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
    }
 
    @Override
    public List<TempProrrateosProy> obtenerTempProrrateosProy(EntityManager em, String usuarioBD) {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      try {
+         String sql = "SELECT * FROM TEMPPRORRATEOSPROY WHERE USUARIOBD = ? AND NVL(ESTADO,'N') <> 'C'";
+         em.clear();
+         Query query = em.createNativeQuery(sql, TempProrrateosProy.class);
+         query.setParameter(1, usuarioBD);
+         List<TempProrrateosProy> listTNovedades = query.getResultList();
+         if (listTNovedades != null) {
+            if (!listTNovedades.isEmpty()) {
+               sql = "SELECT T.SECUENCIA,\n"
+                       + " (SELECT P.NOMBRE||' '||P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO FROM EMPLEADOS E, PERSONAS P\n"
+                       + " WHERE E.CODIGOEMPLEADO = T.CODIGOEMPLEADO AND E.PERSONA = P.SECUENCIA AND ROWNUM < 2) NOMBREEMPLEADO,\n"
+                       + " PROY.NOMBREPROYECTO NOMBREPROYECTO\n"
+                       + " FROM TEMPPRORRATEOSPROY T, PROYECTOS PROY\n"
+                       + " WHERE T.USUARIOBD = ? AND NVL(T.ESTADO,'N') <> 'C'\n"
+                       + " AND T.PROYECTO = PROY.CODIGO";
+               em.clear();
+               Query query2 = em.createNativeQuery(sql, TempProrrateosProyAux.class);
+               query2.setParameter(1, usuarioBD);
+               List<TempProrrateosProyAux> listAux = query2.getResultList();
+               if (listAux != null) {
+                  if (!listAux.isEmpty()) {
+                     for (TempProrrateosProyAux recAux : listAux) {
+                        for (TempProrrateosProy recProrrateo : listTNovedades) {
+                           if (recProrrateo.getSecuencia().equals(recAux.getSecuencia())) {
+                              recProrrateo.setNombreEmpleado(recAux.getNombreEmpleado());
+                              recProrrateo.setNombreProyecto(recAux.getNombreProyecto());
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+         return listTNovedades;
+      } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaTempProrrateosProy.obtenerTempProrrateosProy()" + e.getMessage());
+         return null;
+      }
    }
 
-   
    @Override
-   public List<String> obtenerDocumentosSoporteCargados(EntityManager em, String usuarioBD) {
+   public List<String> obtenerDocumentosSoporteCargados(EntityManager em) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT t.archivo FROM TempProrrateosProy t "
-                 + "WHERE t.usuariobd = :usuarioBD AND t.estado = 'C'");
-         query.setParameter("usuarioBD", usuarioBD);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         Query query = em.createNativeQuery("SELECT t.archivo FROM TempProrrateosProy t "
+                 + "WHERE t.usuariobd = USER AND t.estado = 'C'");
+//         query.setParameter("usuarioBD", usuarioBD);
+//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
@@ -69,7 +152,8 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
    }
 
    @Override
-   public void cargarTempProrrateosProy(EntityManager em, String fechaInicial, BigInteger secEmpresa) {
+//   public void cargarTempProrrateosProy(EntityManager em, String fechaInicial, BigInteger secEmpresa) {
+   public void cargarTempProrrateosProy(EntityManager em) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -86,7 +170,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
    }
 
    @Override
-   public void reversarTempProrrateosProy(EntityManager em, String documentoSoporte) {
+   public int reversarTempProrrateosProy(EntityManager em, String usuario, String documentoSoporte) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -113,11 +197,13 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
             System.out.println("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso2 Consulto strRetorno: " + strRetorno);
          }
          tx.commit();
+         return 1;
       } catch (Exception e) {
          System.out.println("Persistencia.PersistenciaTempProrrateosProy.reversarTempProrrateosProy()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
+         return 0;
       }
    }
 

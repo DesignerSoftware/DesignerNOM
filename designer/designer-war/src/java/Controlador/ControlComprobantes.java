@@ -157,7 +157,7 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void limpiarListasValor() {
-      lovParametros = null;
+      lovParametros.clear();
    }
 
    public void refrescar() {
@@ -276,7 +276,6 @@ public class ControlComprobantes implements Serializable {
       registroActual = 0;
       listaParametros.clear();
       parametroActual = null;
-      lovParametros = null;
       getParametroActual();
       listaSolucionesNodosEmpleado.clear();
       listaSolucionesNodosEmpleador.clear();
@@ -770,13 +769,27 @@ public class ControlComprobantes implements Serializable {
 
    //GETTER AND SETTER
    public List<Parametros> getListaParametros() {
-      listaParametros = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
       if (listaParametros.isEmpty()) {
-         estadoBtnArriba = true;
-         estadoBtnAbajo = true;
-      } else {
-         estadoBtnArriba = false;
-         estadoBtnAbajo = false;
+         if (lovParametros.isEmpty()) {
+            listaParametros = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
+         } else {
+            for (Parametros recParametro : lovParametros) {
+               listaParametros.add(recParametro);
+            }
+         }
+         if (listaParametros != null) {
+            if (listaParametros.isEmpty()) {
+               estadoBtnArriba = true;
+               estadoBtnAbajo = true;
+            } else {
+               estadoBtnArriba = false;
+               estadoBtnAbajo = false;
+            }
+         } else {
+            listaParametros = new ArrayList<Parametros>();
+            estadoBtnArriba = false;
+            estadoBtnAbajo = false;
+         }
       }
       return listaParametros;
    }
@@ -788,7 +801,7 @@ public class ControlComprobantes implements Serializable {
    public Parametros getParametroActual() {
       if (parametroActual == null) {
          getListaParametros();
-         if (listaParametros != null && !listaParametros.isEmpty()) {
+         if (!listaParametros.isEmpty()) {
             parametroActual = listaParametros.get(registroActual);
          }
       }
@@ -811,11 +824,11 @@ public class ControlComprobantes implements Serializable {
    }
 
    public List<Parametros> getLovParametros() {
-      if (lovParametros == null) {
+      if (lovParametros.isEmpty()) {
          lovParametros = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
-         System.out.println("ControlComprobantes.getLovParametros() consulto parametros");
-      } else if (lovParametros.isEmpty()) {
-         lovParametros = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
+         if (lovParametros == null) {
+            lovParametros = new ArrayList<Parametros>();
+         }
          System.out.println("ControlComprobantes.getLovParametros() consulto parametros");
       }
       return lovParametros;

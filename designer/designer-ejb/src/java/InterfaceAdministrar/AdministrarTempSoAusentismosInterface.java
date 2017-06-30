@@ -17,7 +17,8 @@ import java.util.List;
  * @author user
  */
 public interface AdministrarTempSoAusentismosInterface {
-      public void obtenerConexion(String idSesion);
+
+   public void obtenerConexion(String idSesion);
 
    public void crearTempSoAusentismos(List<TempSoAusentismos> listaTempSoAusentismos);
 
@@ -28,21 +29,21 @@ public interface AdministrarTempSoAusentismosInterface {
    public void borrarRegistrosTempSoAusentismos(String usuarioBD);
 
    public List<TempSoAusentismos> consultarTempSoAusentismos(String usuarioBD);
-    
+
    public ActualUsuario actualUsuario();
-   
+
    public List<String> consultarDocumentosSoporteCargadosUsuario(String usuarioBD);
 
-   public void cargarTempSoAusentismos(Date fechaReporte, String nombreCorto, String usarFormula);
+//   public void cargarTempSoAusentismos(Date fechaReporte, String nombreCorto, String usarFormula);
 
    public int reversarNovedades(ActualUsuario usuarioBD, String documentoSoporte);
-    
+
    public String consultarRuta();
-   
-   public ResultadoBorrarTodoNovedades BorrarTodo(ActualUsuario usuarioBD, List<String> documentosSoporte);
-   
+
+   public ResultadoBorrarTodoNovedades borrarTodo(ActualUsuario usuarioBD, List<String> documentosSoporte);
+
    public BigInteger consultarParametrosEmpresa(String usuarioBD);
-/*
+   /*
     
 
    public boolean verificarEmpleadoEmpresa(BigInteger codEmpleado, BigInteger secEmpresa);
@@ -80,5 +81,5 @@ public interface AdministrarTempSoAusentismosInterface {
    public boolean verificarTerceroEmpresa(BigInteger nit, BigInteger secEmpresa);
 
     
-     */
+    */
 }

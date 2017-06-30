@@ -384,19 +384,19 @@
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
                                        <div style="width: 140px; display: inline-block;">
                                           <h:outputText value="#{msg['valor']}" styleClass="textoNombres"/>
-                                          <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveValor}"
-                                                       id="noveValor" widgetVar="noveValor" style="position: relative; display: block; width: 80px;">
+                                          <p:inputNumber autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveValor}"
+                                                         id="noveValor" widgetVar="noveValor" style="position: relative; display: block; width: 80px;" symbol="$">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(7)}" process="@this"/>
-                                          </p:inputText>
+                                          </p:inputNumber>
                                        </div>
                                        <div style="width: 140px; display: inline-block; position: absolute;">
                                           <h:outputText value="#{msg['saldo']}" styleClass="textoNombres"/>
-                                          <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveSaldo}"
-                                                       id="noveSaldo" widgetVar="noveSaldo" style="position: relative; display: block; width: 80px;">
+                                          <p:inputNumber autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveSaldo}"
+                                                         id="noveSaldo" widgetVar="noveSaldo" style="position: relative; display: block; width: 80px;" symbol="$">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(8)}" process="@this"/>
-                                          </p:inputText>
+                                          </p:inputNumber>
                                        </div>
                                     </div>
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
@@ -449,11 +449,11 @@
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="*#{msg['valor']}" styleClass="textoNombres"/>
-                                       <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.sueldoValor}"
-                                                    id="sueldoValor" widgetVar="sueldoValor" style="position: relative; display: block; width: 200px;">
+                                       <p:inputNumber autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.sueldoValor}"
+                                                      id="sueldoValor" widgetVar="sueldoValor" style="position: relative; display: block; width: 200px;" symbol="$">
                                           <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(2)}" process="@this"/>
-                                       </p:inputText>
+                                       </p:inputNumber>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="*#{msg['tiposueldo']}" styleClass="textoNombres"/>
