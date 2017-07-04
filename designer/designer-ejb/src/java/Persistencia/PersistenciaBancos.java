@@ -93,15 +93,15 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
     @Override
     public Bancos buscarBancosPorSecuencia(EntityManager em, BigInteger secuencia) {
         try{
-        em.clear();
-        String sql = "SELECT * FROM BANCOS WHERE SECUENCIA = ?";
-        Query query = em.createNativeQuery(sql, Bancos.class);
-        query.setParameter(1, secuencia);
-        Bancos banco = (Bancos) query.getSingleResult();
-        return banco;
+            em.clear();
+            String sql = "SELECT * FROM BANCOS WHERE SECUENCIA = ?";
+            Query query = em.createNativeQuery(sql, Bancos.class);
+            query.setParameter(1, secuencia);
+            Bancos banco = (Bancos) query.getSingleResult();
+            return banco;
         }catch(Exception e){
             System.out.println("error en BuscarBancosPorSecuencia persistencia bancos : " + e.toString());
             return null;
         }
     }
-}
+        }

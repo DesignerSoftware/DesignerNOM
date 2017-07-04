@@ -10,24 +10,21 @@ import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.Inforeportes;
 import Entidades.ParametrosReportes;
-import Entidades.ParametrosReportes;
 import Entidades.Procesos;
 import Entidades.TiposTrabajadores;
 import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarReportesBancosInterface;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -36,7 +33,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.context.RequestContext;
@@ -47,7 +43,6 @@ import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.model.DefaultStreamedContent;
 
 /**
  *
@@ -295,12 +290,10 @@ public class ControlReportesBancos implements Serializable {
             defaultPropiedadesParametrosReporte();
             if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
                 color = "red";
-                decoracion = "underline";
                 RequestContext.getCurrentInstance().update("formParametros");
             }
             if (inforreporteSeleccionado.getFechasta().equals("SI")) {
                 color2 = "red";
-                decoracion2 = "underline";
                 RequestContext.getCurrentInstance().update("formParametros");
             }
             if (inforreporteSeleccionado.getEmdesde().equals("SI")) {
@@ -308,18 +301,22 @@ public class ControlReportesBancos implements Serializable {
                 //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
                 if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
                     empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
+
                 }
             } else {
+                empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
                 try {
                     if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
                         empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
                     }
                 } catch (Exception e) {
-                    System.out.println("error en seleccionRegistro : " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
+            RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
             if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
                 empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
+                empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
                 RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
             }
 
@@ -336,6 +333,7 @@ public class ControlReportesBancos implements Serializable {
                 ciudadParametro.setStyle("position: absolute; top: 40px; left: 690px;height: 15px;text-decoration: underline; color: red;");
                 RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
             }
+
         } catch (Exception ex) {
             System.out.println("Error en selecccion Registro : " + ex.getMessage());
         }
@@ -352,7 +350,7 @@ public class ControlReportesBancos implements Serializable {
 
     public void guardarCambios() {
         try {
-            if (cambiosReporte == false) {
+            if (!cambiosReporte) {
                 if (parametroDeReporte.getUsuario() != null) {
                     if (parametroDeReporte.getCodigoempleadodesde() == null) {
                         parametroDeReporte.setCodigoempleadodesde(null);
@@ -369,21 +367,28 @@ public class ControlReportesBancos implements Serializable {
                     if (parametroDeReporte.getEmpresa().getSecuencia() == null) {
                         parametroDeReporte.setEmpresa(null);
                     }
+                    if (parametroDeReporte.getBanco().getSecuencia() == null) {
+                        parametroDeReporte.setBanco(null);
+                    }
                     if (parametroDeReporte.getCiudad().getSecuencia() == null) {
                         parametroDeReporte.setCiudad(null);
                     }
-
                     administrarReportesBancos.modificarParametrosReportes(parametroDeReporte);
                 }
                 if (!listaInfoReportesModificados.isEmpty()) {
                     administrarReportesBancos.guardarCambiosInfoReportes(listaInfoReportesModificados);
+                    listaInfoReportesModificados.clear();
                 }
                 cambiosReporte = true;
                 FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            } else {
+            } else if (parametroDeReporte.getFechadesde().after(parametroDeReporte.getFechahasta())) {
+                fechaDesde = parametroDeReporte.getFechadesde();
+                fechaHasta = parametroDeReporte.getFechahasta();
+                System.out.println("parametroDeReporte.getFechadesde: " + parametroDeReporte.getFechadesde());
+                System.out.println("parametroDeReporte.getFechahasta: " + parametroDeReporte.getFechahasta());
                 parametroDeReporte.setFechadesde(fechaDesde);
                 parametroDeReporte.setFechahasta(fechaHasta);
                 RequestContext.getCurrentInstance().update("formParametros");
@@ -391,7 +396,7 @@ public class ControlReportesBancos implements Serializable {
             }
         } catch (Exception e) {
             System.out.println("Error en guardar Cambios Controlador : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesMessage msg = new FacesMessage("Información", "ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -399,30 +404,16 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void modificarParametroInforme() {
-        if (parametroDeReporte.getCodigoempleadodesde() != null && parametroDeReporte.getCodigoempleadohasta() != null
-                && parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
+        System.out.println("parametroDeReporte.getFechadesde(): " + parametroDeReporte.getFechadesde());
+        System.out.println("parametroDeReporte.getFechahasta(): " + parametroDeReporte.getFechahasta());
+        if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
             if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
                 parametroModificacion = parametroDeReporte;
                 cambiosReporte = false;
-                RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                parametroDeReporte.setFechadesde(fechaDesde);
-                parametroDeReporte.setFechahasta(fechaHasta);
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formParametros");
-                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                cambiosReporte = true;
             }
-        } else {
-            parametroDeReporte.setCodigoempleadodesde(emplDesde);
-            parametroDeReporte.setCodigoempleadohasta(emplHasta);
-            parametroDeReporte.setFechadesde(fechaDesde);
-            parametroDeReporte.setFechahasta(fechaHasta);
-            parametroDeReporte.getCiudad().setNombre(ciudad);
-            parametroDeReporte.getTipotrabajador().setNombre(tipoTrabajador);
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formParametros");
-            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -501,8 +492,6 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setEmpresa(new Empresas());
                 parametroModificacion = parametroDeReporte;
-                lovEmpresas.clear();
-                getLovEmpresas();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -532,8 +521,6 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setTipotrabajador(new TiposTrabajadores());
                 parametroModificacion = parametroDeReporte;
-                lovTiposTrabajadores.clear();
-                getLovTiposTrabajadores();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -564,8 +551,6 @@ public class ControlReportesBancos implements Serializable {
                 parametroDeReporte.setProceso(new Procesos());
                 parametroModificacion = parametroDeReporte;
                 lovProcesos.clear();
-                getLovProcesos();
-                cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
@@ -593,12 +578,11 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setBanco(new Bancos());
                 parametroModificacion = parametroDeReporte;
-                lovBancos.clear();
-                getLovBancos();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
+
         if (campoConfirmar.equalsIgnoreCase("CIUDAD")) {
             if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getCiudad().setNombre(ciudad);
@@ -623,8 +607,6 @@ public class ControlReportesBancos implements Serializable {
             } else {
                 parametroDeReporte.setCiudad(new Ciudades());
                 parametroModificacion = parametroDeReporte;
-                lovCiudades.clear();
-                getLovCiudades();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1159,51 +1141,84 @@ public class ControlReportesBancos implements Serializable {
 
     public void generarReporte(Inforeportes reporte) throws IOException {
         try {
-            cambiosReporte = false;
             guardarCambios();
+            inforreporteSeleccionado = reporte;
+            seleccionRegistro();
+            generarDocumentoReporte();
+        } catch (Exception e) {
+            System.out.println("error en generarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        }
+    }
+
+    public void generarDocumentoReporte() {
+        try {
+            RequestContext context = RequestContext.getCurrentInstance();
             if (inforreporteSeleccionado != null) {
-                seleccionRegistro();
                 nombreReporte = inforreporteSeleccionado.getNombrereporte();
-                tipoReporte = inforreporteSeleccionado.getTipo();// "TXT";
-                System.out.println("Tipo reporte : " + tipoReporte);
+                tipoReporte = inforreporteSeleccionado.getTipo();
+
                 if (nombreReporte != null && tipoReporte != null) {
                     pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
                 }
-                if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                    RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+                System.out.println("pathReporteGenerado: " + pathReporteGenerado.startsWith("ERROR"));
+                if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error")) {
                     validarDescargaReporte();
                 } else {
                     RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                     RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                 }
+            } else {
+                System.out.println("Reporte Seleccionado es nulo");
             }
         } catch (Exception e) {
-            System.out.println("error generarReporte : " + e.getMessage());
+
+            if (e instanceof FileNotFoundException) {
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                file = null;
+            }
+            System.out.println("error en generarDocumentoReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
     public void validarDescargaReporte() {
+        System.out.println("Controlador.ControlReportesBancos.validarDescargaReporte()");
         try {
             RequestContext context = RequestContext.getCurrentInstance();
-            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                if (tipoReporte.equals("TXT") || tipoReporte.equals("XLS") || tipoReporte.equals("PDF")) {
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error")) {
+                if (tipoReporte.equals("TXT") || tipoReporte.equals("XLS") || tipoReporte.equals("PDF") || tipoReporte.equals("DELIMITED")) {
                     RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
                 }
-                System.out.println("userAgent : " + userAgent);
+                System.out.println("userAgent: " + userAgent);
                 if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
-                    context.update("formDialogos:descargarReporte");
-                    context.execute("PF('descargarReporte').show()");
+                    context.execute("PF('descargarReporte').show();");
                 }
+
             } else {
-                System.out.println("validar descarga reporte - ingreso al else");
                 RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
+            if (e instanceof FileNotFoundException) {
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                file = null;
+            }
             System.out.println("error en validarDescargarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
+
     }
 
     public void exportarReporte() throws IOException {
@@ -1803,6 +1818,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroEmpleadoDesde() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpleadoDesde");
+        if (filtrarLovEmpleados != null) {
+            if (filtrarLovEmpleados.size() == 1) {
+                empleadoSeleccionado = filtrarLovEmpleados.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').unselectAllRows();PF('lovEmpleadoDesde').selectRow(0);");
+            } else {
+                empleadoSeleccionado = null;
+                RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').unselectAllRows();");
+            }
+        } else {
+            empleadoSeleccionado = null;
+            aceptar = true;
+        }
         infoRegistroEmpleadoDesde = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadoDesde;
     }
@@ -1810,6 +1838,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroEmpleadoHasta() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpleadoHasta");
+       if (filtrarLovEmpleados != null) {
+            if (filtrarLovEmpleados.size() == 1) {
+                empleadoSeleccionado = filtrarLovEmpleados.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovEmpleadoHasta').unselectAllRows();PF('lovEmpleadoHasta').selectRow(0);");
+            } else {
+                empleadoSeleccionado = null;
+                RequestContext.getCurrentInstance().execute("PF('lovEmpleadoHasta').unselectAllRows();");
+            }
+        } else {
+            empleadoSeleccionado = null;
+            aceptar = true;
+        }
         infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadoHasta;
     }
@@ -1817,6 +1858,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroEmpresa() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpresa");
+        if (filtrarLovEmpresas != null) {
+            if (filtrarLovEmpresas.size() == 1) {
+                empresaSeleccionada = filtrarLovEmpresas.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovEmpresa').unselectAllRows();PF('lovEmpresa').selectRow(0);");
+            } else {
+                empresaSeleccionada = null;
+                RequestContext.getCurrentInstance().execute("PF('lovEmpresa').unselectAllRows();");
+            }
+        } else {
+            empresaSeleccionada = null;
+            aceptar = true;
+        }
         infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
@@ -1824,6 +1878,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroProceso() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovProceso");
+        if (filtrarLovProcesos != null) {
+            if (filtrarLovProcesos.size() == 1) {
+                procesoSeleccionado = filtrarLovProcesos.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovProceso').unselectAllRows();PF('lovProceso').selectRow(0);");
+            } else {
+                procesoSeleccionado = null;
+                RequestContext.getCurrentInstance().execute("PF('lovProceso').unselectAllRows();");
+            }
+        } else {
+            procesoSeleccionado = null;
+            aceptar = true;
+        }
         infoRegistroProceso = String.valueOf(tabla.getRowCount());
         return infoRegistroProceso;
     }
@@ -1831,6 +1898,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroBanco() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovBancos");
+        if (filtrarLovBancos != null) {
+            if (filtrarLovBancos.size() == 1) {
+                bancoSeleccionado = filtrarLovBancos.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovBancos').unselectAllRows();PF('lovBancos').selectRow(0);");
+            } else {
+                bancoSeleccionado = null;
+                RequestContext.getCurrentInstance().execute("PF('lovBancos').unselectAllRows();");
+            }
+        } else {
+            bancoSeleccionado = null;
+            aceptar = true;
+        }
         infoRegistroBanco = String.valueOf(tabla.getRowCount());
         return infoRegistroBanco;
     }
@@ -1838,6 +1918,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroCiudad() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovCiudades");
+        if (filtrarLovCiudades != null) {
+            if (filtrarLovCiudades.size() == 1) {
+                ciudadSeleccionada = filtrarLovCiudades.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovCiudades').unselectAllRows();PF('lovCiudades').selectRow(0);");
+            } else {
+                ciudadSeleccionada = null;
+                RequestContext.getCurrentInstance().execute("PF('lovCiudades').unselectAllRows();");
+            }
+        } else {
+            ciudadSeleccionada = null;
+            aceptar = true;
+        }
         infoRegistroCiudad = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudad;
     }
@@ -1845,6 +1938,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroTipoTrabajador() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovTipoTrabajador");
+        if (filtrarLovTiposTrabajadores != null) {
+            if (filtrarLovTiposTrabajadores.size() == 1) {
+                tipoTSeleccionado = filtrarLovTiposTrabajadores.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovTipoTrabajador').unselectAllRows();PF('lovTipoTrabajador').selectRow(0);");
+            } else {
+                tipoTSeleccionado = null;
+                RequestContext.getCurrentInstance().execute("PF('lovTipoTrabajador').unselectAllRows();");
+            }
+        } else {
+            tipoTSeleccionado = null;
+            aceptar = true;
+        }
         infoRegistroTipoTrabajador = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoTrabajador;
     }
@@ -1859,6 +1965,19 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroReportes() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovReportesDialogo");
+         if (filtrarLovInforeportes != null) {
+            if (filtrarLovInforeportes.size() == 1) {
+                reporteSeleccionadoLOV = filtrarLovInforeportes.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').unselectAllRows();PF('lovReportesDialogo').selectRow(0);");
+            } else {
+                reporteSeleccionadoLOV = null;
+                RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').unselectAllRows();");
+            }
+        } else {
+            reporteSeleccionadoLOV = null;
+            aceptar = true;
+        }
         infoRegistroReportes = String.valueOf(tabla.getRowCount());
         return infoRegistroReportes;
     }
@@ -1935,4 +2054,4 @@ public class ControlReportesBancos implements Serializable {
         this.parametroFecha = parametroFecha;
     }
 
-}
+    }

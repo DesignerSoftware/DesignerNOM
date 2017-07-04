@@ -2,7 +2,6 @@ package Reportes;
 
 import java.io.File;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Connection;
 //import java.sql.DriverManager;
 //import java.sql.SQLException;
@@ -57,6 +56,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
                 }
             }
+            System.out.println("parametrosemp: " + parametrosemp);
             JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");
             String outFileName = rutaGenerado + nombreArchivo;
@@ -103,12 +103,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.exportReport();
             }
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
