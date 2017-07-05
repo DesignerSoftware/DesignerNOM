@@ -187,7 +187,6 @@ public class ControlTiposViajeros implements Serializable {
         permitirIndex = true;
         getListTiposViajeros();
         contarRegistros();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -203,9 +202,6 @@ public class ControlTiposViajeros implements Serializable {
         listTiposViajeros = null;
         guardado = true;
         permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         navegar("atras");
     }
 

@@ -642,8 +642,8 @@
                                             style="left: 10px; top: 115px; background-image: url(Imagenes/Iconos/IntPresupuesto.png);" disabled="#{controlRemoto.consultarPermisosPorId('btnpresup')}"/>
                            <p:commandButton id="btntersoreria" value="" class="cssBotonesIntegracion"
                                             style="left: 10px; top: 213px; background-image: url(Imagenes/Iconos/IntTesoreria.png);"
-                                            action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'reportesbancos')}" actionListener="#{controlReportesBancos.iniciarPagina}"
-                                            disabled="#{controlRemoto.consultarPermisosPorId('btntersoreria')}"/>
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btntersoreria')}"
+                                            onclick="PF('confirmarProcesoInterfaceTesoreria').show()"/>
                            <p:commandButton id="btncontabi" value="" class="cssBotonesIntegracion"
                                             style="left: 10px; top: 310px; background-image: url(Imagenes/Iconos/IntContabilidad.png);"
                                             onclick="PF('confirmarprocesointerfacecontable').show()"
@@ -663,17 +663,18 @@
                            <h:outputText value="#{msg['confirmarProcesoInterfaceContable']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight: bold;"/>
                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarprocesointerfacecontable').hide();"
                                             action="#{controlRemoto.validarIntercon()}"  style="position: absolute; top: 60px; left: 285px;" process="@this" icon="ui-icon-check"/>
-                           <!--actionListener="#{controlInterfaseContableTotal.recibirPaginaEntrante('nominaf')}"-->
                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarprocesointerfacecontable').hide();" style="position: absolute; top: 60px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
+                         
+                         <p:dialog id="confirmarProcesoInterfaceTesoreria" widgetVar="confirmarProcesoInterfaceTesoreria" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="100" width="420"  closable="false">  
+                           <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"/>
+                           <h:outputText value="#{msg['confirmarProcesoInterfaceTesoreria']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight: bold;"/>
+                           <p:commandButton value="#{msg['si']}" onclick="PF('confirmarProcesoInterfaceTesoreria').hide();" 
+                                             action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'reportesbancos')}" actionListener="#{controlReportesBancos.iniciarPagina}"
+                                            style="position: absolute; top: 70px; left: 285px;" process="@this" icon="ui-icon-check"/>
+                           <p:commandButton value="#{msg['no']}" onclick="PF('confirmarProcesoInterfaceTesoreria').hide();" style="position: absolute; top: 70px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </p:dialog>
 
-<!--                                <p:dialog id="confirmarprocesointerfacecontable" widgetVar="confirmarprocesointerfacecontable" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="100" width="420"  closable="false">  
-                                    <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"/>
-                                    <h:outputText value="#{msg['confirmarProcesoInterfaceContable']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight: bold;"/>
-                                    <p:commandButton value="#{msg['si']}" onclick="PF('confirmarprocesointerfacecontable').hide();"
-                                                     action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'interfasecontablesapbo')}" actionListener="#{controlInterfaseContableTotal.recibirPaginaEntrante('nominaf')}" style="position: absolute; top: 60px; left: 285px;" process="@this" icon="ui-icon-check"/>
-                                    <p:commandButton value="#{msg['no']}" onclick="PF('confirmarprocesointerfacecontable').hide();" style="position: absolute; top: 60px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-                                </p:dialog>-->
                      </p:tab> 
 
                      <p:tab id="gerencial" title="#{msg['gerencial']}"> 

@@ -111,8 +111,9 @@
                         <p:ajax event="filter" listener="#{controlEmplVacaPendiente.eventoFiltrarP()}"/>
 
                         <p:column style="padding: 0px !important; width: 20px; alignment-adjust: central;" width="22">
-                            <p:commandButton style="width: 17px; height: 17px; left: 1px;" value="" actionListener="#{controlDetallesVacaciones.recibirVariasCosas('emplvacapendiente', controlEmplVacaPendiente.empleado, controlEmplVacaPendiente.vacaPendienteSeleccionada.rfvacacion)}"
-                                             action="#{controlListaNavegacion.guardarNavegacion('emplvacapendiente', 'detallevacacion')}" />
+                            <p:commandButton style="width: 17px; height: 17px; left: 1px;" value="" actionListener="#{controlDetallesVacaciones.recibirVariasCosas('emplvacapendiente', controlEmplVacaPendiente.empleado, info.rfvacacion)}"
+                                             action="#{controlListaNavegacion.guardarNavegacion('emplvacapendiente', 'detallevacacion')}" 
+                                             onstart="PF('datosVacacionesPEmpleado').unselectAllRows();PF('datosVacacionesPEmpleado').selectRow(#{indice});PF('datosVacacionesDEmpleado').unselectAllRows();" />
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -130,7 +131,7 @@
                                     <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,2)}" update="editFechaInicial" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,2)}" update="editFechaInicial" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 2)}" process="@this"
-                                            onstart="PF('datosVacacionesPEmpleado').unselectAllRows();PF('datosVacacionesPEmpleado').selectRow(#{indice});"/> 
+                                            onstart="PF('datosVacacionesPEmpleado').unselectAllRows();PF('datosVacacionesPEmpleado').selectRow(#{indice});PF('datosVacacionesDEmpleado').unselectAllRows();"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
@@ -151,7 +152,7 @@
                                     <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,3)}" update="editFechaFinal" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasPendientes(info,3)}" update="editFechaFinal" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 3)}" process="@this"
-                                            onstart="PF('datosVacacionesPEmpleado').unselectAllRows();PF('datosVacacionesPEmpleado').selectRow(#{indice});"/> 
+                                            onstart="PF('datosVacacionesPEmpleado').unselectAllRows();PF('datosVacacionesPEmpleado').selectRow(#{indice});PF('datosVacacionesDEmpleado').unselectAllRows();"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
@@ -166,7 +167,7 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off"  id="editarDP" value="#{info.diaspendientes}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(1, info, 1)}"
-                                            onstart="PF('datosVacacionesPEmpleado').unselectAllRows();PF('datosVacacionesPEmpleado').selectRow(#{indice});"/>
+                                            onstart="PF('datosVacacionesPEmpleado').unselectAllRows();PF('datosVacacionesPEmpleado').selectRow(#{indice});PF('datosVacacionesDEmpleado').unselectAllRows();"/>
                                     <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificacionesTablas()}" update="editarDP"/>
                                  </p:inputText>
                               </f:facet> 
@@ -197,8 +198,9 @@
                         <f:event type="preRenderView" listener="#{controlEmplVacaPendiente.recordarSeleccionD()}"/>
 
                         <p:column width="22" style="padding: 0px !important; width: 20px; alignment-adjust: central;">
-                            <p:commandButton style="width: 17px; height: 17px; left: 1px;" value="" actionListener="#{controlDetallesVacaciones.recibirVariasCosas('emplvacapendiente', controlEmplVacaPendiente.empleado, controlEmplVacaPendiente.vacaDisfrutadaSeleccionada.rfvacacion)}"
-                                             action="#{controlListaNavegacion.guardarNavegacion('emplvacapendiente', 'detallevacacion')}" />
+                            <p:commandButton style="width: 17px; height: 17px; left: 1px;" value="" actionListener="#{controlDetallesVacaciones.recibirVariasCosas('emplvacapendiente', controlEmplVacaPendiente.empleado, info2.rfvacacion)}"
+                                             action="#{controlListaNavegacion.guardarNavegacion('emplvacapendiente', 'detallevacacion')}" 
+                                            onstart="PF('datosVacacionesDEmpleado').unselectAllRows();PF('datosVacacionesDEmpleado').selectRow(#{indice2});PF('datosVacacionesPEmpleado').unselectAllRows();" />
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -216,7 +218,7 @@
                                     <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,2)}" update="editFechaInicialD" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,2)}" update="editFechaInicialD" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 2)}" process="@this"
-                                            onstart="PF('datosVacacionesDEmpleado').unselectAllRows();PF('datosVacacionesDEmpleado').selectRow(#{indice2});"/> 
+                                            onstart="PF('datosVacacionesDEmpleado').unselectAllRows();PF('datosVacacionesDEmpleado').selectRow(#{indice2});PF('datosVacacionesPEmpleado').unselectAllRows();"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
@@ -237,7 +239,7 @@
                                     <p:ajax event="dateSelect" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,3)}" update="editFechaFinalD" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificarFechasDisfrutadas(info2,3)}" update="editFechaFinalD" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 3) }" process="@this"
-                                            onstart="PF('datosVacacionesDEmpleado').unselectAllRows();PF('datosVacacionesDEmpleado').selectRow(#{indice2});"/> 
+                                            onstart="PF('datosVacacionesDEmpleado').unselectAllRows();PF('datosVacacionesDEmpleado').selectRow(#{indice2});PF('datosVacacionesPEmpleado').unselectAllRows();"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
@@ -252,7 +254,7 @@
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info2.diaspendientes}" id="editarDPD" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlEmplVacaPendiente.cambiarIndex(2, info2, 1)}"
-                                            onstart="PF('datosVacacionesDEmpleado').unselectAllRows();PF('datosVacacionesDEmpleado').selectRow(#{indice2});"/>
+                                            onstart="PF('datosVacacionesDEmpleado').unselectAllRows();PF('datosVacacionesDEmpleado').selectRow(#{indice2});PF('datosVacacionesPEmpleado').unselectAllRows();"/>
                                     <p:ajax event="change" listener="#{controlEmplVacaPendiente.modificacionesTablas()}" update="editarDPD"/>
                                  </p:inputText>
                               </f:facet>  
