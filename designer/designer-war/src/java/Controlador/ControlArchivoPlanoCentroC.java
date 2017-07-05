@@ -9,6 +9,7 @@ import ClasesAyuda.ErroresNovedades;
 import ClasesAyuda.ResultadoBorrarTodoNovedades;
 import ControlNavegacion.ControlListaNavegacion;
 import Entidades.ActualUsuario;
+import Entidades.NombresEmpleadosAux;
 import Entidades.TempProrrateos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -21,6 +22,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -35,7 +37,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -52,8 +54,8 @@ import org.primefaces.model.UploadedFile;
  * @author user
  */
 @Named(value = "controlArchivoPlanoCentroC")
-@Dependent
-public class ControlArchivoPlanoCentroC {
+@SessionScoped
+public class ControlArchivoPlanoCentroC implements Serializable {
 
    @EJB
    AdministrarArchivoPlanoCentroCostoInterface AdministrarArchivoPlanoCentroCosto;
@@ -79,6 +81,7 @@ public class ControlArchivoPlanoCentroC {
    private boolean cargue;
    //REVERSAR 
    private String documentoSoporteReversar;
+   private List<NombresEmpleadosAux> lovNombresEmpleados;
    private List<String> lovdocumentosSoporteCargados;
    private List<String> filtradoDocumentosSoporteCargados;
    private String seleccionDocumentosSoporteCargado;
@@ -98,7 +101,7 @@ public class ControlArchivoPlanoCentroC {
    //
    private int bandera, tipoLista;
    //
-   private Column columnaCodigoEmpl, columnaEmpleado, columnaCodigoProy, columnaProyecto, columnaFechaIni, columnaFechaFin, columnaPorcentaje;
+   private Column columnaCodigoEmpl, columnaEmpleado, columnaCodigoCC, columnaCentroCosto, columnaFechaIni, columnaFechaFin, columnaCodigoProy, columnaSubPorcentaje, columnaObservacion, columnaPorcentaje;
    //
    private int cualCelda;
    //
@@ -167,7 +170,7 @@ public class ControlArchivoPlanoCentroC {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      String pagActual = "archivoplanoproyecto";
+      String pagActual = "archivoplanocentrocosto";
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -192,11 +195,17 @@ public class ControlArchivoPlanoCentroC {
 
    public void limpiarListasValor() {
       lovdocumentosSoporteCargados = null;
+      lovNombresEmpleados = null;
    }
 
    public void salir() {
       cancelarModificaciones();
       navegar("atras");
+   }
+
+   public void cancelarYSalir() {
+      cancelarModificaciones();
+      salir();
    }
 
    public void cancelarModificaciones() {
@@ -336,8 +345,7 @@ public class ControlArchivoPlanoCentroC {
          System.out.println("Error transformarArchivo Controlador : " + e.toString());
       }
    }
-
-   ///PROYECTO
+///PROYECTO
 //
 //v_vcCodigoempleado:= substr((LINEBUF),1,15);
 //v_vcPROYECTO:= substr((LINEBUF),16,15);
@@ -355,6 +363,7 @@ public class ControlArchivoPlanoCentroC {
 //v_vcPorcentaje:= substr((LINEBUF),51,5);
 //v_vcPROYECTO:= substr((LINEBUF),56,15);
 //v_vcSUBPorcentaje:= substr((LINEBUF),71,5);
+
    public void leerTxt(String locArchivo, String nombreArchivo) throws FileNotFoundException, IOException {
       System.out.println("Cargue.CargarArchivoPlano.leerTxt()");
       try {
@@ -368,13 +377,14 @@ public class ControlArchivoPlanoCentroC {
          listErrores.clear();
          while ((sCadena = bf.readLine()) != null) {
             tNovedades = new TempProrrateos();
-            //LEER EMPLEADO
-            String sEmpleado = sCadena.substring(1, 15).trim();
+            String sEmpleado = sCadena.substring(0, 15).trim();
+            System.out.println("sEmpleado: _" + sEmpleado + "_");
             if (!sEmpleado.equals("")) {
                try {
                   BigInteger codEmpleado = new BigInteger(sEmpleado);
                   tNovedades.setCodigoEmpleado(codEmpleado);
                } catch (Exception e) {
+                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando codEmpleado : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -382,22 +392,23 @@ public class ControlArchivoPlanoCentroC {
             } else {
                tNovedades.setCodigoEmpleado(null);
             }
-            //LEER TIPO AUSENTISMO
-            String sProyecto = sCadena.substring(16, 30).trim();
-            if (!sProyecto.equals("")) {
+            String sCentrocosto = sCadena.substring(15, 30).trim();
+            System.out.println("sCentrocosto: _" + sCentrocosto + "_");
+            if (!sCentrocosto.equals("")) {
                try {
-                  BigInteger codProyecto = new BigInteger(sProyecto);
-                  tNovedades.setCodigoProyecto(codProyecto);
+                  BigInteger codCentroCosto = new BigInteger(sCentrocosto);
+                  tNovedades.setCodigoCentrocosto(codCentroCosto);
                } catch (Exception e) {
+                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando codCentroCosto : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
                }
             } else {
-               tNovedades.setCodigoProyecto(null);
+               tNovedades.setCodigoCentrocosto(null);
             }
-            //LEER CLASE AUSENTISMO
-            String fechaIni = sCadena.substring(31, 40).trim();
+            String fechaIni = sCadena.substring(30, 40).trim();
+            System.out.println("fechaIni: _" + fechaIni + "_");
             if (!fechaIni.equals("")) {
                if (fechaIni.indexOf("-") > 0) {
                   fechaIni = fechaIni.replaceAll("-", "/");
@@ -406,6 +417,7 @@ public class ControlArchivoPlanoCentroC {
                   Date fechaInicial = formato.parse(fechaIni);
                   tNovedades.setFechaInicial(fechaInicial);
                } catch (Exception e) {
+                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaInicial : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -413,8 +425,8 @@ public class ControlArchivoPlanoCentroC {
             } else {
                tNovedades.setFechaInicial(null);
             }
-            //LEER CAUSA AUSENTIMO
-            String fechaFin = sCadena.substring(41, 50).trim();
+            String fechaFin = sCadena.substring(40, 50).trim();
+            System.out.println("fechaFin: _" + fechaFin + "_");
             if (!fechaFin.equals("")) {
                if (fechaFin.indexOf("-") > 0) {
                   fechaFin = fechaFin.replaceAll("-", "/");
@@ -423,6 +435,7 @@ public class ControlArchivoPlanoCentroC {
                   Date fechaFinal = formato.parse(fechaFin);
                   tNovedades.setFechaFinal(fechaFinal);
                } catch (Exception e) {
+                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaFinal : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -430,13 +443,14 @@ public class ControlArchivoPlanoCentroC {
             } else {
                tNovedades.setFechaFinal(null);
             }
-            // LEER DIAS AUSENTISMO
-            String sPorcentaje = sCadena.substring(51, 55).trim();
+            String sPorcentaje = sCadena.substring(50, 55).trim();
+            System.out.println("sPorcentaje: _" + sPorcentaje + "_");
             if (!sPorcentaje.equals("")) {
                try {
                   BigDecimal porcentaje = new BigDecimal(sPorcentaje);
                   tNovedades.setPorcentaje(porcentaje);
                } catch (Exception e) {
+                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando porcentaje : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -444,11 +458,48 @@ public class ControlArchivoPlanoCentroC {
             } else {
                tNovedades.setPorcentaje(null);
             }
-
+            String sProyecto = sCadena.substring(55, 70).trim();
+            System.out.println("sProyecto: _" + sProyecto + "_");
+            if (!sProyecto.equals("")) {
+               try {
+                  BigInteger codProyecto = new BigInteger(sProyecto);
+                  tNovedades.setCodigoProyecto(codProyecto);
+               } catch (Exception e) {
+                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando codProyecto : " + e);
+                  context.update("form:errorArchivo");
+                  context.execute("PF('errorArchivo').show()");
+                  break;
+               }
+            } else {
+               tNovedades.setCodigoProyecto(null);
+            }
+            String sSubPorcentaje = sCadena.substring(70, 75).trim();
+            System.out.println("sSubPorcentaje: _" + sSubPorcentaje + "_");
+            if (!sSubPorcentaje.equals("")) {
+               try {
+                  BigDecimal subporcentaje = new BigDecimal(sSubPorcentaje);
+                  tNovedades.setSubPorcentaje(subporcentaje);
+               } catch (Exception e) {
+                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando subporcentaje : " + e);
+                  context.update("form:errorArchivo");
+                  context.execute("PF('errorArchivo').show()");
+                  break;
+               }
+            } else {
+               tNovedades.setSubPorcentaje(null);
+            }
             tNovedades.setUsuarioBD(UsuarioBD.getAlias());
+            tNovedades.setEstado("N");
             //NOMBRE ARCHIVO
             tNovedades.setArchivo(nombreArchivo);
             tNovedades.setSecuencia(BigInteger.valueOf(1));
+            if (lovNombresEmpleados != null) {
+               for (int i = 0; i < lovNombresEmpleados.size(); i++) {
+                  if (lovNombresEmpleados.get(i).getCodigoEmpleado().equals(tNovedades.getCodigoEmpleado())) {
+                     tNovedades.setNombreEmpleado(lovNombresEmpleados.get(i).getNombreEmpleado());
+                  }
+               }
+            }
             listTempProrrateos.add(tNovedades);
             tNovedades = null;
          }
@@ -478,8 +529,14 @@ public class ControlArchivoPlanoCentroC {
          columnaCodigoEmpl.setFilterStyle("width: 85% !important");
          columnaEmpleado = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaEmpleado");
          columnaEmpleado.setFilterStyle("width: 85% !important");
-         columnaProyecto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaProyecto");
-         columnaProyecto.setFilterStyle("width: 85% !important");
+         columnaCentroCosto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCentroCosto");
+         columnaCentroCosto.setFilterStyle("width: 85% !important");
+         columnaCodigoCC = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoCC");
+         columnaCodigoCC.setFilterStyle("width: 85% !important");
+         columnaObservacion = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaObservacion");
+         columnaObservacion.setFilterStyle("width: 85% !important");
+         columnaSubPorcentaje = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaSubPorcentaje");
+         columnaSubPorcentaje.setFilterStyle("width: 85% !important");
          columnaCodigoProy = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoProy");
          columnaCodigoProy.setFilterStyle("width: 85% !important");
          columnaFechaIni = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaIni");
@@ -567,6 +624,10 @@ public class ControlArchivoPlanoCentroC {
          duplicarTempProrrateos.setTerminal(tempProrrateoSeleccionado.getTerminal());
          duplicarTempProrrateos.setUsuarioBD(tempProrrateoSeleccionado.getUsuarioBD());
          duplicarTempProrrateos.setVigLocalizacion(tempProrrateoSeleccionado.getVigLocalizacion());
+         duplicarTempProrrateos.setCentroCosto(tempProrrateoSeleccionado.getCentroCosto());
+         duplicarTempProrrateos.setCodigoCentrocosto(tempProrrateoSeleccionado.getCodigoCentrocosto());
+         duplicarTempProrrateos.setObservacion(tempProrrateoSeleccionado.getObservacion());
+         duplicarTempProrrateos.setSubPorcentaje(tempProrrateoSeleccionado.getSubPorcentaje());
 
          RequestContext.getCurrentInstance().update("formDialogos:duplicarTempNDialogo");
          RequestContext.getCurrentInstance().execute("PF('duplicarTempNDialogo').show()");
@@ -625,8 +686,14 @@ public class ControlArchivoPlanoCentroC {
 
    public void insertarNovedadTempProrrateos() {
       if (!listTempProrrateos.isEmpty()) {
+         System.out.println("ControlArchivoPlanoCentroC.insertarNovedadTempProrrateos() listTempProrrateos.get(0).getEstado(): " + listTempProrrateos.get(0).getEstado());
          AdministrarArchivoPlanoCentroCosto.crear(listTempProrrateos);
       }
+   }
+
+   public void guardarYSalir() {
+      guardar();
+      salir();
    }
 
    public void guardar() {
@@ -670,8 +737,14 @@ public class ControlArchivoPlanoCentroC {
       columnaEmpleado.setFilterStyle("display: none; visibility: hidden;");
       columnaCodigoProy = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoProy");
       columnaCodigoProy.setFilterStyle("display: none; visibility: hidden;");
-      columnaProyecto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaProyecto");
-      columnaProyecto.setFilterStyle("display: none; visibility: hidden;");
+      columnaCentroCosto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCentroCosto");
+      columnaCentroCosto.setFilterStyle("display: none; visibility: hidden;");
+      columnaCodigoCC = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaCodigoCC");
+      columnaCodigoCC.setFilterStyle("display: none; visibility: hidden;");
+      columnaObservacion = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaObservacion");
+      columnaObservacion.setFilterStyle("display: none; visibility: hidden;");
+      columnaSubPorcentaje = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaSubPorcentaje");
+      columnaSubPorcentaje.setFilterStyle("display: none; visibility: hidden;");
       columnaFechaIni = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaIni");
       columnaFechaIni.setFilterStyle("display: none; visibility: hidden;");
       columnaFechaFin = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaFin");
@@ -767,7 +840,6 @@ public class ControlArchivoPlanoCentroC {
                context.update("form:novedadesCargadas");
                context.execute("PF('novedadesCargadas').show()");
             }
-            context.update("form:subtotal");
             listErrores.clear();
             erroresNovedad = null;
             cargue = true;
@@ -777,13 +849,13 @@ public class ControlArchivoPlanoCentroC {
             botones = false;
             context.update("form:FileUp");
             context.update("form:nombreArchivo");
-            context.update("form:formula");
             context.update("form:cargar");
          }
       }
    }
 
    public void borrarRegistrosNoCargados() {
+      System.out.println("ControlArchivoPlanoCentroC.borrarRegistrosNoCargados()");
       AdministrarArchivoPlanoCentroCosto.borrarRegistrosTempProrrateos(UsuarioBD.getAlias());
       listTempProrrateos = AdministrarArchivoPlanoCentroCosto.obtenerTempProrrateos(UsuarioBD.getAlias());
       contarRegistros();
@@ -792,8 +864,6 @@ public class ControlArchivoPlanoCentroC {
       cargue = true;
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("form:FileUp");
-      context.update("form:formula");
-      context.update("form:usoFormulaC");
       context.update("form:cargar");
       context.update("form:tempNovedades");
       context.update("form:nombreArchivo");
@@ -1112,4 +1182,20 @@ public class ControlArchivoPlanoCentroC {
    public void setNuevaTempProrrateos(TempProrrateos nuevaTempProrrateos) {
       this.nuevaTempProrrateos = nuevaTempProrrateos;
    }
+
+   public List<NombresEmpleadosAux> getLovNombresEmpleados() {
+      if (lovNombresEmpleados == null) {
+         lovNombresEmpleados = AdministrarArchivoPlanoCentroCosto.consultarNombresEmpleados();
+         System.out.println("ControlArchivoPlanoCentroC.getLovNombresEmpleados() ya consulto");
+         if (lovNombresEmpleados != null) {
+            System.out.println("lovNombresEmpleados.size() : " + lovNombresEmpleados.size());
+         }
+      }
+      return lovNombresEmpleados;
+   }
+
+   public void setLovNombresEmpleados(List<NombresEmpleadosAux> lovNombresEmpleados) {
+      this.lovNombresEmpleados = lovNombresEmpleados;
+   }
+
 }

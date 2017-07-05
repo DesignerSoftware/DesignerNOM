@@ -84,6 +84,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, usuarioBD);
          query.executeUpdate();
+         System.out.println("PersistenciaTempProrrateos.borrarRegistrosTempProrrateos() Ya ejecuto");
          tx.commit();
       } catch (Exception e) {
          System.out.println("No se pudo borrar el registro en borrarRegistrosTempProrrateos() : " + e.toString());

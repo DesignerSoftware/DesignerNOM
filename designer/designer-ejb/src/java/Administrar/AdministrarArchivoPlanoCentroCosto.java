@@ -6,13 +6,17 @@
 package Administrar;
 
 import Entidades.ActualUsuario;
+import Entidades.Empleados;
 import Entidades.Generales;
+import Entidades.NombresEmpleadosAux;
 import Entidades.TempProrrateos;
 import InterfaceAdministrar.AdministrarArchivoPlanoCentroCostoInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaActualUsuarioInterface;
+import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaGeneralesInterface;
 import InterfacePersistencia.PersistenciaTempProrrateosInterface;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -29,6 +33,8 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
    PersistenciaGeneralesInterface persistenciaGenerales;
    @EJB
    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
@@ -64,6 +70,20 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
    @Override
    public List<TempProrrateos> obtenerTempProrrateos(String usuarioBD) {
       return persistenciaTempProrrateos.obtenerTempProrrateos(em, usuarioBD);
+   }
+
+   @Override
+   public List<NombresEmpleadosAux> consultarNombresEmpleados() {
+      List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(em);
+      List<NombresEmpleadosAux> listaNombres = new ArrayList<NombresEmpleadosAux>();
+      if (listaEmpleados != null) {
+         if (!listaEmpleados.isEmpty()) {
+            for (Empleados recEmp : listaEmpleados) {
+               listaNombres.add(new NombresEmpleadosAux(recEmp.getCodigoempleado().toBigInteger(), recEmp.getPersona().getNombreCompleto()));
+            }
+         }
+      }
+      return listaNombres;
    }
 
    @Override

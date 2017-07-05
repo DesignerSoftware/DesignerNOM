@@ -447,6 +447,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
             }
 
             tNovedades.setUsuarioBD(UsuarioBD.getAlias());
+            tNovedades.setEstado("N");
             //NOMBRE ARCHIVO
             tNovedades.setArchivo(nombreArchivo);
             tNovedades.setSecuencia(BigInteger.valueOf(1));
@@ -768,7 +769,6 @@ public class ControlArchivoPlanoProyecto implements Serializable {
                context.update("form:novedadesCargadas");
                context.execute("PF('novedadesCargadas').show()");
             }
-            context.update("form:subtotal");
             listErrores.clear();
             erroresNovedad = null;
             cargue = true;

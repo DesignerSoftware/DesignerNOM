@@ -122,8 +122,6 @@
                         <h:outputText value="#{msg['fechafinT']}"/>
                         <br></br><h:outputText value="#{msg['porcentaje']}&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['porcentajeT']}"/>
-                        <br></br><h:outputText value="#{msg['formliq']}&nbsp;&nbsp;" style="font-weight: bold;"/>
-                        <h:outputText value="#{msg['formliqT']}"/>
                         <br></br><h:outputText value="#{msg['nota']}&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['notaT']}" style="font-weight: bold; text-decoration: underline;"/>
                      </p:scrollPanel> 
@@ -151,7 +149,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.codigoEmpleado}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);
+                                                       PF('tempNovedades').unselectAllRows();
+                                                       PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column> 
@@ -167,7 +167,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.nombreEmpleado}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);
+                                                       PF('tempNovedades').unselectAllRows();
+                                                       PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
@@ -183,7 +185,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.codigoProyecto}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);
+                                                       PF('tempNovedades').unselectAllRows();
+                                                       PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
@@ -199,7 +203,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.nombreProyecto}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);
+                                                       PF('tempNovedades').unselectAllRows();
+                                                       PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
@@ -217,7 +223,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.fechaInicial}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);
+                                                       PF('tempNovedades').unselectAllRows();
+                                                       PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
@@ -237,14 +245,16 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.fechaFinal}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);
+                                                       PF('tempNovedades').unselectAllRows();
+                                                       PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="76" id="columnaPorcentaje" filterBy="#{tempProrrateo.porcentaje}" sortBy="#{tempProrrateo.porcentaje}"
+                        <p:column width="76" id="columnaPorcentaje" filterBy="#{tempProrrateo.porcentaje}" sortBy="#{tempProrrateo.porcentaje}" class="cssColumnasCentradas"
                                   filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <f:facet name="header">  
                               <h:outputText id="porcentaje" value="Porcentaje"/> 
@@ -255,8 +265,10 @@
                                  <h:outputText value="#{tempProrrateo.porcentaje}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{tempProrrateo.porcentaje}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputNumber value="#{tempProrrateo.porcentaje}" readonly="true" symbol="%" symbolPosition="s" decimalPlaces="0"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);
+                                                       PF('tempNovedades').unselectAllRows();
+                                                       PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -266,8 +278,8 @@
 
                   </fieldset>
                   <p:commandButton id="borrarPlano" value="#{msg['borrarplano']}" actionListener="#{controlArchivoPlanoProyecto.borrarRegistrosNoCargados()}"
-                                   process="@this" style="position: absolute; top: 470px; height: 32px;" icon="ui-icon-extlink" class="cssBotonLargo"/>
-                  <p:tooltip for="borrarPlano" value="borrarplano2"/>
+                                   process="@this" style="position: absolute; top: 470px;" icon="ui-icon-extlink" class="cssBoton"/>
+                  <p:tooltip for="borrarPlano" value="#{msg['borrarplano2']}"/>
 
                   <p:commandButton id="ACEPTAR" value="" disabled="#{controlArchivoPlanoProyecto.guardado}" process="@this" class="cssBotonAceptar"/>
                   <p:commandButton id="ATRAS" value="" actionListener="#{controlArchivoPlanoProyecto.salir()}" process="@this" class="cssBotonCancelar"/>

@@ -3780,7 +3780,7 @@
    <navigation-rule>
       <from-view-id>/ibcautoliquid.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplibcs</from-outcome>
+         <from-outcome>emplibc</from-outcome>
          <to-view-id>/emplibc.xhtml</to-view-id>
          <redirect />
       </navigation-case>

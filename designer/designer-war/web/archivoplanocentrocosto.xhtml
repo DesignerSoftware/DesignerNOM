@@ -22,7 +22,7 @@
             <div style="position: static;"></div>
             <h:form id="form">
                <p:growl id="growl" showDetail="true"/>
-               <f:loadBundle basename="Recursos.archivoplanoproyecto" var="msg"/>
+               <f:loadBundle basename="Recursos.archivoplanocentrocosto" var="msg"/>
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
                   <p:toolbar styleClass="cssToolbar">
@@ -65,7 +65,8 @@
                                          process="@this" onclick="PF('nuevaTempNDialogo').show()"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlArchivoPlanoCentroC.borrar()}" process="@this"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
@@ -114,16 +115,20 @@
                      <p:scrollPanel mode="native" style="height: 128px; border: none; padding-top: 10px;">
                         <h:outputText value="#{msg['codEmpl']}&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['codEmplT']}"/>
-                        <br></br><h:outputText value="#{msg['proyect']}&nbsp;&nbsp;" style="font-weight: bold;"/>
-                        <h:outputText value="#{msg['proyectT']}"/>
+                        <br></br><h:outputText value="#{msg['centrocost']}:&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['centrocostT']}"/>
                         <br></br><h:outputText value="#{msg['fechaini']}&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['fechainiT']}"/>
                         <br></br><h:outputText value="#{msg['fechafin']}&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['fechafinT']}"/>
-                        <br></br><h:outputText value="#{msg['porcentaje']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <br></br><h:outputText value="#{msg['porcentaje']}:&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['porcentajeT']}"/>
-                        <br></br><h:outputText value="#{msg['formliq']}&nbsp;&nbsp;" style="font-weight: bold;"/>
-                        <h:outputText value="#{msg['formliqT']}"/>
+                        <br></br><h:outputText value="#{msg['proyect']}&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['proyectT']}"/>
+                        <br></br><h:outputText value="#{msg['subporcentaje']}:&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['subporcentajeT']}"/>
+                        <br></br><h:outputText value="#{msg['observacion']}:&nbsp;&nbsp;" style="font-weight: bold;"/>
+                        <h:outputText value="#{msg['observacionT']}"/>
                         <br></br><h:outputText value="#{msg['nota']}&nbsp;&nbsp;" style="font-weight: bold;"/>
                         <h:outputText value="#{msg['notaT']}" style="font-weight: bold; text-decoration: underline;"/>
                      </p:scrollPanel> 
@@ -132,11 +137,11 @@
                   <fieldset style="position: absolute; left: 10px; top: 245px; width: 835px; height: 205px; border-radius: 10px;">
                      <legend style="color: blue;"><strong>Datos</strong></legend>
 
-                     <p:dataTable id="tempNovedades" var="tempProrrateo" style="width: 835px;" value="#{controlArchivoPlanoCentroC.listTempProrrateosProy}"
+                     <p:dataTable id="tempNovedades" var="tempProrrateo" style="width: 1140px; position: absolute;" value="#{controlArchivoPlanoCentroC.listTempProrrateos}"
                                   scrollable="true" scrollHeight="#{controlArchivoPlanoCentroC.altoTabla}" scrollWidth="835" emptyMessage="#{msg['noseencontraron']}" widgetVar="tempNovedades"
                                   rowKey="#{tempProrrateo.secuencia}" rowIndexVar="pos" styleClass="ui-datatable" liveScroll="true" scrollRows="30"
                                   editable="true" editMode="cell" 
-                                  filteredValue="#{controlArchivoPlanoCentroC.filtrarListTempProrrateosProy}" selection="#{controlArchivoPlanoCentroC.tempProrrateoSeleccionado}">
+                                  filteredValue="#{controlArchivoPlanoCentroC.filtrarListTempProrrateos}" selection="#{controlArchivoPlanoCentroC.tempProrrateoSeleccionado}">
 
                         <p:ajax event="filter" listener="#{controlArchivoPlanoCentroC.eventoFiltrar()}"/>
 
@@ -147,11 +152,13 @@
                            </f:facet>
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{tempProrrateo.codigoEmpleado}"/>
+                                 <h:outputText value="#{tempProrrateo.empleado}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{tempProrrateo.codigoEmpleado}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.empleado}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column> 
@@ -167,39 +174,37 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.nombreEmpleado}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);"/>
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
 
-                        <p:column id="columnaCodigoProy" filterBy="#{tempProrrateo.codigoProyecto}" sortBy="#{tempProrrateo.codigoProyecto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                           <f:facet name="header">  
-                              <h:outputText id="codProy" value="#{msg['proyectoX']}"/>  
-                              <p:tooltip  for="codProy" value="#{msg['identificaciondelempleadoN']}"/>
-                           </f:facet>
+                        <p:column width="90" headerText="#{msg['centrocost']}" id="columnaCodigoCC" filterBy="#{tempProrrateo.codigoCentrocosto}" sortBy="#{tempProrrateo.codigoCentrocosto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{tempProrrateo.codigoProyecto}"/>
+                                 <h:outputText value="#{tempProrrateo.codigoCentrocosto}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{tempProrrateo.codigoProyecto}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.codigoCentrocosto}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
-                        </p:column>  
+                        </p:column> 
 
-                        <p:column id="columnaProyecto" filterBy="#{tempProrrateo.nombreProyecto}" sortBy="#{tempProrrateo.nombreProyecto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                           <f:facet name="header">  
-                              <h:outputText id="proyecto" value="#{msg['nomproyecto']}"/>  
-                              <p:tooltip  for="proyecto" value="#{msg['identificaciondelempleadoN']}"/>
-                           </f:facet>
+                        <p:column width="190" headerText="#{msg['centrocost']}" id="columnaCentroCosto" filterBy="#{tempProrrateo.nombreCentrocosto}" sortBy="#{tempProrrateo.nombreCentrocosto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{tempProrrateo.nombreProyecto}"/>
+                                 <h:outputText value="#{tempProrrateo.nombreCentrocosto}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{tempProrrateo.nombreProyecto}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.nombreCentrocosto}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
@@ -217,7 +222,9 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.fechaInicial}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
@@ -237,42 +244,109 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{tempProrrateo.fechaFinal}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);">
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="76" id="columnaPorcentaje" filterBy="#{tempProrrateo.porcentaje}" sortBy="#{tempProrrateo.porcentaje}"
-                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                        <p:column width="100" id="columnaCodigoProy" filterBy="#{tempProrrateo.codigoProyecto}" sortBy="#{tempProrrateo.codigoProyecto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <f:facet name="header">  
-                              <h:outputText id="porcentaje" value="Porcentaje"/> 
-                              <p:tooltip for="porcentaje" value="Porcentaje"/>
+                              <h:outputText id="codProy" value="#{msg['proyectoX']}"/>  
+                              <p:tooltip  for="codProy" value="#{msg['identificaciondelempleadoN']}"/>
                            </f:facet>
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{tempProrrateo.porcentaje}"/>
+                                 <h:outputText value="#{tempProrrateo.codigoProyecto}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{tempProrrateo.porcentaje}" readonly="true"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.codigoProyecto}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>  
+
+                        <p:column width="50" id="columnaPorcentaje" filterBy="#{tempProrrateo.porcentaje}" sortBy="#{tempProrrateo.porcentaje}" class="cssColumnasCentradas"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="porcentaje" value="%"/> 
+                              <p:tooltip for="porcentaje" value="#{msg['porcentaje']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.porcentaje}%"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputNumber value="#{tempProrrateo.porcentaje}" readonly="true" symbol="%" symbolPosition="s" decimalPlaces="0"
+                                                onselect="posicionTablaNovedad([{name: 'n', value: '7'}, {name: 't', value: '#{pos}'}]);
+                                                      PF('tempNovedades').unselectAllRows();
+                                                      PF('tempNovedades').selectRow(#{pos});"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column width="50" id="columnaSubPorcentaje" filterBy="#{tempProrrateo.subPorcentaje}" sortBy="#{tempProrrateo.subPorcentaje}" class="cssColumnasCentradas"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <f:facet name="header">  
+                              <h:outputText id="SubPorcentaje" value="Sub(%)"/> 
+                              <p:tooltip for="SubPorcentaje" value="#{msg['subporcentaje']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.subPorcentaje}%"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputNumber value="#{tempProrrateo.subPorcentaje}" readonly="true" symbol="%" symbolPosition="s" decimalPlaces="0"
+                                                onselect="posicionTablaNovedad([{name: 'n', value: '8'}, {name: 't', value: '#{pos}'}]);
+                                                      PF('tempNovedades').unselectAllRows();
+                                                      PF('tempNovedades').selectRow(#{pos});"/>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column width="120" headerText="#{msg['observacion']}" id="columnaObservacion" filterBy="#{tempProrrateo.observacion}" sortBy="#{tempProrrateo.observacion}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tempProrrateo.observacion}"/>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{tempProrrateo.observacion}" readonly="true"
+                                              onselect="posicionTablaNovedad([{name: 'n', value: '9'}, {name: 't', value: '#{pos}'}]);
+                                                    PF('tempNovedades').unselectAllRows();
+                                                    PF('tempNovedades').selectRow(#{pos});"/>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
                      </p:dataTable>
 
-                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlArchivoPlanoCentroC.infoRegistro}" style="position: relative; left: 10px; top: 2px; font-weight: bold;"/>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlArchivoPlanoCentroC.infoRegistro}" style="position: relative; left: 10px; top: 180px; font-weight: bold;"/>
 
                   </fieldset>
                   <p:commandButton id="borrarPlano" value="#{msg['borrarplano']}" actionListener="#{controlArchivoPlanoCentroC.borrarRegistrosNoCargados()}"
-                                   process="@this" style="position: absolute; top: 470px; height: 32px;" icon="ui-icon-extlink" class="cssBotonLargo"/>
-                  <p:tooltip for="borrarPlano" value="borrarplano2"/>
+                                   process="@this" style="position: absolute; top: 470px;" icon="ui-icon-extlink" class="cssBoton"/>
+                  <p:tooltip for="borrarPlano" value="#{msg['borrarplano2']}"/>
 
-                  <p:commandButton id="ACEPTAR" value="" disabled="#{controlArchivoPlanoCentroC.guardado}" process="@this" class="cssBotonAceptar"/>
+                  <p:commandButton id="ACEPTAR" value="" disabled="#{controlArchivoPlanoCentroC.guardado}" process="@this" class="cssBotonAceptar" onclick="PF('confirmarGuardar').show();"/>
                   <p:commandButton id="ATRAS" value="" actionListener="#{controlArchivoPlanoCentroC.salir()}" process="@this" class="cssBotonCancelar"/>
 
                   <p:remoteCommand name="posicionTablaNovedad" actionListener="#{controlArchivoPlanoCentroC.posicionTablaNovedad()}"/>
+
+                  <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                     <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                     <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlArchivoPlanoCentroC.guardarYSalir()}" 
+                                      style="position: absolute; top: 50px; left: 125px;" process="@this"/>
+                     <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlArchivoPlanoCentroC.cancelarYSalir()}" 
+                                      style="position: absolute; top: 50px; left: 185px;" process="@this"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" 
+                                      style="position: absolute; top: 50px; left: 250px;" process="@this"/>
+                  </p:dialog>
 
                   <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad"  resizable="false" draggable="true" modal="true" height="100" width="400">  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
@@ -426,21 +500,21 @@
                   <p:panel id="nuevaNovedad" style="border: none;">
 
                      <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpl" widgetVar="nuevoEmpl" value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.empleado}"
+                     <p:inputText autocomplete="off" id="nuevoEmpl" widgetVar="nuevoEmpl" value="#{controlArchivoPlanoCentroC.nuevaTempProrrateos.empleado}"
                                   style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
                         <p:keyFilter for="nuevoEmpl" mask="9999999999"/>
                      </p:inputText>
 
                      <strong><h:outputText value="Fecha Inicial:" style=" position: absolute; top: 205px; left: 40px;"/></strong>
                      <fielset style=" position: absolute; top: 200px; left: 200px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.fechaInicial}"/>
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.nuevaTempProrrateos.fechaInicial}"/>
                      </fielset>
 
                      <strong><h:outputText value="Fecha Final:" style="position: absolute; top: 235px; left: 40px;"/></strong>
-                     <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.fechaFinal}"/>
+                     <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.nuevaTempProrrateos.fechaFinal}"/>
 
                      <strong><h:outputText value="Porcentaje:" style=" position: absolute; top: 145px; left: 410px;"/></strong>
-                     <p:inputNumber autocomplete="off" value="#{controlArchivoPlanoCentroC.nuevaTempProrrateosProy.porcentaje}" 
+                     <p:inputNumber autocomplete="off" value="#{controlArchivoPlanoCentroC.nuevaTempProrrateos.porcentaje}" 
                                     style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
 
                      <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
@@ -458,25 +532,25 @@
                   <p:panel id="duplicaNovedad" style="border: none;">
 
                      <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplEmpleado" widgetVar="duplEmpleado" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.empleado}"
+                     <p:inputText autocomplete="off" id="duplEmpleado" widgetVar="duplEmpleado" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateos.empleado}"
                                   style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
                         <p:keyFilter for="duplEmpleado" mask="9999999999"/>
                      </p:inputText>
 
                      <strong><h:outputText value="Fecha Inicial:" style=" position: absolute; top: 205px; left: 40px;"/></strong>
                      <fielset style=" position: absolute; top: 200px; left: 200px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.fechaInicial}"/>
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.duplicarTempProrrateos.fechaInicial}"/>
                      </fielset>
 
                      <strong><h:outputText value="Fecha Final:" style="position: absolute; top: 235px; left: 40px;"/></strong>
-                     <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.fechaFinal}"/>
+                     <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlArchivoPlanoCentroC.duplicarTempProrrateos.fechaFinal}"/>
 
                      <strong><h:outputText value="Porcentaje:" style=" position: absolute; top: 145px; left: 410px;"/></strong>
-                     <p:inputNumber autocomplete="off" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.porcentaje}" 
+                     <p:inputNumber autocomplete="off" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateos.porcentaje}" 
                                     style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
 
                      <strong><h:outputText value="#{msg['documentosoporteN']}:" style=" position: absolute; top: 235px; left: 410px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicaDocumento" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateosProy.archivo}" 
+                     <p:inputText autocomplete="off" id="duplicaDocumento" value="#{controlArchivoPlanoCentroC.duplicarTempProrrateos.archivo}" 
                                   style=" width: 122px; position: absolute; left: 550px; top: 230px; text-transform: uppercase; text-align: right;"/>
 
                      <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
@@ -493,31 +567,31 @@
 
             <h:form id="formExportar">
                <p:dataTable id="exportarTempNovedades"  var="tempProrrateoExp"   style="visibility: hidden; display: none;" 
-                            value="#{controlArchivoPlanoCentroC.listTempProrrateosProy}">
+                            value="#{controlArchivoPlanoCentroC.listTempProrrateos}">
 
-                        <p:column headerText="#{msg['proyectoX']}">      
-                            <f:facet name="header"><h:outputText value="#{msg['proyectoX']}"/></f:facet>
-                            <h:outputText value="#{tempProrrateoExp.nombreProyecto}"/>
-                        </p:column>
+                  <p:column headerText="#{msg['proyectoX']}">      
+                     <f:facet name="header"><h:outputText value="#{msg['proyectoX']}"/></f:facet>
+                     <h:outputText value="#{tempProrrateoExp.nombreProyecto}"/>
+                  </p:column>
 
-                        <p:column>  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechaIniciallX']}"/>
-                            </f:facet>
-                            <h:outputText value="#{tempProrrateoExp.fechaInicial}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                        </p:column>
+                  <p:column>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechaIniciallX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{tempProrrateoExp.fechaInicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
 
-                        <p:column>  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechaFinalX']}"/>
-                            </f:facet>
-                            <h:outputText value="#{tempProrrateoExp.fechaFinal}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                        </p:column>
-                  
+                  <p:column>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechaFinalX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{tempProrrateoExp.fechaFinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                     </h:outputText>
+                  </p:column>
+
                </p:dataTable>
             </h:form>
          </ui:define>
