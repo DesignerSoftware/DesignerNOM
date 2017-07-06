@@ -570,23 +570,48 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public void reingresarEmpleado(EntityManager em, BigInteger codigoEmpleado, BigInteger centroCosto, Date fechaReingreso, BigInteger empresa, Date fechaFinal
-   ) {
+   public void reingresarEmpleado(EntityManager em, BigInteger codigoEmpleado, BigInteger centroCosto, Date fechaReingreso, BigInteger empresa, Date fechaFinal) {
       EntityTransaction tx = em.getTransaction();
       try {
          em.clear();
          tx.begin();
-         String sqlQuery = "call ELIMINAREMPLEADO.reingresar_empleado(?,?,?,?,?)";
-         Query query = em.createNativeQuery(sqlQuery);
-         query.setParameter(1, codigoEmpleado);
-         query.setParameter(2, centroCosto);
-         query.setParameter(3, fechaReingreso);
-         query.setParameter(4, empresa);
-         query.setParameter(5, fechaFinal);
-         query.executeUpdate();
+         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 1 Parametros: ");
+         System.out.println("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
+         StoredProcedureQuery procedimiento = em.createStoredProcedureQuery("ELIMINAREMPLEADO.reingresar_empleado");
+         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + procedimiento);
+         procedimiento.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(3, Date.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
+         procedimiento.setParameter(1, codigoEmpleado);
+         procedimiento.setParameter(2, centroCosto);
+         procedimiento.setParameter(3, fechaReingreso);
+         procedimiento.setParameter(4, empresa);
+         procedimiento.setParameter(5, fechaFinal);
+         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 3");
+         procedimiento.execute();
+         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 4");
          tx.commit();
+         System.out.println("PersistenciaEmpleados.reingresarEmpleado() Ya ejecuto el commit");
+//         em.clear();
+//         tx.begin();
+//         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 1 Parametros: ");
+//         System.out.println("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
+//         Query query = em.createNativeQuery("call ELIMINAREMPLEADO.reingresar_empleado(?,?,?,?,?)");
+//         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + query);
+//         query.setParameter(1, codigoEmpleado);
+//         query.setParameter(2, centroCosto);
+//         query.setParameter(3, fechaReingreso);
+//         query.setParameter(4, empresa);
+//         query.setParameter(5, fechaFinal);
+//         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 3");
+//         query.executeUpdate();
+//         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 4");
+//         tx.commit();
+//         System.out.println("PersistenciaEmpleados.reingresarEmpleado() Ya ejecuto el commit");
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaEmpleados.reingresarEmpleado()");
+         System.out.println("PersistenciaEmpleados.reingresarEmpleado() ERROR : " + e);
          if (tx.isActive()) {
             tx.rollback();
          }

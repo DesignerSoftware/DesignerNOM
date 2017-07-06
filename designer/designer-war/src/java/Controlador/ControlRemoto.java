@@ -116,7 +116,6 @@ public class ControlRemoto implements Serializable {
    private String styleActivos, stylePensionados, styleRetirados, styleAspirantes;
    private String actualCargo;
    private String tipoPersonal;
-   private String accion;
    private String infoRegistroBuscarEmpleados;
    private String infoRegistroBuscarTablas;
    private String infoRegistroBuscarTablasT;
@@ -146,7 +145,6 @@ public class ControlRemoto implements Serializable {
    public ControlRemoto() {
       lovEmpresas = null;
       extension = ".png";
-      accion = null;
       tipoPersonal = "activos";
       tipo = "ACTIVO";
       vwActualesCargos = new VWActualesCargos();
@@ -631,11 +629,7 @@ public class ControlRemoto implements Serializable {
       }
    }
 
-   public String pantallaReintegrar() {
-      return accion;
-   }
-
-   public void pruebita() {
+   public void ejecutarProcedimientoPaquete() {
       BigDecimal result = BigDecimal.valueOf(-1);
       BigDecimal x = BigDecimal.valueOf(0);
       if (tipoPersonal.equals("activos")) {
@@ -652,7 +646,8 @@ public class ControlRemoto implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('activonoeliminar').show()");
          }
       } else if (tipoPersonal.equals("retirados")) {
-         accion = "reintegro";
+         FacesContext fc = FacesContext.getCurrentInstance();
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, controlListaNavegacion.guardarNavegacion("nominaf", "reingresarempleado"));
       }
       lovBuscarEmplTipo.clear();
       lovBusquedaRapida = null;
@@ -745,6 +740,7 @@ public class ControlRemoto implements Serializable {
          hv1 = true;
          hv2 = false;
          tipo = "ACTIVO";
+         tipoPersonal = "activos";
       }
       if (empleadoSeleccionado.getTipoTrabajador().getTipo().equalsIgnoreCase("pensionado")) {
          Imagen = "personal2" + extension;
@@ -761,6 +757,7 @@ public class ControlRemoto implements Serializable {
          hv1 = true;
          hv2 = true;
          tipo = "PENSIONADO";
+         tipoPersonal = "pensionados";
       }
       if (empleadoSeleccionado.getTipoTrabajador().getTipo().equalsIgnoreCase("retirado")) {
          Imagen = "personal3" + extension;
@@ -777,6 +774,7 @@ public class ControlRemoto implements Serializable {
          hv1 = true;
          hv2 = true;
          tipo = "RETIRADO";
+         tipoPersonal = "retirados";
       }
       if (empleadoSeleccionado.getTipoTrabajador().getTipo().equalsIgnoreCase("disponible")) {
          Imagen = "personal4" + extension;
@@ -793,6 +791,7 @@ public class ControlRemoto implements Serializable {
          hv1 = false;
          hv2 = true;
          tipo = "DISPONIBLE";
+         tipoPersonal = "aspirantes";
       }
       RequestContext.getCurrentInstance().reset("form:formlovempleadosR:lvbusquedarapida:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').clearFilters()");
@@ -1996,14 +1995,6 @@ public class ControlRemoto implements Serializable {
 
    public boolean isBandera() {
       return bandera;
-   }
-
-   public String getAccion() {
-      return accion;
-   }
-
-   public void setAccion(String accion) {
-      this.accion = accion;
    }
 
    public String getInfoRegistroBuscarEmpleados() {

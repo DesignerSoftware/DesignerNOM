@@ -7,6 +7,7 @@ import Entidades.CortesProcesos;
 import InterfacePersistencia.PersistenciaCortesProcesosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import oracle.jdbc.driver.OracleSQLException;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  * Clase Stateless. <br>
@@ -135,7 +139,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
    }
 
    @Override
-   public void eliminarComprobante(EntityManager em, Short codigoProceso, String fechaDesde, String fechaHasta) {
+   public String eliminarComprobante(EntityManager em, Short codigoProceso, String fechaDesde, String fechaHasta) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -147,10 +151,16 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          query.setParameter(3, fechaHasta);
          query.executeUpdate();
          tx.commit();
+         return "BIEN";
       } catch (Exception e) {
-         System.out.println("Error cerrarLiquidacion. " + e);
+         System.out.println("Error cerrarLiquidacion. " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
+         }
+         if (e instanceof SQLException || e instanceof DatabaseException || e instanceof OracleSQLException || e instanceof PersistenceException) {
+            return e.toString();
+         } else {
+            return "Ha ocurrido un error al tratar de ejecutar el proceso.";
          }
       }
    }

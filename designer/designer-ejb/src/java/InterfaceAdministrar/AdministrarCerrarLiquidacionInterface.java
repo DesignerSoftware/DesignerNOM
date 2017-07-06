@@ -105,7 +105,7 @@ public interface AdministrarCerrarLiquidacionInterface {
      * @param fechaDesde Fecha inicial del rango
      * @param fechaHasta Fecha final del rango
      */
-    public void abrirLiquidacion(Short codigoProceso, String fechaDesde, String fechaHasta);
+    public String abrirLiquidacion(Short codigoProceso, String fechaDesde, String fechaHasta);
     
     /**
      * Método encargado de obtener el Entity Manager el cual tiene

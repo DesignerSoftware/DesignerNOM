@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Administrar;
 
 import Entidades.Empleados;
@@ -25,42 +24,45 @@ import javax.persistence.EntityManager;
  * @author user
  */
 @Stateful
-public class AdministrarReingresarEmpleado implements AdministrarReingresarEmpleadoInterface{
+public class AdministrarReingresarEmpleado implements AdministrarReingresarEmpleadoInterface {
 
-    @EJB
-    PersistenciaPersonasInterface persistenciaPersonas;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaEstructurasInterface persistenciaEstructuras;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    private EntityManager em;
-    private List<Empleados> lovEmpleados;
-    private List<Estructuras> lovEstructuras;
-    private Date fechaDeRetiro;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    public Date obtenerFechaRetiro(BigInteger secuenciaEmpleado){
-        fechaDeRetiro = persistenciaEmpleado.verificarFecha(em, secuenciaEmpleado);
-        return fechaDeRetiro;
-    }
-    
-    public void reintegrarEmpleado(BigInteger codigoEmpleado, BigInteger centroCosto,Date fechaReingreso, BigInteger empresa, Date fechaFinal) {
-        persistenciaEmpleado.reingresarEmpleado(em, codigoEmpleado,centroCosto,fechaReingreso,empresa,fechaFinal);
-    }
-    
-    public List<Empleados> listaEmpleados(){
-        return persistenciaEmpleado.consultarEmpleadosReingreso(em);
-    }
-    
-     public List<Estructuras> listaEstructuras(){
-        return persistenciaEstructuras.consultarEstructurasReingreso(em);
-    }
-    
-    
+   @EJB
+   PersistenciaPersonasInterface persistenciaPersonas;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaEstructurasInterface persistenciaEstructuras;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   private EntityManager em;
+   private List<Empleados> lovEmpleados;
+   private List<Estructuras> lovEstructuras;
+   private Date fechaDeRetiro;
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+   }
+
+   public Date obtenerFechaRetiro(BigInteger secuenciaEmpleado) {
+      fechaDeRetiro = persistenciaEmpleado.verificarFecha(em, secuenciaEmpleado);
+      return fechaDeRetiro;
+   }
+
+   public void reintegrarEmpleado(BigInteger codigoEmpleado, BigInteger centroCosto, Date fechaReingreso, BigInteger empresa, Date fechaFinal) {
+      try {
+         persistenciaEmpleado.reingresarEmpleado(em, codigoEmpleado, centroCosto, fechaReingreso, empresa, fechaFinal);
+      } catch (Exception e) {
+         System.out.println("ERROR - AdministrarReingresarEmpleado.reintegrarEmpleado() ERROR");
+      }
+   }
+
+   public List<Empleados> listaEmpleados() {
+      return persistenciaEmpleado.consultarEmpleadosReingreso(em);
+   }
+
+   public List<Estructuras> listaEstructuras() {
+      return persistenciaEstructuras.consultarEstructurasReingreso(em);
+   }
+
 }

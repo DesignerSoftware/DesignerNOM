@@ -73,7 +73,7 @@ public interface PersistenciaCortesProcesosInterface {
      * @param fechaDesde Fecha inicial del rango
      * @param fechaHasta Fecha final del rango
      */
-    public void eliminarComprobante(EntityManager em,Short codigoProceso, String fechaDesde, String fechaHasta);
+    public String eliminarComprobante(EntityManager em,Short codigoProceso, String fechaDesde, String fechaHasta);
     /**
      * Método encargado de buscar el comprobante más reciente del empleado.
      * @param em EntityManager que tiene la conexión.

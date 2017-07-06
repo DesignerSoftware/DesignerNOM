@@ -35,7 +35,7 @@
                         <fieldset style="height: 92px; width: 148px; display: block; position: absolute; border-radius: 10px; top: 40px; left: 15px; padding-right: 8px; padding-bottom: 0px; padding-top: 0px;">
 
                            <p:commandButton id="tipopersonal" widgetVar="tipopersonal" class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/#{controlRemoto.imagen}); width: 41px; height: 80px; top: 7px; left: 5px;"
-                                            value="" update=":formulariodialogos" actionListener="#{controlRemoto.pruebita()}" action="#{controlRemoto.pantallaReintegrar()}" process="@this"
+                                            value="" update=":formulariodialogos" actionListener="#{controlRemoto.ejecutarProcedimientoPaquete()}" process="@this"
                                             disabled="#{controlRemoto.consultarPermisosPorId('tipopersonal')}"/>
                            <p:tooltip  for="tipopersonal">
                               #{msg['cargosdesempenados1']} <br/> #{msg['cargosdesempenados2']}

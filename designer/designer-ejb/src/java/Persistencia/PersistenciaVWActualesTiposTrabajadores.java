@@ -40,8 +40,8 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          VWActualesTiposTrabajadores vwActualesTiposTrabajadores = (VWActualesTiposTrabajadores) query.getSingleResult();
          return vwActualesTiposTrabajadores;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador()" + e.getMessage());
-          return null;
+         System.out.println("Persistencia.PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador()" + e.getMessage());
+         return null;
       }
    }
 
@@ -119,7 +119,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
             return 0;
          }
       } catch (Exception e) {
-         System.out.println("AQUI");
+         System.out.println("PersistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador() ERROR: " + e);
          e.printStackTrace();
          return 0;
       }
@@ -133,6 +133,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
                  .getResultList();
          return vwActualesTiposTrabajadoresLista;
       } catch (Exception e) {
+         System.out.println("PersistenciaVWActualesTiposTrabajadores.busquedaRapidaTrabajadores() ERROR: " + e);
          List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadores = null;
          return vwActualesTiposTrabajadores;
       }

@@ -54,13 +54,14 @@ public class ControlCerrarLiquidacion implements Serializable {
    private Column codigoEmpleado, nombreEmpleado;
    private int bandera, tipoLista;
    //
-   private String infoRegistro;
+   private String infoRegistro, returnAbriendoLiq;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlCerrarLiquidacion() {
       tipoLista = 0;
       bandera = 0;
+      returnAbriendoLiq = "ERROR abriendo liquidación";
       altoTabla = "160";
       totalEmpleadosParaLiquidar = 0;
       formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -164,10 +165,15 @@ public class ControlCerrarLiquidacion implements Serializable {
    public void abrirLiquidacion() {
       String fechaDesde = formatoFecha.format(parametroEstructura.getFechadesdecausado());
       String fechaHasta = formatoFecha.format(parametroEstructura.getFechahastacausado());
-      administrarCerrarLiquidacion.abrirLiquidacion(parametroEstructura.getProceso().getCodigo(), fechaDesde, fechaHasta);
-      FacesMessage msg = new FacesMessage("Información", "Comprobante eliminado exitosamente.");
-      FacesContext.getCurrentInstance().addMessage(null, msg);
-      RequestContext.getCurrentInstance().update("form:growl");
+      returnAbriendoLiq = administrarCerrarLiquidacion.abrirLiquidacion(parametroEstructura.getProceso().getCodigo(), fechaDesde, fechaHasta);
+      if ("BIEN".equals(returnAbriendoLiq)) {
+         FacesMessage msg = new FacesMessage("Información", "Comprobante eliminado exitosamente.");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      } else {
+         RequestContext.getCurrentInstance().update("formularioDialogos:errorAbriendoLiq");
+         RequestContext.getCurrentInstance().execute("PF('errorAbriendoLiq').show()");
+      }
    }
 
    public void exportPDF() throws IOException {
@@ -311,6 +317,14 @@ public class ControlCerrarLiquidacion implements Serializable {
 
    public void setInfoRegistro(String infoRegistro) {
       this.infoRegistro = infoRegistro;
+   }
+
+   public String getReturnAbriendoLiq() {
+      return returnAbriendoLiq;
+   }
+
+   public void setReturnAbriendoLiq(String returnAbriendoLiq) {
+      this.returnAbriendoLiq = returnAbriendoLiq;
    }
 
    public Parametros getEmpleadoTablaSeleccionado() {
