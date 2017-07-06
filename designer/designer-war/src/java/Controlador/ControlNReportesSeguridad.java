@@ -252,6 +252,7 @@ public class ControlNReportesSeguridad implements Serializable {
     public void iniciarPagina() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         getListaIR();
     }
 
@@ -296,12 +297,10 @@ public class ControlNReportesSeguridad implements Serializable {
         try {
             activarEnvioCorreo();
             defaultPropiedadesParametrosReporte();
-            System.out.println("reporteSeleccionado.getFecdesde(): " + reporteSeleccionado.getFecdesde());
             if (reporteSeleccionado.getFecdesde().equals("SI")) {
                 color = "red";
                 RequestContext.getCurrentInstance().update("formParametros");
             }
-            System.out.println("reporteSeleccionado.getFechasta(): " + reporteSeleccionado.getFechasta());
             if (reporteSeleccionado.getFechasta().equals("SI")) {
                 color2 = "red";
                 RequestContext.getCurrentInstance().update("formParametros");
@@ -314,11 +313,9 @@ public class ControlNReportesSeguridad implements Serializable {
                     empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
                 }
             } else {
+                empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
                 try {
-                    System.out.println("empleadoDesdeParametro: " + empleadoDesdeParametro);
                     if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-
-                        System.out.println("reeemplazarr " + empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
                         empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
                     }
                 } catch (Exception e) {
@@ -327,14 +324,12 @@ public class ControlNReportesSeguridad implements Serializable {
             }
             RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
 
-            System.out.println("reporteSeleccionado.getEmhasta(): " + reporteSeleccionado.getEmhasta());
             if (reporteSeleccionado.getEmhasta().equals("SI")) {
                 empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
                 //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
                 empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
                 RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
             }
-            System.out.println("reporteSeleccionado.getTercero(): " + reporteSeleccionado.getTercero());
             if (reporteSeleccionado.getTercero().equals("SI")) {
                 terceroParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:terceroParametro");
                 //terceroParametro.setStyle("position: absolute; top: 66px; left: 625px; height: 10px; font-size: 11px; width: 180px; color: red;");
@@ -374,6 +369,9 @@ public class ControlNReportesSeguridad implements Serializable {
                     if (parametroDeReporte.getTercero().getSecuencia() == null) {
                         parametroDeReporte.setTercero(null);
                     }
+                    if (parametroDeReporte.getEmpresa().getSecuencia() == null) {
+                        parametroDeReporte.setEmpresa(null);
+                    }
                     if (parametroDeReporte.getSucursalPila().getSecuencia() == null) {
                         parametroDeReporte.setSucursalPila(null);
                     }
@@ -381,19 +379,23 @@ public class ControlNReportesSeguridad implements Serializable {
                 }
                 if (!listaInfoReportesModificados.isEmpty()) {
                     administrarNReportesSeguridad.guardarCambiosInfoReportes(listaInfoReportesModificados);
+                    listaInfoReportesModificados.clear();
                 }
                 cambiosReporte = true;
                 FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            } else {
+            } else if (parametroDeReporte.getFechadesde().after(parametroDeReporte.getFechahasta())) {
+                fechaDesde = parametroDeReporte.getFechadesde();
+                fechaHasta = parametroDeReporte.getFechahasta();
                 parametroDeReporte.setFechadesde(fechaDesde);
                 parametroDeReporte.setFechahasta(fechaHasta);
                 RequestContext.getCurrentInstance().update("formParametros");
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } catch (Exception e) {
+            System.out.println("Error en guardar Cambios Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -402,58 +404,51 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void modificarParametroInforme() {
-        if (parametroDeReporte.getCodigoempleadodesde() != null && parametroDeReporte.getCodigoempleadohasta() != null
-                && parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
+        if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
             if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
                 parametroModificacion = parametroDeReporte;
                 cambiosReporte = false;
-                RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                parametroDeReporte.setFechadesde(fechaDesde);
-                parametroDeReporte.setFechahasta(fechaHasta);
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formParametros");
-                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                cambiosReporte = true;
             }
-        } else {
-            parametroDeReporte.setCodigoempleadodesde(emplDesde);
-            parametroDeReporte.setCodigoempleadohasta(emplHasta);
-            parametroDeReporte.setFechadesde(fechaDesde);
-            parametroDeReporte.setFechahasta(fechaHasta);
-            parametroDeReporte.getEmpresa().setNombre(empresa);
-            parametroDeReporte.getSucursalPila().setDescripcion(sucursal);
-            parametroDeReporte.getTercero().setNombre(tercero);
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formParametros");
-            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
     public void posicionCelda(int i) {
         casilla = i;
         if (permitirIndex == true) {
-            if (casilla == 0) {
-                deshabilitarBotonLov();
-                fechaDesde = parametroDeReporte.getFechadesde();
-            } else if (casilla == 1) {
-                deshabilitarBotonLov();
-                fechaHasta = parametroDeReporte.getFechahasta();
-            } else if (casilla == 2) {
-                habilitarBotonLov();
-                emplDesde = parametroDeReporte.getCodigoempleadodesde();
-            } else if (casilla == 3) {
-                habilitarBotonLov();
-                emplHasta = parametroDeReporte.getCodigoempleadohasta();
-            } else if (casilla == 4) {
-                habilitarBotonLov();
-                tercero = parametroDeReporte.getTercero().getNombre();
-            } else if (casilla == 5) {
-                habilitarBotonLov();
-                empresa = parametroDeReporte.getEmpresa().getNombre();
-            } else if (casilla == 7) {
-                habilitarBotonLov();
-                sucursal = parametroDeReporte.getSucursalPila().getDescripcion();
+            switch (casilla) {
+                case 1:
+                    deshabilitarBotonLov();
+                    fechaDesde = parametroDeReporte.getFechadesde();
+                    break;
+                case 2:
+                    deshabilitarBotonLov();
+                    fechaHasta = parametroDeReporte.getFechahasta();
+                    break;
+                case 3:
+                    habilitarBotonLov();
+                    emplDesde = parametroDeReporte.getCodigoempleadodesde();
+                    break;
+                case 4:
+                    habilitarBotonLov();
+                    emplHasta = parametroDeReporte.getCodigoempleadohasta();
+                    break;
+                case 5:
+                    habilitarBotonLov();
+                    tercero = parametroDeReporte.getTercero().getNombre();
+                    break;
+                case 6:
+                    habilitarBotonLov();
+                    empresa = parametroDeReporte.getEmpresa().getNombre();
+                    break;
+                case 8:
+                    habilitarBotonLov();
+                    sucursal = parametroDeReporte.getSucursalPila().getDescripcion();
+                    break;
+                default:
+                    break;
             }
         }
         casillaInforReporte = -1;
@@ -462,36 +457,37 @@ public class ControlNReportesSeguridad implements Serializable {
     public void editarCelda() {
         System.out.println(this.getClass().getName() + ".editarCelda()");
         RequestContext context = RequestContext.getCurrentInstance();
-        if (casilla == 0) {
-            RequestContext.getCurrentInstance().update("formDialogos:editarFechaDesde");
-            RequestContext.getCurrentInstance().execute("PF('editarFechaDesde').show()");
+        if (casilla >= 1) {
+            if (casilla == 1) {
+                RequestContext.getCurrentInstance().update("formDialogos:editarFechaDesde");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaDesde').show()");
+            }
+            if (casilla == 2) {
+                RequestContext.getCurrentInstance().update("formDialogos:editarFechaHasta");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaHasta').show()");
+            }
+            if (casilla == 3) {
+                RequestContext.getCurrentInstance().update("formDialogos:empleadoDesde");
+                RequestContext.getCurrentInstance().execute("PF('empleadoDesde').show()");
+            }
+            if (casilla == 4) {
+                RequestContext.getCurrentInstance().update("formDialogos:empleadoHasta");
+                RequestContext.getCurrentInstance().execute("PF('empleadoHasta').show()");
+            }
+            if (casilla == 5) {
+                RequestContext.getCurrentInstance().update("formDialogos:tercero");
+                RequestContext.getCurrentInstance().execute("PF('tercero').show()");
+            }
+            if (casilla == 6) {
+                RequestContext.getCurrentInstance().update("formDialogos:empresa");
+                RequestContext.getCurrentInstance().execute("PF('empresa').show()");
+            }
+            if (casilla == 8) {
+                RequestContext.getCurrentInstance().update("formDialogos:sucursal");
+                RequestContext.getCurrentInstance().execute("PF('sucursal').show()");
+            }
+            casilla = -1;
         }
-        if (casilla == 1) {
-            RequestContext.getCurrentInstance().update("formDialogos:editarFechaHasta");
-            RequestContext.getCurrentInstance().execute("PF('editarFechaHasta').show()");
-        }
-        if (casilla == 2) {
-            RequestContext.getCurrentInstance().update("formDialogos:empleadoDesde");
-            RequestContext.getCurrentInstance().execute("PF('empleadoDesde').show()");
-        }
-        if (casilla == 3) {
-            RequestContext.getCurrentInstance().update("formDialogos:empleadoHasta");
-            RequestContext.getCurrentInstance().execute("PF('empleadoHasta').show()");
-        }
-        if (casilla == 4) {
-            RequestContext.getCurrentInstance().update("formDialogos:tercero");
-            RequestContext.getCurrentInstance().execute("PF('tercero').show()");
-        }
-        if (casilla == 5) {
-            RequestContext.getCurrentInstance().update("formDialogos:empresa");
-            RequestContext.getCurrentInstance().execute("PF('empresa').show()");
-        }
-        if (casilla == 7) {
-            RequestContext.getCurrentInstance().update("formDialogos:sucursal");
-            RequestContext.getCurrentInstance().execute("PF('sucursal').show()");
-        }
-        casilla = -1;
-
         if (casillaInforReporte >= 1) {
             if (casillaInforReporte == 1) {
                 RequestContext.getCurrentInstance().update("formDialogos:infoReporteCodigoD");
@@ -572,7 +568,7 @@ public class ControlNReportesSeguridad implements Serializable {
         }
         if (campoConfirmar.equalsIgnoreCase("SUCURSAL")) {
             if (!valorConfirmar.isEmpty()) {
-                parametroDeReporte.getSucursalPila().setDescripcion(tercero);
+                parametroDeReporte.getSucursalPila().setDescripcion(sucursal);
                 for (int i = 0; i < lovSucursales.size(); i++) {
                     if (lovSucursales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -623,81 +619,77 @@ public class ControlNReportesSeguridad implements Serializable {
     public void listaValoresBoton() {
         System.out.println(this.getClass().getName() + ".listaValoresBoton()");
         RequestContext context = RequestContext.getCurrentInstance();
-        if (casilla == 2) {
-            lovEmpleados = null;
-            getLovEmpleados();
-            RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
-            RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
-            contarRegistrosEmpleadoD();
-        }
         if (casilla == 3) {
             lovEmpleados = null;
-            getLovEmpleados();
-            RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
-            RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
-            contarRegistrosEmpleadoH();
-        }
-        if (casilla == 4) {
-            lovTerceros = null;
-            getLovTerceros();
-            RequestContext.getCurrentInstance().update("formDialogos:TerceroDialogo");
-            RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
-            contarRegistrosTercero();
-        }
-        if (casilla == 6) {
-            lovEmpresas = null;
-            getLovEmpresas();
-            RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
-            RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
-            contarRegistrosEmpresa();
-        }
-        if (casilla == 7) {
-            lovSucursales = null;
-            getLovSucursales();
-            RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
-            RequestContext.getCurrentInstance().execute("PF('sucursalDialogo').show()");
-            contarRegistrosSucursales();
-        }
-    }
-
-    public void dialogosParametros(int pos) {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (pos == 2) {
-            lovEmpleados = null;
-            cargarLovEmplDesde();
+            cargarListaEmpleados();
             contarRegistrosEmpleadoD();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
-            contarRegistrosEmpleadoD();
         }
-        if (pos == 3) {
+        if (casilla == 4) {
             lovEmpleados = null;
-            cargarLovEmplHasta();
+            cargarListaEmpleados();
             contarRegistrosEmpleadoH();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
-            contarRegistrosEmpleadoH();
         }
-        if (pos == 4) {
+        if (casilla == 5) {
             lovTerceros = null;
             cargarLovTerceros();
             contarRegistrosTercero();
             RequestContext.getCurrentInstance().update("formDialogos:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
-            contarRegistrosTercero();
         }
-        if (pos == 5) {
+        if (casilla == 6) {
             lovEmpresas = null;
             cargarLovEmpresas();
             contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
-            contarRegistrosEmpresa();
         }
-        if (pos == 7) {
+        if (casilla == 8) {
             lovSucursales = null;
-            cargarLovReportes();
-            contarRegistrosLovReportes();
+            cargarLovSucursales();
+            contarRegistrosSucursales();
+            RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
+            RequestContext.getCurrentInstance().execute("PF('sucursalDialogo').show()");
+        }
+    }
+
+    public void dialogosParametros(int pos) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (pos == 3) {
+            lovEmpleados = null;
+            cargarListaEmpleados();
+            contarRegistrosEmpleadoD();
+            RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
+        }
+        if (pos == 4) {
+            lovEmpleados = null;
+            cargarListaEmpleados();
+            contarRegistrosEmpleadoH();
+            RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
+        }
+        if (pos == 5) {
+            lovTerceros = null;
+            cargarLovTerceros();
+            contarRegistrosTercero();
+            RequestContext.getCurrentInstance().update("formDialogos:TerceroDialogo");
+            RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
+        }
+        if (pos == 6) {
+            lovEmpresas = null;
+            cargarLovEmpresas();
+            contarRegistrosEmpresa();
+            RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
+            RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
+        }
+
+        if (pos == 8) {
+            lovSucursales = null;
+            cargarLovSucursales();
             RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
             RequestContext.getCurrentInstance().execute("PF('sucursalDialogo').show()");
             contarRegistrosSucursales();
@@ -724,6 +716,7 @@ public class ControlNReportesSeguridad implements Serializable {
         activoMostrarTodos = false;
         reporteSeleccionado = reporteSeleccionadoLOV;
         reporteSeleccionadoLOV = null;
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         context.reset("formDialogos:lovReportesDialogo:globalFilter");
@@ -805,10 +798,6 @@ public class ControlNReportesSeguridad implements Serializable {
         parametroDeReporte.setEmpresa(empresaSeleccionada);
         parametroModificacion = parametroDeReporte;
         cambiosReporte = false;
-        auxiliar = empresaSeleccionada.getSecuencia();
-        lovSucursales = null;
-        getLovSucursales();
-        RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
         System.out.println("cambio de empresa");
         empresaSeleccionada = null;
         aceptar = true;
@@ -820,8 +809,7 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("formDialogos:lovEmpresa");
         RequestContext.getCurrentInstance().update("formDialogos:aceptarE");
         RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
-
-//        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void cancelarEmpresa() {
@@ -886,6 +874,7 @@ public class ControlNReportesSeguridad implements Serializable {
         sucursalSeleccionada = null;
         aceptar = true;
         filtrarLovSucursales = null;
+        lovSucursales.clear();
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovSucursal:globalFilter");
@@ -907,9 +896,9 @@ public class ControlNReportesSeguridad implements Serializable {
 
     public void mostrarDialogoBuscarReporte() {
         System.out.println(this.getClass().getName() + ".mostrarDialogoBuscarReporte()");
+        reporteSeleccionadoLOV = null;
         try {
             if (cambiosReporte == true) {
-                lovInforeportes = null;
                 cargarLovReportes();
                 contarRegistrosLovReportes();
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -960,6 +949,7 @@ public class ControlNReportesSeguridad implements Serializable {
             reporteSeleccionado = null;
             activoBuscarReporte = false;
             activoMostrarTodos = true;
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
             RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
             RequestContext.getCurrentInstance().update("form:reportesSeguridad");
@@ -1038,12 +1028,11 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void modificacionTipoReporte(Inforeportes reporte) {
-        System.out.println(this.getClass().getName() + ".modificacionTipoReporte()");
         reporteSeleccionado = reporte;
         cambiosReporte = false;
         if (listaInfoReportesModificados.isEmpty()) {
             listaInfoReportesModificados.add(reporteSeleccionado);
-        } else if ((!listaInfoReportesModificados.isEmpty()) && (!listaInfoReportesModificados.contains(reporteSeleccionado))) {
+        } else if (!listaInfoReportesModificados.contains(reporteSeleccionado)) {
             listaInfoReportesModificados.add(reporteSeleccionado);
         } else {
             int posicion = listaInfoReportesModificados.indexOf(reporteSeleccionado);
@@ -1054,7 +1043,6 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void defaultPropiedadesParametrosReporte() {
-        System.out.println(this.getClass().getName() + ".defaultPropiedadesParametrosReporte()");
         color = "black";
         decoracion = "none";
         color2 = "black";
@@ -1065,27 +1053,23 @@ public class ControlNReportesSeguridad implements Serializable {
     public void generarDocumentoReporte() {
         try {
             if (reporteSeleccionado != null) {
-                System.out.println("generando reporte - ingreso al if");
                 nombreReporte = reporteSeleccionado.getNombrereporte();
                 tipoReporte = reporteSeleccionado.getTipo();
-
                 if (nombreReporte != null && tipoReporte != null) {
-                    System.out.println("generando reporte - ingreso al 2 if");
                     pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
                 }
                 if (pathReporteGenerado != null) {
                     validarDescargaReporte();
                 } else {
-                    System.out.println("generando reporte - ingreso al 3 if else");
                     RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                     RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                 }
             } else {
-                System.out.println("generando reporte - ingreso al if else");
                 System.out.println("Reporte Seleccionado es nulo");
             }
         } catch (Exception e) {
+            System.out.println("error en generarDocumentoReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -1093,12 +1077,16 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void generarReporte(Inforeportes reporte) {
-        cambiosReporte = false;
-        guardarCambios();
-        reporteSeleccionado = reporte;
-        seleccionRegistro();
-        generarDocumentoReporte();
-
+        try {
+            guardarCambios();
+            reporteSeleccionado = reporte;
+            seleccionRegistro();
+            generarDocumentoReporte();
+        } catch (Exception e) {
+            System.out.println("error en generarReporte : " + e.getMessage());
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        }
     }
 
     public AsynchronousFilllListener listener() {
@@ -1155,7 +1143,7 @@ public class ControlNReportesSeguridad implements Serializable {
 //    }
     public void exportarReporte() throws IOException {
         try {
-            if (pathReporteGenerado != null) {
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
                 File reporteF = new File(pathReporteGenerado);
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 FileInputStream fis = new FileInputStream(reporteF);
@@ -1174,6 +1162,10 @@ public class ControlNReportesSeguridad implements Serializable {
                     out.close();
                     ctx.responseComplete();
                 }
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
             System.out.println("Error en exportarReporte : " + e.getMessage());
@@ -1196,7 +1188,6 @@ public class ControlNReportesSeguridad implements Serializable {
                         fis = new FileInputStream(new File(pathReporteGenerado));
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
-                        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
@@ -1204,7 +1195,7 @@ public class ControlNReportesSeguridad implements Serializable {
                     if (reporte != null) {
                         if (reporteSeleccionado != null) {
                             System.out.println("userAgent " + userAgent);
-                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                                 context.update("formDialogos:descargarReporte");
                                 context.execute("PF('descargarReporte').show();");
                             } else {
@@ -1223,16 +1214,14 @@ public class ControlNReportesSeguridad implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en validarDescargaReporte  : " + e.getMessage());
+            System.out.println("error en validarDescargarReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
-
     }
 
     public void reiniciarStreamedContent() {
-        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
         reporte = null;
     }
 
@@ -1251,10 +1240,10 @@ public class ControlNReportesSeguridad implements Serializable {
 //    }
 ///EVENTO FILTRAR    
     public void eventoFiltrar() {
-        contarRegistrosReportes();
+        contarRegistros();
     }
 
-    public void contarRegistrosReportes() {
+    public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
@@ -1292,17 +1281,10 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
-    public void cargarLovEmplDesde() {
+    public void cargarListaEmpleados() {
         if (lovEmpleados == null) {
             lovEmpleados = administrarNReportesSeguridad.listEmpleados();
         }
-    }
-
-    public void cargarLovEmplHasta() {
-        if (lovEmpleados == null) {
-            lovEmpleados = administrarNReportesSeguridad.listEmpleados();
-        }
-
     }
 
     public void cargarLovTerceros() {
@@ -1318,8 +1300,14 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void cargarLovSucursales() {
+        System.out.println("Controlador.ControlNReportesSeguridad.cargarLovSucursales()");
         if (lovSucursales == null) {
-            lovSucursales = administrarNReportesSeguridad.listSucursales(auxiliar);
+            if (parametroDeReporte.getEmpresa().getSecuencia() != null && !parametroDeReporte.getEmpresa().getSecuencia().equals("")) {
+                auxiliar = parametroDeReporte.getEmpresa().getSecuencia();
+                lovSucursales = administrarNReportesSeguridad.listSucursalesPorEmpresa(auxiliar);
+            } else {
+                lovSucursales = administrarNReportesSeguridad.listSucursales();
+            }
         }
     }
 

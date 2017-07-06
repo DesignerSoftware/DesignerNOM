@@ -124,7 +124,8 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
     @Override
     public List<Inforeportes> buscarInforeportesUsuarioBanco(EntityManager em) {
         try {
-            Query query = em.createQuery("SELECT DISTINCT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'BAN' AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
+            Query query = em.createQuery("SELECT DISTINCT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'BAN' "
+                    + "AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a)and ui.inforeporte.nombre IS NOT null ORDER BY ui.inforeporte.codigo DESC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;

@@ -39,7 +39,6 @@ import javax.persistence.EntityManager;
 @Stateful
 public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguridadInterface {
 
-
     @EJB
     AdministrarSesionesInterface administrarSesiones;
     @EJB
@@ -82,7 +81,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
 
     @Override
     public ParametrosReportes parametrosDeReporte() {
-       try {
+        try {
             if (usuarioActual == null) {
                 usuarioActual = persistenciaActualUsuario.actualAliasBD(em);
             }
@@ -131,7 +130,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
 
     @Override
     public void modificarParametrosReportes(ParametrosReportes parametroInforme) {
-          try {
+        try {
             persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
             System.out.println("Error modificarParametrosReportes : " + e.toString());
@@ -148,7 +147,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
     public List<TiposTrabajadores> listTiposTrabajadores() {
         listTiposTrabajadores = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
         return listTiposTrabajadores;
-   }
+    }
 
     @Override
     public List<Estructuras> listEstructuras() {
@@ -162,8 +161,14 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
     }
 
     @Override
-    public List<SucursalesPila> listSucursales(BigInteger secuenciaEmpresa) {
+    public List<SucursalesPila> listSucursalesPorEmpresa(BigInteger secuenciaEmpresa) {
         listSucursalesPila = persistenciaSucursales.consultarSucursalesPilaPorEmpresa(em, secuenciaEmpresa);
+        return listSucursalesPila;
+    }
+
+    @Override
+    public List<SucursalesPila> listSucursales() {
+        listSucursalesPila = persistenciaSucursales.consultarSucursalesPila(em);
         return listSucursalesPila;
     }
 
@@ -183,7 +188,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
 
     @Override
     public void guardarCambiosInfoReportes(List<Inforeportes> listaIR) {
-          try {
+        try {
             for (int i = 0; i < listaIR.size(); i++) {
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }

@@ -45,7 +45,9 @@ public interface AdministrarNReportesSeguridadInterface {
 
     public List<Estructuras> listEstructuras();
 
-    public List<SucursalesPila> listSucursales(BigInteger secuenciaEmpresa);
+    public List<SucursalesPila> listSucursalesPorEmpresa(BigInteger secuenciaEmpresa);
+
+    public List<SucursalesPila> listSucursales();
 
     public List<Empleados> listEmpleados();
 

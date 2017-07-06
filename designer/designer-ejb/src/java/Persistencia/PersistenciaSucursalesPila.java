@@ -78,6 +78,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
         }
     }
 
+    @Override
     public List<SucursalesPila> consultarSucursalesPilaPorEmpresa(EntityManager em, BigInteger secEmpresa) {
         try {
             em.clear();

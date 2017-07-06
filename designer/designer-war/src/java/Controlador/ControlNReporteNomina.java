@@ -28,8 +28,6 @@ import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -654,6 +652,7 @@ public class ControlNReporteNomina implements Serializable {
                     empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
                 }
             } else {
+                    empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
                 try {
                     if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
                         empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
@@ -810,7 +809,7 @@ public class ControlNReporteNomina implements Serializable {
 
     public void exportarReporte() throws IOException {
         try {
-            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
                 File reporteF = new File(pathReporteGenerado);
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 FileInputStream fis = new FileInputStream(reporteF);
@@ -1637,48 +1636,65 @@ public class ControlNReporteNomina implements Serializable {
     public void posicionCelda(int i) {
         casilla = i;
         if (permitirIndex == true) {
-            if (casilla == 1) {
-                deshabilitarBotonLov();
-                fechaDesde = parametroDeReporte.getFechadesde();
-            } else if (casilla == 2) {
-                habilitarBotonLov();
-                emplDesde = parametroDeReporte.getCodigoempleadodesde();
-            } else if (casilla == 4) {
-                habilitarBotonLov();
-                grupo = parametroDeReporte.getGrupo().getDescripcion();
-            } else if (casilla == 5) {
-                habilitarBotonLov();
-                ubiGeo = parametroDeReporte.getUbicaciongeografica().getDescripcion();
-            } else if (casilla == 6) {
-                habilitarBotonLov();
-                tipoAso = parametroDeReporte.getTipoasociacion().getDescripcion();
-            } else if (casilla == 7) {
-                deshabilitarBotonLov();
-                fechaHasta = parametroDeReporte.getFechahasta();
-            } else if (casilla == 8) {
-                habilitarBotonLov();
-                emplHasta = parametroDeReporte.getCodigoempleadohasta();
-            } else if (casilla == 10) {
-                habilitarBotonLov();
-                empresa = parametroDeReporte.getEmpresa().getNombre();
-            } else if (casilla == 11) {
-                habilitarBotonLov();
-                estructura = parametroDeReporte.getLocalizacion().getNombre();
-            } else if (casilla == 12) {
-                habilitarBotonLov();
-                tipoTrabajador = parametroDeReporte.getTipotrabajador().getNombre();
-            } else if (casilla == 13) {
-                habilitarBotonLov();
-                tercero = parametroDeReporte.getTercero().getNombre();
-            } else if (casilla == 14) {
-                habilitarBotonLov();
-                proceso = parametroDeReporte.getProceso().getDescripcion();
-            } else if (casilla == 15) {
-                deshabilitarBotonLov();
-                parametroDeReporte.getMensajedesprendible();
-            } else if (casilla == 16) {
-                habilitarBotonLov();
-                asociacion = parametroDeReporte.getAsociacion().getDescripcion();
+            switch (casilla) {
+                case 1:
+                    deshabilitarBotonLov();
+                    fechaDesde = parametroDeReporte.getFechadesde();
+                    break;
+                case 2:
+                    habilitarBotonLov();
+                    emplDesde = parametroDeReporte.getCodigoempleadodesde();
+                    break;
+                case 4:
+                    habilitarBotonLov();
+                    grupo = parametroDeReporte.getGrupo().getDescripcion();
+                    break;
+                case 5:
+                    habilitarBotonLov();
+                    ubiGeo = parametroDeReporte.getUbicaciongeografica().getDescripcion();
+                    break;
+                case 6:
+                    habilitarBotonLov();
+                    tipoAso = parametroDeReporte.getTipoasociacion().getDescripcion();
+                    break;
+                case 7:
+                    deshabilitarBotonLov();
+                    fechaHasta = parametroDeReporte.getFechahasta();
+                    break;
+                case 8:
+                    habilitarBotonLov();
+                    emplHasta = parametroDeReporte.getCodigoempleadohasta();
+                    break;
+                case 10:
+                    habilitarBotonLov();
+                    empresa = parametroDeReporte.getEmpresa().getNombre();
+                    break;
+                case 11:
+                    habilitarBotonLov();
+                    estructura = parametroDeReporte.getLocalizacion().getNombre();
+                    break;
+                case 12:
+                    habilitarBotonLov();
+                    tipoTrabajador = parametroDeReporte.getTipotrabajador().getNombre();
+                    break;
+                case 13:
+                    habilitarBotonLov();
+                    tercero = parametroDeReporte.getTercero().getNombre();
+                    break;
+                case 14:
+                    habilitarBotonLov();
+                    proceso = parametroDeReporte.getProceso().getDescripcion();
+                    break;
+                case 15:
+                    deshabilitarBotonLov();
+                    parametroDeReporte.getMensajedesprendible();
+                    break;
+                case 16:
+                    habilitarBotonLov();
+                    asociacion = parametroDeReporte.getAsociacion().getDescripcion();
+                    break;
+                default:
+                    break;
             }
 
         }
