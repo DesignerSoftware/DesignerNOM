@@ -229,8 +229,9 @@
 
                      <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlVigenciasArps.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold;"/>
                   </fieldset>
-                  <p:commandButton id="RIESGOS" class="cssBotonLargo" icon="ui-icon-extlink" value="Riesgos Profesionales" onclick="PF('confirmarGuardar').show();"
-                                   style="position: absolute; top: 478px; font-size: 11px;" process="@this"/>
+                  <p:commandButton id="RIESGOS" class="cssBotonLargo" icon="ui-icon-extlink" value="Riesgos Laborales" 
+                                   style="position: absolute; top: 478px; font-size: 11px;" process="@this" action="#{controlListaNavegacion.guardarNavegacion('vigenciasarps', 'riesgosprofesionales')}"
+                                   actionListener="#{controlRiesgosProfesionales.recibirPaginaEntrante('vigenciasarps')}"  />
                   <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" onclick="PF('confirmarGuardar').show();" update=":form:DatosVigencias" process="@this" disabled="#{controlVigenciasArps.guardado}"/>
                   <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasArps.salir()}" process="@this"/>
                   <!-- CAMPO DE LOS DIALOGOS -->      

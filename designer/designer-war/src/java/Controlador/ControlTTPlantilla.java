@@ -18,6 +18,8 @@ import Entidades.ReformasLaborales;
 import Entidades.TiposContratos;
 import Entidades.TiposSueldos;
 import Entidades.TiposTrabajadores;
+import Exportar.ExportarPDF;
+import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarContratosInterface;
 import InterfaceAdministrar.AdministrarNormasLaboralesInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
@@ -26,6 +28,7 @@ import InterfaceAdministrar.AdministrarTiposContratosInterface;
 import InterfaceAdministrar.AdministrarTiposSueldosInterface;
 import InterfaceAdministrar.AdministrarTiposTrabajadoresInterface;
 import InterfaceAdministrar.AdministrarTiposTrabajadoresPlantillasInterface;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -41,6 +44,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -789,18 +793,18 @@ public class ControlTTPlantilla implements Serializable {
                 cualCeldaRL = -1;
             }
         } else if (cualTabla == 5) {
-            editarPlantillaLL = plantillaLLSeleccionada;
-            if (cualCeldaLL == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarNormaLaboral");
-                RequestContext.getCurrentInstance().execute("PF('editarNormaLaboral').show()");
-                cualCeldaLL = -1;
-            }
-        } else if (cualTabla == 6) {
             editarPlantillaNL = plantillaNLSeleccionada;
             if (cualCeldaNL == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarContrato");
                 RequestContext.getCurrentInstance().execute("PF('editarContrato').show()");
                 cualCeldaNL = -1;
+            }
+        } else if (cualTabla == 6) {
+            editarPlantillaLL = plantillaLLSeleccionada;
+            if (cualCeldaLL == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarNormaLaboral");
+                RequestContext.getCurrentInstance().execute("PF('editarNormaLaboral').show()");
+                cualCeldaLL = -1;
             }
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
@@ -1464,57 +1468,311 @@ public class ControlTTPlantilla implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroLL').hide()");
     }
 
-    /*
-     public void activarCtrlF11() {
-      FacesContext c = FacesContext.getCurrentInstance();
-      if (bandera == 0) {
-         tamano = 250;
-         codigo = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:codigo");
-         codigo.setFilterStyle("width: 85% !important;");
-         descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:descripcion");
-         descripcion.setFilterStyle("width: 85% !important;");
-         RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-         bandera = 1;
-      } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         tamano = 270;
-         codigo = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:codigo");
-         codigo.setFilterStyle("display: none; visibility: hidden;");
-         descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:descripcion");
-         descripcion.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-         bandera = 0;
-         filtrarTiposCursos = null;
-         tipoLista = 0;
-      }
-   }
-    */
+    public void activarCtrlF11() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 0) {
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:codigo");
+            codigo.setFilterStyle("width: 85% !important;");
+            tipotrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:tipotrabajador");
+            tipotrabajador.setFilterStyle("width: 85% !important;");
+            tipocontrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTC:tipocontrato");
+            tipocontrato.setFilterStyle("width: 85% !important;");
+            tiposueldo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTS:tiposueldo");
+            tiposueldo.setFilterStyle("width: 85% !important;");
+            reformalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRL:reformalaboral");
+            reformalaboral.setFilterStyle("width: 85% !important;");
+            normalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNL:normalaboral");
+            normalaboral.setFilterStyle("width: 85% !important;");
+            contrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLL:contrato");
+            contrato.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosTT");
+            RequestContext.getCurrentInstance().update("form:datosTC");
+            RequestContext.getCurrentInstance().update("form:datosTS");
+            RequestContext.getCurrentInstance().update("form:datosRL");
+            RequestContext.getCurrentInstance().update("form:datosLL");
+            RequestContext.getCurrentInstance().update("form:datosNL");
+            bandera = 1;
+            altoTabla = "100";
+            altoTablaLL = "100";
+            altoTablaNL = "100";
+            altoTablaRL = "100";
+            altoTablaTC = "100";
+            altoTablaTS = "100";
+        } else if (bandera == 1) {
+            System.out.println("Desactivar");
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            tipotrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:tipotrabajador");
+            tipotrabajador.setFilterStyle("display: none; visibility: hidden;");
+            tipocontrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTC:tipocontrato");
+            tipocontrato.setFilterStyle("display: none; visibility: hidden;");
+            tiposueldo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTS:tiposueldo");
+            tiposueldo.setFilterStyle("display: none; visibility: hidden;");
+            reformalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRL:reformalaboral");
+            reformalaboral.setFilterStyle("display: none; visibility: hidden;");
+            normalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNL:normalaboral");
+            normalaboral.setFilterStyle("display: none; visibility: hidden;");
+            contrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLL:contrato");
+            contrato.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTT");
+            RequestContext.getCurrentInstance().update("form:datosTC");
+            RequestContext.getCurrentInstance().update("form:datosTS");
+            RequestContext.getCurrentInstance().update("form:datosRL");
+            RequestContext.getCurrentInstance().update("form:datosLL");
+            RequestContext.getCurrentInstance().update("form:datosNL");
+            bandera = 0;
+            listaLLFiltrar = null;
+            listaTTFiltrar = null;
+            listaTCFiltrar = null;
+            listaTSFiltrar = null;
+            listaRLFiltrar = null;
+            listaNLFiltrar = null;
+            tipoLista = 0;
+            altoTabla = "120";
+            altoTablaLL = "120";
+            altoTablaNL = "120";
+            altoTablaRL = "120";
+            altoTablaTC = "120";
+            altoTablaTS = "120";
+            tipoLista = 0;
+        }
+    }
+
+    public void borrarTT() {
+        if (ttSeleccionado != null) {
+            if (!listaTTModificar.isEmpty() && listaTTModificar.contains(ttSeleccionado)) {
+                listaTTModificar.remove(listaTTModificar.indexOf(ttSeleccionado));
+                listaTTBorrar.add(ttSeleccionado);
+            } else if (!listaTTCrear.isEmpty() && listaTTCrear.contains(ttSeleccionado)) {
+                listaTTCrear.remove(listaTTCrear.indexOf(ttSeleccionado));
+            } else {
+                listaTTBorrar.add(ttSeleccionado);
+            }
+            listaTT.remove(ttSeleccionado);
+            if (tipoLista == 1) {
+                listaTTFiltrar.remove(ttSeleccionado);
+            }
+            RequestContext.getCurrentInstance().update("form:datosTT");
+            contarRegistrosTT();
+            ttSeleccionado = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+    }
+
+    public void borrarTC() {
+        if (plantillaTCSeleccionada != null) {
+            if (!listaTCModificar.isEmpty() && listaTCModificar.contains(plantillaTCSeleccionada)) {
+                listaTCModificar.remove(listaTCModificar.indexOf(plantillaTCSeleccionada));
+                listaTCBorrar.add(plantillaTCSeleccionada);
+            } else if (!listaTCCrear.isEmpty() && listaTCCrear.contains(plantillaTCSeleccionada)) {
+                listaTCCrear.remove(listaTCCrear.indexOf(plantillaTCSeleccionada));
+            } else {
+                listaTCBorrar.add(plantillaTCSeleccionada);
+            }
+            listaTC.remove(plantillaTCSeleccionada);
+            if (tipoLista == 1) {
+                listaTCFiltrar.remove(plantillaTCSeleccionada);
+            }
+            RequestContext.getCurrentInstance().update("form:datosTC");
+            contarRegistrosTC();
+            plantillaTCSeleccionada = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+    }
+
+    public void borrarTS() {
+        if (plantillaTSSeleccionada != null) {
+            if (!listaTSModificar.isEmpty() && listaTSModificar.contains(plantillaTSSeleccionada)) {
+                listaTSModificar.remove(listaTSModificar.indexOf(plantillaTSSeleccionada));
+                listaTSBorrar.add(plantillaTSSeleccionada);
+            } else if (!listaTSCrear.isEmpty() && listaTSCrear.contains(plantillaTSSeleccionada)) {
+                listaTSCrear.remove(listaTSCrear.indexOf(plantillaTSSeleccionada));
+            } else {
+                listaTSBorrar.add(plantillaTSSeleccionada);
+            }
+            listaTS.remove(plantillaTSSeleccionada);
+            if (tipoLista == 1) {
+                listaTSFiltrar.remove(plantillaTSSeleccionada);
+            }
+            RequestContext.getCurrentInstance().update("form:datosTS");
+            contarRegistrosTS();
+            plantillaTSSeleccionada = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+    }
+
+    public void borrarRL() {
+        if (plantillaRLSeleccionada != null) {
+            if (!listaRLModificar.isEmpty() && listaRLModificar.contains(plantillaRLSeleccionada)) {
+                listaRLModificar.remove(listaRLModificar.indexOf(plantillaRLSeleccionada));
+                listaRLBorrar.add(plantillaRLSeleccionada);
+            } else if (!listaRLCrear.isEmpty() && listaRLCrear.contains(plantillaRLSeleccionada)) {
+                listaRLCrear.remove(listaRLCrear.indexOf(plantillaRLSeleccionada));
+            } else {
+                listaRLBorrar.add(plantillaRLSeleccionada);
+            }
+            listaRL.remove(plantillaRLSeleccionada);
+            if (tipoLista == 1) {
+                listaRLFiltrar.remove(plantillaRLSeleccionada);
+            }
+            RequestContext.getCurrentInstance().update("form:datosRL");
+            contarRegistrosRL();
+            plantillaRLSeleccionada = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+    }
+
+    public void borrarLL() {
+        if (plantillaLLSeleccionada != null) {
+            if (!listaLLModificar.isEmpty() && listaLLModificar.contains(plantillaLLSeleccionada)) {
+                listaLLModificar.remove(listaLLModificar.indexOf(plantillaLLSeleccionada));
+                listaLLBorrar.add(plantillaLLSeleccionada);
+            } else if (!listaLLCrear.isEmpty() && listaLLCrear.contains(plantillaLLSeleccionada)) {
+                listaLLCrear.remove(listaLLCrear.indexOf(plantillaLLSeleccionada));
+            } else {
+                listaLLBorrar.add(plantillaLLSeleccionada);
+            }
+            listaLL.remove(plantillaLLSeleccionada);
+            if (tipoLista == 1) {
+                listaLLFiltrar.remove(plantillaLLSeleccionada);
+            }
+            RequestContext.getCurrentInstance().update("form:datosLL");
+            contarRegistrosLL();
+            plantillaLLSeleccionada = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+    }
+
+    public void borrarNL() {
+        if (plantillaNLSeleccionada != null) {
+            if (!listaNLModificar.isEmpty() && listaNLModificar.contains(plantillaNLSeleccionada)) {
+                listaNLModificar.remove(listaNLModificar.indexOf(plantillaNLSeleccionada));
+                listaNLBorrar.add(plantillaNLSeleccionada);
+            } else if (!listaNLCrear.isEmpty() && listaNLCrear.contains(plantillaNLSeleccionada)) {
+                listaNLCrear.remove(listaNLCrear.indexOf(plantillaNLSeleccionada));
+            } else {
+                listaNLBorrar.add(plantillaNLSeleccionada);
+            }
+            listaNL.remove(plantillaNLSeleccionada);
+            if (tipoLista == 1) {
+                listaNLFiltrar.remove(plantillaNLSeleccionada);
+            }
+            RequestContext.getCurrentInstance().update("form:datosNL");
+            contarRegistrosNL();
+            plantillaNLSeleccionada = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+    }
+
+    public void seleccionarBorrar() {
+        if (cualTabla == 1) {
+            borrarTT();
+        } else if (cualTabla == 2) {
+            borrarTC();
+        } else if (cualTabla == 3) {
+            borrarTS();
+        } else if (cualTabla == 4) {
+            borrarRL();
+        } else if (cualTabla == 5) {
+            borrarNL();
+        } else if (cualTabla == 6) {
+            borrarLL();
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void eventoFiltrarTT() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosTT();
+    }
+
+    public void eventoFiltrarTC() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosTC();
+    }
+
+    public void eventoFiltrarTS() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosTS();
+    }
+
+    public void eventoFiltrarRL() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosRL();
+    }
+
+    public void eventoFiltrarLL() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosLL();
+    }
+
+    public void eventoFiltrarNL() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosNL();
+    }
+
+//    public void elegirExportar(){
+//       if (cualTabla == 1) {
+//          dg();
+//        } else if (cualTabla == 2) {
+//            borrdgdgarTC();
+//        } else if (cualTabla == 3) {
+//            borradgdgrTS();
+//        } else if (cualTabla == 4) {
+//            borradgdgrRL();
+//        } else if (cualTabla == 5) {
+//            borrardgdNL();
+//        } else if (cualTabla == 6) {
+//            borrarLdgdggL();
+//        } else {
+//            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+//        }  
+//    }
     
+
+        public void exportPDF() throws IOException {
+          DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposCursosExportar");
+          FacesContext context = FacesContext.getCurrentInstance();
+          Exporter exporter = new ExportarPDF();
+          exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
+          context.responseComplete();
+       }
     
-//    public void exportPDF() throws IOException {
-//      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposCursosExportar");
-//      FacesContext context = FacesContext.getCurrentInstance();
-//      Exporter exporter = new ExportarPDF();
-//      exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
-//      context.responseComplete();
-//   }
-//
-//   public void exportXLS() throws IOException {
-//      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposCursosExportar");
-//      FacesContext context = FacesContext.getCurrentInstance();
-//      Exporter exporter = new ExportarXLS();
-//      exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
-//      context.responseComplete();
-//   }
-//    
-    
+       public void exportXLS() throws IOException {
+          DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposCursosExportar");
+          FacesContext context = FacesContext.getCurrentInstance();
+          Exporter exporter = new ExportarXLS();
+          exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
+          context.responseComplete();
+       }
+        
+
     /*
      public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("lol");
-      if (tipoCursoSeleccionado != null) {
+      if (ttSeleccionado != null) {
          System.out.println("lol 2");
-         int resultado = administrarRastros.obtenerTabla(tipoCursoSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+         int resultado = administrarRastros.obtenerTabla(ttSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
          System.out.println("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
@@ -1535,42 +1793,32 @@ public class ControlTTPlantilla implements Serializable {
    }
     
     
-    public void eventoFiltrar() {
-      try {
-         if (tipoLista == 0) {
-            tipoLista = 1;
-         }
-         contarRegistros();
-      } catch (Exception e) {
-         System.out.println("ERROR ControlTiposCursos eventoFiltrar ERROR===" + e.getMessage());
-      }
-   }
+    
 
     
-    */
-    
+     */
     public void contarRegistrosTT() {
-
+        RequestContext.getCurrentInstance().update("form:infoRegistroTT");
     }
 
     public void contarRegistrosTC() {
-
+        RequestContext.getCurrentInstance().update("form:infoRegistroTC");
     }
 
     public void contarRegistrosTS() {
-
+        RequestContext.getCurrentInstance().update("form:infoRegistroTS");
     }
 
     public void contarRegistrosRL() {
-
+        RequestContext.getCurrentInstance().update("form:infoRegistroRL");
     }
 
     public void contarRegistrosLL() {
-
+        RequestContext.getCurrentInstance().update("form:infoRegistroLL");
     }
 
     public void contarRegistrosNL() {
-
+        RequestContext.getCurrentInstance().update("form:infoRegistroNL");
     }
 
     //////////////////GETS Y SETS///////////////

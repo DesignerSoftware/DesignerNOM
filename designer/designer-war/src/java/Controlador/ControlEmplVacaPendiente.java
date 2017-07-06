@@ -75,6 +75,7 @@ public class ControlEmplVacaPendiente implements Serializable {
     private boolean guardado;
     //Fecha Contratacion
     private Date fechaContratacion;
+    private Date fechaContratacionaux;
     private String fechaContratacionText;
     private int k;
     //Tabla - Nuevo - Duplicar
@@ -192,8 +193,9 @@ public class ControlEmplVacaPendiente implements Serializable {
 
     public void recibirEmpleado(BigInteger sec) {
         empleado = administrarVWVacaPendientesEmpleados.obtenerEmpleado(sec);
-        fechaContratacion = administrarVWVacaPendientesEmpleados.obtenerFechaFinalContratacionEmpleado(empleado.getSecuencia());
-        fechaContratacionText = fechaParaMostrar(fechaContratacion);
+//        fechaContratacion = administrarVWVacaPendientesEmpleados.obtenerFechaFinalContratacionEmpleado(empleado.getSecuencia());
+        fechaContratacionaux = administrarVWVacaPendientesEmpleados.obtenerFechaMaxContrato(empleado.getSecuencia());
+        fechaContratacionText = fechaParaMostrar(fechaContratacionaux);
         getListVacaDisfrutadas();
         getListVacaPendientes();
         if (listVacaPendientes != null) {
@@ -236,7 +238,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             if (regVacaAuxiliar.getInicialcausacion().after(fechaAño1900) && regVacaAuxiliar.getInicialcausacion().before(regVacaAuxiliar.getFinalcausacion())) {
                 // Si nuevaVacacion F Inicial y F Final son despues de fechaFinalContratacion
                 String fechaIni = fechaParaMostrar(regVacaAuxiliar.getInicialcausacion());
-                if ((regVacaAuxiliar.getInicialcausacion().after(fechaContratacion) || fechaIni.equals(fechaContratacionText))) {
+                if ((regVacaAuxiliar.getInicialcausacion().after(fechaContratacionaux) || fechaIni.equals(fechaContratacionText))) {
                     retorno = validarTraslapos(regVacaAuxiliar);
                 } else {
                     retorno = false;
@@ -255,7 +257,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                 int n = nuevaVacacion.getInicialcausacion().getMonth();
                 // Si nuevaVacacion F Inicial y F Final son despues de fechaFinalContratacion
                 String fechaIni = fechaParaMostrar(nuevaVacacion.getInicialcausacion());
-                if (nuevaVacacion.getInicialcausacion().after(fechaContratacion) || fechaIni.equals(fechaContratacionText)) {
+                if (nuevaVacacion.getInicialcausacion().after(fechaContratacionaux) || fechaIni.equals(fechaContratacionText)) {
                     retorno = validarTraslapos(nuevaVacacion);
                 } else {
                     retorno = false;
@@ -273,7 +275,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             if (duplicarVacacion.getInicialcausacion().after(fechaAño1900) && duplicarVacacion.getInicialcausacion().before(duplicarVacacion.getFinalcausacion())) {
                 // Si nuevaVacacion F Inicial y F Final son despues de fechaFinalContratacion
                 String fechaIni = fechaParaMostrar(duplicarVacacion.getInicialcausacion());
-                if (duplicarVacacion.getInicialcausacion().after(fechaContratacion) || fechaIni.equals(fechaContratacionText)) {
+                if (duplicarVacacion.getInicialcausacion().after(fechaContratacionaux) || fechaIni.equals(fechaContratacionText)) {
                     retorno = validarTraslapos(duplicarVacacion);
                 } else {
                     retorno = false;
@@ -1132,14 +1134,16 @@ public class ControlEmplVacaPendiente implements Serializable {
         if (empleado != null) {
             listVacaDisfrutadas = null;
             listVacaPendientes = null;
+            activarActuales = false;
+            activarAnteriores = true;
             listVacaDisfrutadas = administrarVWVacaPendientesEmpleados.vacaPendientesDisfrutadasAnterioresContratos(empleado);
             listVacaPendientes = administrarVWVacaPendientesEmpleados.vacaPendientesPendientesAnterioresContratos(empleado);
             RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
+            totalDiasPendientes = BigInteger.valueOf(0);
+            getTotalDiasPendientes();
             RequestContext.getCurrentInstance().update("form:totalDiasP");
-            activarActuales = false;
             RequestContext.getCurrentInstance().update("form:ActualC");
-            activarAnteriores = true;
             RequestContext.getCurrentInstance().update("form:AnterioresC");
         }
     }
@@ -1147,15 +1151,17 @@ public class ControlEmplVacaPendiente implements Serializable {
     public void contratoActual() {
         if (empleado != null) {
             listVacaDisfrutadas = null;
-            getListVacaDisfrutadas();
+            activarActuales = true;
             listVacaPendientes = null;
+            activarAnteriores = false;
+            getListVacaDisfrutadas();
             getListVacaPendientes();
+            totalDiasPendientes = BigInteger.valueOf(0);
+            getTotalDiasPendientes();
             RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             RequestContext.getCurrentInstance().update("form:totalDiasP");
-            activarActuales = true;
             RequestContext.getCurrentInstance().update("form:ActualC");
-            activarAnteriores = false;
             RequestContext.getCurrentInstance().update("form:AnterioresC");
         }
     }
@@ -1269,7 +1275,7 @@ public class ControlEmplVacaPendiente implements Serializable {
         try {
             if (listVacaPendientes == null) {
                 if (empleado.getSecuencia() != null) {
-                    listVacaPendientes = administrarVWVacaPendientesEmpleados.vacaPendientesPendientes(empleado, fechaContratacion);
+                    listVacaPendientes = administrarVWVacaPendientesEmpleados.vacaPendientesPendientes(empleado, fechaContratacionaux);
                 }
             }
             return listVacaPendientes;
@@ -1287,7 +1293,7 @@ public class ControlEmplVacaPendiente implements Serializable {
         try {
             if (empleado != null) {
                 if (listVacaDisfrutadas == null) {
-                    listVacaDisfrutadas = administrarVWVacaPendientesEmpleados.vacaPendientesDisfrutadas(empleado, fechaContratacion);
+                    listVacaDisfrutadas = administrarVWVacaPendientesEmpleados.vacaPendientesDisfrutadas(empleado, fechaContratacionaux);
                 }
             }
             return listVacaDisfrutadas;
@@ -1320,7 +1326,7 @@ public class ControlEmplVacaPendiente implements Serializable {
     public BigDecimal getDiasProvisionados() {
         try {
             if (empleado != null) {
-                diasProvisionados = administrarVWVacaPendientesEmpleados.diasProvisionadosEmpleado(empleado);
+                diasProvisionados = administrarVWVacaPendientesEmpleados.diasProvisionadosEmpleado(empleado,fechaContratacionaux);
             }
             return diasProvisionados;
         } catch (Exception e) {

@@ -1013,9 +1013,6 @@ public class ControlParametroAutoliq implements Serializable {
     public void guardarCambiosParametro() {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
-            System.out.println("lista parametro borrar : " + listParametrosAutoliqBorrar.size());
-            System.out.println("lista parametro crear : " + listParametrosAutoliqCrear.size());
-            System.out.println("lista parametro modificar : " + listParametrosAutoliqModificar.size());
             if (!listParametrosAutoliqBorrar.isEmpty()) {
                 administrarParametroAutoliq.borrarParametrosAutoliq(listParametrosAutoliqBorrar);
                 listParametrosAutoliqBorrar.clear();
@@ -1030,10 +1027,10 @@ public class ControlParametroAutoliq implements Serializable {
             }
             listaParametrosAutoliq = null;
             getListaParametrosAutoliq();
-            if (listaParametrosAutoliq != null) {
+//            if (listaParametrosAutoliq != null) {
                 contarRegistrosParametros();
-            }
-            RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
+//            }
+//            RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             k = 0;
             activoBtnsPaginas = true;
@@ -1056,9 +1053,6 @@ public class ControlParametroAutoliq implements Serializable {
     public void guardarCambiosAportes() {
         System.out.println("entró a guardar");
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("listAportesEntidadesBorrar.size() : " + listAportesEntidadesBorrar.size());
-        System.out.println("listAportesEntidadesCrear.size() : " + listAportesEntidadesCrear.size());
-        System.out.println("listAportesEntidadesModificar.size() :" + listAportesEntidadesModificar.size());
         try {
             if (!listAportesEntidadesBorrar.isEmpty()) {
                 administrarParametroAutoliq.borrarAportesEntidades(listAportesEntidadesBorrar);
@@ -1075,7 +1069,6 @@ public class ControlParametroAutoliq implements Serializable {
             }
             listaAportesEntidades = null;
             getListaAportesEntidades();
-            System.out.println("tamaño lista aportes : " + listaAportesEntidades.size());
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
             contarRegistrosAporte();
             k = 0;
@@ -1133,9 +1126,9 @@ public class ControlParametroAutoliq implements Serializable {
         k = 0;
         listaParametrosAutoliq = null;
         getListaParametrosAutoliq();
-        if (listaParametrosAutoliq != null) {
+//        if (listaParametrosAutoliq != null) {
             contarRegistrosParametros();
-        }
+//        }
         listaAportesEntidades = null;
         getListaAportesEntidades();
         contarRegistrosAporte();
@@ -2738,7 +2731,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void actualizarTercero() {
-        System.out.println("tipo actualización actualizar tercero : " + tipoActualizacion);
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             aporteTablaSeleccionado.setTercero(terceroSeleccionado.getSecuencia());
@@ -2757,9 +2749,6 @@ public class ControlParametroAutoliq implements Serializable {
                 permitirIndexAporte = true;
                 cambiosAporte = true;
             }
-            System.out.println("secuencia tercero modificado : " + aporteTablaSeleccionado.getSecuencia());
-            System.out.println("nit tercero modificado : " + aporteTablaSeleccionado.getNittercero());
-            System.out.println("nombre tercero modificado : " + aporteTablaSeleccionado.getNombretercero());
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
         } else if (tipoActualizacion == 1) {
             nuevoAporteEntidad.setTercero(terceroSeleccionado.getSecuencia());
@@ -2771,16 +2760,13 @@ public class ControlParametroAutoliq implements Serializable {
             duplicarAporteEntidad.setTercero(terceroSeleccionado.getSecuencia());
             duplicarAporteEntidad.setNittercero(terceroSeleccionado.getNit());
             duplicarAporteEntidad.setNombretercero(terceroSeleccionado.getNombre());
-//            duplicarAporteEntidad.setTerceroRegistro(terceroSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNitTercero");
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarnombretercero");
         }
         filtrarLovTerceros = null;
         terceroSeleccionado = new Terceros();
         aceptar = true;
-        tipoActualizacion = -1;/*
-         */
-
+        tipoActualizacion = -1;
         context.reset("formularioLovTercero:lovTercero:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTercero').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').hide()");
@@ -3263,7 +3249,6 @@ public class ControlParametroAutoliq implements Serializable {
     //GET - SET//
     public List<ParametrosAutoliq> getListaParametrosAutoliq() {
         if (listaParametrosAutoliq == null) {
-            System.out.println("ControlParametroAutoliq.getListaParametrosAutoliq()");
             listaParametrosAutoliq = administrarParametroAutoliq.consultarParametrosAutoliq();
         }
         return listaParametrosAutoliq;

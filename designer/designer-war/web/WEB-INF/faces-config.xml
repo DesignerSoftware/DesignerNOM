@@ -8058,5 +8058,23 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/vigenciasarps.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>riesgosprofesionales</from-outcome>
+         <to-view-id>/riesgosprofesionales.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/riesgosprofesionales.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>vigenciasarps</from-outcome>
+         <to-view-id>/vigenciasarps.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
 </faces-config>
 

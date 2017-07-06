@@ -33,12 +33,14 @@ public interface AdministrarVWVacaPendientesEmpleadosInterface {
 
     public Empleados obtenerEmpleado(BigInteger secuencia);
 
-    public BigDecimal diasProvisionadosEmpleado(Empleados empl);
+    public BigDecimal diasProvisionadosEmpleado(Empleados empl,Date fechaContratacion);
 
     public Date obtenerFechaFinalContratacionEmpleado(BigInteger secEmpleado);
 
     public List<VWVacaPendientesEmpleados> vacaPendientesPendientesAnterioresContratos(Empleados empl);
 
     public List<VWVacaPendientesEmpleados> vacaPendientesDisfrutadasAnterioresContratos(Empleados empl);
+    
+    public Date obtenerFechaMaxContrato(BigInteger secEmpleado);
 
 }

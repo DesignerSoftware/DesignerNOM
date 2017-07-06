@@ -1,0 +1,426 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+
+                    <f:loadBundle basename="Recursos.riesgosprofesionales" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+
+                        <p:toolbar styleClass="cssToolbar">
+                            <p:toolbarGroup align="left">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
+                                                 actionListener="#{controlRiesgosProfesionales.guardarCambios()}" process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton  id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
+                                                  actionListener="#{controlRiesgosProfesionales.editarCelda()}" process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" 
+                                                 disabled="#{controlRiesgosProfesionales.activarLOV}"  actionListener="#{controlRiesgosProfesionales.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                                 actionListener="#{controlRiesgosProfesionales.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                                 ajax="false" actionListener="#{controlRiesgosProfesionales.exportXLS()}"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                                 actionListener="#{controlRiesgosProfesionales.limpiarNuevoRiesgo()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosRiesgosExportar" fileName="RiesgosProfesionalesXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" 
+                                                 actionListener="#{controlRiesgosProfesionales.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
+                                                 oncomplete="PF('NuevoRegistroVigencias').show()" update=":formularioDialogos:nuevaVigencias" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="#{msg['insertar']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
+                                                 actionListener="#{controlRiesgosProfesionales.borrarRiesgo()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                                 actionListener="#{controlRiesgosProfesionales.duplicarRiesgoM()}"  process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                                 actionListener="#{controlRiesgosProfesionales.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 oncomplete="window.location.reload()" actionListener="#{controlRiesgosProfesionales.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlRiesgosProfesionales.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>    
+                        </p:toolbar>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  value="" disabled="#{controlRiesgosProfesionales.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosRiesgos" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlRiesgosProfesionales.salir()}" process="@this"/>
+
+                        <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 375px; border-radius: 10px;">
+                            <legend style="color: blue;text-align:left;"><strong>Riesgos Laborales</strong></legend>
+
+                            <p:dataTable id="datosRiesgos"  widgetVar="datosRiesgos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
+                                         value="#{controlRiesgosProfesionales.listRiesgos}" scrollable="true" scrollHeight="#{controlRiesgosProfesionales.altoTabla}" scrollWidth="820"
+                                         filteredValue="#{controlRiesgosProfesionales.listRiesgosFiltrar}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="15"
+                                         selection="#{controlRiesgosProfesionales.riesgoSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlRiesgosProfesionales.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['fechaInicial']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" width="100" 
+                                          id="fechainicial" filterStyle="display: none; visibility: hidden;" >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechavigencia}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
+                                                <p:ajax event="dateSelect" listener="#{controlRiesgosProfesionales.modificarRiesgo(info)}" update="@this" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlRiesgosProfesionales.modificarRiesgo(info)}" update="@this" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlRiesgosProfesionales.cambiarIndice(info,0)}" process="@this"
+                                                        onstart="PF('datosRiesgos').unselectAllRows();PF('datosRiesgos').selectRow(#{indice});"/> 
+                                            </p:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column headerText="#{msg['tipoCC']}" sortBy="#{info.tipocentrocosto.nombre}" filterBy="#{info.tipocentrocosto.nombre}"
+                                          filterMatchMode="contains" id="tipocc" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.tipocentrocosto.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.tipocentrocosto.nombre}"  style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlRiesgosProfesionales.modificarRiesgo(info)}"/>
+                                                <p:ajax event="select" listener="#{controlRiesgosProfesionales.cambiarIndice(info, 1)}" 
+                                                        onstart="PF('datosRiesgos').unselectAllRows();PF('datosRiesgos').selectRow(#{indice});"/>
+                                                <p:ajax event="dblclick" listener="#{controlRiesgosProfesionales.asignarIndex(info, 0,1)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="width: 120%;" value="" />
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column filterBy="#{info.riesgo}" sortBy="#{info.riesgo}" 
+                                          filterMatchMode="contains" id="riesgo" filterStyle="display: none; visibility: hidden;"  style="text-align: center;">                                  
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PI" value="Riesgo"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.riesgo}" style="width: 100px;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.riesgo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlRiesgosProfesionales.cambiarIndice(info,2)}" process="@this"
+                                                        onstart="PF('datosRiesgos').unselectAllRows();PF('datosRiesgos').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlRiesgosProfesionales.modificarRiesgo(info)}" process="@this" update="editarIndividual"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText  id="fooPuntajeIndividual" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{info.comentario}" filterBy="#{info.comentario}" 
+                                          filterMatchMode="contains" id="comentario" filterStyle="display: none; visibility: hidden;"  style="text-align: center;">     
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PCI" value="Comentario"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.comentario}" style="width: 100px;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off"  value="#{info.comentario}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlRiesgosProfesionales.cambiarIndice(info,3)}" process="@this"
+                                                        onstart="PF('datosRiesgos').unselectAllRows();PF('datosRiesgos').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlRiesgosProfesionales.modificarRiesgo(info)}" process="@this" update="editarCIndividual"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText  id="fooCIndividual" value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>  
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlRiesgosProfesionales.infoRegistro}" style="position: relative; top: 1px; font-weight: bold;"/>
+                        </fieldset> 
+
+                    </p:panel>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRiesgosProfesionales.guardarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlRiesgosProfesionales.cancelarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this"
+                                         icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRiesgosProfesionales.riesgoSeleccionado.secuencia, 'RiesgosProfesionales', 'riesgosprofesionales')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" onstart="#{controlRiesgosProfesionales.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('riesgosprofesionales', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('RiesgosProfesionales', 'riesgosprofesionales')}"
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlRiesgosProfesionales.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('riesgosprofesionales', 'rastrotabla')}" icon="ui-icon-check"  process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlRiesgosProfesionales.riesgoSeleccionado.secuencia, 'RiesgosProfesionales', 'riesgosprofesionales')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" onstart="#{controlRiesgosProfesionales.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('riesgosprofesionales', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlRiesgosProfesionales.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog header="Tipos Centros Costos" widgetVar="tiposCCDialogo" draggable="true" resizable="false" closable="false" id="tiposCCDialogo"  
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
+                        <p:dataTable id="lovTiposCC"  var="tipocc" value="#{controlRiesgosProfesionales.lovTipoCC}" rowKey="#{tipocc.secuencia}"
+                                     selection="#{controlRiesgosProfesionales.tipoCCSeleccionado}" selectionMode="single" widgetVar="lovTiposCC" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlRiesgosProfesionales.lovTipoCCFiltrar}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlRiesgosProfesionales.contarRegistrosTCC()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlRiesgosProfesionales.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlRiesgosProfesionales.actualizarRiesgo()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Tipo Centro Costo"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposCC').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{tipocc.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Nombre"/>
+                                </f:facet>
+                                <h:outputText  value="#{tipocc.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroTCC" value="#{msg['infoRegistros']} #{controlRiesgosProfesionales.infoRegistroTipoCC}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRiesgosProfesionales.aceptar}" 
+                                             actionListener="#{controlRiesgosProfesionales.actualizarRiesgo()}"  process="@this"/>
+                            <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                             actionListener="#{controlRiesgosProfesionales.cancelarCambioRiesgo()}" process="@this"/>
+                        </div>
+                    </p:dialog> 
+
+
+                    <p:dialog id="NuevoRegistroVigencias" header="Nuevo Registro" widgetVar="NuevoRegistroVigencias" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Riesgo Laboral" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaVigencias" style="border: none;">
+
+                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 55px; left: 18px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" style="position: absolute; top: 50px; left: 220px" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlRiesgosProfesionales.nuevoRiesgo.fechavigencia}">
+                                <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
+                                <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*#{msg['tipoCC']}" style="position: absolute; top: 85px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevaDescripcion" value="#{controlRiesgosProfesionales.nuevoRiesgo.tipocentrocosto.nombre}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                                <p:ajax event="dblclick" listener="#{controlRiesgosProfesionales.asignarIndex(info,1,1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 351px; top: 80px;"  class="cssBotonLovDialogos"  id="btnNuevaDescripcion" value="" process="@this" actionListener="#{controlRiesgosProfesionales.asignarIndex(info,1,1)}"/>   
+
+                            <strong><h:outputText value="*Riesgo" style="position: absolute; top: 115px; left: 18px; "/></strong>
+                            <p:inputText autocomplete="off" id="nuevaIndividual" value="#{controlRiesgosProfesionales.nuevoRiesgo.riesgo}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                                <p:keyFilter for="nuevaIndividual" mask="num"/>
+                                <p:ajax event="change" update="nuevaIndividual"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Comentario" style="position: absolute; top: 145px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="nuevaGIndividual" value="#{controlRiesgosProfesionales.nuevoRiesgo.comentario}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 140px;">
+                                <p:ajax event="change" update="nuevaGIndividual"/>
+                            </p:inputText>
+
+
+                            <p:commandButton id="limpiarV" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 190px;" actionListener="#{controlRiesgosProfesionales.limpiarNuevoRiesgo()}" update="nuevaVigencias" process="@this"/>
+                            <p:commandButton id="agregarV" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 190px;"  process="@this" actionListener="#{controlRiesgosProfesionales.agregarNuevoRiesgo()}"   />
+                            <p:commandButton id="cancelarV" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 190px;" actionListener="#{controlRiesgosProfesionales.limpiarNuevoRiesgo()}" update="nuevaVigencias" onclick="PF('NuevoRegistroVigencias').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroVigencias" header="Duplicar Registro" widgetVar="DuplicarRegistroVigencias" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Riesgo Laboral" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+
+                        <p:panel id="duplicarVigencias" style="border: none;">
+                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 55px; left: 18px;"/></strong>
+                            <p:calendar autocomplete="off" mask="true" style="position: absolute; top: 50px; left: 220px" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlRiesgosProfesionales.duplicarRiesgo.fechavigencia}">
+                                <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
+                                <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*#{msg['tipoCC']}" style="position: absolute; top: 85px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarDescripcion" value="#{controlRiesgosProfesionales.duplicarRiesgo.tipocentrocosto.nombre}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                                <p:ajax event="dblclick" listener="#{controlRiesgosProfesionales.asignarIndex(info,2,1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 351px; top: 80px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlRiesgosProfesionales.asignarIndex(info,2,1)}"/>   
+
+                            <strong><h:outputText value="*Riesgo" style="position: absolute; top: 115px; left: 18px; "/></strong>
+                            <p:inputText autocomplete="off" id="duplicarIndividual" value="#{controlRiesgosProfesionales.duplicarRiesgo.riesgo}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                                <p:keyFilter for="duplicarIndividual" mask="num"/>
+                                <p:ajax event="change" update="duplicarIndividual"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Comentario" style="position: absolute; top: 145px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicarGIndividual" value="#{controlRiesgosProfesionales.duplicarRiesgo.comentario}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 140px;">
+                                <p:ajax event="change" update="duplicarGIndividual"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiarDuplicadoD" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 190px;" actionListener="#{controlRiesgosProfesionales.limpiarDuplicar()}" update="duplicarVigencias" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoD" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 190px;"  process="@this" actionListener="#{controlRiesgosProfesionales.confirmarDuplicar()}"   />
+                            <p:commandButton id="cancelarDuplicadoD" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 190px;" actionListener="#{controlRiesgosProfesionales.limpiarDuplicar()}" update="duplicarVigencias" onclick="PF('DuplicarRegistroVigencias').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevoRiesgo" header="#{msg['atencion']}" widgetVar="validacionNuevoRiesgo"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"/>
+                        <h:outputText value="#{controlRiesgosProfesionales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight: bold"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevoRiesgo').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="existeRiesgo" header="#{msg['error']}" widgetVar="existeRiesgo"  resizable="false" draggable="true" modal="true" height="100" width="400"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Existe un riesgo profesional con la misma fecha inicial y el mismo tipo centro de costo" style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight: bold;"/>
+                        <p:commandButton value="Aceptar" onclick="PF('existeRiesgo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicialD" header="Fecha Inicial" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlRiesgosProfesionales.editarRiesgo.fechavigencia}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarTipoCC" header="Tipo Centro Costo" widgetVar="editarTipoCC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlRiesgosProfesionales.editarRiesgo.tipocentrocosto.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarRiesgoProfesional" header="Riesgo" widgetVar="editarRiesgoProfesional" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlRiesgosProfesionales.editarRiesgo.riesgo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarComentario" header="Comentario" widgetVar="editarComentario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlRiesgosProfesionales.editarRiesgo.comentario}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+                <h:form id="formExportar">
+                    <p:dataTable id="datosRiesgosExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlRiesgosProfesionales.listRiesgos}"> 
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="FechaVigencia"/>
+                            </f:facet>
+                            <h:outputText value="#{infoExp.fechavigencia}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="TipoCC">                                  
+                            <f:facet name="header"><h:outputText value="TipoCC"/> </f:facet> 
+                            <h:outputText value="#{infoExp.tipocentrocosto.nombre}"/>
+                        </p:column>  
+
+                        <p:column headerText="Riesgo">                                  
+                            <f:facet name="header"><h:outputText value="Riesgo"/> </f:facet> 
+                            <h:outputText value="#{infoExp.riesgo}"/>
+                        </p:column>
+
+                        <p:column headerText="Comentario">                                  
+                            <f:facet name="header"><h:outputText value="Comentario"/> </f:facet> 
+                            <h:outputText value="#{infoExp.comentario}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

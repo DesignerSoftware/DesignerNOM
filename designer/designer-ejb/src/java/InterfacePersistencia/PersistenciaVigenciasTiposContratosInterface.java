@@ -61,4 +61,7 @@ public interface PersistenciaVigenciasTiposContratosInterface {
     
     
     public Date fechaFinalContratacionVacaciones(EntityManager em, BigInteger secuencia);
+    
+    public Date fechaMaxContrato(EntityManager em, BigInteger secuencia);
+    
 }

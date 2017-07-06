@@ -94,7 +94,7 @@ public interface PersistenciaSolucionesNodosInterface {
      * @param secuencia Secuencia del empleado.
      * @return Retorna un BigDecimal con la cantidad de los días Provisionados.
      */
-    public BigDecimal diasProvisionados(EntityManager em, BigInteger secuencia);
+    public BigDecimal diasProvisionados(EntityManager em, BigInteger secuencia,Date fechaContratacion);
 
     /**
      * Método encargado de contar cuantas liquidaciones existen para un empleado

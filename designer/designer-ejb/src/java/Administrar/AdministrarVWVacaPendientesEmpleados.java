@@ -111,9 +111,9 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
     }
 
     @Override
-    public BigDecimal diasProvisionadosEmpleado(Empleados empl) {
+    public BigDecimal diasProvisionadosEmpleado(Empleados empl,Date fechaContratacion) {
         try {
-            unidades = persistenciaSolucionesNodos.diasProvisionados(em, empl.getSecuencia());
+            unidades = persistenciaSolucionesNodos.diasProvisionados(em, empl.getSecuencia(),fechaContratacion);
             return unidades;
         } catch (Exception e) {
             System.out.println("Error en diasProvisionadosEmpleado Admi : " + e.toString());
@@ -150,6 +150,17 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             return vacaciones;
         } catch (Exception e) {
             System.out.println("Error en vacaPendientesIgualCero Admi : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Date obtenerFechaMaxContrato(BigInteger secEmpleado) {
+       try {
+            Date ultimaFecha = persistenciaVigenciasTiposContratos.fechaMaxContrato(em, secEmpleado);
+            return ultimaFecha;
+        } catch (Exception e) {
+            System.out.println("Error obtenerFechaFinalContratacionEmpleado Admi : " + e.toString());
             return null;
         }
     }

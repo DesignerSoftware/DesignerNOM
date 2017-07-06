@@ -302,27 +302,31 @@ public class ControlVigenciaDeporte implements Serializable {
         if (permitirIndex == true) {
             vigenciaTablaSeleccionada = vigenciaDeportes;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                fechaFin = vigenciaTablaSeleccionada.getFechafinal();
-                fechaIni = vigenciaTablaSeleccionada.getFechainicial();
-                vigenciaTablaSeleccionada.getSecuencia();
+            fechaFin = vigenciaTablaSeleccionada.getFechafinal();
+            fechaIni = vigenciaTablaSeleccionada.getFechainicial();
+            vigenciaTablaSeleccionada.getSecuencia();
+            if (cualCelda == 0) {
+                vigenciaTablaSeleccionada.getFechainicial();
                 deshabilitarBotonLov();
-                if (cualCelda == 2) {
-                    contarRegistrosVD();
-                    deporte = vigenciaTablaSeleccionada.getDeporte().getNombre();
-                    habilitarBotonLov();
-                }
-            }
-            if (tipoLista == 1) {
-                fechaFin = vigenciaTablaSeleccionada.getFechafinal();
-                fechaIni = vigenciaTablaSeleccionada.getFechainicial();
-                vigenciaTablaSeleccionada.getSecuencia();
+            } else if (cualCelda == 1) {
+                vigenciaTablaSeleccionada.getFechafinal();
                 deshabilitarBotonLov();
-                if (cualCelda == 2) {
-                    contarRegistrosVD();
-                    deporte = vigenciaTablaSeleccionada.getDeporte().getNombre();
-                    habilitarBotonLov();
-                }
+            } else if (cualCelda == 2) {
+                contarRegistrosVD();
+                deporte = vigenciaTablaSeleccionada.getDeporte().getNombre();
+                habilitarBotonLov();
+            } else if (cualCelda == 3) {
+                deshabilitarBotonLov();
+                vigenciaTablaSeleccionada.getValorcuantitativo();
+            } else if (cualCelda == 4) {
+                vigenciaTablaSeleccionada.getValorcualitativo();
+                deshabilitarBotonLov();
+            } else if (cualCelda == 5) {
+                vigenciaTablaSeleccionada.getValorcuantitativogrupo();
+                deshabilitarBotonLov();
+            } else if (cualCelda == 6) {
+                vigenciaTablaSeleccionada.getValorcualitativogrupo();
+                deshabilitarBotonLov();
             }
         }
     }
@@ -616,11 +620,9 @@ public class ControlVigenciaDeporte implements Serializable {
                 vigenciaTablaSeleccionada = nuevaVigenciaDeporte;
                 nuevaVigenciaDeporte = new VigenciasDeportes();
                 nuevaVigenciaDeporte.setDeporte(new Deportes());
-                getListVigenciasDeportes();
                 contarRegistrosVD();
                 deshabilitarBotonLov();
                 RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigencias').hide()");
                 if (guardado == true) {
@@ -697,7 +699,6 @@ public class ControlVigenciaDeporte implements Serializable {
                     listVigenciasDeportes.add(duplicarVigenciaDeporte);
                     listVigenciaDeporteCrear.add(duplicarVigenciaDeporte);
                     vigenciaTablaSeleccionada = duplicarVigenciaDeporte;
-                    getListVigenciasDeportes();
                     contarRegistrosVD();
                     RequestContext context = RequestContext.getCurrentInstance();
                     RequestContext.getCurrentInstance().update("form:infoRegistro");

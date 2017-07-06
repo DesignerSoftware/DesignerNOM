@@ -146,4 +146,20 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          return null;
       }
    }
+
+    @Override
+    public Date fechaMaxContrato(EntityManager em, BigInteger secuencia) {
+       try {
+         em.clear();
+         Date fechaContratacion;
+         String sql= "SELECT fechaVigencia FROM VWActualesTiposContratos WHERE empleado = ?";
+         Query query = em.createNativeQuery(sql);
+         query.setParameter(1, secuencia);
+         fechaContratacion = (Date) query.getSingleResult();
+         return fechaContratacion;
+      } catch (Exception e) {
+         System.out.println("Error fechaMaxContrato PersistenciaTiposContratos : " + e.getMessage());
+         return null;
+      }
+    }
 }
