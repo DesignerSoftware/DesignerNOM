@@ -582,13 +582,13 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
          procedimiento.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
          procedimiento.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
          procedimiento.registerStoredProcedureParameter(3, Date.class, ParameterMode.IN);
-         procedimiento.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
-         procedimiento.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
+//         procedimiento.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+//         procedimiento.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
          procedimiento.setParameter(1, codigoEmpleado);
          procedimiento.setParameter(2, centroCosto);
          procedimiento.setParameter(3, fechaReingreso);
-         procedimiento.setParameter(4, empresa);
-         procedimiento.setParameter(5, fechaFinal);
+//         procedimiento.setParameter(4, empresa);
+//         procedimiento.setParameter(5, fechaFinal);
          System.out.println("PersistenciaEmpleados.reingresarEmpleado() 3");
          procedimiento.execute();
          System.out.println("PersistenciaEmpleados.reingresarEmpleado() 4");
