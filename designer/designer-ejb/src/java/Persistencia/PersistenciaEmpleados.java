@@ -570,7 +570,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public void reingresarEmpleado(EntityManager em, BigInteger codigoEmpleado, BigInteger centroCosto, Date fechaReingreso, BigInteger empresa, Date fechaFinal) {
+   public void reingresarEmpleado(EntityManager em, BigDecimal codigoEmpleado, String centroCosto, Date fechaReingreso, short empresa, Date fechaFinal) {
       EntityTransaction tx = em.getTransaction();
       try {
          em.clear();
@@ -579,16 +579,16 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
          System.out.println("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
          StoredProcedureQuery procedimiento = em.createStoredProcedureQuery("ELIMINAREMPLEADO.reingresar_empleado");
          System.out.println("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + procedimiento);
-         procedimiento.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
-         procedimiento.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(1, BigDecimal.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
          procedimiento.registerStoredProcedureParameter(3, Date.class, ParameterMode.IN);
-//         procedimiento.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
-//         procedimiento.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
          procedimiento.setParameter(1, codigoEmpleado);
          procedimiento.setParameter(2, centroCosto);
          procedimiento.setParameter(3, fechaReingreso);
-//         procedimiento.setParameter(4, empresa);
-//         procedimiento.setParameter(5, fechaFinal);
+         procedimiento.setParameter(4, empresa);
+         procedimiento.setParameter(5, fechaFinal);
          System.out.println("PersistenciaEmpleados.reingresarEmpleado() 3");
          procedimiento.execute();
          System.out.println("PersistenciaEmpleados.reingresarEmpleado() 4");
@@ -598,13 +598,13 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
 //         tx.begin();
 //         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 1 Parametros: ");
 //         System.out.println("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
-//         Query query = em.createNativeQuery("call ELIMINAREMPLEADO.reingresar_empleado(?,?,?,?,?)");
+//         Query query = em.createNativeQuery("call ELIMINAREMPLEADO.reingresar_empleado(?,?,?)");
 //         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + query);
 //         query.setParameter(1, codigoEmpleado);
 //         query.setParameter(2, centroCosto);
 //         query.setParameter(3, fechaReingreso);
-//         query.setParameter(4, empresa);
-//         query.setParameter(5, fechaFinal);
+////         query.setParameter(4, empresa);
+////         query.setParameter(5, fechaFinal);
 //         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 3");
 //         query.executeUpdate();
 //         System.out.println("PersistenciaEmpleados.reingresarEmpleado() 4");

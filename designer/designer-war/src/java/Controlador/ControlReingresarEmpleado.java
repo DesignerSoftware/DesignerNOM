@@ -278,7 +278,6 @@ public class ControlReingresarEmpleado implements Serializable {
 //         mensajeValidacion = mensajeValidacion + "* Fecha Fin Contrato";
 //         pasa++;
 //      }
-
       if (fechaReingreso == null) {
          mensajeValidacion = mensajeValidacion + "* Fecha Reingreso";
          pasa++;
@@ -304,7 +303,7 @@ public class ControlReingresarEmpleado implements Serializable {
 
    public void reingresoEmpleado() {
       try {
-         administrarReingresarEmpleado.reintegrarEmpleado(empleado.getSecuencia(), estructura.getCentrocosto().getSecuencia(), fechaReingreso, estructura.getCentrocosto().getEmpresa().getSecuencia(), fechaFinContrato);
+         administrarReingresarEmpleado.reintegrarEmpleado(empleado.getCodigoempleado(), estructura.getCentrocosto().getCodigo(), fechaReingreso, estructura.getCentrocosto().getEmpresa().getCodigo(), fechaFinContrato);
          RequestContext.getCurrentInstance().update("formularioDialogos:exito");
          RequestContext.getCurrentInstance().execute("PF('exito').show()");
          System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 1");

@@ -12,6 +12,7 @@ import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaPersonasInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,7 @@ public class AdministrarReingresarEmpleado implements AdministrarReingresarEmple
       return fechaDeRetiro;
    }
 
-   public void reintegrarEmpleado(BigInteger codigoEmpleado, BigInteger centroCosto, Date fechaReingreso, BigInteger empresa, Date fechaFinal) {
+   public void reintegrarEmpleado(BigDecimal codigoEmpleado, String centroCosto, Date fechaReingreso, short empresa, Date fechaFinal) {
       try {
          persistenciaEmpleado.reingresarEmpleado(em, codigoEmpleado, centroCosto, fechaReingreso, empresa, fechaFinal);
       } catch (Exception e) {

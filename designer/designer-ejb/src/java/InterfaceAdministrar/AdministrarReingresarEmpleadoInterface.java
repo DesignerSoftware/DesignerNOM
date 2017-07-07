@@ -7,6 +7,7 @@ package InterfaceAdministrar;
 
 import Entidades.Empleados;
 import Entidades.Estructuras;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -17,14 +18,14 @@ import java.util.List;
  */
 public interface AdministrarReingresarEmpleadoInterface {
 
-    public void obtenerConexion(String idSesion);
+   public void obtenerConexion(String idSesion);
 
-    public void reintegrarEmpleado(BigInteger codigoEmpleado, BigInteger centroCosto, Date fechaReingreso, BigInteger empresa, Date fechaFinal);
+   public void reintegrarEmpleado(BigDecimal codigoEmpleado, String centroCosto, Date fechaReingreso, short empresa, Date fechaFinal);
 
-    public List<Empleados> listaEmpleados();
+   public List<Empleados> listaEmpleados();
 
-    public List<Estructuras> listaEstructuras();
-    
-    public Date obtenerFechaRetiro(BigInteger secuenciaEmpleado);
+   public List<Estructuras> listaEstructuras();
+
+   public Date obtenerFechaRetiro(BigInteger secuenciaEmpleado);
 
 }
