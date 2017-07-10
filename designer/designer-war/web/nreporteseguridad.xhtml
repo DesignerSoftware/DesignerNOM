@@ -427,9 +427,9 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
-                              showEffect="fade" hideEffect="fade" height="300" width="470" modal="true">
+                              showEffect="fade" hideEffect="fade" height="270" width="430" modal="true">
                         <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReportesSeguridad.lovEmpresas}" rowKey="#{empresa.secuencia}"
-                                     selection="#{controlNReportesSeguridad.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="450" scrollHeight="137"
+                                     selection="#{controlNReportesSeguridad.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="400" scrollHeight="137"
                                      filteredValue="#{controlNReportesSeguridad.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
                             <p:ajax event="filter" listener="#{controlNReportesSeguridad.contarRegistrosEmpresa()}"/>
@@ -467,7 +467,7 @@
                     <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovTercero" var="tercero" value="#{controlNReportesSeguridad.lovTerceros}" rowKey="#{tercero.secuencia}"
-                                     selection="#{controlNReportesSeguridad.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="445" scrollHeight="270"
+                                     selection="#{controlNReportesSeguridad.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="445" scrollHeight="262"
                                      filteredValue="#{controlNReportesSeguridad.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
 
 
@@ -479,6 +479,12 @@
                                 <h:outputText value="#{msg['buscarT']}"/>  
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}"/>  
                             </f:facet>
+                            <p:column filterBy="#{tercero.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="#{msg['nitT']}"/>
+                                </f:facet>
+                                <h:outputText  value="#{tercero.nit}"/>
+                            </p:column>
                             <p:column filterBy="#{tercero.nombre}" width="120" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center;" value="#{msg['nombreT']}"/>
@@ -490,12 +496,6 @@
                                     <h:outputText style="text-align: center;" value="#{msg['empresaT']}"/>
                                 </f:facet>
                                 <h:outputText  value="#{tercero.empresa.nombre}"/>
-                            </p:column>
-                            <p:column filterBy="#{tercero.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center;" value="#{msg['nitT']}"/>
-                                </f:facet>
-                                <h:outputText  value="#{tercero.nit}"/>
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV">
@@ -519,7 +519,7 @@
                             <p:ajax event="rowSelect" listener="#{controlNReportesSeguridad.activarAceptar()}" update=":formDialogos:aceptarSU"/>
                             <p:ajax event="rowDblselect" listener="#{controlNReportesSeguridad.actualizarSucursal()}" update=":formDialogos:sucursalDialogo" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"/>  
+                                <h:outputText value="#{msg['buscarS']}"/>  
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSucursal').filter();" value="#{filtrado}"/>  
                             </f:facet>
                             <p:column filterBy="#{sucursal.descripcion}" width="120" filterMatchMode="contains" filterStyle="width: 80% !important">
