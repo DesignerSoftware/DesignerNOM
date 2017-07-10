@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+    <h:head>        
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="Cambio de código del empleado" styleClass="panelTotal">  
+
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+                                <p:commandButton id="guardarRapido" value="" disabled="true" style="background-image: url(Imagenes/Iconos/guardar.png);"  process="@this"/>
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/editar.png);" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" process="@this"/>
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" disabled="true" style="background-image: url(Imagenes/Iconos/excel.png);"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" disabled="true" style="background-image: url(Imagenes/Iconos/xml.png);"/>
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" disabled="true" style="background-image: url(Imagenes/Iconos/pdf.png)"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="insertar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/delete.png);"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png);"  process="@this"/>  
+                                <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/> 
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()"
+                                                 actionListener="#{controlCambioCodigoEmpl.cancelarModificaciones()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
+
+                                <p:separator style="position: relative; top: -9px;"/> 
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                                 actionListener="#{controlCambioCodigoEmpl.salir()}" action="nominaf"  process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 374px; width: 830px; border-radius: 10px; text-align: center; padding-top: 30px;">
+                            <legend style="font-size: 13px; color: blue; position: absolute; z-index: 9; margin-top: -40px; background-color: white;"><strong>Cambio de Código del Empleado</strong></legend>
+
+                            <h:outputText value="Empresa" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
+                            <p:inputText autocomplete="off" id="empresa" value="#{controlCambioCodigoEmpl.empresa.nombre}"
+                                         style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlCambioCodigoEmpl.asignarIndex(1)}"/>
+                            </p:inputText>
+
+                            <h:outputText value="Código Actual" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
+                            <p:inputText autocomplete="off" id="codEmpleadoActual" value="#{controlCambioCodigoEmpl.empleado.codigoempleado}"
+                                         style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlCambioCodigoEmpl.asignarIndex(0)}"/>
+                            </p:inputText>
+
+                            <h:outputText value="Código Nuevo" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
+                            <p:inputText autocomplete="off" id="codEmpleadoNuevo" value="#{controlCambioCodigoEmpl.codEmplNuevo}"
+                                         style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
+                                <p:ajax event="change" listener="#{controlCambioCodigoEmpl.modificarCodigoNuevo(controlCambioCodigoEmpl.codEmplNuevo)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: relative; margin-top: 30px; font-size: 11px;" class="cssBotonLargo" icon="ui-icon-extlink" id="REINGRESAR"
+                                             value="Cambiar Código" process="@this" actionListener="#{controlCambioCodigoEmpl.cambiarCodigoEmpleado()}"/>
+                        </fieldset>
+
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlCambioCodigoEmpl.salir()}" action="nominaf" value="" process="@this"/>
+                    </p:panel>
+                </h:form>
+                <h:form id="formularioDialogos">
+
+
+                    <!--DIALOGO EMPLEADOS-->    
+                    <p:dialog header="Empleados" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="450">
+
+                        <p:dataTable  id="LOVEmpleados" var="emp" value="#{controlCambioCodigoEmpl.lovEmpleados}"
+                                      scrollable="true" scrollHeight="350" scrollWidth="430" widgetVar="LOVEmpleados" 
+                                      filteredValue="#{controlCambioCodigoEmpl.filtradoLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{emp.secuencia}" selection="#{controlCambioCodigoEmpl.empleadoSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlCambioCodigoEmpl.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlCambioCodigoEmpl.actualizarEmpleados()}" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Empleado"/>
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{emp.codigoempleado}" sortBy="#{emp.codigoempleado}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.codigoempleado}"/>  
+                            </p:column>  
+
+                            <p:column filterBy="#{emp.persona.nombreCompleto}" sortBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpleados" value="Registros: #{controlCambioCodigoEmpl.infoRegistroEmpleados}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" value="Aceptar" disabled="#{controlCambioCodigoEmpl.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlCambioCodigoEmpl.actualizarEmpleados()}" process="@this"/>
+                            <p:commandButton id="atrasE" value="Atrás" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlCambioCodigoEmpl.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                    <!--DIALOGO ESTRUCTURAS-->    
+                    <p:dialog header="Empresas" widgetVar="empresasDialogo" draggable="true" resizable="false" id="empresasDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="380">
+
+                        <p:dataTable  id="LOVEmpresas" var="es" value="#{controlCambioCodigoEmpl.lovEmpresas}"
+                                      scrollable="true" scrollHeight="280" scrollWidth="350" widgetVar="LOVEmpresas" 
+                                      filteredValue="#{controlCambioCodigoEmpl.filtradoLovEmpresas}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{es.secuencia}" selection="#{controlCambioCodigoEmpl.empresaSeleccionada}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlCambioCodigoEmpl.activarAceptar()}" update=":formularioDialogos:aceptarES"/>
+                            <p:ajax event="rowDblselect" listener="#{controlCambioCodigoEmpl.actualizarEmpresas()}" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Empresa:"/>
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpresas').filter();" class="cssFiltroLOV"/>
+                            </f:facet>
+
+
+                            <p:column filterBy="#{es.nombre}" sortBy="#{es.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{es.nombre}"/>  
+                            </p:column>
+
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEstructuras" value="Registros: #{controlCambioCodigoEmpl.infoRegistroEmpresas}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarES" value="Aceptar" disabled="#{controlCambioCodigoEmpl.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlCambioCodigoEmpl.actualizarEmpresas()}" process="@this"/>
+                            <p:commandButton id="atrasES" value="Atrás" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlCambioCodigoEmpl.cancelarCambioEstructuras()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog id="exito" header="¡Precaución!" widgetVar="exito"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="El código del empleado fue cambiado exitosamente" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('exito').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="error" header="¡Error!" widgetVar="error"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['error']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar"  icon="ui-icon-check" onclick="PF('error').hide()" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorSQL" header="¡Error!" widgetVar="errorSQL"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{controlCambioCodigoEmpl.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar"  icon="ui-icon-check" onclick="PF('errorSQL').hide()" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="camposVacios" header="¡Precaución!" widgetVar="camposVacios"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="Todos los campos son obligatorios" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar"  icon="ui-icon-check" onclick="PF('camposVacios').hide()" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="CodRepetido" header="¡Precaución!" widgetVar="CodRepetido"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="El Código Ingresado ya se encuentra asignado a otro empleado, ingréselo de nuevo" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                        <p:commandButton value="Aceptar"  icon="ui-icon-check" onclick="PF('CodRepetido').hide()" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

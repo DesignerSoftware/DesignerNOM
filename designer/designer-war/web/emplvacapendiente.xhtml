@@ -269,12 +269,10 @@
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show()" process="@this" disabled="#{controlEmplVacaPendiente.guardado}"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplVacaPendiente.salir()}" process="@this"/>
-                  <p:commandButton style="position: absolute; left: 15px; top: 495px;" class="cssBoton" id="AnterioresC" value="C.Anteriores" actionListener="#{controlEmplVacaPendiente.anterioresContratos()}" process="@this"
+                  <p:commandButton style="position: absolute; left: 15px; top: 495px;font-size: 11px" class="cssBotonLargo" id="AnterioresC" value="Contratos Anteriores" actionListener="#{controlEmplVacaPendiente.anterioresContratos()}" process="@this"
                                    icon="ui-icon-extlink" disabled="#{controlEmplVacaPendiente.activarAnteriores}" />
-                  <p:tooltip for="AnterioresC" value="Contatos Anteriores" />
-                  <p:commandButton style="position: absolute; left: 145px; top: 495px;" class="cssBoton" id="ActualC" value="C.Actual" actionListener="#{controlEmplVacaPendiente.contratoActual()}" process="@this"
+                  <p:commandButton style="position: absolute; left: 190px; top: 495px;font-size: 11px" class="cssBotonLargo" id="ActualC" value="Contrato Actual" actionListener="#{controlEmplVacaPendiente.contratoActual()}" process="@this"
                                    icon="ui-icon-extlink" disabled="#{controlEmplVacaPendiente.activarActuales}" />
-                  <p:tooltip for="ActualC" value="Contrato Actual" />
                </p:panel>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  

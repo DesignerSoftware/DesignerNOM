@@ -10,6 +10,7 @@ import InterfaceAdministrar.AdministrarEmpleadosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import Persistencia.PersistenciaEmpleados;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -54,6 +55,15 @@ public class AdministrarEmpleados implements AdministrarEmpleadosInterface {
         } catch (Exception e) {
             System.out.println("erroe en AdministrarEmpleados.editarEmpleado : " + e);
         }
+    }
+
+    @Override
+    public void cambiarCodEmpl(BigDecimal codactual, BigDecimal codnuevo) {
+       try{
+           persitenciaEmpleados.cambiarCodEmpleado(em, codactual, codnuevo);
+       }catch(Exception e){
+        System.out.println("erroe en AdministrarEmpleados.cambiarCodEmpl : " + e);
+       }
     }
 
 }

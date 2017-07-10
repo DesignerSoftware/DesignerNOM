@@ -212,4 +212,5 @@ public interface PersistenciaEmpleadoInterface {
 
    public List<Empleados> empleadosReemplazosHV(EntityManager em, BigInteger secuenciaEmpleado);
 
+    public void cambiarCodEmpleado(EntityManager em,BigDecimal codactual,BigDecimal codnuevo);
 }

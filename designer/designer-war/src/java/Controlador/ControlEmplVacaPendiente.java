@@ -1327,6 +1327,9 @@ public class ControlEmplVacaPendiente implements Serializable {
         try {
             if (empleado != null) {
                 diasProvisionados = administrarVWVacaPendientesEmpleados.diasProvisionadosEmpleado(empleado,fechaContratacionaux);
+                if(diasProvisionados == null){
+                    diasProvisionados = new BigDecimal(0);
+                }
             }
             return diasProvisionados;
         } catch (Exception e) {

@@ -887,4 +887,23 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
       }
    }
 
+   @Override
+    public void cambiarCodEmpleado(EntityManager em,BigDecimal codactual, BigDecimal codnuevo) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sqlQuery = "call empleados_pkg.CambiarCodigoEmpleado(?,?)";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, codactual);
+            query.setParameter(2, codnuevo);
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaEmpleados.cambiarCodEmpleado. " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 }
