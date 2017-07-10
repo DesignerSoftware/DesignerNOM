@@ -6,15 +6,15 @@
 package Controlador;
 
 import ControlNavegacion.ControlListaNavegacion;
-import Entidades.TiposSueldos;
+import Entidades.Contratos;
 import Entidades.Usuarios;
-import Entidades.UsuariosTiposSueldos;
+import Entidades.UsuariosContratos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
+import InterfaceAdministrar.AdministrarContratosInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
-import InterfaceAdministrar.AdministrarTiposSueldosInterface;
+import InterfaceAdministrar.AdministrarUsuariosContratosInterface;
 import InterfaceAdministrar.AdministrarUsuariosInterface;
-import InterfaceAdministrar.AdministrarUsuariosTiposSueldosInterface;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -38,40 +38,40 @@ import org.primefaces.context.RequestContext;
  *
  * @author user
  */
-@Named(value = "controlUsuariosTiposSueldos")
+@Named(value = "controlUsuariosContratos")
 @SessionScoped
-public class ControlUsuariosTiposSueldos implements Serializable {
+public class ControlUsuariosContratos implements Serializable {
 
     @EJB
-    AdministrarUsuariosTiposSueldosInterface administrarUsuariosTiposSueldos;
+    AdministrarUsuariosContratosInterface administrarUsuariosContratos;
     @EJB
     AdministrarRastrosInterface administrarRastros;
     @EJB
     AdministrarUsuariosInterface administrarUsuarios;
     @EJB
-    AdministrarTiposSueldosInterface administrarTiposSueldos;
+    AdministrarContratosInterface administrarContratos;
 
-    private List<UsuariosTiposSueldos> listUsuariosTS;
-    private List<UsuariosTiposSueldos> listUsuariosTSFiltrar;
-    private List<UsuariosTiposSueldos> listUsuariosTSCrear;
-    private List<UsuariosTiposSueldos> listUsuariosTSModificar;
-    private List<UsuariosTiposSueldos> listUsuariosTSBorrar;
-    private UsuariosTiposSueldos usuariotsSeleccionado;
-    private UsuariosTiposSueldos nuevoUsuarioTS;
-    private UsuariosTiposSueldos duplicarUsuarioTS;
-    private UsuariosTiposSueldos editarUsuarioTS;
+    private List<UsuariosContratos> listUsuariosC;
+    private List<UsuariosContratos> listUsuariosCFiltrar;
+    private List<UsuariosContratos> listUsuariosCCrear;
+    private List<UsuariosContratos> listUsuariosCModificar;
+    private List<UsuariosContratos> listUsuariosCBorrar;
+    private UsuariosContratos usuarioContratoSeleccionado;
+    private UsuariosContratos nuevoUsuarioC;
+    private UsuariosContratos duplicarUsuarioC;
+    private UsuariosContratos editarUsuarioC;
     //lov usuarios
     private List<Usuarios> lovUsuarios;
     private List<Usuarios> lovUsuariosFiltrar;
     private Usuarios usuarioSeleccionado;
     //lov tipossueldos
-    private List<TiposSueldos> lovTiposSueldos;
-    private List<TiposSueldos> lovTiposSueldosFiltrar;
-    private TiposSueldos tipoSueldoSeleccionado;
+    private List<Contratos> lovContratos;
+    private List<Contratos> lovContratosFiltrar;
+    private Contratos contratoSeleccionado;
 //otros
     private String mensajeValidacion;
     private String altoTabla;
-    private String infoRegistroUsuariosTS, infoRegistroUsuario, infoRegistroTS;
+    private String infoRegistroUsuariosC, infoRegistroUsuario, infoRegistroContrato;
     private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado, activarLov;
@@ -79,37 +79,37 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-    public ControlUsuariosTiposSueldos() {
-        listUsuariosTSBorrar = new ArrayList<UsuariosTiposSueldos>();
-        listUsuariosTSCrear = new ArrayList<UsuariosTiposSueldos>();
-        listUsuariosTSModificar = new ArrayList<UsuariosTiposSueldos>();
-        nuevoUsuarioTS = new UsuariosTiposSueldos();
-        nuevoUsuarioTS.setUsuario(new Usuarios());
-        nuevoUsuarioTS.setTiposueldo(new TiposSueldos());
-        duplicarUsuarioTS = new UsuariosTiposSueldos();
-        editarUsuarioTS = new UsuariosTiposSueldos();
+    public ControlUsuariosContratos() {
+        listUsuariosCBorrar = new ArrayList<UsuariosContratos>();
+        listUsuariosCCrear = new ArrayList<UsuariosContratos>();
+        listUsuariosCModificar = new ArrayList<UsuariosContratos>();
+        nuevoUsuarioC = new UsuariosContratos();
+        nuevoUsuarioC.setUsuario(new Usuarios());
+        nuevoUsuarioC.setContrato(new Contratos());
+        duplicarUsuarioC = new UsuariosContratos();
+        editarUsuarioC = new UsuariosContratos();
         guardado = true;
         aceptar = true;
         activarLov = true;
-        listUsuariosTS = null;
+        listUsuariosC = null;
         altoTabla = "315";
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-     @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarTiposSueldos.obtenerConexion(ses.getId());
+            administrarContratos.obtenerConexion(ses.getId());
             administrarUsuarios.obtenerConexion(ses.getId());
-            administrarUsuariosTiposSueldos.obtenerConexion(ses.getId());
+            administrarUsuariosContratos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
-            listUsuariosTS = null;
-            getListUsuariosTS();
-            if (listUsuariosTS != null) {
-                if (!listUsuariosTS.isEmpty()) {
-                    usuariotsSeleccionado = listUsuariosTS.get(0);
+            listUsuariosC = null;
+            getListUsuariosC();
+            if (listUsuariosC != null) {
+                if (!listUsuariosC.isEmpty()) {
+                    usuarioContratoSeleccionado = listUsuariosC.get(0);
                 }
             }
         } catch (Exception e) {
@@ -117,17 +117,9 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             System.out.println("Causa: " + e.getCause());
         }
     }
-    
+
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
-        listUsuariosTS = null;
-        getListUsuariosTS();
-        if (listUsuariosTS != null) {
-            if (!listUsuariosTS.isEmpty()) {
-                usuariotsSeleccionado = listUsuariosTS.get(0);
-            }
-        }
-        //inicializarCosas(); Inicializar cosas de ser necesario
     }
 
     public void recibirParametros(Map<String, Object> map) {
@@ -139,7 +131,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-        String pagActual = "usuariotiposueldo";
+        String pagActual = "usuariocontrato";
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
@@ -163,10 +155,9 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     }
 
     public void limpiarListasValor() {
-        lovTiposSueldos = null;
+        lovContratos = null;
         lovUsuarios = null;
     }
-
 
     public void activarAceptar() {
         aceptar = false;
@@ -191,7 +182,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             altoTabla = "315";
             bandera = 0;
-            listUsuariosTSFiltrar = null;
+            listUsuariosCFiltrar = null;
             tipoLista = 0;
         }
     }
@@ -203,29 +194,29 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         contarRegistros();
     }
 
-    public void cambiarIndice(UsuariosTiposSueldos usuariots, int celda) {
-        usuariotsSeleccionado = usuariots;
+    public void cambiarIndice(UsuariosContratos usuarioC, int celda) {
+        usuarioContratoSeleccionado = usuarioC;
         cualCelda = celda;
-        usuariotsSeleccionado.getSecuencia();
+        usuarioContratoSeleccionado.getSecuencia();
         if (cualCelda == 0) {
             habilitarBotonLov();
-            usuariotsSeleccionado.getUsuario().getAlias();
+            usuarioContratoSeleccionado.getUsuario().getAlias();
         } else if (cualCelda == 1) {
             habilitarBotonLov();
-            usuariotsSeleccionado.getTiposueldo().getDescripcion();
+            usuarioContratoSeleccionado.getContrato().getDescripcion();
         }
     }
 
     public void editarCelda() {
-        if (usuariotsSeleccionado != null) {
-            editarUsuarioTS = usuariotsSeleccionado;
+        if (usuarioContratoSeleccionado != null) {
+            editarUsuarioC = usuarioContratoSeleccionado;
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarUsuario");
                 RequestContext.getCurrentInstance().execute("PF('editarUsuario').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTS");
-                RequestContext.getCurrentInstance().execute("PF('editarTS').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarContrato");
+                RequestContext.getCurrentInstance().execute("PF('editarContrato').show()");
                 cualCelda = -1;
             }
         } else {
@@ -233,8 +224,8 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         }
     }
 
-    public void asignarIndex(UsuariosTiposSueldos usuariots, int dlg, int LND) {
-        usuariotsSeleccionado = usuariots;
+    public void asignarIndex(UsuariosContratos usuariots, int dlg, int LND) {
+        usuarioContratoSeleccionado = usuariots;
         tipoActualizacion = LND;
         if (dlg == 0) {
             lovUsuarios = null;
@@ -243,16 +234,16 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:usuariosDialogo");
             RequestContext.getCurrentInstance().execute("PF('usuariosDialogo').show()");
         } else if (dlg == 1) {
-            lovTiposSueldos = null;
-            getLovTiposSueldos();
+            lovContratos = null;
+            getLovContratos();
             contarRegistrosTS();
-            RequestContext.getCurrentInstance().update("formularioDialogos:tiposSueldosDialogo");
-            RequestContext.getCurrentInstance().execute("PF('tiposSueldosDialogo').show()");
+            RequestContext.getCurrentInstance().update("formularioDialogos:contratosDialogo");
+            RequestContext.getCurrentInstance().execute("PF('contratosDialogo').show()");
         }
     }
 
     public void listaValoresBoton() {
-        if (usuariotsSeleccionado != null) {
+        if (usuarioContratoSeleccionado != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 lovUsuarios = null;
@@ -262,23 +253,23 @@ public class ControlUsuariosTiposSueldos implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('usuariosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 1) {
-                lovTiposSueldos = null;
-                getLovTiposSueldos();
+                lovContratos = null;
+                getLovContratos();
                 contarRegistrosTS();
-                RequestContext.getCurrentInstance().update("formularioDialogos:tiposSueldosDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposSueldosDialogo').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:contratosDialogo");
+                RequestContext.getCurrentInstance().execute("PF('contratosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
     }
 
-    public void modificarUsuariosTS(UsuariosTiposSueldos usuariosts) {
-        usuariotsSeleccionado = usuariosts;
-        if (!listUsuariosTSCrear.contains(usuariotsSeleccionado)) {
-            if (listUsuariosTSModificar.isEmpty()) {
-                listUsuariosTSModificar.add(usuariotsSeleccionado);
-            } else if (!listUsuariosTSModificar.contains(usuariotsSeleccionado)) {
-                listUsuariosTSModificar.add(usuariotsSeleccionado);
+    public void modificarUsuariosTS(UsuariosContratos usuariosts) {
+        usuarioContratoSeleccionado = usuariosts;
+        if (!listUsuariosCCrear.contains(usuarioContratoSeleccionado)) {
+            if (listUsuariosCModificar.isEmpty()) {
+                listUsuariosCModificar.add(usuarioContratoSeleccionado);
+            } else if (!listUsuariosCModificar.contains(usuarioContratoSeleccionado)) {
+                listUsuariosCModificar.add(usuarioContratoSeleccionado);
             }
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -290,7 +281,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "UsuariosTiposSueldosPDF", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "UsuariosContratosPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
     }
 
@@ -298,16 +289,16 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "UsuariosTiposSueldosXLS", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "UsuariosContratosXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
     }
 
-    public void limpiarNuevoUsuarioTS() {
-        nuevoUsuarioTS = new UsuariosTiposSueldos();
+    public void limpiarNuevoUsuarioContratos() {
+        nuevoUsuarioC = new UsuariosContratos();
     }
 
-    public void limpiarDuplicarUsuarioTS() {
-        duplicarUsuarioTS = new UsuariosTiposSueldos();
+    public void limpiarDuplicarUsuarioContratos() {
+        duplicarUsuarioC = new UsuariosContratos();
 
     }
 
@@ -319,20 +310,20 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     public void guardarCambiosUsuario() {
         try {
             if (guardado == false) {
-                if (!listUsuariosTSBorrar.isEmpty()) {
-                    administrarUsuariosTiposSueldos.borrarUsuariosTS(listUsuariosTSBorrar);
-                    listUsuariosTSBorrar.clear();
+                if (!listUsuariosCBorrar.isEmpty()) {
+                    administrarUsuariosContratos.borrarUsuarioC(listUsuariosCBorrar);
+                    listUsuariosCBorrar.clear();
                 }
-                if (!listUsuariosTSCrear.isEmpty()) {
-                    administrarUsuariosTiposSueldos.crearUsuariosTS(listUsuariosTSCrear);
-                    listUsuariosTSCrear.clear();
+                if (!listUsuariosCCrear.isEmpty()) {
+                    administrarUsuariosContratos.crearUsuarioC(listUsuariosCCrear);
+                    listUsuariosCCrear.clear();
                 }
-                if (!listUsuariosTSModificar.isEmpty()) {
-                    administrarUsuariosTiposSueldos.modificarUsuariosTS(listUsuariosTSModificar);
-                    listUsuariosTSModificar.clear();
+                if (!listUsuariosCModificar.isEmpty()) {
+                    administrarUsuariosContratos.modificarUsuarioC(listUsuariosCModificar);
+                    listUsuariosCModificar.clear();
                 }
-                listUsuariosTS = null;
-                getListUsuariosTS();
+                listUsuariosC = null;
+                getListUsuariosC();
                 contarRegistros();
                 RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 guardado = true;
@@ -341,7 +332,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:growl");
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
-                usuariotsSeleccionado = null;
+                usuarioContratoSeleccionado = null;
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
@@ -351,23 +342,23 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     }
 
     public void borrarUsuarioTS() {
-        if (usuariotsSeleccionado != null) {
-            if (!listUsuariosTSModificar.isEmpty() && listUsuariosTSModificar.contains(usuariotsSeleccionado)) {
-                int modIndex = listUsuariosTSModificar.indexOf(usuariotsSeleccionado);
-                listUsuariosTSModificar.remove(modIndex);
-                listUsuariosTSBorrar.add(usuariotsSeleccionado);
-            } else if (!listUsuariosTSCrear.isEmpty() && listUsuariosTSCrear.contains(usuariotsSeleccionado)) {
-                int crearIndex = listUsuariosTSCrear.indexOf(usuariotsSeleccionado);
-                listUsuariosTSCrear.remove(crearIndex);
+        if (usuarioContratoSeleccionado != null) {
+            if (!listUsuariosCModificar.isEmpty() && listUsuariosCModificar.contains(usuarioContratoSeleccionado)) {
+                int modIndex = listUsuariosCModificar.indexOf(usuarioContratoSeleccionado);
+                listUsuariosCModificar.remove(modIndex);
+                listUsuariosCBorrar.add(usuarioContratoSeleccionado);
+            } else if (!listUsuariosCCrear.isEmpty() && listUsuariosCCrear.contains(usuarioContratoSeleccionado)) {
+                int crearIndex = listUsuariosCCrear.indexOf(usuarioContratoSeleccionado);
+                listUsuariosCCrear.remove(crearIndex);
             } else {
-                listUsuariosTSBorrar.add(usuariotsSeleccionado);
+                listUsuariosCBorrar.add(usuarioContratoSeleccionado);
             }
-            listUsuariosTS.remove(usuariotsSeleccionado);
+            listUsuariosC.remove(usuarioContratoSeleccionado);
 
             if (tipoLista == 1) {
-                listUsuariosTSFiltrar.remove(usuariotsSeleccionado);
+                listUsuariosCFiltrar.remove(usuarioContratoSeleccionado);
             }
-            usuariotsSeleccionado = null;
+            usuarioContratoSeleccionado = null;
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             guardado = false;
@@ -377,75 +368,75 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         }
     }
 
-    public void actualizarTiposSueldos() {
+    public void actualizarContratos() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            usuariotsSeleccionado.setTiposueldo(tipoSueldoSeleccionado);
-            if (!listUsuariosTSCrear.contains(usuariotsSeleccionado)) {
-                if (listUsuariosTSModificar.isEmpty()) {
-                    listUsuariosTSModificar.add(usuariotsSeleccionado);
-                } else if (!listUsuariosTSModificar.contains(usuariotsSeleccionado)) {
-                    listUsuariosTSModificar.add(usuariotsSeleccionado);
+            usuarioContratoSeleccionado.setContrato(contratoSeleccionado);
+            if (!listUsuariosCCrear.contains(usuarioContratoSeleccionado)) {
+                if (listUsuariosCModificar.isEmpty()) {
+                    listUsuariosCModificar.add(usuarioContratoSeleccionado);
+                } else if (!listUsuariosCModificar.contains(usuarioContratoSeleccionado)) {
+                    listUsuariosCModificar.add(usuarioContratoSeleccionado);
                 }
             }
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
-            nuevoUsuarioTS.setTiposueldo(tipoSueldoSeleccionado);
+            nuevoUsuarioC.setContrato(contratoSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUsuario");
         } else if (tipoActualizacion == 2) {
-            duplicarUsuarioTS.setTiposueldo(tipoSueldoSeleccionado);
+            duplicarUsuarioC.setContrato(contratoSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
         }
-        lovTiposSueldosFiltrar = null;
-        tipoSueldoSeleccionado = null;
+        lovContratosFiltrar = null;
+        contratoSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
 
-        RequestContext.getCurrentInstance().update("formularioDialogos:tiposSueldosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:contratosDialogo");
         RequestContext.getCurrentInstance().update("formularioDialogos:lovTS");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTS");
         context.reset("formularioDialogos:lovTS:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTS').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('tiposSueldosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('contratosDialogo').hide()");
     }
 
-    public void cancelarCambioTiposSueldos() {
-        lovTiposSueldosFiltrar = null;
-        tipoSueldoSeleccionado = null;
+    public void cancelarCambioContratos() {
+        lovContratosFiltrar = null;
+        contratoSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:tiposSueldosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:contratosDialogo");
         RequestContext.getCurrentInstance().update("formularioDialogos:lovTS");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTS");
         context.reset("formularioDialogos:lovTS:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTS').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('tiposSueldosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('contratosDialogo').hide()");
     }
 
     public void actualizarUsuarios() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            usuariotsSeleccionado.setUsuario(usuarioSeleccionado);
-            if (!listUsuariosTSCrear.contains(usuariotsSeleccionado)) {
-                if (listUsuariosTSModificar.isEmpty()) {
-                    listUsuariosTSModificar.add(usuariotsSeleccionado);
-                } else if (!listUsuariosTSModificar.contains(usuariotsSeleccionado)) {
-                    listUsuariosTSModificar.add(usuariotsSeleccionado);
+            usuarioContratoSeleccionado.setUsuario(usuarioSeleccionado);
+            if (!listUsuariosCCrear.contains(usuarioContratoSeleccionado)) {
+                if (listUsuariosCModificar.isEmpty()) {
+                    listUsuariosCModificar.add(usuarioContratoSeleccionado);
+                } else if (!listUsuariosCModificar.contains(usuarioContratoSeleccionado)) {
+                    listUsuariosCModificar.add(usuarioContratoSeleccionado);
                 }
             }
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
-            nuevoUsuarioTS.setUsuario(usuarioSeleccionado);
+            nuevoUsuarioC.setUsuario(usuarioSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUsuario");
         } else if (tipoActualizacion == 2) {
-            duplicarUsuarioTS.setUsuario(usuarioSeleccionado);
+            duplicarUsuarioC.setUsuario(usuarioSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
         }
         lovUsuariosFiltrar = null;
@@ -481,11 +472,11 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         int pasa = 0;
         mensajeValidacion = " ";
-        if (nuevoUsuarioTS.getUsuario() == null) {
+        if (nuevoUsuarioC.getUsuario() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-        if (nuevoUsuarioTS.getTiposueldo() == null) {
+        if (nuevoUsuarioC.getContrato() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
@@ -499,17 +490,17 @@ public class ControlUsuariosTiposSueldos implements Serializable {
                 altoTabla = "315";
                 RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 bandera = 0;
-                listUsuariosTSFiltrar = null;
+                listUsuariosCFiltrar = null;
                 tipoLista = 0;
             }
             k++;
             l = BigInteger.valueOf(k);
-            nuevoUsuarioTS.setSecuencia(l);
-            listUsuariosTSCrear.add(nuevoUsuarioTS);
-            listUsuariosTS.add(nuevoUsuarioTS);
-            usuariotsSeleccionado = nuevoUsuarioTS;
+            nuevoUsuarioC.setSecuencia(l);
+            listUsuariosCCrear.add(nuevoUsuarioC);
+            listUsuariosC.add(nuevoUsuarioC);
+            usuarioContratoSeleccionado = nuevoUsuarioC;
             contarRegistros();
-            nuevoUsuarioTS = new UsuariosTiposSueldos();
+            nuevoUsuarioC = new UsuariosContratos();
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -522,10 +513,10 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     }
 
     public void duplicarUsuario() {
-        if (usuariotsSeleccionado != null) {
-            duplicarUsuarioTS = new UsuariosTiposSueldos();
-            duplicarUsuarioTS.setUsuario(usuariotsSeleccionado.getUsuario());
-            duplicarUsuarioTS.setTiposueldo(usuariotsSeleccionado.getTiposueldo());
+        if (usuarioContratoSeleccionado != null) {
+            duplicarUsuarioC = new UsuariosContratos();
+            duplicarUsuarioC.setUsuario(usuarioContratoSeleccionado.getUsuario());
+            duplicarUsuarioC.setContrato(usuarioContratoSeleccionado.getContrato());
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').show()");
         } else {
@@ -537,12 +528,12 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         int pasa = 0;
         k++;
         l = BigInteger.valueOf(k);
-        duplicarUsuarioTS.setSecuencia(l);
-        if (duplicarUsuarioTS.getUsuario() == null) {
+        duplicarUsuarioC.setSecuencia(l);
+        if (duplicarUsuarioC.getUsuario() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-        if (duplicarUsuarioTS.getTiposueldo() == null) {
+        if (duplicarUsuarioC.getContrato() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
@@ -559,15 +550,15 @@ public class ControlUsuariosTiposSueldos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 altoTabla = "315";
                 bandera = 0;
-                listUsuariosTSFiltrar = null;
+                listUsuariosCFiltrar = null;
                 tipoLista = 0;
             }
-            listUsuariosTS.add(duplicarUsuarioTS);
-            listUsuariosTSCrear.add(duplicarUsuarioTS);
-            usuariotsSeleccionado = duplicarUsuarioTS;
+            listUsuariosC.add(duplicarUsuarioC);
+            listUsuariosCCrear.add(duplicarUsuarioC);
+            usuarioContratoSeleccionado = duplicarUsuarioC;
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            duplicarUsuarioTS = new UsuariosTiposSueldos();
+            duplicarUsuarioC = new UsuariosContratos();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').hide()");
         } else {
@@ -578,8 +569,8 @@ public class ControlUsuariosTiposSueldos implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (usuariotsSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(usuariotsSeleccionado.getSecuencia(), "USUARIOSTIPOSSUELDOS");
+        if (usuarioContratoSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(usuarioContratoSeleccionado.getSecuencia(), "USUARIOSCONTRATOS");
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -591,7 +582,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
-        } else if (administrarRastros.verificarHistoricosTabla("USUARIOSTIPOSSUELDOS")) {
+        } else if (administrarRastros.verificarHistoricosTabla("USUARIOSCONTRATOS")) {
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
@@ -608,18 +599,19 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             altoTabla = "315";
             bandera = 0;
-            listUsuariosTSFiltrar = null;
+            listUsuariosCFiltrar = null;
             tipoLista = 0;
         }
-        listUsuariosTSBorrar.clear();
-        listUsuariosTSCrear.clear();
-        listUsuariosTSModificar.clear();
-        usuariotsSeleccionado = null;
+        listUsuariosCBorrar.clear();
+        listUsuariosCCrear.clear();
+        listUsuariosCModificar.clear();
+        usuarioContratoSeleccionado = null;
         k = 0;
-        listUsuariosTS = null;
-        getListUsuariosTS();
+        listUsuariosC = null;
+        getListUsuariosC();
         contarRegistros();
         guardado = true;
+        deshabilitarBotonLov();
         RequestContext.getCurrentInstance().update("form:datosUsuarios");
     }
 
@@ -634,15 +626,15 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             altoTabla = "315";
             bandera = 0;
-            listUsuariosTSFiltrar = null;
+            listUsuariosCFiltrar = null;
             tipoLista = 0;
         }
-        listUsuariosTSBorrar.clear();
-        listUsuariosTSCrear.clear();
-        listUsuariosTSModificar.clear();
-        usuariotsSeleccionado = null;
+        listUsuariosCBorrar.clear();
+        listUsuariosCCrear.clear();
+        listUsuariosCModificar.clear();
+        usuarioContratoSeleccionado = null;
         k = 0;
-        listUsuariosTS = null;
+        listUsuariosC = null;
         guardado = true;
         RequestContext.getCurrentInstance().update("form:datosUsuarios");
         navegar("atras");
@@ -657,7 +649,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     }
 
     public void contarRegistrosTS() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTS");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroC");
     }
 
     public void habilitarBotonLov() {
@@ -670,56 +662,56 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
-    ////GETS Y SETS////
-    public List<UsuariosTiposSueldos> getListUsuariosTS() {
-        if (listUsuariosTS == null) {
-            listUsuariosTS = administrarUsuariosTiposSueldos.consultarUsuariosTS();
+    ///////GETS Y SETS //////
+    public List<UsuariosContratos> getListUsuariosC() {
+        if (listUsuariosC == null) {
+            listUsuariosC = administrarUsuariosContratos.consultarUsuariosC();
         }
-        return listUsuariosTS;
+        return listUsuariosC;
     }
 
-    public void setListUsuariosTS(List<UsuariosTiposSueldos> listUsuariosTS) {
-        this.listUsuariosTS = listUsuariosTS;
+    public void setListUsuariosC(List<UsuariosContratos> listUsuariosC) {
+        this.listUsuariosC = listUsuariosC;
     }
 
-    public List<UsuariosTiposSueldos> getListUsuariosTSFiltrar() {
-        return listUsuariosTSFiltrar;
+    public List<UsuariosContratos> getListUsuariosCFiltrar() {
+        return listUsuariosCFiltrar;
     }
 
-    public void setListUsuariosTSFiltrar(List<UsuariosTiposSueldos> listUsuariosTSFiltrar) {
-        this.listUsuariosTSFiltrar = listUsuariosTSFiltrar;
+    public void setListUsuariosCFiltrar(List<UsuariosContratos> listUsuariosCFiltrar) {
+        this.listUsuariosCFiltrar = listUsuariosCFiltrar;
     }
 
-    public UsuariosTiposSueldos getUsuariotsSeleccionado() {
-        return usuariotsSeleccionado;
+    public UsuariosContratos getUsuariocSeleccionado() {
+        return usuarioContratoSeleccionado;
     }
 
-    public void setUsuariotsSeleccionado(UsuariosTiposSueldos usuariotsSeleccionado) {
-        this.usuariotsSeleccionado = usuariotsSeleccionado;
+    public void setUsuariocSeleccionado(UsuariosContratos usuarioContratoSeleccionado) {
+        this.usuarioContratoSeleccionado = usuarioContratoSeleccionado;
     }
 
-    public UsuariosTiposSueldos getNuevoUsuarioTS() {
-        return nuevoUsuarioTS;
+    public UsuariosContratos getNuevoUsuarioC() {
+        return nuevoUsuarioC;
     }
 
-    public void setNuevoUsuarioTS(UsuariosTiposSueldos nuevoUsuarioTS) {
-        this.nuevoUsuarioTS = nuevoUsuarioTS;
+    public void setNuevoUsuarioC(UsuariosContratos nuevoUsuarioC) {
+        this.nuevoUsuarioC = nuevoUsuarioC;
     }
 
-    public UsuariosTiposSueldos getDuplicarUsuarioTS() {
-        return duplicarUsuarioTS;
+    public UsuariosContratos getDuplicarUsuarioC() {
+        return duplicarUsuarioC;
     }
 
-    public void setDuplicarUsuarioTS(UsuariosTiposSueldos duplicarUsuarioTS) {
-        this.duplicarUsuarioTS = duplicarUsuarioTS;
+    public void setDuplicarUsuarioC(UsuariosContratos duplicarUsuarioC) {
+        this.duplicarUsuarioC = duplicarUsuarioC;
     }
 
-    public UsuariosTiposSueldos getEditarUsuarioTS() {
-        return editarUsuarioTS;
+    public UsuariosContratos getEditarUsuarioC() {
+        return editarUsuarioC;
     }
 
-    public void setEditarUsuarioTS(UsuariosTiposSueldos editarUsuarioTS) {
-        this.editarUsuarioTS = editarUsuarioTS;
+    public void setEditarUsuarioC(UsuariosContratos editarUsuarioC) {
+        this.editarUsuarioC = editarUsuarioC;
     }
 
     public List<Usuarios> getLovUsuarios() {
@@ -749,31 +741,31 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         this.usuarioSeleccionado = usuarioSeleccionado;
     }
 
-    public List<TiposSueldos> getLovTiposSueldos() {
-        if (lovTiposSueldos == null) {
-            lovTiposSueldos = administrarTiposSueldos.listaTiposSueldos();
+    public List<Contratos> getLovContratos() {
+        if (lovContratos == null) {
+            lovContratos = administrarContratos.consultarContratos();
         }
-        return lovTiposSueldos;
+        return lovContratos;
     }
 
-    public void setLovTiposSueldos(List<TiposSueldos> lovTiposSueldos) {
-        this.lovTiposSueldos = lovTiposSueldos;
+    public void setLovContratos(List<Contratos> lovContratos) {
+        this.lovContratos = lovContratos;
     }
 
-    public List<TiposSueldos> getLovTiposSueldosFiltrar() {
-        return lovTiposSueldosFiltrar;
+    public List<Contratos> getLovContratosFiltrar() {
+        return lovContratosFiltrar;
     }
 
-    public void setLovTiposSueldosFiltrar(List<TiposSueldos> lovTiposSueldosFiltrar) {
-        this.lovTiposSueldosFiltrar = lovTiposSueldosFiltrar;
+    public void setLovContratosFiltrar(List<Contratos> lovContratosFiltrar) {
+        this.lovContratosFiltrar = lovContratosFiltrar;
     }
 
-    public TiposSueldos getTipoSueldoSeleccionado() {
-        return tipoSueldoSeleccionado;
+    public Contratos getContratoSeleccionado() {
+        return contratoSeleccionado;
     }
 
-    public void setTipoSueldoSeleccionado(TiposSueldos tipoSueldoSeleccionado) {
-        this.tipoSueldoSeleccionado = tipoSueldoSeleccionado;
+    public void setContratoSeleccionado(Contratos contratoSeleccionado) {
+        this.contratoSeleccionado = contratoSeleccionado;
     }
 
     public String getMensajeValidacion() {
@@ -792,15 +784,15 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         this.altoTabla = altoTabla;
     }
 
-    public String getInfoRegistroUsuariosTS() {
+    public String getInfoRegistroUsuariosC() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosUsuarios");
-        infoRegistroUsuariosTS = String.valueOf(tabla.getRowCount());
-        return infoRegistroUsuariosTS;
+        infoRegistroUsuariosC = String.valueOf(tabla.getRowCount());
+        return infoRegistroUsuariosC;
     }
 
-    public void setInfoRegistroUsuariosTS(String infoRegistroUsuariosTS) {
-        this.infoRegistroUsuariosTS = infoRegistroUsuariosTS;
+    public void setInfoRegistroUsuariosC(String infoRegistroUsuariosC) {
+        this.infoRegistroUsuariosC = infoRegistroUsuariosC;
     }
 
     public String getInfoRegistroUsuario() {
@@ -814,15 +806,15 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         this.infoRegistroUsuario = infoRegistroUsuario;
     }
 
-    public String getInfoRegistroTS() {
+    public String getInfoRegistroContrato() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTS");
-        infoRegistroTS = String.valueOf(tabla.getRowCount());
-        return infoRegistroTS;
+        infoRegistroContrato = String.valueOf(tabla.getRowCount());
+        return infoRegistroContrato;
     }
 
-    public void setInfoRegistroTS(String infoRegistroTS) {
-        this.infoRegistroTS = infoRegistroTS;
+    public void setInfoRegistroContrato(String infoRegistroContrato) {
+        this.infoRegistroContrato = infoRegistroContrato;
     }
 
     public boolean isAceptar() {

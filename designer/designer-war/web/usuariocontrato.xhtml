@@ -11,37 +11,38 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">
                 <h:form id="form">
-                    <f:loadBundle basename="Recursos.usuariots" var="msg"/>
+                    <f:loadBundle basename="Recursos.usuarioscontratos" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                         <p:toolbar styleClass="cssToolbar">   
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlUsuariosTiposSueldos.guardarCambiosUsuario()}" process="@this"/>
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlUsuariosContratos.guardarCambiosUsuario()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlUsuariosTiposSueldos.editarCelda()}" process="@this"/>
+                                
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlUsuariosContratos.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" widgetVar="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlUsuariosTiposSueldos.listaValoresBoton()}" process="@this"
-                                                 disabled="#{controlUsuariosTiposSueldos.activarLov}"/>
+                                <p:commandButton id="listaValores" widgetVar="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlUsuariosContratos.listaValoresBoton()}" process="@this"
+                                                 disabled="#{controlUsuariosContratos.activarLov}"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlUsuariosTiposSueldos.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlUsuariosContratos.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlUsuariosTiposSueldos.exportXLS()}"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlUsuariosContratos.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlUsuariosTiposSueldos.limpiarNuevoUsuarioTS()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosUsuariosExportar" fileName="UsuariosTiposSueldosXML" encoding="UTF-8"/> 
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlUsuariosContratos.limpiarNuevoUsuarioContratos()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosUsuariosExportar" fileName="UsuariosContratosXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlUsuariosTiposSueldos.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlUsuariosContratos.exportPDF()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
@@ -49,23 +50,23 @@
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" onclick="PF('NuevoRegistroUsuario').show()"  update=":formularioDialogos:nuevaUsuario" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlUsuariosTiposSueldos.borrarUsuarioTS()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlUsuariosContratos.borrarUsuarioTS()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlUsuariosTiposSueldos.duplicarUsuario()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlUsuariosContratos.duplicarUsuario()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlUsuariosTiposSueldos.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlUsuariosContratos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlUsuariosTiposSueldos.cancelarModificacion()}" process="@this"
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlUsuariosContratos.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUsuariosTiposSueldos.salir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUsuariosContratos.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -73,12 +74,12 @@
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 13px; color: blue;"><strong>#{msg['usuarios']}</strong></legend>
 
-                            <p:dataTable id="datosUsuarios" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"   value="#{controlUsuariosTiposSueldos.listUsuariosTS}" scrollable="true"
-                                         filteredValue="#{controlUsuariosTiposSueldos.listUsuariosTSFiltrar}" scrollHeight="#{controlUsuariosTiposSueldos.altoTabla}" scrollWidth="830"
+                            <p:dataTable id="datosUsuarios" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"   value="#{controlUsuariosContratos.listUsuariosC}" scrollable="true"
+                                         filteredValue="#{controlUsuariosContratos.listUsuariosCFiltrar}" scrollHeight="#{controlUsuariosContratos.altoTabla}" scrollWidth="830"
                                          style="border: 1px; width: 810px;" liveScroll="true" scrollRows="80" emptyMessage="#{msg['vacio']}" widgetVar="datosUsuarios"
-                                         editable="true" editMode="cell" selection="#{controlUsuariosTiposSueldos.usuariotsSeleccionado}" selectionMode="single">
+                                         editable="true" editMode="cell" selection="#{controlUsuariosContratos.usuariocSeleccionado}" selectionMode="single">
 
-                                <p:ajax event="filter" listener="#{controlUsuariosTiposSueldos.eventofiltrar()}"/>
+                                <p:ajax event="filter" listener="#{controlUsuariosContratos.eventofiltrar()}"/>
 
 
                                 <p:column headerText="Usuario" width="120" sortBy="#{info.usuario.alias}" filterBy="#{info.usuario.alias}" filterMatchMode="contains" id="columnausuario" filterStyle="display: none; visibility: hidden;">                                  
@@ -86,10 +87,10 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.usuario.alias}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{info.usuario.alias}" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="change" listener="#{controlUsuariosTiposSueldos.modificarUsuariosTS(info)}" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlUsuariosTiposSueldos.cambiarIndice(info, 0)}" process="@this"
+                                                <p:ajax event="change" listener="#{controlUsuariosContratos.modificarUsuariosTS(info)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlUsuariosContratos.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
-                                                <p:ajax event="dblclick" listener="#{controlUsuariosTiposSueldos.asignarIndex(info, 0, 0)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlUsuariosContratos.asignarIndex(info, 0, 0)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -99,15 +100,15 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="Tipo Sueldo" sortBy="#{info.tiposueldo.descripcion}" filterBy="#{info.tiposueldo.descripcion}" filterMatchMode="contains" id="columnats" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="Contrato" sortBy="#{info.contrato.descripcion}" filterBy="#{info.contrato.descripcion}" filterMatchMode="contains" id="columnats" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.tiposueldo.descripcion}"/></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.contrato.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.tiposueldo.descripcion}" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlUsuariosTiposSueldos.cambiarIndice(info, 1)}"  process="@this"
+                                            <p:inputText autocomplete="off" value="#{info.contrato.descripcion}" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
+                                                <p:ajax event="select" listener="#{controlUsuariosContratos.cambiarIndice(info, 1)}"  process="@this"
                                                         onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"/>
-                                                <p:ajax event="change" listener="#{controlUsuariosTiposSueldos.modificarUsuariosTS(info)}" process="@this"/>
-                                                <p:ajax event="dblclick" listener="#{controlUsuariosTiposSueldos.asignarIndex(info, 1, 0)}"  process="@this"/>
+                                                <p:ajax event="change" listener="#{controlUsuariosContratos.modificarUsuariosTS(info)}" process="@this"/>
+                                                <p:ajax event="dblclick" listener="#{controlUsuariosContratos.asignarIndex(info, 1, 0)}"  process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -117,20 +118,20 @@
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlUsuariosTiposSueldos.infoRegistroUsuariosTS}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlUsuariosContratos.infoRegistroUsuariosC}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
                         </fieldset>
 
-                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="PF('confirmarGuardar').show()" disabled="#{controlUsuariosTiposSueldos.guardado}" process="@this"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlUsuariosTiposSueldos.salir()}" process="@this"/>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="PF('confirmarGuardar').show()" disabled="#{controlUsuariosContratos.guardado}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlUsuariosContratos.salir()}" process="@this"/>
 
                     </p:panel>
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlUsuariosTiposSueldos.activarCtrlF11()}" process="@this"/> 
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlUsuariosContratos.activarCtrlF11()}" process="@this"/> 
                 </h:form>
                 <h:form id="formularioDialogos">
 
                     <p:dialog id="validacionNuevaUsuario" header="#{msg['atencion']}" widgetVar="validacionNuevaUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="#{controlUsuariosTiposSueldos.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <h:outputText value="#{controlUsuariosContratos.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
 
@@ -138,20 +139,20 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
                         <p:panel id="nuevaUsuario" style="border: none;">                           
                             <strong><h:outputText value="*Usuario" style=" position: absolute; top: 65px; left: 18px;"/></strong>
-                            <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlUsuariosTiposSueldos.nuevoUsuarioTS.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 0, 1)}"/>
+                            <p:inputText autocomplete="off" id="nuevoPersona" value="#{controlUsuariosContratos.nuevoUsuarioC.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosContratos.asignarIndex(usuario, 0, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 0, 1)}"/>
+                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosContratos.asignarIndex(usuario, 0, 1)}"/>
 
                             <strong><h:outputText value="*Tipo Sueldo" style=" position: absolute; top: 95px; left: 18px;"/></strong>
-                            <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlUsuariosTiposSueldos.nuevoUsuarioTS.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 1, 1)}"/>
+                            <p:inputText autocomplete="off" id="nuevoPerfil" value="#{controlUsuariosContratos.nuevoUsuarioC.contrato.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosContratos.asignarIndex(usuario, 1, 1)}"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 317px; top: 90px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 1, 1)}"/>
+                            <p:commandButton style="position: absolute; left: 317px; top: 90px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosContratos.asignarIndex(usuario, 1, 1)}"/>
 
-                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 155px;" actionListener="#{controlUsuariosTiposSueldos.limpiarNuevoUsuarioTS()}" update="nuevaUsuario" process="@this"/>
-                            <p:commandButton id="agregarU" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 155px;"  actionListener="#{controlUsuariosTiposSueldos.agregarNuevaUsuario()}" process="@this"/>
-                            <p:commandButton id="cancelarU" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 155px;" actionListener="#{controlUsuariosTiposSueldos.limpiarNuevoUsuarioTS()}" update="nuevaUsuario" onclick="PF('NuevoRegistroUsuario').hide();"  process="@this"/>
+                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 155px;" actionListener="#{controlUsuariosContratos.limpiarNuevoUsuarioContratos()}" update="nuevaUsuario" process="@this"/>
+                            <p:commandButton id="agregarU" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 155px;"  actionListener="#{controlUsuariosContratos.agregarNuevaUsuario()}" process="@this"/>
+                            <p:commandButton id="cancelarU" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 155px;" actionListener="#{controlUsuariosContratos.limpiarNuevoUsuarioContratos()}" update="nuevaUsuario" onclick="PF('NuevoRegistroUsuario').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -159,32 +160,32 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
                         <p:panel id="duplicarUsuario" style="border: none;">
 
-                            <strong><h:outputText value="Usuario" style=" position: absolute; top: 65px; left: 18px"/></strong>
-                            <p:inputText autocomplete="off" id="duplicadoPersona" value="#{controlUsuariosTiposSueldos.duplicarUsuarioTS.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 0, 2)}"/>
+                            <strong><h:outputText value="*Usuario" style=" position: absolute; top: 65px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" id="duplicadoPersona" value="#{controlUsuariosContratos.duplicarUsuarioC.usuario.alias}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosContratos.asignarIndex(usuario, 0, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" id="btnDuplicarPersona" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 0, 2)}"/>
+                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" id="btnDuplicarPersona" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuariosContratos.asignarIndex(usuario, 0, 2)}"/>
 
-                            <strong><h:outputText value="Tipo Sueldo" style=" position: absolute; top: 95px; left: 18px"/></strong>
-                            <p:inputText autocomplete="off" id="duplicadoPerfil" value="#{controlUsuariosTiposSueldos.duplicarUsuarioTS.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 1, 2)}"/>
+                            <strong><h:outputText value="*Tipo Sueldo" style=" position: absolute; top: 95px; left: 18px"/></strong>
+                            <p:inputText autocomplete="off" id="duplicadoPerfil" value="#{controlUsuariosContratos.duplicarUsuarioC.contrato.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosContratos.asignarIndex(usuario, 1, 2)}"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 317px; top: 90px;" id="btnDuplicarPerfil" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuariosTiposSueldos.asignarIndex(usuario, 1, 2)}"/>
+                            <p:commandButton style="position: absolute; left: 317px; top: 90px;" id="btnDuplicarPerfil" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlUsuariosContratos.asignarIndex(usuario, 1, 2)}"/>
 
-                            <p:commandButton id="limpiarDuplicadoUsuario" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 155px;" actionListener="#{controlUsuariosTiposSueldos.limpiarDuplicarUsuarioTS()}" update="duplicarUsuario" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoUsuario" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 155px;"  process="@this" actionListener="#{controlUsuariosTiposSueldos.confirmarDuplicar()}"/>
-                            <p:commandButton id="cancelarDuplicadoUsuario" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 155px;" actionListener="#{controlUsuariosTiposSueldos.limpiarDuplicarUsuarioTS()}" update="duplicarUsuario" onclick="PF('DuplicarRegistroUsuario').hide();"  process="@this"/>
+                            <p:commandButton id="limpiarDuplicadoUsuario" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 155px;" actionListener="#{controlUsuariosContratos.limpiarDuplicarUsuarioContratos()}" update="duplicarUsuario" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoUsuario" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 155px;"  process="@this" actionListener="#{controlUsuariosContratos.confirmarDuplicar()}"/>
+                            <p:commandButton id="cancelarDuplicadoUsuario" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 155px;" actionListener="#{controlUsuariosContratos.limpiarDuplicarUsuarioContratos()}" update="duplicarUsuario" onclick="PF('DuplicarRegistroUsuario').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>    
 
                     <p:dialog header="Usuarios" widgetVar="usuariosDialogo" draggable="true" resizable="false" closable="false" id="usuariosDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
-                        <p:dataTable id="lovUsuarios" style="width: 330px;" var="usu" value="#{controlUsuariosTiposSueldos.lovUsuarios}" rowKey="#{usu.secuencia}"
-                                     selection="#{controlUsuariosTiposSueldos.usuarioSeleccionado}" selectionMode="single" widgetVar="lovUsuarios" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                     filteredValue="#{controlUsuariosTiposSueldos.lovUsuariosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlUsuariosTiposSueldos.activarAceptar()}" update=":formularioDialogos:aceptarU"/>
-                            <p:ajax event="rowDblselect" listener="#{controlUsuariosTiposSueldos.actualizarUsuarios()}" process="@this"/>
-                            <p:ajax event="filter" listener="#{controlUsuariosTiposSueldos.contarRegistrosUsuarios()}" process="@this"/>
+                        <p:dataTable id="lovUsuarios" style="width: 330px;" var="usu" value="#{controlUsuariosContratos.lovUsuarios}" rowKey="#{usu.secuencia}"
+                                     selection="#{controlUsuariosContratos.usuarioSeleccionado}" selectionMode="single" widgetVar="lovUsuarios" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosContratos.lovUsuariosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlUsuariosContratos.activarAceptar()}" update=":formularioDialogos:aceptarU"/>
+                            <p:ajax event="rowDblselect" listener="#{controlUsuariosContratos.actualizarUsuarios()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlUsuariosContratos.contarRegistrosUsuarios()}" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Usuarios: "/>  
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUsuarios').filter();" class="cssFiltroLOV"/>  
@@ -198,26 +199,26 @@
                         </p:dataTable>
 
                         <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroUsuarios" value="#{msg['infoRegistro']} #{controlUsuariosTiposSueldos.infoRegistroUsuario}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarU" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosTiposSueldos.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosTiposSueldos.actualizarUsuarios()}"  process="@this"/>
-                            <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosTiposSueldos.cancelarCambioUsuario()}"  process="@this"/>
+                            <h:outputText id="infoRegistroUsuarios" value="#{msg['infoRegistro']} #{controlUsuariosContratos.infoRegistroUsuario}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarU" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosContratos.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosContratos.actualizarUsuarios()}"  process="@this"/>
+                            <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosContratos.cancelarCambioUsuario()}"  process="@this"/>
                         </div>
                     </p:dialog>
                     
                     
-                     <p:dialog header="Tipos Sueldos" widgetVar="tiposSueldosDialogo" draggable="true" resizable="false" closable="false" id="tiposSueldosDialogo"  
+                     <p:dialog header="Contratos" widgetVar="contratosDialogo" draggable="true" resizable="false" closable="false" id="contratosDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
-                         <p:dataTable id="lovTS" style="width: 330px;" var="ts" value="#{controlUsuariosTiposSueldos.lovTiposSueldos}" rowKey="#{ts.secuencia}"
-                                      selection="#{controlUsuariosTiposSueldos.tipoSueldoSeleccionado}" selectionMode="single" widgetVar="lovTS" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                      filteredValue="#{controlUsuariosTiposSueldos.lovTiposSueldosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlUsuariosTiposSueldos.activarAceptar()}" update=":formularioDialogos:aceptarTS"/>
-                            <p:ajax event="rowDblselect" listener="#{controlUsuariosTiposSueldos.actualizarTiposSueldos()}" process="@this"/>
-                            <p:ajax event="filter" listener="#{controlUsuariosTiposSueldos.contarRegistrosTS()}" process="@this"/>
+                         <p:dataTable id="lovTS" style="width: 330px;" var="ts" value="#{controlUsuariosContratos.lovContratos}" rowKey="#{ts.secuencia}"
+                                      selection="#{controlUsuariosContratos.contratoSeleccionado}" selectionMode="single" widgetVar="lovTS" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                      filteredValue="#{controlUsuariosContratos.lovContratosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlUsuariosContratos.activarAceptar()}" update=":formularioDialogos:aceptarTS"/>
+                            <p:ajax event="rowDblselect" listener="#{controlUsuariosContratos.actualizarContratos()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlUsuariosContratos.contarRegistrosTS()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Tipos Sueldos: "/>  
+                                <h:outputText value="Buscar Contratos: "/>  
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTS').filter();" class="cssFiltroLOV"/>  
                             </f:facet>                            
-                            <p:column filterBy="#{ts.codigo}"  width="50" filterStyle="width: 80% !important"  filterMatchMode="contains">
+                            <p:column filterBy="#{ts.codigo}"  filterStyle="width: 80% !important" width="50"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="Código"/>
                                 </f:facet>
@@ -232,9 +233,9 @@
                         </p:dataTable>
 
                         <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroTS" value="#{msg['infoRegistro']} #{controlUsuariosTiposSueldos.infoRegistroTS}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarTS" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosTiposSueldos.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosTiposSueldos.actualizarTiposSueldos()}"  process="@this"/>
-                            <p:commandButton id="cancelarTS" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosTiposSueldos.cancelarCambioTiposSueldos()}"  process="@this"/>
+                            <h:outputText id="infoRegistroC" value="#{msg['infoRegistro']} #{controlUsuariosContratos.infoRegistroContrato}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTS" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosContratos.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosContratos.actualizarContratos()}"  process="@this"/>
+                            <p:commandButton id="cancelarTS" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosContratos.cancelarCambioContratos()}"  process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -243,17 +244,17 @@
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"
-                                         actionListener="#{controlUsuariosTiposSueldos.guardarYSalir()}"/>
+                                         actionListener="#{controlUsuariosContratos.guardarYSalir()}"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"
-                                         actionListener="#{controlUsuariosTiposSueldos.salir()}"/>
+                                         actionListener="#{controlUsuariosContratos.salir()}"/>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosTiposSueldos.usuariotsSeleccionado.secuencia, 'UsuariosTiposSueldos', 'usuariotiposueldo')}" 
-                                         style="position: absolute; top: 63px; left: 175px;" onstart="#{controlUsuariosTiposSueldos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosContratos.usuariocSeleccionado.secuencia, 'UsuariosContratos', 'usuariocontrato')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" onstart="#{controlUsuariosContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -261,7 +262,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosTiposSueldos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuariotiposueldo', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuariocontrato', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -278,8 +279,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosTiposSueldos.usuariotsSeleccionado.secuencia, 'UsuariosTiposSueldos', 'usuariotiposueldo')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosTiposSueldos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosContratos.usuariocSeleccionado.secuencia, 'UsuariosContratos', 'usuariocontrato')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -299,11 +300,11 @@
                     </p:dialog>                    
 
                     <p:dialog id="editarUsuario" header="Usuario" widgetVar="editarUsuario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlUsuariosTiposSueldos.editarUsuarioTS.usuario.alias}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlUsuariosContratos.editarUsuarioC.usuario.alias}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTS" header="Tipo Sueldo" widgetVar="editarTS" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlUsuariosTiposSueldos.editarUsuarioTS.tiposueldo.descripcion}" style="overflow: auto;" readonly="true"/>
+                    <p:dialog id="editarContrato" header="Contrato" widgetVar="editarContrato" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlUsuariosContratos.editarUsuarioC.contrato.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
                 </h:form>
@@ -311,15 +312,15 @@
                 
                 <h:form id="formExportar">
                     <p:dataTable id="datosUsuariosExportar" var="exp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlUsuariosTiposSueldos.listUsuariosTS}" widgetVar="datosUsuariosExportar"> 
+                                 value="#{controlUsuariosContratos.listUsuariosC}" widgetVar="datosUsuariosExportar"> 
                         <p:column headerText="Usuario">                                  
                             <f:facet name="header"><h:outputText value="Usuario"/> </f:facet> 
                             <h:outputText value="#{exp.usuario.alias}"/>
                         </p:column> 
 
-                        <p:column headerText="Tipo Sueldo">                                  
-                            <f:facet name="header"><h:outputText value="Tipo Sueldo"/> </f:facet> 
-                            <h:outputText value="#{exp.tiposueldo.descripcion}"/>
+                        <p:column headerText="Contrato">                                  
+                            <f:facet name="header"><h:outputText value="Contrato"/> </f:facet> 
+                            <h:outputText value="#{exp.contrato.descripcion}"/>
                         </p:column>
 
                     </p:dataTable>
