@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
->
+      >
    <h:head>
    </h:head>
    <h:body>
@@ -88,8 +88,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
                      <h:outputText id="nombreEmpleado" value="#{controlIbcAutoliquid.empleado.persona.nombreCompleto}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
@@ -99,19 +98,19 @@
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 210px; top: 110px; width: 410px; height: 135px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; left: 210px; top: 110px; width: 410px; height: 150px; border-radius: 10px; text-align: left;">
                      <legend style="color: blue;"><strong>#{msg['tipoentidad']}</strong></legend>
 
                      <p:dataTable id="datosTipoEntidad" var="infoTE" rowKey="#{infoTE.secuencia}" rowIndexVar="indiceTE" widgetVar="datosTipoEntidad"
-                                  style="border: 1px; width: 390px;"  value="#{controlIbcAutoliquid.listTiposEntidades}" 
+                                  style="width: 390px;" value="#{controlIbcAutoliquid.listTiposEntidades}"
                                   scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTablaTipoE}" scrollWidth="410" selection="#{controlIbcAutoliquid.tipoEntidadActual}"
                                   filteredValue="#{controlIbcAutoliquid.filtrarListTiposEntidades}" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" liveScroll="true" scrollRows="5" selectionMode="single">
 
                         <p:ajax event="filter" listener="#{controlIbcAutoliquid.eventoFiltrarTE}"/>
                         <f:event type="preRenderView" listener="#{controlIbcAutoliquid.recordarSeleccion()}"/>
-
                         <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.obtenerDetallesIBCS()}"/>
+
                         <p:column filterBy="#{infoTE.codigo}" width="40" id="codigoTipoEntidad" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
                               <h:outputText  style="text-align: center;" value="#{msg['codigo']}"/>
@@ -124,14 +123,15 @@
                            </f:facet>
                            <h:outputText  value="#{infoTE.nombre}"/>
                         </p:column>
-                     </p:dataTable>    
+                     </p:dataTable>
+                     <h:outputText id="infoRegistroTE" value="#{msg['infoRegistro']} #{controlIbcAutoliquid.infoRegistroTE}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
                   </fieldset>    
 
-                  <fieldset style="position: absolute; left: 10px; top: 260px; width: 830px; height: 220px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; left: 10px; top: 280px; width: 830px; height: 190px; border-radius: 10px; text-align: left;">
                      <legend style="color: blue;"><strong>#{msg['ibcs']}</strong></legend>
 
                      <p:dataTable id="datosIBCS" var="infoIBC" rowKey="#{infoIBC.secuencia}" rowIndexVar="indice" widgetVar="datosIBCS"
-                                  style="border: 1px; width: 810px;"  value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}" 
+                                  style="width: 810px;" value="#{controlIbcAutoliquid.listIbcsAutoliquidaciones}" 
                                   scrollable="true" scrollHeight="#{controlIbcAutoliquid.altoTabla}" scrollWidth="825"
                                   filteredValue="#{controlIbcAutoliquid.filtrarListIbcsAutoliquidaciones}" emptyMessage="#{msg['vacio']}" selectionMode="single"
                                   editable="true" editMode="cell" liveScroll="true" scrollRows="9" selection="#{controlIbcAutoliquid.ibcsTablaSeleccionada}">
@@ -240,6 +240,7 @@
                         </p:column>
 
                      </p:dataTable>
+                     <h:outputText id="infoRegistroIBC" value="#{msg['infoRegistro']} #{controlIbcAutoliquid.infoRegistroIBC}" style="position: relative; left: 10px; top: 0px; font-weight: bold; z-index: 9;"/>
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlIbcAutoliquid.guardado}" update=":form:datosIBCS" process="@this"/>
@@ -248,11 +249,14 @@
 
                <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" id="ProcesosDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
+                  
                   <p:dataTable id="lovProcesos" style="width: 400px;" var="proceso" value="#{controlIbcAutoliquid.lovProcesos}" rowKey="#{proceso.secuencia}"
                                selection="#{controlIbcAutoliquid.procesoLovSeleccionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                filteredValue="#{controlIbcAutoliquid.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
+                  
                      <p:ajax event="rowSelect" listener="#{controlIbcAutoliquid.activarAceptar()}" update=":form:aceptarP"/>
                      <p:ajax event="rowDblselect" listener="#{controlIbcAutoliquid.actualizarProceso()}" process="@this"/>
+                     
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width:150px; position: relative; left: 20px;"/>  
@@ -272,10 +276,8 @@
                      </p:column>
                   </p:dataTable>
 
-                  <h:outputText id="infoRegistroProceso" value="#{controlIbcAutoliquid.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
-
+                  <h:outputText id="infoRegistroProceso" value="#{msg['infoRegistro']} #{controlIbcAutoliquid.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold;"/>
                   <p:commandButton id="aceptarP" style="position: relative; left: 230px; top: 5px;" icon="ui-icon-check" value="#{msg['aceptar']}" actionListener="#{controlIbcAutoliquid.actualizarProceso()}" disabled="#{controlIbcAutoliquid.aceptar}" process="@this"/>
-
                   <p:commandButton id="atrasP" style="position: relative; left: 230px; top: 5px;" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlIbcAutoliquid.cancelarCambioProceso()}"   process="@this"/>
 
                </p:dialog>
